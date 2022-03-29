@@ -99,7 +99,7 @@ body {
        "max-width":"1280px",
        "margin" : "0 auto"
     });
-  </script>
+</script>
 
 </body>
 </html>
