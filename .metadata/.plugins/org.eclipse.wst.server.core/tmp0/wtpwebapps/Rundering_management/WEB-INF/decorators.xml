@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<decorators defaultdir="/WEB-INF/decorator">
+
+	<decorator name="adminMain" page="admin_main_decorator.jsp">
+		<pattern>/admin/*.do</pattern>
+	</decorator>
+	
+	<decorator name="branchMain" page="branch_main_decorator.jsp">
+		<pattern>/branch/*.do</pattern>
+	</decorator>
+	
+	<decorator name="openWindow" page="open_decorator.jsp">
+		<pattern>/**/*.do</pattern>
+		<!-- <pattern>/main.do</pattern> -->
+	</decorator>
+	
+	<!-- decoration을 적용하지 않으려는 파일을 <excludes> 에 등록 -->
+	<excludes>
+		<pattern>/resources/*</pattern>
+		<pattern>/login.do</pattern>
+	</excludes>
+
+
+</decorators>

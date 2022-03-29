@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;dataSource-context.xml&apos; to &apos;spring&apos;&#x0D;&#x0A;- Original project: &apos;spring_datasource&apos;&#x0D;&#x0A;- Destination element: &apos;spring&apos;&#x0D;&#x0A;- Original element: &apos;dataSource-context.xml&apos;" description="Copy file" element1="src/main/resources/com/spring/context/dataSource-context.xml" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1648012248039" target="/spring_security/src/main/webapp/WEB-INF/spring" units="0" version="1.0"/>
+</session>

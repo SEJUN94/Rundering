@@ -1,0 +1,37 @@
+1647321121288	Move file
+1647323337676	Rename package 'com.spring.context'
+1647323353506	Rename package 'com.spring.mybatis.config'
+1647323360179	Rename package 'com.spring.properties'
+1647323368522	Rename package 'com.spring.mybatis.mappers'
+1647323379137	Rename package 'com.spring.dataSource'
+1647323393199	Rename package 'com.spring.mybatis'
+1647323834760	Rename package 'kr.or.ddit.mappers'
+1647325055351	Rename type 'AttachDAO'
+1647325299013	Rename compilation unit 'AttachDAOImpl.java'
+1647325326873	Rename type 'BoardDAO'
+1647325365168	Rename type 'BoardDAOImpl'
+1647325513999	Rename type 'MemberDAO'
+1647325556021	Rename type 'MemberDAOImpl'
+1647325744615	Rename type 'NoticeDAO'
+1647325779958	Rename type 'NoticeDAOImpl'
+1647325905565	Rename type 'PdsDAO'
+1647325945809	Rename type 'PdsDAOImpl'
+1647326067581	Rename type 'ReplyDAO'
+1647326091480	Rename type 'ReplyDAOImpl'
+1647328370140	Delete element
+1647328565604	Rename type 'test'
+1647332077956	Rename type 'TestMemberDAO'
+1647332207372	Rename method 'testMemberDAOBean'
+1647332405237	Copy files
+1647393738126	Delete elements
+1647393767131	Rename package 'kr.or.ddit.Service'
+1647393962061	Delete elements
+1647395140664	Delete element
+1647395368901	Delete element
+1647395389845	Move file
+1647410506190	Move file
+1647410511724	Delete element
+1647419280200	Delete element
+1647580196386	Delete element
+1647580198497	Delete element
+1647589603551	Move compilation unit
