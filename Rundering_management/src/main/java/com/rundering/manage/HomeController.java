@@ -49,5 +49,46 @@ public class HomeController {
 		
 		return "home";
 	}
+	@RequestMapping(value = "/admin/laundryamount", method = RequestMethod.GET)
+	public String amountLaundry(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		
+		return "admin/laundry_amount";
+	}
+	
+	@RequestMapping(value = "/admin/laundryquota", method = RequestMethod.GET)
+	public String laundryQuota(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		
+		return "admin/laundry_quota";
+	}
+	
+	@RequestMapping(value = "/admin/branchdetail", method = RequestMethod.GET)
+	public String branchDetail(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		
+		return "admin/branch_detail";
+	}
 	
 }
