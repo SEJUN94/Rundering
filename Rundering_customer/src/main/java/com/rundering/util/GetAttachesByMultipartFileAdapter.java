@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jsp.util.MakeFileName;
 import com.rundering.dto.AttachVO;
 
 public class GetAttachesByMultipartFileAdapter {
