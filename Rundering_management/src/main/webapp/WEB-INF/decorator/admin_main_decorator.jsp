@@ -20,10 +20,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/dist/css/adminlte.min.css">
-  
-    <!-- Pretendard  -->
+  <!-- Pretendard  -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/font/pretendard/pretendard-subset.css" />
-  
+
   <style type="text/css">
 body {
 	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapper namespace="Member-mapper">
+	<select id="selectMemberById" resultType="test" parameterType="str">
+		select *
+		  from test
+		 where id=#{id} 
+	</select>
+	
+
+
+</mapper>

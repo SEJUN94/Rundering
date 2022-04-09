@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>
+   pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,15 +8,201 @@
 <title></title>
 </head>
 <body>
-  <h1>Rundering Home Page</h1>
-  <h1>홈페이지 세탁 배송 수거 고객 런드링</h1>
-  <h2>런드링 세탁 지점 본사</h2>
-  <p>피가 거선의 반짝이는 눈에 일월과 간에 것이다. 거친 인도하겠다는 우리의 황금시대를 열매를 뭇 싸인 두기 것이다. 풍부하게 살았으며, 얼마나 위하여서 쓸쓸하랴? 현저하게 위하여 영락과 같은 그러므로 풀밭에 만천하의 과실이 것이다. 더운지라 것은 밥을 인간이 대한 부패뿐이다. 풀이 우리 없으면, 넣는 착목한는 군영과 있다. 이 하여도 청춘의 열매를 용기가 찾아다녀도, 주는 있는 사막이다. 보는 것은 옷을 그들의 부패뿐이다. 미인을 붙잡아 아름답고 쓸쓸한 눈에 때까지 뿐이다. 사랑의 무엇을 붙잡아 생의 품에 끓는 사는가 이상은 불어 이것이다.
+   <div class="row2 ml-3 mr-3">
+      <div class="row">
+         <div class="col-md-6">
+            <div class="card card-primary card-outline">
+               <div class="card-header">
+                  <h3 class="card-title">General</h3>
+                  <div class="card-tools">
+                     <button type="button" class="btn btn-tool"
+                        data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                     </button>
+                  </div>
+               </div>
+               <div class="card-body" style="height: 300px">
+                  <div class="card-body table-responsive p-0">
+                     <table class="table table-hover text-nowrap">
+                        <thead>
+                           <tr>
+                              <th>주문번호</th>
+                              <th>담당자</th>
+                              <th>날짜</th>
+                              <th>상태</th>
 
-끝에 가장 구하지 힘있다. 이상이 인생에 원질이 설레는 이것이야말로 뭇 얼음과 그들의 풀이 것이다. 구할 할지라도 발휘하기 찾아다녀도, 있는 끓는다. 사는가 얼음이 두손을 것은 보이는 이 실현에 보내는 예수는 교향악이다. 희망의 속에서 우리는 것이다. 고행을 뼈 눈에 피는 붙잡아 수 소담스러운 이상 칼이다. 소담스러운 뼈 우는 것이 실로 만물은 자신과 그들은 얼음이 아름다우냐? 무엇을 얼마나 이 지혜는 없으면, 튼튼하며, 품으며, 것이다. 공자는 청춘을 소리다.이것은 우리 이상 싸인 많이 그들의 굳세게 쓸쓸하랴? 노년에게서 아니더면, 우리 석가는 힘있다. 대한 속잎나고, 사는가 말이다.
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>183</td>
+                              <td><a
+                                 onclick="OpenWindow('http://localhost/runderingmanage/admin/delivery/detail.do','글등록',800,700);"
+                                 style="cursor: pointer;">게시글등록</a></td>
+                              <td>2022-03-30</td>
+                              <td><span class="badge bg-warning">배송중</span></td>
 
-있는 청춘 주는 사막이다. 그것은 설레는 사라지지 부패뿐이다. 얼마나 보이는 우리의 청춘의 천자만홍이 산야에 피다. 뜨거운지라, 주며, 사랑의 위하여서, 풀이 끓는 있으랴? 아니한 스며들어 이상이 작고 구하지 위하여서. 목숨이 품에 만물은 심장은 관현악이며, 못할 속에 이상은 그들은 것이다. 청춘이 청춘은 노래하며 가지에 작고 그것은 많이 쓸쓸하랴? 사라지지 놀이 설레는 보이는 크고 장식하는 뜨고, 길지 석가는 봄바람이다. 사라지지 인류의 살았으며, 같이, 풀밭에 보라. 앞이 가는 따뜻한 천자만홍이 피어나는 넣는 무엇을 운다.</p>
+                           </tr>
+                           <tr>
+                              <td>219</td>
+                              <td>이수윤</td>
+                              <td>2022-03-30</td>
+                              <td><span class="badge bg-success">배송완료</span></td>
 
-  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+                           </tr>
+                           <tr>
+                              <td>657</td>
+                              <td>오세준</td>
+                              <td>2022-03-30</td>
+                              <td><span class="badge bg-warning">수거중</span></td>
+
+                           </tr>
+                           <tr>
+                              <td>175</td>
+                              <td>백관우</td>
+                              <td>2022-03-30</td>
+                              <td><span class="badge bg-success">수거완료</span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <div class="card-footer">
+                  <div class="col-2 float-right">
+                     <button type="button" class="btn btn-block btn-primary btn-sm">자세히</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-6">
+            <div class="card card-secondary card-outline">
+               <div class="card-header">
+                  <h3 class="card-title">Budget</h3>
+                  <div class="card-tools">
+                     <button type="button" class="btn btn-tool"
+                        data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                     </button>
+                  </div>
+               </div>
+               <div class="card-body" style="height: 350px">
+                  <div class="form-group">
+                     <label for="inputEstimatedBudget">Estimated budget</label> <input
+                        type="number" id="inputEstimatedBudget" class="form-control">
+                  </div>
+                  <div class="form-group">
+                     <label for="inputSpentBudget">Total amount spent</label> <input
+                        type="number" id="inputSpentBudget" class="form-control">
+                  </div>
+                  <div class="form-group">
+                     <label for="inputEstimatedDuration">Estimated project
+                        duration</label> <input type="number" id="inputEstimatedDuration"
+                        class="form-control">
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-6">
+            <div class="card card-primary card-outline">
+               <div class="card-header">
+                  <h3 class="card-title">General</h3>
+                  <div class="card-tools">
+                     <button type="button" class="btn btn-tool"
+                        data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                     </button>
+                  </div>
+               </div>
+               <div class="card-body" style="height: 350px">
+                  <div class="form-group">
+                     <label for="inputName">Project Name</label> <input type="text"
+                        id="inputName" class="form-control">
+                  </div>
+                  <div class="form-group">
+                     <label for="inputDescription">Project Description</label>
+                     <textarea id="inputDescription" class="form-control" rows="4"></textarea>
+                  </div>
+               </div>
+            </div>
+
+         </div>
+         <div class="col-md-6">
+            <div class="card card-secondary card-outline">
+               <div class="card-header">
+                  <h3 class="card-title">세탁 주문량</h3>
+                  <div class="card-tools">
+                     <button type="button" class="btn btn-tool"
+                        data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                     </button>
+                  </div>
+               </div>
+               <div class="card-body" style="height: 350px">
+         <table class="table table-striped projects">
+            <thead>
+               <tr>
+                  <th style="width: 20%">지점장</th>
+                  <th style="width: 20%">지점</th>
+                  <th>주문량</th>
+                  <th style="width: 15%" class="text-center">상태</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td><a> 구건희</a></td>
+                  <td><a>branch</a></td>
+                  <td class="project_progress">
+                     <div class="progress progress-sm">
+                        <div class="progress-bar bg-yellow" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100" style="width: 82%"></div>
+                     </div> <small> 82% Complete </small>
+                  </td>
+                  <td class="project-state"><span class="badge badge-warning">혼잡</span>
+                  </td>
+               </tr>
+               <tr>
+                  <td><a> 백관우</a></td>
+                  <td><a>branch</a></td>
+                  <td class="project_progress">
+                     <div class="progress progress-sm">
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100" style="width: 12%"></div>
+                     </div> <small> 12% Complete </small>
+                  </td>
+                  <td class="project-state"><span class="badge badge-success">원활</span>
+                  </td>
+               </tr>
+               <tr>
+                  <td><a> 이민호</a></td>
+                  <td><a>branch</a></td>
+                  <td class="project_progress">
+                     <div class="progress progress-sm">
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%"></div>
+                     </div> <small> 35% Complete </small>
+                  </td>
+                  <td class="project-state"><span class="badge badge-success">원활</span>
+                  </td>
+               </tr>
+               <tr>
+                  <td><a> 이어진</a></td>
+                  <td><a>branch</a></td>
+                  <td class="project_progress">
+                     <div class="progress progress-sm">
+                        <div class="progress-bar bg-red" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                     </div> <small> 100% Complete </small>
+                  </td>
+                  <td class="project-state"><span class="badge badge-danger">초과</span>
+                  </td>
+               </tr>
+      
+            </tbody>
+         </table>
+               </div>
+
+            </div>
+
+         </div>
+      </div>
+   </div>
 </body>
 </html>

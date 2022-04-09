@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>세탁매출</title>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="./width.css">
+</head>
+
+<body>
+    <div id="body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h4 class="card-title">회원 목록</h4>
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm ">
+                                    <select class="form-control col-md-6" name="perPageNum" id="perPageNum"
+                                        onchange="list_go();">
+                                        <option value="10">정렬개수</option>
+                                        <option value="20">20개씩</option>
+                                        <option value="50">50개씩</option>
+                                        <option value="100">100개씩</option>
+
+                                    </select>
+
+                                    <select class="form-control col-md-6 " name="searchType" id="searchType">
+                                        <option value="tcw">이름</option>
+                                        <option value="t">주소</option>
+                                        <option value="t">가입일</option>
+                                        <option value="t">마지막사용일</option>
+
+
+                                    </select>
+
+
+
+
+                                    <span class="input-group-append">
+                                        <button class="btn btn-primary" type="button" onclick="list_go(1);"
+                                            data-card-widget="search">
+                                            <i class="fa fa-fw fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="card-body">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+
+                                    <th class="width10">이름</th>
+                                    <th class="width10">아이디</th>
+                                    <th class="width15">전화번호</th>                                   
+                                    <th class="width45">주소</th>
+                                    <th class="width10">마지막 사용일</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>백관우</td>
+                                    <td>bgwbgw100</td>
+                                    <td>01044542231</td>
+                                    <td>대전 유성구 노은동 어쩌구 202-101</td>
+                                    <td>2022-03-30</td>
+
+                                </tr>
+                                <tr>
+                                    <td>백관우</td>
+                                    <td>bgwbgw100</td>
+                                    <td>01044542231</td>
+                                    <td>대전 유성구 노은동 어쩌구 202-101</td>
+                                    <td>2022-03-30</td>
+
+                                </tr>
+                                <tr>
+                                    <td>백관우</td>
+                                    <td>bgwbgw100</td>
+                                    <td>01044542231</td>
+                                    <td>대전 유성구 노은동 어쩌구 202-101</td>
+                                    <td>2022-03-30</td>
+
+                                </tr>
+                                <tr>
+                                    <td>백관우</td>
+                                    <td>bgwbgw100</td>
+                                    <td>01044542231</td>
+                                    <td>대전 유성구 노은동 어쩌구 202-101</td>
+                                    <td>2022-03-30</td>
+
+                                </tr>
+                                <tr>
+                                    <td>백관우</td>
+                                    <td>bgwbgw100</td>
+                                    <td>01044542231</td>
+                                    <td>대전 유성구 노은동 어쩌구 202-101</td>
+                                    <td>2022-03-30</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
