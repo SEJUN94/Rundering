@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 @RequestMapping("/branch/iteamorder")
-public class IteamorderController {
+public class ItemOrderController {
 	
 	@RequestMapping("/list")
 	private void list() {}

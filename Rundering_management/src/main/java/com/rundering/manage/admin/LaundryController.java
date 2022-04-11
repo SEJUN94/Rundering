@@ -1,22 +1,11 @@
-package com.rundering.manage;
+package com.rundering.manage.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class EojinTestController {
-
-	@RequestMapping("/branchorder")
-	public String branchOrderList() {
-		return "admin/branchorder/equipment_order_list";
-	}
-	
-	@RequestMapping("/branchorder/detail")
-	public String branchOrderDetail() {
-		return "admin/branchorder/equipment_order_detail";
-	}
-	
+public class LaundryController {
 	@RequestMapping("/laundryorder")
 	public String laundryOrderList() {
 		return "admin/laundryorder/laundry_order_list";
@@ -40,5 +29,4 @@ public class EojinTestController {
 	public String laundryItemModify() {
 		return "admin/laundryitems/modify";
 	}
-
 }

@@ -1,4 +1,4 @@
-package com.rundering.manage;
+package com.rundering.manage.delivery;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
