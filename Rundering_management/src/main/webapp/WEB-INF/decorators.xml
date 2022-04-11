@@ -3,34 +3,25 @@
 <decorators defaultdir="/WEB-INF/decorator">
 
 	<decorator name="adminMain" page="admin_main_decorator.jsp">
-		<pattern>/admin/*.do</pattern>
+		<pattern>/admin/**</pattern>
 	</decorator>
 	
 	<decorator name="adminDaterangepicker" page="admin_daterange_decorator.jsp">
-		<pattern>/admin/laundryorder.do</pattern>
+		<pattern>/admin/laundryorder</pattern>
 	</decorator>
 	
 	<decorator name="branchMain" page="branch_main_decorator.jsp">
-		<pattern>/branch/*.do</pattern>
-		<pattern>/branch/board/suggest/regist.do</pattern>
+		<pattern>/branch/**</pattern>
 	</decorator>
 	
 	<decorator name="deliveryPage" page="delivery_decorator.jsp">
-		<pattern>/fordelivery/*.do</pattern>
+		<pattern>/fordelivery/**</pattern>
 	</decorator>
 		
 	<decorator name="openWindow" page="open_decorator.jsp">
-		<pattern>/admin/**/**/*.do</pattern>
-		<pattern>/branch/**/**/*.do</pattern>
-		<pattern>/admin/delivery/detail.do</pattern>
-		<pattern>/admin/ordergoods/regist.do</pattern>
-		<pattern>/admin/customerdetail.do</pattern>
-		<pattern>/admin/branchdetail.do</pattern>
-		<pattern>/admin/customer/dormant_detail.do</pattern>
-		<pattern>/admin/branchorder/detail.do</pattern>
-		<pattern>/admin/laundryorder/detail.do</pattern>
-		<pattern>/admin/laundryitems/regist.do</pattern>
-		<pattern>/branch/iteamorder/detail.do</pattern>
+		<pattern>/admin/**/**</pattern>
+		<pattern>/branch/**/**</pattern>
+		
 		<!-- <pattern>/main.do</pattern> -->
 	</decorator>
 	
@@ -38,7 +29,7 @@
 	<excludes>
 		<pattern>/resources/*</pattern>
 		<pattern>/login.do</pattern>
-		<pattern>/fordelivery/login.do</pattern>
+		<pattern>/fordelivery/login</pattern>
 	</excludes>
 
 

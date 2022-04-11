@@ -77,43 +77,43 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/suggestdetail.do'">
                                     <td>183</td>
                                     <td>John Doe</td>
                                     <td><span class="tag tag-success">Approved</span></td>
                                     <td>1</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/suggestdetail.do'">
                                     <td>183</td>
                                     <td>John Doe</td>
                                     <td><span class="tag tag-success">Approved</span></td>
                                     <td>2</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/suggestdetail.do'">
                                     <td>183</td>
                                     <td>John Doe</td>
                                     <td><span class="tag tag-success">Approved</span></td>
                                     <td>1</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/suggestdetail.do'">
                                     <td>183</td>
                                     <td>John Doe</td>
                                     <td><span class="tag tag-success">Approved</span></td>
                                     <td>1</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/suggestdetail.do'">
                                     <td>183</td>
                                     <td>John Doe</td>
                                     <td><span class="tag tag-success">Approved</span></td>
                                     <td>1</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/suggestdetail.do'">
                                     <td>183</td>
                                     <td>John Doe</td>
                                     <td><span class="tag tag-success">Approved</span></td>
                                     <td>1</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/suggestdetail.do'">
                                     <td>183</td>
                                     <td>John Doe</td>
                                     <td><span class="tag tag-success">Approved</span></td>

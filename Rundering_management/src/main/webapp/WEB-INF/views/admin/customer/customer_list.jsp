@@ -36,35 +36,35 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/detail.do'">
 								<td>183</td>
 								<td>John Doe</td>
 								<td>010-0000-0000</td>
 								<td><span class="tag tag-success">aaa@naver.com</span></td>
 								<td>Bacon ipsum dolor sit amet salami venison chicken flank</td>
 							</tr>
-							<tr>
+							<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/detail.do'"> 
 								<td>219</td>
 								<td>Alexander Pierce</td>
 								<td>010-0000-0000</td>
 								<td><span class="tag tag-warning">aaa@naver.com</span></td>
 								<td>Bacon ipsum dolor sit amet salami venison chicken flank</td>
 							</tr>
-							<tr>
+							<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/detail.do'">
 								<td>657</td>
 								<td>Bob Doe</td>
 								<td>010-0000-0000</td>
 								<td><span class="tag tag-primary">aaa@naver.com</span></td>
 								<td>Bacon ipsum dolor sit amet salami venison chicken flank</td>
 							</tr>
-							<tr>
+							<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/detail.do'">
 								<td>175</td>
 								<td>Mike Doe</td>
 								<td>010-0000-0000</td>
 								<td><span class="tag tag-danger">aaa@naver.com</span></td>
 								<td>Bacon ipsum dolor sit amet salami venison chicken flank</td>
 							</tr>
-							<tr>
+							<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/detail.do'">
 								<td>115</td>
 								<td>Henry Doe</td>
 								<td>010-0000-0000</td>

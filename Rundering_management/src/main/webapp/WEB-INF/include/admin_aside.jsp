@@ -46,18 +46,18 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/point/information.do" class="nav-link">
+                                    <a href="<%=request.getContextPath() %>/admin/branch/information.do" class="nav-link">
                                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지점 전체 조회</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/point/quota.do" class="nav-link">
+                                    <a href="<%=request.getContextPath() %>/admin/branch/quota.do" class="nav-link">
                                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지점 세탁 현황</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
 
-                                    <a href="<%=request.getContextPath() %>/admin/laundryamount.do" class="nav-link">
+                                    <a href="<%=request.getContextPath() %>/admin/branch/amount.do" class="nav-link">
                                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지점 세탁량</p>
                                     </a>
                                 </li>
@@ -73,7 +73,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/branchorder.do" class="nav-link">
+                                    <a href="<%=request.getContextPath() %>/admin/branch/orderlist.do" class="nav-link">
                                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지점 발주 관리</p>
                                     </a>
                                 </li>

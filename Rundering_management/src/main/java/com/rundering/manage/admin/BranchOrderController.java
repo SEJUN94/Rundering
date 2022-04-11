@@ -4,14 +4,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/branch")
 public class BranchOrderController {
-	@RequestMapping("/branchorder")
+	@RequestMapping("/orderlist")
 	public String branchOrderList() {
 		return "admin/branchorder/equipment_order_list";
 	}
 	
-	@RequestMapping("/branchorder/detail")
+	@RequestMapping("/orderdetail")
 	public String branchOrderDetail() {
 		return "admin/branchorder/equipment_order_detail";
 	}

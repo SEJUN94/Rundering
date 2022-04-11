@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.rundering.manage.HomeController;
 
 @Controller
+@RequestMapping("/admin/branch")
 public class BranchController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-	@RequestMapping(value = "/admin/branch/information", method = RequestMethod.GET)
-	public String pointInfo(Locale locale, Model model) {
+	@RequestMapping(value = "/information", method = RequestMethod.GET)
+	public String branchInfo(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		Date date = new Date();
@@ -28,11 +29,11 @@ public class BranchController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "admin/point/point_info";
+		return "admin/branchinfo/branch_info";
 	}
 	
-	@RequestMapping(value = "/admin/branch/infodetail", method = RequestMethod.GET)
-	public String pointInfodetail(Locale locale, Model model) {
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String branchDetail(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		Date date = new Date();
@@ -42,11 +43,11 @@ public class BranchController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "admin/point/point_info_detail";
+		return "admin/branchinfo/branch_detail";
 	}
 	
-	@RequestMapping(value = "/admin/branch/amount", method = RequestMethod.GET)
-	public String pointAmount(Locale locale, Model model) {
+	@RequestMapping(value = "/infodetail", method = RequestMethod.GET)
+	public String branchInfodetail(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		Date date = new Date();
@@ -56,11 +57,11 @@ public class BranchController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "admin/point/point_amount";
+		return "admin/branchinfo/branch_info_detail";
 	}
 	
-	@RequestMapping(value = "/admin/branch/quota", method = RequestMethod.GET)
-	public String pointQuota(Locale locale, Model model) {
+	@RequestMapping(value = "/amount", method = RequestMethod.GET)
+	public String branchAmount(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		Date date = new Date();
@@ -70,11 +71,11 @@ public class BranchController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "admin/point/point_quota";
+		return "admin/branchinfo/branch_amount";
 	}
 	
-	@RequestMapping(value = "/admin/branch/quotadetail", method = RequestMethod.GET)
-	public String pointQuotaDetail(Locale locale, Model model) {
+	@RequestMapping(value = "/quota", method = RequestMethod.GET)
+	public String branchQuota(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		Date date = new Date();
@@ -84,6 +85,20 @@ public class BranchController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "admin/point/point_quota_detail";
+		return "admin/branchinfo/branch_quota";
+	}
+	
+	@RequestMapping(value = "/quotadetail", method = RequestMethod.GET)
+	public String branchQuotaDetail(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+
+		String formattedDate = dateFormat.format(date);
+
+		model.addAttribute("serverTime", formattedDate);
+
+		return "admin/branchinfo/branch_quota_detail";
 	}
 }
