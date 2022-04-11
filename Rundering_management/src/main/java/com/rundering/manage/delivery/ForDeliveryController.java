@@ -7,28 +7,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/fordelivery")
 public class ForDeliveryController {
 	
-	@RequestMapping("/login.do")
+	@RequestMapping("/login")
 	public String login() {
 		String url="/delivery/login";
 		return url;
 	}
-	@RequestMapping("/main.do")
+	@RequestMapping("/main")
 	public String main() {
 		String url="/delivery/main";
 		return url;
 	}
-	@RequestMapping("/pickup.do")
+	@RequestMapping("/pickup")
 	public String pickUp() {
 		String url="/delivery/pickup";
 		return url;
 	}
-	@RequestMapping("/delivery.do")
+	@RequestMapping("/delivery")
 	public String delivery() {
 		String url="/delivery/delivery";
 		return url;
 	}
 	
-	@RequestMapping("/deliverydetail.do")
+	@RequestMapping("/deliverydetail")
 	public String deliverydetail() {
 		String url="/delivery/delivery_detail";
 		return url;

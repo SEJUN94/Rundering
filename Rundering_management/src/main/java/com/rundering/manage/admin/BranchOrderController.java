@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin")
 public class BranchOrderController {
-	@RequestMapping("/branchorder")
+	@RequestMapping("/branchorder/list")
 	public String branchOrderList() {
 		return "admin/branchorder/equipment_order_list";
 	}
