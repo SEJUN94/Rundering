@@ -80,49 +80,49 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/noticedetail.do'" style="cursor:hand">
+								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
 									<td>183</td>
 									<td>John Doe</td>
 									<td>11-7-2014</td>
 									<td><span class="tag tag-success">Approved</span></td>
 									<td>1</td>
 								</tr>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/noticedetail.do'" style="cursor:hand">
+								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
 									<td>183</td>
 									<td>John Doe</td>
 									<td>11-7-2014</td>
 									<td><span class="tag tag-success">Approved</span></td>
 									<td>2</td>
 								</tr>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/noticedetail.do'" style="cursor:hand">
+								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
 									<td>183</td>
 									<td>John Doe</td>
 									<td>11-7-2014</td>
 									<td><span class="tag tag-success">Approved</span></td>
 									<td>1</td>
 								</tr>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/noticedetail.do'" style="cursor:hand">
+								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
 									<td>183</td>
 									<td>John Doe</td>
 									<td>11-7-2014</td>
 									<td><span class="tag tag-success">Approved</span></td>
 									<td>1</td>
 								</tr>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/noticedetail.do'" style="cursor:hand">
+								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
 									<td>183</td>
 									<td>John Doe</td>
 									<td>11-7-2014</td>
 									<td><span class="tag tag-success">Approved</span></td>
 									<td>1</td>
 								</tr>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/noticedetail.do'" style="cursor:hand">
+								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
 									<td>183</td>
 									<td>John Doe</td>
 									<td>11-7-2014</td>
 									<td><span class="tag tag-success">Approved</span></td>
 									<td>1</td>
 								</tr>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/notice/noticedetail.do'" style="cursor:hand">
+								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
 									<td>183</td>
 									<td>John Doe</td>
 									<td>11-7-2014</td>
@@ -135,7 +135,7 @@
 					<div class="card-footer">
 						<div class="float-right mb-3 mr-2">
 							<a
-								href="<%=request.getContextPath()%>/admin/notice/noticeregist.do">
+								href="<%=request.getContextPath()%>/admin/board/noticeregist.do">
 								<button type="button" class="btn btn-primary"
 									data-toggle="modal" data-target="#modal-lg">공지등록</button>
 									</a>

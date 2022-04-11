@@ -19,7 +19,7 @@
 	</div>
 </section>
 
-<div class="card card-primary card-outline">
+<div class="card card-primary card-outline">     
 	<div class="card-body">
 		<div class="form-group">
 			<input class="form-control" placeholder="제목:">

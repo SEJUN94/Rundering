@@ -120,12 +120,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/notice/notice.do" class="nav-link">
+                                    <a href="<%=request.getContextPath() %>/admin/board/noticelist.do" class="nav-link">
                                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;공지사항</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/notice/suggest.do" class="nav-link">
+                                    <a href="<%=request.getContextPath() %>/admin/board/suggest.do" class="nav-link">
                                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;건의사항</p>
                                     </a>
                                 </li>
