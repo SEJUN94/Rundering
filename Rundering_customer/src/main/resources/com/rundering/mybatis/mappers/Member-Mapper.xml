@@ -13,7 +13,4 @@
 		  from TB_USER_AUTH
 		 where memberno=#{memberNo} 
 	</select>
-	
-
-
 </mapper>

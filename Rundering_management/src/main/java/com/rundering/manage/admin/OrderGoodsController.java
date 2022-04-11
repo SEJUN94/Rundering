@@ -4,17 +4,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/admin")
 public class OrderGoodsController {
 	
-	@RequestMapping("/admin/ordergoods/list.do")
+	@RequestMapping("/ordergoods/list")
 	public String OrderGoodsList() {
-		String url ="admin/ordergoods/list";
+		String url ="admin/ordergoods/ordergoods_list";
 		
 		return url;
 	}
-	@RequestMapping("/admin/ordergoods/regist.do")
+	@RequestMapping("/ordergoods/regist")
 	public String OrderGoodsRegist() {
-		String url="admin/ordergoods/regist";
+		String url="admin/ordergoods/ordergoods_regist";
 		
 		return url;
 	}
