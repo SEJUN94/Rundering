@@ -4,6 +4,7 @@ import com.rundering.dao.MemberDAOBeanImpl;
 import com.rundering.dto.MemberVO;
 
 public class MemberServiceImpl implements MemberService{
+	
 	MemberDAOBeanImpl memberDAOBean;
 	
 	public void setMemberDAOBean(MemberDAOBeanImpl memberDAOBean) {
