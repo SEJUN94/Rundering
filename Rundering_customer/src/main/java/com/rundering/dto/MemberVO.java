@@ -13,14 +13,12 @@ public class MemberVO {
 	private Date registDate;
 	private Date modifyDate;
 	private int enableWhether;
-	
-	private String withdrawal;
-    private Date lastlogpsnhourliver;
-    
+	private String withDrawal;
+    private Date lastLogpsnHourLiver;
     
     
 	public MemberVO(String memberNo, String id, String password, String name, String phone, String email,
-			Date registDate, Date modifyDate, int enableWhether, String withdrawal, Date lastlogpsnhourliver) {
+			Date registDate, Date modifyDate, int enableWhether, String withDrawal, Date lastLogpsnHourLiver) {
 		super();
 		this.memberNo = memberNo;
 		this.id = id;
@@ -31,9 +29,10 @@ public class MemberVO {
 		this.registDate = registDate;
 		this.modifyDate = modifyDate;
 		this.enableWhether = enableWhether;
-		this.withdrawal = withdrawal;
-		this.lastlogpsnhourliver = lastlogpsnhourliver;
+		this.withDrawal = withDrawal;
+		this.lastLogpsnHourLiver = lastLogpsnHourLiver;
 	}
+	
 	public String getMemberNo() {
 		return memberNo;
 	}
@@ -88,21 +87,16 @@ public class MemberVO {
 	public void setEnableWhether(int enableWhether) {
 		this.enableWhether = enableWhether;
 	}
-	public String getWithdrawal() {
-		return withdrawal;
+	public String getWithDrawal() {
+		return withDrawal;
 	}
-	public void setWithdrawal(String withdrawal) {
-		this.withdrawal = withdrawal;
+	public void setWithDrawal(String withDrawal) {
+		this.withDrawal = withDrawal;
 	}
-	public Date getLastlogpsnhourliver() {
-		return lastlogpsnhourliver;
+	public Date getLastLogpsnHourLiver() {
+		return lastLogpsnHourLiver;
 	}
-	public void setLastlogpsnhourliver(Date lastlogpsnhourliver) {
-		this.lastlogpsnhourliver = lastlogpsnhourliver;
+	public void setLastLogpsnHourLiver(Date lastLogpsnHourLiver) {
+		this.lastLogpsnHourLiver = lastLogpsnHourLiver;
 	}
-    
- 
-    
-   
-    
 }

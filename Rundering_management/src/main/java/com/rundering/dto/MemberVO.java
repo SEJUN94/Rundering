@@ -3,7 +3,6 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class MemberVO {
-	
 	private String memberNo;
 	private String id;
 	private String password;
@@ -15,8 +14,6 @@ public class MemberVO {
 	private int enableWhether;
 	private String withDrawal;
     private Date lastLogpsnHourLiver;
-    
-    
     
     
 	public MemberVO(String memberNo, String id, String password, String name, String phone, String email,
@@ -101,8 +98,4 @@ public class MemberVO {
 	public void setLastLogpsnHourLiver(Date lastLogpsnHourLiver) {
 		this.lastLogpsnHourLiver = lastLogpsnHourLiver;
 	}
-    
-    
-    
-    
 }
