@@ -9,13 +9,23 @@ import org.springframework.stereotype.Controller;
 public class ItemOrderController {
 	
 	@RequestMapping("/list")
-	private void list() {}
+	private String list() {
+		String url= "/branch/iteamorder/iteamorder_list";
+		return url;
+	}
+	
 	
 	@RequestMapping("/detail")
-	private void detail() {}
+	private String detail() {
+		String url= "/branch/iteamorder/iteamorder_detail";
+		return url;
+	}
 	
 	@RequestMapping("/regist")
-	private void regist() {}
+	private String regist() {
+		String url= "/branch/iteamorder/iteamorder_regist";
+		return url;
+	}
 	
 	@RequestMapping("detail/modify")
 	private String modify() {

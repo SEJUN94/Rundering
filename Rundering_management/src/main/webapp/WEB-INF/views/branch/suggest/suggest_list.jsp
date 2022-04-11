@@ -3,6 +3,7 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 
 <head>
+
 <style>
 .no {
 	width: 10%;
@@ -27,122 +28,158 @@
 </head>
 
 <body>
-	<div class="col-12">
-		<div class="card card-primary card-outline">
-			<div class="card-header">
-				<h3 class="card-title">건의사항</h3>
-				<div class="card-tools">
+	<div id="body">
+		<div class="row ml-2 mr-2">
+			<div class="col-12">
+				<div class="card card-primary card-outline">
+					<div class="card-header">
+						<h3 class="card-title">건의사항</h3>
+						<div class="card-tools">
+							<div class="input-group input-group-sm">
 
-					<div class="input-group input-group-sm" style="width: 400px;">
-						<select class="form-control col-md-3" name="perPageNum"
-							id="perPageNum" onchange="list_go();">
-							<option value="10">정렬개수</option>
-							<option value="20">20개씩</option>
-							<option value="50">50개씩</option>
-							<option value="100">100개씩</option>
 
-						</select> <select class="form-control col-md-4" name="searchType"
-							id="searchType">
-							<option value="tcw">전 체</option>
-							<option value="t">제 목</option>
-							<option value="w">작성자</option>
-						</select> <input class="form-control" type="text" name="keyword"
-							placeholder="검색어를 입력하세요." value="" /> <span
-							class="input-group-append">
+
+								<div class="input-group-sm selectWidth">
+									<select class="form-control " name="searchType" id="searchType">
+										<option value="tcw">전 체</option>
+										<option value="t">제 목</option>
+										<option value="w">작성자</option>
+									</select>
+								</div>
+								<div class="input-group-sm textWidth">
+									<input class="form-control" type="text" name="keyword"
+										placeholder="검색어를 입력하세요." value="">
+								</div>
+								<span class="input-group-append">
+									<button class="btn btn-primary" type="button"
+										onclick="list_go(1);" data-card-widget="search">
+										<i class="fa fa-fw fa-search"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="card-body p-0">
+						<table class="table table-hover text-nowrap">
+							<thead>
+								<tr>
+									<th class="no">번호</th>
+									<th class="boardtitle">제목</th>
+									<th class="date">작성날짜</th>
+									<th class="clicks">조회수</th>
+									<th class="yn">확인여부</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>180</td>
+									<td>대우개선요구</td>
+									<td>2022-03-14</td>
+									<td><span class="tag tag-success">3</span></td>
+									<td>확인</td>
+								</tr>
+								<tr>
+									<td>181</td>
+									<td>대우개선요구</td>
+									<td>2022-03-14</td>
+									<td><span class="tag tag-success">3</span></td>
+									<td>미확인</td>
+								</tr>
+								<tr>
+									<td>180</td>
+									<td>대우개선요구</td>
+									<td>2022-03-14</td>
+									<td><span class="tag tag-success">3</span></td>
+									<td>확인</td>
+								</tr>
+								<tr>
+									<td>181</td>
+									<td>대우개선요구</td>
+									<td>2022-03-14</td>
+									<td><span class="tag tag-success">3</span></td>
+									<td>미확인</td>
+								</tr>
+								<tr>
+									<td>180</td>
+									<td>대우개선요구</td>
+									<td>2022-03-14</td>
+									<td><span class="tag tag-success">3</span></td>
+									<td>확인</td>
+								</tr>
+								<tr>
+									<td>181</td>
+									<td>대우개선요구</td>
+									<td>2022-03-14</td>
+									<td><span class="tag tag-success">3</span></td>
+									<td>미확인</td>
+								</tr>
+								<tr>
+									<td>180</td>
+									<td>대우개선요구</td>
+									<td>2022-03-14</td>
+									<td><span class="tag tag-success">3</span></td>
+									<td>확인</td>
+								</tr>
+								<tr>
+									<td>181</td>
+									<td>대우개선요구</td>
+									<td>2022-03-14</td>
+									<td><span class="tag tag-success">3</span></td>
+									<td>미확인</td>
+								</tr>
+								<tr>
+									<td>180</td>
+									<td>대우개선요구</td>
+									<td>2022-03-14</td>
+									<td><span class="tag tag-success">3</span></td>
+									<td>확인</td>
+								</tr>
+								<tr>
+									<td>181</td>
+									<td>대우개선요구</td>
+									<td>2022-03-14</td>
+									<td><span class="tag tag-success">3</span></td>
+									<td>미확인</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="float-right mt-3 mr-3 mb-3">
+
 							<button class="btn btn-primary" type="button"
-								onclick="list_go(1);" data-card-widget="search">
-								<i class="fa fa-fw fa-search"></i>
-							</button>
-						</span>
+								onclick="detail_go('/Rundering_management/branch/board/suggest/regist.do','')">
+								작성하기</button>
+						</div>
+					</div>
+
+
+					<div class="card-footer" style="font-size: 0.9em">
+
+						<nav aria-label="Contacts Page Navigation">
+							<ul class="pagination justify-content-center m-0">
+								<li class="page-item"><a class="page-link" href="#"> <i
+										class="fas fa-angle-left"></i>
+								</a></li>
+								<li class="page-item"><a class="page-link" href="#"> <i
+										class="fas fa-angle-double-left"></i>
+								</a></li>
+								<li class="page-item active"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">4</a></li>
+								<li class="page-item"><a class="page-link" href="#">5</a></li>
+								<li class="page-item"><a class="page-link" href="#"> <i
+										class="fas fa-angle-right"></i>
+								</a></li>
+								<li class="page-item"><a class="page-link" href="#"> <i
+										class="fas fa-angle-double-right"></i>
+								</a></li>
+							</ul>
+						</nav>
 					</div>
 				</div>
+
 			</div>
-			<div class="card-body">
-				<table class="table table-hover text-nowrap">
-					<thead>
-						<tr>
-							<th class="no">번호</th>
-							<th class="boardtitle">제목</th>
-							<th class="date">작성날짜</th>
-							<th class="clicks">조회수</th>
-							<th class="yn">확인여부</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>183</td>
-							<td>John Doe</td>
-							<td>11-7-2014</td>
-							<td><span class="tag tag-success">Approved</span></td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>183</td>
-							<td>John Doe</td>
-							<td>11-7-2014</td>
-							<td><span class="tag tag-success">Approved</span></td>
-							<td>2</td>
-						</tr>
-						<tr>
-							<td>183</td>
-							<td>John Doe</td>
-							<td>11-7-2014</td>
-							<td><span class="tag tag-success">Approved</span></td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>183</td>
-							<td>John Doe</td>
-							<td>11-7-2014</td>
-							<td><span class="tag tag-success">Approved</span></td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>183</td>
-							<td>John Doe</td>
-							<td>11-7-2014</td>
-							<td><span class="tag tag-success">Approved</span></td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>183</td>
-							<td>John Doe</td>
-							<td>11-7-2014</td>
-							<td><span class="tag tag-success">Approved</span></td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>183</td>
-							<td>John Doe</td>
-							<td>11-7-2014</td>
-							<td><span class="tag tag-success">Approved</span></td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>219</td>
-							<td>Alexander Pierce</td>
-							<td>11-7-2014</td>
-							<td><span class="tag tag-warning">Pending</span></td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>657</td>
-							<td>Bob Doe</td>
-							<td>11-7-2014</td>
-							<td><span class="tag tag-primary">Approved</span></td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>175</td>
-							<td>Mike Doe</td>
-							<td>11-7-2014</td>
-							<td><span class="tag tag-danger">Denied</span></td>
-							<td>1</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="card-footer"></div>
 		</div>
 	</div>
+
 </body>
