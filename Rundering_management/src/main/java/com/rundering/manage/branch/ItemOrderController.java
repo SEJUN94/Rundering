@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 
 @Controller
-@RequestMapping("/branch/iteamorder")
+@RequestMapping("/branch/itemorder")
 public class ItemOrderController {
 	
 	@RequestMapping("/list")
