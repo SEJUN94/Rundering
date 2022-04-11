@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class LaundryController {
-	@RequestMapping("/laundryorder")
+public class AdminLaundryController {
+	
+	@RequestMapping("/laundryorder/list")
 	public String laundryOrderList() {
 		return "admin/laundryorder/laundry_order_list";
 	}
@@ -15,18 +16,18 @@ public class LaundryController {
 		return "admin/laundryorder/laundry_order_detail";
 	}
 	
-	@RequestMapping("/laundryitems")
+	@RequestMapping("/laundryitems/list")
 	public String laundryItemsList() {
-		return "admin/laundryitems/list";
+		return "admin/laundryitems/laundryitems_list";
 	}
 	
 	@RequestMapping("/laundryitems/regist")
 	public String laundryItemRegist() {
-		return "admin/laundryitems/regist";
+		return "admin/laundryitems/laundryitems_regist";
 	}
 	
 	@RequestMapping("/laundryitems/modify")
 	public String laundryItemModify() {
-		return "admin/laundryitems/modify";
+		return "admin/laundryitems/laundryitems_modify";
 	}
 }
