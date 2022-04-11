@@ -15,9 +15,17 @@
 		p:session-ref="sqlSession">
 	</bean> 
 	<bean id="memberDAOBean" class="com.rundering.dao.MemberDAOBeanImpl"></bean>
-	
 	<bean id="testService" class="com.rundering.service.TestServiceImpl"
 		p:testDAOBean-ref="testDAOBean">
+	</bean>
+	
+	<bean id="orderGoodsDAO" class="com.rundering.dao.OrderGoodsDAOImpl"
+		p:session-ref="sqlSession">
+	</bean> 
+	
+	
+	<bean id="orderGoodsService" class="com.rundering.service.OrderGoodsServiceImpl"
+		p:orderGoodsDAO-ref="orderGoodsDAO">
 	</bean>
 	
 	

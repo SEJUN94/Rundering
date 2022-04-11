@@ -12,8 +12,6 @@ public class MemberDAOBeanImpl implements MemberDAOBean{
 		this.session = session;
 	}
 
-
-
 	@Override
 	public MemberVO selectMemberById(String id) throws Exception {
 		

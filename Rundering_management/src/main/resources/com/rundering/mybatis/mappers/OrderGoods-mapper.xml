@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapper namespace="OrderGoods-mapper">
+	<select id="orderGoodsList" resultType="orderGoods" parameterType="str">
+		select *
+		  from TB_ARTICLES_LAUNDRY
+		 where LNDRWATERQLYCODE=#{lndrwaterqlyCode }  
+	</select>
+
+	<select id="selectSearchOrderGoodsList"	resultType="orderGoods">
+		select
+		*
+		from
+		TB_ARTICLES_LAUNDRY
+		where lndrwaterqlyCode is not null  			  	
+		<include refid="search" />
+		order by registDate desc
+	</select>
+	
+	<select id="selectSearchOrderGoodsListCount" resultType="int">
+		select
+		count(*)
+		from
+		TB_ARTICLES_LAUNDRY
+		where lndrwaterqlyCode is not null  			  	
+		<include refid="search" />
+		order by registDate desc
+	</select>
+	
+	<select id="selectOrderGoodsByBno"  resultType="orderGoods">
+		select * 
+		from TB_ARTICLES_LAUNDRY
+		where LNDRWATERQLYCODE=#{lndrwaterqlyCode }
+	</select>
+	
+	<update id="insertOrderGoods" parameterType="orderGoods">
+		insert 
+		into 
+		TB_ARTICLES_LAUNDRY(LNDRWATERQLYCODE,PRODUCT_NAME,PRICE,CLCODE,REGIST_DATE)
+		values
+		(#{lndrwaterqlyCode },#{productName},#{price},#{clCode}, SYSDATE)
+	</update>
+	
+	<update id="updateOrderGoods" parameterType="orderGoods">
+		update 
+		TB_ARTICLES_LAUNDRY 
+		set 
+		LNDRWATERQLYCODE=#{title}, PRODUCT_NAME=#{content}, PRICE=#{price}, CLCODE=#{clCode}, updatedate=sysdate 
+		where LNDRWATERQLYCODE=#{lndrwaterqlyCode}
+	</update>
+	
+	<update id="deleteOrderGoods" parameterType="str">
+		update
+		TB_ARTICLES_LAUNDRY
+		set
+		deleteKey=0;
+		where LNDRWATERQLYCODE=#{lndrwaterqlyCode}
+	</update>
+
+</mapper>
