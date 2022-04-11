@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 
 @Controller
-@RequestMapping("/branch/iteamorder")
+@RequestMapping("/branch/itemorder")
 public class ItemOrderController {
 	
 	@RequestMapping("/list")
@@ -19,7 +19,7 @@ public class ItemOrderController {
 	
 	@RequestMapping("detail/modify")
 	private String modify() {
-		String url = "/branch/iteamorder/modify";
+		String url = "/branch/itemorder/modify";
 		return url;
 	
 	}
