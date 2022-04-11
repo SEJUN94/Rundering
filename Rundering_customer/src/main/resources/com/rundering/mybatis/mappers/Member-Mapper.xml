@@ -3,17 +3,46 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Member-Mapper">
-	<select id="selectMemberById" resultType="member" parameterType="str">
+	<select id="selectMemberById" resultType="member"
+		parameterType="str">
 		select *
-		  from TB_MEMBER
-		 where id=#{id} 
+		from TB_MEMBER
+		where id=#{id}
 	</select>
-	<select id="selectAuthByMemberNo" resultType="str" parameterType="str">
-		select AUTH_GRP_CODE
-		  from TB_USER_AUTH
-		 where memberno=#{memberNo} 
-	</select>
-	
 
+	<select id="selectAuthByMemberNo" resultType="str"
+		parameterType="str">
+		select AUTH_GRP_CODE
+		from TB_USER_AUTH
+		where memberno=#{memberNo}
+	</select>
+
+
+	<update id="memberJoin" parameterType="member">
+		INSERT INTO 
+		TB_MEMBER(MEMBERNO,ID,PASSWORD,NAME,PHONE,EMAIL) 
+		VALUES (MEMBERNO_SEQ.NEXTVAL,#{id},#{password},#{name},#{phone},#{email})
+	</update>
+	
+	<update id="deleteMember" parameterType="str" >
+		update TB_MEMBER
+		set 
+		ENABLE_WHETHER = 0
+		,WITHDRAWAL = 0
+		where id=#{id}
+	</update>
+	
+	<update id="modifyMember" parameterType="member">
+		update TB_MEMBER 
+		set 
+		PASSWORD=#{password},EMAIL=#{email},PHONE=#{phone},MODIFY_DATE=SYSDATE
+		where id=#{id}
+	</update>
+
+	<select id="checkId" resultType="str" parameterType="str">
+		SELECT ID
+		FROM TB_MEMBER
+		WHERE ID =#{id}
+	</select>
 
 </mapper>

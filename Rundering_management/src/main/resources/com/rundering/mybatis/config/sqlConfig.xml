@@ -11,6 +11,7 @@
 		
 		
 		<typeAlias type="com.rundering.dto.TestVO" alias="test" />
+		<typeAlias type="com.rundering.dto.EmployeesVO" alias="employees" />
 		
 	</typeAliases>
 	
