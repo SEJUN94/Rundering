@@ -21,29 +21,19 @@ import com.rundering.util.MakeFileName;
 
 
 @Controller
-@RequestMapping("/branch/board")
-public class BoardController {
-	@RequestMapping(value = "/suggestlist")
+@RequestMapping("/branch/suggest")
+public class BranchSuggestController {
+	@RequestMapping(value = "/list")
 	private String list() {
-		String url="branch/board/suggest_list";
+		String url="branch/suggest/suggest_list";
 		return url;
 	}
-	@RequestMapping(value = "/suggest/regist")
+	@RequestMapping(value = "/regist")
 	private String regist() {
-		String url="branch/board/suggest_regist";
-		return url;
-	}
-	@RequestMapping(value = "/noticelist")
-	private String noticeList() {
-		String url="branch/board/notice_list";
+		String url="branch/suggest/suggest_regist";
 		return url;
 	}
 	
-	@RequestMapping(value = "/noticedetail")
-	private String noticeDetail() {
-		String url="branch/board/notice_detail";
-		return url;
-	}
 	@Resource(name = "boardPath")
 	private String boardPath;
 	

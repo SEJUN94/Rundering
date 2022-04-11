@@ -4,13 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/branch/member")
-public class MemberController {
-
+@RequestMapping("/branch/laundrystores")
+public class LaundryStoresController {
 	
 	@RequestMapping("/list")
-	private String list() {
-		String url="branch/member/member_list";
+	private String sotresList() {
+		String url = "branch/laundrystores/stores_list";
 		return url;
 	}
 }
