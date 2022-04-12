@@ -8,7 +8,7 @@ public class MemberInquiryVO {
 	private String inqryclcode; //문의분류코드
 	private String title;       //제목
 	private String answercn;    //답변내용
-	private Date answerdeman; //답변일자
+	private Date answerdate; //답변일자
 	private String content;     //내용
 	private Date inqrydate;   //문의날짜
 	private String answerennc;  //답변유무
@@ -16,7 +16,6 @@ public class MemberInquiryVO {
 	private String atchFileNo;  //통합첨부파일 번호
 	private String answrr;      //답변자
 	private String orderno;     //주문번호
-
 	public int getInqryno() {
 		return inqryno;
 	}
@@ -47,11 +46,11 @@ public class MemberInquiryVO {
 	public void setAnswercn(String answercn) {
 		this.answercn = answercn;
 	}
-	public Date getAnswerdeman() {
-		return answerdeman;
+	public Date getAnswerdate() {
+		return answerdate;
 	}
-	public void setAnswerdeman(Date answerdeman) {
-		this.answerdeman = answerdeman;
+	public void setAnswerdate(Date answerdate) {
+		this.answerdate = answerdate;
 	}
 	public String getContent() {
 		return content;
@@ -95,6 +94,6 @@ public class MemberInquiryVO {
 	public void setOrderno(String orderno) {
 		this.orderno = orderno;
 	}
-	
+
 	
 }
