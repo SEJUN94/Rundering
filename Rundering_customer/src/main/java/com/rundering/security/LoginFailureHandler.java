@@ -21,12 +21,15 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 		
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-				
 		out.println("<script>");
 		out.println("alert('"+msg+".');");
 		out.println("history.go(-1)");
 		out.println("</script>");
-	
+		
+		if(msg.equals("5번이상 틀린 아이디 입니다.")) {
+			response.sendRedirect(request.getContextPath()+"/login/failcount");
+		}
+		
 	}
 
 }

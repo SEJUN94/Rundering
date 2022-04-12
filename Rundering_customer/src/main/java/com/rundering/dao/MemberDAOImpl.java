@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.dto.MemberVO;
 
-public class MemberDAOBeanImpl implements MemberDAOBean{
+public class MemberDAOImpl implements MemberDAO{
 	SqlSession session;
 
 	

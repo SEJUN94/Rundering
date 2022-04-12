@@ -26,7 +26,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		String parameter_id = (String) auth.getPrincipal(); // 로그인 시도한 ID를 가져온다
  		String []split_id = parameter_id.split(":==:");
  		String login_id=split_id[0];
- 		String login_check=split_id[1];
+ 		String login_check =null;
+ 		if(split_id.length==2) login_check=split_id[1];
  		
 		String login_pwd = (String) auth.getCredentials(); //로그인 시도한 Password 를 가져온다.
 		
@@ -42,7 +43,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
  		
  		if(member != null) {
  			if(member.getLoginfailCount()>4 && (login_check == null || login_check.equals(""))) {
+ 				throw new BadCredentialsException("5번이상 틀린 아이디 입니다.");
  			}
+ 			
  			
  			if(login_pwd.equals(member.getPassword())) {//아이디 패스워드 일치
  				UserDetails authUser = new User(member,memberService);
