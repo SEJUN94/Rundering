@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="orderGoodsList" value="${dataMap.orderGoodsList }" />
@@ -45,15 +45,11 @@
 					</c:if>	
 					<c:forEach items="${orderGoodsList }" var="orderGoods">
 						<tr>
-							<td>${orderGoods.lndrwaterqlyCode }</td>
-							<td id="boardTitle" style="text-align:center;">
-							<a href="javascript:OpenWindow('detail?lndrwaterqlyCode=${orderGoods.lndrwaterqlyCode }&from=list','상세보기',800,700);">
-								<span class="col-sm-12 ">
-									${orderGoods.price }
-								</span>								
-							</a>
+							<td>${orderGoods.articlesCode }</td>
+							<td>${orderGoods.articlesName }</td>
+							<td style="text-align:center;">
+									${orderGoods.price }							
 							</td>
-							<td>${orderGoods.writer }</td>
 							<td>
 								<fmt:formatDate value="${orderGoods.registDate }" pattern="yyyy-MM-dd"/>
 							</td>

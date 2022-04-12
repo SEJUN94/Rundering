@@ -11,7 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import com.jsp.command.Criteria;
 import com.jsp.command.PageMaker;
 import com.rundering.dao.OrderGoodsDAO;
-import com.rundering.dto.ArticlesLaundryVO;
+import com.rundering.dto.LaundryArticlesVO;
 
 public class OrderGoodsServiceImpl implements OrderGoodsService {
 
@@ -25,7 +25,7 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
 	public Map<String, Object> getOrderGoods(Criteria cri) throws SQLException {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 
-		List<ArticlesLaundryVO> orderGoodsList = orderGoodsDAO.orderGoods(cri);
+		List<LaundryArticlesVO> orderGoodsList = orderGoodsDAO.orderGoods(cri);
 
 		// 전체 board 개수
 		int totalCount = orderGoodsDAO.selectOrderGoodsCriteriaTotalCount(cri);
@@ -41,25 +41,25 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
 	}
 
 	@Override
-	public ArticlesLaundryVO getOrderGoods(String lndrwaterqlyCode) throws SQLException {
+	public LaundryArticlesVO getOrderGoods(String articlesName) throws SQLException {
 
-		ArticlesLaundryVO ordergoods = orderGoodsDAO.selectOrderGoodsBylndrwaterqlyCode(lndrwaterqlyCode);
+		LaundryArticlesVO ordergoods = orderGoodsDAO.selectOrderGoodsByArticlesCode(articlesName);
 		return ordergoods;
 
 	}
 
 	@Override
-	public void regist(ArticlesLaundryVO ordergoods) throws SQLException {
+	public void regist(LaundryArticlesVO ordergoods) throws SQLException {
 		orderGoodsDAO.insertOrderGoods(ordergoods);
 	}
 
 	@Override
-	public void modify(ArticlesLaundryVO ordergoods) throws SQLException {
+	public void modify(LaundryArticlesVO ordergoods) throws SQLException {
 		orderGoodsDAO.updateOrderGoods(ordergoods);
 	}
 
 	@Override
-	public void remove(String lndrwaterqlyCode) throws SQLException {
-		orderGoodsDAO.deleteOrderGoods(lndrwaterqlyCode);
+	public void remove(String articlesCode) throws SQLException {
+		orderGoodsDAO.deleteOrderGoods(articlesCode);
 	}
 }

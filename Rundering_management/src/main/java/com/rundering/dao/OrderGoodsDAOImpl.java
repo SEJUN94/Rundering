@@ -7,7 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.jsp.command.Criteria;
-import com.rundering.dto.ArticlesLaundryVO;
+import com.rundering.dto.LaundryArticlesVO;
 
 public class OrderGoodsDAOImpl implements OrderGoodsDAO{
 	private SqlSession session;
@@ -16,13 +16,13 @@ public class OrderGoodsDAOImpl implements OrderGoodsDAO{
 		this.session = session;
 	}
 	@Override
-	public List<ArticlesLaundryVO> orderGoods(Criteria cri) throws SQLException {
+	public List<LaundryArticlesVO> orderGoods(Criteria cri) throws SQLException {
 		
 		int offset=cri.getStartRowNum();
 		int limit=cri.getPerPageNum();		
 		RowBounds rowBounds=new RowBounds(offset,limit);		
 		
-		List<ArticlesLaundryVO> orderGoodsList=
+		List<LaundryArticlesVO> orderGoodsList=
 				session.selectList("OrderGoods-Mapper.orderGoodsList",cri,rowBounds);
 		
 		return orderGoodsList;
@@ -34,26 +34,26 @@ public class OrderGoodsDAOImpl implements OrderGoodsDAO{
 	}
 	
 	@Override
-	public ArticlesLaundryVO selectOrderGoodsBylndrwaterqlyCode(String lndrwaterqlyCode)
+	public LaundryArticlesVO selectOrderGoodsByArticlesCode(String articlesCode)
 			throws SQLException {
-		ArticlesLaundryVO ordergoods=
-				session.selectOne("OrderGoods-Mapper.selectSearchOrderGoodsList",lndrwaterqlyCode);
+		LaundryArticlesVO ordergoods=
+				session.selectOne("OrderGoods-Mapper.selectSearchOrderGoodsList",articlesCode);
 		return ordergoods;
 	}
 
 	@Override
-	public void insertOrderGoods(ArticlesLaundryVO ordergoods) throws SQLException {
+	public void insertOrderGoods(LaundryArticlesVO ordergoods) throws SQLException {
 		session.update("OrderGoods-Mapper.insertOrderGoods",ordergoods);
 	}
 
 	@Override
-	public void updateOrderGoods(ArticlesLaundryVO ordergoods) throws SQLException {
+	public void updateOrderGoods(LaundryArticlesVO ordergoods) throws SQLException {
 		session.update("OrderGoods-Mapper.updateOrderGoods",ordergoods);
 	}
 
 	@Override
-	public void deleteOrderGoods(String lndrwaterqlyCode) throws SQLException {
-		session.update("OrderGoods-Mapper.deleteOrderGoods",lndrwaterqlyCode);
+	public void deleteOrderGoods(String articlesCode) throws SQLException {
+		session.update("OrderGoods-Mapper.deleteOrderGoods",articlesCode);
 	}
 
 	

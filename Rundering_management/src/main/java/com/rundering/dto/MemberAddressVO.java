@@ -3,20 +3,22 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class MemberAddressVO {
-	private int weeksmallno; //주소번호
+	private int addressNo; //주소번호
 	private String add1;  //주소
 	private String add2;  //상세주소
 	private String zip; //우편번호
 	private Date registDate;  //등록일
 	private Date modifyDate;  //수정일
-	private String addWhater; //주소지여부
+	private String defaultYn; //기본주소지여부
 	private String memberno; //회원고유번호
-
-	public int getWeeksmallno() {
-		return weeksmallno;
+	private String area;	 //지역분류코드
+	private String toparea;  //상위지역분류
+	
+	public int getAddressNo() {
+		return addressNo;
 	}
-	public void setWeeksmallno(int weeksmallno) {
-		this.weeksmallno = weeksmallno;
+	public void setAddressNo(int addressNo) {
+		this.addressNo = addressNo;
 	}
 	public String getAdd1() {
 		return add1;
@@ -48,11 +50,11 @@ public class MemberAddressVO {
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-	public String getAddWhater() {
-		return addWhater;
+	public String getDefaultYn() {
+		return defaultYn;
 	}
-	public void setAddWhater(String addWhater) {
-		this.addWhater = addWhater;
+	public void setDefaultYn(String defaultYn) {
+		this.defaultYn = defaultYn;
 	}
 	public String getMemberno() {
 		return memberno;
@@ -60,4 +62,19 @@ public class MemberAddressVO {
 	public void setMemberno(String memberno) {
 		this.memberno = memberno;
 	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
+	public String getToparea() {
+		return toparea;
+	}
+	public void setToparea(String toparea) {
+		this.toparea = toparea;
+	}
+
+
+	
 }

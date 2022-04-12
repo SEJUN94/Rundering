@@ -1,14 +1,16 @@
 package com.rundering.dto;
 
 public class ItemOrderDetailVO {
-	private String ordercode; //발주코드
-	private int orderCount; //발주개수
-	private String lndrwaterqlycode; //세탁물품코드
-	public String getOrdercode() {
-		return ordercode;
+	private String detailOrdercode; //상세발주코드
+	private int orderCount;         //발주개수
+	private String articlesCode;    //세탁물품코드
+	private String ordercode;       //발주코드
+	
+	public String getDetailOrdercode() {
+		return detailOrdercode;
 	}
-	public void setOrdercode(String ordercode) {
-		this.ordercode = ordercode;
+	public void setDetailOrdercode(String detailOrdercode) {
+		this.detailOrdercode = detailOrdercode;
 	}
 	public int getOrderCount() {
 		return orderCount;
@@ -16,10 +18,19 @@ public class ItemOrderDetailVO {
 	public void setOrderCount(int orderCount) {
 		this.orderCount = orderCount;
 	}
-	public String getLndrwaterqlycode() {
-		return lndrwaterqlycode;
+	public String getArticlesCode() {
+		return articlesCode;
 	}
-	public void setLndrwaterqlycode(String lndrwaterqlycode) {
-		this.lndrwaterqlycode = lndrwaterqlycode;
+	public void setArticlesCode(String articlesCode) {
+		this.articlesCode = articlesCode;
 	}
+	public String getOrdercode() {
+		return ordercode;
+	}
+	public void setOrdercode(String ordercode) {
+		this.ordercode = ordercode;
+	}
+
+	
+	
 }

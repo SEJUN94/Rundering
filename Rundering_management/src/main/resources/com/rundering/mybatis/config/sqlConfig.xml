@@ -9,7 +9,7 @@
 		<typeAlias type="java.lang.String" alias="str" />
 		<typeAlias type="java.lang.Integer" alias="int" />
 		
-		<typeAlias type="com.rundering.dto.ArticlesLaundryVO" alias="orderGoods" />
+		<typeAlias type="com.rundering.dto.LaundryArticlesVO" alias="orderGoods" />
 		<typeAlias type="com.rundering.dto.MenuVO" alias="menu" />
 		<typeAlias type="com.rundering.dto.TestVO" alias="test" />
 		

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jsp.command.Criteria;
-import com.rundering.dto.ArticlesLaundryVO;
+import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.service.OrderGoodsService;
 
 @Controller
@@ -42,11 +42,11 @@ public class OrderGoodsController {
 	}
 	
 	@RequestMapping("/ordergoods/regist")
-	public String regist(ArticlesLaundryVO ordergoods,HttpServletRequest request,
+	public String regist(LaundryArticlesVO ordergoods,HttpServletRequest request,
 						 RedirectAttributes rttr)throws Exception{
 		String url="redirect:/admin/ordergoods/list";	
 		
-		ordergoods.setProductName((String)request.getAttribute("XSSname"));
+		ordergoods.setArticlesName((String)request.getAttribute("XSSname"));
 		
 		orderGoodsService.regist(ordergoods);
 		
@@ -65,17 +65,17 @@ public class OrderGoodsController {
 	}
 	
 	@RequestMapping(value="/ordergoods/modify", method=RequestMethod.POST)
-	public String modifyPost(ArticlesLaundryVO ordergoods,HttpServletRequest request, //BoardModifyCommand modifyReq,
+	public String modifyPost(LaundryArticlesVO ordergoods,HttpServletRequest request, //BoardModifyCommand modifyReq,
 							 RedirectAttributes rttr) throws Exception{
 		
 		String url = "redirect:/admin/ordergoods/detail";
 		
-		ordergoods.setProductName((String)request.getAttribute("XSSname"));
+		ordergoods.setArticlesName((String)request.getAttribute("XSSname"));
 				
 		orderGoodsService.modify(ordergoods);
 		
 		rttr.addFlashAttribute("from","modify");
-		rttr.addAttribute("lndrwaterqlyCode",ordergoods.getLndrwaterqlyCode());
+		rttr.addAttribute("lndrwaterqlyCode",ordergoods.getArticlesCode());
 		
 		return url;
 	}

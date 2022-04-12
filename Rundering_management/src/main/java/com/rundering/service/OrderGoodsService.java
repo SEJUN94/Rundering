@@ -4,22 +4,22 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import com.jsp.command.Criteria;
-import com.rundering.dto.ArticlesLaundryVO;
+import com.rundering.dto.LaundryArticlesVO;
 
 
 public interface OrderGoodsService {
 	public Map<String, Object> getOrderGoods(Criteria cri) throws SQLException;
 	// 상세보기
-	ArticlesLaundryVO getOrderGoods(String lndrwaterqlyCode)throws SQLException;	
+	LaundryArticlesVO getOrderGoods(String articlesCode)throws SQLException;	
 		
 	// 등록
-	void regist(ArticlesLaundryVO ordergoods)throws SQLException;
+	void regist(LaundryArticlesVO ordergoods)throws SQLException;
 		
 	// 수정
-	void modify(ArticlesLaundryVO ordergoods)throws SQLException;
+	void modify(LaundryArticlesVO ordergoods)throws SQLException;
 	
 	// 삭제
-	void remove(String lndrwaterqlyCode)throws SQLException;
+	void remove(String articlesCode)throws SQLException;
 	
 	
 }
