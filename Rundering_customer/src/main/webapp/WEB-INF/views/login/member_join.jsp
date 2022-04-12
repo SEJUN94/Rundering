@@ -19,7 +19,10 @@
 }
 </style>
 
-<section class="content-header" style="margin-bottom:50px;">
+<!-- 주소api -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> 
+
+<section class="content-header" style="margin-bottom:0px;">
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
@@ -29,22 +32,24 @@
 				<ol class="breadcrumb float-sm-right">
 					<li class="breadcrumb-item active">회원가입</li>
 					<li class="breadcrumb-item"><a href="#">Home</a></li>
+				
 				</ol>
 			</div>
 		</div>
 	</div>
+	<hr/>
 </section>
 
 <div class="register-box">
 	<div class="card-body">
 		<p class="login-box-msg">join a new membership</p>
-		<form action="../../index.html" method="post">
+		<form role="form" class="form-horizontal" action="<%=request.getContextPath()%>/login" method="post">
 			<div class="input-group mb-3 form-group">
+			<label for="id" class="col-sm-3" style="font-size:0.9em;" >
+							 	<span style="color:red;font-weight:bold;">*</span>아이디</label>	
 				<input type="text" class="form-control" placeholder="아이디 입력">
 				<div class="input-group-append">
 					<button type="button" id="modalBtn" class="btn btn-info btn-sm"	onclick="">중복체크</button>
-					<span class="sp"></span>
-					<span id="rst"></span>
 				</div>
 			</div>
 			<div class="input-group mb-3 form-group">
@@ -74,8 +79,7 @@
 				</div>
 			</div>
 			<div class="input-group mb-3 form-group">
-				<input type="text" class="form-control"
-					placeholder="휴대폰 ex)010-1234-5678">
+				<input type="text" class="form-control" pattern="010-[0-9]{4}-[0-9]{4}"	placeholder="휴대폰 ex)010-1234-5678">
 				<div class="input-group-append">
 					<div class="input-group-text">
 						<span class="fas fa-phone"></span>
@@ -149,8 +153,7 @@ function valid(){
 			success : function(aa){
 				if(aa.cd == "ok"){
 					alert("Rundering 회원가입을 축하드립니다!");
-					location.href = "<%=request.getContextPath()%>
-	/login";
+					location.href = "<%=request.getContextPath()%>/login";
 					} else {
 						alert("공백없이 형식에 맞게 작성해주세요!");
 					}
