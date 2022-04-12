@@ -9,8 +9,8 @@
 		<typeAlias type="java.lang.String" alias="str" />
 		<typeAlias type="java.lang.Integer" alias="int" />
 		
-		
 		<typeAlias type="com.rundering.dto.TestVO" alias="test" />
+		<typeAlias type="com.rundering.dto.NoticeVO" alias="notice" />
 		
 	</typeAliases>
 	

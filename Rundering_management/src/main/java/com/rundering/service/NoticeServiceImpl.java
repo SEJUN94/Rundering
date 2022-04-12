@@ -59,7 +59,7 @@ public class NoticeServiceImpl implements NoticeService{
 	public void regist(NoticeVO notice) throws SQLException {
 
 		int nno = noticeDAOBean.selectNoticeSequenceNextValue();
-		notice.setNno(nno);
+		notice.setNoticeno(nno);
 		noticeDAOBean.insertNotice(notice);
 	}
 

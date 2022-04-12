@@ -10,17 +10,28 @@
 		<constructor-arg value="${board.upload}" />      
 	</bean>
 	
+	<!-- Repository -->
+	<bean id="noticeDAO" class="com.jsp.dao.NoticeDAOImpl" />
 
 	<bean id="testDAOBean" class="com.rundering.dao.TestDAO"
 		p:session-ref="sqlSession">
 	</bean> 
 	<bean id="memberDAOBean" class="com.rundering.dao.MemberDAOBeanImpl"></bean>
 	
+	<bean id="noticeDAOBean" class="kr.or.ddit.dao.NoticeDAOBeanImpl"
+		p:noticeDAO-ref="noticeDAO"
+		p:session-ref="sqlSession"	
+	 />
+	
+	
+	<!-- Service -->
 	<bean id="testService" class="com.rundering.service.TestServiceImpl"
 		p:testDAOBean-ref="testDAOBean">
 	</bean>
 	
-	
+	<bean id="noticeService" class="kr.or.ddit.service.NoticeServiceImpl" 
+		p:noticeDAO-ref="noticeDAOBean"
+	/>
 	
 </beans>
  

@@ -9,20 +9,26 @@ import com.jsp.command.Criteria;
 import com.rundering.dto.NoticeVO;
 
 public interface NoticeDAOBean {
-	List<NoticeVO> selectSearchNoticeList(SqlSession session,Criteria cri) throws SQLException;
 	
-	int selectSearchNoticeListCount(SqlSession session, Criteria cri) throws SQLException;
+	List<NoticeVO> selectSearchNoticeList(Criteria cri) throws SQLException;
 	
-	NoticeVO selectNoticeByNno(SqlSession session, int nno) throws SQLException;
-	NoticeVO selectNoticeByImage(SqlSession session, String imageFile) throws SQLException;
+	int selectSearchNoticeListCount(Criteria cri) throws SQLException;
+	
+	NoticeVO selectNoticeByNno(int nno) throws SQLException;
+	
+	NoticeVO selectNoticeByImage(String imageFile) throws SQLException;
 
-	void increaseViewCount(SqlSession session, int nno) throws SQLException;
+	// viewcnt 증가
+	void increaseViewCount( int nno) throws SQLException;
 	
-	int selectNoticeSequenceNextValue(SqlSession session) throws SQLException;
+	// Notice_seq.nextval 가져오기
+	int selectNoticeSequenceNextValue() throws SQLException;
 	
-	void insertNotice(SqlSession session, NoticeVO Notice) throws SQLException;
+	void insertNotice(NoticeVO Notice) throws SQLException;
 	
-	void updateNotice(SqlSession session, NoticeVO Notice) throws SQLException;
+	void updateNotice( NoticeVO Notice) throws SQLException;
 	
-	void deleteNotice(SqlSession session, int nno) throws SQLException;
+	void deleteNotice(int nno) throws SQLException;
+
+
 }

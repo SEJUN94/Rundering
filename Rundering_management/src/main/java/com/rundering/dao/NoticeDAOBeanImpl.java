@@ -1,7 +1,9 @@
 package com.rundering.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -12,62 +14,77 @@ import com.rundering.dto.NoticeVO;
 public class NoticeDAOBeanImpl implements NoticeDAOBean {
 
 	private SqlSession session;
-	private NoticeDAOBean noticeDAOBean;
 	
 	
 	public void setSession(SqlSession session) {
 		this.session = session;
 	}
 
-	public void setNoticeDAO(NoticeDAOBean noticeDAOBean) {
-		this.noticeDAOBean = noticeDAOBean;
+	@Override
+	public List<NoticeVO> selectSearchNoticeList(Criteria cri) throws SQLException {
+		int startRow=cri.getStartRowNum();
+		int endRow=cri.getPerPageNum();		
+		
+		
+		  Map<String,Object> dataParam = new HashMap<String,Object>();
+		  dataParam.put("startRow", startRow); dataParam.put("endRow", endRow);
+		  dataParam.put("searchType",cri.getSearchType()); dataParam.put("keyword",
+		  cri.getKeyword());
+		
+		
+		List<NoticeVO> noticeList=
+				session.selectList("Notice-Mapper.selectSearchNoticeList",cri);
+		
+		return noticeList;
 	}
 
 	@Override
-	public List<NoticeVO> selectSearchNoticeList(SqlSession session, Criteria cri) throws SQLException {
-		return noticeDAOBean.selectSearchNoticeList(session, cri);
+	public int selectSearchNoticeListCount(Criteria cri) throws SQLException {
+		int count=session.selectOne("Notice-Mapper.selectSearchNoticeListCount",cri);
+		return count;
 	}
 
 	@Override
-	public int selectSearchNoticeListCount(SqlSession session, Criteria cri) throws SQLException {
-		return noticeDAOBean.selectSearchNoticeListCount(session, cri);
+	public NoticeVO selectNoticeByNno(int nno) throws SQLException {
+		NoticeVO notice=session.selectOne("Notice-Mapper.selectNoticeByNno",nno);
+		return notice;
 	}
 
 	@Override
-	public NoticeVO selectNoticeByNno(SqlSession session, int nno) throws SQLException {
-		return noticeDAOBean.selectNoticeByNno(session, nno);
+	public void increaseViewCount(int nno) throws SQLException {
+		session.update("Notice-Mapper.increaseViewCount",nno);
+		
 	}
 
 	@Override
-	public void increaseViewCount(SqlSession session, int nno) throws SQLException {
-		noticeDAOBean.increaseViewCount(session, nno);
+	public int selectNoticeSequenceNextValue() throws SQLException {
+		int seq_num=session.selectOne("Notice-Mapper.selectNoticeSequenceNextValue");
+		return seq_num;
 	}
 
 	@Override
-	public int selectNoticeSequenceNextValue(SqlSession session) throws SQLException {
-		return noticeDAOBean.selectNoticeSequenceNextValue(session);
+	public void insertNotice(NoticeVO notice) throws SQLException {
+		System.out.println("dao:"+notice);
+		session.update("Notice-Mapper.insertNotice",notice);
+		
+	}
+	
+	@Override
+	public void updateNotice(NoticeVO notice) throws SQLException {
+		session.update("Notice-Mapper.updateNotice",notice);
 	}
 
 	@Override
-	public void insertNotice(SqlSession session, NoticeVO Notice) throws SQLException {
-		noticeDAOBean.insertNotice(session, Notice);
+	public void deleteNotice(int nno) throws SQLException {
+		session.update("Notice-Mapper.deleteNotice",nno);
 	}
-
+	
 	@Override
-	public void updateNotice(SqlSession session, NoticeVO Notice) throws SQLException {
-		noticeDAOBean.updateNotice(session, Notice);
-	}
-
-	@Override
-	public void deleteNotice(SqlSession session, int nno) throws SQLException {
-		noticeDAOBean.deleteNotice(session, nno);
-	}
-
-	@Override
-	public NoticeVO selectNoticeByImage(SqlSession session, String imageFile) throws SQLException {
+	public NoticeVO selectNoticeByImage(String imageFile) throws SQLException {
 		NoticeVO notice 
 			= session.selectOne("Notice-Mapper.selectNoticeByImage",imageFile);
 		return notice;
 	}
+
 
 }
