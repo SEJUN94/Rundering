@@ -25,6 +25,7 @@
 </head>
 
 <body>
+
 <img class="bg" src="<%=request.getContextPath()%>/resources/images/rundering_bg.jpg" alt="rundering_bg">
 <div class="login-box">
     <div class="login-logo">

@@ -75,15 +75,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
  				
  				throw new BadCredentialsException("상태변경으로 로그인이 불가합니다.");
  			}else { // 패스워드 불일치
-			
-				 try { 
+ 				
+ 				
+				try { 
 					 memberService.loginFailIncrease(member.getMemberNo()); 
-				 } catch(Exception e) { 
+				} catch(Exception e) { 
 					 e.printStackTrace();
 					 throw new BadCredentialsException("서버 장애로 서비스가 불가합니다."); 
 				}
 				
- 				
+				if(member.getLoginfailCount()>4) throw new BadCredentialsException("5번이상 틀린 아이디 입니다.");
  				throw new BadCredentialsException("패스워드가 일치하지 않습니다.");
  			}
  		}else { // 존재하지 않는 아이디
