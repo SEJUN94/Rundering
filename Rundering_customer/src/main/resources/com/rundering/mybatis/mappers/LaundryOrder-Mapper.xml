@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="LaundryOrder-Mapper">
+
+	<select id="selectLaundryOrderSequenceNextValue" resultType="str">
+		select FN_LAUNDRY_ORDER_NO('now') from DUAL
+	</select>
+
+	<update id="insertLaundryOrder" parameterType="laundryOrder">
+		<choose>
+			<when test="requestDetails != null">
+				INSERT INTO TB_LAUNDRY_ORDER
+					(ORDER_NO,
+					CONTACT_NUMBER,
+					DELIVERY_REQUEST_DATE,
+					PICKUP_REQUEST_DATE,
+					ORDER_STATUS,
+					REQUEST_DETAILS)
+					VALUES (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus},#{requestDetails})
+			</when>
+	
+			<otherwise>
+				INSERT INTO TB_LAUNDRY_ORDER
+					(ORDER_NO,
+					CONTACT_NUMBER,
+					DELIVERY_REQUEST_DATE,
+					PICKUP_REQUEST_DATE,
+					ORDER_STATUS)
+					VALUES (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus})
+			</otherwise>
+		</choose>
+	</update>
+
+</mapper>

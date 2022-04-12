@@ -67,7 +67,7 @@
 				<p class="h4 mt-2 mb-3" style="display: inline-block;">${member.phone}010-1111-1111</p>
 				<button type="button" onclick="form_phone_show()" class="btn btn-outline-secondary btn-sm phoneChenge" style="margin-top: 0.5rem;margin-bottom: 1rem; margin-left: 115px;">변경</button>
 				
-				<input type="phone" class="form-control" id="phone" name="phone" style="display: none;">
+				<input type="tel" class="form-control" id="contactNumber" name="contactNumber" value="${member.phone}010-1111-1111" style="display: none;">
 				
 					<div class="form-group newphone" style="display: none;">
 						<div class="input-group">
@@ -176,12 +176,13 @@
       }else{
     	  
   		  //SMS API활용해야함
-     	  document.querySelector('.verificationCode').style.display = 'block';
+  		  verificationCodeCheck();
       }
   }
   
   function verificationCodeCheck() {
-	  //SMS API활용해야함
+	  	//SMS API활용해야함
+     	document.querySelector('.verificationCode').style.display = 'block';
 	  
   }
 </script>

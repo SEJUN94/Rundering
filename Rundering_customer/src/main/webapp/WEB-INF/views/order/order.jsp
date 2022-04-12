@@ -33,25 +33,26 @@
 
 			<form role="form" class="form-horizontal" action="<%=request.getContextPath() %>/order/comfirm" method="post">
 	
-	
-	
+				<input type="text" name="loginUser" value="${loginUser.memberNo}" style="display: none;">
+				<input type="tel" class="form-control" id="contactNumber" name="contactNumber" value="${command.contactNumber}" style="display: none;">
+				
 				<div class="card-body col-6" style="margin: auto; margin-top: 25px;">
 					
 					<div class="input-group mb-3">
 						<label>수거날짜 입력</label>
 					</div>
 					<div class="">
-						<input type="date" class="form-control"> <span class="sp"></span>
+						<input type="date" class="form-control" name="pickupRequestDate"> <span class="sp"></span>
 					</div>
 					
 					<div class="input-group mb-3" style="margin-top: 20px;">
 						<label>요청사항</label>
 					</div>
 					<div class="input-group mb-3 ">
-						<input type="text" class="form-control" id="" placeholder="ex) 공동현관 비밀번호 #12345*">
+						<input type="text" class="form-control" name="requestDetails" placeholder="ex) 공동현관 비밀번호 #12345*">
 					</div>
 					
-					<button type="submit" style="margin-top: 20px;" class="btn btn-primary btn-block" onclick="location.href='<%=request.getContextPath()%>/order/comfirm.do'">주문하기</button>
+					<button type="submit" style="margin-top: 20px;" class="btn btn-primary btn-block" >주문하기</button>
 				</div>
 				
 				
