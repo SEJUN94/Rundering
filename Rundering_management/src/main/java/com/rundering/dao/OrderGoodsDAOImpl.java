@@ -17,7 +17,7 @@ public class OrderGoodsDAOImpl implements OrderGoodsDAO{
 	}
 	
 	@Override
-	public List<ArticlesLaundryVO> orderGoods(SqlSession session,Criteria cri) throws SQLException {
+	public List<ArticlesLaundryVO> orderGoods(Criteria cri) throws SQLException {
 		
 		int offset=cri.getStartRowNum();
 		int limit=cri.getPerPageNum();		
@@ -30,13 +30,13 @@ public class OrderGoodsDAOImpl implements OrderGoodsDAO{
 	}
 
 	@Override
-	public int selectOrderGoodsCriteriaTotalCount(SqlSession session, Criteria cri) throws SQLException {
+	public int selectOrderGoodsCriteriaTotalCount(Criteria cri) throws SQLException {
 		int count=session.selectOne("OrderGoods-Mapper.selectSearchOrderGoodsListCount",cri);
 		return count;
 	}
 	
 	@Override
-	public ArticlesLaundryVO selectOrderGoodsBylndrwaterqlyCode(SqlSession session, String lndrwaterqlyCode)
+	public ArticlesLaundryVO selectOrderGoodsBylndrwaterqlyCode(String lndrwaterqlyCode)
 			throws SQLException {
 		ArticlesLaundryVO ordergoods=
 				session.selectOne("OrderGoods-mapper.orderGoodsList",lndrwaterqlyCode);
@@ -44,17 +44,17 @@ public class OrderGoodsDAOImpl implements OrderGoodsDAO{
 	}
 
 	@Override
-	public void insertOrderGoods(SqlSession session, ArticlesLaundryVO ordergoods) throws SQLException {
+	public void insertOrderGoods(ArticlesLaundryVO ordergoods) throws SQLException {
 		session.update("OrderGoods-mapper.insertOrderGoods",ordergoods);
 	}
 
 	@Override
-	public void updateOrderGoods(SqlSession session, ArticlesLaundryVO ordergoods) throws SQLException {
+	public void updateOrderGoods(ArticlesLaundryVO ordergoods) throws SQLException {
 		session.update("OrderGoods-mapper.updateOrderGoods",ordergoods);
 	}
 
 	@Override
-	public void deleteOrderGoods(SqlSession session, String lndrwaterqlyCode) throws SQLException {
+	public void deleteOrderGoods(String lndrwaterqlyCode) throws SQLException {
 		session.update("OrderGoods-mapper.deleteOrderGoods",lndrwaterqlyCode);
 	}
 

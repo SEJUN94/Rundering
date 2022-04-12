@@ -33,10 +33,10 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
 		try {
 			Map<String, Object> dataMap = new HashMap<String, Object>();
 
-			List<ArticlesLaundryVO> orderGoodsList = orderGoodsDAO.orderGoods(session, cri);
+			List<ArticlesLaundryVO> orderGoodsList = orderGoodsDAO.orderGoods(cri);
 
 			// 전체 board 개수
-			int totalCount = orderGoodsDAO.selectOrderGoodsCriteriaTotalCount(session, cri);
+			int totalCount = orderGoodsDAO.selectOrderGoodsCriteriaTotalCount(cri);
 			// PageMaker 생성.
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
@@ -55,7 +55,7 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
 	public ArticlesLaundryVO getOrderGoods(String lndrwaterqlyCode) throws SQLException {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			ArticlesLaundryVO ordergoods = orderGoodsDAO.selectOrderGoodsBylndrwaterqlyCode(session, lndrwaterqlyCode);
+			ArticlesLaundryVO ordergoods = orderGoodsDAO.selectOrderGoodsBylndrwaterqlyCode(lndrwaterqlyCode);
 			return ordergoods;
 		} finally {
 			session.close();
@@ -66,7 +66,7 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
 	public void regist(ArticlesLaundryVO ordergoods) throws SQLException {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			orderGoodsDAO.insertOrderGoods(session, ordergoods);
+			orderGoodsDAO.insertOrderGoods(ordergoods);
 		} finally {
 			session.close();
 		}
@@ -77,7 +77,7 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
 	public void modify(ArticlesLaundryVO ordergoods) throws SQLException {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			orderGoodsDAO.updateOrderGoods(session, ordergoods);
+			orderGoodsDAO.updateOrderGoods(ordergoods);
 		} finally {
 			session.close();
 		}
@@ -87,7 +87,7 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
 	public void remove(String lndrwaterqlyCode) throws SQLException {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			orderGoodsDAO.deleteOrderGoods(session, lndrwaterqlyCode);
+			orderGoodsDAO.deleteOrderGoods(lndrwaterqlyCode);
 		} finally {
 			session.close();
 		}
