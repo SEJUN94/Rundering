@@ -14,7 +14,8 @@ public class MemberVO {
 	private int enableWhether;
 	private String withDrawal;
     private Date lastLogpsnHourLiver;
-    
+    private int loginfailCount;
+
     
 	public MemberVO(String memberNo, String id, String password, String name, String phone, String email,
 			Date registDate, Date modifyDate, int enableWhether, String withDrawal, Date lastLogpsnHourLiver) {
@@ -98,4 +99,13 @@ public class MemberVO {
 	public void setLastLogpsnHourLiver(Date lastLogpsnHourLiver) {
 		this.lastLogpsnHourLiver = lastLogpsnHourLiver;
 	}
+
+	public int getLoginfailCount() {
+		return loginfailCount;
+	}
+
+	public void setLoginfailCount(int loginfailCount) {
+		this.loginfailCount = loginfailCount;
+	}
+	
 }
