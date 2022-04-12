@@ -39,8 +39,8 @@
 		where id=#{id}
 	</update>
 
-	<select id="checkId" resultType="str" parameterType="str">
-		SELECT ID
+	<select id="checkId" resultType="member" parameterType="str">
+		SELECT id
 		FROM TB_MEMBER
 		WHERE ID =#{id}
 	</select>

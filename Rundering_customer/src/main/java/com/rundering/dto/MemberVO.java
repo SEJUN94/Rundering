@@ -33,6 +33,13 @@ public class MemberVO {
 		this.lastLogpsnHourLiver = lastLogpsnHourLiver;
 	}
 	
+	
+	public MemberVO(String id) {
+		super();
+		this.id = id;
+	}
+
+
 	public String getMemberNo() {
 		return memberNo;
 	}

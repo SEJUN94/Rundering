@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.dto.MemberVO;
 
-public class MemberDAOBeanImpl implements MemberDAOBean{
+public class MemberDAOImpl implements MemberDAO{
 	SqlSession session;
 
 	
@@ -29,7 +29,7 @@ public class MemberDAOBeanImpl implements MemberDAOBean{
 	//ID중복체크
 	@Override
 	public MemberVO checkId(String id) throws Exception {
-		MemberVO member= session.selectOne("Member-Mapper.checkId", id);
+		MemberVO member = session.selectOne("Member-Mapper.checkId", id);
 		return member;
 	}
 	

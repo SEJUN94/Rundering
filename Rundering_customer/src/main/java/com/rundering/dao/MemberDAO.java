@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.rundering.dto.MemberVO;
 
-public interface MemberDAOBean {
+public interface MemberDAO {
 
 	public MemberVO selectMemberById(String id) throws Exception;
 
