@@ -38,7 +38,7 @@
     <div class="card">
         <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>
-            <form action="<%=request.getContextPath() %>/common/login.do" method="post">
+            <form action="<%=request.getContextPath() %>/login" method="post">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="아이디입력" name="id">
                     <div class="input-group-append">

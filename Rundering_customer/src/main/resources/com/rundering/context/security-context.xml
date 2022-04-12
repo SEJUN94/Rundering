@@ -35,15 +35,15 @@
 		<intercept-url pattern="/**" access="permitAll"/>
 		
 		
-		<form-login login-page="/common/loginForm.do?error=1"
-					login-processing-url="/common/login.do"
+		<form-login login-page="/login/form?error=1"
+					login-processing-url="/login"
 					username-parameter="id"
 					password-parameter="password"
 					authentication-success-handler-ref="loginSuccessHandler"
 					authentication-failure-handler-ref="loginFailureHandler"
 					/>
-		<logout logout-url="/common/logout.do"	
-				logout-success-url="/"
+		<logout logout-url="/logout"	
+				logout-success-url="/home"
 				invalidate-session="true"
 				delete-cookies="JSESSIONID"
 				/>	

@@ -35,9 +35,10 @@
     <div class="card">
         <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>
-            <form action="<%=request.getContextPath() %>/common/login.do" method="post">
+            <form action="<%=request.getContextPath() %>/login" method="post" id="formLogin">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="아이디입력" name="id">
+                    <input type="text" class="form-control" placeholder="아이디입력"  id="id">
+                    <input type="hidden" id="hiddenId" name="id">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -63,7 +64,7 @@
                     </div> 
                     
                     <div class="col-4">
-                        <button id="loginButton" type="submit" class="btn btn-primary btn-block" disabled="disabled">로그인</button>
+                        <button id="loginButton" type="button" class="btn btn-primary btn-block" onclick="login_go()">로그인</button>
                     </div>
                     
                 </div>
@@ -96,8 +97,23 @@
 			</div>
 	</div>
 </div>
+<script>
+let login_flag=false;
+
+function login_go() {
+	if(login_flag==false){
+		alert('그림을 제대로 입력하고 확인하세요.');
+		return;
+	}
+	let idValue=document.querySelector('#id').value
+	document.querySelector('#hiddenId').value=idValue+":==:true";
+	document.querySelector('#formLogin').submit();
+}
+
+</script>
 
 <script>
+
 
 window.onload = function(){ 
 	getImage();
@@ -111,9 +127,10 @@ window.onload = function(){
 				  'answer':params
 			  },
 			  success:function(returnData){
-				if(returnData == 200){ 
-					document.querySelector('#loginButton').disabled=false;
+				if(returnData == 200){
+					
 					alert('입력값이 일치합니다.');
+					login_flag=true;
 					document.querySelector('#captcha').innerHTML="";
 				}else{ 
 					alert('입력값이 일치하지 않습니다.');

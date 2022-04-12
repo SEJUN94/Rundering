@@ -25,5 +25,9 @@ public class MemberServiceImpl implements MemberService{
 	public void loginFailIncrease(String memberNo) throws Exception{
 		memberDAOBean.updateLoginfailCountByMemberNo(memberNo);
 	}
+	@Override 
+	public void setLoginFailZero(String memberNo) throws Exception{
+		memberDAOBean.updateLoginfailZeroByMemberNo(memberNo);
+	}
 	
 }

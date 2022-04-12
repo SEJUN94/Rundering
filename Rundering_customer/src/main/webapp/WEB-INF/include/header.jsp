@@ -12,7 +12,8 @@
 
 		<div class="sub-menu">
 			<ul class="menu">
-				<li><a href="<%=request.getContextPath()%>/login.do">Sign In</a></li>
+				<li><a href="<%=request.getContextPath()%>/login/form">Sign In</a></li>
+				<li><a href="<%=request.getContextPath()%>/logout">logout</a></li>
 				<li><a href="<%=request.getContextPath()%>/3agree.do">Sign Up</a></li>
 			</ul>
 			<div class="search">
