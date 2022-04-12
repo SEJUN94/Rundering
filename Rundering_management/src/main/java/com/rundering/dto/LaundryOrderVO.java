@@ -3,108 +3,110 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class LaundryOrderVO {
-    private String orderno;  //주문번호
-	private String requstmatter;  //요청사항
-	private Date weekdoordehour;   //주문일시
-	private String dlvycontactoffic;  //배송연락처
-	private Date dlvyrequstde;     //배송요청일
-	private int weekdoortotpc;  //주문총가격
-	private Date tkawyrequstde; //수거요청일
-	private Date deliveryRealtkawyde;  //실제수거날짜
-	private Date deliveryPaprpointarvlde; //지점도착날짜
-	private String paprstatnclcode; //지역분류코드
-	private Date dlvycomptonman;  //배송완료일자
-	private String weekdoorsttuscode; //주문상태코드
-	private String cancelWhater; //취소여부
-	private int weeksmallno; //주소번호
-	private int paymentno;  //결제번호
-	private String branchCode;  //지점코드
-	private String memberno; //회원고유번호
-	private String dlvychrgarticl;  //배송담당기사
-	private String tkawychrgarticl; //수거담당기사
-	public String getOrderno() {
-		return orderno;
+   
+	private String orderNo;             //주문번호
+	private String requestDetails;      //요청사항
+	private Date orderDate;             //주문일시
+	private String contactNumber;       //배송연락처
+	private Date deliveryRequestDate;   //배송요청일
+	private int totalPrice;             //주문총가격
+	private Date pickupRequestDate;     //수거요청일
+	private Date pickupDate;            //실제수거날짜
+	private Date branchArrivalDate;     //지점도착날짜
+	private String area;                //지역분류코드
+	private Date deliveryDate;          //배송완료일자
+	private String odrerStatus;         //주문상태코드
+	private String cancelYn;            //취소여부
+	private int addressNo;              //주소번호
+	private int paymentno;              //결제번호
+	private String branchCode;          //지점코드
+	private String memberno;            //회원고유번호
+	private String deliveryEmployeeId;  //배송담당기사
+	private String pickupEmployeeId;    //수거담당기사
+	
+	public String getOrderNo() {
+		return orderNo;
 	}
-	public void setOrderno(String orderno) {
-		this.orderno = orderno;
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
-	public String getRequstmatter() {
-		return requstmatter;
+	public String getRequestDetails() {
+		return requestDetails;
 	}
-	public void setRequstmatter(String requstmatter) {
-		this.requstmatter = requstmatter;
+	public void setRequestDetails(String requestDetails) {
+		this.requestDetails = requestDetails;
 	}
-	public Date getWeekdoordehour() {
-		return weekdoordehour;
+	public Date getOrderDate() {
+		return orderDate;
 	}
-	public void setWeekdoordehour(Date weekdoordehour) {
-		this.weekdoordehour = weekdoordehour;
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
 	}
-	public String getDlvycontactoffic() {
-		return dlvycontactoffic;
+	public String getContactNumber() {
+		return contactNumber;
 	}
-	public void setDlvycontactoffic(String dlvycontactoffic) {
-		this.dlvycontactoffic = dlvycontactoffic;
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
 	}
-	public Date getDlvyrequstde() {
-		return dlvyrequstde;
+	public Date getDeliveryRequestDate() {
+		return deliveryRequestDate;
 	}
-	public void setDlvyrequstde(Date dlvyrequstde) {
-		this.dlvyrequstde = dlvyrequstde;
+	public void setDeliveryRequestDate(Date deliveryRequestDate) {
+		this.deliveryRequestDate = deliveryRequestDate;
 	}
-	public int getWeekdoortotpc() {
-		return weekdoortotpc;
+	public int getTotalPrice() {
+		return totalPrice;
 	}
-	public void setWeekdoortotpc(int weekdoortotpc) {
-		this.weekdoortotpc = weekdoortotpc;
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
-	public Date getTkawyrequstde() {
-		return tkawyrequstde;
+	public Date getPickupRequestDate() {
+		return pickupRequestDate;
 	}
-	public void setTkawyrequstde(Date tkawyrequstde) {
-		this.tkawyrequstde = tkawyrequstde;
+	public void setPickupRequestDate(Date pickupRequestDate) {
+		this.pickupRequestDate = pickupRequestDate;
 	}
-	public Date getDeliveryRealtkawyde() {
-		return deliveryRealtkawyde;
+	public Date getPickupDate() {
+		return pickupDate;
 	}
-	public void setDeliveryRealtkawyde(Date deliveryRealtkawyde) {
-		this.deliveryRealtkawyde = deliveryRealtkawyde;
+	public void setPickupDate(Date pickupDate) {
+		this.pickupDate = pickupDate;
 	}
-	public Date getDeliveryPaprpointarvlde() {
-		return deliveryPaprpointarvlde;
+	public Date getBranchArrivalDate() {
+		return branchArrivalDate;
 	}
-	public void setDeliveryPaprpointarvlde(Date deliveryPaprpointarvlde) {
-		this.deliveryPaprpointarvlde = deliveryPaprpointarvlde;
+	public void setBranchArrivalDate(Date branchArrivalDate) {
+		this.branchArrivalDate = branchArrivalDate;
 	}
-	public String getPaprstatnclcode() {
-		return paprstatnclcode;
+	public String getArea() {
+		return area;
 	}
-	public void setPaprstatnclcode(String paprstatnclcode) {
-		this.paprstatnclcode = paprstatnclcode;
+	public void setArea(String area) {
+		this.area = area;
 	}
-	public Date getDlvycomptonman() {
-		return dlvycomptonman;
+	public Date getDeliveryDate() {
+		return deliveryDate;
 	}
-	public void setDlvycomptonman(Date dlvycomptonman) {
-		this.dlvycomptonman = dlvycomptonman;
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
 	}
-	public String getWeekdoorsttuscode() {
-		return weekdoorsttuscode;
+	public String getOdrerStatus() {
+		return odrerStatus;
 	}
-	public void setWeekdoorsttuscode(String weekdoorsttuscode) {
-		this.weekdoorsttuscode = weekdoorsttuscode;
+	public void setOdrerStatus(String odrerStatus) {
+		this.odrerStatus = odrerStatus;
 	}
-	public String getCancelWhater() {
-		return cancelWhater;
+	public String getCancelYn() {
+		return cancelYn;
 	}
-	public void setCancelWhater(String cancelWhater) {
-		this.cancelWhater = cancelWhater;
+	public void setCancelYn(String cancelYn) {
+		this.cancelYn = cancelYn;
 	}
-	public int getWeeksmallno() {
-		return weeksmallno;
+	public int getAddressNo() {
+		return addressNo;
 	}
-	public void setWeeksmallno(int weeksmallno) {
-		this.weeksmallno = weeksmallno;
+	public void setAddressNo(int addressNo) {
+		this.addressNo = addressNo;
 	}
 	public int getPaymentno() {
 		return paymentno;
@@ -124,18 +126,19 @@ public class LaundryOrderVO {
 	public void setMemberno(String memberno) {
 		this.memberno = memberno;
 	}
-	public String getDlvychrgarticl() {
-		return dlvychrgarticl;
+	public String getDeliveryEmployeeId() {
+		return deliveryEmployeeId;
 	}
-	public void setDlvychrgarticl(String dlvychrgarticl) {
-		this.dlvychrgarticl = dlvychrgarticl;
+	public void setDeliveryEmployeeId(String deliveryEmployeeId) {
+		this.deliveryEmployeeId = deliveryEmployeeId;
 	}
-	public String getTkawychrgarticl() {
-		return tkawychrgarticl;
+	public String getPickupEmployeeId() {
+		return pickupEmployeeId;
 	}
-	public void setTkawychrgarticl(String tkawychrgarticl) {
-		this.tkawychrgarticl = tkawychrgarticl;
+	public void setPickupEmployeeId(String pickupEmployeeId) {
+		this.pickupEmployeeId = pickupEmployeeId;
 	}
+	
 	
 	
 }

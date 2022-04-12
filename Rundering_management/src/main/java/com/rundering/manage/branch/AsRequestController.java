@@ -9,12 +9,13 @@ public class AsRequestController {
 	
 
 	@RequestMapping(value = "/list")
-	private void list() {
-
+	private String list() {
+		String url = "branch/asrequest/asrequest_list";
+		return url;
 	}
 	@RequestMapping(value = "/regist/form.do")
 	private String detail() {
-		String url = "branch/asrequest/regist";
+		String url = "branch/asrequest/asrequest_regist";
 		return url;
 	}
 	
