@@ -11,6 +11,17 @@ public class LaundryArticlesVO {
 	private Date modifyDate;       //수정일
 	private String deleteKey;      //삭제키
 	
+	public LaundryArticlesVO(String articlesCode, String articlesName, int price, String clcode, Date registDate,
+			Date modifyDate, String deleteKey) {
+		this.articlesCode = articlesCode;
+		this.articlesName = articlesName;
+		this.price = price;
+		this.clcode = clcode;
+		this.registDate = registDate;
+		this.modifyDate = modifyDate;
+		this.deleteKey = deleteKey;
+	}
+	
 	public String getArticlesCode() {
 		return articlesCode;
 	}

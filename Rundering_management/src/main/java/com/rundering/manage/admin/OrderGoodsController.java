@@ -46,8 +46,6 @@ public class OrderGoodsController {
 						 RedirectAttributes rttr)throws Exception{
 		String url="redirect:/admin/ordergoods/list";	
 		
-		ordergoods.setArticlesName((String)request.getAttribute("XSSname"));
-		
 		orderGoodsService.regist(ordergoods);
 		
 		rttr.addFlashAttribute("from","regist");
@@ -55,15 +53,6 @@ public class OrderGoodsController {
 		return url;
 	}
 
-	@RequestMapping("/ordergoods/modifyForm")
-	public ModelAndView modifyForm(String lndrwaterqlyCode,ModelAndView mnv)throws SQLException{
-		String url="board/modify";
-		
-		mnv.setViewName(url);
-		
-		return mnv;
-	}
-	
 	@RequestMapping(value="/ordergoods/modify", method=RequestMethod.POST)
 	public String modifyPost(LaundryArticlesVO ordergoods,HttpServletRequest request, //BoardModifyCommand modifyReq,
 							 RedirectAttributes rttr) throws Exception{

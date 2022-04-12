@@ -23,22 +23,23 @@
 				</ul>
 			</div>
 		</div>
-
 		<div class="card-body p-0">
-			<table class="table">
+			<table class="table" >
 				<thead style="text-align: center;">
 					<tr>
-						<th style="width: 150px">물품 번호</th>
+						<th style="width: 70px">물품코드</th>
 						<th style="width: 100px;">상품명</th>
-						<th style="width: 250px">원가</th>
+						<th style="width: 70px;">단가</th>
 						<th style="width: 100px">등록일</th>
 						<th style="width: 100px">수정일</th>
-					</tr>
+						<th style="width: 70px">수정</th>
+						<th style="width: 70px">삭제</th>
+ 					</tr>
 				</thead>
-				<tbody>
+				<tbody style="text-align:center;">
 					<c:if test="${empty orderGoodsList }" >
 						<tr>
-							<td colspan="5">
+							<td colspan="5" style="text-align:center;">
 								<strong>물품이 없습니다.</strong>
 							</td>
 						</tr>
@@ -48,19 +49,23 @@
 							<td>${orderGoods.articlesCode }</td>
 							<td>${orderGoods.articlesName }</td>
 							<td style="text-align:center;">
-									${orderGoods.price }							
+								${orderGoods.price }							
 							</td>
 							<td>
 								<fmt:formatDate value="${orderGoods.registDate }" pattern="yyyy-MM-dd"/>
 							</td>
-							<td><span class="badge bg-red">${orderGoods.modifyDate }</span></td>
+							<td>
+								<fmt:formatDate value="${orderGoods.modifyDate }" pattern="yyyy-MM-dd"/>
+							</td>
+							<td><button class="btn btn-warning btn-sm">수정</button></td>
+							<td><button class="btn btn-danger btn-sm">삭제</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 			<div class="card-footer clearfix">
 				<button type="button" class="btn btn-primary btn-sm float-right"
-					onclick="window.open('/runderingmanage/admin/ordergoods/regist', '팝업창 이름', 'width=700, height=700')">
+					onclick="window.open('/runderingmanage/admin/ordergoods/registForm', '팝업창 이름', 'width=700, height=700')">
 					<i class="fas fa-plus"></i> Add item
 				</button>
 				<!-- <button type="button" class="btn btn-primary float-right" onclick="regist_go('asdf')"><i class="fas fa-plus"></i> Add item</button> -->
