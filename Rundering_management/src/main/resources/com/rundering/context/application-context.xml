@@ -14,9 +14,14 @@
 	<bean id="noticeDAO" class="com.jsp.dao.NoticeDAOImpl" />
 
 	<bean id="testDAOBean" class="com.rundering.dao.TestDAO"
-		p:session-ref="sqlSession">
-	</bean> 
-	<bean id="memberDAOBean" class="com.rundering.dao.MemberDAOBeanImpl"></bean>
+		p:session-ref="sqlSession"/>
+	<bean id="memberDAOBean" class="com.rundering.dao.MemberDAOBeanImpl"
+		p:session-ref="sqlSession"/>
+	<bean id="menuDAOBean" class="com.rundering.dao.MenuDAOBeanImpl"
+		p:session-ref="sqlSession"
+	/>
+	
+	
 	
 	<bean id="noticeDAOBean" class="kr.or.ddit.dao.NoticeDAOBeanImpl"
 		p:noticeDAO-ref="noticeDAO"
@@ -26,12 +31,15 @@
 	
 	<!-- Service -->
 	<bean id="testService" class="com.rundering.service.TestServiceImpl"
-		p:testDAOBean-ref="testDAOBean">
-	</bean>
+		p:testDAOBean-ref="testDAOBean"/>
 	
 	<bean id="noticeService" class="kr.or.ddit.service.NoticeServiceImpl" 
 		p:noticeDAO-ref="noticeDAOBean"
 	/>
+	<bean id="menuService" class="com.rundering.service.MenuServiceImpl"
+		p:menuDAOBean-ref="menuDAOBean"
+	/>	
+	
 	
 </beans>
  
