@@ -63,7 +63,6 @@
 				<input type="password" id="pw1" class="col-lg-4 form-control pass" placeholder="패스워드 입력" name="password"> 
 				<span class="sp"></span>
 			</div>
-				<span class="sp"></span>
 			<div class="input-group mb-3 form-group">
 				<input type="password" id="pw2" class="col-lg-4 form-control pass" placeholder="패스워드 재입력"> 
 				<span class="sp"></span>
@@ -97,17 +96,16 @@
 					style="color: red; font-weight: bold;">*</span>주소</label>
 			</div>
 			<div class="input-group mb-3 form-group">
-				<input type="text" class="col-lg-6 form-control" id="zip" name="zip"	placeholder="우편번호 버튼 Click">
+				<input type="text" class="col-lg-6 form-control" id="zip" 	placeholder="우편번호 버튼 Click">
 				<div class="input-group-append">
 					<button type="button" id="modalBtn" class="btn btn-info btn-sm"	onclick="findZip();">우편검색</button>
 				</div>
 			</div>
 			<div class="input-group mb-3 form-group">
-				<input type="text" class="form-control" id="add1" name="add2" placeholder="기본주소">
+				<input type="text" class="form-control" id="add1" placeholder="기본주소">
 			</div>
 			<div class="input-group mb-3 form-group">
-				<input type="text" class="form-control" id="add2" name="add2"
-					placeholder="상세주소">
+				<input type="text" class="form-control" id="add2" placeholder="상세주소">
 			</div>
 			<div class="row">
 				<div class="col-8">
