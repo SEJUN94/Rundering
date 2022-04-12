@@ -9,6 +9,8 @@ public class MemberController {
 
 	
 	@RequestMapping("/list")
-	private void list() {
+	private String list() {
+		String url="branch/member/member_list";
+		return url;
 	}
 }
