@@ -64,7 +64,7 @@
 			
 				
 				<label for="phone" style="display: block;">연락처</label>
-				<p class="h4 mt-2 mb-3" style="display: inline-block;">${member.phone}010-1111-1111</p>
+				<p class="h4 mt-2 mb-3 showPhone" style="display: inline-block;">${member.phone}010-1111-1111</p>
 				<button type="button" onclick="form_phone_show()" class="btn btn-outline-secondary btn-sm phoneChenge" style="margin-top: 0.5rem;margin-bottom: 1rem; margin-left: 115px;">변경</button>
 				
 				<input type="tel" class="form-control" id="contactNumber" name="contactNumber" value="${member.phone}010-1111-1111" style="display: none;">
@@ -174,17 +174,53 @@
 		      title: '휴대폰번호를 다시 확인해주세요.'
 		    });
       }else{
-    	  
+    	  document.querySelector('.verificationCode').style.display = 'block';  
   		  //SMS API활용해야함
-  		  verificationCodeCheck();
       }
   }
   
   function verificationCodeCheck() {
 	  	//SMS API활용해야함
-     	document.querySelector('.verificationCode').style.display = 'block';
-	  
+	  	
+     	let tel = document.querySelector('.newphone input');
+     	let contactNumber = document.querySelector('#contactNumber');
+     	
+     	contactNumber.value = tel.value;
+     	
+     	let showPhone = document.querySelector('.showPhone');
+     	showPhone.innerText = phoneFomatter(tel.value);
   }
+  
+  function phoneFomatter(num,type){
+	    let formatNum = '';
+
+	    if(num.length==11){
+	        if(type==0){
+	            formatNum = num.replace(/(\d{3})(\d{4})(\d{4})/, '$1-****-$3');
+	        }else{
+	            formatNum = num.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+	        }
+	    }else if(num.length==8){
+	        formatNum = num.replace(/(\d{4})(\d{4})/, '$1-$2');
+	    }else{
+	        if(num.indexOf('02')==0){
+	            if(type==0){
+	                formatNum = num.replace(/(\d{2})(\d{4})(\d{4})/, '$1-****-$3');
+	            }else{
+	                formatNum = num.replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3');
+	            }
+	        }else{
+	            if(type==0){
+	                formatNum = num.replace(/(\d{3})(\d{3})(\d{4})/, '$1-***-$3');
+	            }else{
+	                formatNum = num.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+	            }
+	        }
+	    }
+	    return formatNum;
+	}
+
+
 </script>
 
 </body>
