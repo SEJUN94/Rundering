@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OrderGoods-Mapper">
+	<select id="orderGoodsList" resultType="orderGoods" parameterType="str">
+		select *
+		  from TB_LAUNDRY_ARTICLES
+	</select>
+
+	<select id="selectSearchOrderGoodsList"	resultType="orderGoods">
+		select
+		*
+		from
+		TB_LAUNDRY_ARTICLES
+		where ARTICLES_CODE is not null  	
+		order by REGIST_DATE desc
+	</select>
+	
+	<select id="selectSearchOrderGoodsListCount" resultType="int">
+		select
+		count(*)
+		from
+		TB_LAUNDRY_ARTICLES
+		where ARTICLES_CODE is not null  	
+		order by REGIST_DATE desc
+	</select>
+	
+	<select id="selectOrderGoodsByBno"  resultType="orderGoods">
+		select * 
+		from TB_LAUNDRY_ARTICLES
+		where ARTICLES_CODE=#{lndrwaterqlyCode}
+	</select>
+	
+	<update id="insertOrderGoods" parameterType="orderGoods">
+		insert 
+		into 
+		TB_LAUNDRY_ARTICLES(ARTICLES_CODE,ARTICLES_NAME,PRICE,CLCODE,REGIST_DATE)
+		values
+		(#{lndrwaterqlyCode},#{productName},#{price},#{clCode}, SYSDATE)
+	</update>
+	
+	<update id="updateOrderGoods" parameterType="orderGoods">
+		update 
+		TB_LAUNDRY_ARTICLES 
+		set 
+		ARTICLES_CODE=#{lndrwaterqlyCode}, PRODUCT_NAME=#{productName}, PRICE=#{price}, CLCODE=#{clCode}, MODIFY_DATE=sysdate 
+		where ARTICLES_CODE=#{lndrwaterqlyCode}
+	</update>
+	
+	<update id="deleteOrderGoods" parameterType="str">
+		update
+		TB_LAUNDRY_ARTICLES
+		set
+		deleteKey=0;
+		where ARTICLES_CODE=#{lndrwaterqlyCode}
+	</update>
+
+</mapper>

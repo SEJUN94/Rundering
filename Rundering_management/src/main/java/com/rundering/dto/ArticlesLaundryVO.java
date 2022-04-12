@@ -3,13 +3,14 @@ package com.rundering.dto;
 import java.sql.Date;
 
 public class ArticlesLaundryVO {
-	private String lndrwaterqlyCode;   //세탁물품코드
-	private String productName;       //상품명
-	private String price;              //상품가격
-	private String clCode;             //분류코드
-	private Date registDate;          //등록일
-	private Date modifyDate;          //수정일
-	private String deleteKey;       //삭제키
+	private String lndrwaterqlyCode; //세탁물품코드
+	private String productName; //상품명
+	private String price;  //상품가격
+	private String clCode;   //분류코드
+	private Date registDate;  //등록일
+	private Date modifyDate; //수정일
+	private String deleteKey;  //삭제키
+	
 	public String getLndrwaterqlyCode() {
 		return lndrwaterqlyCode;
 	}

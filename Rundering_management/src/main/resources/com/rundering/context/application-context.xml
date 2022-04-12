@@ -16,24 +16,17 @@
 	<bean id="memberDAOBean" class="com.rundering.dao.MemberDAOBeanImpl"
 		p:session-ref="sqlSession"/>
 	<bean id="menuDAOBean" class="com.rundering.dao.MenuDAOBeanImpl"
-		p:session-ref="sqlSession"
-	/>
+		p:session-ref="sqlSession"/>
+	<bean id="orderGoodsDAO" class="com.rundering.dao.OrderGoodsDAOImpl"
+		p:session-ref="sqlSession" />
 	
 	
 	<bean id="testService" class="com.rundering.service.TestServiceImpl"
 		p:testDAOBean-ref="testDAOBean"/>
 	<bean id="menuService" class="com.rundering.service.MenuServiceImpl"
-		p:menuDAOBean-ref="menuDAOBean"
-	/>	
-	<bean id="orderGoodsDAO" class="com.rundering.dao.OrderGoodsDAOImpl"
-		p:session-ref="sqlSession">
-	</bean> 
-	
-	
+		p:menuDAOBean-ref="menuDAOBean"/>	
 	<bean id="orderGoodsService" class="com.rundering.service.OrderGoodsServiceImpl"
-		p:orderGoodsDAO-ref="orderGoodsDAO">
-	</bean>
-	
+		p:orderGoodsDAO-ref="orderGoodsDAO" />
 	
 	
 </beans>

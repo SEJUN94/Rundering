@@ -19,15 +19,14 @@ import com.rundering.service.OrderGoodsService;
 @Controller
 @RequestMapping("/admin")
 public class OrderGoodsController {
-	
 	@Resource(name="orderGoodsService")
-	private OrderGoodsService service;
+	private OrderGoodsService orderGoodsService;
 	
 	@RequestMapping("/ordergoods/list")
 	public ModelAndView OrderGoodsList(Criteria cri, ModelAndView mnv) throws SQLException {
 		String url ="admin/ordergoods/ordergoods_list";
 		
-		Map<String, Object> dataMap = service.getOrderGoods(cri);
+		Map<String, Object> dataMap = orderGoodsService.getOrderGoods(cri);
 		
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
@@ -49,27 +48,14 @@ public class OrderGoodsController {
 		
 		ordergoods.setProductName((String)request.getAttribute("XSSname"));
 		
-		service.regist(ordergoods);
+		orderGoodsService.regist(ordergoods);
 		
 		rttr.addFlashAttribute("from","regist");
 		
 		return url;
 	}
-	@RequestMapping("/detail")
-	public ModelAndView detail(String lndrwaterqlyCode,String from, ModelAndView mnv )throws SQLException{
-		String url="board/detail";		
-		
-		ArticlesLaundryVO ordergoods =null;
-		ordergoods=service.getOrderGoods(lndrwaterqlyCode);
-		url="redirect:/admin/ordergoods/detail?lndrwaterqlyCode="+lndrwaterqlyCode;
-					
-		mnv.addObject("ordergoods",ordergoods);		
-		mnv.setViewName(url);
-		
-		return mnv;
-	}
-	
-	@RequestMapping("/modifyForm")
+
+	@RequestMapping("/ordergoods/modifyForm")
 	public ModelAndView modifyForm(String lndrwaterqlyCode,ModelAndView mnv)throws SQLException{
 		String url="board/modify";
 		
@@ -78,7 +64,7 @@ public class OrderGoodsController {
 		return mnv;
 	}
 	
-	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	@RequestMapping(value="/ordergoods/modify", method=RequestMethod.POST)
 	public String modifyPost(ArticlesLaundryVO ordergoods,HttpServletRequest request, //BoardModifyCommand modifyReq,
 							 RedirectAttributes rttr) throws Exception{
 		
@@ -86,7 +72,7 @@ public class OrderGoodsController {
 		
 		ordergoods.setProductName((String)request.getAttribute("XSSname"));
 				
-		service.modify(ordergoods);
+		orderGoodsService.modify(ordergoods);
 		
 		rttr.addFlashAttribute("from","modify");
 		rttr.addAttribute("lndrwaterqlyCode",ordergoods.getLndrwaterqlyCode());
@@ -98,7 +84,7 @@ public class OrderGoodsController {
 	@RequestMapping(value="/remove",method=RequestMethod.POST)
 	public String remove(String lndrwaterqlyCode,RedirectAttributes rttr) throws Exception{
 		String url = "redirect:/admin/ordergoods/detail";
-		service.remove(lndrwaterqlyCode);		
+		orderGoodsService.remove(lndrwaterqlyCode);		
 		
 		rttr.addAttribute("lndrwaterqlyCode",lndrwaterqlyCode);
 		rttr.addFlashAttribute("from","remove");
