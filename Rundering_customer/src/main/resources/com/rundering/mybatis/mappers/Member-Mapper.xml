@@ -13,6 +13,11 @@
 		  from TB_USER_AUTH
 		 where memberno=#{memberNo} 
 	</select>
+	<update id="updateLoginfailCountByMemberNo" parameterType="int">
+		update TB_MEMBER
+		   set loginfail_count=loginfail_count+1
+		 where memberno=#{memberNo}  
+	</update>
 	
 
 

@@ -6,7 +6,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	
 	<beans:bean id="customAuthenticationProvider" 
 	            class="com.rundering.security.CustomAuthenticationProvider"
 	            p:memberService-ref="memberService"
@@ -26,7 +25,6 @@
 	<authentication-manager>
 		<authentication-provider ref="customAuthenticationProvider"></authentication-provider>
 	</authentication-manager>
-	
 	<!-- 인허가 -->
 	<http pattern="/resources/**" security="none" />	
 	<http use-expressions="true" pattern="/**">

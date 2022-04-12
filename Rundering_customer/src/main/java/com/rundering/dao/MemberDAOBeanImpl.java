@@ -25,6 +25,10 @@ public class MemberDAOBeanImpl implements MemberDAOBean{
 		List<String> auth = session.selectList("Member-Mapper.selectAuthByMemberNo",memberNo);
 		return auth;
 	}
+	@Override
+	public void updateLoginfailCountByMemberNo(String memberNo) throws Exception{
+		session.update("Member-Mapper.updateLoginfailCountByMemberNo", memberNo);
+	}
 
 	
 }
