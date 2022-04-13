@@ -43,6 +43,7 @@ public class MainController {
 			
 			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 

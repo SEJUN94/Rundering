@@ -158,7 +158,6 @@ function valid(){
 				error : function(xhr) {
 					alert(xhr.status);
 				},
-				dataType : 'json'
 			});
 		}
 
