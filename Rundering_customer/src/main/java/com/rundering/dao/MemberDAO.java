@@ -5,7 +5,8 @@ import java.util.List;
 import com.rundering.dto.MemberVO;
 
 public interface MemberDAO {
-
+	
+	// 회원아이디를 통한 회원정보 가져오기
 	public MemberVO selectMemberById(String id) throws Exception;
 	public List<String> selectAuthByMemberNo(String memberNo) throws Exception;
 	public void updateLoginfailCountByMemberNo(String memberNo) throws Exception;
@@ -23,4 +24,5 @@ public interface MemberDAO {
 
 	// 회원정보 삭제(비활성화)
 	public void deleteMember(String id) throws Exception;
+	
 }

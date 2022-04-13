@@ -14,18 +14,18 @@ import nl.captcha.Captcha;
 @Controller
 public class CaptchaController {
 	
-	@RequestMapping("/captcha.do") 
+	@RequestMapping("/captcha") 
 	public String captcha() {
 		return "captcha"; 
 	}
 	
-	@RequestMapping("/captchaImg.do") 
+	@RequestMapping("/captchaImg") 
 	@ResponseBody
 	public void captchaImg(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		new CaptchaUtil().captcaImg(request, response);
 	}
 	
-	@RequestMapping("/captchaAudio.do")
+	@RequestMapping("/captchaAudio")
 	@ResponseBody 
 	public void captchaAudio(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		Captcha captcha = (Captcha) request.getSession().getAttribute(Captcha.NAME); 
@@ -33,7 +33,7 @@ public class CaptchaController {
 		new CaptchaUtil().captchaAudio(request, response, getAnswer);
 	}
 	
-	@RequestMapping("/chkAnswer.do") 
+	@RequestMapping("/chkAnswer") 
 	@ResponseBody 
 	public String chkAnswer(HttpServletRequest request, HttpServletResponse response) {
 		String result = ""; 

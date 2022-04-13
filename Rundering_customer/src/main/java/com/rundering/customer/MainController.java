@@ -10,7 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rundering.command.MemberAddCommand;
+import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
+import com.rundering.service.MemberAddressService;
 import com.rundering.service.MemberService;
 
 @Controller
@@ -20,6 +23,8 @@ public class MainController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private MemberAddressService memberAddrService;
 	
 	@RequestMapping("/home")
 	public String main() {
@@ -27,7 +32,7 @@ public class MainController {
 		return url;
 	}
 
-	@RequestMapping("/joinForm")
+	@RequestMapping("/joinform")
 	public String joinForm() {
 		String url = "/login/member_join";
 		return url;
@@ -35,18 +40,34 @@ public class MainController {
 	
 	@RequestMapping("/join")
 	@ResponseBody
-	public ResponseEntity<String> join(MemberVO member) throws Exception, IOException {
+	public ResponseEntity<String> join(MemberAddCommand mac) throws Exception, IOException {
 		ResponseEntity<String> entity = null;
+			
+		MemberVO member = mac.toMember();
+		
+		MemberAddressVO memberAdd = null;
 		
 		try {
+			
 			memberService.memberJoin(member);
 			
+			memberService.getMember(member.getId());
+			
+			System.out.println(member.getMemberNo()+"dasdasdsadasdsadsadsadsadsa");
+			mac.setMemberno(member.getMemberNo());
+			
+			memberAdd = mac.toAddr();
+			System.out.println(memberAdd.getAdd1()+"~~~~~aaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~");
+			memberAddrService.memberAddressRegist(memberAdd);
+			
+			
 			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
+		
 		return entity;
 	}
 	

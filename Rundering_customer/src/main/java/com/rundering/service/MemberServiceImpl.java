@@ -6,56 +6,56 @@ import com.rundering.dao.MemberDAOImpl;
 import com.rundering.dto.MemberVO;
 
 public class MemberServiceImpl implements MemberService{
-	MemberDAOImpl memberDAOBean;
+	MemberDAOImpl memberDAO;
 	
-	public void setMemberDAOBean(MemberDAOImpl memberDAOBean) {
-		this.memberDAOBean = memberDAOBean;
+	public void setMemberDAO(MemberDAOImpl memberDAO) {
+		this.memberDAO = memberDAO;
 	}
 	
 	@Override
 	public MemberVO getMember(String id) throws Exception {
-		MemberVO member = memberDAOBean.selectMemberById(id);
+		MemberVO member = memberDAO.selectMemberById(id);
 		return member;
 	}
 	
 	@Override
 	public List<String> getAuthList(String memberNo) throws Exception {
-		List<String> auth = memberDAOBean.selectAuthByMemberNo(memberNo);
+		List<String> auth = memberDAO.selectAuthByMemberNo(memberNo);
 		return auth;
 	}
 	@Override
 	public void loginFailIncrease(String memberNo) throws Exception{
-		memberDAOBean.updateLoginfailCountByMemberNo(memberNo);
+		memberDAO.updateLoginfailCountByMemberNo(memberNo);
 	}
 	@Override 
 	public void loginSuccess(String memberNo) throws Exception{
-		memberDAOBean.updateLastLoginByMemberNo(memberNo);
-		memberDAOBean.updateLoginfailZeroByMemberNo(memberNo);
+		memberDAO.updateLastLoginByMemberNo(memberNo);
+		memberDAO.updateLoginfailZeroByMemberNo(memberNo);
 	}
 	
 	//ID중복체크
 	@Override
 	public MemberVO checkId(String id) throws Exception {
-		MemberVO member = memberDAOBean.checkId(id);
+		MemberVO member = memberDAO.checkId(id);
 		return member;
 	}
 	
 	//회원가입
 	@Override
 	public void memberJoin(MemberVO member) throws Exception {
-		memberDAOBean.memberJoin(member);
+		memberDAO.memberJoin(member);
 	}
 	
 	//회원정보수정
 	@Override
 	public void modifyMember(MemberVO member) throws Exception {
-		memberDAOBean.modifyMember(member);
+		memberDAO.modifyMember(member);
 	}
 	
 	//회원 탈퇴(비활성화)
 	@Override
 	public void deleteMember(String id) throws Exception {
-		memberDAOBean.deleteMember(id);
+		memberDAO.deleteMember(id);
 	}
 	
 }

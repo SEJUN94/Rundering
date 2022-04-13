@@ -30,7 +30,6 @@
 		where memberno=#{memberNo}
 	</select>
 
-
 	<update id="memberJoin" parameterType="member">
 		INSERT INTO 
 		TB_MEMBER(MEMBERNO,ID,PASSWORD,NAME,PHONE,EMAIL) 

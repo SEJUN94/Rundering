@@ -73,10 +73,10 @@
             </form>
             
             <p class="mb-1">
-                I forgot my <a href="<%=request.getContextPath()%>/login/findaccount.do">account</a> / <a href="<%=request.getContextPath()%>/login/findpassword.do">password</a>
+                I forgot my <a href="<%=request.getContextPath()%>/login/findaccount">account</a> / <a href="<%=request.getContextPath()%>/login/findpassword">password</a>
             </p>
             <p class="mb-0">
-                <a href="<%=request.getContextPath()%>/join.do" class="text-center">join a new membership</a>
+                <a href="<%=request.getContextPath()%>/3agree" class="text-center">join a new membership</a>
             </p>
         </div>
     </div>

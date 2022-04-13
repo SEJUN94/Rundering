@@ -43,7 +43,7 @@
 
 <div class="col-6" style="margin:auto;">
 	<div class="card-body">
-		<p class="login-box-msg">join a new membership</p>
+		<h2 class="login-box-msg">join a new membership</h2>
 		<form class="form-horizontal" onsubmit="return valid();" method="post">
 			<div>
 				<label for="id" class="col-mb-3"> <span	style="color: red; font-weight: bold;">*</span>아이디</label>

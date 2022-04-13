@@ -31,7 +31,7 @@ textarea {
 </head>
 <body>
 	<h1>회원가입</h1> <br/>
-	<form action="<%=request.getContextPath()%>/joinForm" name="form" method="post">
+	<form action="<%=request.getContextPath()%>/joinform" name="form" method="post">
 		<hr>
 		<table>
 			<tbody>
