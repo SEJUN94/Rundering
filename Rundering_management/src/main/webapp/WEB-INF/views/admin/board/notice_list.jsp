@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:set var="noticeList" value="${dataMap.noticeList }" />
 
 <head>
 <style>
@@ -49,12 +52,12 @@
 
 								</select> <select class="form-control col-md-4" name="searchType"
 									id="searchType">
-									<option value="tcw">전 체</option>
-									<option value="t">제 목</option>
-									<option value="w">작성자</option>
-									<option value="c">내 용</option>
-									<option value="tc">제목+내용</option>
-									<option value="cw">작성자+내용</option>
+									<option value="tcw" >전체</option>
+									<option value="t" >제목</option>
+									<option value="w" >작성자</option>
+									<option value="c" >내용</option>
+									<option value="tc" >제목+내용</option>
+									<option value="cw" >작성자+내용</option>
 									<option value="tcw">작성자+제목+내용</option>
 								</select> <input class="form-control" type="text" name="keyword"
 									placeholder="검색어를 입력하세요." value="" /> <span
@@ -72,63 +75,33 @@
 						<table class="table table-hover text-nowrap">
 							<thead>
 								<tr>
-									<th class="no">번호</th>
-									<th class="boardtitle">제목</th>
-									<th class="writer">작성자</th>
-									<th class="date">작성일</th>
-									<th class="clicks">조회수</th>
+									<th class="noticeno">번호</th>
+									<th class="title">제목</th>
+									<th class="employeeId">작성자</th>
+									<th class="registDate">작성일</th>
+									<th class="views">조회수</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
-									<td>183</td>
-									<td>John Doe</td>
-									<td>11-7-2014</td>
-									<td><span class="tag tag-success">Approved</span></td>
-									<td>1</td>
-								</tr>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
-									<td>183</td>
-									<td>John Doe</td>
-									<td>11-7-2014</td>
-									<td><span class="tag tag-success">Approved</span></td>
-									<td>2</td>
-								</tr>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
-									<td>183</td>
-									<td>John Doe</td>
-									<td>11-7-2014</td>
-									<td><span class="tag tag-success">Approved</span></td>
-									<td>1</td>
-								</tr>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
-									<td>183</td>
-									<td>John Doe</td>
-									<td>11-7-2014</td>
-									<td><span class="tag tag-success">Approved</span></td>
-									<td>1</td>
-								</tr>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
-									<td>183</td>
-									<td>John Doe</td>
-									<td>11-7-2014</td>
-									<td><span class="tag tag-success">Approved</span></td>
-									<td>1</td>
-								</tr>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
-									<td>183</td>
-									<td>John Doe</td>
-									<td>11-7-2014</td>
-									<td><span class="tag tag-success">Approved</span></td>
-									<td>1</td>
-								</tr>
-								<tr onclick="location.href='<%=request.getContextPath()%>/admin/board/noticedetail.do'" style="cursor:hand">
-									<td>183</td>
-									<td>John Doe</td>
-									<td>11-7-2014</td>
-									<td><span class="tag tag-success">Approved</span></td>
-									<td>1</td>
-								</tr>
+								<c:if test="${empty noticeList }">
+									<tr>
+										<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+									</tr>
+								</c:if>
+								<c:forEach items="${noticeList }" var="notice">
+									<tr style='font-size: 0.85em; cursor: pointer;'
+										onclick="OpenWindow('detail.do?from=list&nno=${notice.noticeno }','상세보기',800,700);">
+										<td>${notice.noticeno }</td>
+										<td id="Title"
+											style="text-align: left; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+											${notice.title }</td>
+										<td data-target="notice-employeeId">${notice.employeeId}
+										<td><fmt:formatDate value="${notice.registDate }"
+												pattern="yyyy-MM-dd" /></td>
+										<td><span class="badge bg-red">${notice.views }</span></td>
+									</tr>
+								</c:forEach>
+
 							</tbody>
 						</table>
 					</div>
@@ -138,7 +111,7 @@
 								href="<%=request.getContextPath()%>/admin/board/noticeregist.do">
 								<button type="button" class="btn btn-primary"
 									data-toggle="modal" data-target="#modal-lg">공지등록</button>
-									</a>
+							</a>
 						</div>
 					</div>
 				</div>

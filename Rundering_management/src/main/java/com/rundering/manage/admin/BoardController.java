@@ -1,15 +1,37 @@
 package com.rundering.manage.admin;
 
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.rundering.dto.NoticeVO;
+import com.rundering.service.NoticeService;
 
 @Controller
 @RequestMapping("/admin/board")
 public class BoardController {
-
+	
+	@Autowired
+	NoticeService noticeService;
+	
 	@RequestMapping("/noticelist")
-	public String noticeList() {
-		return "admin/board/notice_list";
+	public ModelAndView noticeList(ModelAndView mnv) {
+		String url = "admin/board/notice_list";
+		Map<String, Object> dataMap = null;
+		try {
+			dataMap = noticeService.getNoticeList();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+		return mnv;
 	}
 	
 	@RequestMapping("/noticeregist")

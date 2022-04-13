@@ -15,165 +15,36 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column subMenuList" data-widget="treeview" role="menu" style="font-size: 1.18rem;">
-                        	<c:if test="${not empty mainMenuList }">
-					<c:forEach items="${mainMenuList }" var="mainMenu">
-					
-						<li class="nav-item">
+                           <c:if test="${not empty mainMenuList }">
+               <c:forEach items="${mainMenuList }" var="mainMenu">
+               
+                  <li class="nav-item">
                             <a href="javascript:goPage('<%=request.getContextPath()%>${mainMenu.menuUrl}','${mainMenu.menuCode}');" class="nav-link">
                                 <i class="nav-icon fas fa-bars"></i>
                                 <p> 
-                             		      ${mainMenu.menuName}
+                                         ${mainMenu.menuName}
                                      <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/laundryorder.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;세탁 주문 관리</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/laundryitems.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;세탁 품목 관리</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>   
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-bars"></i>
-                                <p>
-                                    지점 관리
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/point/information.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지점 전체 조회</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/point/quota.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지점 세탁 현황</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-
-                                    <a href="<%=request.getContextPath() %>/admin/laundryamount.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지점 세탁량</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                          <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-bars"></i>
-                                <p>
-                                    발주 관리
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/branchorder.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지점 발주 관리</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/ordergoods/list.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;발주 물품 관리</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-bars"></i>
-                                <p>
-                                    회원 관리
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/customer/list.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회원 목록</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/customer/dormant.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;휴면계정 관리</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                     <a href="<%=request.getContextPath() %>/admin/customer/secession.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;탈퇴회원 관리</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link"> 
-                                <i class="nav-icon fas fa-bars"></i>
-                                <p>
-                                    회사 게시판 관리
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/board/noticelist.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;공지사항</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/board/suggest.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;건의사항</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li><li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-bars"></i>
-                                <p>
-                                    고객 홈페이지 관리
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/question/frequently.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자주묻는질문</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<%=request.getContextPath() %>/admin/question/list.do" class="nav-link">
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;문의답변</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
                             <c:if test="${not empty subMenuList}">
-                            	<c:forEach items="${subMenuList}" var="subMenu">
-		                            <c:if test="${mainMenu.menuCode eq subMenu.upperMenuCode}" >
-			                            <ul class="nav nav-treeview">
-			                            
-			                                <li class="nav-item">
-			                                    <a href="javascript:goPage('<%=request.getContextPath()%>${subMenu.menuUrl}','${subMenu.menuCode}');" class="nav-link">
-			                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${subMenu.menuName}</p>
-			                                    </a>
-			                                </li>
-			                                
-			                            </ul>
-		                            </c:if>
-	                            </c:forEach>
+                               <c:forEach items="${subMenuList}" var="subMenu">
+                                  <c:if test="${mainMenu.menuCode eq subMenu.upperMenuCode}" >
+                                     <ul class="nav nav-treeview">
+                                     
+                                         <li class="nav-item">
+                                             <a href="javascript:goPage('<%=request.getContextPath()%>${subMenu.menuUrl}','${subMenu.menuCode}');" class="nav-link">
+                                                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${subMenu.menuName}</p>
+                                             </a>
+                                         </li>
+                                         
+                                     </ul>
+                                  </c:if>
+                               </c:forEach>
                             </c:if>
                         </li> 
                         
-					</c:forEach>
-				</c:if>
+               </c:forEach>
+            </c:if>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

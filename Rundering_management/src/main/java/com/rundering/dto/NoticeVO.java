@@ -13,6 +13,20 @@ public class NoticeVO {
 	private String deleteat;    //삭제여부
 	private String branchCode;  //지점코드
 
+	public NoticeVO(int noticeno, String title, String content, String employeeId, String views, Date registDate,
+			Date modifyDate, String deleteat, String branchCode) {
+		super();
+		this.noticeno = noticeno;
+		this.title = title;
+		this.content = content;
+		this.employeeId = employeeId;
+		this.views = views;
+		this.registDate = registDate;
+		this.modifyDate = modifyDate;
+		this.deleteat = deleteat;
+		this.branchCode = branchCode;
+	}
+	
 	public int getNoticeno() {
 		return noticeno;
 	}

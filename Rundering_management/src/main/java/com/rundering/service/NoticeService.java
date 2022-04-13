@@ -1,15 +1,15 @@
 package com.rundering.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
-import com.jsp.command.Criteria;
 import com.rundering.dto.NoticeVO;
 
 public interface NoticeService {
 
 	// 목록조회
-	Map<String, Object> getNoticeList(Criteria cri) throws SQLException;
+	public Map<String, Object> getNoticeList() throws SQLException;
 	
 	// 상세보기
 	NoticeVO getNotice(int nno) throws SQLException;
@@ -25,5 +25,6 @@ public interface NoticeService {
 
 	// 삭제
 	void remove(int nno) throws SQLException;
+	
 
 }
