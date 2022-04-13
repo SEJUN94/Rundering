@@ -18,6 +18,7 @@
 	<select id="orderGoodsList" resultMap="orderGoodsMap" parameterType="str">
 		select *
 		  from TB_LAUNDRY_ARTICLES
+		 where DELETE_KEY='1'
 	</select>
 
 	<select id="selectSearchOrderGoodsList"	resultMap="orderGoodsMap">
@@ -47,16 +48,16 @@
 	<update id="insertOrderGoods" parameterType="orderGoods">
 		insert 
 		into 
-		TB_LAUNDRY_ARTICLES(ARTICLES_CODE,ARTICLES_NAME,PRICE,REGIST_DATE,EACH,NOTE)
+		TB_LAUNDRY_ARTICLES(ARTICLES_CODE,ARTICLES_NAME,PRICE,REGIST_DATE,EACH,NOTE,CLCODE)
 		values
-		(#{articlesCode},#{articlesName},#{price}, SYSDATE,#{each},#{note})
+		(#{articlesCode},#{articlesName},#{price}, SYSDATE,#{each},#{note},#{clcode})
 	</update>
 	
 	<update id="updateOrderGoods" parameterType="orderGoods">
 		update 
 		TB_LAUNDRY_ARTICLES 
 		set 
-		ARTICLES_CODE=#{articlesCode}, ARTICLES_NAME=#{articlesName}, PRICE=#{price}, MODIFY_DATE=sysdate 
+		ARTICLES_CODE=#{articlesCode}, ARTICLES_NAME=#{articlesName}, PRICE=#{price}, MODIFY_DATE=sysdate,EACH=#{each},NOTE=#{note}
 		where ARTICLES_CODE=#{articlesCode}
 	</update>
 	
@@ -64,7 +65,7 @@
 		update
 		TB_LAUNDRY_ARTICLES
 		set
-		deleteKey=0;
-		where ARTICLES_CODE=#{lndrwaterqlyCode}
+		DELETE_KEY='0'
+		where ARTICLES_CODE=#{articlesCode}
 	</update>
 </mapper>

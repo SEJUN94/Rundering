@@ -46,6 +46,7 @@ public class OrderGoodsController {
 						 RedirectAttributes rttr)throws Exception{
 		String url="redirect:/admin/ordergoods/list";	
 		
+		System.out.println(orderGoods.getClcode());
 		orderGoodsService.regist(orderGoods);
 		
 		rttr.addFlashAttribute("from","regist");
@@ -79,28 +80,29 @@ public class OrderGoodsController {
 	}
 
 	@RequestMapping(value="/ordergoods/modify", method=RequestMethod.POST)
-	public String modifyPost(LaundryArticlesVO ordergoods,HttpServletRequest request, //BoardModifyCommand modifyReq,
+	public String modifyPost(LaundryArticlesVO orderGoods,HttpServletRequest request, //BoardModifyCommand modifyReq,
 							 RedirectAttributes rttr) throws Exception{
 		
 		String url = "redirect:/admin/ordergoods/detail";
 		
-		orderGoodsService.modify(ordergoods);
+		orderGoodsService.modify(orderGoods);
 		
 		rttr.addFlashAttribute("from","modify");
-		rttr.addAttribute("articlesCode",ordergoods.getArticlesCode());
+		rttr.addAttribute("articlesCode",orderGoods.getArticlesCode());
 		
 		return url;
 	}
 	
-	
-	@RequestMapping(value="/remove",method=RequestMethod.POST)
-	public String remove(String lndrwaterqlyCode,RedirectAttributes rttr) throws Exception{
+	@RequestMapping(value="/ordergoods/remove",method=RequestMethod.POST)
+	public String remove(String articlesCode,RedirectAttributes rttr) throws Exception{
 		String url = "redirect:/admin/ordergoods/detail";
-		orderGoodsService.remove(lndrwaterqlyCode);		
+		orderGoodsService.remove(articlesCode);		
 		
-		rttr.addAttribute("lndrwaterqlyCode",lndrwaterqlyCode);
+		rttr.addAttribute("articlesCode",articlesCode);
 		rttr.addFlashAttribute("from","remove");
 		return url;		
 	}
+	
+	
 	
 }

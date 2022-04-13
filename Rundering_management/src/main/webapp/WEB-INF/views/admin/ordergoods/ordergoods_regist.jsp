@@ -47,11 +47,11 @@
 						<div class="col-sm-8 input-group-sm">
 							<select id="clcode" name="clcode"
 								class="form-control">
-								<option value="i">가루세제</option>
-								<option value="p">엑체세제</option>
-								<option value="e">섬유유연제</option>
-								<option value="n">세탁비누</option>
-								<option value="o">세탁보조용품</option>
+								<option value="B" ${orderGoods.clcode eq 'B' ? 'selected':'' }>가루세제</option>
+								<option value="C" ${orderGoods.clcode eq 'C' ? 'selected':'' }>엑체세제</option>
+								<option value="D" ${orderGoods.clcode eq 'D' ? 'selected':'' }>섬유유연제</option>
+								<option value="E" ${orderGoods.clcode eq 'E' ? 'selected':'' }>세탁비누</option>
+								<option value="F" ${orderGoods.clcode eq 'F' ? 'selected':'' }>세탁보조용품</option>
 							</select>
 						</div>
 					</div>
@@ -73,12 +73,14 @@
 							style="text-align:right;">
 						</div>
 						<div class="col-sm-3 input-group-sm">
-							<select onchange="list_go(1);" id="searchType" name="searchType"
+							<select onchange="list_go(1);" id="each" name="each"
 								class="form-control">
-								<option value="3">개</option>
-								<option value="5">매</option>
-								<option value="5">g</option>
-								<option value="5">kg</option>
+								<option value="n" ${orderGoods.each eq 'n' ? 'selected':'' }>개</option>
+								<option value="h" ${orderGoods.each eq 'h' ? 'selected':'' }>매</option>
+								<option value="g" ${orderGoods.each eq 'g' ? 'selected':'' }>g</option>
+								<option value="kg" ${orderGoods.each eq 'kg' ? 'selected':'' }>kg</option>
+								<option value="ml" ${orderGoods.each eq 'ml' ? 'selected':'' }>ml</option>
+								<option value="l" ${orderGoods.each eq 'l' ? 'selected':'' }>L</option>
 							</select>
 						</div>
 

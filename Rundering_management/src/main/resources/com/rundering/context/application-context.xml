@@ -18,12 +18,17 @@
 	<bean id="menuDAO" class="com.rundering.dao.MenuDAOImpl"
 		p:session-ref="sqlSession"
 	/>
+	<bean id="orderGoodsDAO" class="com.rundering.dao.OrderGoodsDAOImpl"
+		p:session-ref="sqlSession"/>
+	
 	
 	<bean id="testService" class="com.rundering.service.TestServiceImpl"
 		p:testDAOBean-ref="testDAOBean"/>
 	<bean id="menuService" class="com.rundering.service.MenuServiceImpl"
-		p:menuDAOBean-ref="menuDAO"
-	/>	
+		p:menuDAOBean-ref="menuDAO"/>	
+	<bean id="orderGoodsService" class="com.rundering.service.OrderGoodsServiceImpl"
+		p:orderGoodsDAO-ref="orderGoodsDAO"/>	
+	
 	
 	
 </beans>
