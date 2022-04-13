@@ -2,13 +2,13 @@ package com.rundering.service;
 
 import java.util.List;
 
-import com.rundering.dao.MemberDAOBeanImpl;
+import com.rundering.dao.MemberDAOImpl;
 import com.rundering.dto.MemberVO;
 
 public class MemberServiceImpl implements MemberService{
-	MemberDAOBeanImpl memberDAOBean;
+	MemberDAOImpl memberDAOBean;
 	
-	public void setMemberDAOBean(MemberDAOBeanImpl memberDAOBean) {
+	public void setMemberDAOBean(MemberDAOImpl memberDAOBean) {
 		this.memberDAOBean = memberDAOBean;
 	}
 	@Override
@@ -20,6 +20,15 @@ public class MemberServiceImpl implements MemberService{
 	public List<String> getAuthList(String memberNo) throws Exception {
 		List<String> auth = memberDAOBean.selectAuthByMemberNo(memberNo);
 		return auth;
+	}
+	@Override
+	public void loginFailIncrease(String memberNo) throws Exception{
+		memberDAOBean.updateLoginfailCountByMemberNo(memberNo);
+	}
+	@Override 
+	public void loginSuccess(String memberNo) throws Exception{
+		memberDAOBean.updateLastLoginByMemberNo(memberNo);
+		memberDAOBean.updateLoginfailZeroByMemberNo(memberNo);
 	}
 	
 }

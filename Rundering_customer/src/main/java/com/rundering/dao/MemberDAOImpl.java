@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.dto.MemberVO;
 
-public class MemberDAOBeanImpl implements MemberDAOBean{
+public class MemberDAOImpl implements MemberDAO{
 	SqlSession session;
 
 	
@@ -24,6 +24,20 @@ public class MemberDAOBeanImpl implements MemberDAOBean{
 	public List<String> selectAuthByMemberNo(String memberNo) throws Exception {
 		List<String> auth = session.selectList("Member-Mapper.selectAuthByMemberNo",memberNo);
 		return auth;
+	}
+	@Override
+	public void updateLoginfailCountByMemberNo(String memberNo) throws Exception{
+		session.update("Member-Mapper.updateLoginfailCountByMemberNo", memberNo);
+	}
+	@Override 
+	public void updateLoginfailZeroByMemberNo(String memberNo) throws Exception{
+		session.update("Member-Mapper.updateLoginfailZeroByMemberNo", memberNo);
+	}
+	@Override
+	public void updateLastLoginByMemberNo(String memberNo) throws Exception{
+		
+		session.update("Member-Mapper.updateLastLoginByMemberNo",memberNo);
+	
 	}
 
 	

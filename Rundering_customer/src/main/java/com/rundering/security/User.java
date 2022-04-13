@@ -17,6 +17,7 @@ public class User implements UserDetails {
 
 	private MemberVO member;
 	private MemberService memberService;
+	private String userFail;
 	
 	
 	public User(MemberVO member,MemberService memberService) {	
@@ -48,6 +49,16 @@ public class User implements UserDetails {
 	@Override
 	public String getUsername() {
 		return member.getId();
+	}
+
+
+	public String getUserFail() {
+		return userFail;
+	}
+
+
+	public void setUserFail(String userFail) {
+		this.userFail = userFail;
 	}
 
 

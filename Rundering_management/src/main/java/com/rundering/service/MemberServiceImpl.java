@@ -1,13 +1,13 @@
 package com.rundering.service;
 
-import com.rundering.dao.MemberDAOBeanImpl;
+import com.rundering.dao.MemberDAOImpl;
 import com.rundering.dto.MemberVO;
 
 public class MemberServiceImpl implements MemberService{
 	
-	MemberDAOBeanImpl memberDAOBean;
+	MemberDAOImpl memberDAOBean;
 	
-	public void setMemberDAOBean(MemberDAOBeanImpl memberDAOBean) {
+	public void setMemberDAOBean(MemberDAOImpl memberDAOBean) {
 		this.memberDAOBean = memberDAOBean; 
 	}
 	

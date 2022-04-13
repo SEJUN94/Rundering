@@ -12,11 +12,11 @@
 	
 
 	
-	<bean id="memberDAOBean" class="com.rundering.dao.MemberDAOBeanImpl"
+	<bean id="memberDAO" class="com.rundering.dao.MemberDAOImpl"
 		p:session-ref="sqlSession"
 	/>
 	<bean id="memberService" class="com.rundering.service.MemberServiceImpl"
-		p:memberDAOBean-ref="memberDAOBean"
+		p:memberDAOBean-ref="memberDAO"
 	/>
 	
 	
