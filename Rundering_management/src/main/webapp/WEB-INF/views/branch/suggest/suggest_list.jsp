@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <head>
 
@@ -37,18 +39,19 @@
 						<div class="card-tools">
 							<div class="input-group input-group-sm">
 
-
-
 								<div class="input-group-sm selectWidth">
 									<select class="form-control " name="searchType" id="searchType">
-										<option value="tcw">전 체</option>
-										<option value="t">제 목</option>
-										<option value="w">작성자</option>
+										<option value="tc" ${cri.searchType eq 'tc' ? 'selected':'' }>전
+											체</option>
+										<option value="t" ${cri.searchType eq 't' ? 'selected':'' }>제
+											목</option>
+										<option value="c" ${cri.searchType eq 'c' ? 'selected':'' }>내
+											용</option>
 									</select>
 								</div>
 								<div class="input-group-sm textWidth">
 									<input class="form-control" type="text" name="keyword"
-										placeholder="검색어를 입력하세요." value="">
+										placeholder="검색어를 입력하세요." value="${param.keyword }">
 								</div>
 								<span class="input-group-append">
 									<button class="btn btn-primary" type="button"
@@ -70,83 +73,25 @@
 									<th class="yn">확인여부</th>
 								</tr>
 							</thead>
-							<tbody>
+							<c:if test="${empty anonymousList }">
 								<tr>
-									<td>180</td>
-									<td>대우개선요구</td>
-									<td>2022-03-14</td>
-									<td><span class="tag tag-success">3</span></td>
+									<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+								</tr>
+							</c:if>
+							<c:forEach items="${anonymousList }" var="anonymous">
+								<tr onclick="OpenWindow('detail?from=list&ano=${anonymous.ano }','상세보기',800,700);">
+									<td>${anonymous.ano }</td>
+									<td>${anonymous.title }</td>
+									<td><fmt:formatDate value="${anonymous.registDate }" pattern="yyyy-MM-dd"/></td>
+									<td><span class="tag tag-success">${anonymous.viewcnt }</span></td>
 									<td>확인</td>
 								</tr>
-								<tr>
-									<td>181</td>
-									<td>대우개선요구</td>
-									<td>2022-03-14</td>
-									<td><span class="tag tag-success">3</span></td>
-									<td>미확인</td>
-								</tr>
-								<tr>
-									<td>180</td>
-									<td>대우개선요구</td>
-									<td>2022-03-14</td>
-									<td><span class="tag tag-success">3</span></td>
-									<td>확인</td>
-								</tr>
-								<tr>
-									<td>181</td>
-									<td>대우개선요구</td>
-									<td>2022-03-14</td>
-									<td><span class="tag tag-success">3</span></td>
-									<td>미확인</td>
-								</tr>
-								<tr>
-									<td>180</td>
-									<td>대우개선요구</td>
-									<td>2022-03-14</td>
-									<td><span class="tag tag-success">3</span></td>
-									<td>확인</td>
-								</tr>
-								<tr>
-									<td>181</td>
-									<td>대우개선요구</td>
-									<td>2022-03-14</td>
-									<td><span class="tag tag-success">3</span></td>
-									<td>미확인</td>
-								</tr>
-								<tr>
-									<td>180</td>
-									<td>대우개선요구</td>
-									<td>2022-03-14</td>
-									<td><span class="tag tag-success">3</span></td>
-									<td>확인</td>
-								</tr>
-								<tr>
-									<td>181</td>
-									<td>대우개선요구</td>
-									<td>2022-03-14</td>
-									<td><span class="tag tag-success">3</span></td>
-									<td>미확인</td>
-								</tr>
-								<tr>
-									<td>180</td>
-									<td>대우개선요구</td>
-									<td>2022-03-14</td>
-									<td><span class="tag tag-success">3</span></td>
-									<td>확인</td>
-								</tr>
-								<tr>
-									<td>181</td>
-									<td>대우개선요구</td>
-									<td>2022-03-14</td>
-									<td><span class="tag tag-success">3</span></td>
-									<td>미확인</td>
-								</tr>
-							</tbody>
+							</c:forEach>
 						</table>
 						<div class="float-right mt-3 mr-3 mb-3">
 
-							<button class="btn btn-primary" type="button"
-								onclick="detail_go('/Rundering_management/branch/board/suggest/regist.do','')">
+							<button class="btn btn-primary" type="button" id="registBtn"
+								onclick="location.href='<%=request.getContextPath()%>/branch/suggest/registForm'">
 								작성하기</button>
 						</div>
 					</div>

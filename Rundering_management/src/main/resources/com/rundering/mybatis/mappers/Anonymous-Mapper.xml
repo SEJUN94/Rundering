@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Anonymous-mapper">
+	
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'c'.toString()">
+			and content like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'tc'.toString()">
+			and (
+			title like '%'||#{keyword}||'%'
+			or
+			content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>
+	
+	<!-- 언더바컬럼재정의 -->
+	<resultMap type="anonymousBoard" id="anonymousBoardMap">
+	
+		<result column="ANO" property="ano" />
+		<result column="PASSWORD" property="password" />
+		<result column="TITLE" property="title" />
+		<result column="CONTENT" property="content" />
+		<result column="REGIST_DATE" property="registDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="DELETE_KEY" property="deleteKey" />
+		<result column="VIEWCNT" property="viewcnt" />
+	
+	</resultMap>
+	
+	<!-- 리스트보기 -->
+	<select id="selectSearchAnonymousList" resultMap="anonymousBoardMap" >
+		select
+			ano,
+			title,
+			password,
+			content,
+			regist_date
+			from tb_anonymous_board
+			where delete_key='1'
+			order by ano asc
+	</select>
+	
+	<select id="selectSearchAnonymousListCount" resultType="int">
+		select
+		count(*) 
+		from tb_anonymous_board
+		where ano is not null
+		<include refid="search" />
+		order by regist_date desc
+	</select>
+	
+	<select id="selectAnonymousByAno" parameterType="int" resultType="anonymousBoard">
+		select 
+		* 
+		from tb_anonymous_board
+		where ano=#{ano}
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="increaseViewCount" parameterType="int">
+		update tb_anonymous_board
+			set viewcnt=viewcnt+1
+			where ano=#{ano}
+	</update>
+	
+	<select id="selectAnonymousSequenceNextValue" resultType="int">
+		select tb_anonymous_board_seq.nextVal
+		from dual
+	</select>
+	
+	<!-- 삽입 -->
+	<select id="insertAnonymous" resultType="anonymousBoard">
+		insert into tb_anonymous_board(
+			ano,
+			password,
+			title,
+			content) values(
+						ano_seq.nextval,
+						#{password},
+						#{title},
+						#{content})
+	</select>
+	
+	<!-- 수정 -->
+	<update id="updateAnonymous" parameterType="anonymousBoard">
+		update tb_anonymous_board 
+		set 
+		title=#{title},content=#{content}		
+		where ano=#{ano}
+	</update>
+	
+	<!-- 삭제 -->
+	<update id="deleteAnonymous" parameterType="int" >
+		delete 
+		from notice 
+		where ano=#{ano}		
+	</update>	
+
+
+</mapper>
