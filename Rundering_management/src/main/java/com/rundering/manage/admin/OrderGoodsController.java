@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.jsp.command.Criteria;
+import com.rundering.manage.Criteria;
 import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.service.OrderGoodsService;
 
@@ -42,15 +42,40 @@ public class OrderGoodsController {
 	}
 	
 	@RequestMapping("/ordergoods/regist")
-	public String regist(LaundryArticlesVO ordergoods,HttpServletRequest request,
+	public String regist(LaundryArticlesVO orderGoods,HttpServletRequest request,
 						 RedirectAttributes rttr)throws Exception{
 		String url="redirect:/admin/ordergoods/list";	
 		
-		orderGoodsService.regist(ordergoods);
+		orderGoodsService.regist(orderGoods);
 		
 		rttr.addFlashAttribute("from","regist");
 		
 		return url;
+	}
+	
+	@RequestMapping("/ordergoods/detail")
+	public ModelAndView detail(String articlesCode, String from, ModelAndView mnv)throws SQLException{
+		String url="admin/ordergoods/ordergoods_detail";		
+		
+		LaundryArticlesVO orderGoods =null;
+		orderGoods=orderGoodsService.getOrderGoods(articlesCode);
+					
+		mnv.addObject("orderGoods",orderGoods);		
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	@RequestMapping("/ordergoods/modifyForm")
+	public ModelAndView ModifyForm(String articlesCode, ModelAndView mnv) throws SQLException{
+		String url="admin/ordergoods/ordergoods_modify";
+		
+		LaundryArticlesVO orderGoods = orderGoodsService.getOrderGoods(articlesCode);
+		
+		mnv.addObject("orderGoods", orderGoods);
+		mnv.setViewName(url);
+		
+		return mnv;
 	}
 
 	@RequestMapping(value="/ordergoods/modify", method=RequestMethod.POST)
@@ -59,12 +84,10 @@ public class OrderGoodsController {
 		
 		String url = "redirect:/admin/ordergoods/detail";
 		
-		ordergoods.setArticlesName((String)request.getAttribute("XSSname"));
-				
 		orderGoodsService.modify(ordergoods);
 		
 		rttr.addFlashAttribute("from","modify");
-		rttr.addAttribute("lndrwaterqlyCode",ordergoods.getArticlesCode());
+		rttr.addAttribute("articlesCode",ordergoods.getArticlesCode());
 		
 		return url;
 	}

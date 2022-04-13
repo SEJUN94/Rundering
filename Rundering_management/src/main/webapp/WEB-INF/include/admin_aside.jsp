@@ -30,13 +30,11 @@
                             	<c:forEach items="${subMenuList}" var="subMenu">
 		                            <c:if test="${mainMenu.menuCode eq subMenu.upperMenuCode}" >
 			                            <ul class="nav nav-treeview">
-			                            
 			                                <li class="nav-item">
 			                                    <a href="javascript:goPage('<%=request.getContextPath()%>${subMenu.menuUrl}','${subMenu.menuCode}');" class="nav-link">
 			                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${subMenu.menuName}</p>
 			                                    </a>
 			                                </li>
-			                                
 			                            </ul>
 		                            </c:if>
 	                            </c:forEach>

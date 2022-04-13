@@ -18,7 +18,6 @@
 			<li class="page-item ${pageMaker.cri.page == pageNum?'active':''}">
 				<a class="page-link" href="javascript:list_go('${pageNum}');" >${pageNum }</a>
 			</li>
-			
 		</c:forEach>
 		<li class="page-item">
 			<a class="page-link" href="javascript:list_go('${pageMaker.next ? pageMaker.endPage+1 :pageMaker.cri.page}');">

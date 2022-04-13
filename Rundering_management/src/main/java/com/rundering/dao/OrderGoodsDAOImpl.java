@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
-import com.jsp.command.Criteria;
+import com.rundering.manage.Criteria;
 import com.rundering.dto.LaundryArticlesVO;
 
 public class OrderGoodsDAOImpl implements OrderGoodsDAO{
@@ -37,7 +37,7 @@ public class OrderGoodsDAOImpl implements OrderGoodsDAO{
 	public LaundryArticlesVO selectOrderGoodsByArticlesCode(String articlesCode)
 			throws SQLException {
 		LaundryArticlesVO ordergoods=
-				session.selectOne("OrderGoods-Mapper.selectSearchOrderGoodsList",articlesCode);
+				session.selectOne("OrderGoods-Mapper.selectOrderGoodsByBno",articlesCode);
 		return ordergoods;
 	}
 

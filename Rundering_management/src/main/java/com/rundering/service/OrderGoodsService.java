@@ -3,7 +3,7 @@ package com.rundering.service;
 import java.sql.SQLException;
 import java.util.Map;
 
-import com.jsp.command.Criteria;
+import com.rundering.manage.Criteria;
 import com.rundering.dto.LaundryArticlesVO;
 
 

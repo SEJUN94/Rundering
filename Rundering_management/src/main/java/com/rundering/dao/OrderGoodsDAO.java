@@ -3,9 +3,7 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-
-import com.jsp.command.Criteria;
+import com.rundering.manage.Criteria;
 import com.rundering.dto.LaundryArticlesVO;
 
 public interface OrderGoodsDAO {

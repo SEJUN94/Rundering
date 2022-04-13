@@ -5,11 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-
-import com.jsp.command.Criteria;
-import com.jsp.command.PageMaker;
+import com.rundering.manage.Criteria;
+import com.rundering.manage.PageMaker;
 import com.rundering.dao.OrderGoodsDAO;
 import com.rundering.dto.LaundryArticlesVO;
 
@@ -41,11 +38,10 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
 	}
 
 	@Override
-	public LaundryArticlesVO getOrderGoods(String articlesName) throws SQLException {
+	public LaundryArticlesVO getOrderGoods(String articlesCode) throws SQLException {
 
-		LaundryArticlesVO ordergoods = orderGoodsDAO.selectOrderGoodsByArticlesCode(articlesName);
+		LaundryArticlesVO ordergoods = orderGoodsDAO.selectOrderGoodsByArticlesCode(articlesCode);
 		return ordergoods;
-
 	}
 
 	@Override

@@ -3,24 +3,17 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class LaundryArticlesVO {
-	private String articlesCode;   //세탁물품코드
 	private String articlesName;   //물품명
+	private String articlesCode;   //세탁물품코드
 	private int price;             //물품가격
+	private String each;   		   //단위
 	private String clcode;         //분류코드
 	private Date registDate;       //등록일
 	private Date modifyDate;       //수정일
 	private String deleteKey;      //삭제키
-	
-	public LaundryArticlesVO(String articlesCode, String articlesName, int price, String clcode, Date registDate,
-			Date modifyDate, String deleteKey) {
-		this.articlesCode = articlesCode;
-		this.articlesName = articlesName;
-		this.price = price;
-		this.clcode = clcode;
-		this.registDate = registDate;
-		this.modifyDate = modifyDate;
-		this.deleteKey = deleteKey;
-	}
+	private String note;  		   //비고;
+
+	public LaundryArticlesVO() {}
 	
 	public String getArticlesCode() {
 		return articlesCode;
@@ -40,6 +33,13 @@ public class LaundryArticlesVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	public String getEach() {
+		return each;
+	}
+	public void setEach(String each) {
+		this.each = each;
+	}
+
 	public String getClcode() {
 		return clcode;
 	}
@@ -64,6 +64,14 @@ public class LaundryArticlesVO {
 	public void setDeleteKey(String deleteKey) {
 		this.deleteKey = deleteKey;
 	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+	
+	
 	
 	
 	

@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<body>
 <section class="content register-page">
 	<div class="">
 		<div class="login-logo">
@@ -26,7 +27,7 @@
 							<span style="color: red; font-weight: bold;">*</span>상품명
 						</label>
 						<div class="col-sm-8 input-group-sm">
-							<input class="form-control" name="articlesName" type="text" id="articlesName">
+							<input class="form-control" name="articlesName" type="text" id="articlesName" value="${orderGoods.articlesName }">
 						</div>
 					</div>
 					<div class="form-group row">
@@ -34,12 +35,11 @@
 							<span style="color: red; font-weight: bold;">*</span>상품코드
 						</label>
 						<div class="col-sm-8 input-group-sm">
-							<input class="form-control" name="articlesCode" type="text" id="articlesCode">
+							<input class="form-control" name="articlesCode" type="text" id="articlesCode" value="${orderGoods.articlesCode }" readonly>
 						</div>
 					</div>
 
 					<div class="form-group row">
-						<!-- search bar -->
 						<!-- sort num -->
 						<label for="clcode" class="col-sm-4">
 							<span style="color: red; font-weight: bold;">*</span>상품분류
@@ -47,11 +47,11 @@
 						<div class="col-sm-8 input-group-sm">
 							<select id="clcode" name="clcode"
 								class="form-control">
-								<option value="i">가루세제</option>
-								<option value="p">엑체세제</option>
-								<option value="e">섬유유연제</option>
-								<option value="n">세탁비누</option>
-								<option value="o">세탁보조용품</option>
+								<option value="D1001">가루세제</option>
+								<option value="D1002">엑체세제</option>
+								<option value="D1003">섬유유연제</option>
+								<option value="D1004">세탁비누</option>
+								<option value="D1005">세탁보조용품</option>
 							</select>
 						</div>
 					</div>
@@ -61,7 +61,7 @@
 							<span style="color: red; font-weight: bold;">*</span>판매가
 						</label>
 						<div class="col-sm-8 input-group-sm">
-							<input class="form-control" name="price" type="text" id="price">
+							<input class="form-control" name="price" type="text" id="price" value="${orderGoods.price }" readonly>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -70,10 +70,10 @@
 						</label>
 						<div class="col-sm-5 input-group-sm">
 							<input class="form-control" name="pwd" type="text" id="pwd"
-							style="text-align:right;">
+							style="text-align:right;" value="${orderGoods.each }" readonly>
 						</div>
 						<div class="col-sm-3 input-group-sm">
-							<select onchange="list_go(1);" id="searchType" name="searchType"
+							<select onchange="list_go(1);" id="perPageNum" name="perPageNum"
 								class="form-control">
 								<option value="3">개</option>
 								<option value="5">매</option>
@@ -81,14 +81,13 @@
 								<option value="5">kg</option>
 							</select>
 						</div>
-
 					</div>
 					<div class="form-group row">
 						<label for="note" class="col-sm-4">
 							<span style="font-weight: bold;">&nbsp;&nbsp;</span>비고
 						</label>
 						<div class="col-sm-8 input-group-sm">
-							<input class="form-control" name="note" type="text" id="note">
+							<input class="form-control" name="note" type="text" id="note" value="${orderGoods.note }" readonly>
 						</div>
 					</div>
 
@@ -96,7 +95,7 @@
 				<div class="btn-group float-right">
 					<div class="input-group-sm">
 						<button type="button" id="sendBtn"
-							class="btn btn-primary btn-sm" onclick="regist_go();">등록</button>
+							class="btn btn-primary btn-sm" onclick="modify_go();">수정</button>
 					</div>
 					&nbsp;&nbsp;
 					<div class="input-group-sm">
@@ -108,23 +107,8 @@
 		</div>
 	</div>
 </section>
-<script>
-	function regist_go(){
-		var form = document.registForm;
-		if(form.articlesName.value==""){
-			alert("상품명은 필수입니다.");
-			return;
-		}
-		if(form.articlesCode.value==""){
-			alert("세탁물품코드는 필수입니다.");
-			return;
-		}
-		if(form.price.value==""){
-			alert("물품가격은 필수입니다.");
-			return;
-		}
-		form.submit();
-	}
-</script>
+<form role="form">
+   <input type="hidden" name="articlesCode" value="${orderGoods.articlesCode }" />
+</form>
+
 </body>
-</html>

@@ -32,8 +32,7 @@
 						<th style="width: 70px;">단가</th>
 						<th style="width: 100px">등록일</th>
 						<th style="width: 100px">수정일</th>
-						<th style="width: 70px">수정</th>
-						<th style="width: 70px">삭제</th>
+						<th style="width: 50px;">상세</th>
  					</tr>
 				</thead>
 				<tbody style="text-align:center;">
@@ -57,28 +56,34 @@
 							<td>
 								<fmt:formatDate value="${orderGoods.modifyDate }" pattern="yyyy-MM-dd"/>
 							</td>
-							<td><button class="btn btn-warning btn-sm">수정</button></td>
-							<td><button class="btn btn-danger btn-sm">삭제</button></td>
+							<td><button class="btn btn-warning btn-sm"
+								 onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${orderGoods.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 			<div class="card-footer clearfix">
+				<%@ include file="/WEB-INF/views/common/pagination.jsp" %>	
 				<button type="button" class="btn btn-primary btn-sm float-right"
-					onclick="window.open('/runderingmanage/admin/ordergoods/registForm', '팝업창 이름', 'width=700, height=700')">
+					onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/registForm', '발주물품등록', 'width=600, height=600')">
 					<i class="fas fa-plus"></i> Add item
 				</button>
-				<!-- <button type="button" class="btn btn-primary float-right" onclick="regist_go('asdf')"><i class="fas fa-plus"></i> Add item</button> -->
 			</div>
 		</div>
-
 	</div>	
-	<script>
-		function regist_go(url) {
-			alert("hello");
-
-		}
-	</script>
+	<c:if test="${from eq 'regist' }" >
+		<script>
+			alert("등록되었습니다.");
+			window.close();
+			window.opener.location.reload();			
+		</script>
+	</c:if>
+		<c:if test="${from eq 'modify' }" >
+		<script>
+			alert("수정되었습니다.");
+			window.close();
+			window.opener.location.reload();			
+		</script>
+	</c:if>
 </body>
 
-</html>

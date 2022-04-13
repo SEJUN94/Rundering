@@ -12,10 +12,7 @@
 		<typeAlias type="com.rundering.dto.LaundryArticlesVO" alias="orderGoods" />
 		<typeAlias type="com.rundering.dto.MenuVO" alias="menu" />
 		<typeAlias type="com.rundering.dto.TestVO" alias="test" />
-		
 	</typeAliases>
-	
-	
 </configuration>
 
 

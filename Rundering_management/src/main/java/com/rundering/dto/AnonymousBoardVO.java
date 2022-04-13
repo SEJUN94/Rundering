@@ -9,7 +9,8 @@ public class AnonymousBoardVO {
 	private String content;         //내용   
 	private Date registDate;       //등록일  
 	private Date modifyDate;       //수정일  
-	private String deleteKey;    //삭제키(0유지/1삭제) 
+	private String deleteKey;    //삭제키(0유지/1삭제)
+	private int viewcnt;
 	public int getAno() {
 		return ano;
 	}
@@ -51,6 +52,12 @@ public class AnonymousBoardVO {
 	}
 	public void setDeleteKey(String deleteKey) {
 		this.deleteKey = deleteKey;
+	}
+	public int getViewcnt() {
+		return viewcnt;
+	}
+	public void setViewcnt(int viewcnt) {
+		this.viewcnt = viewcnt;
 	}
 	
 	
