@@ -3,19 +3,20 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class LaundryItemsVO {
-	private String lndrqlymokcode;  //세탁품목코드
+	private String laundryItemsCode;  //세탁품목코드
 	private int price;  //가격
-	private String qlymoknm;  //품목명
+	private String itemsName;  //품목명
 	private Date registDate;  //등록일
 	private Date modifyDate;  //수정일
 	private String deleteKey; //삭제키
 	private String charger;  //담당자
+	private String laundeyCategory; //세탁품목구분
 	
-	public String getLndrqlymokcode() {
-		return lndrqlymokcode;
+	public String getLaundryItemsCode() {
+		return laundryItemsCode;
 	}
-	public void setLndrqlymokcode(String lndrqlymokcode) {
-		this.lndrqlymokcode = lndrqlymokcode;
+	public void setLaundryItemsCode(String laundryItemsCode) {
+		this.laundryItemsCode = laundryItemsCode;
 	}
 	public int getPrice() {
 		return price;
@@ -23,11 +24,11 @@ public class LaundryItemsVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public String getQlymoknm() {
-		return qlymoknm;
+	public String getItemsName() {
+		return itemsName;
 	}
-	public void setQlymoknm(String qlymoknm) {
-		this.qlymoknm = qlymoknm;
+	public void setItemsName(String itemsName) {
+		this.itemsName = itemsName;
 	}
 	public Date getRegistDate() {
 		return registDate;
@@ -53,5 +54,15 @@ public class LaundryItemsVO {
 	public void setCharger(String charger) {
 		this.charger = charger;
 	}
+	public String getLaundeyCategory() {
+		return laundeyCategory;
+	}
+	public void setLaundeyCategory(String laundeyCategory) {
+		this.laundeyCategory = laundeyCategory;
+	}
+	
+	
+	
+	
 	
 }
