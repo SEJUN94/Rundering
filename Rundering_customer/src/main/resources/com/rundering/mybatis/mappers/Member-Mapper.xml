@@ -23,7 +23,11 @@
 		   set loginfail_count=0
 		 where memberno=#{memberNo}  
 	</update>
-	
+	<update id="updateLastLoginByMemberNo" parameterType="str">
+		update tb_member
+		   set LASTLOGPSNHOURLIVER=sysdate
+		 where memberno=#{memberno} 
+	</update>
 
 
 </mapper>

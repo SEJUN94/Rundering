@@ -26,7 +26,8 @@ public class MemberServiceImpl implements MemberService{
 		memberDAOBean.updateLoginfailCountByMemberNo(memberNo);
 	}
 	@Override 
-	public void setLoginFailZero(String memberNo) throws Exception{
+	public void loginSuccess(String memberNo) throws Exception{
+		memberDAOBean.updateLastLoginByMemberNo(memberNo);
 		memberDAOBean.updateLoginfailZeroByMemberNo(memberNo);
 	}
 	

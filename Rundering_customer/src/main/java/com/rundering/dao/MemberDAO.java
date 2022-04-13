@@ -9,5 +9,6 @@ public interface MemberDAO {
 	public List<String> selectAuthByMemberNo(String memberNo) throws Exception;
 	public void updateLoginfailCountByMemberNo(String memberNo) throws Exception;
 	public void updateLoginfailZeroByMemberNo(String memberNo) throws Exception;
+	public void updateLastLoginByMemberNo(String memberNo) throws Exception;
 	
 }

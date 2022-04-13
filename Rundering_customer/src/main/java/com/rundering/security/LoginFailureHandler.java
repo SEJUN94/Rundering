@@ -23,16 +23,14 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 		PrintWriter out = response.getWriter();
 		out.println("<script>");
 		out.println("alert('"+msg+".');");
-		if(msg.equals("패스워드가 일치하지 않습니다.")) {
-			out.println("window.location.reload();");
-		}
+		
 		out.println("history.go(-1);");
 		
 		out.println("</script>");
 		
 		
 		
-		if(msg.equals("5번이상 틀린 아이디 입니다.")) {
+		if(msg.equals("redirect")) {
 			response.sendRedirect(request.getContextPath()+"/login/failcount");
 		}
 		

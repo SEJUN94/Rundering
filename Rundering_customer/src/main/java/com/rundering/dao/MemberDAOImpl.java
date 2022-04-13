@@ -33,6 +33,12 @@ public class MemberDAOImpl implements MemberDAO{
 	public void updateLoginfailZeroByMemberNo(String memberNo) throws Exception{
 		session.update("Member-Mapper.updateLoginfailZeroByMemberNo", memberNo);
 	}
+	@Override
+	public void updateLastLoginByMemberNo(String memberNo) throws Exception{
+		
+		session.update("Member-Mapper.updateLastLoginByMemberNo",memberNo);
+	
+	}
 
 	
 }

@@ -42,8 +42,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
  		
  		if(member != null) {
  			if(member.getLoginfailCount()>4) {
- 				if(login_check==null) throw new BadCredentialsException("5번이상 틀린 아이디 입니다.");
- 	 	 		if(!login_check.equals("true")) throw new BadCredentialsException("5번이상 틀린 아이디 입니다.");
+ 				if(login_check==null) throw new BadCredentialsException("redirect");
+ 	 	 		if(!login_check.equals("true")) throw new BadCredentialsException("redirect");
  			}
  	 		
  	 			
@@ -64,7 +64,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			         result.setDetails(authUser);
 			         // 리턴한다. successHandler로 전송된다. 
 			         try {
-						memberService.setLoginFailZero(member.getMemberNo());
+						memberService.loginSuccess(member.getMemberNo());
 					} catch (Exception e) {
 						 e.printStackTrace();
 						 throw new BadCredentialsException("서버 장애로 서비스가 불가합니다.");
@@ -84,7 +84,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 					 throw new BadCredentialsException("서버 장애로 서비스가 불가합니다."); 
 				}
 				
-				if(member.getLoginfailCount()>4) throw new BadCredentialsException("5번이상 틀린 아이디 입니다.");
+				if(member.getLoginfailCount()>4) throw new BadCredentialsException("redirect");
  				throw new BadCredentialsException("패스워드가 일치하지 않습니다.");
  			}
  		}else { // 존재하지 않는 아이디
