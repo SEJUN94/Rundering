@@ -3,37 +3,37 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class LaundryThroughPutVO {
-	private String processno;  //처리번호
-	private int asgnlndrqy; //할당세탁량
-	private int totlndrofficliqy; //총세탁처리량
-	private int excessqy;  //초과량
-	private String areaclcode; //지역분류코드
-	private Date date;  //날찌
-	private String branchCode; //지점코드
-
-	public String getProcessno() {
-		return processno;
+	private String throughputNo;   //처리번호
+	private int laundryQuota;      //할당세탁량
+	private int totalThroughput;   //총세탁처리량
+	private int overshoot;         //초과량
+	private String areaclcode;     //지역분류코드
+	private Date date;             //날짜
+	private String branchCode;     //지점코드
+	                              
+	public String getThroughputNo() {
+		return throughputNo;
 	}
-	public void setProcessno(String processno) {
-		this.processno = processno;
+	public void setThroughputNo(String throughputNo) {
+		this.throughputNo = throughputNo;
 	}
-	public int getAsgnlndrqy() {
-		return asgnlndrqy;
+	public int getLaundryQuota() {
+		return laundryQuota;
 	}
-	public void setAsgnlndrqy(int asgnlndrqy) {
-		this.asgnlndrqy = asgnlndrqy;
+	public void setLaundryQuota(int laundryQuota) {
+		this.laundryQuota = laundryQuota;
 	}
-	public int getTotlndrofficliqy() {
-		return totlndrofficliqy;
+	public int getTotalThroughput() {
+		return totalThroughput;
 	}
-	public void setTotlndrofficliqy(int totlndrofficliqy) {
-		this.totlndrofficliqy = totlndrofficliqy;
+	public void setTotalThroughput(int totalThroughput) {
+		this.totalThroughput = totalThroughput;
 	}
-	public int getExcessqy() {
-		return excessqy;
+	public int getOvershoot() {
+		return overshoot;
 	}
-	public void setExcessqy(int excessqy) {
-		this.excessqy = excessqy;
+	public void setOvershoot(int overshoot) {
+		this.overshoot = overshoot;
 	}
 	public String getAreaclcode() {
 		return areaclcode;
