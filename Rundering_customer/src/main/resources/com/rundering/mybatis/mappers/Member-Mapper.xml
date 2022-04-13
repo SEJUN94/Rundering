@@ -18,15 +18,13 @@
 	<result column="LOGINFAIL_COUNT" property="loginfailCount"/>
 </resultMap>
 
-	<select id="selectMemberById" resultMap="memberMap"
-		parameterType="str">
+	<select id="selectMemberById" resultMap="memberMap"	parameterType="str">
 		select *
 		from TB_MEMBER
 		where id=#{id}
 	</select>
 
-	<select id="selectAuthByMemberNo" resultType="str"
-		parameterType="str">
+	<select id="selectAuthByMemberNo" resultType="str" parameterType="str">
 		select AUTH_GRP_CODE
 		from TB_USER_AUTH
 		where memberno=#{memberNo}

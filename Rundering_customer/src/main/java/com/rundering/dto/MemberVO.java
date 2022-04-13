@@ -17,7 +17,7 @@ public class MemberVO {
     private Date lastLogpsnHourLiver;
     private int loginfailCount;
     
-
+    
 	public MemberVO() {
 		super();
 	}

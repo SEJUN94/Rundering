@@ -147,8 +147,8 @@ function valid(){
 			url : '<%=request.getContextPath()%>/join',
 			type : 'post',
 			data : formData,
-			success : function(aa){
-				if(aa.cd == "ok"){
+			success : function(response){
+				if(response.toUpperCase() == "OK"){
 					alert("Rundering 회원가입을 축하드립니다!");
 					location.href = "<%=request.getContextPath()%>/login";
 					} else {

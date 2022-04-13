@@ -34,13 +34,19 @@ public class MainController {
 	}	
 	
 	@RequestMapping("/join")
-	public String join(MemberVO member) throws Exception, IOException {
-		String url = "/login/member_join_success";
+	@ResponseBody
+	public ResponseEntity<String> join(MemberVO member) throws Exception, IOException {
+		ResponseEntity<String> entity = null;
 		
-		memberService.memberJoin(member);
+		try {
+			memberService.memberJoin(member);
+			
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-
-		return url;
+		return entity;
 	}
 	
 	
