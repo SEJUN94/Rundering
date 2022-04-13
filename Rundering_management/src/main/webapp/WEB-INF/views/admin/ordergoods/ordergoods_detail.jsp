@@ -27,7 +27,7 @@
 							<span style="color: red; font-weight: bold;">*</span>상품명
 						</label>
 						<div class="col-sm-8 input-group-sm">
-							<input class="form-control" name="articlesName" type="text" id="articlesName" value="${orderGoods.articlesName }">
+							<input class="form-control" name="articlesName" type="text" id="articlesName" value="${orderGoods.articlesName }" readonly>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -38,7 +38,6 @@
 							<input class="form-control" name="articlesCode" type="text" id="articlesCode" value="${orderGoods.articlesCode }" readonly>
 						</div>
 					</div>
-
 					<div class="form-group row">
 						<!-- sort num -->
 						<label for="clcode" class="col-sm-4">
@@ -46,7 +45,7 @@
 						</label>
 						<div class="col-sm-8 input-group-sm">
 							<select id="clcode" name="clcode"
-								class="form-control">
+								class="form-control" disabled>
 								<option value="D1001">가루세제</option>
 								<option value="D1002">엑체세제</option>
 								<option value="D1003">섬유유연제</option>
@@ -74,7 +73,7 @@
 						</div>
 						<div class="col-sm-3 input-group-sm">
 							<select onchange="list_go(1);" id="perPageNum" name="perPageNum"
-								class="form-control">
+								class="form-control" disabled>
 								<option value="3">개</option>
 								<option value="5">매</option>
 								<option value="5">g</option>
@@ -110,5 +109,14 @@
 <form role="form">
    <input type="hidden" name="articlesCode" value="${orderGoods.articlesCode }" />
 </form>
-
+<script>
+	function modify_go(){
+	   var formObj = $("form[role='form']");
+	   formObj.attr({
+	      'action':'modifyForm.do',
+	      'method':'post'
+	   });
+	   formObj.submit();
+	}
+</script>
 </body>

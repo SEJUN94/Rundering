@@ -47,9 +47,9 @@
 	<update id="insertOrderGoods" parameterType="orderGoods">
 		insert 
 		into 
-		TB_LAUNDRY_ARTICLES(ARTICLES_CODE,ARTICLES_NAME,PRICE,REGIST_DATE)
+		TB_LAUNDRY_ARTICLES(ARTICLES_CODE,ARTICLES_NAME,PRICE,REGIST_DATE,EACH,NOTE)
 		values
-		(#{articlesCode},#{articlesName},#{price}, SYSDATE)
+		(#{articlesCode},#{articlesName},#{price}, SYSDATE,#{each},#{note})
 	</update>
 	
 	<update id="updateOrderGoods" parameterType="orderGoods">

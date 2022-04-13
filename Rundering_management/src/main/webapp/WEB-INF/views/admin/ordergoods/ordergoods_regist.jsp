@@ -65,11 +65,11 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label for="pwd" class="col-sm-4">
+						<label for="each" class="col-sm-4">
 							<span style="color: red; font-weight: bold;">*</span>단위
 						</label>
 						<div class="col-sm-5 input-group-sm">
-							<input class="form-control" name="pwd" type="text" id="pwd"
+							<input class="form-control" name="each" type="text" id="each"
 							style="text-align:right;">
 						</div>
 						<div class="col-sm-3 input-group-sm">

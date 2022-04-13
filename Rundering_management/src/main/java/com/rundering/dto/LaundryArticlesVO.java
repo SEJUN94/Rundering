@@ -6,11 +6,11 @@ public class LaundryArticlesVO {
 	private String articlesName;   //물품명
 	private String articlesCode;   //세탁물품코드
 	private int price;             //물품가격
-	private String each;   		   //단위
 	private String clcode;         //분류코드
 	private Date registDate;       //등록일
 	private Date modifyDate;       //수정일
 	private String deleteKey;      //삭제키
+	private String each;   		   //단위
 	private String note;  		   //비고;
 
 	public LaundryArticlesVO() {}
