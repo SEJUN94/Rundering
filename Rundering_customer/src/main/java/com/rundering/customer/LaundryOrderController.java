@@ -1,17 +1,18 @@
 package com.rundering.customer;
 
-import java.sql.SQLException;
+import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.LaundryOrderReceiveCommand;
+import com.rundering.dto.LaundryItemsVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.service.LaundryItemsService;
 import com.rundering.service.LaundryOrderService;
 
 @Controller
@@ -20,6 +21,8 @@ public class LaundryOrderController {
 	
 	@Resource(name = "laundryOrderService")
 	private LaundryOrderService laundryOrderService;
+	@Resource(name = "laundryItemsService")
+	private LaundryItemsService laundryItemsService;
 	
 	@RequestMapping("")
 	public String checkInformation() {
@@ -28,10 +31,19 @@ public class LaundryOrderController {
 	}
 
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)
-	public ModelAndView order(LaundryOrderReceiveCommand command, ModelAndView mnv) {
+	public ModelAndView order(LaundryOrderReceiveCommand command, ModelAndView mnv) throws Exception {
 		String url="/order/order";
 		
+		List<LaundryItemsVO> clothingList = laundryItemsService.getClothingList();
+		List<LaundryItemsVO> beddingList = laundryItemsService.getBeddingList();
+		List<LaundryItemsVO> shoesList = laundryItemsService.getShoesList();
+		
+		System.out.println(clothingList.get(1));
+		
 		mnv.addObject("command",command);
+		mnv.addObject("clothingList",clothingList);
+		mnv.addObject("beddingList",beddingList);
+		mnv.addObject("shoesList",shoesList);
 		mnv.setViewName(url);
 		
 		return mnv;

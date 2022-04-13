@@ -60,9 +60,12 @@ public class LaundryItemsVO {
 	public void setLaundeyCategory(String laundeyCategory) {
 		this.laundeyCategory = laundeyCategory;
 	}
-	
-	
-	
+	@Override
+	public String toString() {
+		return "LaundryItemsVO [laundryItemsCode=" + laundryItemsCode + ", price=" + price + ", itemsName=" + itemsName
+				+ ", registDate=" + registDate + ", modifyDate=" + modifyDate + ", deleteKey=" + deleteKey
+				+ ", charger=" + charger + ", laundeyCategory=" + laundeyCategory + "]";
+	}
 	
 	
 }

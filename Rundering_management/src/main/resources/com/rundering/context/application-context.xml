@@ -10,22 +10,24 @@
 		<constructor-arg value="${board.upload}" />      
 	</bean>
 	
-
+	<!-- Repository Layer -->
 	<bean id="testDAOBean" class="com.rundering.dao.TestDAO"
 		p:session-ref="sqlSession"/>
 	<bean id="memberDAOBean" class="com.rundering.dao.MemberDAOBeanImpl"
 		p:session-ref="sqlSession"/>
 	<bean id="menuDAOBean" class="com.rundering.dao.MenuDAOBeanImpl"
-		p:session-ref="sqlSession"
-	/>
+		p:session-ref="sqlSession"/>
+	<bean id="laundryItemsDAO" class="com.rundering.dao.LaundryItemsDAOImpl"
+		p:session-ref="sqlSession"/>
 	
 	
-	
+	<!-- Service Layer -->
 	<bean id="testService" class="com.rundering.service.TestServiceImpl"
 		p:testDAOBean-ref="testDAOBean"/>
 	<bean id="menuService" class="com.rundering.service.MenuServiceImpl"
-		p:menuDAOBean-ref="menuDAOBean"
-	/>	
+		p:menuDAOBean-ref="menuDAOBean"/>	
+	<bean id="laundryItemsService" class="com.rundering.service.LaundryItemsServiceImpl"
+		p:laundryItemsDAO-ref="laundryItemsDAO" />
 	
 	
 </beans>

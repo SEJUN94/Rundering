@@ -1,14 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<head>
+<style>
+
+.laundryItemsListScroll thead, .laundryItemsListScroll tbody {
+	display: block;
+}
+.laundryItemsListScroll th, .laundryItemsListScroll td {
+	width: 100%
+}
+.laundryItemsListScroll tbody {
+	max-height: 333px; /* Just for the demo          */
+	overflow-y: auto; /* Trigger vertical scroll    */
+	overflow-x: hidden; /* Hide the horizontal scroll */
+}
+/* 스크롤바 설정*/
+.laundryItemsListScroll tbody::-webkit-scrollbar {
+	/* 스크롤바 막대 너비 설정 */
+	width: 6px;
+}
+/* 스크롤바 막대 설정*/
+.laundryItemsListScroll tbody::-webkit-scrollbar-thumb {
+	/* 스크롤바 막대 높이 설정 */
+	height: 17%;
+	background-color: #d3d3d3;
+	/* 스크롤바 둥글게 설정 */
+	border-radius: 10px;
+}
+/* 스크롤바 뒷 배경 설정*/
+.laundryItemsListScroll tbody::-webkit-scrollbar-track {
+	background-color: rgba(0, 0, 0, 0);
+}
+</style>
+</head>
 
 <title>세탁 주문접수</title>
 
 <body>
 
+	<form role="form" class="form-horizontal" action="<%=request.getContextPath() %>/order/comfirm" method="post">
 	<div style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
-
-
+	
 		<section class="content-header">
 			<div class="container-fluid">
 				<div class="row mb-2">
@@ -25,16 +61,15 @@
 			</div>
 		</section>
 		
-		
 		<div class="card" style="box-shadow: none;">
 			<div class="card-header">
 				<h3 class="" style="text-align: center; font-size: 1.3rem; font-weight: 400;">세탁 정보 입력</h3>
 			</div>
 
-			<form role="form" class="form-horizontal" action="<%=request.getContextPath() %>/order/comfirm" method="post">
-	
-				<input type="text" name="loginUser" value="${loginUser.memberNo}" style="display: none;">
-				<input type="tel" class="form-control" id="contactNumber" name="contactNumber" value="${command.contactNumber}" style="display: none;">
+				<div class="hiddenInput">
+					<input type="text" name="loginUser" value="${loginUser.memberNo}" style="display: none;">
+					<input type="tel" class="form-control" id="contactNumber" name="contactNumber" value="${command.contactNumber}" style="display: none;">
+				</div>
 				
 				<div class="card-body col-6" style="margin: auto; margin-top: 25px;">
 					
@@ -52,170 +87,166 @@
 						<input type="text" class="form-control" name="requestDetails" placeholder="ex) 공동현관 비밀번호 #12345*">
 					</div>
 					
-					<button type="submit" style="margin-top: 20px;" class="btn btn-primary btn-block" >주문하기</button>
 				</div>
-				
-				
-		
-					<section class="content pb-3"style="margin-top:30px;margin-bottom:30px;">
-		<div class="container-fluid h-100" >
-			<div class="card card-row card-secondary">
-				<div class="card-header">
-					<h3 class="card-title">아우터</h3>
-				</div>
-				<div class="card-body">
-					<div class="card card-secondary card-outline">
-						<table>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>양털집업</td>
-								
-								<td>
-									<form>
-										<input name=amount type="text" style="width: 50px;" value="0"/>개수
-										<input type="button" value="+"  onClick="javascript:this.form.amount.value++;"
-										style="background-color: skyblue; border: 0; border-radius: 3px; outline: 0; margin-left:30px;" />
-										<input type="button" value="-" onClick="javascript:this.form.amount.value--;"
-										style="background-color: rgb(235, 135, 222); border: 0; border-radius: 3px; outline: 0;">
-									</form>
-								</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>롱패딩</td>
-								<td><input value="" style="width: 50px;" />개수</td>
-								<td><input type="button" value="+"
-									style="background-color: skyblue; border: 0; border-radius: 3px; outline: 0;"><input
-									type="button" value="-"
-									style="background-color: rgb(235, 135, 222); border: 0; border-radius: 3px; outline: 0;"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>더블코트</td>
-								<td><input value="" style="width: 50px;" />개수</td>
-								<td><input type="button" value="+"
-									style="background-color: skyblue; border: 0; border-radius: 3px; outline: 0;"><input
-									type="button" value="-"
-									style="background-color: rgb(235, 135, 222); border: 0; border-radius: 3px; outline: 0;"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>가죽자켓</td>
-								<td><input value="" style="width: 50px;" />개수</td>
-								<td><input type="button" value="+"
-									style="background-color: skyblue; border: 0; border-radius: 3px; outline: 0;"><input
-									type="button" value="-"
-									style="background-color: rgb(235, 135, 222); border: 0; border-radius: 3px; outline: 0;"></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
-			<div class="card card-row card-primary">
-				<div class="card-header">
-					<h3 class="card-title">상의</h3>
-				</div>
-				<div class="card-body">
-					<div class="card card-primary card-outline">
-						<table>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>셔츠</td>
-								<td><input value="" style="width: 50px;" />개수</td>
-								<td><input type="button" value="+"
-									style="background-color: skyblue; border: 0; border-radius: 3px; outline: 0;"><input
-									type="button" value="-"
-									style="background-color: rgb(235, 135, 222); border: 0; border-radius: 3px; outline: 0;"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>남방</td>
-								<td><input value="" style="width: 50px;" />개수</td>
-								<td><input type="button" value="+"
-									style="background-color: skyblue; border: 0; border-radius: 3px; outline: 0;"><input
-									type="button" value="-"
-									style="background-color: rgb(235, 135, 222); border: 0; border-radius: 3px; outline: 0;"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>블라우스</td>
-								<td><input value="" style="width: 50px;" />개수</td>
-								<td><input type="button" value="+"
-									style="background-color: skyblue; border: 0; border-radius: 3px; outline: 0;"><input
-									type="button" value="-"
-									style="background-color: rgb(235, 135, 222); border: 0; border-radius: 3px; outline: 0;"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>후드티</td>
-								<td><input value="" style="width: 50px;" />개수</td>
-								<td><input type="button" value="+"
-									style="background-color: skyblue; border: 0; border-radius: 3px; outline: 0;"><input
-									type="button" value="-"
-									style="background-color: rgb(235, 135, 222); border: 0; border-radius: 3px; outline: 0;"></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
-			<div class="card card-row card-default">
-				<div class="card-header bg-info">
-					<h3 class="card-title">하의</h3>
-				</div>
-				<div class="card-body">
-					<div class="card card-info card-outline">
-						<table>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>슬랙스</td>
-								<td><input value="" style="width: 50px;" />개수</td>
-								<td><input type="button" value="+"
-									style="background-color: skyblue; border: 0; border-radius: 3px; outline: 0;"><input
-									type="button" value="-"
-									style="background-color: rgb(235, 135, 222); border: 0; border-radius: 3px; outline: 0;"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>청바지</td>
-								<td><input value="" style="width: 50px;" />개수</td>
-								<td><input type="button" value="+"
-									style="background-color: skyblue; border: 0; border-radius: 3px; outline: 0;"><input
-									type="button" value="-"
-									style="background-color: rgb(235, 135, 222); border: 0; border-radius: 3px; outline: 0;"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>조거팬츠</td>
-								<td><input value="" style="width: 50px;" />개수</td>
-								<td><input type="button" value="+"
-									style="background-color: skyblue; border: 0; border-radius: 3px; outline: 0;"><input
-									type="button" value="-"
-									style="background-color: rgb(235, 135, 222); border: 0; border-radius: 3px; outline: 0;"></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>치마</td>
-								<td><input value="" style="width: 50px;" />개수</td>
-								<td><input type="button" value="+"
-									style="background-color: skyblue; border: 0; border-radius: 3px; outline: 0;"><input
-									type="button" value="-"
-									style="background-color: rgb(235, 135, 222); border: 0; border-radius: 3px; outline: 0;"></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
 		</div>
-	</section>
-				
-				
-				
-			</form>
-		</div>
-
 
 	</div>
+	
+	<div style="width: 70%; margin-left: 15%">
+		<div class="row">
+					<div class="col-4">
+						<div class="card">
+							<div class="card-header justify-content-center" style="display: flex;">
+								<h3 class="card-title">의류</h3>
+							</div>
+							<div class="card-body table-responsive p-0">
+								<table class="table table-hover text-nowrap laundryItemsListScroll">
+									<thead>
+										<tr style="display: flex;text-align: center;">
+											<th>품목명</th>
+											<th>가격</th>
+										</tr>
+									</thead>
+									<tbody class="">
+										<c:forEach items="${clothingList }" var="laundryItems">
+										<tr style="cursor:pointer;">
+											<td>${laundryItems.itemsName}</td>
+											<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
+										</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-4 ">
+						<div class="card">
+							<div class="card-header justify-content-center" style="display: flex;">
+								<h3 class="card-title">침구</h3>
+							</div>
+							<div class="card-body table-responsive p-0">
+								<table class="table table-hover text-nowrap laundryItemsListScroll">
+									<thead>
+										<tr style="display: flex;text-align: center;">
+											<th>품목명</th>
+											<th>가격</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${beddingList }" var="laundryItems">
+										<tr style="cursor:pointer;">
+											<td>${laundryItems.itemsName}</td>
+											<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
+										</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-4 ">
+						<div class="card">
+							<div class="card-header justify-content-center" style="display: flex;">
+								<h3 class="card-title">신발</h3>
+							</div>
+							<div class="card-body table-responsive p-0">
+								<table class="table table-hover text-nowrap laundryItemsListScroll">
+									<thead>
+										<tr style="display: flex;text-align: center;">
+											<th>품목명</th>
+											<th>가격</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${shoesList }" var="laundryItems">
+										<tr style="cursor:pointer;" onclick="displayAddItems('${laundryItems.itemsName}','${laundryItems.price}','${laundryItems.laundryItemsCode}')">
+											<td>${laundryItems.itemsName}</td>
+											<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
+										</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		<div style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
+		<div class="card" style="box-shadow: none;">
+			<div class="card-header">
+				<h3 class="" style="text-align: center; font-size: 1.3rem; font-weight: 400;">선택한 세탁품목</h3>
+			</div>
+
+			<div class="card-body p-0">
+				<table class="table">
+					<thead>
+						<tr style="text-align: center;">
+							<th>품목명</th>
+							<th>가격</th>
+							<th>수량</th>
+							<th>합계</th>
+							<th>삭제</th>
+						</tr>
+					</thead>
+					<tbody class="selectedItems">
+					
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+		<button type="submit" style="margin-top: 20px; margin: auto;" class="btn btn-primary btn-block col-6" >주문하기</button>
+		</div>
 
 
+	</form>
+	
+	<script>
+		
+	// 선택한 품목 리스트에 추가
+	function displayAddItems(itemsName,price,laundryItemsCode) {
+	  const container = document.querySelector(".selectedItems");
+	  container.append(createTrNode(itemsName,price));
+	  
+	 /*  const hiddenInput = document.querySelector(".hiddenInput");
+	  hiddenInput.append(createHTMLInputString(laundryItemsCode,1)) */
+	}
+	
+	
+	/* var i = document.createElement('input');
+    i.setAttribute("type", "text");
+    i.setAttribute("placeholder", "Address Line " + ++lineCount); */
+	function createTrNode(itemsName,price) {
+    	let tr = document.createElement('tr');
+    	let td1 = document.createElement('td');
+    	let td2 = document.createElement('td');
+    	let td3 = document.createElement('td');
+    	let td4 = document.createElement('td');
+    	let td5 = document.createElement('td');
+    	
+    	tr.setAttribute('class', )itemsName;
+    	td1.innerHTML = itemsName;
+    	tr.append(td1);
+    	td2.innerHTML = price;
+    	tr.append(td2);
+    	td3.innerHTML = 1;
+    	tr.append(td3);
+    	td4.innerHTML = price;
+    	tr.append(td4);
+    	td5.innerHTML = '<button>삭제</button>';
+    	tr.append(td5);
+    	
+    	return tr;
+		 
+		}
+	function createHTMLInputString(laundryItemsCode,quantity) {
+		  return `
+		  <input type="text" name="laundryItemsCode" value="`${laundryItemsCode},${quantity}`" style="display: none;">
+		    `;
+		}
+	</script>
 
 </body>
