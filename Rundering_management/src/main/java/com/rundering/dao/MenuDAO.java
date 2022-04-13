@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.rundering.dto.MenuVO;
 
-public interface MenuDAOBean {
+public interface MenuDAO {
 
 	public List<MenuVO> selectBranchMainMenu() throws Exception;
 	public List<MenuVO> selectAdminMainMenu() throws Exception;
