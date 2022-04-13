@@ -10,6 +10,8 @@ public interface MemberService {
 
 	public List<String> getAuthList(String memberNo) throws Exception;
 
+	public void loginFailIncrease(String memberNo) throws Exception;
+	public void loginSuccess(String memberNo) throws Exception;
 	// 아이디 중복체크
 	public MemberVO checkId(String id) throws Exception;
 
@@ -22,4 +24,5 @@ public interface MemberService {
 	// 회원정보 삭제(비활성화)
 	public void deleteMember(String id) throws Exception;
 
+	
 }

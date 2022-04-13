@@ -2,14 +2,14 @@ package com.rundering.service;
 
 import java.util.List;
 
-import com.rundering.dao.MenuDAOBean;
+import com.rundering.dao.MenuDAO;
 import com.rundering.dto.MenuVO;
 
 public class MenuServiceImpl implements MenuService {
 	
-	private MenuDAOBean menuDAOBean;
+	private MenuDAO menuDAOBean;
 	
-	public void setMenuDAOBean(MenuDAOBean menuDAOBean) {
+	public void setMenuDAOBean(MenuDAO menuDAOBean) {
 		this.menuDAOBean = menuDAOBean;
 	}
 	@Override

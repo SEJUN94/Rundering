@@ -23,6 +23,15 @@ public class MemberServiceImpl implements MemberService{
 		List<String> auth = memberDAOBean.selectAuthByMemberNo(memberNo);
 		return auth;
 	}
+	@Override
+	public void loginFailIncrease(String memberNo) throws Exception{
+		memberDAOBean.updateLoginfailCountByMemberNo(memberNo);
+	}
+	@Override 
+	public void loginSuccess(String memberNo) throws Exception{
+		memberDAOBean.updateLastLoginByMemberNo(memberNo);
+		memberDAOBean.updateLoginfailZeroByMemberNo(memberNo);
+	}
 	
 	//ID중복체크
 	@Override

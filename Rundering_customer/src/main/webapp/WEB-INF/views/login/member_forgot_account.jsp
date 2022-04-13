@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-</head>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<!DOCTYPE html>
+<head>
 
 <style>
     .bg{
@@ -27,6 +21,10 @@
         transform: translate(-50%, -50%);
     }
 </style>
+</head>
+
+
+
 
 <body>
     <img class="bg" src="<%=request.getContextPath()%>/resources/images/rundering_bg.jpg" alt="rundering_bg">
@@ -63,9 +61,7 @@
             
         </div>
     </div>
-</body>
-
-<script>
+    <script>
     let mailchk = false;
     
     //유효성검증 - mail
@@ -85,4 +81,6 @@
         }	
     });
 </script>
-</html>
+</body>
+
+

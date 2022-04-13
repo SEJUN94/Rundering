@@ -2,20 +2,20 @@ package com.rundering.dto;
 
 import java.util.Date;
 
-public class FixturesVO {
+public class LaundryFixturessVO {
 
-	private String ctqlycode; //비품코드
+	private String fixturesCode; //비품코드
 	private Date registDate;  //등록일
 	private String status;  //상태
 	private Date dispositionDate;  //처분일
 	private String branchCode;   //지점코드
-	private String lndrwaterqlycode; //세탁물품코드
-
-	public String getCtqlycode() {
-		return ctqlycode;
+	private String articlesCode; //세탁물품코드
+	
+	public String getFixturesCode() {
+		return fixturesCode;
 	}
-	public void setCtqlycode(String ctqlycode) {
-		this.ctqlycode = ctqlycode;
+	public void setFixturesCode(String fixturesCode) {
+		this.fixturesCode = fixturesCode;
 	}
 	public Date getRegistDate() {
 		return registDate;
@@ -41,10 +41,14 @@ public class FixturesVO {
 	public void setBranchCode(String branchCode) {
 		this.branchCode = branchCode;
 	}
-	public String getLndrwaterqlycode() {
-		return lndrwaterqlycode;
+	public String getArticlesCode() {
+		return articlesCode;
 	}
-	public void setLndrwaterqlycode(String lndrwaterqlycode) {
-		this.lndrwaterqlycode = lndrwaterqlycode;
+	public void setArticlesCode(String articlesCode) {
+		this.articlesCode = articlesCode;
 	}
+
+	
+	
+	
 }

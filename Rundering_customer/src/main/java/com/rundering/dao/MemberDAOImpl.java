@@ -13,17 +13,31 @@ public class MemberDAOImpl implements MemberDAO{
 	public void setSession(SqlSession session) {
 		this.session = session;
 	}
-	
 	@Override
 	public MemberVO selectMemberById(String id) throws Exception {
+		
 		MemberVO member= session.selectOne("Member-Mapper.selectMemberById", id);
+		
 		return member;
 	}
-
 	@Override
 	public List<String> selectAuthByMemberNo(String memberNo) throws Exception {
 		List<String> auth = session.selectList("Member-Mapper.selectAuthByMemberNo",memberNo);
 		return auth;
+	}
+	@Override
+	public void updateLoginfailCountByMemberNo(String memberNo) throws Exception{
+		session.update("Member-Mapper.updateLoginfailCountByMemberNo", memberNo);
+	}
+	@Override 
+	public void updateLoginfailZeroByMemberNo(String memberNo) throws Exception{
+		session.update("Member-Mapper.updateLoginfailZeroByMemberNo", memberNo);
+	}
+	@Override
+	public void updateLastLoginByMemberNo(String memberNo) throws Exception{
+		
+		session.update("Member-Mapper.updateLastLoginByMemberNo",memberNo);
+	
 	}
 	
 	//ID중복체크
