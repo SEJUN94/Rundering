@@ -61,7 +61,7 @@
 			</div>
 		</section>
 		
-		<div class="card" style="box-shadow: none;">
+		<div class="card mb-0" style="box-shadow: none;">
 			<div class="card-header">
 				<h3 class="" style="text-align: center; font-size: 1.3rem; font-weight: 400;">세탁 정보 입력</h3>
 			</div>
@@ -93,6 +93,7 @@
 	</div>
 	
 	<div style="width: 70%; margin-left: 15%">
+		<p class="mb-3" style="text-align: center;">세탁을 맡기실 품목을 선택해 주세요.</p>
 		<div class="row">
 					<div class="col-4">
 						<div class="card">
@@ -109,7 +110,7 @@
 									</thead>
 									<tbody class="">
 										<c:forEach items="${clothingList }" var="laundryItems">
-										<tr style="cursor:pointer;">
+										<tr style="cursor:pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
 											<td>${laundryItems.itemsName}</td>
 											<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
 										</tr>
@@ -135,7 +136,7 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${beddingList }" var="laundryItems">
-										<tr style="cursor:pointer;">
+										<tr style="cursor:pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
 											<td>${laundryItems.itemsName}</td>
 											<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
 										</tr>
@@ -161,7 +162,7 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${shoesList }" var="laundryItems">
-										<tr style="cursor:pointer;" onclick="displayAddItems('${laundryItems.itemsName}','${laundryItems.price}','${laundryItems.laundryItemsCode}')">
+										<tr style="cursor:pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
 											<td>${laundryItems.itemsName}</td>
 											<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
 										</tr>
@@ -184,10 +185,10 @@
 				<table class="table">
 					<thead>
 						<tr style="text-align: center;">
-							<th>품목명</th>
-							<th>가격</th>
+							<th style="width: 280px;">품목명</th>
+							<th style="width: 100px;">가격</th>
 							<th>수량</th>
-							<th>합계</th>
+							<th style="width: 100px;">합계</th>
 							<th>삭제</th>
 						</tr>
 					</thead>
@@ -198,7 +199,7 @@
 			</div>
 
 		</div>
-		<button type="submit" style="margin-top: 20px; margin: auto;" class="btn btn-primary btn-block col-6" >주문하기</button>
+		<button type="submit" style="margin-top: 20px; margin: auto;" class="btn btn-primary btn-block col-6 mt-4 mb-4" >주문하기</button>
 		</div>
 
 
@@ -208,18 +209,36 @@
 		
 	// 선택한 품목 리스트에 추가
 	function displayAddItems(itemsName,price,laundryItemsCode) {
-	  const container = document.querySelector(".selectedItems");
-	  container.append(createTrNode(itemsName,price));
-	  
-	 /*  const hiddenInput = document.querySelector(".hiddenInput");
-	  hiddenInput.append(createHTMLInputString(laundryItemsCode,1)) */
+		const trs = document.querySelectorAll(".selectedItems tr");
+		if(trs) {
+			for (let tr of trs) {
+				const classes = tr.classList;
+				if (classes.contains(laundryItemsCode)) {
+					//품목 개수 추가해야함
+					console.log(laundryItemsCode);
+					return;
+				} 
+			}
+		}
+		 const container = document.querySelector(".selectedItems");
+		 container.append(createTrNode(itemsName,price,laundryItemsCode));
+		  
+		 const hiddenInput = document.querySelector(".hiddenInput");
+		 hiddenInput.append(createHiddenInputNode(laundryItemsCode,1));
 	}
 	
+	// 선택한 품목 삭제
+	function displayRemoveItems(laundryItemsCode){
+		const items = document.querySelectorAll('.'+laundryItemsCode.className);
+		console.log(items);
+		for (let item of items) {
+			console.log(item);
+			item.remove();
+		}
+	}
 	
-	/* var i = document.createElement('input');
-    i.setAttribute("type", "text");
-    i.setAttribute("placeholder", "Address Line " + ++lineCount); */
-	function createTrNode(itemsName,price) {
+	// 품목선택시 화면에 보여줄 tr태그 Node생성
+	function createTrNode(itemsName,price,laundryItemsCode) {
     	let tr = document.createElement('tr');
     	let td1 = document.createElement('td');
     	let td2 = document.createElement('td');
@@ -227,25 +246,33 @@
     	let td4 = document.createElement('td');
     	let td5 = document.createElement('td');
     	
-    	tr.setAttribute('class', )itemsName;
+    	tr.setAttribute('class', itemsName+' '+laundryItemsCode);
+    	tr.style.textAlign = 'center';
     	td1.innerHTML = itemsName;
     	tr.append(td1);
-    	td2.innerHTML = price;
+    	td2.style.textAlign= 'end';
+    	td2.innerHTML = price+'원';
     	tr.append(td2);
     	td3.innerHTML = 1;
     	tr.append(td3);
-    	td4.innerHTML = price;
+    	td4.style.textAlign= 'end';
+    	td4.innerHTML = price+'원';
     	tr.append(td4);
-    	td5.innerHTML = '<button>삭제</button>';
+    	td5.innerHTML = `<button type="button" class="btn btn-outline-danger btn-sm" onclick="displayRemoveItems(${'${laundryItemsCode}'})">삭제</button>`;
     	tr.append(td5);
     	
     	return tr;
-		 
 		}
-	function createHTMLInputString(laundryItemsCode,quantity) {
-		  return `
-		  <input type="text" name="laundryItemsCode" value="`${laundryItemsCode},${quantity}`" style="display: none;">
-		    `;
+	
+	// 품목 코드,수량 넘겨줄 input태그 Node생성
+	function createHiddenInputNode(laundryItemsCode,quantity) {
+		let input = document.createElement('input');
+		input.setAttribute('type', 'text');
+		input.setAttribute('class', laundryItemsCode);
+		input.setAttribute('name', laundryItemsCode);
+		input.setAttribute('value', laundryItemsCode+','+quantity);
+		input.style.display = 'none';
+		return input;
 		}
 	</script>
 
