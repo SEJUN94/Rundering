@@ -1,6 +1,8 @@
 package com.rundering.manage.admin;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,15 +21,16 @@ public class AdminConmonController {
 	
 	@RequestMapping("/admin/index")
 	public String index(@RequestParam(defaultValue = "B000000") String menuCode, Model model) throws Exception {
-		String url = "admin/admin_index";
-
-		List<MenuVO> mainMenuList = menuService.MainAdminMenuList();
-		List<MenuVO> subMenuList = menuService.SubMenuList();
-		MenuVO menu= menuService.MenuByMenuCode(menuCode);
-		model.addAttribute("mainMenuList", mainMenuList);
-		model.addAttribute("subMenuList", subMenuList);
-		model.addAttribute("menu", menu);
-
+		String url = "branch/branch_index";
+		Map<String, List<MenuVO>> dataMap = menuService.getAdminMenuList();
+		List<String> key = new ArrayList<String>(); 
+		for (String keyValue : dataMap.keySet()) {
+			key.add(keyValue);
+		}
+		
+		model.addAttribute("key", key);
+		model.addAttribute("dataMap", dataMap);
+		
 		return url;
 	}
 }

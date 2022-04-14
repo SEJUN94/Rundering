@@ -49,7 +49,6 @@
                     <input type="text" class="form-control" placeholder="아이디입력  8~20" name="id" >
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
                         </div>
                     </div>
                 </div>
@@ -79,10 +78,10 @@
             </form>
             
             <p class="mb-1">
-                I forgot my <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findaccount.do','아이디 찾기', 450, 600)">account</a> / 
-                <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findpassword.do','비밀번호 찾기', 450, 600)">password</a>
+                I forgot my <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findaccount.do','아이디 찾기', 450, 700)">account</a> / 
+                <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findpassword.do','비밀번호 찾기', 450, 700)">password</a>
             </p>
-            <p class="mb-0">
+            <p class="mb-0"> 
                 <a href="<%=request.getContextPath()%>/3agree" class="text-center">join a new membership</a>
             </p>
         </div>

@@ -11,7 +11,7 @@
         </div>
         
         <div class="card">
-            <div class="card-body login-card-body">
+            <div class="card-body ">
                 <p class="login-box-msg"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비밀번호를 잊으셨나요?<br> </font><font style="vertical-align: inherit;">▼▼아래 정보를 입력해주세요▼▼</font></font></p>
                    
 	                    <div class="input-group mb-3">

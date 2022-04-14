@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 		<aside class="main-sidebar sidebar-dark-primary elevation-4" id="sidebar">
@@ -17,36 +18,37 @@
 				<!-- Sidebar Menu -->
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column subMenuList" data-widget="treeview" role="menu" style="font-size: 1.18rem;">
-				<c:if test="${not empty mainMenuList }">
-					<c:forEach items="${mainMenuList }" var="mainMenu">
-					
+					<c:forEach items="${key}" var="dataKey" >
+						<c:set var="menuList" value="${dataMap[dataKey] }" />
+						
 						<li class="nav-item">
-                            <a href="javascript:goPage('<%=request.getContextPath()%>${mainMenu.menuUrl}','${mainMenu.menuCode}');" class="nav-link">
+                            <a href="javascript:goPage('<%=request.getContextPath()%>${menuList[0].menuUrl}','${menuList[0].menuCode}');" class="nav-link">
                                 <i class="nav-icon fas fa-bars"></i>
+                              
                                 <p> 
-                             		      ${mainMenu.menuName}
-                                     <i class="right fas fa-angle-left"></i>
+                             		      ${menuList[0].menuName }
+                             		<c:if test="${fn:length(menuList) > 1}">      
+                                     	<i class="right fas fa-angle-left"></i>
+                                     </c:if>
                                 </p>
                             </a>
-                            <c:if test="${not empty subMenuList}">
-                            	<c:forEach items="${subMenuList}" var="subMenu">
-		                            <c:if test="${mainMenu.menuCode eq subMenu.upperMenuCode}" >
-			                            <ul class="nav nav-treeview">
-			                            
-			                                <li class="nav-item">
-			                                    <a href="javascript:goPage('<%=request.getContextPath()%>${subMenu.menuUrl}','${subMenu.menuCode}');" class="nav-link">
-			                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${subMenu.menuName}</p>
-			                                    </a>
-			                                </li>
-			                                
-			                            </ul>
-		                            </c:if>
-	                            </c:forEach>
-                            </c:if>
+                        
+                            <c:if test="${fn:length(menuList) > 1}">
+	                            <ul class="nav nav-treeview">
+		                            
+	                            		 <c:forEach var="menu" items="${menuList }" begin="1">
+											<li class="nav-item">
+												<a	href="javascript:goPage('<%=request.getContextPath()%>${menu.menuUrl}','${menu.menuCode}');"	class="nav-link">
+													<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${menu.menuName}</p>
+												</a>
+											</li>
+										</c:forEach>  
+								
+								</ul>
+								</c:if>
                         </li> 
                         
 					</c:forEach>
-				</c:if>
 
 						
                        

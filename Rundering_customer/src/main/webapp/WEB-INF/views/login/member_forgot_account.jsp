@@ -12,15 +12,20 @@
         </div>
         
         <div class="card">
-            <div class="card-body login-card-body">
+            <div class="card-body">
                 <p class="login-box-msg"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">계정을 잊으셨나요?<br> </font><font style="vertical-align: inherit;">▼▼아래 정보를 입력해주세요▼▼</font></font></p>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="이름을 입력하세요." required id="input_name">
+                        <input type="text" class="form-control"  placeholder="이름을 입력하세요." required id="input_name">
+                    	
                     </div>
-                    <div class="input-group mb-3" id="email_div">
+                    <div class="input-group mb-3" id="email_div" >
                     	<div class="col-9" style="padding-left: 0px;" >
-                    		<input type="email" class="form-control" id="email" name="email"  placeholder="이메일을 입력하세요." required >
-                    	</div>
+                    		<input type="text" class="form-control" id="email" name="email"  placeholder="이메일을 입력하세요." required >
+						<div class="input-group-append">
+						</div>
+
+						</div>
+                    	
                         <div class="col-3" style="padding-right: 0px;">
                     		<button type="button" id="mailCheck" class="btn btn-primary btn-block" onclick="mailCheckGo()">인증</button>
                     	</div>

@@ -10,12 +10,12 @@
         </div>
         <div class="card">
             <div class="card-body" id="passwordDiv">
-                <p class="login-box-msg"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비밀번호 변경<br> </font></font></p>
+                <p class="login-box-msg"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">새비밀번호 입력<br> </font></font></p>
                     <form action="passwordModify" method="post" id="passwordModify">
                     	<input type="hidden" name="id" value="${id }">
 	                    <div class="input-group mb-3" >
 	                        <div class="col-12" style="padding-left: 0px;padding-right: 0px;">
-	                        	<input type="password" name="password" class="form-control" id="password1" placeholder="비밀번호" required >
+	                        	<input type="password" name="password" class="form-control" id="password1" placeholder="새비밀번호" required >
 	                    	</div>
 	                    	<span class="sp"></span>
 	                    </div>

@@ -27,7 +27,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<filter>
+	<!-- <filter>
 		<filter-name>sessionExpiredCheckFilter</filter-name>
 		<filter-class>com.rundering.filter.SessionExpiredCheckFilter</filter-class>
 	</filter>
@@ -45,7 +45,7 @@
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
 	
 	<filter>
 		<filter-name>sitemesh</filter-name>
