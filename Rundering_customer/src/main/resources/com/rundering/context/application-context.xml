@@ -10,7 +10,9 @@
 		<constructor-arg value="${board.upload}" />      
 	</bean>
 	
-
+	<bean id="mailSendService" class="com.rundering.service.MailSendService"
+		p:mailSender-ref="mailSender"
+	/>   
 	
 	<bean id="memberDAO" class="com.rundering.dao.MemberDAOImpl"
 		p:session-ref="sqlSession"

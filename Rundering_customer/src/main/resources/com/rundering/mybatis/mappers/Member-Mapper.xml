@@ -3,7 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Member-Mapper">
-	<select id="selectMemberById" resultType="member" parameterType="str">
+<resultMap type="member" id="memberMap">
+   <result column="MEMBERNO" property="memberNo"/>
+   <result column="ID" property="id"/>
+   <result column="PASSWORD" property="password"/>
+   <result column="NAME" property="name"/>
+   <result column="PHONE" property="phone"/>
+   <result column="EMAIL" property="email"/>
+   <result column="REGIST_DATE" property="registDate"/>
+   <result column="MODIFY_DATE" property="modifyDate"/>
+   <result column="ENABLE_WHETHER" property="enableWhether"/>
+   <result column="WITHDRAWAL" property="withDrawal"/>
+   <result column="LASTLOGPSNHOURLIVER" property="lastLogpsnHourLiver"/>
+   <result column="LOGINFAIL_COUNT" property="loginfailCount"/>
+</resultMap>
+
+
+	<select id="selectMemberById" resultMap="memberMap" parameterType="str">
 		select *
 		  from TB_MEMBER
 		 where id=#{id} 
@@ -13,6 +29,28 @@
 		  from TB_USER_AUTH
 		 where memberno=#{memberNo} 
 	</select>
+	<select id="selectIdFindByMember" resultType="int" parameterType="member">
+		select COUNT(*) 
+		  from TB_MEMBER
+		 where name=#{name}
+		   and email=#{email}
+	</select>
+	<select id="selectPasswordFindByMember" resultType="int" parameterType="member">
+		select COUNT(*)
+		  from TB_MEMBER
+		 where name=#{name}
+		   and email=#{email}
+		   and id=#{id}
+	</select>
+	<select id="selectGetFindIdByMember"  resultType="str" parameterType="member">
+		select id 
+		  from TB_MEMBER
+		 where name=#{name}
+		   and email=#{email}
+	
+	</select>
+	
+	
 	<update id="updateLoginfailCountByMemberNo" parameterType="str">
 		update TB_MEMBER
 		   set loginfail_count=loginfail_count+1
@@ -28,6 +66,13 @@
 		   set LASTLOGPSNHOURLIVER=sysdate
 		 where memberno=#{memberno} 
 	</update>
+	<update id="updatePasswordByMember" parameterType="member">
+		update tb_member
+		   set password=#{password}
+		 where id=#{id}  
+	
+	</update>
+	
 
 
 </mapper>

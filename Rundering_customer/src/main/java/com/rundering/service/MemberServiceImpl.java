@@ -30,5 +30,28 @@ public class MemberServiceImpl implements MemberService{
 		memberDAOBean.updateLastLoginByMemberNo(memberNo);
 		memberDAOBean.updateLoginfailZeroByMemberNo(memberNo);
 	}
+	@Override
+	public int idFind(MemberVO member) throws Exception {
+		int check = memberDAOBean.selectIdFindByMember(member);
+		return check;
+	}
+	@Override
+	public int passwordFind(MemberVO member) throws Exception {
+		int check = memberDAOBean.selectPasswordFindByMember(member);
+		return check;
+	}
+	@Override
+	public String getFindId(MemberVO member) throws Exception{
+		String id = memberDAOBean.selectGetFindIdByMember(member);
+		return id;
+	}
+	@Override
+	public void updatePassword(MemberVO member) throws Exception{
+		
+		
+		memberDAOBean.updatePasswordByMember(member);
+		member =memberDAOBean.selectMemberById(member.getId());
+		memberDAOBean.updateLoginfailZeroByMemberNo(member.getMemberNo());
+	}
 	
 }
