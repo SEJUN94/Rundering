@@ -33,22 +33,22 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public NoticeVO getNotice(int nno) throws SQLException {
-			NoticeVO board = noticeDAO.selectNoticeByNno( nno);
-			noticeDAO.increaseViewCount(nno);
-			return board;
+	public NoticeVO getNotice(int noticeno) throws SQLException {
+			NoticeVO notice = noticeDAO.selectNoticeByNno( noticeno);
+			//noticeDAO.increaseViewCount(noticeno);
+			return notice;
 	}
 
 	@Override
-	public NoticeVO getNoticeForModify(int nno) throws SQLException {
-			NoticeVO board = noticeDAO.selectNoticeByNno(nno);
+	public NoticeVO getNoticeForModify(int noticeno) throws SQLException {
+			NoticeVO board = noticeDAO.selectNoticeByNno(noticeno);
 			return board;
 	}
 
 	@Override
 	public void regist(NoticeVO notice) throws SQLException {
-			int nno = noticeDAO.selectNoticeSequenceNextValue();
-			//notice.setNno(nno);
+			int noticeno = noticeDAO.selectNoticeSequenceNextValue();
+			notice.setNoticeno(noticeno);
 			noticeDAO.insertNotice(notice);
 	}
 	@Override
@@ -57,8 +57,8 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public void remove(int nno) throws SQLException {
-			noticeDAO.deleteNotice( nno);
+	public void remove(int noticeno) throws SQLException {
+			noticeDAO.deleteNotice( noticeno);
 	}
 	
 

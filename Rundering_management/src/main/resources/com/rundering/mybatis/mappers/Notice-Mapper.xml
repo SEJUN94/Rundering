@@ -5,8 +5,64 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Notice-Mapper">
-	<select id="selectNoticeList" resultType="notice">
+
+<resultMap type="notice" id="noticeMap">
+	<result column="NOTICENO" property="noticeno"/>
+	<result column="TITLE" property="title"/>
+	<result column="CONTENT" property="content"/>
+	<result column="EMPLOYEE_ID" property="employeeId"/>
+	<result column="VIEWS" property="views"/>
+	<result column="REGIST_DATE" property="registDate"/>
+	<result column="MODIFY_DATE" property="modifyDate"/>
+	<result column="DELETEAT" property="deleteat"/>
+	<result column="BRANCH_CODE" property="branchCode"/>
+</resultMap>
+
+	<select id="selectNoticeList" resultMap="noticeMap">
 	
-	select * from TB_NOTICE 
+		SELECT 
+	     B.NOTICENO
+	    ,B.TITLE
+	    ,B.CONTENT
+	    ,C.NAME as EMPLOYEE_ID
+	    ,B.REGIST_DATE
+	    ,B.VIEWS
+		FROM TB_EMPLOYEES A, TB_NOTICE B,TB_MEMBER C
+		WHERE A.EMPLOYEE_ID = B.EMPLOYEE_ID
+		AND A.MEMBERNO = C.MEMBERNO
+		
 	</select>
+	
+	<select id="selectNoticeSequenceNextValue" resultType="int">
+		select NOTICENO_SEQ.nextVal
+		from dual
+	</select>
+	
+	<update id="insertNotice" parameterType="notice">
+		insert into 
+		TB_NOTICE(NOTICENO,TITLE,EMPLOYEE_ID,CONTENT,REGIST_DATE)
+		values(#{noticeno},#{title},#{employeeId},#{content},sysdate)
+	</update>	
+	
+	<select id="selectNoticeByNno" parameterType="int" resultType="notice">
+		select 
+		* 
+		from TB_NOTICE
+		where noticeno=#{noticeno}
+		
+	</select><update id="updateNotice" parameterType="notice">
+		update TB_NOTICE
+		set 
+		title=#{title},content=#{content},modify_date=sysdate	
+		where noticeno=#{noticeno}
+	</update>
+	
+	<update id="deleteNotice" parameterType="int" >
+		delete 
+		from TB_NOTICE 
+		where noticeno=#{noticeno}		
+	</update>	
+	
+	
+	
 </mapper>

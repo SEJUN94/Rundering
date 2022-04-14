@@ -34,8 +34,8 @@ public class NoticeDAOImpl implements NoticeDAO {
 
 
 	@Override
-	public NoticeVO selectNoticeByNno(int nno) throws SQLException {
-		NoticeVO number = session.selectOne("ns.id", nno);
+	public NoticeVO selectNoticeByNno(int noticeno) throws SQLException {
+		NoticeVO number = session.selectOne("Notice-Mapper.selectNoticeByNno", noticeno);
 		return number;
 	}
 
@@ -55,28 +55,28 @@ public class NoticeDAOImpl implements NoticeDAO {
 
 	@Override
 	public int selectNoticeSequenceNextValue() throws SQLException {
-		int sequence = session.selectOne("ns.id");
-		return sequence;
+		int seq_num=session.selectOne("Notice-Mapper.selectNoticeSequenceNextValue");
+		return seq_num;
 	}
 
 
 	@Override
 	public void insertNotice(NoticeVO notice) throws SQLException {
-		session.update("ns.id", notice);
+		session.update("Notice-Mapper.insertNotice", notice);
 		
 	}
 
 
 	@Override
 	public void updateNotice(NoticeVO notice) throws SQLException {
-		session.update("ns.id", notice);
+		session.update("Notice-Mapper.updateNotice", notice);
 		
 	}
 
 
 	@Override
-	public void deleteNotice(int nno) throws SQLException {
-		session.update("ns.id", nno);
+	public void deleteNotice(int noticeno) throws SQLException {
+		session.update("Notice-Mapper.deleteNotice", noticeno);
 		
 	}
 

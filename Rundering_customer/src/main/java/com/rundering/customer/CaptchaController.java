@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rundering.util.CaptchaUtil;
 
-import nl.captcha.Captcha;
+import nl.captcha.Captcha; 
 
 @Controller
 public class CaptchaController {
@@ -23,8 +23,8 @@ public class CaptchaController {
 	@ResponseBody
 	public void captchaImg(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		new CaptchaUtil().captcaImg(request, response);
-	}
-	
+	} 
+	 
 	@RequestMapping("/captchaAudio.do")
 	@ResponseBody 
 	public void captchaAudio(HttpServletRequest request, HttpServletResponse response) throws Exception{

@@ -90,7 +90,7 @@
 								</c:if>
 								<c:forEach items="${noticeList }" var="notice">
 									<tr style='font-size: 0.85em; cursor: pointer;'
-										onclick="OpenWindow('detail.do?from=list&nno=${notice.noticeno }','상세보기',800,700);">
+										onclick="OpenWindow('noticedetail?from=list&noticeno=${notice.noticeno }','상세보기',800,700);">
 										<td>${notice.noticeno }</td>
 										<td id="Title"
 											style="text-align: left; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
@@ -101,14 +101,13 @@
 										<td><span class="badge bg-red">${notice.views }</span></td>
 									</tr>
 								</c:forEach>
-
 							</tbody>
 						</table>
 					</div>
 					<div class="card-footer">
 						<div class="float-right mb-3 mr-2">
 							<a
-								href="<%=request.getContextPath()%>/admin/board/noticeregist.do">
+								href="<%=request.getContextPath()%>/admin/board/noticeregistform">
 								<button type="button" class="btn btn-primary"
 									data-toggle="modal" data-target="#modal-lg">공지등록</button>
 							</a>
@@ -120,4 +119,6 @@
 	</div>
 
 </body>
+
+
 

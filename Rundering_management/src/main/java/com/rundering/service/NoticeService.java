@@ -12,10 +12,10 @@ public interface NoticeService {
 	public Map<String, Object> getNoticeList() throws SQLException;
 	
 	// 상세보기
-	NoticeVO getNotice(int nno) throws SQLException;
+	NoticeVO getNotice(int noticeno) throws SQLException;
 	
 	// 수정화면 상세
-	NoticeVO getNoticeForModify(int nno) throws SQLException;
+	NoticeVO getNoticeForModify(int noticeno) throws SQLException;
 
 	// 등록
 	void regist(NoticeVO notice)throws SQLException;
@@ -24,7 +24,7 @@ public interface NoticeService {
 	void modify(NoticeVO notice) throws SQLException;
 
 	// 삭제
-	void remove(int nno) throws SQLException;
+	void remove(int noticeno) throws SQLException;
 	
 
 }

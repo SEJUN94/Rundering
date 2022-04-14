@@ -1,56 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <body>
 
-<section class="content-header">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1>공지사항 수정하기</h1>
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1>공지사항 수정하기</h1>
+				</div>
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#">Home</a></li>
+						<li class="breadcrumb-item active">공지사항 수정하기</li>
+					</ol>
+				</div>
 			</div>
-			<div class="col-sm-6">
-				<ol class="breadcrumb float-sm-right">
-					<li class="breadcrumb-item"><a href="#">Home</a></li>
-					<li class="breadcrumb-item active">공지사항 수정하기</li>
-				</ol>
+		</div>
+	</section>
+
+	<div class="card card-primary card-outline">
+		<div class="card-body">
+			<form action="noticemodify" method="post" role="modifyForm">
+				<input type="hidden" name="noticeno" value="${notice.noticeno }" />
+				<div class="form-group">
+					<input class="form-control" placeholder="제목" name="title"
+						value="${notice.title }">
+				</div>
+				<label for="content">내 용</label>
+				<textarea class="textarea" name="content" id="content" rows="20"
+					placeholder="1000자 내외로 작성하세요." style="display: none;">${notice.content }</textarea>
+			</form>
+		</div>
+
+		<div class="card-footer">
+			<div class="float-right">
+				<button onclick="history.go(-1)" class="btn btn-warning">뒤로가기</button>
+				<button type="submit" class="btn btn-primary"
+					onclick="modifyPOST_go();">수정완료</button>
 			</div>
 		</div>
 	</div>
-</section>
 
-<div class="card card-primary card-outline">
-	<div class="card-body">
-		<div class="form-group">
-			<input class="form-control" placeholder="제목:">
-		</div>
-		<div class="form-group">
-			<input class="form-control" placeholder="카테고리:">
-		</div>
-			<label for="content">내 용</label>
-			<textarea class="textarea" name="content" id="content" rows="20"
-				placeholder="1000자 내외로 작성하세요." style="display: none;"></textarea>
-		</div>
-
-	<div class="card-footer">
-		<button type="reset" class="btn btn-danger">
-			<i class="fas fa-times"></i> 삭제
-		</button>
-		<div class="float-right">
-			<button onclick="history.go(-1)" class="btn btn-warning">
-				<i class="far fa-envelope"></i> 뒤로가기
-			</button>
-			<button type="submit" class="btn btn-primary">
-				<i class="far fa-envelope"></i> 수정완료
-			</button>
-		</div>
-	</div>
-</div>
-    
-    <script>
+	<script>
 	window.onload=function(){
 	summernote_go($('textarea[name="content"]'), '<%=request.getContextPath()%>');
-	}
-</script>
-    
-    </body>
+		}
+
+		function modifyPOST_go() {
+			//alert("modify btn click");
+			$("form[role='modifyForm']").submit();
+		}
+	</script>
+
+</body>
