@@ -12,7 +12,7 @@
 	            />
 	<beans:bean id="loginSuccessHandler"
 			 	class="com.rundering.security.LoginSuccessHandler"
-			 	p:defaultTargetUrl="/home.do"
+			 	p:defaultTargetUrl="/home"
 			 	/>
 	<beans:bean id="loginFailureHandler"
 	            class="com.rundering.security.LoginFailureHandler"
@@ -35,7 +35,7 @@
 		<intercept-url pattern="/**" access="permitAll"/>
 		
 		<form-login login-page="/common/loginForm.do?error=1"
-					login-processing-url="/common/login.do"
+					login-processing-url="/common/login"
 					username-parameter="id"
 					password-parameter="pwd"
 					authentication-success-handler-ref="loginSuccessHandler"

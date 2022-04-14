@@ -28,7 +28,7 @@ public class BranchController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "admin/point/point_info";
+		return "admin/branchinfo/branch_info";
 	}
 	
 	@RequestMapping(value = "/admin/branch/infodetail", method = RequestMethod.GET)
@@ -42,7 +42,7 @@ public class BranchController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "admin/point/point_info_detail";
+		return "admin/branchinfo/branch_info_detail";
 	}
 	
 	@RequestMapping(value = "/admin/branch/amount", method = RequestMethod.GET)

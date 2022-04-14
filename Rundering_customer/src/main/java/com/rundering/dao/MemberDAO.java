@@ -25,4 +25,9 @@ public interface MemberDAO {
 	// 회원정보 삭제(비활성화)
 	public void deleteMember(String id) throws Exception;
 	
+	public int selectIdFindByMember(MemberVO member) throws Exception;
+	public int selectPasswordFindByMember(MemberVO member) throws Exception;
+	public String selectGetFindIdByMember(MemberVO member) throws Exception;
+	public void updatePasswordByMember(MemberVO member) throws Exception;
+	
 }

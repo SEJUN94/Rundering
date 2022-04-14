@@ -25,4 +25,8 @@ public interface MemberService {
 	public void deleteMember(String id) throws Exception;
 
 	
+	public int idFind(MemberVO member) throws Exception;
+	public int passwordFind(MemberVO member) throws Exception;
+	public String getFindId(MemberVO member) throws Exception;
+	public void updatePassword(MemberVO member) throws Exception;
 }

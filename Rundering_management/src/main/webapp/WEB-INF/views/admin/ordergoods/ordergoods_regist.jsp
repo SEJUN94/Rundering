@@ -6,103 +6,127 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body style="min-height: 571.281px;">
-
-	<div style="min-height: 688.281px;">
-		<section class="content-header">
-			<div class="container-fluid">
-				<div class="row md-2">
-					<div class="col-sm-6">
-						<h1>물품등록</h1>
+<section class="content register-page">
+	<div class="">
+		<div class="login-logo">
+			<a href=""><b>물품 등록</b></a>
+		</div>
+		<!-- form start -->
+		<div class="card">
+			<div class="card-body">
+				<form role="form" class="form-horizontal" action="regist"
+					method="post" name="registForm">
+					<input type="hidden" name="picture">
+					<div class="input-group">
+						<div style="text-align: center; margin: 0 auto"></div>
+						<br>
 					</div>
-					<div class="col-sm-6">
-						<ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="#"> <i
-									class="fa fa-dashboard">물품관리</i>
-							</a></li>
-							<li class="breadcrumb-item active">등록</li>
-						</ol>
-					</div>
-				</div>
-			</div>
-		</section>
-		<!-- Main content -->
-		<section class="content register-page">
-			<div class="register-box">
-				<div class="login-logo">
-					<a href=""><b>물품 등록</b></a>
-				</div>
-				<!-- form start -->
-				<div class="card">
-					<div class="register-card-body">
-						<form role="form" class="form-horizontal" action="regist.do"
-							method="post">
-							<input type="hidden" name="picture">
-							<div class="input-group mb-3">
-								<div class="mailbox-attachments clearfix"
-									style="text-align: center; margin: 0 auto">
-									<div
-										style="border: 1px solid green; height: 200px; width: 140px; margin: 0 auto;"
-										id="pictureView" class="mailbox-attachment-icon has-img">
-									</div>
-									<button class="btn btn-primary btn-sm" id="sendBtn"
-										type="button" style="bottom: 0; width: 100%;">첨부</button>
-
-								</div>
-								<br>
-							</div>
-							<div class="form-group row">
-								<label for="pwd" class="col-sm-3" style="font-size: 0.9em;">
-									<span style="color: red; font-weight: bold;">*</span>물품명
-								</label>
-								<div class="col-sm-9 input-group-sm">
-									<input class="form-control" name="pwd" type="password" id="pwd">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="pwd" class="col-sm-3" style="font-size: 0.9em;">
-									<span style="color: red; font-weight: bold;">*</span>수량
-								</label>
-								<div class="col-sm-9 input-group-sm">
-									<input class="form-control" name="pwd" type="password" id="pwd">
-								</div>
-							</div>
-
-
-
-
-							<div class="form-group row">
-								<label for="pwd" class="col-sm-3" style="font-size: 0.9em;">
-									<span style="color: red; font-weight: bold;">*</span>금액
-								</label>
-								<div class="col-sm-9 input-group-sm">
-									<input class="form-control" name="pwd" type="password" id="pwd">
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label for="pwd" class="col-sm-3" style="font-size: 0.9em;">
-									<span style="color: red; font-weight: bold;">*</span>비고
-								</label>
-								<div class="col-sm-9 input-group-sm">
-									<input class="form-control" name="pwd" type="password" id="pwd">
-								</div>
-							</div>
-
-						</form>
-						<div class="btn-group float-right">
-							<button type="button" id="sendBtn"
-								class="btn btn-primary btn-sm  ">승인</button>
-							&nbsp;&nbsp;
-							<button class="btn btn-danger btn-sm  " id="sendBtn"
-								type="button">반려</button>
+					<div class="form-group row">
+						<label for="articlesName" class="col-sm-4">
+							<span style="color: red; font-weight: bold;">*</span>상품명
+						</label>
+						<div class="col-sm-8 input-group-sm">
+							<input class="form-control" name="articlesName" type="text" id="articlesName">
 						</div>
 					</div>
-					<!-- register-card-body -->
+					<div class="form-group row">
+						<label for="articlesCode" class="col-sm-4">
+							<span style="color: red; font-weight: bold;">*</span>상품코드
+						</label>
+						<div class="col-sm-8 input-group-sm">
+							<input class="form-control" name="articlesCode" type="text" id="articlesCode">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<!-- search bar -->
+						<!-- sort num -->
+						<label for="clcode" class="col-sm-4">
+							<span style="color: red; font-weight: bold;">*</span>상품분류
+						</label>
+						<div class="col-sm-8 input-group-sm">
+							<select id="clcode" name="clcode"
+								class="form-control">
+								<option value="B" ${orderGoods.clcode eq 'B' ? 'selected':'' }>가루세제</option>
+								<option value="C" ${orderGoods.clcode eq 'C' ? 'selected':'' }>엑체세제</option>
+								<option value="D" ${orderGoods.clcode eq 'D' ? 'selected':'' }>섬유유연제</option>
+								<option value="E" ${orderGoods.clcode eq 'E' ? 'selected':'' }>세탁비누</option>
+								<option value="F" ${orderGoods.clcode eq 'F' ? 'selected':'' }>세탁보조용품</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="price" class="col-sm-4">
+							<span style="color: red; font-weight: bold;">*</span>판매가
+						</label>
+						<div class="col-sm-8 input-group-sm">
+							<input class="form-control" name="price" type="text" id="price">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="each" class="col-sm-4">
+							<span style="color: red; font-weight: bold;">*</span>단위
+						</label>
+						<div class="col-sm-5 input-group-sm">
+							<input class="form-control" name="each" type="text" id="each"
+							style="text-align:right;">
+						</div>
+						<div class="col-sm-3 input-group-sm">
+							<select onchange="list_go(1);" id="each" name="each"
+								class="form-control">
+								<option value="n" ${orderGoods.each eq 'n' ? 'selected':'' }>개</option>
+								<option value="h" ${orderGoods.each eq 'h' ? 'selected':'' }>매</option>
+								<option value="g" ${orderGoods.each eq 'g' ? 'selected':'' }>g</option>
+								<option value="kg" ${orderGoods.each eq 'kg' ? 'selected':'' }>kg</option>
+								<option value="ml" ${orderGoods.each eq 'ml' ? 'selected':'' }>ml</option>
+								<option value="l" ${orderGoods.each eq 'l' ? 'selected':'' }>L</option>
+							</select>
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label for="note" class="col-sm-4">
+							<span style="font-weight: bold;">&nbsp;&nbsp;</span>비고
+						</label>
+						<div class="col-sm-8 input-group-sm">
+							<input class="form-control" name="note" type="text" id="note">
+						</div>
+					</div>
+
+				</form>
+				<div class="btn-group float-right">
+					<div class="input-group-sm">
+						<button type="button" id="sendBtn"
+							class="btn btn-primary btn-sm" onclick="regist_go();">등록</button>
+					</div>
+					&nbsp;&nbsp;
+					<div class="input-group-sm">
+						<button class="btn btn-danger btn-sm" id="sendBtn" type="button"
+								onclick="history.go(-1);">목록</button>
+					</div>
 				</div>
 			</div>
-		</section>
-		<!-- /.content -->
+		</div>
 	</div>
+</section>
+<script>
+	function regist_go(){
+		var form = document.registForm;
+		if(form.articlesName.value==""){
+			alert("상품명은 필수입니다.");
+			return;
+		}
+		if(form.articlesCode.value==""){
+			alert("세탁물품코드는 필수입니다.");
+			return;
+		}
+		if(form.price.value==""){
+			alert("물품가격은 필수입니다.");
+			return;
+		}
+		form.submit();
+	}
+</script>
 </body>
 </html>

@@ -15,7 +15,6 @@
 		<pattern>/resources/*</pattern>
 		<pattern>/login</pattern>
 		<pattern>/login/*</pattern>
-	
 	</excludes>
 
 </decorators>	

@@ -9,7 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.rundering.dto.MemberVO;
-import com.rundering.dto.TestVO;
 import com.rundering.service.MemberService;
 
 

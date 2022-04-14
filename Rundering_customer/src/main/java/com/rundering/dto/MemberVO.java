@@ -95,6 +95,5 @@ public class MemberVO {
 	public void setLoginfailCount(int loginfailCount) {
 		this.loginfailCount = loginfailCount;
 	}
-	
-	
+   
 }

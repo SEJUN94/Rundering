@@ -18,7 +18,8 @@
 	<result column="LOGINFAIL_COUNT" property="loginfailCount"/>
 </resultMap>
 
-	<select id="selectMemberById" resultMap="memberMap"	parameterType="str">
+
+	<select id="selectMemberById" resultMap="memberMap" parameterType="str">
 		select *
 		from TB_MEMBER
 		where id=#{id}
@@ -43,6 +44,28 @@
 		,WITHDRAWAL = 0
 		where id=#{id}
 	</update>
+	<select id="selectIdFindByMember" resultType="int" parameterType="member">
+		select COUNT(*) 
+		  from TB_MEMBER
+		 where name=#{name}
+		   and email=#{email}
+	</select>
+	<select id="selectPasswordFindByMember" resultType="int" parameterType="member">
+		select COUNT(*)
+		  from TB_MEMBER
+		 where name=#{name}
+		   and email=#{email}
+		   and id=#{id}
+	</select>
+	<select id="selectGetFindIdByMember"  resultType="str" parameterType="member">
+		select id 
+		  from TB_MEMBER
+		 where name=#{name}
+		   and email=#{email}
+	
+	</select>
+	
+	
 	<update id="updateLoginfailCountByMemberNo" parameterType="str">
 		update TB_MEMBER
 		   set loginfail_count=loginfail_count+1
@@ -64,6 +87,13 @@
 		PASSWORD=#{password},EMAIL=#{email},PHONE=#{phone},MODIFY_DATE=SYSDATE
 		where id=#{id}
 	</update>
+	<update id="updatePasswordByMember" parameterType="member">
+		update tb_member
+		   set password=#{password}
+		 where id=#{id}  
+	
+	</update>
+	
 
 	<select id="checkId" resultType="member" parameterType="str">
 		SELECT id
