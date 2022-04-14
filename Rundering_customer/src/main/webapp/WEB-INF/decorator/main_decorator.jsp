@@ -94,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('div.content-wrapper').css({
        "max-width":"1280px",
        "margin" : "0 auto",
-       "margin-top": "130px",
+       "margin-top": "126px",
        "background-color":"#fff"
     });
 </script>
