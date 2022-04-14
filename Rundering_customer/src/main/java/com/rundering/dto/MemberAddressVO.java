@@ -15,6 +15,7 @@ public class MemberAddressVO {
 	private String toparea;  //상위지역분류
 	
 	
+	
 	public MemberAddressVO() {
 		super();
 	}

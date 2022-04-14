@@ -3,6 +3,8 @@ package com.rundering.customer;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +19,13 @@ import com.rundering.service.MemberAddressService;
 import com.rundering.service.MemberService;
 
 @Controller
-
 public class MainController {
 
 	@Autowired
 	private MemberService memberService;
 	
-	@Autowired
-	private MemberAddressService memberAddrService;
+	@Resource(name="memberAddressService")
+	private MemberAddressService memberAddressService;
 	
 	@RequestMapping("/home")
 	public String main() {
@@ -57,7 +58,7 @@ public class MainController {
 			
 			memberAdd = mac.toAddr();
 			
-			memberAddrService.memberAddressRegist(memberAdd);
+			memberAddressService.memberAddressRegist(memberAdd);
 			
 			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
 			

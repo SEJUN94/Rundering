@@ -142,27 +142,48 @@ function valid(){
 	if(idchk && pwchk && namechk && passchk && hpchk && mailchk){
 		let formData = $('form').serialize();
 		
-		
-		$.ajax({
-			url : '<%=request.getContextPath()%>/join',
-			type : 'post',
-			data : formData,
-			success : function(response){
-				if(response.toUpperCase() == "OK"){
-					alert("Rundering 회원가입을 축하드립니다!");
-					location.href = "<%=request.getContextPath()%>/login/form";
-					} else {
-						alert("공백없이 형식에 맞게 작성해주세요!");
-					}
-				},
-				error : function(xhr) {
-					alert(xhr.status);
-				},
-			});
+		var ta1 = $('input[name="add1"]');
+		var ta2 = ta1.val();
+		var topArea = ta2.substr(0,2);
+		if(topArea == "대전"){
+			$.ajax({
+				url : '<%=request.getContextPath()%>/join',
+				type : 'post',
+				data : formData,
+				success : function(response){
+					if(response.toUpperCase() == "OK"){
+						alert("Rundering 회원가입을 축하드립니다!");
+						location.href = "<%=request.getContextPath()%>/login/form";
+						} else {
+							alert("공백없이 형식에 맞게 작성해주세요!");
+						}
+					},
+					error : function(xhr) {
+						alert(xhr.status);
+					},
+				});
+		} else{
+			if(confirm("해당 주소지는 서비스 지역이 아닙니다. 등록 하시겠습니까?")){
+				$.ajax({
+					url : '<%=request.getContextPath()%>/join',
+					type : 'post',
+					data : formData,
+					success : function(response){
+						if(response.toUpperCase() == "OK"){
+							alert("Rundering 회원가입을 축하드립니다!");
+							location.href = "<%=request.getContextPath()%>/login/form";
+							} else {
+								alert("공백없이 형식에 맞게 작성해주세요!");
+							}
+						},
+						error : function(xhr) {
+							alert(xhr.status);
+						},
+					});
+			}
 		}
-
 	}
-
+}
 
 var checkedID ="";
 function idCheck_go(){
