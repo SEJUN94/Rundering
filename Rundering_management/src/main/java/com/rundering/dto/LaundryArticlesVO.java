@@ -11,7 +11,8 @@ public class LaundryArticlesVO {
 	private Date modifyDate;       //수정일
 	private String deleteKey;      //삭제키
 	private String each;   		   //단위
-	private String note;  		   //비고;
+	private String note;  		   //비고
+	private String picture;		   //사진
 
 	public LaundryArticlesVO() {}
 	
@@ -70,9 +71,13 @@ public class LaundryArticlesVO {
 	public void setNote(String note) {
 		this.note = note;
 	}
-	
-	
-	
-	
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
 	
 }

@@ -13,6 +13,7 @@
 		<result column="DELETE_KEY" property="deleteKey"/>
 		<result column="EACH" property="each"/>
 		<result column="NOTE" property="note"/>
+		<result column="PICUTRE" property="picture"/>
 	</resultMap>
 
 	<select id="orderGoodsList" resultMap="orderGoodsMap" parameterType="str">
@@ -36,6 +37,7 @@
 		from
 		TB_LAUNDRY_ARTICLES
 		where ARTICLES_CODE is not null  	
+		  and DELETE_KEY='1'
 		order by REGIST_DATE desc
 	</select>
 	
@@ -48,16 +50,16 @@
 	<update id="insertOrderGoods" parameterType="orderGoods">
 		insert 
 		into 
-		TB_LAUNDRY_ARTICLES(ARTICLES_CODE,ARTICLES_NAME,PRICE,REGIST_DATE,EACH,NOTE,CLCODE)
+		TB_LAUNDRY_ARTICLES(ARTICLES_CODE,ARTICLES_NAME,PRICE,REGIST_DATE,EACH,NOTE,CLCODE,PICTURE)
 		values
-		(#{articlesCode},#{articlesName},#{price}, SYSDATE,#{each},#{note},#{clcode})
+		(#{articlesCode},#{articlesName},#{price}, SYSDATE,#{each},#{note},#{clcode},#{picture})
 	</update>
 	
 	<update id="updateOrderGoods" parameterType="orderGoods">
 		update 
 		TB_LAUNDRY_ARTICLES 
 		set 
-		ARTICLES_CODE=#{articlesCode}, ARTICLES_NAME=#{articlesName}, PRICE=#{price}, MODIFY_DATE=sysdate,EACH=#{each},NOTE=#{note}
+		ARTICLES_CODE=#{articlesCode}, ARTICLES_NAME=#{articlesName}, PRICE=#{price}, MODIFY_DATE=sysdate,EACH=#{each},NOTE=#{note}, PICTURE=#{picture}
 		where ARTICLES_CODE=#{articlesCode}
 	</update>
 	
