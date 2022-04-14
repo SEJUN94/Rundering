@@ -1,6 +1,9 @@
 /*COMMON*/
 body {
-	font-family: 'Nanum Gothic', sans-serif;
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+		Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+		'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
+		'Segoe UI Symbol', sans-serif;
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 1.4;
@@ -30,8 +33,7 @@ img {
 /* 글자크기를 16px 맑은 고딕 굵게하고 width넓이 700, 높이 50만큼 배경색은 #ccc, 글자색은 검정색, 라인높이50px
 menu박스 가운데정렬, 글자가운데 정렬 */
 #menu {
-	font: bold 16px "malgun gothic";
-	width: 700px;
+	width: 650px;
 	height: 100px;
 	color: black;
 	line-height: 50px;
@@ -46,18 +48,21 @@ menu박스 가운데정렬, 글자가운데 정렬 */
 	width: 140px;
 	position: relative;
 	padding-top: 70px;
+	
 }
 
 #menu>ul>li>a {
-	font-size: 1.5em;
+	font-size: 1.7em;
+	font-weight: 700;
 }
 
 #menu>ul>li>ul {
 	width: 130px;
 	display: none;
 	position: absolute;
-	font-size: 14px;
-	background-color: rgba(0, 204, 255, 0.2);
+	font-size: 18px;
+	font-weight: 500;
+	background-color: rgb(150 176 189 / 90%);
 }
 
 #menu>ul>li:hover>ul {
@@ -65,8 +70,9 @@ menu박스 가운데정렬, 글자가운데 정렬 */
 }
 
 #menu>ul>li>ul>li:hover {
-	background: blue;
-	transition: ease 1s;
+	background: rgb(227 231 233 / 80%);
+	transition: ease 0.5s;
+	cursor: pointer;
 }
 
 /*INNER*/
@@ -216,6 +222,7 @@ header {
 
 header>.inner {
 	height: 120px;
+	width: 80%
 }
 
 header .logo {
@@ -235,7 +242,6 @@ header .sub-menu {
 }
 
 header .sub-menu ul.menu {
-	font-family: Arial, sans-serif;
 	display: flex;
 }
 
@@ -261,7 +267,7 @@ header .sub-menu ul.menu li:first-child::before {
 header .sub-menu ul.menu li a {
 	padding: 11px 16px;
 	display: block;
-	font-size: 13px;
+	font-size: 16px;
 	color: #656565;
 }
 
@@ -317,7 +323,6 @@ header .main-menu {
 
 header .main-menu .item .item__name {
 	padding: 10px 34px 15px;
-	font-family: Arial, sans-serif;
 	font-size: 20px;
 	font-weight: bold;
 }
