@@ -20,7 +20,7 @@
 	<update id="addRegist" parameterType="memberAddress" >
 		INSERT INTO 
 		TB_MEMBER_ADDRESS(ADDRESS_NO,ADD1,ADD2,ZIP,MEMBERNO,AREA,TOPAREA) 
-		VALUES(WEEKSMALLNO_SEQ.NEXTVAL,#{add1},#{add2},#{zip},#{memberNo},#{area},#{toparea})
+		VALUES(WEEKSMALLNO_SEQ.NEXTVAL,#{add1},#{add2},#{zip},#{memberno},#{area},#{toparea})
 	</update>
 	
 

@@ -15,7 +15,7 @@ public class MemberAddressDAOImpl implements MemberAddressDAO{
 	
 	@Override
 	public void addRegist(MemberAddressVO memberAdd) throws Exception {
-		session.update("MemberAddress-Mapper.memberJoin",memberAdd);
+		session.update("MemberAddress-Mapper.addRegist",memberAdd);
 	}
 	
 	

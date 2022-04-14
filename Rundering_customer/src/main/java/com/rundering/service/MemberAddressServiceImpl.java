@@ -15,7 +15,7 @@ public class MemberAddressServiceImpl implements MemberAddressService{
 	public void memberAddressRegist(MemberAddressVO memberAdd) throws Exception {
 		
 		String ta = memberAdd.getAdd1().substring(0,2);
-		String ar = memberAdd.getAdd1().substring(4,2);
+		String ar = memberAdd.getAdd1().substring(3,5);
 		
 		if(ta.equals("서울")) {
 			memberAdd.setToparea("01");
@@ -48,6 +48,8 @@ public class MemberAddressServiceImpl implements MemberAddressService{
 			memberAdd.setToparea("07");
 		}else if (ta.equals("세종")) {
 			memberAdd.setToparea("08");
+		}else {
+			
 		}
 		
 		

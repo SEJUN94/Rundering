@@ -96,16 +96,16 @@
 					style="color: red; font-weight: bold;">*</span>주소</label>
 			</div>
 			<div class="input-group mb-3 form-group">
-				<input type="text" class="col-lg-6 form-control" id="zip" 	placeholder="우편번호 버튼 Click">
+				<input type="text" class="col-lg-6 form-control" id="zip" name="zip" placeholder="우편번호 버튼 Click">
 				<div class="input-group-append">
 					<button type="button" id="modalBtn" class="btn btn-info btn-sm"	onclick="findZip();">우편검색</button>
 				</div>
 			</div>
 			<div class="input-group mb-3 form-group">
-				<input type="text" class="form-control" id="add1" placeholder="기본주소">
+				<input type="text" class="form-control" id="add1" name="add1" placeholder="기본주소">
 			</div>
 			<div class="input-group mb-3 form-group">
-				<input type="text" class="form-control" id="add2" placeholder="상세주소">
+				<input type="text" class="form-control" id="add2" name="add2" placeholder="상세주소">
 			</div>
 			<div class="row">
 				<div class="col-8">
@@ -150,7 +150,7 @@ function valid(){
 			success : function(response){
 				if(response.toUpperCase() == "OK"){
 					alert("Rundering 회원가입을 축하드립니다!");
-					location.href = "<%=request.getContextPath()%>/login";
+					location.href = "<%=request.getContextPath()%>/login/form";
 					} else {
 						alert("공백없이 형식에 맞게 작성해주세요!");
 					}
@@ -237,7 +237,7 @@ window.onload = function() {
 		
 		//유효성검증(validation check) - id
 		let idValue = $('#id').val().trim();
-		let regId = /^[a-zA-Z][a-zA-Z0-9]{3,7}$/;
+		let regId = /^[a-zA-Z][a-zA-Z0-9]{5,11}$/;
 		let sp = document.querySelectorAll('.sp');
 		let rst = document.querySelector('#rst');
 
@@ -253,7 +253,7 @@ window.onload = function() {
 		} else {
 			sp[0].style.display = "inline-block"
 			rst.style.display = "none";
-			noProc($('#id'), "영문,숫자,4~8자리 입력 가능");
+			noProc($('#id'), "영문,숫자,6~12자리 입력 가능");
 			idchk = false;
 		}
 	});

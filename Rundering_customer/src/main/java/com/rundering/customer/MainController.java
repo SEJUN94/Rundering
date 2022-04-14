@@ -51,15 +51,13 @@ public class MainController {
 			
 			memberService.memberJoin(member);
 			
-			memberService.getMember(member.getId());
+			member = memberService.getMember(member.getId());
 			
-			System.out.println(member.getMemberNo()+"dasdasdsadasdsadsadsadsadsa");
 			mac.setMemberno(member.getMemberNo());
 			
 			memberAdd = mac.toAddr();
-			System.out.println(memberAdd.getAdd1()+"~~~~~aaaaaaaaaaaaaaaaaaaa~~~~~~~~~~~~~~~~~~~~~~~");
-			memberAddrService.memberAddressRegist(memberAdd);
 			
+			memberAddrService.memberAddressRegist(memberAdd);
 			
 			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
 			
