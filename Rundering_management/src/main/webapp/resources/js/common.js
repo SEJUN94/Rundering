@@ -32,6 +32,7 @@ function MemberPictureThumb(contextPath){
 	}
 }
 
+
 //summernote
 var contextPath = "";
 

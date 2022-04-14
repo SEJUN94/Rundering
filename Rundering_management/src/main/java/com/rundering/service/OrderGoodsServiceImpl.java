@@ -52,6 +52,7 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
 	@Override
 	public void modify(LaundryArticlesVO ordergoods) throws SQLException {
 		orderGoodsDAO.updateOrderGoods(ordergoods);
+		orderGoodsDAO.selectOrderGoodsByPicture(ordergoods.getPicture());
 	}
 
 	@Override

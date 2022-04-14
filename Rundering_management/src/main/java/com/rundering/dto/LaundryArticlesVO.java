@@ -2,6 +2,8 @@ package com.rundering.dto;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class LaundryArticlesVO {
 	private String articlesName;   //물품명
 	private String articlesCode;   //세탁물품코드
@@ -13,6 +15,8 @@ public class LaundryArticlesVO {
 	private String each;   		   //단위
 	private String note;  		   //비고
 	private String picture;		   //사진
+	private MultipartFile pictureFile; // 사진파일	
+	private String uploadPicture; // 변경된 사진 파일명.
 
 	public LaundryArticlesVO() {}
 	
@@ -78,6 +82,22 @@ public class LaundryArticlesVO {
 
 	public void setPicture(String picture) {
 		this.picture = picture;
+	}
+
+	public MultipartFile getPictureFile() {
+		return pictureFile;
+	}
+
+	public void setPictureFile(MultipartFile pictureFile) {
+		this.pictureFile = pictureFile;
+	}
+
+	public String getUploadPicture() {
+		return uploadPicture;
+	}
+
+	public void setUploadPicture(String uploadPicture) {
+		this.uploadPicture = uploadPicture;
 	}
 	
 }

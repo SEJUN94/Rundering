@@ -47,6 +47,13 @@
 		where ARTICLES_CODE=#{articlesCode}
 	</select>
 	
+	<select id="selectOrderGoodsByPicture" parameterType="str" resultMap="orderGoodsMap">
+		select
+		*
+		from TB_LAUNDRY_ARTICLES
+		where PICTURE=#{picture}
+	</select>
+	
 	<update id="insertOrderGoods" parameterType="orderGoods">
 		insert 
 		into 

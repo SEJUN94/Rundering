@@ -42,6 +42,13 @@ public class OrderGoodsDAOImpl implements OrderGoodsDAO{
 	}
 
 	@Override
+	public LaundryArticlesVO selectOrderGoodsByPicture(String picture) throws SQLException {
+		LaundryArticlesVO ordergoods=null;		
+		ordergoods = session.selectOne("OrderGoods-Mapper.selectOrderGoodsByPicture",picture);		
+		return ordergoods;
+	}
+	
+	@Override
 	public void insertOrderGoods(LaundryArticlesVO ordergoods) throws SQLException {
 		session.update("OrderGoods-Mapper.insertOrderGoods",ordergoods);
 	}

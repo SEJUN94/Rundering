@@ -1,5 +1,6 @@
 package com.rundering.manage.admin;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -9,12 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.manage.Criteria;
 import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.service.OrderGoodsService;
+import com.rundering.util.MakeFileName;
 
 @Controller
 @RequestMapping("/admin")
@@ -49,6 +52,7 @@ public class OrderGoodsController {
 		System.out.println(orderGoods.getClcode());
 		orderGoodsService.regist(orderGoods);
 		
+		
 		rttr.addFlashAttribute("from","regist");
 		
 		return url;
@@ -60,7 +64,8 @@ public class OrderGoodsController {
 		
 		LaundryArticlesVO orderGoods =null;
 		orderGoods=orderGoodsService.getOrderGoods(articlesCode);
-					
+		
+		
 		mnv.addObject("orderGoods",orderGoods);		
 		mnv.setViewName(url);
 		
@@ -73,6 +78,9 @@ public class OrderGoodsController {
 		
 		LaundryArticlesVO orderGoods = orderGoodsService.getOrderGoods(articlesCode);
 		
+		//String picture = MakeFileName.parseFileNameFromUUID(orderGoods.getPicture(), "\\$\\$");
+		//orderGoods.setPicture(picture);
+		
 		mnv.addObject("orderGoods", orderGoods);
 		mnv.setViewName(url);
 		
@@ -84,6 +92,15 @@ public class OrderGoodsController {
 							 RedirectAttributes rttr) throws Exception{
 		
 		String url = "redirect:/admin/ordergoods/detail";
+		
+		// 신규 파일 변경 및 기존 파일 삭제
+		String oldPicture = orderGoodsService.getOrderGoods(orderGoods.getArticlesCode()).getPicture();
+		if(orderGoods.getUploadPicture()!=null && !orderGoods.getUploadPicture().isEmpty()) {			
+			String fileName = savePicture(oldPicture, orderGoods.getPictureFile());
+			orderGoods.setPicture(fileName);
+		}else {
+			orderGoods.setPicture(oldPicture);			
+		}
 		
 		orderGoodsService.modify(orderGoods);
 		
@@ -103,6 +120,33 @@ public class OrderGoodsController {
 		return url;		
 	}
 	
+	@Resource(name = "picturePath")
+	private String picturePath;
 	
+	private String savePicture(String oldPicture, MultipartFile multi) throws Exception {
+		String fileName = null;
+
+		/* 파일유무확인 */
+		if (!(multi == null || multi.isEmpty() || multi.getSize() > 1024 * 1024 * 5)) {
+
+			/* 파일저장폴더설정 */
+			String uploadPath = picturePath;
+			fileName = MakeFileName.toUUIDFileName(multi.getOriginalFilename(), "$$");
+			File storeFile = new File(uploadPath, fileName);
+
+			storeFile.mkdirs();
+
+			// local HDD 에 저장.
+			multi.transferTo(storeFile);
+
+			if (oldPicture != null && !oldPicture.isEmpty()) {
+				File oldFile = new File(uploadPath, oldPicture);
+				if (oldFile.exists()) {
+					oldFile.delete();
+				}
+			}
+		}
+		return fileName;
+	}
 	
 }

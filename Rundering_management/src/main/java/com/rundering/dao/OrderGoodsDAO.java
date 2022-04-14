@@ -13,6 +13,8 @@ public interface OrderGoodsDAO {
 	
 	LaundryArticlesVO selectOrderGoodsByArticlesCode(String articlesCode) throws SQLException;
 
+	LaundryArticlesVO selectOrderGoodsByPicture(String picture) throws SQLException;
+	
 	void insertOrderGoods(LaundryArticlesVO ordergoods) throws SQLException;
 
 	void updateOrderGoods(LaundryArticlesVO ordergoods) throws SQLException;

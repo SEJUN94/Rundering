@@ -16,6 +16,4 @@ public class MakeFileName {
 		String[] uuidFileName = fileName.split(delimiter);
 		return uuidFileName[uuidFileName.length - 1];
 	}
-	
-	
 }
