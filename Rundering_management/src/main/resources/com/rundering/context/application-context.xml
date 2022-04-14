@@ -10,25 +10,31 @@
 		<constructor-arg value="${board.upload}" />      
 	</bean>
 	
-
-	<bean id="testDAOBean" class="com.rundering.dao.TestDAO"
-		p:session-ref="sqlSession"/>
+	<!-- Repository Layer -->
 	<bean id="memberDAO" class="com.rundering.dao.MemberDAOImpl"
-		p:session-ref="sqlSession"/>
+		p:session-ref="sqlSession"
+	/>
 	<bean id="menuDAO" class="com.rundering.dao.MenuDAOImpl"
 		p:session-ref="sqlSession"
 	/>
 	<bean id="orderGoodsDAO" class="com.rundering.dao.OrderGoodsDAOImpl"
-		p:session-ref="sqlSession"/>
+		p:session-ref="sqlSession"
+	/>
+	<bean id="laundryItemsDAO" class="com.rundering.dao.LaundryItemsDAOImpl"
+		p:session-ref="sqlSession"
+	/>
 	
 	
-	<bean id="testService" class="com.rundering.service.TestServiceImpl"
-		p:testDAOBean-ref="testDAOBean"/>
+	<!-- Service Layer -->
 	<bean id="menuService" class="com.rundering.service.MenuServiceImpl"
-		p:menuDAOBean-ref="menuDAO"/>	
+		p:menuDAOBean-ref="menuDAO"
+	/>	
 	<bean id="orderGoodsService" class="com.rundering.service.OrderGoodsServiceImpl"
-		p:orderGoodsDAO-ref="orderGoodsDAO"/>	
-	
+		p:orderGoodsDAO-ref="orderGoodsDAO"
+	/>	
+	<bean id="laundryItemsService" class="com.rundering.service.LaundryItemsServiceImpl"
+		p:laundryItemsDAO-ref="laundryItemsDAO" 
+	/>
 	
 	
 </beans>

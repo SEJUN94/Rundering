@@ -12,8 +12,7 @@
 
 	<excludes>
 		<pattern>/resources/*</pattern>
-		<pattern>/join.do</pattern>
-	
+		<pattern>/join</pattern>
 	</excludes>
 
 </decorators>	

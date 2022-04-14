@@ -15,19 +15,5 @@ public class AdminLaundryController {
 	public String laundryOrderDetail() { 
 		return "admin/laundryorder/laundry_order_detail";
 	}
-	
-	@RequestMapping("/laundryitems/list")
-	public String laundryItemsList() {
-		return "admin/laundryitems/laundryitems_list";
-	}
-	
-	@RequestMapping("/laundryitems/regist")
-	public String laundryItemRegist() {
-		return "admin/laundryitems/laundryitems_regist";
-	}
-	
-	@RequestMapping("/laundryitems/modify")
-	public String laundryItemModify() {
-		return "admin/laundryitems/laundryitems_modify";
-	}
+
 }
