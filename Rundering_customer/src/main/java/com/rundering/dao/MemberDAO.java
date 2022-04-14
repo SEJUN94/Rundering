@@ -10,5 +10,9 @@ public interface MemberDAO {
 	public void updateLoginfailCountByMemberNo(String memberNo) throws Exception;
 	public void updateLoginfailZeroByMemberNo(String memberNo) throws Exception;
 	public void updateLastLoginByMemberNo(String memberNo) throws Exception;
+	public int selectIdFindByMember(MemberVO member) throws Exception;
+	public int selectPasswordFindByMember(MemberVO member) throws Exception;
+	public String selectGetFindIdByMember(MemberVO member) throws Exception;
+	public void updatePasswordByMember(MemberVO member) throws Exception;
 	
 }
