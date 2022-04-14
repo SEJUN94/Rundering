@@ -45,7 +45,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr onclick="location.href='<%=request.getContextPath()%>/admin/point/quotadetail.do'">
+					<tr onclick="location.href='<%=request.getContextPath()%>/admin/branch/quotadetail.do'">
 						<td><a> Admin</a></td>
 						<td><a>branch</a></td>
 						<td class="project_progress">

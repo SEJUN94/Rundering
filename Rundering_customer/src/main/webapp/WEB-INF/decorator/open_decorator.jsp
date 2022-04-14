@@ -22,7 +22,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/dist/css/adminlte.min.css">
-  
+  <!-- summernote -->
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/summernote/summernote.min.css"> 
   <!--파비콘-->
   <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/images/Favicon8.ico" />
   <link rel="icon" href="<%=request.getContextPath() %>/resources/images/Favicon8.png" />
@@ -54,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>
 <!-- summernote -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/summernote/summernote-bs4.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/summernote/summernote.min.js"></script>
  
 <script src="<%=request.getContextPath() %>/resources/js/common.js"></script>  
 
@@ -72,7 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--Lodash-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
 
-  <script defer src=<%=request.getContextPath() %>/resources/js/youtube.js"></script>
+  <script defer src="<%=request.getContextPath() %>/resources/js/youtube.js"></script>
   <script defer src="<%=request.getContextPath() %>/resources/js/main.js"></script>
 
 </body>

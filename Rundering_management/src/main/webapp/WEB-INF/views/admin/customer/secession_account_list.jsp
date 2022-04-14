@@ -47,31 +47,31 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/secessiondetail.do'"> 
 								<td>183</td>
 								<td>John Doe</td>
 								<td>2022-03-27</td>
 								<td><span class="badge bg-success">탈퇴취소</span></td>
 							</tr>
-							<tr>
+							<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/secessiondetail.do'"> 
 								<td>219</td>
 								<td>Alexander Pierce</td>
 								<td>2022-03-21</td>
 								<td><span class="badge bg-success">탈퇴취소</span></td>
 							</tr>
-							<tr>
+							<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/secessiondetail.do'"> 
 								<td>657</td>
 								<td>Bob Doe</td>
 								<td>2021-12-04</td>
 								<td><span class="badge bg-success">탈퇴취소</span></td>
 							</tr>
-							<tr>
+							<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/secessiondetail.do'"> 
 								<td>175</td>
 								<td>Mike Doe</td>
 								<td>2021-11-30</td>
 								<td><span class="badge bg-success">탈퇴취소</span></td>
 							</tr>
-							<tr>
+							<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/secessiondetail.do'"> 
 								<td>115</td>
 								<td>Henry Doe</td>
 								<td>2021-10-27</td>

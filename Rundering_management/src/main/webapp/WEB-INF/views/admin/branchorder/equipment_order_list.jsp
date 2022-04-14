@@ -25,7 +25,7 @@
 						</thead>
 						<tbody>
 							<tr
-								onclick="window.open('<%=request.getContextPath()%>/admin/branchorder/detail.do', '발주 상세', 'width=700, height=900');"
+								onclick="window.open('<%=request.getContextPath()%>/admin/branch/orderdetail.do', '발주 상세', 'width=700, height=900');"
 								style="cursor: pointer;">
 								<td>183</td>
 								<td>15324</td>
