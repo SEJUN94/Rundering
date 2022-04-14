@@ -19,6 +19,8 @@
 		p:session-ref="sqlSession"/>
 	<bean id="anonymousDAO" class="com.rundering.dao.AnonymousDAOImpl"
 		p:session-ref="sqlSession"/>
+	<bean id="orderGoodsDAO" class="com.rundering.dao.OrderGoodsDAOImpl"
+		p:session-ref="sqlSession"/>
 	
 	
 	
@@ -28,7 +30,8 @@
 		p:menuDAOBean-ref="menuDAO"/>
 	<bean id="AnonymousService" class="com.rundering.service.AnonymousServiceImpl"
 		p:anonymousDAO-ref="anonymousDAO"/>	
-	
+	<bean id="orderGoodsService" class="com.rundering.service.OrderGoodsServiceImpl"
+		p:orderGoodsDAO-ref="orderGoodsDAO"/>	
 	
 </beans>
  

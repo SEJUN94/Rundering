@@ -14,8 +14,6 @@ public class AnonymousBoardVO {
 	private String writer; // 작성자
 	private String branchName; //지점명
 	private String name;
-	
-	
 
 	public AnonymousBoardVO() {
 	}

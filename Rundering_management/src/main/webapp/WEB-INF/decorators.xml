@@ -7,7 +7,7 @@
 	</decorator>
 	
 	<decorator name="adminDaterangepicker" page="admin_daterange_decorator.jsp">
-		<pattern>/admin/laundryorder.do</pattern>
+		<pattern>/admin/laundryorder</pattern>
 	</decorator>
 	
 	<decorator name="branchMain" page="branch_main_decorator.jsp">
@@ -27,8 +27,8 @@
 	<!-- decoration을 적용하지 않으려는 파일을 <excludes> 에 등록 -->
 	<excludes>
 		<pattern>/resources/*</pattern>
-		<pattern>/login.do</pattern>
-		<pattern>/fordelivery/login.do</pattern>
+		<pattern>/login</pattern>
+		<pattern>/fordelivery/login</pattern>
 	</excludes>
 
 
