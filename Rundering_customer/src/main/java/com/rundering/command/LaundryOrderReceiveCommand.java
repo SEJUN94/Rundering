@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 
 public class LaundryOrderReceiveCommand {
@@ -13,10 +14,8 @@ public class LaundryOrderReceiveCommand {
 	private String pickupRequestDate;   //수거요청일
 	private String addressNo;           //주소번호
 	private String requestDetails;      //요청사항
-	private String memberNo;            //회원고유번호
 	
 	//세탁주문상세테이블 컬럼
-	private String price;    			//가격
 	private String[] laundryItemsCode;  //세탁품목코드
 	
 	
@@ -44,18 +43,6 @@ public class LaundryOrderReceiveCommand {
 	public void setRequestDetails(String requestDetails) {
 		this.requestDetails = requestDetails;
 	}
-	public String getMemberNo() {
-		return memberNo;
-	}
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
-	}
-	public String getPrice() {
-		return price;
-	}
-	public void setPrice(String price) {
-		this.price = price;
-	}
 	public String[] getLaundryItemsCode() {
 		return laundryItemsCode;
 	}
@@ -78,6 +65,16 @@ public class LaundryOrderReceiveCommand {
 		return laundryOrder;
 	}
 	
-	
+	public LaundryOrderDetailVO toLaundryOrderDetailVO() throws Exception{
+		LaundryOrderDetailVO laundryOrderDetail = new LaundryOrderDetailVO();
+		
+		if (this.laundryItemsCode != null && this.laundryItemsCode.length > 0) {
+			for (String string : this.laundryItemsCode) {
+				
+			}
+		}
+		
+		return laundryOrderDetail;
+	}
 	
 }

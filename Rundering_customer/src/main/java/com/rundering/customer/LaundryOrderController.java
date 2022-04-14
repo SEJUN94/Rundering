@@ -3,6 +3,8 @@ package com.rundering.customer;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.rundering.command.LaundryOrderReceiveCommand;
 import com.rundering.dto.LaundryItemsVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.dto.MemberVO;
 import com.rundering.service.LaundryItemsService;
 import com.rundering.service.LaundryOrderService;
 
@@ -50,10 +53,14 @@ public class LaundryOrderController {
 	}
 	
 	@RequestMapping("/comfirm")
-	public String comfirm(LaundryOrderReceiveCommand command) throws Exception {
+	public String comfirm(LaundryOrderReceiveCommand command, HttpServletRequest request) throws Exception {
 		String url="/order/order_comfirm1";
 		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		
 		LaundryOrderVO laundryOrder = command.toLaundryOrderVO();
+		laundryOrder.setMemberNo(loginUser.getMemberNo());
 		
 		laundryOrderService.orderReceive(laundryOrder);
 		

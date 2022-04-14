@@ -26,6 +26,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		session.setAttribute("loginUser", loginUser);
 		session.setMaxInactiveInterval(60*6);
 		
+		System.out.println(loginUser.getId()+" , "+loginUser.getName()+" 로그인");
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
 	
