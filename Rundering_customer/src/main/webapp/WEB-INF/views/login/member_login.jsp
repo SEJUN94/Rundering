@@ -79,12 +79,8 @@
             </form>
             
             <p class="mb-1">
-<<<<<<< HEAD
-                I forgot my <a href="<%=request.getContextPath()%>/login/findaccount">account</a> / <a href="<%=request.getContextPath()%>/login/findpassword">password</a>
-=======
                 I forgot my <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findaccount.do','아이디 찾기', 450, 600)">account</a> / 
                 <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findpassword.do','비밀번호 찾기', 450, 600)">password</a>
->>>>>>> refs/heads/main
             </p>
             <p class="mb-0">
                 <a href="<%=request.getContextPath()%>/3agree" class="text-center">join a new membership</a>
