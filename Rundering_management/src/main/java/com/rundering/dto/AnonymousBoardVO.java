@@ -11,6 +11,11 @@ public class AnonymousBoardVO {
 	private Date modifyDate; // 수정일
 	private String deleteKey; // 삭제키(0유지/1삭제)
 	private int viewcnt; // 조회수
+	private String writer; // 작성자
+	private String branchName; //지점명
+	private String name;
+	
+	
 
 	public AnonymousBoardVO() {
 	}
@@ -78,5 +83,30 @@ public class AnonymousBoardVO {
 	public void setViewcnt(int viewcnt) {
 		this.viewcnt = viewcnt;
 	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
+	public String getBranchName() {
+		return branchName;
+	}
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 
 }

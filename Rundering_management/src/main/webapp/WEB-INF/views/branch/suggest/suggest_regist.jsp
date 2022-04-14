@@ -3,8 +3,7 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 
 <head>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/bootstrap/plugins/summernote/summernote.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/plugins/summernote/summernote.min.css">
 </head>
 
 <body>
@@ -13,12 +12,23 @@
 			<div class="card-header">
 				<h3 class="card-title">건의사항 작성</h3>
 			</div>
-			<form action="" method="post">
+			<form role="registForm" action="regist" method="post">
 				<div class="card-body p-0">
 					<div class="mailbox-read-info">
 						<p style="font-size: 1.3em; margin-bottom: 0;">&nbsp; 제목</p>
-						<input type="text" name="title" class="form-control "
-							style="border: none;">
+						<input type="text" name="title" id="title" class="form-control "
+							style="border: none;" placeholder="제목을 입력하세요">
+					</div>
+					<div class="form-group ">
+						<label for="name">작성자</label>
+						<input type="text" id="name" readonly
+							name="name" class="form-control" value="${anonymous.name }">
+					</div>
+					<div class="form-group ">
+						<label for="branchName">소속지점</label>
+						<input type="text" id="branchName" readonly
+							name="branchName" class="form-control" value="${anonymous.branchName }">
+					</div>
 					</div>
 					<div class="mailbox-read-message">
 						<textarea style="border: none; height: 311px; resize: none;"
@@ -27,14 +37,14 @@
 				</div>
 			</form>
 
-			<div class="form-group">
+			<div class="form-group" style="margin-left: 10px;">
 				<button class="btn btn-default btn-file" onclick="addFile()"
 					type="button">
 					<i class="fas fa-paperclip"></i> Add File +
 				</button>
 			</div>
 
-			<div class="form-group row" id="fileBox">
+			<div class="form-group row" id="fileBox" style="margin-left: 10px;">
 				<form role="imageForm" action="upload/picture" method="post"
 					enctype="multipart/form-data">
 					<div class="btn btn-default btn-file">
@@ -139,9 +149,5 @@
 					});
 		}
 	</script>
-
-
-
-
 
 </body>

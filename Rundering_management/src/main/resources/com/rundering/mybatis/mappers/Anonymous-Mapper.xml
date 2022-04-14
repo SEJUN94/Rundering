@@ -5,23 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Anonymous-mapper">
-	
-	<sql id="search">
-		<if test="searchType == 't'.toString()">
-			and title like '%'||#{keyword}||'%'
-		</if>
-		<if test="searchType == 'c'.toString()">
-			and content like '%'||#{keyword}||'%'
-		</if>
-		<if test="searchType == 'tc'.toString()">
-			and (
-			title like '%'||#{keyword}||'%'
-			or
-			content like '%'||#{keyword}||'%'						
-			)			
-		</if>
-	</sql>
-	
+
 	<!-- 언더바컬럼재정의 -->
 	<resultMap type="anonymousBoard" id="anonymousBoardMap">
 	
@@ -33,20 +17,48 @@
 		<result column="MODIFY_DATE" property="modifyDate" />
 		<result column="DELETE_KEY" property="deleteKey" />
 		<result column="VIEWCNT" property="viewcnt" />
+		<result column="WRITER" property="writer" />
+		<result column="BRANCH_NAME" property="branchName" />
+		<result column="NAME" property="name" />
 	
 	</resultMap>
+	
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'c'.toString()">
+			and content like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'b'.toString()">
+			and branchName like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'tcwb'.toString()">
+			and (
+			title like '%'||#{keyword}||'%'
+			or
+			content like '%'||#{keyword}||'%'						
+			or
+			branch_name like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>
 	
 	<!-- 리스트보기 -->
 	<select id="selectSearchAnonymousList" resultMap="anonymousBoardMap" >
 		select
-			ano,
-			title,
-			password,
-			content,
-			regist_date
-			from tb_anonymous_board
-			where delete_key='1'
-			order by ano asc
+		    b.ano,
+		    b.title,
+		    b.content,
+		    c.name||'('||d.branch_name||')' as writer,
+		    b.regist_date,
+		    b.viewcnt
+		from tb_employees a, tb_anonymous_board b, tb_member c, tb_branch d
+		where a.employee_id = b.writer
+		  and a.memberno = c.memberno
+		  and b.branch_name = d.branch_code
+		  and b.delete_key='1'
+		order by b.ano desc
 	</select>
 	
 	<select id="selectSearchAnonymousListCount" resultType="int">
@@ -58,11 +70,14 @@
 		order by regist_date desc
 	</select>
 	
-	<select id="selectAnonymousByAno" parameterType="int" resultType="anonymousBoard">
-		select 
-		* 
-		from tb_anonymous_board
-		where ano=#{ano}
+	<select id="selectAnonymousByAno" parameterType="int" resultMap="anonymousBoardMap" >
+		select b.ano, b.title, b.content, b.regist_date, c.name, d.branch_name
+	    from tb_employees a, tb_anonymous_board b, tb_member c, tb_branch d
+	    where ano=#{ano}
+	    	and a.employee_id = b.writer
+	    	and a.memberno=c.memberno
+	    	and b.writer=a.employee_id
+	    	and b.branch_name=d.branch_code
 	</select>
 	
 	<!-- 조회수 -->
@@ -81,20 +96,18 @@
 	<select id="insertAnonymous" resultType="anonymousBoard">
 		insert into tb_anonymous_board(
 			ano,
-			password,
 			title,
 			content) values(
 						ano_seq.nextval,
-						#{password},
 						#{title},
 						#{content})
 	</select>
 	
 	<!-- 수정 -->
 	<update id="updateAnonymous" parameterType="anonymousBoard">
-		update tb_anonymous_board 
+		update TB_ANONYMOUS_BOARD 
 		set 
-		title=#{title},content=#{content}		
+		title=#{title},content=#{content}
 		where ano=#{ano}
 	</update>
 	

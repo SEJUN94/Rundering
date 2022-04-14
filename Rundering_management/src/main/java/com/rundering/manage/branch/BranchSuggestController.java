@@ -47,17 +47,27 @@ public class BranchSuggestController {
 	private ModelAndView suggestDetail(int ano, @RequestParam(defaultValue = "") String from,
 			HttpServletRequest request, ModelAndView mnv) throws SQLException {
 		String url = "branch/suggest/suggest_detail";
-
 		AnonymousBoardVO anonymous = null;
 
-		/*
-		 * if(!from.equals("list")) { anonymous =
-		 * anonymousService.getAnonymousModify(ano); }else { anonymous =
-		 * anonymousService.getAnonymous(ano);
-		 * url="redirect:/branch/suggest/suggest_detail?ano="+ano; }
-		 */
+		if (!from.equals("list")) {
+			anonymous = anonymousService.getAnonymousModify(ano);
+		} else {
+			anonymous = anonymousService.getAnonymous(ano);
+			url = "redirect:/branch/suggest/detail?ano=" + ano;
+		}
 
-		anonymous = anonymousService.getAnonymous(ano);
+		
+		mnv.addObject("anonymous", anonymous);
+		mnv.setViewName(url);
+
+		return mnv;
+	}
+
+	@RequestMapping("/modifyForm")
+	public ModelAndView modifyForm(int ano, ModelAndView mnv) throws Exception {
+		String url = "branch/suggest/suggest_modify";
+
+		AnonymousBoardVO anonymous = anonymousService.getAnonymousModify(ano);
 
 		mnv.addObject("anonymous", anonymous);
 		mnv.setViewName(url);
@@ -65,28 +75,35 @@ public class BranchSuggestController {
 		return mnv;
 	}
 
-	@RequestMapping(value = "/registForm")
-	private ModelAndView suggestRegistForm(ModelAndView mnv) {
-		String url = "branch/suggest/suggest_regist";
-		mnv.setViewName(url);
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modifyPost(AnonymousBoardVO anonymous, HttpServletRequest request, RedirectAttributes rttr)
+			throws Exception {
+		String url = "redirect:/branch/suggest/detail";
+		anonymousService.modify(anonymous);
 
-		return mnv;
+		rttr.addAttribute("ano", anonymous.getAno());
+		rttr.addFlashAttribute("from", "modify");
+
+		return url;
+	}
+
+	@RequestMapping("/registForm")
+	private String suggestRegistForm() {
+		String url = "branch/suggest/suggest_regist";
+		return url;
 	}
 
 	@RequestMapping(value = "/regist")
-	private ModelAndView suggestRegist(AnonymousBoardVO anonymous, HttpServletRequest request, RedirectAttributes rttr,
-			ModelAndView mnv) throws Exception {
+	private String suggestRegist(AnonymousBoardVO anonymous, HttpServletRequest request, RedirectAttributes rttr)
+			throws Exception {
 
 		String url = "/branch/suggest/suggest_list";
-
-		anonymous.setTitle((String) request.getAttribute("XSStitle"));
 
 		anonymousService.regist(anonymous);
 
 		rttr.addFlashAttribute("from", "regist");
-		mnv.setViewName(url);
 
-		return mnv;
+		return url;
 	}
 
 	@Resource(name = "boardPath")
