@@ -4,27 +4,53 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<c:set var="now" value="<%=new java.util.Date()%>" /> 
+<c:set var="nowDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set>
+<!-- 이주 후 -->
+<c:set var="twoWeeksAfter" value="<%=new java.util.Date(new java.util.Date().getTime() + 60*60*24*1000*14)%>"/>
+<c:set var="twoWeeksAfterDate"><fmt:formatDate value="${twoWeeksAfter}" pattern="yyyy-MM-dd"/></c:set>
+
+
 <head>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/customer/src/main/webapp/resources/bootstrap/plugins/sweetalert2/sweetalert2.min.css" />  
 <style>
 
 .laundryItemsListScroll thead, .laundryItemsListScroll tbody {
 	display: block;
 }
 .laundryItemsListScroll th, .laundryItemsListScroll td {
-	width: 100%
+	width: 100%;
 }
 .laundryItemsListScroll tbody {
 	max-height: 333px; /* Just for the demo          */
 	overflow-y: auto; /* Trigger vertical scroll    */
 	overflow-x: hidden; /* Hide the horizontal scroll */
 }
+
+.selectedItemsTable {
+    display: block;
+    width: 758px;
+}
+.selectedItemsTable tbody {
+    display: block;
+    height: 333px;
+    overflow: auto;
+}
+.selectedItemsTable th:nth-of-type(1), .selectedItemsTable td:nth-of-type(1) { width: 257px; }
+.selectedItemsTable th:nth-of-type(2), .selectedItemsTable td:nth-of-type(2) { width: 117px; }
+.selectedItemsTable th:nth-of-type(3), .selectedItemsTable td:nth-of-type(3) { width: 147px; }
+.selectedItemsTable th:nth-of-type(4), .selectedItemsTable td:nth-of-type(4) { width: 117px; }
+.selectedItemsTable th:last-child { width: 130px; }
+.selectedItemsTable td:last-child { width: calc( 130px - 19px );  }
+
+
 /* 스크롤바 설정*/
-.laundryItemsListScroll tbody::-webkit-scrollbar {
+.laundryItemsListScroll tbody::-webkit-scrollbar, .selectedItemsTable tbody::-webkit-scrollbar {
 	/* 스크롤바 막대 너비 설정 */
 	width: 6px;
 }
 /* 스크롤바 막대 설정*/
-.laundryItemsListScroll tbody::-webkit-scrollbar-thumb {
+.laundryItemsListScroll tbody::-webkit-scrollbar-thumb, .selectedItemsTable tbody::-webkit-scrollbar-thumb {
 	/* 스크롤바 막대 높이 설정 */
 	height: 17%;
 	background-color: #d3d3d3;
@@ -32,8 +58,11 @@
 	border-radius: 10px;
 }
 /* 스크롤바 뒷 배경 설정*/
-.laundryItemsListScroll tbody::-webkit-scrollbar-track {
+.laundryItemsListScroll tbody::-webkit-scrollbar-track, .selectedItemsTable tbody::-webkit-scrollbar-track {
 	background-color: rgba(0, 0, 0, 0);
+}
+.selectedItems td{
+     vertical-align: middle;
 }
 </style>
 </head>
@@ -76,8 +105,11 @@
 					<div class="input-group mb-3">
 						<label>수거날짜 입력</label>
 					</div>
+					
+					
+
 					<div class="">
-						<input type="date" class="form-control" name="pickupRequestDate"> <span class="sp"></span>
+						<input type="date" class="form-control" name="pickupRequestDate" min="${nowDate }" max="${twoWeeksAfterDate}"> <span class="sp"></span>
 					</div>
 					
 					<div class="input-group mb-3" style="margin-top: 20px;">
@@ -182,18 +214,23 @@
 			</div>
 
 			<div class="card-body p-0">
-				<table class="table">
+				<table class="table selectedItemsTable">
 					<thead>
+						<tr>
+                            <th colspan="5" style="text-align: right;">총 합계 : <span>0</span>원</th>
+                        </tr>
 						<tr style="text-align: center;">
-							<th style="width: 280px;">품목명</th>
-							<th style="width: 100px;">가격</th>
+							<th>품목명</th>
+							<th>가격</th>
 							<th>수량</th>
-							<th style="width: 100px;">합계</th>
+							<th>합계</th>
 							<th>삭제</th>
 						</tr>
 					</thead>
 					<tbody class="selectedItems">
-					
+						<tr class="notselected">
+							<td style="text-align: center;width: 100%;margin-top: 135px;margin-left: 192px;display: block;border: none;">선택된 품목이 없습니다.</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -201,16 +238,36 @@
 		</div>
 		<button type="submit" style="margin-top: 20px; margin: auto;" class="btn btn-primary btn-block col-6 mt-4 mb-4" >주문하기</button>
 		</div>
-
+		
 
 	</form>
 	
+	<!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+	
+	
 	<script>
+	//sweetalert2 설정
+	const Toast = Swal.mixin({
+	      toast: true,
+	      position: 'center',
+	      showConfirmButton: false,
+	      timer: 1200,
+	      timerProgressBar: false,
+	      didOpen: (toast) => {
+	        toast.addEventListener('mouseenter', Swal.stopTimer)
+	        toast.addEventListener('mouseleave', Swal.resumeTimer)
+	      }
+	    })
 		
 	// 선택한 품목 리스트에 추가
 	function displayAddItems(itemsName,price,laundryItemsCode) {
 		const trs = document.querySelectorAll(".selectedItems tr");
-		if(trs) {
+		if(trs.item(0).className == 'notselected') {
+
+			trs.item(0).remove();
+			
+		}else{
 			for (let tr of trs) {
 				const classes = tr.classList;
 				if (classes.contains(laundryItemsCode)) {
@@ -225,16 +282,25 @@
 		  
 		 const hiddenInput = document.querySelector(".hiddenInput");
 		 hiddenInput.append(createHiddenInputNode(laundryItemsCode,1));
+		 
+		 totalPriceUpdate();
 	}
 	
 	// 선택한 품목 삭제
 	function displayRemoveItems(laundryItemsCode){
 		const items = document.querySelectorAll('.'+laundryItemsCode.className);
-		console.log(items);
 		for (let item of items) {
-			console.log(item);
 			item.remove();
 		}
+		const container = document.querySelector(".selectedItems");
+		const trs = document.querySelectorAll(".selectedItems tr");
+		if(!trs.length) {
+			container.innerHTML = `<tr class="notselected">
+									  <td style="text-align: center;width: 100%;margin-top: 135px;margin-left: 192px;display: block;border: none;">선택된 품목이 없습니다.</td>
+								   </tr>`;
+		}
+		totalPriceUpdate();
+
 	}
 	
 	// 품목선택시 화면에 보여줄 tr태그 Node생성
@@ -253,7 +319,11 @@
     	td2.style.textAlign= 'end';
     	td2.innerHTML = price+'원';
     	tr.append(td2);
-    	td3.innerHTML = 1;
+    	td3.innerHTML = `<input type="text" class="${'${laundryItemsCode}'}quantity" name="quantity" value="1" style="width: 35px;text-align: end;" onchange="updateValue(this)">
+				    	<div class="btn-group-vertical" style="width: 18px;">
+							<button type="button" class="btn btn-sm btn-default p-0" style="height: 20px;" onclick="plusQuantity(${'${laundryItemsCode}'})">+</button>
+							<button type="button" class="btn btn-sm btn-default p-0" style="height: 20px;" onclick="minusQuantity(${'${laundryItemsCode}'})">-</button>
+						</div>`;
     	tr.append(td3);
     	td4.style.textAlign= 'end';
     	td4.innerHTML = price+'원';
@@ -274,6 +344,80 @@
 		input.style.display = 'none';
 		return input;
 		}
+	
+	// 수량 input태그에 직접 입력시 
+	function updateValue(item){
+		if(!item.value || (item.value < 1)){
+			item.value = 1;
+		}
+		if(item.value > 99){
+			 Toast.fire({
+			      icon: 'warning',
+			      title: '최대 주문 가능 수량은 99개입니다.'
+			    });
+			 item.value = 1;
+		}
+		const laundryItemsCodeString = item.className.substring(0,5);
+		const inputHidden = document.querySelector('.hiddenInput .'+laundryItemsCodeString);
+		inputHidden.setAttribute("value",laundryItemsCodeString+','+item.value);
+		
+		updatePrice(laundryItemsCodeString);
+	}
+	
+	// 수량 더하기
+	function plusQuantity(laundryItemsCode) {
+		const laundryItemsCodeString = laundryItemsCode.className;
+		const inputQuantity = document.querySelector('.'+laundryItemsCodeString+'quantity');
+		inputQuantity.value = Number(inputQuantity.value) + 1;
+		
+		const inputHidden = document.querySelector('.hiddenInput .'+laundryItemsCodeString);
+		inputHidden.setAttribute("value",laundryItemsCodeString+','+inputQuantity.value);
+		
+		updatePrice(laundryItemsCodeString);
+	}
+	// 수량 빼기
+	function minusQuantity(laundryItemsCode) {
+		const laundryItemsCodeString = laundryItemsCode.className;
+		const inputQuantity = document.querySelector('.'+laundryItemsCodeString+'quantity');
+		if(Number(inputQuantity.value) == 1) {
+			return;
+		}
+		inputQuantity.value = Number(inputQuantity.value) - 1;
+		
+		const inputHidden = document.querySelector('.hiddenInput .'+laundryItemsCodeString);
+		inputHidden.setAttribute("value",laundryItemsCodeString+','+inputQuantity.value);
+		
+		updatePrice(laundryItemsCodeString);
+	}
+	// 수량 변경 시 금액 변경
+	function updatePrice(laundryItemsCode){
+		const item = document.querySelector('.selectedItems .'+laundryItemsCode);
+		let priceStr = item.childNodes[1].innerText;
+		let price = Number(priceStr.replace(/[^0-9]/g,''));
+		const quantity = Number(item.childNodes[2].childNodes[0].value);
+		price = price * quantity;
+		let changePrice = price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+		
+		item.childNodes[3].innerText = changePrice+'원';
+		totalPriceUpdate();
+	}
+	
+	// 총 합계 업데이트
+	function totalPriceUpdate(){
+		const totalPriceSpan = document.querySelector(".selectedItemsTable span");
+		const trs = document.querySelectorAll(".selectedItems tr");
+		let totalPriceSum = 0;
+		if(trs.item(0).className == 'notselected') {
+			totalPriceSpan.innerText = 0;
+			return;
+		}else{
+			for (let tr of trs) {
+				const price = Number(tr.childNodes[3].innerText.replace(/[^0-9]/g,''));
+				totalPriceSum += price;
+			}
+		}
+		totalPriceSpan.innerText = totalPriceSum.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+	}
 	</script>
 
 </body>
