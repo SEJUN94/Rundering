@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.jsp.command.Criteria;
+import com.rundering.manage.Criteria;
 import com.rundering.dto.AnonymousBoardVO;
 
 public class AnonymousDAOImpl implements AnonymousDAO {

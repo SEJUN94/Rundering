@@ -28,6 +28,14 @@
 	
 	<context:component-scan base-package="com.rundering.manage" />
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/**/**/**/detail"/>					
+			<mapping path="/**/**/**/regist"/>					
+			<beans:bean class="com.rundering.interceptor.XSSRequestInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 	
 	
 </beans:beans>

@@ -12,27 +12,26 @@
 			<div class="card-header">
 				<h3 class="card-title">건의사항 작성</h3>
 			</div>
-			<form role="registForm" action="regist" method="post">
+			<form role="form" action="regist" method="post" name="registForm">
 				<div class="card-body p-0">
-					<div class="mailbox-read-info">
-						<p style="font-size: 1.3em; margin-bottom: 0;">&nbsp; 제목</p>
-						<input type="text" name="title" id="title" class="form-control "
-							style="border: none;" placeholder="제목을 입력하세요">
+					<div class="form-group">
+						<label for="title" style="margin-left: 10px; margin-top: 10px; font-size: large;">제 목</label>
+						<input type="text" name="title" id="title" class="form-control" placeholder="제목을 입력하세요">
 					</div>
-					<div class="form-group ">
-						<label for="name">작성자</label>
-						<input type="text" id="name" readonly
-							name="name" class="form-control" value="${anonymous.name }">
+					<div class="form-group">
+						<label for="writer" style="margin-left: 10px; font-size: large;">작성자</label>
+						<input type="text" id="writer" readonly
+							name="writer" class="form-control" value="DE22013">
 					</div>
-					<div class="form-group ">
-						<label for="branchName">소속지점</label>
+					<div class="form-group">
+						<label for="branchName" style="margin-left: 10px; font-size: large;">소속지점</label>
 						<input type="text" id="branchName" readonly
-							name="branchName" class="form-control" value="${anonymous.branchName }">
+							name="branchName" class="form-control" value="0601">
 					</div>
-					</div>
-					<div class="mailbox-read-message">
+					<div class="form-group">
+						<label for="content" style="margin-left: 10px; font-size: large;">내 용</label>
 						<textarea style="border: none; height: 311px; resize: none;"
-							class="form-control" rows="10" cols="30" id="" name="content"></textarea>
+							class="textarea" rows="10" cols="30" id="content" name="content"></textarea>
 					</div>
 				</div>
 			</form>
@@ -62,7 +61,7 @@
 					<button type="button" class="btn btn-primary btn-sm"
 						onclick="history.go(-1)">뒤로가기</button>
 					<button type="button" class="btn btn-primary btn-sm" id="registBtn"
-						onclick="regist_go();">저장</button>
+						onclick="regist_go()">저장</button>
 				</div>
 			</div>
 		</div>

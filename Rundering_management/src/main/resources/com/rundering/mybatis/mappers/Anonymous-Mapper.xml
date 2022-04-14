@@ -19,7 +19,6 @@
 		<result column="VIEWCNT" property="viewcnt" />
 		<result column="WRITER" property="writer" />
 		<result column="BRANCH_NAME" property="branchName" />
-		<result column="NAME" property="name" />
 	
 	</resultMap>
 	
@@ -71,7 +70,7 @@
 	</select>
 	
 	<select id="selectAnonymousByAno" parameterType="int" resultMap="anonymousBoardMap" >
-		select b.ano, b.title, b.content, b.regist_date, c.name, d.branch_name
+		select b.ano, b.title, b.content, b.regist_date, c.name as writer, d.branch_name
 	    from tb_employees a, tb_anonymous_board b, tb_member c, tb_branch d
 	    where ano=#{ano}
 	    	and a.employee_id = b.writer
@@ -88,8 +87,8 @@
 	</update>
 	
 	<select id="selectAnonymousSequenceNextValue" resultType="int">
-		select tb_anonymous_board_seq.nextVal
-		from dual
+		select ano_seq.nextVal
+			from dual
 	</select>
 	
 	<!-- 삽입 -->
@@ -97,15 +96,19 @@
 		insert into tb_anonymous_board(
 			ano,
 			title,
+			writer,
+			branch_name,
 			content) values(
 						ano_seq.nextval,
 						#{title},
+						#{writer},
+						#{branchName},
 						#{content})
 	</select>
 	
 	<!-- 수정 -->
 	<update id="updateAnonymous" parameterType="anonymousBoard">
-		update TB_ANONYMOUS_BOARD 
+		update tb_anonymous_board
 		set 
 		title=#{title},content=#{content}
 		where ano=#{ano}
@@ -114,7 +117,7 @@
 	<!-- 삭제 -->
 	<update id="deleteAnonymous" parameterType="int" >
 		delete 
-		from notice 
+		from TB_ANONYMOUS_BOARD 
 		where ano=#{ano}		
 	</update>	
 

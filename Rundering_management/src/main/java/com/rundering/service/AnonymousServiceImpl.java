@@ -1,12 +1,8 @@
 package com.rundering.service;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.jsp.command.Criteria;
-import com.jsp.command.PageMaker;
 import com.rundering.dao.AnonymousDAO;
 import com.rundering.dto.AnonymousBoardVO;
 
@@ -44,8 +40,6 @@ public class AnonymousServiceImpl implements AnonymousService {
 
 	@Override
 	public void regist(AnonymousBoardVO anonymous) throws SQLException {
-		int ano = anonymousDAO.selectAnonymousSequenceNextValue();
-		anonymous.setAno(ano);
 		anonymousDAO.insertAnonymous(anonymous);
 	}
 
@@ -58,10 +52,5 @@ public class AnonymousServiceImpl implements AnonymousService {
 	public void remove(int ano) throws SQLException {
 		anonymousDAO.deleteAnonymous(ano);
 	}
-
-	/*
-	 * public void selectAnonymousByAno(int ano) throws SQLException {
-	 * anonymousDAO.selectAnonymousByAno(ano); }
-	 */
 
 }

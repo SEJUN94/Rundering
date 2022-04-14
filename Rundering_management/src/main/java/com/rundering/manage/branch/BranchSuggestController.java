@@ -4,7 +4,6 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,7 +44,9 @@ public class BranchSuggestController {
 	@RequestMapping(value = "/detail")
 	private ModelAndView suggestDetail(int ano, @RequestParam(defaultValue = "") String from,
 			HttpServletRequest request, ModelAndView mnv) throws SQLException {
+
 		String url = "branch/suggest/suggest_detail";
+
 		AnonymousBoardVO anonymous = null;
 
 		if (!from.equals("list")) {
@@ -56,7 +56,6 @@ public class BranchSuggestController {
 			url = "redirect:/branch/suggest/detail?ano=" + ano;
 		}
 
-		
 		mnv.addObject("anonymous", anonymous);
 		mnv.setViewName(url);
 
@@ -65,6 +64,7 @@ public class BranchSuggestController {
 
 	@RequestMapping("/modifyForm")
 	public ModelAndView modifyForm(int ano, ModelAndView mnv) throws Exception {
+
 		String url = "branch/suggest/suggest_modify";
 
 		AnonymousBoardVO anonymous = anonymousService.getAnonymousModify(ano);
@@ -78,7 +78,12 @@ public class BranchSuggestController {
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String modifyPost(AnonymousBoardVO anonymous, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
+
 		String url = "redirect:/branch/suggest/detail";
+				
+		//<p> tag remove
+//		anonymous.setContent((String)request.getAttribute("XSScontent")); 
+		
 		anonymousService.modify(anonymous);
 
 		rttr.addAttribute("ano", anonymous.getAno());
@@ -89,19 +94,36 @@ public class BranchSuggestController {
 
 	@RequestMapping("/registForm")
 	private String suggestRegistForm() {
+
 		String url = "branch/suggest/suggest_regist";
+
 		return url;
 	}
 
 	@RequestMapping(value = "/regist")
-	private String suggestRegist(AnonymousBoardVO anonymous, HttpServletRequest request, RedirectAttributes rttr)
+	public String suggestRegist(AnonymousBoardVO anonymous, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
 
-		String url = "/branch/suggest/suggest_list";
+		String url = "redirect:/branch/suggest/list";
+
+		// <p> tag remove
+		/* anonymous.setContent((String)request.getAttribute("XSStitle")); */
 
 		anonymousService.regist(anonymous);
 
 		rttr.addFlashAttribute("from", "regist");
+
+		return url;
+	}
+
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public String remove(int ano, RedirectAttributes rttr) throws Exception {
+		String url = "redirect:/branch/suggest/detail";
+
+		anonymousService.remove(ano);
+
+		rttr.addFlashAttribute("from", "remove");
+		rttr.addAttribute("ano", ano);
 
 		return url;
 	}

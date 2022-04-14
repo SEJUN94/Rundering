@@ -57,9 +57,9 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col">
-									<label for="name">작성자 
-									<input type="text" id="name" readonly
-										name="name" class="form-control" value="${anonymous.name }"></label>
+									<label for="writer">작성자 
+									<input type="text" id="writer" readonly
+										name="writer" class="form-control" value="${anonymous.writer }"></label>
 									</div>
 									<div class="col">
 									<label for="branchName">소속지점

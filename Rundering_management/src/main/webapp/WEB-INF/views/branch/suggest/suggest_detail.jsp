@@ -56,9 +56,9 @@
 							<div class="form-group ">
 								<div class="row">
 									<div class="col">
-										<label for="name">작성자m
-										<input type="text" id="name" readonly
-											name="name" class="form-control" value="${anonymous.name }"></label>
+										<label for="writer">작성자
+										<input type="text" id="writer" readonly
+											name="writer" class="form-control" value="${anonymous.writer }"></label>
 									</div>
 									<div class="col">
 										<label for="branchName">소속지점
@@ -72,15 +72,10 @@
 									</div>
 								</div>
 							</div>
-							<!-- <div class="form-group">
-								
-							</div>
-							<div class="form-group">
-								
-							</div> -->
 							<div class="form-group">
 								<label for="content">내 용</label>
-								<textarea class="form-control" id="content" readonly rows="7" style="resize: none;">${anonymous.content }</textarea>
+								<div>${anonymous.content }</div>
+								<%-- <textarea class="form-control" id="content" readonly rows="7" style="resize: none;">${anonymous.content }</textarea> --%>
 							</div>
 						
 					</div><!--end card-body  -->

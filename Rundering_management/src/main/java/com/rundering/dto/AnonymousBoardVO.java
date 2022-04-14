@@ -13,7 +13,13 @@ public class AnonymousBoardVO {
 	private int viewcnt; // 조회수
 	private String writer; // 작성자
 	private String branchName; //지점명
-	private String name;
+
+	@Override
+	public String toString() {
+		return "AnonymousBoardVO [ano=" + ano + ", password=" + password + ", title=" + title + ", content=" + content
+				+ ", registDate=" + registDate + ", modifyDate=" + modifyDate + ", deleteKey=" + deleteKey
+				+ ", viewcnt=" + viewcnt + ", writer=" + writer + ", branchName=" + branchName + "]";
+	}
 
 	public AnonymousBoardVO() {
 	}
@@ -97,14 +103,5 @@ public class AnonymousBoardVO {
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
 	}
-	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 
 }
