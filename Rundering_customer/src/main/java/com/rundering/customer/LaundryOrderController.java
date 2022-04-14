@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.LaundryOrderReceiveCommand;
 import com.rundering.dto.LaundryItemsVO;
+import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.service.LaundryItemsService;
@@ -61,8 +62,10 @@ public class LaundryOrderController {
 		
 		LaundryOrderVO laundryOrder = command.toLaundryOrderVO();
 		laundryOrder.setMemberNo(loginUser.getMemberNo());
-		
 		laundryOrderService.orderReceive(laundryOrder);
+		
+		List<LaundryOrderDetailVO> laundryOrderDetailVOList = command.toLaundryOrderDetailVOList();
+		
 		
 		return url;
 	}

@@ -5,8 +5,7 @@ import com.rundering.dto.MemberAddressVO;
 
 public class MemberAddressServiceImpl implements MemberAddressService{
 	MemberAddressDAOImpl memberAddressDAO;
-	
-	public void setmemberAddressDAO(MemberAddressDAOImpl memberAddressDAO) {
+	public void setMemberAddressDAO(MemberAddressDAOImpl memberAddressDAO) {
 		this.memberAddressDAO = memberAddressDAO;
 	}
 	

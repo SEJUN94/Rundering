@@ -2,7 +2,9 @@ package com.rundering.command;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
@@ -65,16 +67,19 @@ public class LaundryOrderReceiveCommand {
 		return laundryOrder;
 	}
 	
-	public LaundryOrderDetailVO toLaundryOrderDetailVO() throws Exception{
-		LaundryOrderDetailVO laundryOrderDetail = new LaundryOrderDetailVO();
+	public List<LaundryOrderDetailVO> toLaundryOrderDetailVOList() throws Exception{
+		List<LaundryOrderDetailVO> laundryOrderDetailList = new ArrayList<LaundryOrderDetailVO>();
 		
 		if (this.laundryItemsCode != null && this.laundryItemsCode.length > 0) {
 			for (String string : this.laundryItemsCode) {
-				
+				LaundryOrderDetailVO vo = new LaundryOrderDetailVO();
+				String[] split = string.split(",");
+				vo.setLaundryItemsCode(split[0]);
+				vo.setQuantity(Integer.parseInt(split[1]));
+				laundryOrderDetailList.add(vo);
 			}
 		}
-		
-		return laundryOrderDetail;
+		return laundryOrderDetailList;
 	}
 	
 }

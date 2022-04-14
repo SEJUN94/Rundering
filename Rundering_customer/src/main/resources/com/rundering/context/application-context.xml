@@ -19,16 +19,17 @@
 		p:session-ref="sqlSession"
 	/>
 	<bean id="laundryItemsDAO" class="com.rundering.dao.LaundryItemsDAOImpl"
-		p:session-ref="sqlSession"/>
+		p:session-ref="sqlSession"
+	/>
+	<bean id="memberAddressDAO" class="com.rundering.dao.MemberAddressDAOImpl"
+		p:session-ref="sqlSession"
+	/>
+		
 	
 	
 	<!-- Service Layer -->
 	<bean id="memberService" class="com.rundering.service.MemberServiceImpl"
 		p:memberDAO-ref="memberDAO"
-	/>
-
-	<bean id="memberAddressDAO" class="com.rundering.dao.MemberAddressDAOImpl"
-		p:session-ref="sqlSession"
 	/>
 	<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl"
 		p:memberAddressDAO-ref="memberAddressDAO"
