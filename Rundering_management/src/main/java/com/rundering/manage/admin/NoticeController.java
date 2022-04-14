@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.rundering.manage.HomeController;
 
 @Controller
+@RequestMapping("/admin/notice")
 public class NoticeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-	@RequestMapping(value = "/admin/notice/notice", method = RequestMethod.GET)
+	@RequestMapping(value = "/notice", method = RequestMethod.GET)
 	public String noticeList(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
@@ -31,7 +32,7 @@ public class NoticeController {
 		return "admin/notice/notice";
 	}
 	
-	@RequestMapping(value = "/admin/notice/noticeregist", method = RequestMethod.GET)
+	@RequestMapping(value = "/noticeregist", method = RequestMethod.GET)
 	public String noticeRegist(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
@@ -45,7 +46,7 @@ public class NoticeController {
 		return "admin/notice/notice_regist";
 	}
 	
-	@RequestMapping(value = "/admin/notice/noticedetail", method = RequestMethod.GET)
+	@RequestMapping(value = "/noticedetail", method = RequestMethod.GET)
 	public String noticeDetail(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
@@ -59,7 +60,7 @@ public class NoticeController {
 		return "admin/notice/notice_detail";
 	}
 	
-	@RequestMapping(value = "/admin/notice/noticemodify", method = RequestMethod.GET)
+	@RequestMapping(value = "/noticemodify", method = RequestMethod.GET)
 	public String noticeModify(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
@@ -73,7 +74,7 @@ public class NoticeController {
 		return "admin/notice/notice_modify";
 	}
 	
-	@RequestMapping(value = "/admin/notice/suggest", method = RequestMethod.GET)
+	@RequestMapping(value = "/suggest", method = RequestMethod.GET)
 	public String noticeSuggest(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
@@ -85,5 +86,19 @@ public class NoticeController {
 		model.addAttribute("serverTime", formattedDate);
 
 		return "admin/notice/suggest";
+	}
+	
+	@RequestMapping(value = "/suggestdetail", method = RequestMethod.GET)
+	public String noticeSuggestDetail(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+
+		String formattedDate = dateFormat.format(date);
+
+		model.addAttribute("serverTime", formattedDate);
+
+		return "admin/notice/suggest_detail";
 	}
 }

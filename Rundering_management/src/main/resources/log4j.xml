@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.rundering.manage">
-		<level value="info" />
+		<level value="info" />f
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

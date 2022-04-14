@@ -29,7 +29,7 @@
 				<table class="table table-hover text-nowrap"
 					style="text-align: center;">
 					<thead>
-						<tr>
+						<tr> 
 							<th>회원번호</th>
 							<th>이름</th>
 							<th>휴먼 시작일</th>
@@ -37,31 +37,31 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/dormantdetail.do'"> 
 							<td>183</td>
 							<td>John Doe</td>
 							<td>2022-03-27</td>
 							<td><span class="badge bg-success">휴먼해제</span></td>
 						</tr>
-						<tr>
+						<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/dormantdetail.do'"> 
 							<td>219</td>
 							<td>Alexander Pierce</td>
 							<td>2022-03-21</td>
 							<td><span class="badge bg-success">휴먼해제</span></td>
 						</tr>
-						<tr>
+						<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/dormantdetail.do'"> 
 							<td>657</td>
 							<td>Bob Doe</td>
 							<td>2021-12-04</td>
 							<td><span class="badge bg-success">휴먼해제</span></td>
 						</tr>
-						<tr>
+						<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/dormantdetail.do'"> 
 							<td>175</td>
 							<td>Mike Doe</td>
 							<td>2021-11-30</td>
 							<td><span class="badge bg-success">휴먼해제</span></td>
 						</tr>
-						<tr>
+						<tr onclick="location.href='<%=request.getContextPath()%>/admin/customer/dormantdetail.do'"> 
 							<td>115</td>
 							<td>Henry Doe</td>
 							<td>2021-10-27</td>

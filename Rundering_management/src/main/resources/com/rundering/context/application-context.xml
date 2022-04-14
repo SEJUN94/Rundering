@@ -23,6 +23,9 @@
 	<bean id="laundryItemsDAO" class="com.rundering.dao.LaundryItemsDAOImpl"
 		p:session-ref="sqlSession"
 	/>
+	<bean id="anonymousDAO" class="com.rundering.dao.AnonymousDAOImpl"
+		p:session-ref="sqlSession"
+	/>
 	
 	
 	<!-- Service Layer -->
@@ -35,7 +38,9 @@
 	<bean id="laundryItemsService" class="com.rundering.service.LaundryItemsServiceImpl"
 		p:laundryItemsDAO-ref="laundryItemsDAO" 
 	/>
+	<bean id="AnonymousService" class="com.rundering.service.AnonymousServiceImpl"
+		p:anonymousDAO-ref="anonymousDAO"
+	/>	
 	
 	
 </beans>
- 

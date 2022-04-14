@@ -18,7 +18,10 @@
 		</div>
 	</section>
 	<div>
-		<a href="<%=request.getContextPath()%>/admin/point/infodetail.do"
+		<a href="<%=request.getContextPath()%>/admin/branch/detail.do"
+			class="nav-link">
+			<p>지점 기본 정보</p>
+		</a> <a href="<%=request.getContextPath()%>/admin/branch/infodetail.do"
 			class="nav-link">
 			<p>지점 상세 조회</p>
 		</a>

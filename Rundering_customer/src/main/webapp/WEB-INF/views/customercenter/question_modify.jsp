@@ -29,7 +29,7 @@
 		</div>
 			<label for="content">내 용</label>
 			<textarea class="textarea" name="content" id="content" rows="20"
-				placeholder="1000자 내외로 작성하세요." style="display: none;"></textarea>
+			style="display: none;"></textarea>
 		</div>
 
 	<div class="card-footer">
