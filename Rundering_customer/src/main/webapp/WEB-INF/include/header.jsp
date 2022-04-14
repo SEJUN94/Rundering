@@ -29,7 +29,7 @@
 						<li><a href="<%=request.getContextPath()%>/guide/price">가격안내</a></li>
 						<li><a href="<%=request.getContextPath()%>/guide/area">서비스지역</a></li>
 					</ul></li>
-				<li><a href="<%=request.getContextPath()%>/order.do">세탁주문</a></li>
+				<li><a href="<%=request.getContextPath()%>/order">세탁주문</a></li>
 				<li><a href="#">고객센터</a>
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/customercenter/faq">자주묻는질문</a></li>
