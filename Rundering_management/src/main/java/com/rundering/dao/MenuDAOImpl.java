@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.dto.MenuVO;
 
-public class MenuDAOBeanImpl implements MenuDAOBean{
+public class MenuDAOImpl implements MenuDAO{
 	
 	private SqlSession session;
 	

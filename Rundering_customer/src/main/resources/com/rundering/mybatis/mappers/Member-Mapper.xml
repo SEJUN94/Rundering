@@ -13,7 +13,21 @@
 		  from TB_USER_AUTH
 		 where memberno=#{memberNo} 
 	</select>
-	
+	<update id="updateLoginfailCountByMemberNo" parameterType="str">
+		update TB_MEMBER
+		   set loginfail_count=loginfail_count+1
+		 where memberno=#{memberNo}  
+	</update>
+	<update id="updateLoginfailZeroByMemberNo" parameterType="str">
+		update TB_MEMBER
+		   set loginfail_count=0
+		 where memberno=#{memberNo}  
+	</update>
+	<update id="updateLastLoginByMemberNo" parameterType="str">
+		update tb_member
+		   set LASTLOGPSNHOURLIVER=sysdate
+		 where memberno=#{memberno} 
+	</update>
 
 
 </mapper>

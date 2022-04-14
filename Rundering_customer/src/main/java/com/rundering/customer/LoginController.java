@@ -7,9 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/login")
 public class LoginController {
 	
-	@RequestMapping("")
+	@RequestMapping("form")
 	public String login() {
 		String url="/login/member_login";
+		return url;
+	}
+	@RequestMapping("failcount")
+	public String loginfailCount() {
+		String url="/login/member_login_count";
 		return url;
 	}
 	
