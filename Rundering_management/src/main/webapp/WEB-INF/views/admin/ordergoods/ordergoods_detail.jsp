@@ -19,7 +19,7 @@
 					<div class="row" style="height: 140px;">
 						<div class="mailbox-attachments clearfix col-md-12"
 							style="text-align: center;">
-							<div class="manPicture" id="pictureView" data-id="${orderGoods.articlesCode }"
+							<div class="goodsPicture" id="pictureView" data-id="${orderGoods.articlesCode }"
 								style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto;"></div>
 						</div>
 					</div>
@@ -118,21 +118,8 @@
 					</div>
 				</div>
 			</div>
-
-			<form role="imageForm" action="upload/picture" method="post"
-				enctype="multipart/form-data">
-				<input id="inputFile" name="pictureFile" type="file"
-					class="form-control" onchange="picture_go();"
-					style="display: none;"> <input id="oldFile" type="hidden"
-					name="oldPicture" value="" /> <input type="hidden"
-					name="checkUpload" value="0" />
-			</form>
 		</div>
 	</section>
-	<form role="form">
-		<input type="hidden" name="articlesCode"
-			value="${orderGoods.articlesCode }" />
-	</form>
 	<script>
 		function modify_go() {
 			var formObj = $("form[role='form']");
@@ -168,11 +155,11 @@
 	</script>
 
 	<script>
-		function OrderGoodsPictureThumb(contextPath){
-			 for(var target of document.querySelectorAll('.manPicture')){	
+		window.addEventListener('load', OrderGoodsPictureThumb)
+		function OrderGoodsPictureThumb(){
+			 for(var target of document.querySelectorAll('.goodsPicture')){	
 				 var articlesCode = target.getAttribute('data-id');
-				 
-				 target.style.backgroundImage="url('"+contextPath+"/member/getPicture?articlesCode="+articlesCode+"')";
+				 target.style.backgroundImage="url('"+<%=request.getContextPath() %>+"/admin/ordergoods/getPicture?articlesCode="+articlesCode+"')";
 				 target.style.backgroundPosition="center";
 				 target.style.backgroundRepeat="no-repeat";
 				 target.style.backgroundSize="cover";

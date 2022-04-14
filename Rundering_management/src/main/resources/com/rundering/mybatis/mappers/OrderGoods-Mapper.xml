@@ -21,15 +21,6 @@
 		  from TB_LAUNDRY_ARTICLES
 		 where DELETE_KEY='1'
 	</select>
-
-	<select id="selectSearchOrderGoodsList"	resultMap="orderGoodsMap">
-		select
-		*
-		from
-		TB_LAUNDRY_ARTICLES
-		where ARTICLES_CODE is not null 
-		order by REGIST_DATE desc
-	</select>
 	
 	<select id="selectSearchOrderGoodsListCount" resultType="int">
 		select

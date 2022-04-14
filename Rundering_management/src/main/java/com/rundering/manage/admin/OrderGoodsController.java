@@ -148,5 +148,4 @@ public class OrderGoodsController {
 		}
 		return fileName;
 	}
-	
 }
