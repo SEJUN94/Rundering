@@ -76,7 +76,7 @@
 
 			<div class="form-group ">
 				<label for="exampleInputPds">download </label><br> <a
-					class="btn" href="상대경로/test.pdf" download><button type="button"
+					class="btn" href="<%=request.getContextPath() %>/test.pdf" download><button type="button"
 						class="btn btn-block btn-default">file.pdf</button></a>
 			</div>
 			<div class="btn-group float-right">

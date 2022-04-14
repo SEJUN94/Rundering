@@ -35,9 +35,26 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	@Override
 	public void updateLastLoginByMemberNo(String memberNo) throws Exception{
-		
 		session.update("Member-Mapper.updateLastLoginByMemberNo",memberNo);
-	
+	}
+	@Override
+	public int selectIdFindByMember(MemberVO member) throws Exception{
+		int check =session.selectOne("Member-Mapper.selectIdFindByMember",member);
+		return check;
+	}
+	@Override
+	public int selectPasswordFindByMember(MemberVO member) throws Exception{
+		int check =session.selectOne("Member-Mapper.selectPasswordFindByMember",member);
+		return check;
+	}
+	@Override
+	public String selectGetFindIdByMember(MemberVO member) throws Exception{
+		String id = session.selectOne("Member-Mapper.selectGetFindIdByMember",member);
+		return id;
+	}
+	@Override
+	public void updatePasswordByMember(MemberVO member) throws Exception{
+		session.update("Member-Mapper.updatePasswordByMember",member);
 	}
 
 	

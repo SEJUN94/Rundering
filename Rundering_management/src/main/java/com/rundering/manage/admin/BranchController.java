@@ -31,7 +31,7 @@ public class BranchController {
 	}
 	
 	@RequestMapping("/quotadetail")
-	public String pointQuotaDetail() {
+	public String pointQuotaDetail() { 
 		return "admin/branchinfo/branch_quota_detail";
 	}
 }

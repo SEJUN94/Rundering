@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="ko">
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 
 <head>
 <style>
@@ -28,6 +26,14 @@
 </head>
 
 <body>
+	<c:if test="${from eq 'passwordModify' }">
+		<script>
+			alert("비밀번호 변경 완료")
+			window.close();
+		</script>
+	</c:if>
+
+
 <img class="bg" src="<%=request.getContextPath()%>/resources/images/rundering_bg.jpg" alt="rundering_bg">
 <div class="login-box">
     <div class="login-logo">
@@ -73,7 +79,8 @@
             </form>
             
             <p class="mb-1">
-                I forgot my <a href="<%=request.getContextPath()%>/login/findaccount.do">account</a> / <a href="<%=request.getContextPath()%>/login/findpassword.do">password</a>
+                I forgot my <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findaccount.do','아이디 찾기', 450, 600)">account</a> / 
+                <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findpassword.do','비밀번호 찾기', 450, 600)">password</a>
             </p>
             <p class="mb-0">
                 <a href="<%=request.getContextPath()%>/join.do" class="text-center">join a new membership</a>
@@ -82,4 +89,3 @@
     </div>
 </div>
 </body>
-</html>
