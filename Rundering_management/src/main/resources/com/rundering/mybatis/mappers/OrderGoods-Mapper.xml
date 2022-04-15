@@ -13,7 +13,7 @@
 		<result column="DELETE_KEY" property="deleteKey"/>
 		<result column="EACH" property="each"/>
 		<result column="NOTE" property="note"/>
-		<result column="PICTURE" property="picture"/>
+		<result column="ATCH_FILE_NO" property="atchFileNo"/>
 	</resultMap>
 
 	<select id="orderGoodsList" resultMap="orderGoodsMap" parameterType="str">
@@ -41,16 +41,16 @@
 	<update id="insertOrderGoods" parameterType="orderGoods">
 		insert 
 		into 
-		TB_LAUNDRY_ARTICLES(ARTICLES_CODE,ARTICLES_NAME,PRICE,EACH,NOTE,CLCODE,PICTURE)
+		TB_LAUNDRY_ARTICLES(ARTICLES_CODE,ARTICLES_NAME,PRICE,EACH,NOTE,CLCODE,ATCH_FILE_NO)
 		values
-		(#{articlesCode},#{articlesName},#{price},#{each},#{note},#{clcode},#{picture})
+		(#{articlesCode},#{articlesName},#{price},#{each},#{note},#{clcode},#{atchFileNo})
 	</update>
 	
 	<update id="updateOrderGoods" parameterType="orderGoods">
 		update 
 		TB_LAUNDRY_ARTICLES 
 		set 
-		ARTICLES_CODE=#{articlesCode}, ARTICLES_NAME=#{articlesName}, PRICE=#{price}, MODIFY_DATE=sysdate,EACH=#{each},NOTE=#{note}, PICTURE=#{picture}
+		ARTICLES_CODE=#{articlesCode}, ARTICLES_NAME=#{articlesName}, PRICE=#{price}, MODIFY_DATE=sysdate,EACH=#{each},NOTE=#{note}, ATCH_FILE_NO=#{atchFileNo}
 		where ARTICLES_CODE=#{articlesCode}
 	</update>
 	

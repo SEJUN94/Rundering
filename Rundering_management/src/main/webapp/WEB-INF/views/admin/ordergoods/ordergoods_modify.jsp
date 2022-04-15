@@ -18,8 +18,8 @@
 					<form role="modifyForm" class="form-horizontal" action="modify"
 						method="post" name="modifyForm" enctype="multipart/form-data">
 						<div class="row">
-							<input type="hidden" name="oldPicture" value="" /> <input
-								type="file" id="inputFile" onchange="changePicture_go();"
+							<input type="hidden" name="oldPicture" value="" /> 
+							<input type="file" id="inputFile" onchange="changePicture_go();"
 								name="pictureFile" style="display: none" />
 							<div class="input-group col-md-12">
 								<div class="col-md-12" style="text-align: center;">

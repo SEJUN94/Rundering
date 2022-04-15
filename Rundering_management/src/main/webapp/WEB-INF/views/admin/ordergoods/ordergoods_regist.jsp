@@ -15,7 +15,7 @@
 		<div class="card">
 			<div class="card-body">
 				<form role="form" class="form-horizontal" action="regist"
-					method="post" name="registForm" enctype="multipart/form-data">
+					method="post" name="registForm">
 					<input type="hidden" name="picture">
 					<div class="row">
 						<div class="input-group col-md-12">
@@ -25,11 +25,10 @@
 									style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto; margin-bottom: 5px;"></div>
 								<div class="input-group input-group-sm">
 									<label for="inputFile"
-										class=" btn btn-warning btn-sm btn-flat input-group-addon">사진변경</label>
+										class=" btn btn-warning btn-sm btn-flat input-group-addon" >사진변경</label>
 									<input id="inputFileName" class="form-control" type="text"
-										name="tempPicture" disabled value="${orderGoods.picture }" />
-									<input id="picture" class="form-control" type="hidden"
-										name="uploadPicture" />
+										name="tempPicture"  disabled/>
+										<button type="button" id="sendBtn" class="btn btn-primary btn-sm" onclick="regist_go()">등록</button>
 								</div>
 							</div>
 						</div>
@@ -107,12 +106,10 @@
 							<input class="form-control" name="note" type="text" id="note">
 						</div>
 					</div>
-
-				</form>
-				<div class="btn-group float-right">
+					<div class="btn-group float-right">
 					<div class="input-group-sm">
-						<button type="button" id="sendBtn" class="btn btn-primary btn-sm"
-							onclick="regist_go();">등록</button>
+						<button type="submit" id="sendBtn" class="btn btn-primary btn-sm"
+							>등록</button>
 					</div>
 					&nbsp;&nbsp;
 					<div class="input-group-sm">
@@ -120,55 +117,23 @@
 							onclick="history.go(-1);">목록</button>
 					</div>
 				</div>
+
+				</form>
+				
 			</div>
 		</div>
 	</div>
 </section>
-
-<form role="imageForm" action="upload/picture" method="post" 
+<form role="imageForm" action="regist" method="post" 
 	  enctype="multipart/form-data">
 	<input id="inputFile" name="pictureFile" type="file" class="form-control"
 		   onchange="picture_go();"	style="display:none;">
 	<input id="oldFile" type="hidden" name="oldPicture" value="" />
 	<input type="hidden" name="checkUpload" value="0" />	
 </form>
-
 <script>
-	function regist_go() {
-		var form = document.registForm;
-		if (form.articlesName.value == "") {
-			alert("상품명은 필수입니다.");
-			return;
-		}
-		if (form.articlesCode.value == "") {
-			alert("세탁물품코드는 필수입니다.");
-			return;
-		}
-		if (form.price.value == "") {
-			alert("물품가격은 필수입니다.");
-			return;
-		}
-		$.ajax({
-			  url:"<%=request.getContextPath()%>/admin/ordergoods/picture",
-		      data:formData,
-		      type:'post',
-		      processData:false,
-		      contentType:false,
-		      success:function(data){
-		    	  //업로드 확인변수 세팅
-		          $('input[name="checkUpload"]').val(1);
-		          //저장된 파일명 저장.
-		          $('input#oldFile').val(data); // 변경시 삭제될 파일명	  
-		          $('form[role="form"] input[name="picture"]').val(data);	   
-		      },
-		      error:function(error){
-		    	  AjaxErrorSecurityRedirectHandler(error.status);		
-		      }
-		 });
-		form.submit();
-	}
-</script>
-<script>
+	var formData="";
+	
 	function picture_go(){
 	   var form = $('form[role="imageForm"]');
 	   var picture = form.find('[id=inputFile]')[0];
@@ -204,7 +169,31 @@
 			reader.readAsDataURL(picture.files[0]);
 		}
 	}
-
+</script>
+<script>
+	function regist_go() {
+		$.ajax({
+			  url:"<%=request.getContextPath()%>/admin/ordergoods/picture",
+		      data:formData,
+		      type:'post',
+		      dataType:"json",
+		      processData:false,
+		      contentType:false,
+		      success:function(data){
+		    	  alert(data.result)
+		    	  //업로드 확인변수 세팅
+		          $('input[name="checkUpload"]').val(1);
+		          //저장된 파일명 저장.
+		          $('input#oldFile').val(data.fileName); // 변경시 삭제될 파일명	  
+		          $('form[role="form"]  input[name="picture"]').val(data.fileName);
+		          var a=  $('form[role="form"]  input[name="picture"]').val();
+		          alert(a);
+		      },
+		      error:function(error){
+		    	  AjaxErrorSecurityRedirectHandler(error.status);		
+		      }
+		 });
+	}
 </script>
 </body>
 </html>

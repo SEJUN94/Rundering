@@ -7,15 +7,24 @@ import java.util.Map;
 
 import com.rundering.manage.Criteria;
 import com.rundering.manage.PageMaker;
+
+import oracle.jdbc.oracore.OracleTypeDATE;
+
+import com.rundering.dao.AttachDAO;
 import com.rundering.dao.OrderGoodsDAO;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryArticlesVO;
 
 public class OrderGoodsServiceImpl implements OrderGoodsService {
 
 	private OrderGoodsDAO orderGoodsDAO;
+	private AttachDAO attachDAO;
 
 	public void setOrderGoodsDAO(OrderGoodsDAO orderGoodsDAO) {
 		this.orderGoodsDAO = orderGoodsDAO;
+	}
+	public void setAttachDAO(AttachDAO attachDAO) {
+		this.attachDAO = attachDAO;
 	}
 
 	@Override
@@ -38,17 +47,23 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
 	}
 
 	@Override
-	public LaundryArticlesVO getOrderGoods(String articlesCode) throws SQLException {
+	public void regist(LaundryArticlesVO ordergoods,AttachVO attach) throws Exception {
+		int seq=attachDAO.selectFileNo();
+		String strSeq = Integer.toString(seq);
+		attach.setAtchFileNo(strSeq);
+		ordergoods.setAtchFileNo(strSeq);
+		attachDAO.insertOrderGoodsAtach(attach);
+		orderGoodsDAO.insertOrderGoods(ordergoods);
+	}
 
+	@Override
+	public LaundryArticlesVO getOrderGoods(String articlesCode) throws SQLException {
+		
 		LaundryArticlesVO ordergoods = orderGoodsDAO.selectOrderGoodsByArticlesCode(articlesCode);
 		
 		return ordergoods;
 	}
 
-	@Override
-	public void regist(LaundryArticlesVO ordergoods) throws SQLException {
-		orderGoodsDAO.insertOrderGoods(ordergoods);
-	}
 
 	@Override
 	public void modify(LaundryArticlesVO ordergoods) throws SQLException {
@@ -58,5 +73,6 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
 	@Override
 	public void remove(String articlesCode) throws SQLException {
 		orderGoodsDAO.deleteOrderGoods(articlesCode);
+		
 	}
 }
