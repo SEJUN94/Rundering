@@ -13,6 +13,10 @@ public class EmployeesVO {
 	private Date modifyDate; //수정일
 	private String deleteKey; //삭제키
 	private String memberno; //회원고유번호
+	
+	
+	public EmployeesVO() {
+	}
 	public String getEmployeeId() {
 		return employeeId;
 	}

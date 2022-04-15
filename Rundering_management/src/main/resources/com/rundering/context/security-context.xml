@@ -8,7 +8,8 @@
 	
 	<beans:bean id="customAuthenticationProvider" 
 	            class="com.rundering.security.CustomAuthenticationProvider"
-	            p:testService-ref="testService"
+	            p:employeesService-ref="employeesService"
+	           	p:memberService-ref="memberSerive"
 	            />
 	<beans:bean id="loginSuccessHandler"
 			 	class="com.rundering.security.LoginSuccessHandler"
@@ -42,14 +43,14 @@
 					authentication-failure-handler-ref="loginFailureHandler"
 					/>
 		<logout logout-url="/common/logout.do"	
-				logout-success-url="/"
+				logout-success-url="/common/loginForm"
 				invalidate-session="true"
 				delete-cookies="JSESSIONID"
 				/>	
 				
-		<session-management invalid-session-url="/common/loginTimeOut">
+		<session-management invalid-session-url="/common/loginForm">
         	<concurrency-control
-           		expired-url="/common/loginExpired"
+           		expired-url="/common/loginForm"
             	max-sessions="2"
             	session-registry-ref="sessionRegistry"/>
       	</session-management>

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
         <aside class="main-sidebar sidebar-dark-primary elevation-4" id="sidebar">
             <!-- Brand Logo -->
-            <a href="<%=request.getContextPath() %>/admin/main.do" class="brand-link">
+            <a href="<%=request.getContextPath() %>/admin/index.do" class="brand-link">
                 <img src="<%=request.getContextPath() %>/resources/image/Favicon6.svg" alt="Rundering Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text"><strong>Rundering</strong></span>

@@ -48,9 +48,9 @@
 				delete-cookies="JSESSIONID"
 				/>	
 				
-		<session-management invalid-session-url="/common/loginTimeOut">
+		<session-management invalid-session-url="/home">
         	<concurrency-control
-           		expired-url="/common/loginExpired"
+           		expired-url="/home"
             	max-sessions="2"
             	session-registry-ref="sessionRegistry"/>
       	</session-management>

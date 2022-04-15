@@ -26,6 +26,9 @@
 	<bean id="anonymousDAO" class="com.rundering.dao.AnonymousDAOImpl"
 		p:session-ref="sqlSession"
 	/>
+	<bean id="employeesDAO" class="com.rundering.dao.EmployeesDAOImpl"
+		p:session-ref="sqlSession"
+	/>
 	
 	
 	<!-- Service Layer -->
@@ -41,6 +44,12 @@
 	<bean id="AnonymousService" class="com.rundering.service.AnonymousServiceImpl"
 		p:anonymousDAO-ref="anonymousDAO"
 	/>	
+	<bean id="memberService" class="com.rundering.service.MemberServiceImpl"
+		p:memberDAO-ref="memberDAO"
+	/>
+	<bean id="employeesService" class="com.rundering.service.EmployeesServiceImpl"
+		p:employeesDAO-ref="employeesDAO" 
+	/>
 	
 	
 </beans>
