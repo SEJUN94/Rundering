@@ -4,12 +4,15 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	
+		<!-- orderGoods.picture --> 
+	<bean id="picturePath" class="java.lang.String">
+		<constructor-arg value="${orderGoods.picture.upload}" />      
+	</bean>
 	<!-- board.file -->
 	<bean id="boardPath" class="java.lang.String">
 		<constructor-arg value="${board.upload}" />      
 	</bean>
-	
+	 
 	<!-- Repository Layer -->
 	<bean id="memberDAO" class="com.rundering.dao.MemberDAOImpl"
 		p:session-ref="sqlSession"
@@ -37,6 +40,7 @@
 	/>	
 	<bean id="orderGoodsService" class="com.rundering.service.OrderGoodsServiceImpl"
 		p:orderGoodsDAO-ref="orderGoodsDAO"
+		p:attachDAO-ref="attachDAO"
 	/>	
 	<bean id="laundryItemsService" class="com.rundering.service.LaundryItemsServiceImpl"
 		p:laundryItemsDAO-ref="laundryItemsDAO" 

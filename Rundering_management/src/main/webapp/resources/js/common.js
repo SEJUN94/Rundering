@@ -32,6 +32,18 @@ function MemberPictureThumb(contextPath){
 	}
 }
 
+function OrderGoodsPictureThumb(contextPath){
+	 for(var target of document.querySelectorAll('.goodsPicture')){	
+		 var articlesCode = target.getAttribute('data-id');
+		 target.style.backgroundImage="url('"+contextPath+"/admin/ordergoods/getPicture?articlesCode="+articlesCode+"')";
+		 target.style.backgroundPosition="center";
+		 target.style.backgroundRepeat="no-repeat";
+		 target.style.backgroundSize="cover";
+	}
+}
+
+
+
 //summernote
 var contextPath = "";
 
