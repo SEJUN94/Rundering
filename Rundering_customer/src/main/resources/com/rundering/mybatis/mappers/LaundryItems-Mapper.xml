@@ -52,15 +52,5 @@
 						,#{laundeyCategory}
 						)
 	</update>
-	
-	<select id="selectClothingList" resultMap="laundryItemsResult">
-		SELECT * FROM TB_LAUNDRY_ITEMS WHERE LAUNDEY_CATEGORY = 'CL'
-	</select>
-	<select id="selectBeddingList" resultMap="laundryItemsResult">
-		SELECT * FROM TB_LAUNDRY_ITEMS WHERE LAUNDEY_CATEGORY = 'BE'
-	</select>
-	<select id="selectShoesList" resultMap="laundryItemsResult">
-		SELECT * FROM TB_LAUNDRY_ITEMS WHERE LAUNDEY_CATEGORY = 'SH'
-	</select>
 
 </mapper>

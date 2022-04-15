@@ -34,19 +34,6 @@ public class LaundryItemsServiceImpl implements LaundryItemsService{
 		}
 		laundryItemsDAO.insertLaundryItems(laundryItems);
 	}
-
-	@Override
-	public List<LaundryItemsVO> getClothingList() throws Exception {
-		return laundryItemsDAO.selectClothingList();
-	}
-	@Override
-	public List<LaundryItemsVO> getBeddingList() throws Exception {
-		return laundryItemsDAO.selectBeddingList();
-	}
-	@Override
-	public List<LaundryItemsVO> getShoesList() throws Exception {
-		return laundryItemsDAO.selectShoesList();
-	}
 	
 	
 	@Override

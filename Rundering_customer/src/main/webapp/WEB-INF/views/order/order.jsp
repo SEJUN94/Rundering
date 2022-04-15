@@ -1,26 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="laundryItemsList" value="${dataMap.laundryItemsList }" />
 
-<c:set var="now" value="<%=new java.util.Date()%>" /> 
-<c:set var="nowDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set>
+<c:set var="now" value="<%=new java.util.Date()%>" />
+<c:set var="nowDate">
+	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" />
+</c:set>
 <!-- 이주 후 -->
-<c:set var="twoWeeksAfter" value="<%=new java.util.Date(new java.util.Date().getTime() + 60*60*24*1000*14)%>"/>
-<c:set var="twoWeeksAfterDate"><fmt:formatDate value="${twoWeeksAfter}" pattern="yyyy-MM-dd"/></c:set>
+<c:set var="twoWeeksAfter"
+	value="<%=new java.util.Date(new java.util.Date().getTime() + 60 * 60 * 24 * 1000 * 14)%>" />
+<c:set var="twoWeeksAfterDate">
+	<fmt:formatDate value="${twoWeeksAfter}" pattern="yyyy-MM-dd" />
+</c:set>
 
 
 <head>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/customer/src/main/webapp/resources/bootstrap/plugins/sweetalert2/sweetalert2.min.css" />  
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/customer/src/main/webapp/resources/bootstrap/plugins/sweetalert2/sweetalert2.min.css" />
 <style>
-
 .laundryItemsListScroll thead, .laundryItemsListScroll tbody {
 	display: block;
 }
+
 .laundryItemsListScroll th, .laundryItemsListScroll td {
 	width: 100%;
 }
+
 .laundryItemsListScroll tbody {
 	max-height: 333px; /* Just for the demo          */
 	overflow-y: auto; /* Trigger vertical scroll    */
@@ -28,29 +36,53 @@
 }
 
 .selectedItemsTable {
-    display: block;
-    width: 758px;
+	display: block;
+	width: 758px;
 }
-.selectedItemsTable tbody {
-    display: block;
-    height: 333px;
-    overflow: auto;
-}
-.selectedItemsTable th:nth-of-type(1), .selectedItemsTable td:nth-of-type(1) { width: 257px; }
-.selectedItemsTable th:nth-of-type(2), .selectedItemsTable td:nth-of-type(2) { width: 117px; }
-.selectedItemsTable th:nth-of-type(3), .selectedItemsTable td:nth-of-type(3) { width: 147px; }
-.selectedItemsTable th:nth-of-type(4), .selectedItemsTable td:nth-of-type(4) { width: 117px; }
-.selectedItemsTable th:last-child { width: 130px; }
-.selectedItemsTable td:last-child { width: calc( 130px - 19px );  }
 
+.selectedItemsTable tbody {
+	display: block;
+	height: 333px;
+	overflow: auto;
+}
+
+.selectedItemsTable th:nth-of-type(1), .selectedItemsTable td:nth-of-type(1)
+	{
+	width: 257px;
+}
+
+.selectedItemsTable th:nth-of-type(2), .selectedItemsTable td:nth-of-type(2)
+	{
+	width: 117px;
+}
+
+.selectedItemsTable th:nth-of-type(3), .selectedItemsTable td:nth-of-type(3)
+	{
+	width: 147px;
+}
+
+.selectedItemsTable th:nth-of-type(4), .selectedItemsTable td:nth-of-type(4)
+	{
+	width: 117px;
+}
+
+.selectedItemsTable th:last-child {
+	width: 130px;
+}
+
+.selectedItemsTable td:last-child {
+	width: calc(130px - 19px);
+}
 
 /* 스크롤바 설정*/
-.laundryItemsListScroll tbody::-webkit-scrollbar, .selectedItemsTable tbody::-webkit-scrollbar {
+.laundryItemsListScroll tbody::-webkit-scrollbar, .selectedItemsTable tbody::-webkit-scrollbar
+	{
 	/* 스크롤바 막대 너비 설정 */
 	width: 6px;
 }
 /* 스크롤바 막대 설정*/
-.laundryItemsListScroll tbody::-webkit-scrollbar-thumb, .selectedItemsTable tbody::-webkit-scrollbar-thumb {
+.laundryItemsListScroll tbody::-webkit-scrollbar-thumb,
+	.selectedItemsTable tbody::-webkit-scrollbar-thumb {
 	/* 스크롤바 막대 높이 설정 */
 	height: 17%;
 	background-color: #d3d3d3;
@@ -58,11 +90,13 @@
 	border-radius: 10px;
 }
 /* 스크롤바 뒷 배경 설정*/
-.laundryItemsListScroll tbody::-webkit-scrollbar-track, .selectedItemsTable tbody::-webkit-scrollbar-track {
+.laundryItemsListScroll tbody::-webkit-scrollbar-track,
+	.selectedItemsTable tbody::-webkit-scrollbar-track {
 	background-color: rgba(0, 0, 0, 0);
 }
-.selectedItems td{
-     vertical-align: middle;
+
+.selectedItems td {
+	vertical-align: middle;
 }
 </style>
 </head>
@@ -71,181 +105,193 @@
 
 <body>
 
-	<form role="form" class="form-horizontal" action="<%=request.getContextPath() %>/order/comfirm" method="post">
-	<div style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
-	
-		<section class="content-header">
-			<div class="container-fluid">
-				<div class="row mb-2">
-					<div class="col-sm-6">
-						<h1>세탁주문 상세</h1>
-					</div>
-					<div class="col-sm-6">
-						<ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item active">세탁주문 상세</li>
-							<li class="breadcrumb-item"><a href="#">세탁주문</a></li>
-						</ol>
+	<form role="form" class="form-horizontal" action="<%=request.getContextPath()%>/order/comfirm" method="post">
+		<div style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>세탁주문 상세</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item active">세탁주문 상세</li>
+								<li class="breadcrumb-item"><a href="#">세탁주문</a></li>
+							</ol>
+						</div>
 					</div>
 				</div>
-			</div>
-		</section>
-		
-		<div class="card mb-0" style="box-shadow: none;">
-			<div class="card-header">
-				<h3 class="" style="text-align: center; font-size: 1.3rem; font-weight: 400;">세탁 정보 입력</h3>
-			</div>
+			</section>
+
+			<div class="card mb-0" style="box-shadow: none;">
+				<div class="card-header">
+					<h3 class="" style="text-align: center; font-size: 1.3rem; font-weight: 400;">세탁정보 입력</h3>
+				</div>
 
 				<div class="hiddenInput">
-					<input type="text" name="loginUser" value="${loginUser.memberNo}" style="display: none;">
-					<input type="tel" class="form-control" id="contactNumber" name="contactNumber" value="${command.contactNumber}" style="display: none;">
+					<input type="text" name="loginUser" value="${loginUser.memberNo}" style="display: none;"> <input type="tel" class="form-control" id="contactNumber" name="contactNumber" value="${command.contactNumber}" style="display: none;">
 				</div>
-				
+
 				<div class="card-body col-6" style="margin: auto; margin-top: 25px;">
-					
+
 					<div class="input-group mb-3">
 						<label>수거날짜 입력</label>
 					</div>
-					
-					
+
+
 
 					<div class="">
 						<input type="date" class="form-control" name="pickupRequestDate" min="${nowDate }" max="${twoWeeksAfterDate}"> <span class="sp"></span>
 					</div>
-					
+
 					<div class="input-group mb-3" style="margin-top: 20px;">
 						<label>요청사항</label>
 					</div>
 					<div class="input-group mb-3 ">
 						<input type="text" class="form-control" name="requestDetails" placeholder="ex) 공동현관 비밀번호 #12345*">
 					</div>
-					
+
 				</div>
+			</div>
+
 		</div>
 
-	</div>
-	
-	<div style="width: 70%; margin-left: 15%">
-		<p class="mb-3" style="text-align: center;">세탁을 맡기실 품목을 선택해 주세요.</p>
-		<div class="row">
-					<div class="col-4">
-						<div class="card">
-							<div class="card-header justify-content-center" style="display: flex;">
-								<h3 class="card-title">의류</h3>
-							</div>
-							<div class="card-body table-responsive p-0">
-								<table class="table table-hover text-nowrap laundryItemsListScroll">
-									<thead>
-										<tr style="display: flex;text-align: center;">
-											<th>품목명</th>
-											<th>가격</th>
-										</tr>
-									</thead>
-									<tbody class="">
-										<c:forEach items="${clothingList }" var="laundryItems">
-										<tr style="cursor:pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
-											<td>${laundryItems.itemsName}</td>
-											<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
-										</tr>
+		<div style="width: 70%; margin-left: 15%">
+			<p class="mb-3" style="text-align: center;">세탁을 맡기실 품목을 선택해 주세요.</p>
+			<div class="row">
+				<div class="col-4">
+					<div class="card">
+						<div class="card-header justify-content-center"
+							style="display: flex;">
+							<h3 class="card-title">의류</h3>
+						</div>
+						<div class="card-body table-responsive p-0">
+							<table
+								class="table table-hover text-nowrap laundryItemsListScroll">
+								<thead>
+									<tr style="display: flex; text-align: center;">
+										<th>품목명</th>
+										<th>가격</th>
+									</tr>
+								</thead>
+								<tbody class="">
+									<c:if test="${!empty laundryItemsList }">
+										<c:forEach items="${laundryItemsList }" var="laundryItems">
+											<c:if test="${laundryItems.laundeyCategory eq 'CL' }">
+												<tr style="cursor: pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
+													<td>${laundryItems.itemsName}</td>
+													<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
+												</tr>
+											</c:if>
 										</c:forEach>
-									</tbody>
-								</table>
-							</div>
+									</c:if>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					
-					<div class="col-4 ">
-						<div class="card">
-							<div class="card-header justify-content-center" style="display: flex;">
-								<h3 class="card-title">침구</h3>
-							</div>
-							<div class="card-body table-responsive p-0">
-								<table class="table table-hover text-nowrap laundryItemsListScroll">
-									<thead>
-										<tr style="display: flex;text-align: center;">
-											<th>품목명</th>
-											<th>가격</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach items="${beddingList }" var="laundryItems">
-										<tr style="cursor:pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
-											<td>${laundryItems.itemsName}</td>
-											<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
-										</tr>
+				</div>
+
+				<div class="col-4 ">
+					<div class="card">
+						<div class="card-header justify-content-center" style="display: flex;">
+							<h3 class="card-title">침구</h3>
+						</div>
+						<div class="card-body table-responsive p-0">
+							<table class="table table-hover text-nowrap laundryItemsListScroll">
+								<thead>
+									<tr style="display: flex; text-align: center;">
+										<th>품목명</th>
+										<th>가격</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:if test="${!empty laundryItemsList }">
+										<c:forEach items="${laundryItemsList }" var="laundryItems">
+											<c:if test="${laundryItems.laundeyCategory eq 'BE' }">
+												<tr style="cursor: pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
+													<td>${laundryItems.itemsName}</td>
+													<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
+												</tr>
+											</c:if>
 										</c:forEach>
-									</tbody>
-								</table>
-							</div>
+									</c:if>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					
-					<div class="col-4 ">
-						<div class="card">
-							<div class="card-header justify-content-center" style="display: flex;">
-								<h3 class="card-title">신발</h3>
-							</div>
-							<div class="card-body table-responsive p-0">
-								<table class="table table-hover text-nowrap laundryItemsListScroll">
-									<thead>
-										<tr style="display: flex;text-align: center;">
-											<th>품목명</th>
-											<th>가격</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach items="${shoesList }" var="laundryItems">
-										<tr style="cursor:pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
-											<td>${laundryItems.itemsName}</td>
-											<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
-										</tr>
+				</div>
+
+				<div class="col-4 ">
+					<div class="card">
+						<div class="card-header justify-content-center"	style="display: flex;">
+							<h3 class="card-title">신발</h3>
+						</div>
+						<div class="card-body table-responsive p-0">
+							<table class="table table-hover text-nowrap laundryItemsListScroll">
+								<thead>
+									<tr style="display: flex; text-align: center;">
+										<th>품목명</th>
+										<th>가격</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:if test="${!empty laundryItemsList }">
+										<c:forEach items="${laundryItemsList }" var="laundryItems">
+											<c:if test="${laundryItems.laundeyCategory eq 'SH' }">
+												<tr style="cursor: pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
+													<td>${laundryItems.itemsName}</td>
+													<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
+												</tr>
+											</c:if>
 										</c:forEach>
-									</tbody>
-								</table>
-							</div>
+									</c:if>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 
 		<div style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
-		<div class="card" style="box-shadow: none;">
-			<div class="card-header">
-				<h3 class="" style="text-align: center; font-size: 1.3rem; font-weight: 400;">선택한 세탁품목</h3>
-			</div>
+			<div class="card" style="box-shadow: none;">
+				<div class="card-header">
+					<h3 class="" style="text-align: center; font-size: 1.3rem; font-weight: 400;">선택한 세탁품목</h3>
+				</div>
 
-			<div class="card-body p-0">
-				<table class="table selectedItemsTable">
-					<thead>
-						<tr>
-                            <th colspan="5" style="text-align: right;">총 합계 : <span>0</span>원</th>
-                        </tr>
-						<tr style="text-align: center;">
-							<th>품목명</th>
-							<th>가격</th>
-							<th>수량</th>
-							<th>합계</th>
-							<th>삭제</th>
-						</tr>
-					</thead>
-					<tbody class="selectedItems">
-						<tr class="notselected">
-							<td style="text-align: center;width: 100%;margin-top: 135px;margin-left: 192px;display: block;border: none;">선택된 품목이 없습니다.</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+				<div class="card-body p-0">
+					<table class="table selectedItemsTable">
+						<thead>
+							<tr>
+								<th colspan="5" style="text-align: right;">총 합계 : <span>0</span>원</th>
+							</tr>
+							<tr style="text-align: center;">
+								<th>품목명</th>
+								<th>가격</th>
+								<th>수량</th>
+								<th>합계</th>
+								<th>삭제</th>
+							</tr>
+						</thead>
+						<tbody class="selectedItems">
+							<tr class="notselected">
+								<td style="text-align: center; width: 100%; margin-top: 135px; margin-left: 192px; display: block; border: none;">선택된 품목이 없습니다.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
+			</div>
+			<button type="submit" style="margin-top: 20px; margin: auto;" class="btn btn-primary btn-block col-6 mt-4 mb-4">주문하기</button>
 		</div>
-		<button type="submit" style="margin-top: 20px; margin: auto;" class="btn btn-primary btn-block col-6 mt-4 mb-4" >주문하기</button>
-		</div>
-		
+
 
 	</form>
-	
+
 	<!-- 알림 sweetalert2 -->
-	<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-	
-	
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+
 	<script>
 	//sweetalert2 설정
 	const Toast = Swal.mixin({

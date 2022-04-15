@@ -67,7 +67,7 @@
 										<c:if test="${laundryItems.laundeyCategory eq 'CL' }">
 											<tr>
 												<td>${laundryItems.itemsName }</td>
-												<td>${laundryItems.price }</td>
+												<td>${laundryItems.price }원</td>
 											</tr>
 										</c:if>
 									</c:forEach>
@@ -92,7 +92,7 @@
 										<c:if test="${laundryItems.laundeyCategory eq 'SH' }">
 											<tr>
 												<td>${laundryItems.itemsName }</td>
-												<td>${laundryItems.price }</td>
+												<td>${laundryItems.price }원</td>
 											</tr>
 										</c:if>
 									</c:forEach>
@@ -117,7 +117,7 @@
 										<c:if test="${laundryItems.laundeyCategory eq 'BE' }">
 											<tr>
 												<td>${laundryItems.itemsName }</td>
-												<td>${laundryItems.price }</td>
+												<td>${laundryItems.price }원</td>
 											</tr>
 										</c:if>
 									</c:forEach>

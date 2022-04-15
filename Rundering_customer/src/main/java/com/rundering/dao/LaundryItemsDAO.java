@@ -19,10 +19,4 @@ public interface LaundryItemsDAO {
 	public void insertLaundryItems(LaundryItemsVO laundryItems) throws SQLException;
 	//세탁품목 조회 - 전체 
 	public List<LaundryItemsVO> getlaundryItemsList() throws SQLException;
-	//세탁품목 목록조회 - 의류만
-	public List<LaundryItemsVO> selectClothingList() throws SQLException;
-	//세탁품목 목록조회 - 침구만
-	public List<LaundryItemsVO> selectBeddingList() throws SQLException;
-	//세탁품목 목록조회 - 신발만
-	public List<LaundryItemsVO> selectShoesList() throws SQLException;
 }
