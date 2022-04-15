@@ -40,6 +40,9 @@
 	<bean id="laundryItemsService" class="com.rundering.service.LaundryItemsServiceImpl"
 		p:laundryItemsDAO-ref="laundryItemsDAO" 
 	/>
+	<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl"
+		p:memberAddressDAO-ref="memberAddressDAO"
+	/>
 	<bean id="mailSendService" class="com.rundering.service.MailSendService"
 		p:mailSender-ref="mailSender"
 	/>  
