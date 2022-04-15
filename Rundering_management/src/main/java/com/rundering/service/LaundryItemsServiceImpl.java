@@ -1,0 +1,37 @@
+package com.rundering.service;
+
+import com.rundering.dao.LaundryItemsDAO;
+import com.rundering.dto.LaundryItemsVO;
+
+public class LaundryItemsServiceImpl implements LaundryItemsService{
+	
+	private LaundryItemsDAO laundryItemsDAO;
+	public void setLaundryItemsDAO(LaundryItemsDAO laundryItemsDAO) {
+		this.laundryItemsDAO = laundryItemsDAO;
+	}
+
+	@Override
+	public void regist(LaundryItemsVO laundryItems) {
+		
+		// 세탁품목번호PK가 카테고리+시퀀스라서 카테고리별 시퀀스 처리
+		switch (laundryItems.getLaundeyCategory()) {
+		case "CL":
+			String ClothingSequence = laundryItemsDAO.SelectClothingSequenceNextValue();
+			laundryItems.setLaundryItemsCode(ClothingSequence);
+			break;
+		case "BE":
+			String beddingSequence = laundryItemsDAO.SelectBeddingSequenceNextValue();
+			laundryItems.setLaundryItemsCode(beddingSequence);
+			break;
+		case "SH":
+			String shoesSequence = laundryItemsDAO.SelectShoesSequenceNextValue();
+			laundryItems.setLaundryItemsCode(shoesSequence);
+			break;
+		}
+		
+		laundryItemsDAO.insertLaundryItems(laundryItems);
+	
+		
+	}
+
+}

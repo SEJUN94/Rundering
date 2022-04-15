@@ -8,7 +8,7 @@ public class SignUpController {
 	
 	@RequestMapping("/3agree")
 	public String agree() {
-		String url ="/signup/3agree";
+		String url ="/signup/termsConditions_agree";
 		
 		return url;
 	}

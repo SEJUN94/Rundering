@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
 
 <decorators defaultdir="/WEB-INF/decorator">
 
@@ -7,13 +8,12 @@
 	</decorator>
 
 	<decorator name="openWindow" page="open_decorator.jsp">
-	<pattern>/**/*</pattern>
+		<pattern>/login</pattern>
+		<pattern>/login/*</pattern>
 	</decorator>
 
 	<excludes>
 		<pattern>/resources/*</pattern>
-		<pattern>/join.do</pattern>
-	
 	</excludes>
 
 </decorators>	

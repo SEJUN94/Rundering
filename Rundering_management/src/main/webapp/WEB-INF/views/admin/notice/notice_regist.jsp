@@ -31,8 +31,8 @@
 			<textarea class="textarea" name="content" id="content" rows="20"
 				placeholder="1000자 내외로 작성하세요." style="display: none;"></textarea>
 		</div>
-
-	<div class="card-footer">
+		
+		<div class="card-footer">
 		<button type="reset" class="btn btn-danger">
 			<i class="fas fa-times"></i> 삭제
 		</button>

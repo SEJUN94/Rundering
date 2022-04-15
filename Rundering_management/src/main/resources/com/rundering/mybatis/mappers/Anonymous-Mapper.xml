@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Anonymous-mapper">
+
+	<!-- 언더바컬럼재정의 -->
+	<resultMap type="anonymousBoard" id="anonymousBoardMap">
+	
+		<result column="ANO" property="ano" />
+		<result column="PASSWORD" property="password" />
+		<result column="TITLE" property="title" />
+		<result column="CONTENT" property="content" />
+		<result column="REGIST_DATE" property="registDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="DELETE_KEY" property="deleteKey" />
+		<result column="VIEWCNT" property="viewcnt" />
+		<result column="WRITER" property="writer" />
+		<result column="BRANCH_NAME" property="branchName" />
+	
+	</resultMap>
+	
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'c'.toString()">
+			and content like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'b'.toString()">
+			and branchName like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'tcwb'.toString()">
+			and (
+			title like '%'||#{keyword}||'%'
+			or
+			content like '%'||#{keyword}||'%'						
+			or
+			branch_name like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>
+	
+	<!-- 리스트보기 -->
+	<select id="selectSearchAnonymousList" resultMap="anonymousBoardMap" >
+		select
+		    b.ano,
+		    b.title,
+		    b.content,
+		    c.name||'('||d.branch_name||')' as writer,
+		    b.regist_date,
+		    b.viewcnt
+		from tb_employees a, tb_anonymous_board b, tb_member c, tb_branch d
+		where a.employee_id = b.writer
+		  and a.memberno = c.memberno
+		  and b.branch_name = d.branch_code
+		  and b.delete_key='1'
+		order by b.ano desc
+	</select>
+	
+	<select id="selectSearchAnonymousListCount" resultType="int">
+		select
+		count(*) 
+		from tb_anonymous_board
+		where ano is not null
+		<include refid="search" />
+		order by regist_date desc
+	</select>
+	
+	<select id="selectAnonymousByAno" parameterType="int" resultMap="anonymousBoardMap" >
+		select b.ano, b.title, b.content, b.regist_date, c.name as writer, d.branch_name
+	    from tb_employees a, tb_anonymous_board b, tb_member c, tb_branch d
+	    where ano=#{ano}
+	    	and a.employee_id = b.writer
+	    	and a.memberno=c.memberno
+	    	and b.writer=a.employee_id
+	    	and b.branch_name=d.branch_code
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="increaseViewCount" parameterType="int">
+		update tb_anonymous_board
+			set viewcnt=viewcnt+1
+			where ano=#{ano}
+	</update>
+	
+	<select id="selectAnonymousSequenceNextValue" resultType="int">
+		select ano_seq.nextVal
+			from dual
+	</select>
+	
+	<!-- 삽입 -->
+	<select id="insertAnonymous" resultType="anonymousBoard">
+		insert into tb_anonymous_board(
+			ano,
+			title,
+			writer,
+			branch_name,
+			content) values(
+						ano_seq.nextval,
+						#{title},
+						#{writer},
+						#{branchName},
+						#{content})
+	</select>
+	
+	<!-- 수정 -->
+	<update id="updateAnonymous" parameterType="anonymousBoard">
+		update tb_anonymous_board
+		set 
+		title=#{title},content=#{content}
+		where ano=#{ano}
+	</update>
+	
+	<!-- 삭제 -->
+	<update id="deleteAnonymous" parameterType="int" >
+		delete 
+		from TB_ANONYMOUS_BOARD 
+		where ano=#{ano}		
+	</update>	
+
+
+</mapper>

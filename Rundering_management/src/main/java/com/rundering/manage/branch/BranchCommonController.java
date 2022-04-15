@@ -1,6 +1,9 @@
 package com.rundering.manage.branch;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,14 +23,15 @@ public class BranchCommonController {
 	@RequestMapping("/branch/index")
 	public String index(@RequestParam(defaultValue = "B000000") String menuCode, Model model) throws Exception {
 		String url = "branch/branch_index";
-
-		List<MenuVO> mainMenuList = menuService.MainBranchMenuList();
-		List<MenuVO> subMenuList = menuService.SubMenuList();
-		MenuVO menu= menuService.MenuByMenuCode(menuCode);
-		model.addAttribute("mainMenuList", mainMenuList);
-		model.addAttribute("subMenuList", subMenuList);
-		model.addAttribute("menu", menu);
-
+		Map<String, List<MenuVO>> dataMap = menuService.getBranchMenuList();
+		List<String> key = new ArrayList<String>(); 
+		for (String keyValue : dataMap.keySet()) {
+			key.add(keyValue);
+		}
+		
+		model.addAttribute("key", key);
+		model.addAttribute("dataMap", dataMap);
+		
 		return url;
 	}
 }

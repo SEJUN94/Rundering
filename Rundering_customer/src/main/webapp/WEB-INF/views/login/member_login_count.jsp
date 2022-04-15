@@ -42,7 +42,6 @@
                     <input type="hidden" id="hiddenId" name="id">
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
                         </div>
                     </div>
                 </div>
@@ -72,7 +71,8 @@
             </form>
             
             <p class="mb-1">
-                I forgot my <a href="<%=request.getContextPath()%>/login/findaccount.do">account</a> / <a href="<%=request.getContextPath()%>/login/findpassword.do">password</a>
+                    I forgot my <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findaccount.do','아이디 찾기', 450, 700)">account</a> / 
+                <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findpassword.do','비밀번호 찾기', 450, 700)">password</a>
             </p>
             <p class="mb-0">
                 <a href="<%=request.getContextPath()%>/join.do" class="text-center">join a new membership</a>
@@ -88,12 +88,13 @@
 					</div>
 				</div>
 				<div style="padding: 3px">
-					<input id="reload" type="button" onclick="javaScript:getImage()" value="새로고침" /> 
-						<input id="soundOn" type="button"onclick="javaScript:audio()" value="음성듣기" />
 				</div>
-				<div style="padding: 3px">
-					<input id="answer" type="text" value=""> 
-					<input id="check" type="button" value="확인" />
+				<div style="padding: 0px">
+					<div class="input-group mb-3">
+						<input style="width:161px" class="form-control" id="answer" type="text" value=""> 
+						<span class="col-1"></span>
+						<input class="btn btn-primary btn-block col-3" id="check" type="button" value="확인"   />
+					</div>
 				</div>
 			</div>
 	</div>

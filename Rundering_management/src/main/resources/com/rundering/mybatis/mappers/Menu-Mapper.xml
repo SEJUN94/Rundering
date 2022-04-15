@@ -34,4 +34,6 @@
 		from tb_menu
 		where menu_name = #{menuName}
 	</select>
+	
+	
 </mapper>

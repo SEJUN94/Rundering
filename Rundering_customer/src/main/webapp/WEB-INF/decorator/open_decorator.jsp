@@ -13,7 +13,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title><decorator:title default="Rundering Korea"/></title>
+	<title><decorator:title default="Rundering"/></title>
 
   <!-- Google Font: Source Sans Pro -->
   <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
@@ -22,19 +22,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/dist/css/adminlte.min.css">
-  
+  <!-- summernote -->
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/summernote/summernote.min.css"> 
   <!--파비콘-->
   <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/images/Favicon8.ico" />
   <link rel="icon" href="<%=request.getContextPath() %>/resources/images/Favicon8.png" />
   <!--브라우저 스타일 초기화-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" />
-  <!--Google Fonts - 나눔고딕-->
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet" />
-  <!--Google Material Icons-->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
-  
   <!--Swiper-->
   <link rel="stylesheet" href="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.css" />
   
@@ -42,15 +38,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
   <!-- Pretendard  -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/font/pretendard/pretendard-subset.css" />
-  
-  <style type="text/css">
-	body {
-	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
-		Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
-		'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
-		'Segoe UI Symbol', sans-serif;
-}
-   </style>	
   
   
 <decorator:head />
@@ -68,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>
 <!-- summernote -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/summernote/summernote-bs4.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/summernote/summernote.min.js"></script>
  
 <script src="<%=request.getContextPath() %>/resources/js/common.js"></script>  
 
@@ -86,7 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--Lodash-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
 
-  <script defer src=<%=request.getContextPath() %>/resources/js/youtube.js"></script>
+  <script defer src="<%=request.getContextPath() %>/resources/js/youtube.js"></script>
   <script defer src="<%=request.getContextPath() %>/resources/js/main.js"></script>
 
 </body>

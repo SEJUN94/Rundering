@@ -9,13 +9,12 @@ public class SetTextProducer  implements TextProducer{
 	public SetTextProducer(String getAnswer) {
 		this.str = getAnswer;
 	}
-
+	
 	
 	@Override
 	public String getText() {
 		return this.str;
 	}
-	
 	
 
 }

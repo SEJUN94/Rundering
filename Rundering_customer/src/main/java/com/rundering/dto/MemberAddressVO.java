@@ -14,6 +14,13 @@ public class MemberAddressVO {
 	private String area;	 //지역분류코드
 	private String toparea;  //상위지역분류
 	
+	
+	
+	public MemberAddressVO() {
+		super();
+	}
+	
+	
 	public int getAddressNo() {
 		return addressNo;
 	}
