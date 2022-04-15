@@ -18,6 +18,7 @@ import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.service.LaundryItemsService;
 import com.rundering.service.LaundryOrderService;
+import com.rundering.util.FormatUtil;
 
 @Controller
 @RequestMapping("/order")
@@ -29,9 +30,19 @@ public class LaundryOrderController {
 	private LaundryItemsService laundryItemsService;
 	
 	@RequestMapping("")
-	public String checkInformation() {
+	public ModelAndView checkInformation(HttpServletRequest request, ModelAndView mnv) {
 		String url="/order/order_essential";
-		return url;
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		String hyphenationPhoneNum = FormatUtil.hyphenationPhoneNum(loginUser.getPhone());
+		
+		//주소 정보 넣어야 함
+		
+		mnv.addObject("phone",hyphenationPhoneNum);
+		mnv.setViewName(url);
+		
+		return mnv;
 	}
 
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)
@@ -62,9 +73,11 @@ public class LaundryOrderController {
 		
 		LaundryOrderVO laundryOrder = command.toLaundryOrderVO();
 		laundryOrder.setMemberNo(loginUser.getMemberNo());
-		laundryOrderService.orderReceive(laundryOrder);
 		
 		List<LaundryOrderDetailVO> laundryOrderDetailVOList = command.toLaundryOrderDetailVOList();
+		
+		laundryOrderService.orderReceive(laundryOrder, laundryOrderDetailVOList);
+		
 		
 		
 		return url;

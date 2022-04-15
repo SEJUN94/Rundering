@@ -17,7 +17,7 @@
 	</resultMap>
 
 
-
+	
 
 	<select id="selectClothingSequenceNextValue" resultType="str">
 		select LPAD(CLOTHING_ITEMS_CODE_SEQ.NEXTVAL, 3, 0) from DUAL
@@ -47,6 +47,9 @@
 						)
 	</update>
 	
+	<select id="selectLaundryItemsBylaundryItemsCode" parameterType="str" resultMap="laundryItemsResult">
+		SELECT * FROM TB_LAUNDRY_ITEMS WHERE LAUNDRY_ITEMS_CODE = #{laundryItemsCode}
+	</select>
 	<select id="selectClothingList" resultMap="laundryItemsResult">
 		SELECT * FROM TB_LAUNDRY_ITEMS WHERE LAUNDEY_CATEGORY = 'CL'
 	</select>
