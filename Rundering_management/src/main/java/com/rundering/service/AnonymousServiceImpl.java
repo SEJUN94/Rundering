@@ -1,10 +1,14 @@
 package com.rundering.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.rundering.dao.AnonymousDAO;
 import com.rundering.dto.AnonymousBoardVO;
+import com.rundering.manage.Criteria;
+import com.rundering.manage.PageMaker;
 
 public class AnonymousServiceImpl implements AnonymousService {
 
@@ -15,13 +19,25 @@ public class AnonymousServiceImpl implements AnonymousService {
 	}
 
 	@Override
-	public List<AnonymousBoardVO> getAnonymousList() throws SQLException {
+	public Map<String, Object> getAnonymousList(Criteria cri) throws SQLException {
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
 		// 현재 page 번호에 맞게 리스트를 가져오기
-		List<AnonymousBoardVO> anonymousList = anonymousDAO.selectSearchAnonymousList();
+		List<AnonymousBoardVO> anonymousList = anonymousDAO.selectSearchAnonymousList(cri);
 
 		// 전체 board 개수
-		return anonymousList;
+		int totalCount = anonymousDAO.selectSearchAnonymousListCount(cri);
+		
+		// PageMaker 생성.
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+
+		dataMap.put("anonymousList", anonymousList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
 	}
 
 	@Override
@@ -52,5 +68,6 @@ public class AnonymousServiceImpl implements AnonymousService {
 	public void remove(int ano) throws SQLException {
 		anonymousDAO.deleteAnonymous(ano);
 	}
+
 
 }

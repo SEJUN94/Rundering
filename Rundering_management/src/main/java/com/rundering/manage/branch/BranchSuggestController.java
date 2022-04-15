@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.dto.AnonymousBoardVO;
+import com.rundering.manage.Criteria;
 import com.rundering.service.AnonymousServiceImpl;
 import com.rundering.util.MakeFileName;
 
@@ -31,11 +33,11 @@ public class BranchSuggestController {
 	AnonymousServiceImpl anonymousService;
 
 	@RequestMapping(value = "/list")
-	private ModelAndView suggestList(ModelAndView mnv) throws Exception {
+	private ModelAndView suggestList(Criteria cri, ModelAndView mnv) throws Exception {
 		String url = "branch/suggest/suggest_list";
 
-		List<AnonymousBoardVO> anonymousList = anonymousService.getAnonymousList();
-		mnv.addObject("anonymousList", anonymousList);
+		Map<String, Object> dataMap = anonymousService.getAnonymousList(cri);
+		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
 
 		return mnv;

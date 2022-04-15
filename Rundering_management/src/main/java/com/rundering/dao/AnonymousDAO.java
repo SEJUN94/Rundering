@@ -8,7 +8,7 @@ import com.rundering.dto.AnonymousBoardVO;
 
 public interface AnonymousDAO {
 
-	List<AnonymousBoardVO> selectSearchAnonymousList() throws SQLException;
+	List<AnonymousBoardVO> selectSearchAnonymousList(Criteria cri) throws SQLException;
 
 	int selectSearchAnonymousListCount(Criteria cri) throws SQLException;
 

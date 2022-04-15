@@ -4,7 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     
-<head></head>
+<head>
+</head>
 
 
 <title>상세 보기</title>
@@ -75,7 +76,6 @@
 							<div class="form-group">
 								<label for="content">내 용</label>
 								<div>${anonymous.content }</div>
-								<%-- <textarea class="form-control" id="content" readonly rows="7" style="resize: none;">${anonymous.content }</textarea> --%>
 							</div>
 						
 					</div><!--end card-body  -->
@@ -87,7 +87,6 @@
 		</div><!-- end row -->
     </section>
     <!-- /.content -->
-    
    <script>
 	 function modify_go(ano){
 		 location.href="modifyForm?ano="+ano;
