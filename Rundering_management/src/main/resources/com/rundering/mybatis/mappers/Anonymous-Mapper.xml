@@ -24,21 +24,26 @@
 	
 	<sql id="search">
 		<if test="searchType == 't'.toString()">
-			and title like '%'||#{keyword}||'%'
+			and b.title like '%'||#{keyword}||'%'
 		</if>
 		<if test="searchType == 'c'.toString()">
-			and content like '%'||#{keyword}||'%'
+			and b.content like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'w'.toString()">
+			and c.name like '%'||#{keyword}||'%'
 		</if>
 		<if test="searchType == 'b'.toString()">
-			and branchName like '%'||#{keyword}||'%'
+			and d.branch_name like '%'||#{keyword}||'%'
 		</if>
 		<if test="searchType == 'tcwb'.toString()">
 			and (
-			title like '%'||#{keyword}||'%'
+			b.title like '%'||#{keyword}||'%'
 			or
-			content like '%'||#{keyword}||'%'						
+			b.content like '%'||#{keyword}||'%'
 			or
-			branch_name like '%'||#{keyword}||'%'						
+			c.name like '%'||#{keyword}||'%'
+			or
+			d.branch_name like '%'||#{keyword}||'%'			
 			)			
 		</if>
 	</sql>
@@ -49,7 +54,8 @@
 		    b.ano,
 		    b.title,
 		    b.content,
-		    c.name||'('||d.branch_name||')' as writer,
+		    c.name as writer,
+		    d.branch_name,
 		    b.regist_date,
 		    b.viewcnt
 		from tb_employees a, tb_anonymous_board b, tb_member c, tb_branch d
@@ -57,16 +63,17 @@
 		  and a.memberno = c.memberno
 		  and b.branch_name = d.branch_code
 		  and b.delete_key='1'
+		  <include refid="search" />
 		order by b.ano desc
 	</select>
 	
 	<select id="selectSearchAnonymousListCount" resultType="int">
 		select
 		count(*) 
-		from tb_anonymous_board
-		where ano is not null
-		<include refid="search" />
-		order by regist_date desc
+		from tb_anonymous_board b
+		where b.ano is not null
+		<!-- <include refid="search" /> -->
+		order by b.regist_date desc
 	</select>
 	
 	<select id="selectAnonymousByAno" parameterType="int" resultMap="anonymousBoardMap" >

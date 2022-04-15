@@ -1,15 +1,16 @@
 package com.rundering.service;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Map;
 
 import com.rundering.dto.AnonymousBoardVO;
+import com.rundering.manage.Criteria;
 
 public interface AnonymousService {
 
 	// 목록조회
-	List<AnonymousBoardVO> getAnonymousList() throws SQLException;
-
+	public Map<String, Object> getAnonymousList(Criteria cri) throws SQLException;
+	
 	// 상세보기
 	AnonymousBoardVO getAnonymous(int ano) throws SQLException;
 

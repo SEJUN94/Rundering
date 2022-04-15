@@ -54,6 +54,7 @@ public class Criteria {
 	public int getStartRowNum() {
 		return this.startRowNum;
 	}
+	
 }
 
 
