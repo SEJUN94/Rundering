@@ -93,7 +93,7 @@
     	
     	}
     	
-    	
+    	alert("이메일 발송.")
     	  
     	$.ajax({
 			  url:'<%=request.getContextPath()%>/login/idfindmailcheck',
@@ -109,7 +109,7 @@
 			  		return;
 			  	}
 			  	if(data.check=="true"){
-					alert("이메일 발송.")
+				
 			  		auth_flag=true;
 			  	}
 				  
