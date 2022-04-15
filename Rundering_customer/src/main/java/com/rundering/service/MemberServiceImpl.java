@@ -2,6 +2,7 @@ package com.rundering.service;
 
 import java.util.List;
 
+import com.rundering.command.MemberAddCommand;
 import com.rundering.dao.MemberDAOImpl;
 import com.rundering.dto.MemberVO;
 
@@ -38,6 +39,13 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO checkId(String id) throws Exception {
 		MemberVO member = memberDAO.checkId(id);
 		return member;
+	}
+	
+	//EMAIL중복체크
+	@Override
+	public MemberAddCommand checkEmail(String email) throws Exception {
+		MemberAddCommand mac = memberDAO.checkEmail(email);
+		return mac;
 	}
 	
 	//회원가입
@@ -80,5 +88,7 @@ public class MemberServiceImpl implements MemberService{
 		member =memberDAO.selectMemberById(member.getId());
 		memberDAO.updateLoginfailZeroByMemberNo(member.getMemberNo());
 	}
+
+
 	
 }

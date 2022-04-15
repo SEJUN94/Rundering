@@ -51,10 +51,7 @@
 			<div class="input-group mb-3 form-group">
 				<input type="text" class="col-lg-4 form-control" placeholder="아이디 입력" name="id" id="id">
 				<span class="sp"></span> 
-				<br/><span id="rst"></span>
-			</div>
-			<div style="margin-bottom:15px;">
-				
+				<span id="rst"></span>
 			</div>
 			<div>
 				<label for="pw1" class="col-mb-3"> <span style="color: red; font-weight: bold;">*</span>비밀번호</label>
@@ -79,8 +76,9 @@
 					style="color: red; font-weight: bold;">*</span>Email</label> 
 			</div>
 			<div class="input-group mb-3 form-group">
-				<input type="email" class="col-lg-6 form-control" id="email"	placeholder="Email" name="email">
-				<span class="sp"></span>
+				<input type="email" class="col-lg-6 form-control" id="email" name="email" placeholder="Email" >
+				<span class="sp"></span> 
+				<span id="rst1"></span>
 			</div>
 			<div>
 				<label for="phone" class="col-mb-3"> <span
@@ -125,6 +123,18 @@
 		</form>
 	</div>
 </div>
+
+<script>
+function okProc(ele, str){
+	let vs = $(ele).parents('.form-group').find('.sp');
+	$(vs).html(str).css('color','green');
+}
+function noProc(ele, str){
+	
+	let vs = $(ele).parents('.form-group').find('.sp');
+	$(vs).html(str).css('color','red');
+}
+</script>
 
 <script>
 
@@ -184,44 +194,9 @@ function valid(){
 		}
 	}
 }
+</script>
 
-var checkedID ="";
-function idCheck_go(){
-	//alert("id check btn click");
-	
-	var input_ID=$('input[name="id"]');
-	
-	if(!input_ID.val()){
-       alert("아이디를 입력하시오");
-       input_ID.focus();
-       return;
-	}
-	
-	 $.ajax({
-		 url : "<%=request.getContextPath()%>/idCheck",
-		 data : {
-				'id' : $('#id').val()
-			},
-		type : 'post',	
-    	 success : function(result){
-   		   if(result.toUpperCase() == "DUPLICATED"){
-              alert("중복된 아이디 입니다.");
-              $('input[name="id"]').focus();
-           }else{
-              alert("사용가능한 아이디 입니다.");
-              checkedID=input_ID.val().trim();
-              $('input[name="id"]').val(input_ID.val().trim());
-             
-           } 
-    	 },
-         error:function(error){
-           //alert("시스템장애로 가입이 불가합니다.");
-        	 AjaxErrorSecurityRedirectHandler(error.status);		
-         }			 
-	 });
-}
-
-
+<script>
 	//id 중복체크 ajax
 	function idCheckAjax() {
 		let sp = document.querySelectorAll('.sp');
@@ -250,10 +225,44 @@ function idCheck_go(){
 			}
 		});
 	}
+</script>
 
+<script>
+	//email 중복체크 ajax
+	function emailCheckAjax() {
+		let sp = document.querySelectorAll('.sp');
+		let rst = document.querySelector('#rst1');
+
+		$.ajax({
+			url : '<%=request.getContextPath()%>/emailCheck',
+			data : {
+				'email' : $('#email').val()
+			},
+			type : 'post',
+			success : function(result) {
+				if (result.toUpperCase() == "OK") {
+					$('#rst1').html("이미 존재하는 email입니다").css('color', 'red');
+					sp[4].style.display = 'none';
+					rst.style.display = "inline-block";
+				} else {
+					$('#rst1').html("사용 가능한 email입니다").css('color', 'green');
+					sp[4].style.display = 'none';
+					rst.style.display = "inline-block";
+				}
+			},
+			error : function(error) {
+				//alert("시스템장애로 가입이 불가합니다.");
+				AjaxErrorSecurityRedirectHandler(error.status);
+			}
+		});
+	}
+</script>	
+	
+<script>
 window.onload = function() {
-	//	아이디 중복검사 
 	//keyup 이벤트 : 키를 눌렀다가 떼는 순간
+	
+	//	아이디 중복검사 
 	$('#id').on('keyup', function() {
 		
 		//유효성검증(validation check) - id
@@ -281,20 +290,20 @@ window.onload = function() {
 
 	//유효성검증 - pass
 	$('#pw1').on('keyup',function() {
-						let passValue = $('#pw1').val().trim();
-						let regPass = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}$/;
+		let passValue = $('#pw1').val().trim();
+		let regPass = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}$/;
 
-						if (regPass.test(passValue)) {
-							okProc($('#pw1'), "사용 가능한 패스워드 입니다!");
-							pwchk = true;
-						} else if (passValue === "") {
-							noProc($('#pw1'), "패스워드를 입력하세요");
-							pwchk = false;
-						} else {
-							noProc($('#pw1'), "대/소문자,특수문자,숫자 포함 8자리 이상 입력해야함");
-							pwchk = false;
-						}
-					});
+		if (regPass.test(passValue)) {
+			okProc($('#pw1'), "사용 가능한 패스워드 입니다!");
+			pwchk = true;
+		} else if (passValue === "") {
+			noProc($('#pw1'), "패스워드를 입력하세요");
+			pwchk = false;
+		} else {
+			noProc($('#pw1'), "대/소문자,특수문자,숫자 포함 8자리 이상 입력해야함");
+			pwchk = false;
+		}
+	});
 
 	//비밀번호 일치 여부 확인
 	$('.pass').on('keyup', function() {
@@ -346,18 +355,28 @@ window.onload = function() {
 		}
 	});
 
+	
+
 	//유효성검증 - mail
 	$('#email').on('keyup', function() {
+		//유효성검증(validation check) - email
 		let mailValue = $('#email').val().trim();
 		let regMail = /^[0-9a-zA-Z]+@[0-9a-zA-Z]+(\.[a-z]+){1,2}$/;
-
+		let sp = document.querySelectorAll('.sp');
+		let rst = document.querySelector('#rst1');
+		
 		if (regMail.test(mailValue)) {
+			emailCheckAjax();
 			okProc($('#email'), "");
 			mailchk = true;
 		} else if (mailValue === "") {
+			sp[4].style.display = "inline-block"
+			rst.style.display = "none";
 			noProc('#email', " 메일을 입력하세요");
 			mailchk = false;
 		} else {
+			sp[4].style.display = "inline-block"
+			rst.style.display = "none";
 			noProc($('#email'), "형식에 맞게 입력하세요");
 			mailchk = false;
 		}
@@ -366,7 +385,9 @@ window.onload = function() {
 	// 회원가입 전송
 	$('#sendBtn').on('click', valid)
 }
-	
+
+</script>
+<script>
 function findZip() {
 	new daum.Postcode({
 		oncomplete : function(data) {
@@ -388,15 +409,5 @@ function findZip() {
 		}
 	}).open();
 }	
-	
-	
-function okProc(ele, str){
-	let vs = $(ele).parents('.form-group').find('.sp');
-	$(vs).html(str).css('color','green');
-}
-function noProc(ele, str){
-	
-	let vs = $(ele).parents('.form-group').find('.sp');
-	$(vs).html(str).css('color','red');
-}
 </script>
+

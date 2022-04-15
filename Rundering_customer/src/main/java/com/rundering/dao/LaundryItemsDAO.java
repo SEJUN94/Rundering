@@ -14,8 +14,11 @@ public interface LaundryItemsDAO {
 	//신발 시퀀스
 	public String SelectShoesSequenceNextValue() throws SQLException;
 	
+	
 	//세탁품목 등록
 	public void insertLaundryItems(LaundryItemsVO laundryItems) throws SQLException;
+	//세탁품목 조회 - 전체 
+	public List<LaundryItemsVO> getlaundryItemsList() throws SQLException;
 	//세탁품목 목록조회 - 의류만
 	public List<LaundryItemsVO> selectClothingList() throws SQLException;
 	//세탁품목 목록조회 - 침구만

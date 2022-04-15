@@ -90,6 +90,25 @@ public class MainController {
 		return entity;
 	}
 	
+	@RequestMapping("/emailCheck")
+	@ResponseBody
+	public ResponseEntity<String> emailCheck(String email) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		try {
+			MemberAddCommand mac = memberService.checkEmail(email);
+			if (mac != null) {
+				entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+			} else {
+				entity = new ResponseEntity<String>("", HttpStatus.OK);
+			}
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return entity;
+	}
+	
 	
 	
 	@RequestMapping("/introduce")

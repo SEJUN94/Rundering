@@ -17,6 +17,12 @@
 	</resultMap>
 
 
+	<select id="getlaundryItemsList" resultMap="laundryItemsResult">
+		select *
+		  from TB_LAUNDRY_ITEMS
+		 where DELETE_KEY='1'
+	</select>
+
 
 
 	<select id="selectClothingSequenceNextValue" resultType="str">

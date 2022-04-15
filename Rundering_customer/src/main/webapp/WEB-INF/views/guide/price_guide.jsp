@@ -1,22 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="laundryItemsList" value="${dataMap.laundryItemsList }" />
+
 
 <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>가격안내</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">가격안내</li>
-                        <li class="breadcrumb-item"><a href="#">이용안내</a></li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </section>
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-sm-6">
+				<h1>가격안내</h1>
+			</div>
+			<div class="col-sm-6">
+				<ol class="breadcrumb float-sm-right">
+					<li class="breadcrumb-item active">가격안내</li>
+					<li class="breadcrumb-item"><a href="#">이용안내</a></li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</section>
 
 <div class="col-12 col-sm-12">
 	<div class="card card-primary card-tabs">
@@ -52,42 +56,22 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>와이셔츠</td>
-									<td>1,500원</td>
-								</tr>
-								<tr>
-									<td>교복셔츠</td>
-									<td>1,500원</td>
-								</tr>
-								<tr>
-									<td>일반셔츠,블라우스</td>
-									<td>3,000원</td>
-								</tr>
-								<tr>
-									<td>티셔츠</td>
-									<td>3,000원</td>
-								</tr>
-								<tr>
-									<td>맨투맨,후드티</td>
-									<td>4,000원</td>
-								</tr>
-								<tr>
-									<td>니트,스웨터,가디건</td>
-									<td>4,000원</td>
-								</tr>
-								<tr>
-									<td>바지,스커트</td>
-									<td>3,500원</td>
-								</tr>
-								<tr>
-									<td>원피스,점프수트</td>
-									<td>6,000원</td>
-								</tr>
-								<tr>
-									<td>인조가죽 하의</td>
-									<td>11,000원</td>
-								</tr>
+								<c:if test="${empty laundryItemsList }">
+										<tr>
+											<td colspan="5" style="text-align: center;"><strong>물품이
+													없습니다.</strong></td>
+										</tr>
+									</c:if>
+								<c:if test="${!empty laundryItemsList }">
+									<c:forEach items="${laundryItemsList }" var="laundryItems">
+										<c:if test="${laundryItems.laundeyCategory eq 'CL' }">
+											<tr>
+												<td>${laundryItems.itemsName }</td>
+												<td>${laundryItems.price }</td>
+											</tr>
+										</c:if>
+									</c:forEach>
+								</c:if>
 							</tbody>
 						</table>
 					</div>
@@ -103,34 +87,16 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>운동화</td>
-									<td>5,000원</td>
-								</tr>
-								<tr>
-									<td>세무 운동화</td>
-									<td>7,000원</td>
-								</tr>
-								<tr>
-									<td>구두,로퍼</td>
-									<td>7,000원</td>
-								</tr>
-								<tr>
-									<td>스포츠화</td>
-									<td>7,000원</td>
-								</tr>
-								<tr>
-									<td>워커</td>
-									<td>11,000원</td>
-								</tr>
-								<tr>
-									<td>부츠</td>
-									<td>15,000원</td>
-								</tr>
-								<tr>
-									<td>어그부츠</td>
-									<td>20,000원</td>
-								</tr>
+								<c:if test="${!empty laundryItemsList }">
+									<c:forEach items="${laundryItemsList }" var="laundryItems">
+										<c:if test="${laundryItems.laundeyCategory eq 'SH' }">
+											<tr>
+												<td>${laundryItems.itemsName }</td>
+												<td>${laundryItems.price }</td>
+											</tr>
+										</c:if>
+									</c:forEach>
+								</c:if>
 							</tbody>
 						</table>
 					</div>
@@ -146,34 +112,16 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>이불패드,이불커버,홑이불</td>
-									<td>9,000원</td>
-								</tr>
-								<tr>
-									<td>일반이불</td>
-									<td>10,000원</td>
-								</tr>
-								<tr>
-									<td>극세사이불</td>
-									<td>15,000원</td>
-								</tr>
-								<tr>
-									<td>다운퍼이불(오리,거위털)</td>
-									<td>20,000원</td>
-								</tr>
-								<tr>
-									<td>일반토퍼</td>
-									<td>15,000원</td>
-								</tr>
-								<tr>
-									<td>구스토퍼</td>
-									<td>25,000원</td>
-								</tr>
-								<tr>
-									<td>베게커버</td>
-									<td>2,000원</td>
-								</tr>
+								<c:if test="${!empty laundryItemsList }">
+									<c:forEach items="${laundryItemsList }" var="laundryItems">
+										<c:if test="${laundryItems.laundeyCategory eq 'BE' }">
+											<tr>
+												<td>${laundryItems.itemsName }</td>
+												<td>${laundryItems.price }</td>
+											</tr>
+										</c:if>
+									</c:forEach>
+								</c:if>
 							</tbody>
 						</table>
 					</div>

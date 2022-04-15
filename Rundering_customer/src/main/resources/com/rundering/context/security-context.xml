@@ -30,7 +30,7 @@
 	<http use-expressions="true" pattern="/**">
 		<access-denied-handler error-page="/security/accessDenied" />
 		
-		<intercept-url pattern="/mypage/**"  access="hasRole('C001')"/>
+<!-- 		<intercept-url pattern="/mypage/**"  access="hasRole('C001')"/> -->
 		
 		<intercept-url pattern="/**" access="permitAll"/>
 		
