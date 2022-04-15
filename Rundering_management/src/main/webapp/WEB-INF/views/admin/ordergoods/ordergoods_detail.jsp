@@ -155,11 +155,11 @@
 	</script>
 
 	<script>
-		window.addEventListener('load', OrderGoodsPictureThumb)
-		function OrderGoodsPictureThumb(){
+		//window.addEventListener('load', OrderGoodsPictureThumb)
+		window.onload=function OrderGoodsPictureThumb(){
 			 for(var target of document.querySelectorAll('.goodsPicture')){	
 				 var articlesCode = target.getAttribute('data-id');
-				 target.style.backgroundImage="url('"+<%=request.getContextPath() %>+"/admin/ordergoods/getPicture?articlesCode="+articlesCode+"')";
+				 target.style.backgroundImage="url('<%=request.getContextPath() %>/admin/ordergoods/getPicture?articlesCode="+articlesCode+"')";
 				 target.style.backgroundPosition="center";
 				 target.style.backgroundRepeat="no-repeat";
 				 target.style.backgroundSize="cover";

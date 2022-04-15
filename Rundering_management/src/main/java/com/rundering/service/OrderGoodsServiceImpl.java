@@ -41,6 +41,7 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
 	public LaundryArticlesVO getOrderGoods(String articlesCode) throws SQLException {
 
 		LaundryArticlesVO ordergoods = orderGoodsDAO.selectOrderGoodsByArticlesCode(articlesCode);
+		
 		return ordergoods;
 	}
 
@@ -52,7 +53,6 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
 	@Override
 	public void modify(LaundryArticlesVO ordergoods) throws SQLException {
 		orderGoodsDAO.updateOrderGoods(ordergoods);
-		orderGoodsDAO.selectOrderGoodsByPicture(ordergoods.getPicture());
 	}
 
 	@Override

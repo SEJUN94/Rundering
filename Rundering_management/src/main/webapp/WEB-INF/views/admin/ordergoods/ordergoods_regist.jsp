@@ -20,7 +20,7 @@
 					<div class="row">
 						<div class="input-group col-md-12">
 							<div class="col-md-12" style="text-align: center;">
-								<div class="manPicture" data-id="${orderGoods.articlesCode }"
+								<div class="goodsPicture" data-id="${orderGoods.articlesCode }"
 									id="pictureView"
 									style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto; margin-bottom: 5px;"></div>
 								<div class="input-group input-group-sm">
@@ -149,7 +149,7 @@
 			return;
 		}
 		$.ajax({
-			  url:"/admin/ordergoods/picture",
+			  url:"<%=request.getContextPath()%>/admin/ordergoods/picture",
 		      data:formData,
 		      type:'post',
 		      processData:false,
@@ -158,7 +158,8 @@
 		    	  //업로드 확인변수 세팅
 		          $('input[name="checkUpload"]').val(1);
 		          //저장된 파일명 저장.
-		          $('form[role="form"] input[name="picture"]').val(data);	    	  
+		          $('input#oldFile').val(data); // 변경시 삭제될 파일명	  
+		          $('form[role="form"] input[name="picture"]').val(data);	   
 		      },
 		      error:function(error){
 		    	  AjaxErrorSecurityRedirectHandler(error.status);		
@@ -192,9 +193,7 @@
 	   document.getElementById('inputFileName').value=picture.files[0].name;
 	   
 	   if (picture.files && picture.files[0]) {
-		
 			var reader = new FileReader();
-			
 			reader.onload = function (e) {
 				 $('div#pictureView').css({'background-image':'url('+e.target.result+')',
 	                 'background-position':'center',
@@ -202,7 +201,6 @@
 	                 'background-repeat':'no-repeat'
 	                 });
 			}
-			
 			reader.readAsDataURL(picture.files[0]);
 		}
 	}

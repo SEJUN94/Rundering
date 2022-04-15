@@ -23,18 +23,17 @@ import com.rundering.service.OrderGoodsService;
 @RequestMapping("/admin/ordergoods")
 public class OrderGoodsRestController {
 
-	@Resource(name="orderGoodsService")
+	@Resource(name = "orderGoodsService")
 	private OrderGoodsService orderGoodsService;
 
 	@Resource(name = "picturePath")
 	private String picturePath;
-	
+
 	private String savePicture(String oldPicture, MultipartFile multi) throws Exception {
 		String fileName = null;
 
 		/* 파일유무확인 */
 		if (!(multi == null || multi.isEmpty() || multi.getSize() > 1024 * 1024 * 5)) {
-
 			/* 파일저장폴더설정 */
 			String uploadPath = picturePath;
 			fileName = MakeFileName.toUUIDFileName(multi.getOriginalFilename(), "$$");
@@ -70,29 +69,23 @@ public class OrderGoodsRestController {
 			status = HttpStatus.BAD_REQUEST;
 		} else {
 			status = HttpStatus.OK;
-
 		}
-
 		entity = new ResponseEntity<String>(result, status);
 
 		return entity;
-
 	}
 
 	@RequestMapping(value = "/getPicture", produces = "text/plain;charset=utf-8")
 	public ResponseEntity<byte[]> getPicture(String articlesCode) throws Exception {
 
 		String picture = orderGoodsService.getOrderGoods(articlesCode).getPicture();
-
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
 		String imgPath = this.picturePath;
-
 		try {
 			in = new FileInputStream(new File(imgPath, picture));
 
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), HttpStatus.CREATED);
-
 		} finally {
 			in.close();
 		}

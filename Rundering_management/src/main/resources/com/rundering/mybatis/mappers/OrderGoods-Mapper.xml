@@ -13,7 +13,7 @@
 		<result column="DELETE_KEY" property="deleteKey"/>
 		<result column="EACH" property="each"/>
 		<result column="NOTE" property="note"/>
-		<result column="PICUTRE" property="picture"/>
+		<result column="PICTURE" property="picture"/>
 	</resultMap>
 
 	<select id="orderGoodsList" resultMap="orderGoodsMap" parameterType="str">
@@ -38,19 +38,12 @@
 		where ARTICLES_CODE=#{articlesCode}
 	</select>
 	
-	<select id="selectOrderGoodsByPicture" parameterType="str" resultMap="orderGoodsMap">
-		select
-		*
-		from TB_LAUNDRY_ARTICLES
-		where PICTURE=#{picture}
-	</select>
-	
 	<update id="insertOrderGoods" parameterType="orderGoods">
 		insert 
 		into 
-		TB_LAUNDRY_ARTICLES(ARTICLES_CODE,ARTICLES_NAME,PRICE,REGIST_DATE,EACH,NOTE,CLCODE,PICTURE)
+		TB_LAUNDRY_ARTICLES(ARTICLES_CODE,ARTICLES_NAME,PRICE,EACH,NOTE,CLCODE,PICTURE)
 		values
-		(#{articlesCode},#{articlesName},#{price}, SYSDATE,#{each},#{note},#{clcode},#{picture})
+		(#{articlesCode},#{articlesName},#{price},#{each},#{note},#{clcode},#{picture})
 	</update>
 	
 	<update id="updateOrderGoods" parameterType="orderGoods">

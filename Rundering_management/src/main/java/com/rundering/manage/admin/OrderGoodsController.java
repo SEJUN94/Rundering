@@ -7,9 +7,15 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -44,15 +50,12 @@ public class OrderGoodsController {
 		return url;
 	}
 	
-	@RequestMapping("/ordergoods/regist")
+	@RequestMapping(value = "/ordergoods/regist", method = RequestMethod.POST)
 	public String regist(LaundryArticlesVO orderGoods,HttpServletRequest request,
 						 RedirectAttributes rttr)throws Exception{
 		String url="redirect:/admin/ordergoods/list";	
 		
-		System.out.println(orderGoods.getClcode());
 		orderGoodsService.regist(orderGoods);
-		
-		
 		rttr.addFlashAttribute("from","regist");
 		
 		return url;
@@ -78,8 +81,8 @@ public class OrderGoodsController {
 		
 		LaundryArticlesVO orderGoods = orderGoodsService.getOrderGoods(articlesCode);
 		
-		//String picture = MakeFileName.parseFileNameFromUUID(orderGoods.getPicture(), "\\$\\$");
-		//orderGoods.setPicture(picture);
+		String picture = MakeFileName.parseFileNameFromUUID(orderGoods.getPicture(), "\\$\\$");
+		orderGoods.setPicture(picture);
 		
 		mnv.addObject("orderGoods", orderGoods);
 		mnv.setViewName(url);
