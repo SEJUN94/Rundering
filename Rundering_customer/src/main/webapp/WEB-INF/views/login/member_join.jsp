@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
 
 
 <style>
@@ -162,10 +165,10 @@ function valid(){
 				data : formData,
 				success : function(response){
 					if(response.toUpperCase() == "OK"){
-						alert("Rundering 회원가입을 축하드립니다!");
+						Swal.fire('Rundering 회원가입이 완료되었습니다.', '축하드립니다!', 'success' )
 						location.href = "<%=request.getContextPath()%>/login/form";
 						} else {
-							alert("공백없이 형식에 맞게 작성해주세요!");
+							Swal.fire('공백없이 형식에 맞게 작성해주세요!', 'error' )
 						}
 					},
 					error : function(xhr) {
@@ -173,27 +176,40 @@ function valid(){
 					},
 				});
 		} else{
-			if(confirm("해당 주소지는 서비스 지역이 아닙니다. 등록 하시겠습니까?")){
-				$.ajax({
-					url : '<%=request.getContextPath()%>/join',
-					type : 'post',
-					data : formData,
-					success : function(response){
-						if(response.toUpperCase() == "OK"){
-							alert("Rundering 회원가입을 축하드립니다!");
-							location.href = "<%=request.getContextPath()%>/login/form";
-							} else {
-								alert("공백없이 형식에 맞게 작성해주세요!");
-							}
-						},
-						error : function(xhr) {
-							alert(xhr.status);
-						},
-					});
-			}
-		}
-	}
-}
+			 Swal.fire({
+	               title: '해당 주소지는 서비스 지역이 아닙니다. 등록 하시겠습니까?',
+	               icon: 'warning',
+	               showCancelButton: true,
+	               confirmButtonColor: '#3085d6',
+	               cancelButtonColor: '#d33',
+	               confirmButtonText: '승인',
+	               cancelButtonText: '취소',
+	               reverseButtons: true, // 버튼 순서 거꾸로
+	               
+	             }).then((result) => {
+	                 if (result.isConfirmed) {
+	                    $.ajax({
+	                     url : '<%=request.getContextPath()%>/join',
+	                     type : 'post',
+	                     data : formData,
+	                     success : function(response){
+	                        if(response.toUpperCase() == "OK"){
+	                           Swal.fire('Rundering 회원가입이 완료되었습니다.', '축하드립니다!', 'success' )
+	                           location.href = "<%=request.getContextPath()%>/login/form";
+	                           } else {
+	                              Swal.fire('공백없이 형식에 맞게 작성해주세요!', 'error' )
+	                           }
+	                        },
+	                        error : function(xhr) {
+	                           alert(xhr.status);
+	                        },
+	                     });
+	                     
+	                 }})
+	         }
+	      }
+	   }
+
 </script>
 
 <script>
