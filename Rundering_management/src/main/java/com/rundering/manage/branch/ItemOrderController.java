@@ -1,6 +1,13 @@
 package com.rundering.manage.branch;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.rundering.dto.ItemOrderVO;
+
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 
@@ -8,10 +15,11 @@ import org.springframework.stereotype.Controller;
 @RequestMapping("/branch/itemorder")
 public class ItemOrderController {
 	
-	@RequestMapping("/list")
-	private String list() {
+	@RequestMapping( value =  "/list", method = RequestMethod.POST)
+	@ResponseBody
+	private List<ItemOrderVO> list() {
 		String url= "/branch/itemorder/itemorder_list";
-		return url;
+		return null;
 	}
 	
 	

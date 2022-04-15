@@ -9,11 +9,11 @@
 	<beans:bean id="customAuthenticationProvider" 
 	            class="com.rundering.security.CustomAuthenticationProvider"
 	            p:employeesService-ref="employeesService"
-	           	p:memberService-ref="memberSerive"
+	           	p:memberService-ref="memberService"
 	            />
 	<beans:bean id="loginSuccessHandler"
 			 	class="com.rundering.security.LoginSuccessHandler"
-			 	p:defaultTargetUrl="/home"
+			 	p:defaultTargetUrl="/branch/index"
 			 	/>
 	<beans:bean id="loginFailureHandler"
 	            class="com.rundering.security.LoginFailureHandler"
@@ -38,7 +38,7 @@
 		<form-login login-page="/common/loginForm.do?error=1"
 					login-processing-url="/common/login"
 					username-parameter="id"
-					password-parameter="pwd"
+					password-parameter="password"
 					authentication-success-handler-ref="loginSuccessHandler"
 					authentication-failure-handler-ref="loginFailureHandler"
 					/>
