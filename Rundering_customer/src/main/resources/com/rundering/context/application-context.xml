@@ -29,7 +29,7 @@
 		p:memberDAO-ref="memberDAO"
 	/>
 
-	
+	 
 	<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl"
 		p:memberAddressDAO-ref="memberAddressDAO"
 	/>

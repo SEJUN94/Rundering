@@ -13,13 +13,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title><decorator:title default="Rundering Korea"/></title>
-	<style>
-		.marginfont{
-			margin-left: 20%;
-			font-size: 1.3em
-			}
-	</style>
+	<title><decorator:title default="Rundering"/></title>
+	
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
@@ -31,34 +26,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="icon" href="<%=request.getContextPath() %>/resources/images/Favicon8.png" />  
   <!--브라우저 스타일 초기화-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" />  
-  <!--Google Fonts - 나눔고딕-->
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet" />  
   <!--Google Material Icons-->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/main.css" />  
   <!--Swiper-->
   <link rel="stylesheet" href="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.css" /> 
+  <!-- Pretendard  -->
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/font/pretendard/pretendard-subset.css" />
   
   <style>
   	body{
   		margin:auto;
   		
   	}
+  	.marginfont{
+			margin-left: 20%;
+			font-size: 1.3em
+			}
   </style>
+  
 <decorator:head />
 
-<!-- Pretendard  -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/font/pretendard/pretendard-subset.css" />
-  
-  <style type="text/css">
-	body {
-	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
-		Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
-		'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
-		'Segoe UI Symbol', sans-serif;
-}
-   </style>	
+   
 </head>
 <body>
 
@@ -105,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('div.content-wrapper').css({
        "max-width":"1280px",
        "margin" : "0 auto",
-       "margin-top": "130px",
+       "margin-top": "126px",
        "background-color":"#fff"
     });
 </script>
