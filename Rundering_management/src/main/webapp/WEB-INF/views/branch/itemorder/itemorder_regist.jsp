@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="pageMaker" value="${dataMap.pageMaker }" />
+<c:set var="cri" value="${dataMap.pageMaker.cri }" />
+<c:set var="orderGoodsList" value="${dataMap.orderGoodsList }" /> 
 <body>
 	<div >
 		<div class="row ml-2 mr-2">
 			<div class="col-6">
-				<div class="card card-primary card-outline col-12">
+				<div class="card card-primary card-outline col-12" style="height: 765px;">
 					<div class="card-header">
 						<h3 class="card-title">물품리스트</h3>
 						<div class="card-tools"></div>
 					</div>
-					<div class="card-body p-0" style="font-size: 0.9em; height: 760px;">
+					<div class="card-body p-0" >
 						<table class="table table-hover ">
 							<thead>
 								<tr>
@@ -22,17 +26,30 @@
 							</thead>
 	
 							<tbody>
-								<tr>
-									<td style="text-align: left;">세제</td>
-									<td style="text-align: center;">사진</td>
-									<td style="text-align:right;" >3000</td>
-									<td style="text-align: center; padding-top: 8px"><button type="button"
+							<c:if test="${!empty orderGoodsList }">
+									<c:forEach items="${orderGoodsList }" var="orderGoods">
+										<tr>
+											<td style="text-align: left;">${orderGoods.articlesName }</td>
+										<td style="text-align: center;">사진</td>
+											<td style="text-align: center;">${orderGoods.price }</td>
+											<td style="text-align: center; padding-top: 8px"><button type="button"
 											class="btn btn-primary btn-sm">담기</button></td>
+										</tr>
+									</c:forEach>
+								</c:if>
+								<tr>
+									
+									
 	
 								</tr>
 								
 							</tbody>
+							
 						</table>
+						
+					</div>
+					<div class="card-footer" >
+						<%@ include file="/WEB-INF/views/branch/itemorder/pagination.jsp"%>
 					</div>
 	
 				</div>
@@ -40,12 +57,12 @@
 			</div>
 	
 			<div class="col-6">
-				<div class="card card-primary card-outline col-12">
+				<div class="card card-primary card-outline col-12" style="height: 670px;">
 					<div class="card-header">
 						<h3 class="card-title">발주신청</h3>
 	
 					</div>
-					<div class="card-body p-0" style="font-size: 0.9em; height: 600px;">
+					<div class="card-body p-0" >
 						<table class="table table-hover text-nowrap">
 							<thead>
 								<tr>
@@ -127,8 +144,9 @@
 	<script type="text/javascript">
 		window.onload()=function (){
 			$.ajax({
-				  url:'<%=request.getContextPath()%>/itemorder/',
+				  url:'<%=request.getContextPath()%>/branch/itemorder/list',
 				  type:"post",
+				  dataType : "json",
 				  success:function(data){
 				
 				  },

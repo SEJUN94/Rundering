@@ -83,12 +83,12 @@ public class OrderGoodsRestController {
 	@RequestMapping(value = "/getPicture", produces = "text/plain;charset=utf-8")
 	public ResponseEntity<byte[]> getPicture(String articlesCode, AttachVO attach) throws Exception {
 
-		String picture = orderGoodsService.getOrderGoods(articlesCode, attach).getPicture();
+		//String picture = orderGoodsService.getOrderGoods(articlesCode, attach).getPicture();
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
 		String imgPath = this.picturePath;
 		try {
-			in = new FileInputStream(new File(imgPath, picture));
+		//	in = new FileInputStream(new File(imgPath, picture));
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), HttpStatus.CREATED);
 		} finally {
 			in.close();
@@ -100,14 +100,13 @@ public class OrderGoodsRestController {
 	public ResponseEntity<String> idCheck(String articlesCode, AttachVO attach) throws Exception {
 		ResponseEntity<String> entity = null;
 
-		LaundryArticlesVO ordergoods = orderGoodsService.getOrderGoods(articlesCode, attach);
+	//	LaundryArticlesVO ordergoods = orderGoodsService.getOrderGoods(articlesCode, attach);
 
-		if (ordergoods != null) {
-			entity = new ResponseEntity<String>("duplicated", HttpStatus.OK);
-		} else {
-			entity = new ResponseEntity<String>("", HttpStatus.OK);
-		}
-
+		/*
+		 * if (ordergoods != null) { entity = new ResponseEntity<String>("duplicated",
+		 * HttpStatus.OK); } else { entity = new ResponseEntity<String>("",
+		 * HttpStatus.OK); }
+		 */
 		return entity;
 	}
 }

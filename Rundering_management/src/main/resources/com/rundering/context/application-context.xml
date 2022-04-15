@@ -32,6 +32,9 @@
 	<bean id="employeesDAO" class="com.rundering.dao.EmployeesDAOImpl"
 		p:session-ref="sqlSession"
 	/>
+	<bean id="attachDAO" class="com.rundering.dao.AttachDAOImpl"
+		p:session-ref="sqlSession"
+	/>
 	
 	
 	<!-- Service Layer -->
