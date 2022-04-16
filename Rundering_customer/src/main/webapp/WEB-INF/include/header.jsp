@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 
 <!--HEADER-->
 <header>
@@ -8,8 +10,12 @@
 
 		<div class="sub-menu">
 			<ul class="menu">
-				<li><a href="<%=request.getContextPath()%>/login/form">로그인</a></li>
-				<li><a href="<%=request.getContextPath()%>/logout">로그아웃</a></li>
+				<sec:authorize access="isAnonymous()">
+					<li><a href="<%=request.getContextPath()%>/login/form">로그인</a></li>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<li><a href="<%=request.getContextPath()%>/logout">로그아웃</a></li>
+				</sec:authorize>
 				<li><a href="<%=request.getContextPath()%>/3agree">회원가입</a></li>
 			</ul>
 		</div>

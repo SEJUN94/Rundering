@@ -63,11 +63,10 @@
 					</div>
 			
 				<label for="phone" style="display: block;">연락처</label>
-				<p class="h4 mt-2 mb-3 showPhone" style="display: inline-block;">${phone}</p>
-				<button type="button" onclick="form_phone_show()" class="btn btn-outline-secondary phoneChenge" style="margin-top: 0.5rem;margin-bottom: 1rem; margin-left: 100px;">변경</button>
+				<p class="h4 mt-2 mb-3 showPhone" style="display: inline-block; width: 200px;">${phone}</p>
+				<button type="button" onclick="form_phone_show()" class="btn btn-outline-secondary phoneChenge" style="margin-top: 0.5rem;margin-bottom: 1rem; margin-left: 86px;">변경</button>
 				
-				<input type="tel" class="form-control" id="contactNumberInput" name="contactNumberInput" value="${loginUser.phone}"  style="display: none;">
-				<input type="hidden" name="contactNumber" value="${loginUser.phone}" >
+				<input type="hidden" id="contactNumber" name="contactNumber" value="${loginUser.phone}" >
 				
 					<div class="form-group newphone" style="display: none;">
 						<div class="input-group">
