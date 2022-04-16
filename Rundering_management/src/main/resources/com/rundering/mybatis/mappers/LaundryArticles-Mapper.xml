@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="OrderGoods-Mapper">
-	<resultMap type="orderGoods" id="orderGoodsMap">
+<mapper namespace="LaundryArticles-Mapper">
+	<resultMap type="laundryArticles" id="laundryArticlesMap">
 		<result column="ARTICLES_CODE" property="articlesCode"/>
 		<result column="ARTICLES_NAME" property="articlesName"/>
 		<result column="PRICE" property="price"/>
@@ -16,13 +16,13 @@
 		<result column="ATCH_FILE_NO" property="atchFileNo"/>
 	</resultMap>
 
-	<select id="orderGoodsList" resultMap="orderGoodsMap" parameterType="str">
+	<select id="laundryArticlesList" resultMap="laundryArticlesMap" parameterType="str">
 		select *
 		  from TB_LAUNDRY_ARTICLES
 		 where DELETE_KEY='1'
 	</select>
 	
-	<select id="selectSearchOrderGoodsListCount" resultType="int">
+	<select id="selectSearchLaundryArticlesListCount" resultType="int">
 		select
 		count(*)
 		from
@@ -32,13 +32,13 @@
 		order by REGIST_DATE desc
 	</select>
 	
-	<select id="selectOrderGoodsByBno"  resultMap="orderGoodsMap">
+	<select id="selectLaundryArticlesByArticlesCode"  resultMap="laundryArticlesMap">
 		select * 
 		from TB_LAUNDRY_ARTICLES
 		where ARTICLES_CODE=#{articlesCode}
 	</select>
 	
-	<update id="insertOrderGoods" parameterType="orderGoods">
+	<update id="insertLaundryArticles" parameterType="laundryArticles">
 		insert 
 		into 
 		TB_LAUNDRY_ARTICLES(ARTICLES_CODE,ARTICLES_NAME,PRICE,EACH,NOTE,CLCODE,ATCH_FILE_NO)
@@ -46,7 +46,7 @@
 		(#{articlesCode},#{articlesName},#{price},#{each},#{note},#{clcode},#{atchFileNo})
 	</update>
 	
-	<update id="updateOrderGoods" parameterType="orderGoods">
+	<update id="updateLaundryArticles" parameterType="laundryArticles">
 		update 
 		TB_LAUNDRY_ARTICLES 
 		set 
@@ -54,7 +54,7 @@
 		where ARTICLES_CODE=#{articlesCode}
 	</update>
 	
-	<update id="deleteOrderGoods" parameterType="str">
+	<update id="deleteLaundryArticles" parameterType="str">
 		update
 		TB_LAUNDRY_ARTICLES
 		set
