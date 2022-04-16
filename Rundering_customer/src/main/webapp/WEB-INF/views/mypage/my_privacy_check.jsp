@@ -28,7 +28,7 @@
 
 <script>
 	function pwCkeck(){
-
+		
 		$.ajax({
 			url : '<%=request.getContextPath()%>/mypage/pwCheck',
 			data : {
@@ -37,13 +37,9 @@
 			type : 'post',
 			success : function(result) {
 				if (result.toUpperCase() == "DUPLICATED") {
-					$('#rst').html("이미 존재하는 ID입니다").css('color', 'red');
-					sp[0].style.display = 'none';
-					rst.style.display = "inline-block";
+					 location.href = "'<%=request.getContextPath()%>'/mypage/memberModify";
 				} else {
-					$('#rst').html("사용 가능한 ID입니다").css('color', 'green');
-					sp[0].style.display = 'none';
-					rst.style.display = "inline-block";
+					 Swal.fire('비밀번호가 틀렸습니다!');				
 				}
 			},
 			error : function(error) {

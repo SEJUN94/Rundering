@@ -18,6 +18,9 @@ public interface MemberService {
 	
 	// Email 중복체크
 	public MemberAddCommand checkEmail(String email) throws Exception;
+	
+	// Passowrd 체크
+	public String checkPw(String id) throws Exception;
 
 	// 회원 가입
 	public void memberJoin(MemberVO member) throws Exception;

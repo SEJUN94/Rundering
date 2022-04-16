@@ -90,6 +90,13 @@ public class MemberDAOImpl implements MemberDAO{
 		session.update("Member-Mapper.deleteMember",id);	
 	}
 	
+	// 개인정보 변경시 패스워드 체크
+	@Override
+	public String checkPw(String id) throws Exception {
+		String pw = session.selectOne("Member-Mapper.checkPw",id);
+		return pw;
+	}
+	
 
 	
 }

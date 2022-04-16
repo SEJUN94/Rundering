@@ -33,6 +33,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.css" /> 
   <!-- Pretendard  -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/font/pretendard/pretendard-subset.css" />
+  <!-- 이쁜알림창 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
   
   <style>
   	body{
@@ -88,6 +91,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <script src="<%=request.getContextPath() %>/resources/js/youtube.js"></script>
   <script defer src="<%=request.getContextPath() %>/resources/js/main.js"></script>
+  
+  <!--이쁜알림창 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 
 
 <script>

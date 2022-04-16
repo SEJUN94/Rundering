@@ -54,6 +54,14 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.memberJoin(member);
 	}
 	
+	
+	// Password 체크
+	@Override
+	public String checkPw(String id) throws Exception {
+		String pw = memberDAO.checkPw(id);
+		return pw;
+	}
+	
 	//회원정보수정
 	@Override
 	public void modifyMember(MemberVO member) throws Exception {
@@ -88,6 +96,8 @@ public class MemberServiceImpl implements MemberService{
 		member =memberDAO.selectMemberById(member.getId());
 		memberDAO.updateLoginfailZeroByMemberNo(member.getMemberNo());
 	}
+
+
 
 
 	
