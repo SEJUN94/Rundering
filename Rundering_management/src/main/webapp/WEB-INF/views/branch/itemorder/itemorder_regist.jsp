@@ -29,11 +29,11 @@
 							<c:if test="${!empty orderGoodsList }">
 									<c:forEach items="${orderGoodsList }" var="orderGoods">
 										<tr>
-											<td style="text-align: left;">${orderGoods.articlesName }</td>
-										<td style="text-align: center;">사진</td>
+											<td style="text-align: left;" data-code="orderGoods" >${orderGoods.articlesName }</td>
+											<td style="text-align: center;">사진</td>
 											<td style="text-align: center;">${orderGoods.price }</td>
 											<td style="text-align: center; padding-top: 8px"><button type="button"
-											class="btn btn-primary btn-sm">담기</button></td>
+											class="btn btn-primary btn-sm getButton" >담기</button></td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -71,59 +71,29 @@
 									<th class="width15">수량</th>
 	
 									<th class="width15">총금액</th>
-									<th class="width10" style="text-align: center;"><input
-										type="checkbox"></th>
+									<th class="width10" style="text-align: center;">취소</th>
 								</tr>
-							</thead>
-	
+							</thead> 
+							
 							<tbody>
-								<tr>
-									<td>세제</td>
-									<td>
-									<input type="text" name="content" class="form-control" style="width: 50px; height: 30px;">
-									</td>
-									<td>30000</td>
-									<td style="text-align: center;">
-									<input type="checkbox">
-									</td>
-								</tr>
-								<tr>
-									<td>옷걸이</td>
-									<td><input type="text" name="content" class="form-control"
-										style="width: 50px; height: 30px;"></td>
-	
-	
-	
-									<td>10000</td>
-									<td style="text-align: center;"><input type="checkbox"></td>
-	
-								</tr>
-								<tr>
-									<td>다리미</td>
-									<td><input type="text" name="content" class="form-control"
-										style="width: 50px; height: 30px;"></td>
-	
-	
-	
-									<td>10000</td>
-									<td style="text-align: center;"><input type="checkbox"></td>
-	
-								</tr>
-								<tr>
-									<td>옷장</td>
-									<td><input type="text" name="content" class="form-control"
-										style="width: 50px; height: 30px;"></td>
-	
-	
-	
-									<td>10000</td>
-									<td style="text-align: center;"><input type="checkbox"></td>
-	
-	
-								</tr>
+								<form action="">
+									<tr>
+										<td>세제</td>
+										<td>
+											<input type="text" name="content" class="form-control" style="width: 50px; height: 30px;">
+										</td>
+										<td>30000</td>
+										<td style="text-align: center;">
+											<button type="button" class="btn btn-tool itemRemove" style="color: black"><i class="fas fa-times"></i>
+											</button>
+										</td>
+									</tr>
+								</form>
 							</tbody>
+							
 						</table>
 					</div>
+					
 				</div>
 				<div class="card">
 	
@@ -141,20 +111,26 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		window.onload()=function (){
-			$.ajax({
-				  url:'<%=request.getContextPath()%>/branch/itemorder/list',
-				  type:"post",
-				  dataType : "json",
-				  success:function(data){
-				
-				  },
-				  error:function(error){
-				  	
-				  }
-			   });   	
-		}
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+<script type="text/x-handlebars-template" id="reply-list-template" >
+<tr>
+	<input type="hidden" name="price" value="{{}}">
+	<td>세제</td>
+	<td>
+		<input type="text" name="quantity" class="form-control" style="width: 50px; height: 30px; ">
+	</td>
+	<td>30000</td>
+	<td style="text-align: center;">
+	<button type="button" class="btn btn-tool itemRemove" style="color: black">
+		<i class="fas fa-times"></i>
+	</button>
+	</td>
+</tr>
+</script>
+
 	
-	</script>
+	
+	
+	
 </body>
