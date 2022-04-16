@@ -17,26 +17,57 @@
 	<result column="DELETEAT" property="deleteat"/>
 	<result column="BRANCH_CODE" property="branchCode"/>
 </resultMap>
-
-	<select id="selectNoticeList" resultMap="noticeMap">
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			AND B.title like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'c'.toString()">
+			AND B.content like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'tc'.toString()">
+			AND (
+			B.title like '%'||#{keyword}||'%'
+			or
+			B.content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>
 	
-		SELECT 
-	     B.NOTICENO
-	    ,B.TITLE
-	    ,B.CONTENT
-	    ,C.NAME as EMPLOYEE_ID
-	    ,B.REGIST_DATE
-	    ,B.VIEWS
+	<select id="selectSearchNoticeList" resultMap="noticeMap" >	
+		select
+			B.NOTICENO
+		    ,B.TITLE
+		    ,B.CONTENT
+		    ,C.NAME as EMPLOYEE_ID
+		    ,B.REGIST_DATE
+		    ,B.VIEWS
 		FROM TB_EMPLOYEES A, TB_NOTICE B,TB_MEMBER C
 		WHERE A.EMPLOYEE_ID = B.EMPLOYEE_ID
 		AND A.MEMBERNO = C.MEMBERNO
-		
+		AND B.NOTICENO is not null  			  	
+		<include refid="search" />
+		order by B.regist_date desc	
 	</select>
 	
 	<select id="selectNoticeSequenceNextValue" resultType="int">
 		select NOTICENO_SEQ.nextVal
 		from dual
 	</select>
+	
+	<select id="selectSearchNoticeListCount" resultType="int">
+		select
+		count(*) 
+		from TB_NOTICE B
+		where B.NOTICENO is not null
+		<include refid="search" />
+		order by B.REGIST_DATE desc
+	</select>
+	
+	<update id="increaseViewCount" parameterType="int">
+		update TB_NOTICE
+		set views=views+1
+		where noticeno=#{noticeno}
+	</update>
 	
 	<update id="insertNotice" parameterType="notice">
 		insert into 
@@ -48,9 +79,10 @@
 		select 
 		* 
 		from TB_NOTICE
-		where noticeno=#{noticeno}
-		
-	</select><update id="updateNotice" parameterType="notice">
+		where noticeno=#{noticeno}		
+	</select>
+	
+	<update id="updateNotice" parameterType="notice">
 		update TB_NOTICE
 		set 
 		title=#{title},content=#{content},modify_date=sysdate	

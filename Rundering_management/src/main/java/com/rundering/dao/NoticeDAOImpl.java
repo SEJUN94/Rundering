@@ -3,9 +3,10 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
-import com.jsp.command.Criteria;
+import com.rundering.manage.Criteria;
 import com.rundering.dto.NoticeVO;
 
 
@@ -20,15 +21,19 @@ public class NoticeDAOImpl implements NoticeDAO {
 
 
 	@Override
-	public List<NoticeVO> selectNoticeList() throws SQLException {
-		List<NoticeVO> noticeList = session.selectList("Notice-Mapper.selectNoticeList");
+	public List<NoticeVO> selectNoticeList(Criteria cri) throws SQLException {
+		
+		int offset=cri.getStartRowNum();
+		int limit=cri.getPerPageNum();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<NoticeVO> noticeList = session.selectList("Notice-Mapper.selectSearchNoticeList",cri,rowBounds);
 		return noticeList;
 	}
 
 
 	@Override
 	public int selectSearchNoticeListCount(Criteria cri) throws SQLException {
-		int count = session.selectOne("ns.id", cri);
+		int count = session.selectOne("Notice-Mapper.selectSearchNoticeListCount", cri);
 		return count;
 	}
 
@@ -48,8 +53,8 @@ public class NoticeDAOImpl implements NoticeDAO {
 
 
 	@Override
-	public void increaseViewCount(int nno) throws SQLException {
-		session.selectOne("ns.id", nno);
+	public void increaseViewCount(int noticeno) throws SQLException {
+		session.selectOne("Notice-Mapper.increaseViewCount", noticeno);
 	}
 
 

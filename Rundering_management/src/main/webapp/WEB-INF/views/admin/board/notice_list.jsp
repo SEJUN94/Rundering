@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<c:set var="pageMaker" value="${dataMap.pageMaker }" />
+<c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="noticeList" value="${dataMap.noticeList }" />
 
 <head>
@@ -43,22 +45,11 @@
 						<h3 class="card-title">공지사항</h3>
 						<div class="card-tools">
 							<div class="input-group input-group-sm" style="width: 400px;">
-								<select class="form-control col-md-3" name="perPageNum"
-									id="perPageNum" onchange="list_go();">
-									<option value="10">정렬개수</option>
-									<option value="20">20개씩</option>
-									<option value="50">50개씩</option>
-									<option value="100">100개씩</option>
-
-								</select> <select class="form-control col-md-4" name="searchType"
+								<select class="form-control col-md-4" name="searchType"
 									id="searchType">
-									<option value="tcw" >전체</option>
-									<option value="t" >제목</option>
-									<option value="w" >작성자</option>
-									<option value="c" >내용</option>
-									<option value="tc" >제목+내용</option>
-									<option value="cw" >작성자+내용</option>
-									<option value="tcw">작성자+제목+내용</option>
+									<option value="tc" ${cri.searchType eq 'tc' ? 'selected':'' }>전체</option>
+									<option value="t" ${cri.searchType eq 't' ? 'selected':'' }>제목</option>
+									<option value="c" ${cri.searchType eq 'c' ? 'selected':'' }>내용</option>
 								</select> <input class="form-control" type="text" name="keyword"
 									placeholder="검색어를 입력하세요." value="" /> <span
 									class="input-group-append">
@@ -95,7 +86,7 @@
 										<td id="Title"
 											style="text-align: left; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 											${notice.title }</td>
-										<td data-target="notice-employeeId">${notice.employeeId}
+										<td data-target="notice-employeeId">${notice.employeeId}</td>
 										<td><fmt:formatDate value="${notice.registDate }"
 												pattern="yyyy-MM-dd" /></td>
 										<td><span class="badge bg-red">${notice.views }</span></td>
@@ -105,6 +96,7 @@
 						</table>
 					</div>
 					<div class="card-footer">
+						<%@ include file="/WEB-INF/views/common/pagination.jsp" %>
 						<div class="float-right mb-3 mr-2">
 							<a
 								href="<%=request.getContextPath()%>/admin/board/noticeregistform">

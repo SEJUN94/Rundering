@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jsp.command.Criteria;
-import com.jsp.command.PageMaker;
+import com.rundering.manage.Criteria;
+import com.rundering.manage.PageMaker;
 import com.rundering.dao.NoticeDAO;
 import com.rundering.dto.NoticeVO;
 
@@ -19,23 +19,33 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public Map<String, Object> getNoticeList() throws SQLException {
+	public Map<String, Object> getNoticeList(Criteria cri) throws SQLException {
 
-			Map<String, Object> dataMap = new HashMap<String, Object>();
+		Map<String, Object> dataMap = new HashMap<String, Object>();
 
-			// 현재 page 번호에 맞는 리스트를 perPageNum 개수 만큼 가져오기.
-			List<NoticeVO> noticeList = noticeDAO.selectNoticeList();
+		// 현재 page 번호에 맞는 리스트를 perPageNum 개수 만큼 가져오기.
+		List<NoticeVO> noticeList = noticeDAO.selectNoticeList(cri);
+		
+		// 전체 board 개수
+		int totalCount = noticeDAO.selectSearchNoticeListCount(cri);
+		
+		// PageMaker 생성.
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
 
-			dataMap.put("noticeList", noticeList);
+		dataMap.put("noticeList", noticeList);
+		dataMap.put("pageMaker", pageMaker);
 
-			return dataMap;
+		return dataMap;
+
 		
 	}
 
 	@Override
 	public NoticeVO getNotice(int noticeno) throws SQLException {
+			noticeDAO.increaseViewCount(noticeno);
 			NoticeVO notice = noticeDAO.selectNoticeByNno( noticeno);
-			//noticeDAO.increaseViewCount(noticeno);
 			return notice;
 	}
 

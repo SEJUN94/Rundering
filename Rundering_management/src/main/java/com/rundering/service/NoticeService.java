@@ -1,15 +1,15 @@
 package com.rundering.service;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
 
+import com.rundering.manage.Criteria;
 import com.rundering.dto.NoticeVO;
 
 public interface NoticeService {
 
 	// 목록조회
-	public Map<String, Object> getNoticeList() throws SQLException;
+	public Map<String, Object> getNoticeList(Criteria cri) throws SQLException;
 	
 	// 상세보기
 	NoticeVO getNotice(int noticeno) throws SQLException;
