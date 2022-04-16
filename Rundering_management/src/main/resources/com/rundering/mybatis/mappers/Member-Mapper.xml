@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member-Mapper">
+<resultMap type="member" id="memberMap">
+	<result column="MEMBERNO" property="memberNo"/>
+	<result column="ID" property="id"/>
+	<result column="PASSWORD" property="password"/>
+	<result column="NAME" property="name"/>
+	<result column="PHONE" property="phone"/>
+	<result column="EMAIL" property="email"/>
+	<result column="REGIST_DATE" property="registDate"/>
+	<result column="MODIFY_DATE" property="modifyDate"/>
+	<result column="ENABLE_WHETHER" property="enableWhether"/>
+	<result column="WITHDRAWAL" property="withDrawal"/>
+	<result column="LASTLOGPSNHOURLIVER" property="lastLogpsnHourLiver"/>
+	<result column="LOGINFAIL_COUNT" property="loginfailCount"/>
+</resultMap>
+
+ 
+	<select id="selectMemberById" resultMap="memberMap" parameterType="str">
+		select *
+		from TB_MEMBER
+		where id=#{id}
+	</select>
+
+	<select id="selectAuthByMemberNo" resultType="str" parameterType="str">
+		select AUTH_GRP_CODE
+		from TB_USER_AUTH
+		where memberno=#{memberNo}
+	</select>
+
+
+	 
+
+	
+
+</mapper>

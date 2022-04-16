@@ -15,23 +15,12 @@ public class MemberVO {
 	private String withDrawal;
     private Date lastLogpsnHourLiver;
     private int loginfailCount;
-
     
-	public MemberVO(String memberNo, String id, String password, String name, String phone, String email,
-			Date registDate, Date modifyDate, int enableWhether, String withDrawal, Date lastLogpsnHourLiver) {
+    
+	public MemberVO() {
 		super();
-		this.memberNo = memberNo;
-		this.id = id;
-		this.password = password;
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.registDate = registDate;
-		this.modifyDate = modifyDate;
-		this.enableWhether = enableWhether;
-		this.withDrawal = withDrawal;
-		this.lastLogpsnHourLiver = lastLogpsnHourLiver;
 	}
+	
 	
 	public String getMemberNo() {
 		return memberNo;
@@ -99,13 +88,11 @@ public class MemberVO {
 	public void setLastLogpsnHourLiver(Date lastLogpsnHourLiver) {
 		this.lastLogpsnHourLiver = lastLogpsnHourLiver;
 	}
-
 	public int getLoginfailCount() {
 		return loginfailCount;
 	}
-
 	public void setLoginfailCount(int loginfailCount) {
 		this.loginfailCount = loginfailCount;
 	}
-	
+   
 }

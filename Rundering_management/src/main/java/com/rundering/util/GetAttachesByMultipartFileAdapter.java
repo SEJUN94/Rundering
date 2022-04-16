@@ -17,11 +17,9 @@ public class GetAttachesByMultipartFileAdapter {
 		if (multiFiles != null) {
 			for (MultipartFile multi : multiFiles) {
 				
-			
-				
 				String fileName = MakeFileName.toUUIDFileName(multi.getOriginalFilename(), "$$");
 				File target = new File(savePath, fileName);
-
+				String orginalFileName= MakeFileName.parseFileNameFromUUID(fileName, "\\$\\$"); 
 				target.mkdirs();
 
 				multi.transferTo(target);

@@ -10,7 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
-import com.rundering.dto.TestVO;
+import com.rundering.dto.EmployeesVO;
+import com.rundering.dto.MemberVO;
 
 
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{
@@ -21,10 +22,12 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		
 		User user = (User)authentication.getDetails();	
 		
-		TestVO loginUser = user.getTestVO();  
+		MemberVO loginMember = user.getMemberVO();
+		EmployeesVO loginEmploee = user.getEmployeesVO();
 		HttpSession session = request.getSession();		
-		session.setAttribute("loginUser", loginUser);
-		session.setMaxInactiveInterval(60*6);
+		session.setAttribute("loginMember", loginMember);
+		session.setAttribute("loginEmploee", loginEmploee);
+		session.setMaxInactiveInterval(60*30);
 		
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
