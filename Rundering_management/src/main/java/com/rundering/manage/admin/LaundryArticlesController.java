@@ -91,7 +91,7 @@ public class LaundryArticlesController {
 	public ModelAndView ModifyForm(String articlesCode, AttachVO attach, ModelAndView mnv) throws SQLException {
 		String url = "admin/ordergoods/ordergoods_modify";
 
-		LaundryArticlesVO laundryArticles = laundryArticlesService.getLaundryArticles(articlesCode, attach);
+		Map<String, Object> laundryArticles = laundryArticlesService.getLaundryArticles(articlesCode, attach);
 
 		// String picture = MakeFileName.parseFileNameFromUUID(orderGoods.getPicture(),
 		// "\\$\\$");

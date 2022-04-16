@@ -62,10 +62,10 @@ public class LaundryArticlesServiceImpl implements LaundryArticlesService {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
 		LaundryArticlesVO laundryArticles = laundryArticlesDAO.selectLaundryArticlesListByArticlesCode(articlesCode);
-		AttachVO attachName = attachDAO.
+	//	AttachVO attachName = attachDAO.
 		
 		dataMap.put("laudnryArticles", laundryArticles);
-		dataMap.put("attachName", attachName);
+		dataMap.put("attachName", "attachName");
 		
 		return dataMap;
 	}

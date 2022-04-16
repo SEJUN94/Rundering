@@ -20,7 +20,7 @@ import org.springframework.stereotype.Controller;
 @RequestMapping("/branch/itemorder")
 public class ItemOrderController {
 	@Autowired
-	LaundryArticlesService orderGoodsService; 
+	LaundryArticlesService laundryArticlesService; 
 	
 	@RequestMapping(value="/list",method = RequestMethod.GET)
 	private String list() {
@@ -33,14 +33,14 @@ public class ItemOrderController {
 	private String detail() {
 		String url= "/branch/itemorder/itemorder_detail";
 		return url;
-	}
+	} 
 	
 	@RequestMapping("/regist")
 	private ModelAndView regist( Criteria cri,ModelAndView mnv) {
 		String url= "/branch/itemorder/itemorder_regist";
 		Map<String, Object> dataMap=null;;
 		try {
-			dataMap = orderGoodsService.getOrderGoods(cri);
+			dataMap = laundryArticlesService.getLaundryArticles(cri);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
