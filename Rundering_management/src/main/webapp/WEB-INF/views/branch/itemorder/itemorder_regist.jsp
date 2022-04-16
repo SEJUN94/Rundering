@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
-<c:set var="orderGoodsList" value="${dataMap.orderGoodsList }" /> 
+<c:set var="laundryArticlesList" value="${dataMap.laundryArticlesList }" /> 
 <body>
 	<div >
 		<div class="row ml-2 mr-2">
@@ -26,23 +26,20 @@
 							</thead>
 	
 							<tbody>
-							<c:if test="${!empty orderGoodsList }">
-									<c:forEach items="${orderGoodsList }" var="orderGoods">
+							<c:if test="${!empty laundryArticlesList }">
+									<c:forEach items="${laundryArticlesList }" var="laundryArticles">
 										<tr>
-											<td style="text-align: left;" data-code="orderGoods" >${orderGoods.articlesName }</td>
+											<td style="text-align: left;" data-code="${ laundryArticles.articlesCode}" >${laundryArticles.articlesName }</td>
 											<td style="text-align: center;">사진</td>
-											<td style="text-align: center;">${orderGoods.price }</td>
+											<td style="text-align: center;">${laundryArticles.price }</td>
 											<td style="text-align: center; padding-top: 8px"><button type="button"
-											class="btn btn-primary btn-sm getButton" >담기</button></td>
+											class="btn btn-primary btn-sm" onclick="getOrder()" >담기</button></td>
 										</tr>
+										
+									
+									
 									</c:forEach>
 								</c:if>
-								<tr>
-									
-									
-	
-								</tr>
-								
 							</tbody>
 							
 						</table>
@@ -55,28 +52,26 @@
 				</div>
 	
 			</div>
-	
+	<table></table>
 			<div class="col-6">
-				<div class="card card-primary card-outline col-12" style="height: 670px;">
+				<div class="card card-primary card-outline col-12" style="height: 670px;display: block;overflow: auto;">
 					<div class="card-header">
 						<h3 class="card-title">발주신청</h3>
 	
 					</div>
 					<div class="card-body p-0" >
-						<table class="table table-hover text-nowrap">
-							<thead>
-								<tr>
+						<table class="table table-hover text-nowrap" >
+							 <tbody id="tbody">
+								<tr style="text-align: center;">
 									<th class="width20">물품명</th>
 	
 									<th class="width15">수량</th>
 	
 									<th class="width15">총금액</th>
-									<th class="width10" style="text-align: center;">취소</th>
+									<th class="width10" >취소</th>
 								</tr>
-							</thead> 
-							
-							<tbody>
-								<form action="">
+						
+								
 									<tr>
 										<td>세제</td>
 										<td>
@@ -88,9 +83,8 @@
 											</button>
 										</td>
 									</tr>
-								</form>
+								
 							</tbody>
-							
 						</table>
 					</div>
 					
@@ -112,21 +106,43 @@
 		</div>
 	</div>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-<script type="text/x-handlebars-template" id="reply-list-template" >
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+<script type="text/x-handlebars-template" id="getOrder-tempalet" >
 <tr>
-	<input type="hidden" name="price" value="{{}}">
-	<td>세제</td>
-	<td>
-		<input type="text" name="quantity" class="form-control" style="width: 50px; height: 30px; ">
+	<input type="hidden" name="code" value="{{code}}">
+	<input type="hidden" name="price" class="price" value="{{price}}">
+	<td  >세제</td>
+	<td  style="text-align:center;"> 
+		<input type="text" name="quantity" class="form-control" style="width: 80px; height: 30px; text-align:center; ">
 	</td>
-	<td>30000</td>
-	<td style="text-align: center;">
-	<button type="button" class="btn btn-tool itemRemove" style="color: black">
-		<i class="fas fa-times"></i>
-	</button>
+	<td  style="text-align:right">30000</td>
+	<td  style="text-align:center;">
+		<button type="button" style="color: black" class="btn btn-tool itemRemove" style="color: black">
+			<i class="fas fa-times"></i>
+		</button>
 	</td>
 </tr>
+</script>
+
+<script>
+function getOrder(){
+	let dataCode =event.target.parentNode.parentNode.children[0].dataset.code;
+	let price = event.target.parentNode.parentNode.children[2].innerText
+	
+	let source = $("#getOrder-tempalet").html();
+	let template = Handlebars.compile(source); 
+
+	//핸들바 템플릿에 바인딩할 데이터
+	let data = {
+	    	code:dataCode,
+	    	price:price
+	}; 
+	let html = template(data);
+	$('#tbody').append(html);
+
+}
+
+
 </script>
 
 	

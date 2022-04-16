@@ -18,7 +18,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 @RequestMapping("/branch/itemorder")
-public class ItemOrderController {
+public class BranchItemOrderController {
 	@Autowired
 	LaundryArticlesService laundryArticlesService; 
 	
