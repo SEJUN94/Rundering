@@ -9,7 +9,6 @@ public class LaundryItemsRegistCommand {
 	private String charger;  //담당자
 	private String laundeyCategory; //세탁품목구분
 	
-	
 	public String getPrice() {
 		return price;
 	}

@@ -13,6 +13,10 @@ public class NoticeVO {
 	private String deleteat;    //삭제여부
 	private String branchCode;  //지점코드
 
+	public NoticeVO() {
+
+	}
+	
 	public int getNoticeno() {
 		return noticeno;
 	}

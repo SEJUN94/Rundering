@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,24 +17,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.rundering.manage.Criteria;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryArticlesVO;
-import com.rundering.service.OrderGoodsService;
+import com.rundering.service.LaundryArticlesService;
 import com.rundering.util.MakeFileName;
 
 @Controller
 @RequestMapping("/admin")
-public class OrderGoodsController {
+public class LaundryArticlesController {
 
 	@Resource(name = "picturePath")
 	private String picturePath;
 
-	@Resource(name = "orderGoodsService")
-	private OrderGoodsService orderGoodsService;
+	@Resource(name = "laundryArticlesService")
+	private LaundryArticlesService laundryArticlesService;
 
 	@RequestMapping("/ordergoods/list")
 	public ModelAndView OrderGoodsList(Criteria cri, ModelAndView mnv) throws SQLException {
 		String url = "admin/ordergoods/ordergoods_list";
 
-		Map<String, Object> dataMap = orderGoodsService.getOrderGoods(cri);
+		Map<String, Object> dataMap = laundryArticlesService.getLaundryArticles(cri);
 
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
@@ -50,12 +49,12 @@ public class OrderGoodsController {
 	}
 
 	@RequestMapping(value = "/ordergoods/regist", method = RequestMethod.POST)
-	public String regist(LaundryArticlesVO orderGoods, RedirectAttributes rttr) throws Exception {
+	public String regist(LaundryArticlesVO laundryArticles, RedirectAttributes rttr) throws Exception {
 		String url = "redirect:/admin/ordergoods/list";
 
 		AttachVO attach = new AttachVO();
-		String atchFileNo = orderGoods.getAtchFileNo();
-		String fileName = orderGoods.getPicture();
+		String atchFileNo = laundryArticles.getAtchFileNo();
+		String fileName = laundryArticles.getPicture();
 		File file = new File(picturePath + fileName);
 		String orginalFileName = MakeFileName.parseFileNameFromUUID(fileName, "\\$\\$");
 		long fileSize = file.length() / 1024;
@@ -67,7 +66,7 @@ public class OrderGoodsController {
 		attach.setFileSize(fileSize);
 		attach.setFilePath(picturePath);
 
-		orderGoodsService.regist(orderGoods, attach);
+		laundryArticlesService.regist(laundryArticles, attach);
 		rttr.addFlashAttribute("from", "regist");
 
 		return url;
@@ -77,10 +76,12 @@ public class OrderGoodsController {
 	public ModelAndView detail(String articlesCode, String from, AttachVO attach, ModelAndView mnv)
 			throws SQLException {
 		String url = "admin/ordergoods/ordergoods_detail";
+		
+		LaundryArticlesVO laundryArticles = new LaundryArticlesVO();
+		laundryArticles.setPicture(attach.getFileNm());
 
-		LaundryArticlesVO orderGoods = orderGoodsService.getOrderGoods(articlesCode);
-
-		mnv.addObject("orderGoods", orderGoods);
+		laundryArticlesService.getLaundryArticles(articlesCode, attach);
+		mnv.addObject("laundryArticles", laundryArticles);
 		mnv.setViewName(url);
 
 		return mnv;
@@ -90,13 +91,13 @@ public class OrderGoodsController {
 	public ModelAndView ModifyForm(String articlesCode, AttachVO attach, ModelAndView mnv) throws SQLException {
 		String url = "admin/ordergoods/ordergoods_modify";
 
-		LaundryArticlesVO orderGoods = orderGoodsService.getOrderGoods(articlesCode);
+		LaundryArticlesVO laundryArticles = laundryArticlesService.getLaundryArticles(articlesCode, attach);
 
 		// String picture = MakeFileName.parseFileNameFromUUID(orderGoods.getPicture(),
 		// "\\$\\$");
 		// orderGoods.setPicture(picture);
 
-		mnv.addObject("orderGoods", orderGoods);
+		mnv.addObject("laundryArticles", laundryArticles);
 		mnv.setViewName(url);
 
 		return mnv;
@@ -127,7 +128,7 @@ public class OrderGoodsController {
 	@RequestMapping(value = "/ordergoods/remove", method = RequestMethod.POST)
 	public String remove(String articlesCode, RedirectAttributes rttr) throws Exception {
 		String url = "redirect:/admin/ordergoods/detail";
-		orderGoodsService.remove(articlesCode);
+		laundryArticlesService.remove(articlesCode);
 
 		rttr.addAttribute("articlesCode", articlesCode);
 		rttr.addFlashAttribute("from", "remove");

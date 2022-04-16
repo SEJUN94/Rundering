@@ -4,7 +4,7 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-		<!-- orderGoods.picture --> 
+	<!-- orderGoods.picture --> 
 	<bean id="picturePath" class="java.lang.String">
 		<constructor-arg value="${orderGoods.picture.upload}" />      
 	</bean>
@@ -20,7 +20,7 @@
 	<bean id="menuDAO" class="com.rundering.dao.MenuDAOImpl"
 		p:session-ref="sqlSession"
 	/>
-	<bean id="orderGoodsDAO" class="com.rundering.dao.OrderGoodsDAOImpl"
+	<bean id="laundryArticlesDAO" class="com.rundering.dao.LaundryArticlesDAOImpl"
 		p:session-ref="sqlSession"
 	/>
 	<bean id="laundryItemsDAO" class="com.rundering.dao.LaundryItemsDAOImpl"
@@ -35,14 +35,17 @@
 	<bean id="attachDAO" class="com.rundering.dao.AttachDAOImpl"
 		p:session-ref="sqlSession"
 	/>
+	<bean id="noticeDAO" class="com.rundering.dao.NoticeDAOImpl"
+		p:session-ref="sqlSession"	
+	 />
 	
 	
 	<!-- Service Layer -->
 	<bean id="menuService" class="com.rundering.service.MenuServiceImpl"
 		p:menuDAOBean-ref="menuDAO"
 	/>	
-	<bean id="orderGoodsService" class="com.rundering.service.OrderGoodsServiceImpl"
-		p:orderGoodsDAO-ref="orderGoodsDAO"
+	<bean id="laundryArticlesService" class="com.rundering.service.LaundryArticlesServiceImpl"
+		p:laundryArticlesDAO-ref="laundryArticlesDAO"
 		p:attachDAO-ref="attachDAO"
 	/>	
 	<bean id="laundryItemsService" class="com.rundering.service.LaundryItemsServiceImpl"
@@ -56,6 +59,9 @@
 	/>
 	<bean id="employeesService" class="com.rundering.service.EmployeesServiceImpl"
 		p:employeesDAO-ref="employeesDAO" 
+	/>
+	<bean id="noticeService" class="com.rundering.service.NoticeServiceImpl" 
+		p:noticeDAO-ref="noticeDAO"
 	/>
 	
 	
