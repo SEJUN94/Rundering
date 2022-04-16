@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rundering.util.CaptchaUtil;
 
-import nl.captcha.Captcha;
+import nl.captcha.Captcha; 
 
 @Controller
 public class CaptchaController {
