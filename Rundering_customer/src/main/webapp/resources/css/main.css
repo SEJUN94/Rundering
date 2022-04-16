@@ -222,7 +222,9 @@ header {
 
 header>.inner {
 	height: 120px;
-	width: 80%
+	width: 80%;
+	max-width: 1000px;
+	
 }
 
 header .logo {
@@ -843,6 +845,7 @@ footer {
 footer .inner {
 	padding: 40px 0 60px 0;
 	width: 80%;
+	max-width: 1000px;
 }
 
 footer .menu {
