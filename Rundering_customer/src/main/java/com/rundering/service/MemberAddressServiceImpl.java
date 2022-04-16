@@ -1,5 +1,7 @@
 package com.rundering.service;
 
+import java.sql.SQLException;
+
 import com.rundering.dao.MemberAddressDAO;
 import com.rundering.dto.MemberAddressVO;
 
@@ -54,6 +56,12 @@ public class MemberAddressServiceImpl implements MemberAddressService{
 		
 		memberAddressDAO.addRegist(memberAdd);
 		
+	}
+	
+	//기본주소지 조회
+	@Override
+	public MemberAddressVO getDefaultMemberAddress(String memberNo) throws SQLException {
+		return memberAddressDAO.selectDefaultMemberAddressByMemberNo(memberNo);
 	}
 	
 	

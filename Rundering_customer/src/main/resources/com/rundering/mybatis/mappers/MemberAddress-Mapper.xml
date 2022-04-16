@@ -50,5 +50,9 @@
 		<include refid="area_va" />
 		)
 	</update>
+	
+	<select id="selectDefaultMemberAddressByMemberNo" resultType="memberAddress" parameterType="str">
+		select * from TB_MEMBER_ADDRESS WHERE MEMBERNO = #{memberNo} AND DEFAULT_YN = 'Y'
+	</select>
 
 </mapper>

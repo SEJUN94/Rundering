@@ -47,16 +47,16 @@
 							<div class="input-group" style="padding-right: 0;">
 
 								<div class="input-group mb-3">
-									<input type="text" class="form-control" id="zip" name="zip" placeholder="우편번호" value="${member.zip}">
+									<input type="text" class="form-control" id="zip" name="zip" placeholder="우편번호" value="${defaultMemberAddress.zip}">
 									<div class="input-group-append">
 										<button type="button" id="modalBtn" class="btn btn-primary" onclick="findZip();">주소검색</button>
 									</div>
 								</div>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control" id="add1" name="add1" placeholder="기본주소" value="${member.add1}">
+									<input type="text" class="form-control" id="add1" name="add1" placeholder="기본주소" value="${defaultMemberAddress.add1}">
 								</div>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control" id="add2" name="add2" placeholder="상세주소" value="${member.add2}">
+									<input type="text" class="form-control" id="add2" name="add2" placeholder="상세주소" value="${defaultMemberAddress.add2}">
 								</div>
 							</div>
 						</div>
@@ -64,7 +64,7 @@
 			
 				<label for="phone" style="display: block;">연락처</label>
 				<p class="h4 mt-2 mb-3 showPhone" style="display: inline-block; width: 200px;">${phone}</p>
-				<button type="button" onclick="form_phone_show()" class="btn btn-outline-secondary phoneChenge" style="margin-top: 0.5rem;margin-bottom: 1rem; margin-left: 86px;">변경</button>
+				<button type="button" onclick="form_phone_show()" class="btn btn-outline-secondary phoneChenge" style="margin-top: 0.5rem;margin-bottom: 1rem; margin-left: 80px;">변경</button>
 				
 				<input type="hidden" id="contactNumber" name="contactNumber" value="${loginUser.phone}" >
 				
