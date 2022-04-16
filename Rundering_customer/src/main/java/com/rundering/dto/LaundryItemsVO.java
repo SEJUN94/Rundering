@@ -12,6 +12,12 @@ public class LaundryItemsVO {
 	private String charger;  //담당자
 	private String laundeyCategory; //세탁품목구분
 	
+	
+	public LaundryItemsVO() {
+		super();
+	}
+	
+	
 	public String getLaundryItemsCode() {
 		return laundryItemsCode;
 	}

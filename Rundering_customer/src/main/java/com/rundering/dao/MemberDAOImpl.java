@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.MemberAddCommand;
 import com.rundering.dto.MemberVO;
 
 public class MemberDAOImpl implements MemberDAO{
@@ -64,6 +65,13 @@ public class MemberDAOImpl implements MemberDAO{
 		return member;
 	}
 	
+	//EMAIL중복체크
+	@Override
+	public MemberAddCommand checkEmail(String email) throws Exception {
+		MemberAddCommand mac = session.selectOne("Member-Mapper.checkEmail", email);
+		return mac;
+	}
+	
 	//회원가입(등록)
 	@Override
 	public void memberJoin(MemberVO member) throws Exception {
@@ -81,6 +89,7 @@ public class MemberDAOImpl implements MemberDAO{
 	public void deleteMember(String id) throws Exception {
 		session.update("Member-Mapper.deleteMember",id);	
 	}
+	
 
 	
 }

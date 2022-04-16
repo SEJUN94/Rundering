@@ -1,6 +1,8 @@
 package com.rundering.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dto.LaundryItemsVO;
@@ -32,18 +34,18 @@ public class LaundryItemsServiceImpl implements LaundryItemsService{
 		}
 		laundryItemsDAO.insertLaundryItems(laundryItems);
 	}
-
+	
+	
 	@Override
-	public List<LaundryItemsVO> getClothingList() throws Exception {
-		return laundryItemsDAO.selectClothingList();
-	}
-	@Override
-	public List<LaundryItemsVO> getBeddingList() throws Exception {
-		return laundryItemsDAO.selectBeddingList();
-	}
-	@Override
-	public List<LaundryItemsVO> getShoesList() throws Exception {
-		return laundryItemsDAO.selectShoesList();
+	public Map<String, Object> getlaundryItemsList() throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		List<LaundryItemsVO> laundryItemsList = laundryItemsDAO.getlaundryItemsList();
+		
+		dataMap.put("laundryItemsList", laundryItemsList);
+		
+		
+		return dataMap;
 	}
 
 }

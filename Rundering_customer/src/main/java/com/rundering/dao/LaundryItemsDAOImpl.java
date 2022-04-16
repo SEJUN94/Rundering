@@ -42,20 +42,10 @@ public class LaundryItemsDAOImpl implements LaundryItemsDAO {
 		return session.selectOne("LaundryItems-Mapper.selectLaundryItemsBylaundryItemsCode",laundryItemsCode);
 	}
 	
-	// 세탁품목 의류 목록조회 - 주문화면에서 출력할 것
+	// 세탁품목 전체 목록조회 - 이용 안내
 	@Override
-	public List<LaundryItemsVO> selectClothingList() throws SQLException {
-		return session.selectList("LaundryItems-Mapper.selectClothingList");
-	}
-	// 세탁품목 침구 목록조회 - 주문화면에서 출력할 것
-	@Override
-	public List<LaundryItemsVO> selectBeddingList() throws SQLException {
-		return session.selectList("LaundryItems-Mapper.selectBeddingList");
-	}
-	// 세탁품목 신발 목록조회 - 주문화면에서 출력할 것
-	@Override
-	public List<LaundryItemsVO> selectShoesList() throws SQLException {
-		return session.selectList("LaundryItems-Mapper.selectShoesList");
+	public List<LaundryItemsVO> getlaundryItemsList() throws SQLException {
+		return session.selectList("LaundryItems-Mapper.getlaundryItemsList");
 	}
 
 

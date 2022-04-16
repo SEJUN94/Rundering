@@ -29,9 +29,9 @@
 	<http pattern="/resources/**" security="none" />	
 	<http use-expressions="true" pattern="/**">
 		<access-denied-handler error-page="/security/accessDenied" />
-		<intercept-url pattern="/order**" access="isAuthenticated()"/>
-		<intercept-url pattern="/mypage/**"  access="hasRole('C001')"/>
 		
+		<intercept-url pattern="/order**" access="isAuthenticated()"/>
+		<intercept-url pattern="/mypage/**"  access="isAuthenticated()"/>
 		<intercept-url pattern="/**" access="permitAll"/>
 		
 		

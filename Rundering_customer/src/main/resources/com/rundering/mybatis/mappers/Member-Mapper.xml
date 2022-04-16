@@ -62,7 +62,6 @@
 		  from TB_MEMBER
 		 where name=#{name}
 		   and email=#{email}
-	
 	</select>
 	
 	
@@ -100,5 +99,19 @@
 		FROM TB_MEMBER
 		WHERE ID =#{id}
 	</select>
+
+	<select id="checkPw" resultType="str" parameterType="str">
+		SELECT PASSWORD
+		FROM TB_MEMBER
+		WHERE ID =#{id}
+	</select>
+	
+	<select id="checkEmail" resultType="MemberAddCommand" parameterType="str">
+		SELECT email
+		FROM TB_MEMBER
+		WHERE email =#{email}
+	</select>
+	
+	
 
 </mapper>

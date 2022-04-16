@@ -11,10 +11,12 @@
 		
 		
 		<typeAlias type="com.rundering.dto.MemberVO" alias="member" />
+		<typeAlias type="com.rundering.command.MemberAddCommand" alias="MemberAddCommand" />
 		<typeAlias type="com.rundering.dto.MemberAddressVO" alias="memberAddress"/>
 		<typeAlias type="com.rundering.dto.LaundryOrderVO" alias="laundryOrder" />
 		<typeAlias type="com.rundering.dto.LaundryItemsVO" alias="laundryItems" />
 		<typeAlias type="com.rundering.dto.LaundryOrderDetailVO" alias="laundryOrderDetail" />
+		
 		
 	</typeAliases>
 	

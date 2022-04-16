@@ -1,6 +1,7 @@
 package com.rundering.customer;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.LaundryOrderReceiveCommand;
-import com.rundering.dto.LaundryItemsVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberVO;
@@ -46,19 +46,12 @@ public class LaundryOrderController {
 	}
 
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)
-	public ModelAndView order(LaundryOrderReceiveCommand command, ModelAndView mnv) throws Exception {
+	public ModelAndView order( ModelAndView mnv) throws Exception {
 		String url="/order/order";
+
+		Map<String, Object> dataMap = laundryItemsService.getlaundryItemsList();
 		
-		List<LaundryItemsVO> clothingList = laundryItemsService.getClothingList();
-		List<LaundryItemsVO> beddingList = laundryItemsService.getBeddingList();
-		List<LaundryItemsVO> shoesList = laundryItemsService.getShoesList();
-		
-		System.out.println(clothingList.get(1));
-		
-		mnv.addObject("command",command);
-		mnv.addObject("clothingList",clothingList);
-		mnv.addObject("beddingList",beddingList);
-		mnv.addObject("shoesList",shoesList);
+		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
 		
 		return mnv;
