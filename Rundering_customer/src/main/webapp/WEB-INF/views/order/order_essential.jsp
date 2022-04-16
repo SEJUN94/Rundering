@@ -62,12 +62,11 @@
 						</div>
 					</div>
 			
-				
 				<label for="phone" style="display: block;">연락처</label>
-				<p class="h4 mt-2 mb-3 showPhone" style="display: inline-block;">${member.phone}010-1111-1111</p>
-				<button type="button" onclick="form_phone_show()" class="btn btn-outline-secondary btn-sm phoneChenge" style="margin-top: 0.5rem;margin-bottom: 1rem; margin-left: 115px;">변경</button>
+				<p class="h4 mt-2 mb-3 showPhone" style="display: inline-block; width: 200px;">${phone}</p>
+				<button type="button" onclick="form_phone_show()" class="btn btn-outline-secondary phoneChenge" style="margin-top: 0.5rem;margin-bottom: 1rem; margin-left: 86px;">변경</button>
 				
-				<input type="tel" class="form-control" id="contactNumber" name="contactNumber" value="${member.phone}010-1111-1111" style="display: none;">
+				<input type="hidden" id="contactNumber" name="contactNumber" value="${loginUser.phone}" >
 				
 					<div class="form-group newphone" style="display: none;">
 						<div class="input-group">
@@ -84,9 +83,10 @@
 						<div class="input-group" style="padding-top: 10px;">
 							<input type="text" class="form-control" id="Code" placeholder="인증번호">
 							<button type="button" onclick="verificationCodeCheck()" style="margin-top: 10px;" class="btn btn-outline-primary btn-block">연락처 인증하기</button>
+							<div id="timeLimit" style="position: absolute;padding: 9px;margin-left: 279px;color: gray;font-size: 0.9rem; z-index: 10"></div>
 						</div>
 					</div>
-				<button type="submit" style="margin-top: 20px;" class="btn btn-primary btn-block">다음으로</button>
+				<button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-block">다음으로</button>
 				</div>
 				
 				
@@ -100,8 +100,36 @@
 	<!-- 주소api -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+<script>
+	const certify_ajax = function (phoneNumber){
+		const v_ajax = new XMLHttpRequest();
+	    v_ajax.open("POST","<%=request.getContextPath() %>/order/certifyPhoneNum",true);
+	    v_ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+	    v_ajax.send('phoneNumber=' + encodeURIComponent(phoneNumber));
+	    v_ajax.onreadystatechange = function(){
+	    	 if (v_ajax.readyState === XMLHttpRequest.DONE) {
+		            if (v_ajax.status === 200) {
+		               const response = JSON.parse(v_ajax.responseText);
+		               responseCode = Number(response.randomNum);
+		               Toast.fire({
+		     		      icon: 'success',
+		     		      title: '인증번호가 발송되었습니다.'
+		     		    });
+		            } else {
+		            	//
+		            }
+		     }
+	    }
+	};
+	
+</script>
+
 
 <script>
+	window.onload = function(){
+		 let responseCode = 0;
+	}
+
 	function findZip() {
 		new daum.Postcode({
 			oncomplete : function(data) {
@@ -127,6 +155,18 @@
 
 <script>
 
+	const Toast = Swal.mixin({
+	    toast: true,
+	    position: 'center',
+	    showConfirmButton: false,
+	    timer: 1500,
+	    timerProgressBar: false,
+	    didOpen: (toast) => {
+	      toast.addEventListener('mouseenter', Swal.stopTimer)
+	      toast.addEventListener('mouseleave', Swal.resumeTimer)
+	    }
+	  })
+
   function form_phone_show(){
 	  
 	  let form_phone = document.querySelector('.newphone');	
@@ -144,7 +184,7 @@
 		  
 	  }else{
 		  form_phone.style.display = 'block';
-		  show_btn.innerText = '변경 취소';
+		  show_btn.innerText = '취소';
 	  }
   }
 
@@ -156,18 +196,6 @@
       let regPhone = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
       
       if (regPhone.test(tel) !== true) {
-    	  
-          const Toast = Swal.mixin({
-		      toast: true,
-		      position: 'center',
-		      showConfirmButton: false,
-		      timer: 1200,
-		      timerProgressBar: false,
-		      didOpen: (toast) => {
-		        toast.addEventListener('mouseenter', Swal.stopTimer)
-		        toast.addEventListener('mouseleave', Swal.resumeTimer)
-		      }
-		    })
 		
 		    Toast.fire({
 		      icon: 'warning',
@@ -175,21 +203,65 @@
 		    });
       }else{
     	  document.querySelector('.verificationCode').style.display = 'block';  
-  		  //SMS API활용해야함
+    	  certify_ajax(tel);
+    	  const timeLimit = document.getElementById("timeLimit");
+    	  startTimer(180,timeLimit);
       }
   }
+  let isRunning = false;
+  function startTimer(count, display) {
+      
+	  let minutes, seconds;
+      let timer = setInterval(function () {
+      minutes = parseInt(count / 60, 10);
+      seconds = parseInt(count % 60, 10);
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      display.innerHTML = minutes + ":" + seconds;
+	  
+      // 타이머 끝
+      if (--count < 0) {
+	     clearInterval(timer);
+	     Toast.fire({
+		      icon: 'warning',
+		      title: '인증시간이 초과되었습니다.\n재인증 해주세요.'
+		    });
+	     isRunning = false;
+      }
+  }, 1000);
+       isRunning = true;
+}
   
   function verificationCodeCheck() {
-	  	//SMS API활용해야함
-	  	
-     	let tel = document.querySelector('.newphone input');
-     	let contactNumber = document.querySelector('#contactNumber');
-     	
-     	contactNumber.value = tel.value;
-     	
-     	let showPhone = document.querySelector('.showPhone');
-     	showPhone.innerText = phoneFomatter(tel.value);
+	  let codeInput = document.querySelector('#Code');
+	  
+	  if(isRunning && responseCode !== 0){
+	  		if(codeInput.value == responseCode){
+		     	let tel = document.querySelector('.newphone input');
+		     	let contactNumber = document.querySelector('#contactNumber');
+		     	
+		     	contactNumber.setAttribute('value',tel.value);
+		     	console.log('tel.value',tel.value);
+		     	let showPhone = document.querySelector('.showPhone');
+		     	showPhone.innerText = phoneFomatter(tel.value);
+		     	
+	  			Toast.fire({
+	     		      icon: 'success',
+	     		      title: '연락처 변경이 완료되었습니다.'
+	     		    });
+	  			
+	  			form_phone_show();
+	  		}else{
+	  			Toast.fire({
+	  		      icon: 'warning',
+	  		      title: '인증번호가 틀렸습니다.'
+	  		    });
+	  		}
+	  	}
   }
+  
+  
   
   function phoneFomatter(num,type){
 	    let formatNum = '';
@@ -222,5 +294,7 @@
 
 
 </script>
+
+
 
 </body>

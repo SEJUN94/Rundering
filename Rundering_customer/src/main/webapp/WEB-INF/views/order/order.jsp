@@ -288,7 +288,7 @@
 	
 	// 선택한 품목 삭제
 	function displayRemoveItems(laundryItemsCode){
-		const items = document.querySelectorAll('.'+laundryItemsCode.className);
+		const items = document.querySelectorAll('.'+laundryItemsCode.className.substring(0, 5));
 		for (let item of items) {
 			item.remove();
 		}
@@ -321,14 +321,14 @@
     	tr.append(td2);
     	td3.innerHTML = `<input type="text" class="${'${laundryItemsCode}'}quantity" name="quantity" value="1" style="width: 35px;text-align: end;" onchange="updateValue(this)">
 				    	<div class="btn-group-vertical" style="width: 18px;">
-							<button type="button" class="btn btn-sm btn-default p-0" style="height: 20px;" onclick="plusQuantity(${'${laundryItemsCode}'})">+</button>
-							<button type="button" class="btn btn-sm btn-default p-0" style="height: 20px;" onclick="minusQuantity(${'${laundryItemsCode}'})">-</button>
+							<button type="button" class="${'${laundryItemsCode}'} btn btn-sm btn-default p-0" style="height: 20px;" onclick="plusQuantity(this)">+</button>
+							<button type="button" class="${'${laundryItemsCode}'} btn btn-sm btn-default p-0" style="height: 20px;" onclick="minusQuantity(this)">-</button>
 						</div>`;
     	tr.append(td3);
     	td4.style.textAlign= 'end';
     	td4.innerHTML = price+'원';
     	tr.append(td4);
-    	td5.innerHTML = `<button type="button" class="btn btn-outline-danger btn-sm" onclick="displayRemoveItems(${'${laundryItemsCode}'})">삭제</button>`;
+    	td5.innerHTML = `<button type="button" class="${'${laundryItemsCode}'} btn btn-outline-danger btn-sm" onclick="displayRemoveItems(this)">삭제</button>`;
     	tr.append(td5);
     	
     	return tr;
@@ -339,7 +339,7 @@
 		let input = document.createElement('input');
 		input.setAttribute('type', 'text');
 		input.setAttribute('class', laundryItemsCode);
-		input.setAttribute('name', laundryItemsCode);
+		input.setAttribute('name', 'laundryItemsCode');
 		input.setAttribute('value', laundryItemsCode+','+quantity);
 		input.style.display = 'none';
 		return input;
@@ -366,7 +366,7 @@
 	
 	// 수량 더하기
 	function plusQuantity(laundryItemsCode) {
-		const laundryItemsCodeString = laundryItemsCode.className;
+		const laundryItemsCodeString = laundryItemsCode.className.substring(0, 5);
 		const inputQuantity = document.querySelector('.'+laundryItemsCodeString+'quantity');
 		inputQuantity.value = Number(inputQuantity.value) + 1;
 		
@@ -377,7 +377,7 @@
 	}
 	// 수량 빼기
 	function minusQuantity(laundryItemsCode) {
-		const laundryItemsCodeString = laundryItemsCode.className;
+		const laundryItemsCodeString = laundryItemsCode.className.substring(0, 5);
 		const inputQuantity = document.querySelector('.'+laundryItemsCodeString+'quantity');
 		if(Number(inputQuantity.value) == 1) {
 			return;

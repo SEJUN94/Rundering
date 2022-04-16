@@ -95,5 +95,15 @@ public class MemberVO {
 	public void setLoginfailCount(int loginfailCount) {
 		this.loginfailCount = loginfailCount;
 	}
+
+	@Override
+	public String toString() {
+		return "MemberVO [memberNo=" + memberNo + ", id=" + id + ", password=" + password + ", name=" + name
+				+ ", phone=" + phone + ", email=" + email + ", registDate=" + registDate + ", modifyDate=" + modifyDate
+				+ ", enableWhether=" + enableWhether + ", withDrawal=" + withDrawal + ", lastLogpsnHourLiver="
+				+ lastLogpsnHourLiver + ", loginfailCount=" + loginfailCount + "]";
+	}
+	
+	
    
 }

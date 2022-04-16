@@ -3,6 +3,8 @@ package com.rundering.customer;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +13,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.LaundryOrderReceiveCommand;
 import com.rundering.dto.LaundryItemsVO;
+import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.dto.MemberVO;
 import com.rundering.service.LaundryItemsService;
 import com.rundering.service.LaundryOrderService;
+import com.rundering.util.FormatUtil;
 
 @Controller
 @RequestMapping("/order")
@@ -25,9 +30,19 @@ public class LaundryOrderController {
 	private LaundryItemsService laundryItemsService;
 	
 	@RequestMapping("")
-	public String checkInformation() {
+	public ModelAndView checkInformation(HttpServletRequest request, ModelAndView mnv) {
 		String url="/order/order_essential";
-		return url;
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		String hyphenationPhoneNum = FormatUtil.hyphenationPhoneNum(loginUser.getPhone());
+		
+		//주소 정보 넣어야 함
+		
+		mnv.addObject("phone",hyphenationPhoneNum);
+		mnv.setViewName(url);
+		
+		return mnv;
 	}
 
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)
@@ -50,12 +65,20 @@ public class LaundryOrderController {
 	}
 	
 	@RequestMapping("/comfirm")
-	public String comfirm(LaundryOrderReceiveCommand command) throws Exception {
+	public String comfirm(LaundryOrderReceiveCommand command, HttpServletRequest request) throws Exception {
 		String url="/order/order_comfirm1";
 		
-		LaundryOrderVO laundryOrder = command.toLaundryOrderVO();
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
 		
-		laundryOrderService.orderReceive(laundryOrder);
+		LaundryOrderVO laundryOrder = command.toLaundryOrderVO();
+		laundryOrder.setMemberNo(loginUser.getMemberNo());
+		
+		List<LaundryOrderDetailVO> laundryOrderDetailVOList = command.toLaundryOrderDetailVOList();
+		
+		laundryOrderService.orderReceive(laundryOrder, laundryOrderDetailVOList);
+		
+		
 		
 		return url;
 	}

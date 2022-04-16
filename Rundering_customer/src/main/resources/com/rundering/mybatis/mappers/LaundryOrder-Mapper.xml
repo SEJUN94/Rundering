@@ -18,8 +18,9 @@
 					DELIVERY_REQUEST_DATE,
 					PICKUP_REQUEST_DATE,
 					ORDER_STATUS,
-					REQUEST_DETAILS)
-					VALUES (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus},#{requestDetails})
+					REQUEST_DETAILS,
+					MEMBERNO)
+					VALUES (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus},#{requestDetails},#{memberNo})
 			</when>
 	
 			<otherwise>
@@ -28,8 +29,9 @@
 					CONTACT_NUMBER,
 					DELIVERY_REQUEST_DATE,
 					PICKUP_REQUEST_DATE,
-					ORDER_STATUS)
-					VALUES (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus})
+					ORDER_STATUS,
+					MEMBERNO)
+					VALUES (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus},#{memberNo})
 			</otherwise>
 		</choose>
 	</update>

@@ -16,6 +16,8 @@ public interface LaundryItemsDAO {
 	
 	//세탁품목 등록
 	public void insertLaundryItems(LaundryItemsVO laundryItems) throws SQLException;
+	//세탁품목 조회 - BylaundryItemsCode
+	public LaundryItemsVO selectLaundryItemsBylaundryItemsCode(String laundryItemsCode) throws SQLException;
 	//세탁품목 목록조회 - 의류만
 	public List<LaundryItemsVO> selectClothingList() throws SQLException;
 	//세탁품목 목록조회 - 침구만

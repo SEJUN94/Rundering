@@ -1,15 +1,17 @@
 package com.rundering.dto;
 
 public class LaundryOrderDetailVO {
-	private int detailOrderno; //상세주문번호
+	private String detailOrderno; //상세주문번호
 	private String orderno;  //주문번호
 	private int price;    //가격
 	private String laundryItemsCode;  //세탁품목코드
+	private int quantity; //개수
 	
-	public int getDetailOrderno() {
+	
+	public String getDetailOrderno() {
 		return detailOrderno;
 	}
-	public void setDetailOrderno(int detailOrderno) {
+	public void setDetailOrderno(String detailOrderno) {
 		this.detailOrderno = detailOrderno;
 	}
 	public String getOrderno() {
@@ -30,6 +32,13 @@ public class LaundryOrderDetailVO {
 	public void setLaundryItemsCode(String laundryItemsCode) {
 		this.laundryItemsCode = laundryItemsCode;
 	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
 
 	
 }

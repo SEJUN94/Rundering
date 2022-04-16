@@ -36,6 +36,12 @@ public class LaundryItemsDAOImpl implements LaundryItemsDAO {
 		session.update("LaundryItems-Mapper.insertLaundryItems", laundryItems);
 	}
 	
+	// 세탁품목 조회 - BylaundryItemsCode
+	@Override
+	public LaundryItemsVO selectLaundryItemsBylaundryItemsCode(String laundryItemsCode) throws SQLException {
+		return session.selectOne("LaundryItems-Mapper.selectLaundryItemsBylaundryItemsCode",laundryItemsCode);
+	}
+	
 	// 세탁품목 의류 목록조회 - 주문화면에서 출력할 것
 	@Override
 	public List<LaundryItemsVO> selectClothingList() throws SQLException {
@@ -51,5 +57,6 @@ public class LaundryItemsDAOImpl implements LaundryItemsDAO {
 	public List<LaundryItemsVO> selectShoesList() throws SQLException {
 		return session.selectList("LaundryItems-Mapper.selectShoesList");
 	}
+
 
 }
