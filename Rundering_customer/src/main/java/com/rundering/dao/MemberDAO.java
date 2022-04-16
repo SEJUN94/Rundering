@@ -19,6 +19,8 @@ public interface MemberDAO {
 	
 	// 이메일 중복체크
 	public MemberAddCommand checkEmail(String email) throws Exception;
+	
+	// 개인정보 변경시 패스워드 체크
 
 	// 회원 가입
 	public void memberJoin(MemberVO member) throws Exception;

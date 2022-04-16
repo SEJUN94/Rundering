@@ -4,22 +4,38 @@
 <%@ taglib prefix="decorator"
 	uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="loginUser" value="${loginUser}" />
+
 
 <!--HEADER-->
 <header>
 
 	<nav class="inner">
-
-		<div class="sub-menu">
-			<ul class="menu">
-				<li><a href="<%=request.getContextPath()%>/login/form">Sign In</a></li>
-				<li><a href="<%=request.getContextPath()%>/logout">logout</a></li>
-				<li><a href="<%=request.getContextPath()%>/3agree">Sign Up</a></li>
-			</ul>
-			<div class="search">
-				<input type="text" /> <span class="material-icons">search</span>
+		<c:if test="${empty loginUser }">
+			<div class="sub-menu">
+				<ul class="menu">
+					<li><a href="<%=request.getContextPath()%>/login/form">Sign In</a></li>
+					<li><a href="<%=request.getContextPath()%>/logout">logout</a></li>
+					<li><a href="<%=request.getContextPath()%>/3agree">Sign Up</a></li>
+				</ul>
+				<div class="search">
+					<input type="text" /> <span class="material-icons">search</span>
+				</div>
 			</div>
-		</div>
+		</c:if>
+		
+		<c:if test="${!empty loginUser }">
+			<div class="sub-menu">
+				<ul class="menu">
+					<li><h2 style="padding:8px 16px;font-weight:600;">${loginUser.getName() }님</h2></li>
+					<li><a href="<%=request.getContextPath()%>/mypage">마이페이지</a></li>
+					<li><a href="<%=request.getContextPath()%>/logout">logout</a></li>
+				</ul>
+				<div class="search">
+					<input type="text" /> <span class="material-icons">search</span>
+				</div>
+			</div>
+		</c:if>
 
 		<a href="<%=request.getContextPath()%>/home" class="logo"> <img
 			src="<%=request.getContextPath()%>/resources/images/Rundering.png"
