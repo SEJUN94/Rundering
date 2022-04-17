@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="ItemOrder-Mapper">
+
+	<resultMap type="itemOrder" id="itemOrderMap">
+		<result column="ORDERCODE" property="ordercode" />
+		<result column="ITEM_ORDER_PAYMENT_PRICE" property="itemOrderPaymentPrice" />
+		<result column="ITEM_ORDER_STATUS" property="itemOrderStatus" />
+		<result column="CHARGER" property="charger" />
+		<result column="BRANCH_CODE" property="branchCode" />
+		<result column="REGIST_DATE" property="registDate" />
+		<result column="RECEIPT_DATE" property="receiptDate" />
+		
+
+	</resultMap>
+	
+	<resultMap type="itemOrderDetail" id="itemOrderDetailMap">
+		<result column="DETAIL_ORDERCODE" property="detailOrdercode" />
+		<result column="ORDER_COUNT" 	  property="orderCount" />
+		<result column="ARTICLES_CODE"	  property="articlesCode" />
+		<result column="ORDERCODE" 	      property="ordercode" />
+	</resultMap>
+	
+	<insert id="insertItemOrderByItmeOrder" parameterType="itemOrder">
+		insert into tb_item_order
+		(
+		ORDERCODE,
+		ITEM_ORDER_PAYMENT_PRICE, 
+		BRANCH_CODE
+		) 
+		VALUES 
+		(
+		item_order_seq.nextval,
+		#{itemOrderPaymentPrice},
+		#{branch_code}
+		)
+	</insert>
+	
+	<insert id="insertItemOrderDetailByItemOrderDetail" parameterType="itemOrderDetail">
+		insert into tb_item_order
+		(
+		ORDERCODE,
+		ITEM_ORDER_PAYMENT_PRICE, 
+		BRANCH_CODE
+		) 
+		VALUES 
+		(
+		item_order_seq.nextval,
+		#{itemOrderPaymentPrice},
+		#{branch_code}
+		)
+	
+	</insert>
+		
+
+</mapper>

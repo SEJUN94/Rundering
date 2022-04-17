@@ -35,7 +35,7 @@ public class BranchItemOrderController {
 		return url;
 	} 
 	
-	@RequestMapping("/regist")
+	@RequestMapping("/order")
 	private ModelAndView regist( Criteria cri,ModelAndView mnv) {
 		String url= "/branch/itemorder/itemorder_regist";
 		Map<String, Object> dataMap=null;;

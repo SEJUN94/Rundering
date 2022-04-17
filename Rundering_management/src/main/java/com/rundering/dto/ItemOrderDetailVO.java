@@ -5,7 +5,7 @@ public class ItemOrderDetailVO {
 	private int orderCount;         //발주개수
 	private String articlesCode;    //세탁물품코드
 	private String ordercode;       //발주코드
-	
+
 	public String getDetailOrdercode() {
 		return detailOrdercode;
 	}

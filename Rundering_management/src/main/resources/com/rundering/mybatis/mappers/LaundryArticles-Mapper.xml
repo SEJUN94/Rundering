@@ -19,7 +19,7 @@
 	<select id="laundryArticlesList" resultMap="laundryArticlesMap" parameterType="str">
 		select *
 		  from TB_LAUNDRY_ARTICLES
-		 where DELETE_KEY='1'
+		 where DELETE_YN='N'
 	</select>
 	
 	<select id="selectSearchLaundryArticlesListCount" resultType="int">
@@ -28,7 +28,7 @@
 		from
 		TB_LAUNDRY_ARTICLES
 		where ARTICLES_CODE is not null  	
-		  and DELETE_KEY='1'
+		  and DELETE_YN='N'
 		order by REGIST_DATE desc
 	</select>
 	
@@ -58,7 +58,7 @@
 		update
 		TB_LAUNDRY_ARTICLES
 		set
-		DELETE_KEY='0'
+		DELETE_YN='Y'
 		where ARTICLES_CODE=#{articlesCode}
 	</update>
 </mapper>

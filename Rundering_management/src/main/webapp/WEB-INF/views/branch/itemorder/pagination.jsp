@@ -41,7 +41,7 @@
 
 <script>
 	function list_go(page,url){
-		if(!url) url="regist";
+		if(!url) url="order";
 		
 		var jobForm=$('#jobForm');
 		

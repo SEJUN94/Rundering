@@ -60,29 +60,18 @@
 	
 					</div>
 					<div class="card-body p-0" >
-						<table class="table table-hover text-nowrap" >
-							 <tbody id="tbody">
+						<table class="table table-hover " >
+							<thead>
 								<tr style="text-align: center;">
-									<th class="width20">물품명</th>
+									<th class="width30">물품명</th>
 	
-									<th class="width15">수량</th>
+									<th class="width20">수량</th>
 	
-									<th class="width15">총금액</th>
-									<th class="width10" >취소</th>
+									<th class="width25">총금액</th>
+									<th class="width15" >취소</th>
 								</tr>
-						
-								
-									<tr>
-										<td>세제</td>
-										<td>
-											<input type="text" name="content" class="form-control" style="width: 50px; height: 30px;">
-										</td>
-										<td>30000</td>
-										<td style="text-align: center;">
-											<button type="button" class="btn btn-tool itemRemove" style="color: black"><i class="fas fa-times"></i>
-											</button>
-										</td>
-									</tr>
+							</thead>
+							 <tbody id="tbody">
 								
 							</tbody>
 						</table>
@@ -92,8 +81,11 @@
 				<div class="card">
 	
 					<div class="card-body">
-						<strong>선택 합계금액</strong> <input 원="" style="width: 100px"
-							class="form-control float-right" name="content" type="text">
+						<strong>합계 총금액</strong> 
+						<button class="btn btn-primary float-right" style="margin-left: 10px" onclick="seeTotalPrice()">보기</button>
+						
+						<input  style="width: 100px" class="form-control float-right" id="totalPrice" name="content" type="text">
+						
 					</div>
 				</div>
 				<div class="float-right">
@@ -110,41 +102,107 @@
 <script type="text/x-handlebars-template" id="getOrder-tempalet" >
 <tr>
 	<input type="hidden" name="code" value="{{code}}">
-	<input type="hidden" name="price" class="price" value="{{price}}">
-	<td  >세제</td>
-	<td  style="text-align:center;"> 
-		<input type="text" name="quantity" class="form-control" style="width: 80px; height: 30px; text-align:center; ">
+	<input type="hidden" name="price" class="inputPrice" value="">
+	<td  >{{name}}</td>
+	<td  style="text-align:center; padding-left:0px;padding-right:0px;"> 
+		<input type="text" name="quantity" value="0" class="form-control" onkeyup="inputNumber()" style="width: 70px; height: 30px; text-align:right; display:inline">
 	</td>
-	<td  style="text-align:right">30000</td>
+	<td  style="text-align:right" class="price" data-price="{{price}}"></td> 
 	<td  style="text-align:center;">
-		<button type="button" style="color: black" class="btn btn-tool itemRemove" style="color: black">
-			<i class="fas fa-times"></i>
+		<button type="button" style="color: black" class="btn btn-tool" onclick="itemRemove()" style="color: black">
+			<i class="fas fa-times xbutton"></i>
 		</button>
 	</td>
 </tr>
 </script>
 
 <script>
+
 function getOrder(){
-	let dataCode =event.target.parentNode.parentNode.children[0].dataset.code;
-	let price = event.target.parentNode.parentNode.children[2].innerText
 	
+	let dataCode = event.target.parentNode.parentNode.children[0].dataset.code;
+	let price = event.target.parentNode.parentNode.children[2].innerText
+	let itemName=event.target.parentNode.parentNode.children[0].innerText
 	let source = $("#getOrder-tempalet").html();
 	let template = Handlebars.compile(source); 
 
-	//핸들바 템플릿에 바인딩할 데이터
+	//핸들바 템플릿에 바인딩할 데이터 
 	let data = {
 	    	code:dataCode,
-	    	price:price
+	    	price:price,
+	    	name:itemName
 	}; 
 	let html = template(data);
 	$('#tbody').append(html);
 
 }
 
+</script>
+ 
+<script>
+
+function itemRemove(){
+	
+	if(event.target.type!="button"){
+		event.target.parentNode.parentNode.parentNode.remove();
+	}
+    event.target.parentNode.parentNode.remove();
+  
+}
 
 </script>
 
+<script>
+
+
+function inputNumber(){
+	
+	let regex =/[^0-9]/g;
+	let inputValue = event.target.value;
+	event.target.value=inputValue.replace(regex,'');
+	
+	if( event.target.value.trim==""||event.target.value==null){
+		event.target.value=0;
+		return;
+	}
+	
+    for (let i=0 ; i<event.target.value.length; i++){
+    	
+    	if(event.target.value[i]!="0"){
+    		let price= event.target.parentNode.parentNode.querySelector(".price").dataset.price;
+    		let eventInt=parseInt(event.target.value);
+    		let priceInt=parseInt(price);
+    		event.target.parentNode.parentNode.querySelector(".price").innerText=priceInt*eventInt;
+    		event.target.parentNode.parentNode.querySelector(".inputPrice").value=priceInt*eventInt;
+    		return;
+    	}
+    	event.target.value= event.target.value.substr(i+1)
+    	
+    	let price= event.target.parentNode.parentNode.querySelector(".price").dataset.price;
+    	let eventInt=parseInt(event.target.value);
+		let priceInt=parseInt(price);	 
+		event.target.parentNode.parentNode.querySelector(".price").innerText=priceInt*eventInt;
+		event.target.parentNode.parentNode.querySelector(".inputPrice").value=priceInt*eventInt;
+    	
+    	
+    }
+    
+}
+</script>
+<script>
+	function seeTotalPrice(){
+		let priceList=document.querySelectorAll(".price");
+		let sum = 0;
+		for(let i = 0 ; i<priceList.length;i++){
+			if(!isNaN(parseInt(priceList[i].innerText))) {
+				sum += parseInt(priceList[i].innerText)
+			}
+		}
+		document.querySelector("#totalPrice").value=sum;
+	
+	}
+
+</script>
 	
 	
 	
