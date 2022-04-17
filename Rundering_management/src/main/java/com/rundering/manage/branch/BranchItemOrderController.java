@@ -38,16 +38,27 @@ public class BranchItemOrderController {
 	@RequestMapping("/order")
 	private ModelAndView regist( Criteria cri,ModelAndView mnv) {
 		String url= "/branch/itemorder/itemorder_regist";
-		Map<String, Object> dataMap=null;;
+		Map<String, Object> dataMap=null;
 		try {
 			dataMap = laundryArticlesService.getLaundryArticles(cri);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
 		return mnv;
+	}
+	@RequestMapping(value = "/orderGoodsList",method = RequestMethod.GET ,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	private Map<String, Object> orderGoodsList(Criteria cri){
+		Map<String, Object> dataMap=null;
+		try {
+			dataMap = laundryArticlesService.getLaundryArticles(cri);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dataMap;
+		
 	}
 	
 	@RequestMapping("detail/modify")

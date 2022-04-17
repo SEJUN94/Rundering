@@ -41,17 +41,37 @@
 
 <script>
 	function list_go(page,url){
-		if(!url) url="order";
 		
 		var jobForm=$('#jobForm');
 		
 		jobForm.find("[name='page']").val(page);
 		jobForm.find("[name='searchType']").val($('select[name="searchType"]').val());
 		jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val());
-	
-		jobForm.attr({
-			action:url,
-			method:'get'
-		}).submit();
+		
+		$.ajax({
+			url : "<%=request.getContextPath()%>/branch/itemorder/orderGoodsList",
+			type : 'get',
+			data : jobForm,
+			dataType : "json",
+			success : function(dataMap) {
+				let source = $("#laundryArticlesList").html();
+				let template = Handlebars.compile(source); 
+				
+				let pageMaker=dataMap.pageMaker
+				let cri=dataMap.pageMaker.cri 
+				let	laundryArticlesList =dataMap.laundryArticlesList
+				let data={
+						pageMaker:pageMaker,
+						cri:cri,
+						laundryArticlesList:laundryArticlesList
+				}
+				let html = template(data);
+				$("#listBody").innerHTML="";
+				$("#listBody").append(html)
+			},
+			error : function(error) {
+				AjaxErrorSecurityRedirectHandler(error.status);
+			}
+		});
 	}
 </script>

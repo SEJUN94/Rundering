@@ -4,9 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
-<c:set var="laundryArticlesList" value="${dataMap.laundryArticlesList }" /> 
 <body>
-	<div >
+	<div>
 		<div class="row ml-2 mr-2">
 			<div class="col-6">
 				<div class="card card-primary card-outline col-12" style="height: 765px;">
@@ -25,21 +24,8 @@
 								</tr>
 							</thead>
 	
-							<tbody>
-							<c:if test="${!empty laundryArticlesList }">
-									<c:forEach items="${laundryArticlesList }" var="laundryArticles">
-										<tr>
-											<td style="text-align: left;" data-code="${ laundryArticles.articlesCode}" >${laundryArticles.articlesName }</td>
-											<td style="text-align: center;">사진</td>
-											<td style="text-align: center;">${laundryArticles.price }</td>
-											<td style="text-align: center; padding-top: 8px"><button type="button"
-											class="btn btn-primary btn-sm" onclick="getOrder()" >담기</button></td>
-										</tr>
-										
-									
-									
-									</c:forEach>
-								</c:if>
+							<tbody id="listBody">
+							
 							</tbody>
 							
 						</table>
@@ -89,7 +75,7 @@
 					</div>
 				</div>
 				<div class="float-right">
-					<button type="button" class="btn btn-primary">발주</button>
+					<button type="button" class="btn btn-primary" onclick="orderGoodsList()">발주</button>
 	
 					<button type="button" class="btn btn-primary">리셋</button>
 				</div>
@@ -99,7 +85,19 @@
 	</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+<script type="text/x-handlebars-template" id="laundryArticlesList" >
+{{#laundryArticlesList}}
+		<tr>
+			<td style="text-align: left;" data-code="{{articlesCode}}" >{{articlesName}}</td>
+			<td style="text-align: center;">사진</td>
+			<td style="text-align: center;">{{price}}</td>
+			<td style="text-align: center; padding-top: 8px"><button type="button"	class="btn btn-primary btn-sm" onclick="getOrder()" >담기</button></td>
+		</tr>
+{{/laundryArticlesList}}
+</script>
+
 <script type="text/x-handlebars-template" id="getOrder-tempalet" >
+
 <tr>
 	<input type="hidden" name="code" value="{{code}}">
 	<input type="hidden" name="price" class="inputPrice" value="">
@@ -114,9 +112,43 @@
 		</button>
 	</td>
 </tr>
+
 </script>
 
 <script>
+window.onload=function(){
+	orderGoodsList();
+}
+
+
+function orderGoodsList(){
+	$.ajax({
+		url : "<%=request.getContextPath()%>/branch/itemorder/orderGoodsList",
+		type : 'get',
+		dataType : "json",
+		success : function(dataMap) {
+			let source = $("#laundryArticlesList").html();
+			let template = Handlebars.compile(source); 
+			
+			let pageMaker=dataMap.pageMaker
+			let cri=dataMap.pageMaker.cri 
+			let	laundryArticlesList =dataMap.laundryArticlesList
+			console.log(laundryArticlesList)
+			let data={
+					pageMaker:pageMaker,
+					cri:cri,
+					laundryArticlesList:laundryArticlesList
+			}
+			let html = template(data);
+			$("#listBody").innerHTML="";
+			$("#listBody").append(html)
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
+
 
 function getOrder(){
 	
