@@ -21,14 +21,11 @@ public class User implements UserDetails {
 	private EmployeesService employeeService;
 	private String userFail;
 	
-	
 	public User(MemberVO member,MemberService memberService,EmployeesService employeesService) {	
 		this.member = member;
 		this.memberService=memberService;
 		this.employeeService=employeesService;
 	}
-	
-	
 	 
 	@Override 
 	public Collection<? extends GrantedAuthority> getAuthorities(){
@@ -89,6 +86,7 @@ public class User implements UserDetails {
 	public MemberVO getMemberVO() {
 		return this.member;
 	}
+	
 	public EmployeesVO getEmployeesVO() {
 		EmployeesVO employees=null;
 		try {

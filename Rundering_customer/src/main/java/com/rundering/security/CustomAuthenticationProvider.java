@@ -17,7 +17,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
 	}
-	 
  
 	@Override 
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
@@ -75,8 +74,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
  				
  				throw new BadCredentialsException("상태변경으로 로그인이 불가합니다.");
  			}else { // 패스워드 불일치
- 				
- 				
 				try { 
 					 memberService.loginFailIncrease(member.getMemberNo()); 
 				} catch(Exception e) { 

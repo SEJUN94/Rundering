@@ -30,7 +30,7 @@
                 </div>
 
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
+                    <button class="navbar-toggler order-1" data-toggle="collapse"
                         data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="true"
                         aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>

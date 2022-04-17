@@ -42,8 +42,8 @@
 					authentication-success-handler-ref="loginSuccessHandler"
 					authentication-failure-handler-ref="loginFailureHandler"
 					/>
-		<logout logout-url="/common/logout.do"	
-				logout-success-url="/common/loginForm"
+		<logout logout-url="/common/logout"	
+				logout-success-url="/common/loginform"
 				invalidate-session="true"
 				delete-cookies="JSESSIONID"
 				/>	

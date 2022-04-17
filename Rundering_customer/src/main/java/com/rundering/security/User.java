@@ -18,7 +18,6 @@ public class User implements UserDetails {
 	private MemberService memberService;
 	private String userFail;
 	
-	
 	public User(MemberVO member,MemberService memberService) {	
 		this.member = member;
 		this.memberService=memberService;
@@ -39,7 +38,6 @@ public class User implements UserDetails {
 		}
 		return roles;
 	}
- 
 	@Override
 	public String getPassword() {
 		return member.getPassword();
