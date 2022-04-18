@@ -3,15 +3,22 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class NoticeVO {
-	private int noticeno;    //글번호
+	private int noticeno;    	//글번호
 	private String title;       //제목
 	private String content;     //내용
 	private String employeeId;  //작성자
 	private String views;       //조회수
-	private Date registDate;  //등록일
-	private Date modifyDate;  //수정일
-	private String deleteat;    //삭제여부
+	private Date registDate;  	//등록일
+	private Date modifyDate;  	//수정일
+	private String deleteYn;    //삭제여부
 	private String branchCode;  //지점코드
+	private int replyNo;		//댓글번호
+	
+	
+	public NoticeVO() {
+		super();
+	}
+
 
 	public int getNoticeno() {
 		return noticeno;
@@ -55,11 +62,11 @@ public class NoticeVO {
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-	public String getDeleteat() {
-		return deleteat;
+	public String getDeleteYn() {
+		return deleteYn;
 	}
-	public void setDeleteat(String deleteat) {
-		this.deleteat = deleteat;
+	public void setDeleteYn(String deleteYn) {
+		this.deleteYn = deleteYn;
 	}
 	public String getBranchCode() {
 		return branchCode;
@@ -67,4 +74,11 @@ public class NoticeVO {
 	public void setBranchCode(String branchCode) {
 		this.branchCode = branchCode;
 	}
+	public int getReplyNo() {
+		return replyNo;
+	}
+	public void setReplyNo(int replyNo) {
+		this.replyNo = replyNo;
+	}
+	
 }

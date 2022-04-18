@@ -9,8 +9,6 @@ public class MenuVO {
 	private String menuDesc;      //메뉴설명
 	private String menuUrl;       //메뉴URL
 	private String useYn;         //사용여부
-
-	
 	
 	
 	public MenuVO(String menuCode, String upperMenuCode, String menuSe, int menuOrd, String menuName, String menuDesc,
@@ -25,6 +23,8 @@ public class MenuVO {
 		this.menuUrl = menuUrl;
 		this.useYn = useYn;
 	}
+	
+	
 	public String getMenuCode() {
 		return menuCode;
 	}

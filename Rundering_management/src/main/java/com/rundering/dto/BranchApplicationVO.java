@@ -5,8 +5,8 @@ import java.util.Date;
 public class BranchApplicationVO {
 	
 	private int applicationNo;               //지점신청번호
-	private Date applicationDate;            //신청자명
-	private String applicateName;            //신청날짜
+	private Date applicationDate;            //신청날짜
+	private String applicateName;            //신청자명
 	private String phone;                    //연락처
 	private String email;                    //이메일
 	private String leasecontractFile;        //임대차계약서 첨부파일번호
@@ -16,6 +16,13 @@ public class BranchApplicationVO {
 	private String examinationDetails;       //심사내용
 	private String privatecontractFile;      //수의계약서 첨부파일번호
 	private String charger;                  //담당자
+	private String progressStatusCode;		 //진행상태코드
+	
+	
+	public BranchApplicationVO() {
+		super();
+	}
+	
 	
 	public int getApplicationNo() {
 		return applicationNo;
@@ -89,6 +96,13 @@ public class BranchApplicationVO {
 	public void setCharger(String charger) {
 		this.charger = charger;
 	}
+	public String getProgressStatusCode() {
+		return progressStatusCode;
+	}
+	public void setProgressStatusCode(String progressStatusCode) {
+		this.progressStatusCode = progressStatusCode;
+	}
+	
 	
 	
 }

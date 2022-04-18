@@ -3,26 +3,26 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class MemberVO {
-	
-	private String memberNo;
-	private String id;
-	private String password;
-	private String name;
-	private String phone;
-	private String email;
-	private Date registDate;
-	private Date modifyDate;
-	private int enableWhether;
-	private String withDrawal;
-    private Date lastLogpsnHourLiver;
-    private int loginfailCount;
+	private String memberNo;			//회원고유번호
+	private String id;					//아이디
+	private String password;			//비밀번호
+	private String name;				//이름
+	private String phone;				//연락처
+	private String email;				//이메일
+	private Date registDate;			//등록일자
+	private Date modifyDate;			//수정일자
+	private int enableWhether;			//활성화여부
+	private String deleteYn;			//탈퇴여부
+    private Date lastLogpsnHourLiver;	//마지막로그인
+    private int loginfailCount;			//로그인실패횟수
+    private String employeeIdYn;		//사원여부
     
     
 	public MemberVO() {
 		super();
 	}
-	
-	
+
+
 	public String getMemberNo() {
 		return memberNo;
 	}
@@ -77,11 +77,11 @@ public class MemberVO {
 	public void setEnableWhether(int enableWhether) {
 		this.enableWhether = enableWhether;
 	}
-	public String getWithDrawal() {
-		return withDrawal;
+	public String getDeleteYn() {
+		return deleteYn;
 	}
-	public void setWithDrawal(String withDrawal) {
-		this.withDrawal = withDrawal;
+	public void setDeleteYn(String deleteYn) {
+		this.deleteYn = deleteYn;
 	}
 	public Date getLastLogpsnHourLiver() {
 		return lastLogpsnHourLiver;
@@ -95,15 +95,11 @@ public class MemberVO {
 	public void setLoginfailCount(int loginfailCount) {
 		this.loginfailCount = loginfailCount;
 	}
-
-	@Override
-	public String toString() {
-		return "MemberVO [memberNo=" + memberNo + ", id=" + id + ", password=" + password + ", name=" + name
-				+ ", phone=" + phone + ", email=" + email + ", registDate=" + registDate + ", modifyDate=" + modifyDate
-				+ ", enableWhether=" + enableWhether + ", withDrawal=" + withDrawal + ", lastLogpsnHourLiver="
-				+ lastLogpsnHourLiver + ", loginfailCount=" + loginfailCount + "]";
+	public String getEmployeeIdYn() {
+		return employeeIdYn;
+	}
+	public void setEmployeeIdYn(String employeeIdYn) {
+		this.employeeIdYn = employeeIdYn;
 	}
 	
-	
-   
 }

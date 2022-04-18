@@ -14,8 +14,9 @@
 	<result column="VIEWS" property="views"/>
 	<result column="REGIST_DATE" property="registDate"/>
 	<result column="MODIFY_DATE" property="modifyDate"/>
-	<result column="DELETEAT" property="deleteat"/>
+	<result column="DELETE_YN" property="deleteYn"/>
 	<result column="BRANCH_CODE" property="branchCode"/>
+	<result column="REPLYNO" property="replyNo"/>
 </resultMap>
 	<sql id="search">
 		<if test="searchType == 't'.toString()">

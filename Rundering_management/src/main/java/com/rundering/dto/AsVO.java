@@ -3,17 +3,23 @@ package com.rundering.dto;
 import java.sql.Date;
 
 public class AsVO {
-	private int asno;             //AS번호
-	private String ctqlyCode;        //비품코드
-	private String title;            //제목
-	private String ascontent;        //내용?
-	private String causeFailure;    //고장원인?
-	private Date registDate;      //등록일
-	private String status;           //상태
-	private Date modifyDate;      //수정일
-	private String deleteat;         //삭제여부
+	private int asno;            	//AS번호
+	private String fixturesCode; 	//비품코드
+	private String title;		 	//제목
+	private String ascontent;    	//내용
+	private Date registDate;     	//등록일
+	private String status;       	//상태
+	private Date modifyDate;      	//수정일
+	private String deleteat;     	//삭제여부
 	private String employeeId;      //담당자
 	private String branchCode;      //지점코드
+	private String articlesCode;	//세탁물품코드
+	
+	
+	public AsVO() {
+		super();
+	}
+
 	
 	public int getAsno() {
 		return asno;
@@ -21,11 +27,11 @@ public class AsVO {
 	public void setAsno(int asno) {
 		this.asno = asno;
 	}
-	public String getCtqlyCode() {
-		return ctqlyCode;
+	public String getFixturesCode() {
+		return fixturesCode;
 	}
-	public void setCtqlyCode(String ctqlyCode) {
-		this.ctqlyCode = ctqlyCode;
+	public void setFixturesCode(String fixturesCode) {
+		this.fixturesCode = fixturesCode;
 	}
 	public String getTitle() {
 		return title;
@@ -38,12 +44,6 @@ public class AsVO {
 	}
 	public void setAscontent(String ascontent) {
 		this.ascontent = ascontent;
-	}
-	public String getCauseFailure() {
-		return causeFailure;
-	}
-	public void setCauseFailure(String causeFailure) {
-		this.causeFailure = causeFailure;
 	}
 	public Date getRegistDate() {
 		return registDate;
@@ -81,6 +81,14 @@ public class AsVO {
 	public void setBranchCode(String branchCode) {
 		this.branchCode = branchCode;
 	}
-
+	public String getArticlesCode() {
+		return articlesCode;
+	}
+	public void setArticlesCode(String articlesCode) {
+		this.articlesCode = articlesCode;
+	}
+	
+	
+	
 	
 }

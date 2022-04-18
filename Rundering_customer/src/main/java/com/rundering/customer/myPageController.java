@@ -23,16 +23,7 @@ public class myPageController {
 	@RequestMapping("pwCheck")
 	public ResponseEntity<String> pwCheck(String password) throws Exception {
 		ResponseEntity<String> entity = null;
-		try {
-			String pw = memberService.checkPw(password);
-			if (pw != null) {
-				entity = new ResponseEntity<String>("duplicated", HttpStatus.OK);
-			} else {
-				entity = new ResponseEntity<String>("", HttpStatus.OK);
-			}
-		} catch (SQLException e) {
-			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	
 
 		return entity;
 	}
