@@ -18,8 +18,6 @@
 					<div class="form-group col-4">
 						<input type="text" class="form-control" name="name" id="name" value="백관우" disabled>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
@@ -49,9 +47,6 @@
 					<div class="form-group col-4">
 						<input type="text" class="form-control" name="call"	value="010-6644-5555" disabled>
 					</div>
-					<span class="form-group col-7">
-						<button class="btn  float-right" style="border-color: gray;"call">변경</button>
-					</span>
 				</div>
 			</div>
 		</div>
@@ -66,9 +61,37 @@
 					<div class="form-group col-7">
 						<input type="email" class="form-control " name="email" value="bgwbgw100@naver.com" disabled>
 					</div>
-					<span class="form-group col-4">
-						<button class="btn  float-right" style="border-color: gray;"email">변경</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="row ">
+			<label for="call" class="col-2">
+				<p>주소</p>
+			</label>
+			<div class="col-10">
+				<div class="col-12 row">
+					<div class="form-group col-8">
+						<input type="text" class="form-control" name="call" id="call" value="대전 광역시 유성구 반석동 반석마울 702-101 호">
+					</div>
+					<span class="form-group col-3">
+						<button class="btn float-right" id="address" style="border-color: gray;">주소검색</button>
 					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="row ">
+			<label for="call" class="col-2">
+				<p>상세주소</p>
+			</label>
+			<div class="col-10">
+				<div class="col-12 row">
+					<div class="form-group col-6">
+						<input type="text" class="form-control" name="call" id="call" value="대전 광역시 유성구 반석동 반석마울 702-101 호">
+					</div>
 				</div>
 			</div>
 		</div>

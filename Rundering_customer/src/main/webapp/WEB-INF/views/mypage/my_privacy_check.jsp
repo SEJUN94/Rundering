@@ -15,10 +15,10 @@
                         <div class="col-10">
                             <div class="col-12 row">
                                 <div class="form-group col-4" >
-                                    <input type="password" class="form-control" name="password" id="password"  value=""  >
+                                    <input type="password" class="form-control" name="password" id="password"  value=""  />
                                 </div>
                                 <span class="form-group col-2">
-                                    <button class="btn btn-secondary float-right" onClick="pwCkeck()">확인</button>
+                                    <button class="btn btn-secondary float-right" onClick="pwCkeck()" >확인</button>
                                 </span>
                             </div>
                         </div>
@@ -27,25 +27,60 @@
             </div>
 
 <script>
+	
+	document.getElementById("password").focus();
+	
 	function pwCkeck(){
-		
-		$.ajax({
-			url : '<%=request.getContextPath()%>/mypage/pwCheck',
-			data : {
-				'password' : $('#password').val()
-			},
-			type : 'post',
-			success : function(result) {
-				if (result.toUpperCase() == "DUPLICATED") {
-					 location.href = "'<%=request.getContextPath()%>'/mypage/memberModify";
-				} else {
-					 Swal.fire('비밀번호가 틀렸습니다!');				
+		if($('#password').val()== null){
+			Swal.fire('비밀번호를 입력해주세요.');
+		} else {
+			$.ajax({
+				url : '<%=request.getContextPath()%>/mypage/pwCheck',
+				data : {
+					'password' : $('#password').val()
+				},
+				type : 'post',
+				success : function(result) {
+					if (result.toUpperCase() == "DUPLICATED") {
+						 location.href = "<%=request.getContextPath()%>/mypage/memberModify";
+					} else {
+						 Swal.fire('비밀번호가 틀렸습니다!');				
+					}
+				},
+				error : function(error) {
+					//alert("시스템장애로 가입이 불가합니다.");
+					AjaxErrorSecurityRedirectHandler(error.status);
 				}
-			},
-			error : function(error) {
-				//alert("시스템장애로 가입이 불가합니다.");
-				AjaxErrorSecurityRedirectHandler(error.status);
-			}
-		});
+			});
+		}
 	}
+	
+	document.querySelector('#password').addEventListener('keyup', (e)=>{
+	    if (e.keyCode === 13) {
+	    	if($('#password').val()== null){
+				Swal.fire('비밀번호를 입력해주세요.');
+			} else {
+				$.ajax({
+					url : '<%=request.getContextPath()%>/mypage/pwCheck',
+					data : {
+						'password' : $('#password').val()
+					},
+					type : 'post',
+					success : function(result) {
+						if (result.toUpperCase() == "DUPLICATED") {
+							 location.href = "<%=request.getContextPath()%>/mypage/memberModify";
+						} else {
+							 Swal.fire('비밀번호가 틀렸습니다!');				
+						}
+					},
+					error : function(error) {
+						//alert("시스템장애로 가입이 불가합니다.");
+						AjaxErrorSecurityRedirectHandler(error.status);
+					}
+				});
+			}
+	        // code for enter
+	  }  
+	});
+	
 </script>
