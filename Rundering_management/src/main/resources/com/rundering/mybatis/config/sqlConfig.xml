@@ -17,6 +17,7 @@
 		<typeAlias type="com.rundering.dto.AnonymousBoardVO" alias="anonymousBoard" />
 		<typeAlias type="com.rundering.dto.LaundryArticlesVO" alias="laundryArticles" />
 		<typeAlias type="com.rundering.dto.NoticeVO" alias="notice" />
+		<typeAlias type="com.rundering.dto.ItemOrderVO" alias="itemOrder"/>
 	</typeAliases>
 	
 	

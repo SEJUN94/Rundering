@@ -14,10 +14,10 @@ public class LaundryArticlesVO {
 	private String deleteKey; // 삭제키
 	private String each; // 단위
 	private String note; // 비고
-	private String atchFileNo; // 사진
-	private String picture;
+	private int atchFileNo; //파일번호
 	private MultipartFile pictureFile; // 사진파일
-	private String uploadPicture; // 변경된 사진 파일명.
+	private String uploadPicture; // 변경된 사진 파일명
+	private String picture;
 
 	public LaundryArticlesVO() {
 	}
@@ -94,11 +94,11 @@ public class LaundryArticlesVO {
 		this.note = note;
 	}
 
-	public String getAtchFileNo() {
+	public int getAtchFileNo() {
 		return atchFileNo;
 	}
 
-	public void setAtchFileNo(String atchFileNo) {
+	public void setAtchFileNo(int atchFileNo) {
 		this.atchFileNo = atchFileNo;
 	}
 
@@ -117,11 +117,14 @@ public class LaundryArticlesVO {
 	public void setUploadPicture(String uploadPicture) {
 		this.uploadPicture = uploadPicture;
 	}
+
 	public String getPicture() {
 		return picture;
 	}
+
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
 
+	
 }

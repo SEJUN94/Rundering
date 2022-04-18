@@ -49,11 +49,9 @@ public class LaundryArticlesController {
 	}
 
 	@RequestMapping(value = "/ordergoods/regist", method = RequestMethod.POST)
-	public String regist(LaundryArticlesVO laundryArticles, RedirectAttributes rttr) throws Exception {
+	public String regist(AttachVO attach, LaundryArticlesVO laundryArticles, RedirectAttributes rttr) throws Exception {
 		String url = "redirect:/admin/ordergoods/list";
-
-		AttachVO attach = new AttachVO();
-		String atchFileNo = laundryArticles.getAtchFileNo();
+		int atchFileNo = laundryArticles.getAtchFileNo();
 		String fileName = laundryArticles.getPicture();
 		File file = new File(picturePath + fileName);
 		String orginalFileName = MakeFileName.parseFileNameFromUUID(fileName, "\\$\\$");
@@ -73,14 +71,12 @@ public class LaundryArticlesController {
 	}
 
 	@RequestMapping("/ordergoods/detail")
-	public ModelAndView detail(String articlesCode, String from, AttachVO attach, ModelAndView mnv)
-			throws SQLException {
+	public ModelAndView detail(LaundryArticlesVO laundryArticles, String articlesCode, String from, AttachVO attach, ModelAndView mnv)
+			throws Exception {
 		String url = "admin/ordergoods/ordergoods_detail";
 		
-		LaundryArticlesVO laundryArticles = new LaundryArticlesVO();
-		laundryArticles.setPicture(attach.getFileNm());
-
-		laundryArticlesService.getLaundryArticles(articlesCode, attach);
+		laundryArticlesService.getLaundryArticles(laundryArticles, attach);
+		
 		mnv.addObject("laundryArticles", laundryArticles);
 		mnv.setViewName(url);
 

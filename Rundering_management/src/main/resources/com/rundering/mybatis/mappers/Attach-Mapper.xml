@@ -19,7 +19,7 @@
 		<result column="UPD_USER_ID" property="updUserId"/>
 	</resultMap>
 	
-	<select id="selectLaundryArticlesAttach" parameterType="attach">
+	<select id="getNameByAtchFileNo" parameterType="int" resultMap="attachMap">
 		select SAVE_FILE_NM
 		  from TB_ATTACH_FILE
 		 where ATCH_FILE_NO=#{atchFileNo}

@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<c:set var="pageMaker" value="${dataMap.pageMaker }" />
+<c:set var="cri" value="${dataMap.pageMaker.cri }" />
+<c:set var="itemOrderList" value="${dataMap.itemOrderList }" />
 
 <title>지점 발주 내역</title>
 
@@ -24,103 +29,27 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr
-								onclick="window.open('<%=request.getContextPath()%>/admin/branch/orderdetail.do', '발주 상세', 'width=700, height=900');"
-								style="cursor: pointer;">
-								<td>183</td>
-								<td>15324</td>
-								<td>2022-03-29-15:30</td>
-								<td><span class="badge badge-warning">승인대기</span></td>
-							</tr>
-							<tr>
-								<td>183</td>
-								<td>15324</td>
-								<td>2022-03-29-15:30</td>
-								<td><span class="badge badge-success">승인</span> <span
-									class="badge badge-warning">발주대기</span></td>
-							</tr>
-							<tr>
-								<td>183</td>
-								<td>15324</td>
-								<td>2022-03-29-15:30</td>
-								<td><span class="badge badge-success">승인</span> <span
-									class="badge badge-success">발주</span> <span
-									class="badge badge-warning">미수령</span></td>
-							</tr>
-							<tr>
-								<td>183</td>
-								<td>15324</td>
-								<td>2022-03-29-15:30</td>
-								<td><span class="badge badge-danger">반려</span></td>
-							</tr>
-							<tr>
-								<td>183</td>
-								<td>15324</td>
-								<td>2022-03-29-15:30</td>
-								<td><span class="badge badge-success">승인</span> <span
-									class="badge badge-success">발주</span> <span
-									class="badge badge-success">수령</span></td>
-							</tr>
-							<tr>
-								<td>183</td>
-								<td>15324</td>
-								<td>2022-03-29-15:30</td>
-								<td><span class="badge badge-success">승인</span> <span
-									class="badge badge-success">발주</span> <span
-									class="badge badge-success">수령</span></td>
-							</tr>
-							<tr>
-								<td>183</td>
-								<td>15324</td>
-								<td>2022-03-29-15:30</td>
-								<td><span class="badge badge-success">승인</span> <span
-									class="badge badge-success">발주</span> <span
-									class="badge badge-success">수령</span></td>
-							</tr>
-							<tr>
-								<td>183</td>
-								<td>15324</td>
-								<td>2022-03-29-15:30</td>
-								<td><span class="badge badge-success">승인</span> <span
-									class="badge badge-success">발주</span> <span
-									class="badge badge-success">수령</span></td>
-							</tr>
-							<tr>
-								<td>183</td>
-								<td>15324</td>
-								<td>2022-03-29-15:30</td>
-								<td><span class="badge badge-success">승인</span> <span
-									class="badge badge-success">발주</span> <span
-									class="badge badge-success">수령</span></td>
-							</tr>
-							<tr>
-								<td>183</td>
-								<td>15324</td>
-								<td>2022-03-29-15:30</td>
-								<td><span class="badge badge-success">승인</span> <span
-									class="badge badge-success">발주</span> <span
-									class="badge badge-success">수령</span></td>
-							</tr>
+							<c:if test="${empty itemOrderList }">
+								<td colspan="4" style="text-align:center;"><strong>발주내역이 존재하지 않습니다.</strong></td>
+							</c:if>
+							<c:forEach items="${itemOrderList }" var="itemOrder">
+								<tr
+									onclick="window.open('<%=request.getContextPath()%>/admin/branchorder/detail?ordercode=${itemOrder.ordercode }', '발주 상세', 'width=700, height=900');"
+									style="cursor: pointer;">
+									<td>${itemOrder.ordercode }</td>
+									<td>${itemOrder.branchCode }</td>
+									<td>
+										<fmt:formatDate value="${itemOrder.registDate }" pattern="	yy-MM-dd HH:mm" /> 
+									</td>
+									<td><span class="badge badge-warning">${itemOrder.itemOrderStatus }</span></td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 
 
 					<div class="card-footer">
-						<nav aria-label="Contacts Page Navigation">
-							<ul class="pagination justify-content-center m-0">
-								<li class="page-item active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">4</a></li>
-								<li class="page-item"><a class="page-link" href="#">5</a></li>
-								<li class="page-item"><a class="page-link" href="#"> <i
-										class="fas fa-angle-right"></i>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#"> <i
-										class="fas fa-angle-double-right"></i>
-								</a></li>
-							</ul>
-						</nav>
+						<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 					</div>
 
 				</div>

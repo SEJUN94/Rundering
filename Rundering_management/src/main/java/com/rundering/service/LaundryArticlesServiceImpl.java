@@ -49,23 +49,25 @@ public class LaundryArticlesServiceImpl implements LaundryArticlesService {
 	@Override
 	public void regist(LaundryArticlesVO laundryArticles,AttachVO attach) throws Exception {
 		int seq=attachDAO.selectFileNo();
-		String strSeq = Integer.toString(seq);
-		attach.setAtchFileNo(strSeq);
-		laundryArticles.setAtchFileNo(strSeq);
+		attach.setAtchFileNo(seq);
+		laundryArticles.setAtchFileNo(seq);
 		attachDAO.insertOrderGoodsAtach(attach);
 		laundryArticlesDAO.insertLaundryArticles(laundryArticles);
 	}
 
 	@Override
-	public Map<String, Object> getLaundryArticles(String articlesCode, AttachVO attach) throws SQLException {
-		
+	public Map<String, Object> getLaundryArticles(LaundryArticlesVO laundryArticles, AttachVO attach) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
-		LaundryArticlesVO laundryArticles = laundryArticlesDAO.selectLaundryArticlesListByArticlesCode(articlesCode);
-		AttachVO attachName = attachDAO.
+		int seq=attachDAO.selectFileNo();
+		attach.setAtchFileNo(seq);
+		laundryArticles.setAtchFileNo(seq);
+		String atchFileNm = attachDAO.selectAttachNameByAtchFileNo(seq);
+
+		laundryArticlesDAO.selectLaundryArticlesListByArticlesCode(laundryArticles.getArticlesCode());
 		
 		dataMap.put("laudnryArticles", laundryArticles);
-		dataMap.put("attachName", attachName);
+		dataMap.put("atchFileNm", atchFileNm);
 		
 		return dataMap;
 	}

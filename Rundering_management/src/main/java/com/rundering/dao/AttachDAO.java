@@ -9,5 +9,5 @@ public interface AttachDAO {
 	
 	public int selectFileNo() throws Exception;
 	
-	List<AttachVO> selectAttachByArticlesCode(int atchFileNo) throws Exception;
+	public String selectAttachNameByAtchFileNo(int atchFileNo) throws Exception;
 }

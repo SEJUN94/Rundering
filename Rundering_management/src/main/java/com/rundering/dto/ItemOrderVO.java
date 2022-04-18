@@ -1,11 +1,15 @@
 package com.rundering.dto;
 
+import java.util.Date;
+
 public class ItemOrderVO {
 	private String ordercode; //발주코드
 	private int itemOrderPaymentPrice; //결제가격
 	private String itemOrderStatus; //상태
 	private String charger;  //담당자
 	private String branchCode;  //지점코드
+	private Date registDate;  //등록일
+	private Date receipTDate; //수령일
 
 	public String getOrdercode() {
 		return ordercode;
@@ -37,4 +41,17 @@ public class ItemOrderVO {
 	public void setBranchCode(String branchCode) {
 		this.branchCode = branchCode;
 	}
+	public Date getRegistDate() {
+		return registDate;
+	}
+	public void setRegistDate(Date registDate) {
+		this.registDate = registDate;
+	}
+	public Date getReceipTDate() {
+		return receipTDate;
+	}
+	public void setReceipTDate(Date receipTDate) {
+		this.receipTDate = receipTDate;
+	}
+	
 }

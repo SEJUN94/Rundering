@@ -1,7 +1,5 @@
 package com.rundering.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.dto.AttachVO;
@@ -20,14 +18,12 @@ public class AttachDAOImpl implements AttachDAO{
 
 	@Override
 	public void insertOrderGoodsAtach(AttachVO attach) throws Exception {
-		session.update("Attach-Mapper.insertOrderGoodsAttach",attach);
+		session.update("Attach-Mapper.insertLaundryArticlesAttach",attach);
 	}
 	
 	@Override
-	public List<AttachVO> selectAttachByArticlesCode(int atchFileNo) throws Exception {
-		List<AttachVO> articles = session.selectList("Attach-Mapper.selectLaundryArticlesAttach", atchFileNo); 
+	public String selectAttachNameByAtchFileNo(int atchFileNo) throws Exception {
+		String articles = session.selectOne("Attach-Mapper.getNameByAtchFileNo", atchFileNo); 
 		return articles;
 	}
-	
-
 }

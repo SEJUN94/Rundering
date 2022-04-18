@@ -19,7 +19,7 @@
 					<div class="row" style="height: 140px;">
 						<div class="mailbox-attachments clearfix col-md-12"
 							style="text-align: center;">
-							<div class="goodsPicture" id="pictureView" data-id="${orderGoods.articlesCode }"
+							<div class="goodsPicture" id="pictureView" data-id="${laundryArticles.articlesCode }"
 								style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto;"></div>
 						</div>
 					</div>
@@ -32,7 +32,7 @@
 							</label>
 							<div class="col-sm-8 input-group-sm">
 								<input class="form-control" name="articlesName" type="text"
-									id="articlesName" value="${orderGoods.articlesName }" readonly>
+									id="articlesName" value="${laundryArticles.articlesName }" readonly>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -41,7 +41,7 @@
 							</label>
 							<div class="col-sm-8 input-group-sm">
 								<input class="form-control" name="articlesCode" type="text"
-									id="articlesCode" value="${orderGoods.articlesCode }" readonly>
+									id="articlesCode" value="${laundryArticles.articlesCode }" readonly>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -51,11 +51,11 @@
 							</label>
 							<div class="col-sm-8 input-group-sm">
 								<select id="clcode" name="clcode" class="form-control" disabled>
-									<option value="B" ${orderGoods.clcode eq 'B' ? 'selected':'' }>가루세제</option>
-									<option value="C" ${orderGoods.clcode eq 'C' ? 'selected':'' }>엑체세제</option>
-									<option value="D" ${orderGoods.clcode eq 'D' ? 'selected':'' }>섬유유연제</option>
-									<option value="E" ${orderGoods.clcode eq 'E' ? 'selected':'' }>세탁비누</option>
-									<option value="F" ${orderGoods.clcode eq 'F' ? 'selected':'' }>세탁보조용품</option>
+									<option value="B" ${laundryArticles.clcode eq 'B' ? 'selected':'' }>가루세제</option>
+									<option value="C" ${laundryArticles.clcode eq 'C' ? 'selected':'' }>엑체세제</option>
+									<option value="D" ${laundryArticles.clcode eq 'D' ? 'selected':'' }>섬유유연제</option>
+									<option value="E" ${laundryArticles.clcode eq 'E' ? 'selected':'' }>세탁비누</option>
+									<option value="F" ${laundryArticles.clcode eq 'F' ? 'selected':'' }>세탁보조용품</option>
 								</select>
 							</div>
 						</div>
@@ -66,7 +66,7 @@
 							</label>
 							<div class="col-sm-8 input-group-sm">
 								<input class="form-control" name="price" type="text" id="price"
-									value="${orderGoods.price }" readonly>
+									value="${laundryArticles.price }" readonly>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -75,17 +75,17 @@
 							</label>
 							<div class="col-sm-5 input-group-sm">
 								<input class="form-control" name="pwd" type="text" id="pwd"
-									style="text-align: right;" value="${orderGoods.each }" readonly>
+									style="text-align: right;" value="${laundryArticles.each }" readonly>
 							</div>
 							<div class="col-sm-3 input-group-sm">
 								<select onchange="list_go(1);" id="perPageNum" name="perPageNum"
 									class="form-control" disabled>
-									<option value="n" ${orderGoods.each eq 'n' ? 'selected':'' }>개</option>
-									<option value="h" ${orderGoods.each eq 'h' ? 'selected':'' }>매</option>
-									<option value="g" ${orderGoods.each eq 'g' ? 'selected':'' }>g</option>
-									<option value="kg" ${orderGoods.each eq 'kg' ? 'selected':'' }>kg</option>
-									<option value="ml" ${orderGoods.each eq 'ml' ? 'selected':'' }>ml</option>
-									<option value="l" ${orderGoods.each eq 'l' ? 'selected':'' }>L</option>
+									<option value="n" ${laundryArticles.each eq 'n' ? 'selected':'' }>개</option>
+									<option value="h" ${laundryArticles.each eq 'h' ? 'selected':'' }>매</option>
+									<option value="g" ${laundryArticles.each eq 'g' ? 'selected':'' }>g</option>
+									<option value="kg" ${laundryArticles.each eq 'kg' ? 'selected':'' }>kg</option>
+									<option value="ml" ${laundryArticles.each eq 'ml' ? 'selected':'' }>ml</option>
+									<option value="l" ${laundryArticles.each eq 'l' ? 'selected':'' }>L</option>
 								</select>
 							</div>
 						</div>
@@ -95,7 +95,7 @@
 							</label>
 							<div class="col-sm-8 input-group-sm">
 								<input class="form-control" name="note" type="text" id="note"
-									value="${orderGoods.note }" readonly>
+									value="${laundryArticles.note }" readonly>
 							</div>
 						</div>
 

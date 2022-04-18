@@ -11,10 +11,10 @@ import com.rundering.dto.LaundryArticlesVO;
 public interface LaundryArticlesService {
 	public Map<String, Object> getLaundryArticles(Criteria cri) throws SQLException;
 	// 상세보기
-	LaundryArticlesVO getLaundryArticles(String articlesCode, AttachVO attach)throws SQLException;	
+	Map<String, Object> getLaundryArticles(LaundryArticlesVO laundryArticles, AttachVO attach)throws Exception;	
 		
 	// 등록
-	void regist(LaundryArticlesVO laundryArticles,AttachVO attach)throws Exception;
+	void regist(LaundryArticlesVO laundryArticles ,AttachVO attach)throws Exception;
 		
 	// 수정
 	void modify(LaundryArticlesVO laundryArticles)throws SQLException;

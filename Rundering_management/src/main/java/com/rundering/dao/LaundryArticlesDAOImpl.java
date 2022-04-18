@@ -27,6 +27,7 @@ public class LaundryArticlesDAOImpl implements LaundryArticlesDAO{
 		
 		return laundryArticlesList;
 	}
+	
 	@Override
 	public int selectLaundryArticlesCriteriaTotalCount(Criteria cri) throws SQLException {
 		int count=session.selectOne("LaundryArticles-Mapper.selectSearchLaundryArticlesListCount",cri);

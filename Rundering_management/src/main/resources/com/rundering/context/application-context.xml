@@ -38,7 +38,9 @@
 	<bean id="noticeDAO" class="com.rundering.dao.NoticeDAOImpl"
 		p:session-ref="sqlSession"	
 	 />
-	
+	<bean id="itemOrderDAO" class="com.rundering.dao.ItemOrderDAOImpl"
+		p:session-ref="sqlSession"
+	/>
 	
 	<!-- Service Layer -->
 	<bean id="menuService" class="com.rundering.service.MenuServiceImpl"
@@ -62,6 +64,9 @@
 	/>
 	<bean id="noticeService" class="com.rundering.service.NoticeServiceImpl" 
 		p:noticeDAO-ref="noticeDAO"
+	/>
+	<bean id="itemOrderService" class="com.rundering.service.itemOrderServiceImpl"
+		p:itemOrderDAO-ref="itemOrderDAO"
 	/>
 	
 	
