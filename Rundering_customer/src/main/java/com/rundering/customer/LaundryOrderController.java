@@ -47,6 +47,9 @@ public class LaundryOrderController {
 		MemberAddressVO defaultMemberAddress = memberAddressService.getDefaultMemberAddress(loginUser.getMemberNo());
 		mnv.addObject("defaultMemberAddress",defaultMemberAddress);
 		
+		List<MemberAddressVO> memberAddressList = memberAddressService.getMemberAddressList(loginUser.getMemberNo());
+		mnv.addObject("memberAddressList",memberAddressList);
+		
 		mnv.setViewName(url);
 		
 		return mnv;

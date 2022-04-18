@@ -20,5 +20,5 @@ public interface LaundryItemsDAO {
 	//세탁품목 조회 - BylaundryItemsCode
 	public LaundryItemsVO selectLaundryItemsBylaundryItemsCode(String laundryItemsCode) throws SQLException;
 	//세탁품목 조회 - 전체 
-	public List<LaundryItemsVO> getlaundryItemsList() throws SQLException;
+	public List<LaundryItemsVO> selectlaundryItemsList() throws SQLException;
 }
