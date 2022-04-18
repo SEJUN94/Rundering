@@ -101,7 +101,6 @@
 </style>
 </head>
 
-<title>세탁 주문접수</title>
 
 <body>
 

@@ -68,8 +68,24 @@ public class LaundryOrderController {
 	}
 	
 	@RequestMapping(value = "/comfirm", method = RequestMethod.POST)
-	public String comfirm(LaundryOrderReceiveCommand command, HttpServletRequest request) throws Exception {
-		String url="/order/order_comfirm1";
+	public ModelAndView comfirm(LaundryOrderReceiveCommand command, HttpServletRequest request, ModelAndView mnv) throws Exception {
+		String url="/order/order_comfirm";
+		
+		List<LaundryOrderDetailVO> laundryOrderDetailVOList = command.toLaundryOrderDetailVOList();
+		Map<String, Object> dataMap = laundryOrderService.checkOrder(laundryOrderDetailVOList);
+		
+		mnv.setViewName(url);
+		mnv.addObject("command",command);
+		mnv.addObject("dataMap", dataMap);
+		
+		return mnv;
+	}
+	
+	@RequestMapping(value = "/payment", method = RequestMethod.POST)
+	public ModelAndView payment(LaundryOrderReceiveCommand command, HttpServletRequest request, ModelAndView mnv) throws Exception {
+		
+		//주문완료 페이지가 없어 일단 홈화면으로 가도록 함
+		String url="/main";
 		
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
@@ -90,11 +106,11 @@ public class LaundryOrderController {
 		memberAddress = memberAddressService.getAreaCode(memberAddress);
 		laundryOrder.setArea(memberAddress.getArea());
 		
-		List<LaundryOrderDetailVO> laundryOrderDetailVOList = command.toLaundryOrderDetailVOList();
 		
-		laundryOrderService.orderReceive(laundryOrder, laundryOrderDetailVOList);
+		mnv.setViewName(url);
+		return mnv;
 		
-		return url;
+		
 	}
 
 }

@@ -10,8 +10,6 @@
 </head>
 
 
-<title>세탁 주문접수</title>
-
 <body>
 
 	<div style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">

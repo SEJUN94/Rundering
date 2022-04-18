@@ -3,7 +3,9 @@ package com.rundering.service;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
@@ -60,5 +62,25 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 			
 			laundryOrderDetailDAO.insertLaundryOrderDetail(laundryOrderDetail);
 		}
+	}
+
+	@Override
+	public Map<String, Object> checkOrder(List<LaundryOrderDetailVO> laundryOrderDetailVOList)
+			throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		int totalPrice = 0;
+		for (LaundryOrderDetailVO laundryOrderDetail : laundryOrderDetailVOList) {
+			//가격, 품목명 조회 후 설정
+			LaundryItemsVO laundryItems = laundryItemsDAO.selectLaundryItemsBylaundryItemsCode(laundryOrderDetail.getLaundryItemsCode());
+			int price = laundryItems.getPrice() * laundryOrderDetail.getQuantity();
+			totalPrice += price;
+			laundryOrderDetail.setPrice(price);
+			laundryOrderDetail.setItemsName(laundryItems.getItemsName());
+		}
+		
+		dataMap.put("confirmedOrderDetailVOList", laundryOrderDetailVOList);
+		dataMap.put("totalPrice", totalPrice);
+		
+		return dataMap;
 	}
 }
