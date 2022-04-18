@@ -93,17 +93,22 @@
 									</tr>
 								</c:forEach>
 							</tbody>
+						
 						</table>
+				
 					</div>
-					<div class="card-footer">
+					<div class="card-footer" >
+						
 						<%@ include file="/WEB-INF/views/common/pagination.jsp" %>
-						<div class="float-right mb-3 mr-2">
-							<a
-								href="<%=request.getContextPath()%>/admin/notice/registform">
-								<button type="button" class="btn btn-primary"
-									data-toggle="modal" data-target="#modal-lg">공지등록</button>
-							</a>
-						</div>
+							<div class="float-right mb-3 mr-2">
+						<a	href="<%=request.getContextPath()%>/admin/notice/registform">
+						
+							<button type="button" class="btn btn-primary"
+								data-toggle="modal" data-target="#modal-lg">공지등록</button>
+						</a>
+					</div>
+					
+	
 					</div>
 				</div>
 			</div>

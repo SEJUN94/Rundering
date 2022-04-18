@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:set var="pageMaker" value="${dataMap.pageMaker }" />
+<c:set var="cri" value="${dataMap.pageMaker.cri }" />
+<c:set var="noticeList" value="${dataMap.noticeList }" />
     
 <title>세탁 품목 관리</title>
 
@@ -28,94 +35,44 @@
 						class="table table-hover text-nowrap card-secondary card-outline">
 						<thead>
 							<tr>
-								<th>품목번호</th>
-								<th>품목명</th>
-								<th>세탁가격</th>
-								<th>비고</th>
+							    <th class="category">구분</th>
+								<th class="itemcode">품목번호</th>
+								<th class="itemname">품목명</th>
+								<th class="price">세탁가격</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>95183</td>
-								<td>와이셔츠</td>
-								<td>1,800원</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>95184</td>
-								<td>교복셔츠</td>
-								<td>1,800원</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>95185</td>
-								<td>일반셔츠</td>
-								<td>3,000원</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>95186</td>
-								<td>티셔츠</td>
-								<td>3,000원</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>95186</td>
-								<td>티셔츠</td>
-								<td>3,000원</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>95186</td>
-								<td>티셔츠</td>
-								<td>3,000원</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>95186</td>
-								<td>티셔츠</td>
-								<td>3,000원</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>95186</td>
-								<td>티셔츠</td>
-								<td>3,000원</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>95186</td>
-								<td>티셔츠</td>
-								<td>3,000원</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>95186</td>
-								<td>티셔츠</td>
-								<td>3,000원</td>
-								<td></td>
-							</tr>
-							
+							<c:if test="${empty noticeList }">
+									<tr>
+										<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+									</tr>
+								</c:if>
+								<c:forEach items="${noticeList }" var="notice">
+									<tr style='font-size: 0.85em; cursor: pointer;'
+										onclick="OpenWindow('detail?from=list&noticeno=${notice.noticeno }','상세보기',800,700);">
+										<td>${notice.noticeno }</td>
+										<td id="Title"
+											style="text-align: left; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+											${notice.title }</td>
+										<td data-target="notice-employeeId">${notice.employeeId}</td>
+										<td><fmt:formatDate value="${notice.registDate }"
+												pattern="yyyy-MM-dd" /></td>
+										<td><span class="badge bg-red">${notice.views }</span></td>
+									</tr>
+								</c:forEach>
 						</tbody>
 					</table>
 
 
-					<div class="card-footer">
-						<nav aria-label="Contacts Page Navigation">
-							<ul class="pagination justify-content-center m-0">
-								<li class="page-item active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">4</a></li>
-								<li class="page-item"><a class="page-link" href="#">5</a></li>
-								<li class="page-item"><a class="page-link" href="#"> <i
-										class="fas fa-angle-right"></i>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#"> <i
-										class="fas fa-angle-double-right"></i>
-								</a></li>
-							</ul>
-						</nav>
+					<div class="card-footer" >
+						
+						<%@ include file="/WEB-INF/views/common/pagination.jsp" %>
+							<div class="float-right mb-3 mr-2">
+						<a	href="<%=request.getContextPath()%>/admin/notice/registform">
+						
+							<button type="button" class="btn btn-primary"
+								data-toggle="modal" data-target="#modal-lg">물품등록</button>
+						</a>
 					</div>
 
 				</div>
@@ -123,7 +80,7 @@
 			</div>
 		</div>
 	</div>
-
+</div>
 
 </body>
 </html>

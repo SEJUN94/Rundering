@@ -1,5 +1,7 @@
 package com.rundering.manage.admin;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -21,7 +23,11 @@ public class LaundryItemsController {
 	
 	@RequestMapping("/list")
 	public String laundryItemsList() {
-		return "admin/laundryitems/laundryitems_list";
+		String url = "admin/laundryitems/laundryitems_list";
+		Map<String, Object> dataMap = null;
+		
+		//dataMap = laundryItemsService
+		return url;
 	}
 	
 	@RequestMapping(value = "/regist", method = RequestMethod.GET)
