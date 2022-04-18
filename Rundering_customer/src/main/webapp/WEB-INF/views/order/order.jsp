@@ -129,7 +129,12 @@
 				</div>
 
 				<div class="hiddenInput">
-					<input type="text" name="loginUser" value="${loginUser.memberNo}" style="display: none;"> <input type="tel" class="form-control" id="contactNumber" name="contactNumber" value="${command.contactNumber}" style="display: none;">
+					<input type="hidden" name="contactNumber" value="${command.contactNumber}" >
+					<input type="hidden" name="addressNo" value="${command.addressNo}" >
+					<input type="hidden" name="zip" value="${command.zip}" >
+					<input type="hidden" name="add1" value="${command.add1}" >
+					<input type="hidden" name="add2" value="${command.add2}" >
+					<input type="hidden" name="setDefaultAddr" value="${command.setDefaultAddr}" >
 				</div>
 
 				<div class="card-body col-6" style="margin: auto; margin-top: 25px;">

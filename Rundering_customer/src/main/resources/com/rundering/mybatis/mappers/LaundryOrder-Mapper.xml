@@ -15,23 +15,48 @@
 				INSERT INTO TB_LAUNDRY_ORDER
 					(ORDER_NO,
 					CONTACT_NUMBER,
+					ZIP,
+					ADD1,
+					ADD2,
 					DELIVERY_REQUEST_DATE,
 					PICKUP_REQUEST_DATE,
-					ORDER_STATUS,
 					REQUEST_DETAILS,
-					MEMBERNO)
-					VALUES (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus},#{requestDetails},#{memberNo})
+					MEMBERNO,
+					AREA)
+					VALUES (
+					#{orderNo},
+					#{contactNumber},
+					#{zip},
+					#{add1},
+					#{add2},
+					#{deliveryRequestDate},
+					#{pickupRequestDate},
+					#{requestDetails},
+					#{memberNo},
+					#{area})
 			</when>
 	
 			<otherwise>
 				INSERT INTO TB_LAUNDRY_ORDER
 					(ORDER_NO,
 					CONTACT_NUMBER,
+					ZIP,
+					ADD1,
+					ADD2,
 					DELIVERY_REQUEST_DATE,
 					PICKUP_REQUEST_DATE,
-					ORDER_STATUS,
-					MEMBERNO)
-					VALUES (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus},#{memberNo})
+					MEMBERNO,
+					AREA)
+					VALUES (
+					#{orderNo},
+					#{contactNumber},
+					#{zip},
+					#{add1},
+					#{add2},
+					#{deliveryRequestDate},
+					#{pickupRequestDate},
+					#{memberNo},
+					#{area})
 			</otherwise>
 		</choose>
 	</update>

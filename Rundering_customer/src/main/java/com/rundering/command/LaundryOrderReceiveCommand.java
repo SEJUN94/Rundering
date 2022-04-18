@@ -8,11 +8,13 @@ import java.util.List;
 
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.dto.MemberAddressVO;
 
 public class LaundryOrderReceiveCommand {
 	
 	//세탁주문테이블 컬럼
 	private String addressNo;           //주소번호
+	private String setDefaultAddr="N";      //기본주소지로 설정
 	private String zip="";                 //우편번호
 	private String add1="";                //주소
 	private String add2="";                //상세주소
@@ -24,6 +26,12 @@ public class LaundryOrderReceiveCommand {
 	private String[] laundryItemsCode;  //세탁품목코드
 	
 	
+	public String getSetDefaultAddr() {
+		return setDefaultAddr;
+	}
+	public void setSetDefaultAddr(String setDefaultAddr) {
+		this.setDefaultAddr = setDefaultAddr;
+	}
 	public String getZip() {
 		return zip;
 	}
@@ -78,14 +86,25 @@ public class LaundryOrderReceiveCommand {
 		LaundryOrderVO laundryOrder = new LaundryOrderVO();
 		laundryOrder.setContactNumber(this.contactNumber);
 
-		SimpleDateFormat fm = new SimpleDateFormat("yyyyy-MM-dd");
+		SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
 		Date toDate = fm.parse(this.pickupRequestDate);
 		laundryOrder.setPickupRequestDate(toDate);
 		
-		//laundryOrder.setAddressNo(Integer.parseInt(addressNo));
+		laundryOrder.setZip(this.zip);  
+		laundryOrder.setAdd1(this.add1);
+		laundryOrder.setAdd2(this.add2);
 		laundryOrder.setRequestDetails(this.requestDetails);
 		
 		return laundryOrder;
+	}
+	
+	public MemberAddressVO toMemberAddressVO() throws ParseException{
+		MemberAddressVO memberAddress = new MemberAddressVO();
+		memberAddress.setZip(this.zip);
+		memberAddress.setAdd1(this.add1);
+		memberAddress.setAdd2(this.add2);
+		memberAddress.setDefaultYn(this.setDefaultAddr);
+		return memberAddress;
 	}
 	
 	public List<LaundryOrderDetailVO> toLaundryOrderDetailVOList() throws Exception{
@@ -94,6 +113,7 @@ public class LaundryOrderReceiveCommand {
 		if (this.laundryItemsCode != null && this.laundryItemsCode.length > 0) {
 			for (String string : this.laundryItemsCode) {
 				LaundryOrderDetailVO vo = new LaundryOrderDetailVO();
+				System.out.println(string);
 				String[] split = string.split(",");
 				vo.setLaundryItemsCode(split[0]);
 				vo.setQuantity(Integer.parseInt(split[1]));
@@ -101,6 +121,13 @@ public class LaundryOrderReceiveCommand {
 			}
 		}
 		return laundryOrderDetailList;
+	}
+	public void setAddress(MemberAddressVO memberAddress) {
+		this.zip = memberAddress.getZip();
+		this.add1 = memberAddress.getAdd1();
+		if(memberAddress.getAdd2() != null) {
+			this.add2 =  memberAddress.getAdd2();
+		}
 	}
 	
 }

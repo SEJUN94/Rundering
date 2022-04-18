@@ -8,6 +8,7 @@ import java.util.List;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
+import com.rundering.dao.MemberAddressDAO;
 import com.rundering.dto.LaundryItemsVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
@@ -42,20 +43,20 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		Date deliveryRequestDate = cal.getTime();
 		laundryOrder.setDeliveryRequestDate(deliveryRequestDate);
 		
-		//주문상태 설정 - 공통코드 수거대기상태 -> 01
-		laundryOrder.setOdrerStatus("01");
 		
 		//세탁주문테이블 insert
 		laundryOrderDAO.insertLaundryOrder(laundryOrder);
+		
 		//세탁주문상세테이블 insert
 		for (int i = 0; i < laundryOrderDetailVOList.size(); i++) {
 			LaundryOrderDetailVO laundryOrderDetail = laundryOrderDetailVOList.get(i);
 			laundryOrderDetail.setOrderNo(orderNo);
 			laundryOrderDetail.setDetailOrderno(String.format("%04d", i+1));
-			//가격 조회 후 설정
+			//가격, 품목명 조회 후 설정
 			LaundryItemsVO laundryItems = laundryItemsDAO.selectLaundryItemsBylaundryItemsCode(laundryOrderDetail.getLaundryItemsCode());
 			int price = laundryItems.getPrice() * laundryOrderDetail.getQuantity();
 			laundryOrderDetail.setPrice(price);
+			laundryOrderDetail.setItemsName(laundryItems.getItemsName());
 			
 			laundryOrderDetailDAO.insertLaundryOrderDetail(laundryOrderDetail);
 		}

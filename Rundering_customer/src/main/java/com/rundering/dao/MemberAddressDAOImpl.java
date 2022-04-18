@@ -32,6 +32,18 @@ public class MemberAddressDAOImpl implements MemberAddressDAO{
 	public List<MemberAddressVO> selectMemberAddressListByMemberNo(String memberNo) {
 		return session.selectList("MemberAddress-Mapper.selectMemberAddressListByMemberNo",memberNo);
 	}
+
+
+	@Override
+	public void updateAllMemberAddressDefaultN(String memberNo) throws SQLException {
+		session.update("MemberAddress-Mapper.updateAllMemberAddressDefaultN",memberNo);
+	}
+
+
+	@Override
+	public MemberAddressVO selectMemberAddressByAddressNo(String addressNo) throws SQLException {
+		return session.selectOne("MemberAddress-Mapper.selectMemberAddressByAddressNo", addressNo);
+	}
 	
 	
 }

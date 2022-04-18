@@ -58,5 +58,18 @@
 	<select id="selectMemberAddressListByMemberNo" resultMap="memberAddressMap" parameterType="str">
 		select * from TB_MEMBER_ADDRESS WHERE MEMBERNO = #{memberNo}
 	</select>
+	
+	<select id="selectMemberAddressByAddressNo" resultMap="memberAddressMap" parameterType="str">
+		select * from TB_MEMBER_ADDRESS WHERE ADDRESS_NO = #{addressNo}
+	</select>
+	
+	<update id="updateAllMemberAddressDefaultN" parameterType="str">
+		 UPDATE TB_MEMBER_ADDRESS
+		   SET DEFAULT_YN = 'N'
+		 WHERE ADDRESS_NO IN (SELECT ADDRESS_NO 
+		                        FROM TB_MEMBER_ADDRESS 
+		                        WHERE MEMBERNO = #{memberNo})
+ 	</update>
+	
 
 </mapper>

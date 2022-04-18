@@ -39,7 +39,7 @@
 			
 			
 
-			<form role="form" class="form-horizontal" action="<%=request.getContextPath() %>/order/detail" method="post">
+			<form role="form" class="form-horizontal form" action="<%=request.getContextPath() %>/order/detail" method="post" onsubmit="return checkForm();">
 				
 				<p class="mt-3" style="text-align: center;">수거와 배달을 받을 주소지와 연락처를 입력해주세요.</p>
 				
@@ -50,14 +50,14 @@
 						<div class="input-group" style="padding-top: 10px;">
 							<div class="input-group" style="padding-right: 0;">
 								<div class="icheck-primary pt-3 pb-3 pl-1" style="width: 100%;border-top: 1px solid rgba(0,0,0,.125);border-bottom: 1px solid rgba(0,0,0,.125);">
-									<input type="radio" value="${defaultMemberAddress.addressNo}" onchange="newAddr(this);" name="addressNo" id="${defaultMemberAddress.addressNo}" checked> <label for="${defaultMemberAddress.addressNo}" style="font-weight: 500;">${defaultMemberAddress.add1} ${defaultMemberAddress.add2}</label>
+									<input type="radio" value="${defaultMemberAddress.addressNo}" onchange="newAddr(this);" name="addressNo" id="${defaultMemberAddress.addressNo}" checked> <label for="${defaultMemberAddress.addressNo}" style="font-weight: 500;">${defaultMemberAddress.add1}&nbsp;&nbsp;${defaultMemberAddress.add2}</label>
 								</div>
 																
 								<c:if test="${!empty memberAddressList }">
 									<c:forEach items="${memberAddressList }" var="memberAddress">
 										<c:if test="${memberAddress.defaultYn eq 'N' }">
-											<div class="icheck-primary pt-3 pb-3 pl-1" style="width: 100%;border-bottom: 1px solid rgba(0,0,0,.125);">
-												<input type="radio" value="${memberAddress.addressNo}" onchange="newAddr(this);" name="addressNo" id="${memberAddress.addressNo}"> <label for="${memberAddress.addressNo}" style="font-weight: 500;">${memberAddress.add1} ${memberAddress.add2}</label>
+											<div class="icheck-primary pt-1 pb-3 pl-1" style="width: 100%;border-bottom: 1px solid rgba(0,0,0,.125);">
+												<input type="radio" value="${memberAddress.addressNo}" onchange="newAddr(this);" name="addressNo" id="${memberAddress.addressNo}"> <label for="${memberAddress.addressNo}" style="font-weight: 500;">${memberAddress.add1}&nbsp;&nbsp;${memberAddress.add2}</label>
 											</div>
 										</c:if>
 									</c:forEach>
@@ -80,10 +80,10 @@
 										<input type="text" class="form-control" id="add2" name="add2" placeholder="상세주소" value="">
 									</div>
 									<div class="row">
-										<div class="col-8">
+										<div class="pl-2">
 											<div class="icheck-primary">
-												<input type="checkbox" id="remember"> <label
-													for="remember" style="font-weight: 500;"> 기본주소지로 등록
+												<input type="checkbox" name="setDefaultAddr" value="Y" id="setDefaultAddr"> <label
+													for="setDefaultAddr" style="font-weight: 500;"> 기본주소지로 등록
 												</label>
 											</div>
 										</div>
@@ -193,6 +193,8 @@
 			newAddrInput.style.display = 'none';
 		}
 	}
+	
+	
 </script>
 
 <script>
@@ -334,7 +336,11 @@
 	    return formatNum;
 	}
 
+	function checkForm(){
+		
+	}
 
+  
 </script>
 
 

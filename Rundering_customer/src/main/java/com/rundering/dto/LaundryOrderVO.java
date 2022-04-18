@@ -15,7 +15,7 @@ public class LaundryOrderVO {
 	private Date branchArrivalDate;     //지점도착날짜
 	private String area;                //지역분류코드
 	private Date deliveryDate;          //배송완료일자
-	private String odrerStatus;         //주문상태코드
+	private String orderStatus;         //주문상태코드
 	private String cancelYn;            //취소여부
 	private int paymentNo;              //결제번호
 	private String branchCode;          //지점코드
@@ -96,11 +96,11 @@ public class LaundryOrderVO {
 	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
-	public String getOdrerStatus() {
-		return odrerStatus;
+	public String getOrderStatus() {
+		return orderStatus;
 	}
-	public void setOdrerStatus(String odrerStatus) {
-		this.odrerStatus = odrerStatus;
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 	public String getCancelYn() {
 		return cancelYn;

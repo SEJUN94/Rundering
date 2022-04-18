@@ -11,7 +11,7 @@
 		<result column="ITEMS_NAME" property="itemsName" />
 		<result column="REGIST_DATE" property="registDate" />
 		<result column="MODIFY_DATE" property="modifyDate" />
-		<result column="DELETE_YN" property="deleteYN" />
+		<result column="DELETE_YN" property="deleteYn" />
 		<result column="CHARGER" property="charger" />
 		<result column="LAUNDEY_CATEGORY" property="laundeyCategory" />
 	</resultMap>
