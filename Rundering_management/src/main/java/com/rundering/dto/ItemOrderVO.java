@@ -12,6 +12,7 @@ public class ItemOrderVO {
 	private Date receiptDate; 			//수령일
 	
 	
+	
 	public ItemOrderVO() {
 		super();
 	}

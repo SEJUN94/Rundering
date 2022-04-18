@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rundering.command.ItemOrderDetailCommand;
 import com.rundering.manage.Criteria;
 import com.rundering.service.ItemOrderService;
 
@@ -31,8 +32,15 @@ public class BranchOrderController {
 	}
 	
 	@RequestMapping("/branchorder/detail")
-	public String branchOrderDetail() {
-		return "admin/branchorder/equipment_order_detail";
+	public ModelAndView branchOrderDetail(int seq,String from, ModelAndView mnv) throws SQLException{
+		String url = "admin/branchorder/equipment_order_detail";
+		
+		ItemOrderDetailCommand itemOrderDetail = itemOrderService.getItemOrderDetailList(seq);
+		
+		mnv.addObject("itemOrderDetail", itemOrderDetail);
+		mnv.setViewName(url);
+		
+		return mnv;
 	}
 	
 }

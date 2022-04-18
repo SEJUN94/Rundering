@@ -16,7 +16,6 @@
 		<div class="col-12 p-0">
 			<div class="card m-0">
 				<h3 class="m-3">지점 발주 내역</h3>
-
 				<div class="card-body table-responsive p-0 mt-0">
 					<table
 						class="table table-hover text-nowrap card-secondary card-outline">
@@ -34,7 +33,7 @@
 							</c:if>
 							<c:forEach items="${itemOrderList }" var="itemOrder">
 								<tr
-									onclick="window.open('<%=request.getContextPath()%>/admin/branchorder/detail?ordercode=${itemOrder.ordercode }', '발주 상세', 'width=700, height=900');"
+									onclick="window.open('<%=request.getContextPath()%>/admin/branchorder/detail?seq=${itemOrder.ordercode }', '발주 상세', 'width=700, height=900');"
 									style="cursor: pointer;">
 									<td>${itemOrder.ordercode }</td>
 									<td>${itemOrder.branchCode }</td>
@@ -46,20 +45,11 @@
 							</c:forEach>
 						</tbody>
 					</table>
-
-
 					<div class="card-footer">
 						<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 					</div>
-
 				</div>
-
 			</div>
 		</div>
-
-
-
 	</div>
-
-
 </body>

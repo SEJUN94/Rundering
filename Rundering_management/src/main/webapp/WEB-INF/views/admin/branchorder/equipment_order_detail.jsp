@@ -15,7 +15,7 @@
             <div class="col-12">
                 <h4>
                     <i class="fas fa-globe"></i> 지점명 <span class="badge bg-secondary">승인 대기</span>
-                    <small class="float-right">2022-03-29 / 발주번호: 183</small>
+                    <small class="float-right">2022-03-29 / 발주번호: ${itemOrderDetail.seq }</small>
                 </h4>
             </div>
 

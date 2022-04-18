@@ -15,6 +15,10 @@
 		<result column="BRANCH_CODE" property="branchCode"/>
 		<result column="REGIST_DATE" property="registDate"/>
 		<result column="RECEIPT_DATE" property="receipTDate"/>
+		<result column="ARTICLES_CODE" property="articlesCode" />
+		<result column="SEQ" property="seq"/>
+		<result column="ORDER_COUNT" property="orderCount" />
+		
 	</resultMap>
 	
 	<select id="selectSearchItemOrder" parameterType="itemOrder" resultMap="itemOrderMap">
@@ -28,7 +32,7 @@
 		  from TB_ITEM_ORDER
 	</select>
 	
-	<select id="selectItemOrderBySeq" resultMap="int">
+	<select id="selectItemOrderBySeq" resultType="int">
 		SELECT 
 		A.ORDERCODE
 		,B.ARTICLES_CODE
@@ -42,7 +46,7 @@
 		,A.RECEIPT_DATE
 		FROM TB_ITEM_ORDER A, TB_ITEM_ORDER_DETAIL B
 		WHERE A.ORDERCODE = B.ORDERCODE
-		AND A.ORDERCODE = #{orderCode}
+		AND B.ORDERCODE = #{orderCode}
 	</select>
 	
 	

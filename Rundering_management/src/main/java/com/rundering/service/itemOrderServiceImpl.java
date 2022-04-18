@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.ItemOrderDetailCommand;
 import com.rundering.dao.ItemOrderDAO;
 import com.rundering.dto.ItemOrderVO;
 import com.rundering.manage.Criteria;
@@ -22,7 +23,7 @@ public class itemOrderServiceImpl implements ItemOrderService{
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
 		// 현재 page 번호에 맞게 리스트를 가져오기
-		List<ItemOrderVO> itemOrderList = itemOrderDAO.selectSearchItemOrderList(cri);
+		List<ItemOrderDetailCommand> itemOrderList = itemOrderDAO.selectSearchItemOrderList(cri);
 
 		// 전체 board 개수
 		int totalCount = itemOrderDAO.selectSearchItemOrderListCount(cri);
@@ -36,6 +37,12 @@ public class itemOrderServiceImpl implements ItemOrderService{
 		dataMap.put("pageMaker", pageMaker);
 		
 		return dataMap;
+	}
+
+	@Override
+	public ItemOrderDetailCommand getItemOrderDetailList(int seq) throws SQLException {
+		ItemOrderDetailCommand itemOrderDetail = itemOrderDAO.selectItemOrderListBySEQ(seq);
+		return itemOrderDetail;
 	}
 	
 }

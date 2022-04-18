@@ -10,7 +10,7 @@
 		<result column="CLCODE" property="clcode"/>
 		<result column="REGIST_DATE" property="registDate"/>
 		<result column="MODIFY_DATE" property="modifyDate"/>
-		<result column="DELETE_YN" property="deleteKey"/>
+		<result column="DELETE_YN" property="deleteYn"/>
 		<result column="EACH" property="each"/>
 		<result column="NOTE" property="note"/>
 		<result column="ATCH_FILE_NO" property="atchFileNo"/>
