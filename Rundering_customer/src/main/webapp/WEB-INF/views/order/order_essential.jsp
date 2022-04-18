@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/customer/src/main/webapp/resources/bootstrap/plugins/sweetalert2/sweetalert2.min.css" />  
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/sweetalert2/sweetalert2.min.css" />  
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
+
 </head>
+
 
 <title>세탁 주문접수</title>
 
@@ -45,18 +49,47 @@
 						<label for="addr">주소지</label>
 						<div class="input-group" style="padding-top: 10px;">
 							<div class="input-group" style="padding-right: 0;">
-
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" id="zip" name="zip" placeholder="우편번호" value="${member.zip}">
-									<div class="input-group-append">
-										<button type="button" id="modalBtn" class="btn btn-primary" onclick="findZip();">주소검색</button>
+								<div class="icheck-primary pt-3 pb-3 pl-1" style="width: 100%;border-top: 1px solid rgba(0,0,0,.125);border-bottom: 1px solid rgba(0,0,0,.125);">
+									<input type="radio" value="${defaultMemberAddress.addressNo}" onchange="newAddr(this);" name="addressNo" id="${defaultMemberAddress.addressNo}" checked> <label for="${defaultMemberAddress.addressNo}" style="font-weight: 500;">${defaultMemberAddress.add1} ${defaultMemberAddress.add2}</label>
+								</div>
+																
+								<c:if test="${!empty memberAddressList }">
+									<c:forEach items="${memberAddressList }" var="memberAddress">
+										<c:if test="${memberAddress.defaultYn eq 'N' }">
+											<div class="icheck-primary pt-3 pb-3 pl-1" style="width: 100%;border-bottom: 1px solid rgba(0,0,0,.125);">
+												<input type="radio" value="${memberAddress.addressNo}" onchange="newAddr(this);" name="addressNo" id="${memberAddress.addressNo}"> <label for="${memberAddress.addressNo}" style="font-weight: 500;">${memberAddress.add1} ${memberAddress.add2}</label>
+											</div>
+										</c:if>
+									</c:forEach>
+								</c:if>
+								
+								<div class="icheck-primary pt-1 pb-3 pl-1" style="width: 100%;border-bottom: 1px solid rgba(0,0,0,.125);">
+										<input type="radio" value="0"  name="addressNo" id="newAddrInputBtn" onchange="newAddr(this);"> <label for="newAddrInputBtn" style="font-weight: 500;">새로운 주소지 등록</label>
+								</div>
+								<div class="newAddrInput pt-2" style="display: none;width: 100%;">
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" id="zip" name="zip" placeholder="우편번호" value="">
+										<div class="input-group-append">
+											<button type="button" id="modalBtn" class="btn btn-primary" onclick="findZip();">주소검색</button>
+										</div>
 									</div>
-								</div>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" id="add1" name="add1" placeholder="기본주소" value="${member.add1}">
-								</div>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" id="add2" name="add2" placeholder="상세주소" value="${member.add2}">
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" id="add1" name="add1" placeholder="기본주소" value="">
+									</div>
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" id="add2" name="add2" placeholder="상세주소" value="">
+									</div>
+									<div class="row">
+										<div class="col-8">
+											<div class="icheck-primary">
+												<input type="checkbox" id="remember"> <label
+													for="remember" style="font-weight: 500;"> 기본주소지로 등록
+												</label>
+											</div>
+										</div>
+
+
+									</div>
 								</div>
 							</div>
 						</div>
@@ -64,7 +97,7 @@
 			
 				<label for="phone" style="display: block;">연락처</label>
 				<p class="h4 mt-2 mb-3 showPhone" style="display: inline-block; width: 200px;">${phone}</p>
-				<button type="button" onclick="form_phone_show()" class="btn btn-outline-secondary phoneChenge" style="margin-top: 0.5rem;margin-bottom: 1rem; margin-left: 86px;">변경</button>
+				<button type="button" onclick="form_phone_show();" class="btn btn-outline-secondary phoneChenge" style="margin-top: 0.5rem;margin-bottom: 1rem; margin-left: 80px;">변경</button>
 				
 				<input type="hidden" id="contactNumber" name="contactNumber" value="${loginUser.phone}" >
 				
@@ -73,7 +106,7 @@
 							<div class="input-group" style="padding-right: 0;">
 								<input type="tel" class="form-control" id="tel" placeholder="휴대폰번호 숫자만 입력하세요.">
 								<div class="input-group-append">
-									<button type="button" onclick="tel_verification()" class="btn btn-primary">인증</button>
+									<button type="button" onclick="tel_verification();" class="btn btn-primary">인증</button>
 								</div>
 							</div>
 						</div>
@@ -150,6 +183,15 @@
 				document.getElementById("add2").focus();
 			}
 		}).open();
+	}
+	
+	function newAddr(radioBtn) {
+		const newAddrInput = document.querySelector('.newAddrInput');	
+		if(radioBtn.value == 0){
+			newAddrInput.style.display = 'block';
+		}else{
+			newAddrInput.style.display = 'none';
+		}
 	}
 </script>
 

@@ -1,9 +1,15 @@
 package com.rundering.dto;
 
 public class LaundryGoodsStockVO {
-	private String branchCode; //지점코드
-	private String articlesCode; //세탁물품코드
-	private int supplyCount;  //용품개수
+	private String branchCode; 		//지점코드
+	private String articlesCode; 	//세탁물품코드
+	private int supplyCount;  		//용품개수
+	
+	
+	public LaundryGoodsStockVO() {
+		super();
+	}
+	
 	
 	public String getBranchCode() {
 		return branchCode;

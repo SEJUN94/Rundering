@@ -12,15 +12,36 @@ import com.rundering.dto.LaundryOrderVO;
 public class LaundryOrderReceiveCommand {
 	
 	//세탁주문테이블 컬럼
+	private String addressNo;           //주소번호
+	private String zip="";                 //우편번호
+	private String add1="";                //주소
+	private String add2="";                //상세주소
 	private String contactNumber;       //배송연락처
 	private String pickupRequestDate;   //수거요청일
-	private String addressNo;           //주소번호
 	private String requestDetails;      //요청사항
 	
 	//세탁주문상세테이블 컬럼
 	private String[] laundryItemsCode;  //세탁품목코드
 	
 	
+	public String getZip() {
+		return zip;
+	}
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+	public String getAdd1() {
+		return add1;
+	}
+	public void setAdd1(String add1) {
+		this.add1 = add1;
+	}
+	public String getAdd2() {
+		return add2;
+	}
+	public void setAdd2(String add2) {
+		this.add2 = add2;
+	}
 	public String getContactNumber() {
 		return contactNumber;
 	}

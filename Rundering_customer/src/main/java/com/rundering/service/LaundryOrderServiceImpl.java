@@ -43,14 +43,14 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		laundryOrder.setDeliveryRequestDate(deliveryRequestDate);
 		
 		//주문상태 설정 - 공통코드 수거대기상태 -> 01
-		laundryOrder.setOrderStatus("01");
+		laundryOrder.setOdrerStatus("01");
 		
 		//세탁주문테이블 insert
 		laundryOrderDAO.insertLaundryOrder(laundryOrder);
 		//세탁주문상세테이블 insert
 		for (int i = 0; i < laundryOrderDetailVOList.size(); i++) {
 			LaundryOrderDetailVO laundryOrderDetail = laundryOrderDetailVOList.get(i);
-			laundryOrderDetail.setOrderno(orderNo);
+			laundryOrderDetail.setOrderNo(orderNo);
 			laundryOrderDetail.setDetailOrderno(String.format("%04d", i+1));
 			//가격 조회 후 설정
 			LaundryItemsVO laundryItems = laundryItemsDAO.selectLaundryItemsBylaundryItemsCode(laundryOrderDetail.getLaundryItemsCode());

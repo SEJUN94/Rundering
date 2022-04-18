@@ -40,7 +40,7 @@ public class LaundryItemsServiceImpl implements LaundryItemsService{
 	public Map<String, Object> getlaundryItemsList() throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
-		List<LaundryItemsVO> laundryItemsList = laundryItemsDAO.getlaundryItemsList();
+		List<LaundryItemsVO> laundryItemsList = laundryItemsDAO.selectlaundryItemsList();
 		
 		dataMap.put("laundryItemsList", laundryItemsList);
 		

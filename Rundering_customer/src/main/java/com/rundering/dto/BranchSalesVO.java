@@ -2,10 +2,16 @@ package com.rundering.dto;
 
 import java.util.Date;
 
-public class BranchSalesVO {
-	private String branchCode; //지점코드
-	private Date date; //날짜
-	private int salesAmount; //매출액
+public class BranchSalesVO {	
+	private String branchCode;	 //지점코드
+	private Date date;			 //날짜
+	private int salesAmount; 	//매출액
+	
+	
+	public BranchSalesVO() {
+		super();
+	}
+	
 	
 	public String getBranchCode() {
 		return branchCode;

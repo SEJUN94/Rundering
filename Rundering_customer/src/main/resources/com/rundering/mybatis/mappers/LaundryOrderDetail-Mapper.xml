@@ -13,7 +13,7 @@
 					LAUNDRY_ITEMS_CODE,
 					QUANTITY)
 					VALUES (
-					#{detailOrderno},#{orderno},#{price},#{laundryItemsCode},#{quantity}
+					#{detailOrderno},#{orderNo},#{price},#{laundryItemsCode},#{quantity}
 					)
 	</update>
 

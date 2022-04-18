@@ -11,7 +11,7 @@
 		<result column="REGIST_DATE" property="registDate" />
 		<result column="MODIFY_DATE" property="modifyDate" />
 		<result column="DEFAULT_YN" property="defaultYn" />
-		<result column="MEMBERNO" property="memberno" />
+		<result column="MEMBERNO" property="memberNo" />
 		<result column="AREA" property="area" />
 		<result column="TOPAREA" property="toparea" />
 	</resultMap>
@@ -45,10 +45,18 @@
 		<include refid="add2" />
 		<include refid="area" />
 		)
-		VALUES(WEEKSMALLNO_SEQ.NEXTVAL,#{add1},#{zip},#{memberno},#{toparea}
+		VALUES(WEEKSMALLNO_SEQ.NEXTVAL,#{add1},#{zip},#{memberNo},#{toparea}
 		<include refid="add2_va" />
 		<include refid="area_va" />
 		)
 	</update>
+	
+	<select id="selectDefaultMemberAddressByMemberNo" resultMap="memberAddressMap" parameterType="str">
+		select * from TB_MEMBER_ADDRESS WHERE MEMBERNO = #{memberNo} AND DEFAULT_YN = 'Y'
+	</select>
+	
+	<select id="selectMemberAddressListByMemberNo" resultMap="memberAddressMap" parameterType="str">
+		select * from TB_MEMBER_ADDRESS WHERE MEMBERNO = #{memberNo}
+	</select>
 
 </mapper>

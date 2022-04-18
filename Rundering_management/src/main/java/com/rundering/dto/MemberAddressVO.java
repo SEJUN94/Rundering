@@ -3,17 +3,23 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class MemberAddressVO {
-	private int addressNo; //주소번호
-	private String add1;  //주소
-	private String add2;  //상세주소
-	private String zip; //우편번호
-	private Date registDate;  //등록일
-	private Date modifyDate;  //수정일
-	private String defaultYn; //기본주소지여부
-	private String memberno; //회원고유번호
-	private String area;	 //지역분류코드
-	private String toparea;  //상위지역분류
+	private int addressNo; 		//주소번호
+	private String add1;  		//주소
+	private String add2;  		//상세주소
+	private String zip; 		//우편번호
+	private Date registDate;  	//등록일
+	private Date modifyDate;  	//수정일
+	private String defaultYn; 	//기본주소지여부
+	private String memberNo; 	//회원고유번호
+	private String area;	 	//지역분류코드
+	private String toparea;  	//상위지역분류
 	
+	
+	public MemberAddressVO() {
+		super();
+	}
+
+
 	public int getAddressNo() {
 		return addressNo;
 	}
@@ -56,11 +62,11 @@ public class MemberAddressVO {
 	public void setDefaultYn(String defaultYn) {
 		this.defaultYn = defaultYn;
 	}
-	public String getMemberno() {
-		return memberno;
+	public String getMemberNo() {
+		return memberNo;
 	}
-	public void setMemberno(String memberno) {
-		this.memberno = memberno;
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 	public String getArea() {
 		return area;
@@ -74,7 +80,5 @@ public class MemberAddressVO {
 	public void setToparea(String toparea) {
 		this.toparea = toparea;
 	}
-
-
 	
 }
