@@ -32,6 +32,18 @@ function MemberPictureThumb(contextPath){
 	}
 }
 
+function OrderGoodsPictureThumb(contextPath){
+	 for(var target of document.querySelectorAll('.goodsPicture')){	
+		 var articlesCode = target.getAttribute('data-id');
+		 target.style.backgroundImage="url('"+contextPath+"/admin/ordergoods/getPicture?articlesCode="+articlesCode+"')";
+		 target.style.backgroundPosition="center";
+		 target.style.backgroundRepeat="no-repeat";
+		 target.style.backgroundSize="cover";
+	}
+}
+
+
+
 //summernote
 var contextPath = "";
 
@@ -41,7 +53,7 @@ function summernote_go(target,context){
 	target.summernote({
 		placeholder:'여기에 내용을 적으세요.',
 		lang:'ko-KR',
-		height:250,
+		height:500, 
 		disableResizeEditor: true,
 		callbacks:{
 			onImageUpload : function(files, editor, welEditable) {

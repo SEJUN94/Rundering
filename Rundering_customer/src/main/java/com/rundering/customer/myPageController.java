@@ -30,6 +30,7 @@ public class myPageController {
 	@RequestMapping("/pwCheck")
 	public ResponseEntity<String> pwCheck(String password,HttpSession session) throws Exception {
 		ResponseEntity<String> entity = null;
+
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 		
 		
@@ -43,6 +44,7 @@ public class myPageController {
 		} catch (SQLException e) {
 			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+
 
 		return entity;
 	}

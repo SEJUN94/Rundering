@@ -21,6 +21,7 @@
 	<decorator name="openWindow" page="open_decorator.jsp">
 		<pattern>/admin/**/*</pattern>
 		<pattern>/branch/**/*</pattern>
+		<pattern>/common/** </pattern>
 		<!-- <pattern>/main.do</pattern> -->
 	</decorator>
 	

@@ -9,11 +9,14 @@
 		<typeAlias type="java.lang.String" alias="str" />
 		<typeAlias type="java.lang.Integer" alias="int" />
 		
+		<typeAlias type="com.rundering.dto.MemberVO" alias="member" />
+		<typeAlias type="com.rundering.dto.AttachVO" alias="attach" />
 		<typeAlias type="com.rundering.dto.MenuVO" alias="menu" />
 		<typeAlias type="com.rundering.dto.LaundryItemsVO" alias="laundryItems" />
 		<typeAlias type="com.rundering.dto.EmployeesVO" alias="employees" />
-		<typeAlias type="com.rundering.dto.AnonymousBoardVO" alias="anonymousBoard" />
+		<typeAlias type="com.rundering.dto.SuggestBoardVO" alias="SuggestBoard" />
 		<typeAlias type="com.rundering.dto.LaundryArticlesVO" alias="orderGoods" />
+		<typeAlias type="com.rundering.dto.NoticeVO" alias="notice" />
 	</typeAliases>
 	
 	

@@ -4,21 +4,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Anonymous-mapper">
+<mapper namespace="Suggest-mapper">
 
 	<!-- 언더바컬럼재정의 -->
-	<resultMap type="anonymousBoard" id="anonymousBoardMap">
+	<resultMap type="SuggestBoard" id="SuggestBoardMap">
 	
-		<result column="ANO" property="ano" />
-		<result column="PASSWORD" property="password" />
+		<result column="SNO" property="sno" />
 		<result column="TITLE" property="title" />
 		<result column="CONTENT" property="content" />
 		<result column="REGIST_DATE" property="registDate" />
 		<result column="MODIFY_DATE" property="modifyDate" />
-		<result column="DELETE_KEY" property="deleteKey" />
-		<result column="VIEWCNT" property="viewcnt" />
+		<result column="DELETE_YN" property="deleteYn" />
+		<result column="VIEWCNT" property="viewCnt" />
 		<result column="WRITER" property="writer" />
 		<result column="BRANCH_NAME" property="branchName" />
+		<result column="CHECKYN" property="checkYn" />
+		
 	
 	</resultMap>
 	
@@ -49,20 +50,20 @@
 	</sql>
 	
 	<!-- 리스트보기 -->
-	<select id="selectSearchAnonymousList" resultMap="anonymousBoardMap" >
+	<select id="selectSearchAnonymousList" resultMap="SuggestBoardMap" >
 		select
-		    b.ano,
+		    b.sno,
 		    b.title,
 		    b.content,
 		    c.name as writer,
 		    d.branch_name,
 		    b.regist_date,
 		    b.viewcnt
-		from tb_employees a, tb_anonymous_board b, tb_member c, tb_branch d
+		from tb_employees a, TB_SUGGEST_BOARD b, tb_member c, tb_branch d
 		where a.employee_id = b.writer
 		  and a.memberno = c.memberno
 		  and b.branch_name = d.branch_code
-		  and b.delete_key='1'
+		  and b.delete_yn='N'
 		  <include refid="search" />
 		order by b.ano desc
 	</select>
@@ -70,15 +71,15 @@
 	<select id="selectSearchAnonymousListCount" resultType="int">
 		select
 		count(*) 
-		from tb_anonymous_board b
+		from TB_SUGGEST_BOARD b
 		where b.ano is not null
 		<!-- <include refid="search" /> -->
 		order by b.regist_date desc
 	</select>
 	
-	<select id="selectAnonymousByAno" parameterType="int" resultMap="anonymousBoardMap" >
-		select b.ano, b.title, b.content, b.regist_date, c.name as writer, d.branch_name
-	    from tb_employees a, tb_anonymous_board b, tb_member c, tb_branch d
+	<select id="selectAnonymousByAno" parameterType="int" resultMap="SuggestBoardMap" >
+		select b.sno, b.title, b.content, b.regist_date, c.name as writer, d.branch_name
+	    from tb_employees a, TB_SUGGEST_BOARD b, tb_member c, tb_branch d
 	    where ano=#{ano}
 	    	and a.employee_id = b.writer
 	    	and a.memberno=c.memberno
@@ -88,9 +89,9 @@
 	
 	<!-- 조회수 -->
 	<update id="increaseViewCount" parameterType="int">
-		update tb_anonymous_board
+		update TB_SUGGEST_BOARD
 			set viewcnt=viewcnt+1
-			where ano=#{ano}
+			where sno=#{sno}
 	</update>
 	
 	<select id="selectAnonymousSequenceNextValue" resultType="int">
@@ -99,9 +100,9 @@
 	</select>
 	
 	<!-- 삽입 -->
-	<select id="insertAnonymous" resultType="anonymousBoard">
-		insert into tb_anonymous_board(
-			ano,
+	<select id="insertAnonymous" resultType="SuggestBoard">
+		insert into TB_SUGGEST_BOARD(
+			sno,
 			title,
 			writer,
 			branch_name,
@@ -114,18 +115,18 @@
 	</select>
 	
 	<!-- 수정 -->
-	<update id="updateAnonymous" parameterType="anonymousBoard">
-		update tb_anonymous_board
+	<update id="updateAnonymous" parameterType="SuggestBoard">
+		update TB_SUGGEST_BOARD
 		set 
 		title=#{title},content=#{content}
-		where ano=#{ano}
+		where sno=#{sno}
 	</update>
 	
 	<!-- 삭제 -->
 	<update id="deleteAnonymous" parameterType="int" >
 		delete 
-		from TB_ANONYMOUS_BOARD 
-		where ano=#{ano}		
+		from TB_SUGGEST_BOARD
+		where SNO=#{sno}		
 	</update>	
 
 

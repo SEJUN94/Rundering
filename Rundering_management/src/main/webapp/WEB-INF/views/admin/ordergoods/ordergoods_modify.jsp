@@ -16,16 +16,16 @@
 			<div class="card">
 				<div class="card-body">
 					<form role="modifyForm" class="form-horizontal" action="modify"
-						method="post" name="modifyForm">
+						method="post" name="modifyForm" enctype="multipart/form-data">
 						<div class="row">
-							<input type="hidden" name="oldPicture" value="" /> <input
-								type="file" id="inputFile" onchange="changePicture_go();"
-								name="picture" style="display: none" />
+							<input type="hidden" name="oldPicture" value="" /> 
+							<input type="file" id="inputFile" onchange="changePicture_go();"
+								name="pictureFile" style="display: none" />
 							<div class="input-group col-md-12">
 								<div class="col-md-12" style="text-align: center;">
-									<div class="manPicture" data-id="${orderGoods.articlesCode }"
+									<div class="goodsPicture" data-id="${orderGoods.articlesCode }"
 										id="pictureView"
-										style="border: 1px solid green; height: 200px; width: 140px; margin: 0 auto; margin-bottom: 5px;"></div>
+										style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto; margin-bottom: 5px;"></div>
 									<div class="input-group input-group-sm">
 										<label for="inputFile"
 											class=" btn btn-warning btn-sm btn-flat input-group-addon">사진변경</label>
@@ -142,11 +142,22 @@
 		<input type="hidden" name="articlesCode"
 			value="${orderGoods.articlesCode }" />
 	</form>
-
+	
+	<script>
+		//window.addEventListener('load', OrderGoodsPictureThumb)
+		window.onload=function OrderGoodsPictureThumb(){
+			 for(var target of document.querySelectorAll('.goodsPicture')){	
+				 var articlesCode = target.getAttribute('data-id');
+				 target.style.backgroundImage="url('<%=request.getContextPath() %>/admin/ordergoods/getPicture?articlesCode="+articlesCode+"')";
+				 target.style.backgroundPosition="center";
+				 target.style.backgroundRepeat="no-repeat";
+				 target.style.backgroundSize="cover";
+			}
+		}
+	</script>
+	
 	<script>
   	function changePicture_go(){
-  		//alert("file change");
-  		
   		var picture = $('input#inputFile')[0];
   		
   		var fileFormat = picture.value.substr(picture.value.lastIndexOf(".")+1).toUpperCase();
@@ -176,15 +187,12 @@
 						  'background-repeat':'no-repeat'
 		        		});
 		        }
-		        
 		       reader.readAsDataURL(picture.files[0]);
 		}
-		
 		// 이미지 변경 확인
 		$('input[name="uploadPicture"]').val(picture.files[0].name);
   	}
 	</script>
-
 	<script>
 		function modifyPOST_go() {
 			var form = document.modifyForm;

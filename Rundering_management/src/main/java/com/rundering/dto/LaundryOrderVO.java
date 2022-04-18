@@ -17,13 +17,21 @@ public class LaundryOrderVO {
 	private Date deliveryDate;          //배송완료일자
 	private String odrerStatus;         //주문상태코드
 	private String cancelYn;            //취소여부
-	private int addressNo;              //주소번호
 	private int paymentno;              //결제번호
 	private String branchCode;          //지점코드
-	private String memberno;            //회원고유번호
+	private String memberNo;            //회원고유번호
 	private String deliveryEmployeeId;  //배송담당기사
 	private String pickupEmployeeId;    //수거담당기사
+	private String zip;					//우편번호
+	private String add1;				//주소
+	private String add2;				//상세주소
 	
+	
+	public LaundryOrderVO() {
+		super();
+	}
+
+
 	public String getOrderNo() {
 		return orderNo;
 	}
@@ -102,12 +110,6 @@ public class LaundryOrderVO {
 	public void setCancelYn(String cancelYn) {
 		this.cancelYn = cancelYn;
 	}
-	public int getAddressNo() {
-		return addressNo;
-	}
-	public void setAddressNo(int addressNo) {
-		this.addressNo = addressNo;
-	}
 	public int getPaymentno() {
 		return paymentno;
 	}
@@ -120,11 +122,11 @@ public class LaundryOrderVO {
 	public void setBranchCode(String branchCode) {
 		this.branchCode = branchCode;
 	}
-	public String getMemberno() {
-		return memberno;
+	public String getMemberNo() {
+		return memberNo;
 	}
-	public void setMemberno(String memberno) {
-		this.memberno = memberno;
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 	public String getDeliveryEmployeeId() {
 		return deliveryEmployeeId;
@@ -138,7 +140,23 @@ public class LaundryOrderVO {
 	public void setPickupEmployeeId(String pickupEmployeeId) {
 		this.pickupEmployeeId = pickupEmployeeId;
 	}
-	
-	
+	public String getZip() {
+		return zip;
+	}
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+	public String getAdd1() {
+		return add1;
+	}
+	public void setAdd1(String add1) {
+		this.add1 = add1;
+	}
+	public String getAdd2() {
+		return add2;
+	}
+	public void setAdd2(String add2) {
+		this.add2 = add2;
+	}
 	
 }

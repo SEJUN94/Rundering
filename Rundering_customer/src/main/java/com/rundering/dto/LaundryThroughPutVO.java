@@ -3,14 +3,20 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class LaundryThroughPutVO {
-	private String throughputNo;   //처리번호
-	private int laundryQuota;      //할당세탁량
-	private int totalThroughput;   //총세탁처리량
-	private int overshoot;         //초과량
-	private String areaclcode;     //지역분류코드
-	private Date date;             //날짜
-	private String branchCode;     //지점코드
-	                              
+	private String throughputNo;   	//처리번호
+	private int laundryQuota;      	//할당세탁량
+	private int totalThroughput;   	//총세탁처리량
+	private int overshoot;         	//초과량
+	private String area;			//지역분류코드
+	private Date date;             	//날짜
+	private String branchCode;     	//지점코드
+	
+	
+	public LaundryThroughPutVO() {
+		super();
+	}
+
+
 	public String getThroughputNo() {
 		return throughputNo;
 	}
@@ -35,11 +41,11 @@ public class LaundryThroughPutVO {
 	public void setOvershoot(int overshoot) {
 		this.overshoot = overshoot;
 	}
-	public String getAreaclcode() {
-		return areaclcode;
+	public String getArea() {
+		return area;
 	}
-	public void setAreaclcode(String areaclcode) {
-		this.areaclcode = areaclcode;
+	public void setArea(String area) {
+		this.area = area;
 	}
 	public Date getDate() {
 		return date;
@@ -53,7 +59,5 @@ public class LaundryThroughPutVO {
 	public void setBranchCode(String branchCode) {
 		this.branchCode = branchCode;
 	}
-	
-	
 	
 }

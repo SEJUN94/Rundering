@@ -28,10 +28,11 @@ public class BranchCommonController {
 		for (String keyValue : dataMap.keySet()) {
 			key.add(keyValue);
 		}
+		MenuVO menu = menuService.MenuByMenuCode(menuCode);
 		
 		model.addAttribute("key", key);
 		model.addAttribute("dataMap", dataMap);
-		
+		model.addAttribute("menu", menu);
 		return url;
 	}
 }

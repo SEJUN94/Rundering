@@ -8,9 +8,15 @@ public class ReplyVO {
 	private String memberno;       //작성자
 	private Date registDate;       //등록일
 	private Date modifyDate;       //수정일
-	private int noticeno;          //공지사항글번호
-	private String orderno;        //주문번호
+	private int replynoSeq;  	   //댓글순번
 	private String atchFileNo;     //통합첨부파일번호
+	private String deleteYn;	   //삭제여부
+	
+	
+	public ReplyVO() {
+		super();
+	}
+
 
 	public int getReplyno() {
 		return replyno;
@@ -42,23 +48,23 @@ public class ReplyVO {
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-	public int getNoticeno() {
-		return noticeno;
+	public int getReplynoSeq() {
+		return replynoSeq;
 	}
-	public void setNoticeno(int noticeno) {
-		this.noticeno = noticeno;
-	}
-	public String getOrderno() {
-		return orderno;
-	}
-	public void setOrderno(String orderno) {
-		this.orderno = orderno;
+	public void setReplynoSeq(int replynoSeq) {
+		this.replynoSeq = replynoSeq;
 	}
 	public String getAtchFileNo() {
 		return atchFileNo;
 	}
 	public void setAtchFileNo(String atchFileNo) {
 		this.atchFileNo = atchFileNo;
+	}
+	public String getDeleteYn() {
+		return deleteYn;
+	}
+	public void setDeleteYn(String deleteYn) {
+		this.deleteYn = deleteYn;
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.rundering.customer;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,9 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.rundering.command.LaundryOrderReceiveCommand;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.service.LaundryItemsService;
 import com.rundering.service.LaundryOrderService;
+import com.rundering.service.MemberAddressService;
 import com.rundering.util.FormatUtil;
 
 @Controller
@@ -28,18 +31,22 @@ public class LaundryOrderController {
 	private LaundryOrderService laundryOrderService;
 	@Resource(name = "laundryItemsService")
 	private LaundryItemsService laundryItemsService;
+	@Resource(name="memberAddressService")
+	private MemberAddressService memberAddressService;
+	
 	
 	@RequestMapping("")
-	public ModelAndView checkInformation(HttpServletRequest request, ModelAndView mnv) {
+	public ModelAndView checkInformation(HttpServletRequest request, ModelAndView mnv) throws Exception {
 		String url="/order/order_essential";
 		
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
 		String hyphenationPhoneNum = FormatUtil.hyphenationPhoneNum(loginUser.getPhone());
-		
-		//주소 정보 넣어야 함
-		
 		mnv.addObject("phone",hyphenationPhoneNum);
+		
+		MemberAddressVO defaultMemberAddress = memberAddressService.getDefaultMemberAddress(loginUser.getMemberNo());
+		mnv.addObject("defaultMemberAddress",defaultMemberAddress);
+		
 		mnv.setViewName(url);
 		
 		return mnv;

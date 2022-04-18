@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <body>
     <div class="col-md-12">
@@ -10,11 +11,11 @@
             </div>
             <div class="card-body p-0">
                 <div class="mailbox-read-info">
-                    <h5>Message Subject Is Placed Here</h5>
+                    <h5>${ notice.title}</h5>
                     
                 </div>
                 <div class="mailbox-read-message">
-                    <p>Hello John,</p>
+                    <p>${ notice.content}</p>
 
 
                 </div>
@@ -39,13 +40,9 @@
             <div class="card-footer">
                 <div class="float-right">
                     <button type="button" class="btn btn-primary">뒤로가기</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">
-                        댓글작성
-                        </button>
-                    <button type="button" class="btn btn-danger">삭제</button>
-                    <a
-				href="<%=request.getContextPath()%>/admin/notice/noticemodify.do">
-                    <button type="button" class="btn btn-warning">수정</button></a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">댓글작성 </button>
+                    <button type="button" class="btn btn-danger" onclick="remove_go('${notice.noticeno}');">삭제</button>
+                    <button type="button" class="btn btn-warning" onclick="modify_go('${notice.noticeno}');">수정</button>
                 </div>
             </div>
         </div>
@@ -73,10 +70,23 @@
     </div>
 
 
-
-
-
-
+ <script>
+	 function modify_go(noticeno){
+		 location.href="modifyForm?noticeno="+noticeno;
+	 }
+	 
+	 function remove_go(noticeno){
+		 location.href="remove?noticeno="+noticeno;
+	 }	
    
-
+   <c:if test="${from eq 'modify' }">
+   		alert("수정되었습니다.");
+   </c:if>
+   <c:if test="${from eq 'remove'}">
+   		alert("삭제되었습니다.");
+		window.close();
+		window.opener.location.reload();
+   </c:if>
+   </script>
+   
 </body>

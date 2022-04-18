@@ -7,7 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.manage.Criteria;
-import com.rundering.dto.AnonymousBoardVO;
+import com.rundering.dto.SuggestBoardVO;
 
 public class AnonymousDAOImpl implements AnonymousDAO {
 	private SqlSession session;
@@ -17,13 +17,13 @@ public class AnonymousDAOImpl implements AnonymousDAO {
 	}
 
 	@Override
-	public List<AnonymousBoardVO> selectSearchAnonymousList(Criteria cri) throws SQLException {
+	public List<SuggestBoardVO> selectSearchAnonymousList(Criteria cri) throws SQLException {
 		
 		int offset = cri.getStartRowNum();
 		int limit = cri.getPerPageNum();
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		List<AnonymousBoardVO> anonymousList = session.selectList("Anonymous-mapper.selectSearchAnonymousList", cri, rowBounds);
+		List<SuggestBoardVO> anonymousList = session.selectList("Anonymous-mapper.selectSearchAnonymousList", cri, rowBounds);
 		return  anonymousList;
 	}
 
@@ -33,7 +33,7 @@ public class AnonymousDAOImpl implements AnonymousDAO {
 	}
 
 	@Override
-	public AnonymousBoardVO selectAnonymousByAno(int ano) throws SQLException {
+	public SuggestBoardVO selectAnonymousByAno(int ano) throws SQLException {
 		return session.selectOne("Anonymous-mapper.selectAnonymousByAno", ano);
 	}
 
@@ -48,12 +48,12 @@ public class AnonymousDAOImpl implements AnonymousDAO {
 	}
 
 	@Override
-	public void insertAnonymous(AnonymousBoardVO AnonymousBoard) throws SQLException {
+	public void insertAnonymous(SuggestBoardVO AnonymousBoard) throws SQLException {
 		session.update("Anonymous-mapper.insertAnonymous",AnonymousBoard);
 	}
 
 	@Override
-	public void updateAnonymous(AnonymousBoardVO AnonymousBoard) throws SQLException {
+	public void updateAnonymous(SuggestBoardVO AnonymousBoard) throws SQLException {
 		session.update("Anonymous-mapper.updateAnonymous",AnonymousBoard);
 	}
 

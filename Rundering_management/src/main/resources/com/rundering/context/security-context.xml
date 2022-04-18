@@ -8,11 +8,12 @@
 	
 	<beans:bean id="customAuthenticationProvider" 
 	            class="com.rundering.security.CustomAuthenticationProvider"
-	            p:testService-ref="testService"
+	            p:employeesService-ref="employeesService"
+	           	p:memberService-ref="memberService"
 	            />
 	<beans:bean id="loginSuccessHandler"
 			 	class="com.rundering.security.LoginSuccessHandler"
-			 	p:defaultTargetUrl="/home"
+			 	p:defaultTargetUrl="/branch/index"
 			 	/>
 	<beans:bean id="loginFailureHandler"
 	            class="com.rundering.security.LoginFailureHandler"
@@ -37,19 +38,19 @@
 		<form-login login-page="/common/loginForm.do?error=1"
 					login-processing-url="/common/login"
 					username-parameter="id"
-					password-parameter="pwd"
+					password-parameter="password"
 					authentication-success-handler-ref="loginSuccessHandler"
 					authentication-failure-handler-ref="loginFailureHandler"
 					/>
 		<logout logout-url="/common/logout.do"	
-				logout-success-url="/"
+				logout-success-url="/common/loginForm"
 				invalidate-session="true"
 				delete-cookies="JSESSIONID"
 				/>	
 				
-		<session-management invalid-session-url="/common/loginTimeOut">
+		<session-management invalid-session-url="/common/loginForm">
         	<concurrency-control
-           		expired-url="/common/loginExpired"
+           		expired-url="/common/loginForm"
             	max-sessions="2"
             	session-registry-ref="sessionRegistry"/>
       	</session-management>

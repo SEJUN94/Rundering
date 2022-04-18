@@ -16,23 +16,11 @@
 			<!-- form start -->
 			<div class="card">
 				<div class="card-body">
-					<div class="row">
-						<input type="hidden" name="oldPicture" value=""> <input
-							type="file" id="inputFile" onchange="changePicture_go();"
-							name="picture" style="display: none">
-						<div class="input-group col-md-12">
-							<div class="col-md-12" style="text-align: center;">
-								<div class="manPicture" data-id="C1001" id="pictureView"
-									style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto; margin-bottom: 5px;"></div>
-								<div class="input-group input-group-sm">
-									<label for="inputFile"
-										class=" btn btn-warning btn-sm btn-flat input-group-addon">사진변경</label>
-									<input id="inputFileName" class="form-control" type="text"
-										name="tempPicture" disabled="" value=""> <input
-										id="picture" class="form-control" type="hidden"
-										name="uploadPicture">
-								</div>
-							</div>
+					<div class="row" style="height: 140px;">
+						<div class="mailbox-attachments clearfix col-md-12"
+							style="text-align: center;">
+							<div class="goodsPicture" id="pictureView" data-id="${orderGoods.articlesCode }"
+								style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto;"></div>
 						</div>
 					</div>
 					<form role="form" class="form-horizontal" action="regist"
@@ -130,21 +118,8 @@
 					</div>
 				</div>
 			</div>
-
-			<form role="imageForm" action="upload/picture" method="post"
-				enctype="multipart/form-data">
-				<input id="inputFile" name="pictureFile" type="file"
-					class="form-control" onchange="picture_go();"
-					style="display: none;"> <input id="oldFile" type="hidden"
-					name="oldPicture" value="" /> <input type="hidden"
-					name="checkUpload" value="0" />
-			</form>
 		</div>
 	</section>
-	<form role="form">
-		<input type="hidden" name="articlesCode"
-			value="${orderGoods.articlesCode }" />
-	</form>
 	<script>
 		function modify_go() {
 			var formObj = $("form[role='form']");
@@ -180,25 +155,15 @@
 	</script>
 
 	<script>
-	window.onload=function(){
-		MemberPictureThumb('<%=request.getContextPath()%>');
-		//alert(window.opener.location.href);
-		if(window.opener.location.href.indexOf('admin/ordergoods/list')>-1){
-			//alert("member/list 확인");
-			$('div#isMemberList').html();	
-		}		
-		
-		<c:if test="${param.from eq 'modify'}" >
-			alert("${member.name}님의 정보가 수정되었습니다.");	
-			location.href='detail.do?id=${member.id}';
-			
-			if(${parentReload}){			
-				if(confirm('로그인 사용자의 정보가 수정되었습니다.\n현재 화면을 닫고 새로고침 하시겠습니까?')){
-					window.close();
-					window.opener.parent.location.reload(true);
-				}	
+		//window.addEventListener('load', OrderGoodsPictureThumb)
+		window.onload=function OrderGoodsPictureThumb(){
+			 for(var target of document.querySelectorAll('.goodsPicture')){	
+				 var articlesCode = target.getAttribute('data-id');
+				 target.style.backgroundImage="url('<%=request.getContextPath() %>/admin/ordergoods/getPicture?articlesCode="+articlesCode+"')";
+				 target.style.backgroundPosition="center";
+				 target.style.backgroundRepeat="no-repeat";
+				 target.style.backgroundSize="cover";
 			}
-		</c:if>
-	}
-</script>
+		}
+	</script>
 </body>

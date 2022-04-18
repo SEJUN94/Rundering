@@ -5,7 +5,7 @@ import com.rundering.dto.MemberVO;
 
 public class MemberAddCommand {
 	
-	private String memberno; 	//회원고유번호
+	private String memberNo; 	//회원고유번호
 	private String id;			//아이디
 	private String password;	//패스워드
 	private String name;		//이름
@@ -16,12 +16,12 @@ public class MemberAddCommand {
 	private String add2; 	 	//상세주소
 	
 	
-	public String getMemberno() {
-		return memberno;
+	public String getMemberNo() {
+		return memberNo;
 	}
 
-	public void setMemberno(String memberno) {
-		this.memberno = memberno;
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 
 	public String getId() {
@@ -101,7 +101,7 @@ public class MemberAddCommand {
 	
 	public MemberAddressVO toAddr() {
 		MemberAddressVO memberAdd = new MemberAddressVO();
-		memberAdd.setMemberno(this.memberno);
+		memberAdd.setMemberNo(this.memberNo);
 		memberAdd.setZip(this.zip);
 		memberAdd.setAdd1(this.add1);
 		memberAdd.setAdd2(this.add2);
