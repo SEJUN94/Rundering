@@ -23,6 +23,11 @@
 		<result column="ARTICLES_CODE"	  property="articlesCode" />
 		<result column="ORDERCODE" 	      property="ordercode" />
 	</resultMap>
+	<select id="seq" resultType="str">
+		select item_order_seq.nextval
+		  from dual
+	</select>
+	
 	
 	<insert id="insertItemOrderByItmeOrder" parameterType="itemOrder">
 		insert into tb_item_order
@@ -33,27 +38,36 @@
 		) 
 		VALUES 
 		(
-		item_order_seq.nextval,
+		#{ordercode},
 		#{itemOrderPaymentPrice},
 		#{branchCode}
 		)
 	</insert>
 	
-	<insert id="insertItemOrderDetailByItemOrderDetail" parameterType="itemOrderDetail">
-		insert into tb_item_order
+	<insert id="insertItemOrderDetailByDetail" parameterType="itemOrderDetail">
+		insert into tb_item_order_detail
 		(
 		ORDERCODE,
-		ITEM_ORDER_PAYMENT_PRICE, 
-		BRANCH_CODE
+		ARTICLES_CODE, 
+		SEQ,
+		ORDER_COUNT
 		) 
 		VALUES 
 		(
-		item_order_seq.nextval,
-		#{itemOrderPaymentPrice},
-		#{branch_code}
+		${ordercode},
+		#{articlesCode},
+		#{seq},
+		#{orderCount}
 		)
-	
 	</insert>
+	
+	<delete id="itemOrderRemove" parameterType="str">
+		DELETE from tb_item_order where ordercode = #{seq}
+	</delete>
+	
+	<delete id="itemOrderDetailRemove" parameterType="str">
+		DELETE from tb_item_order_detail where ordercode = #{seq}
+	</delete>
 		
 
 </mapper>

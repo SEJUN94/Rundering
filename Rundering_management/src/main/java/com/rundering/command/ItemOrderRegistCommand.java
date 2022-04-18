@@ -50,7 +50,6 @@ public class ItemOrderRegistCommand {
 			
 			itemOrderDetail.setOrderCount(Integer.parseInt(quantity[i]));
 			itemOrderDetail.setArticlesCode(code[i]);
-			itemOrderDetail.setOrderCount(Integer.parseInt(price[i]));
 			itemOrderDetailList.add(itemOrderDetail);
 		}
 		return itemOrderDetailList;

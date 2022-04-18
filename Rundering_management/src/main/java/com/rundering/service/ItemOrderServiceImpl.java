@@ -20,15 +20,21 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 	
 	@Override
 	public void insertItemOrder(ItemOrderVO itemOrder,List<ItemOrderDetailVO> itemOrderDetailList) throws Exception {
-		SqlSession session = null;
-		
-		session = itemOrderDAO.insertItemOrderByItmeOrder(itemOrder);
+		String seq = itemOrderDAO.seq();
+		itemOrder.setOrdercode(seq);
+		itemOrderDAO.insertItemOrderByItmeOrder(itemOrder);
+		int i = 1;
 		try {
 			for (ItemOrderDetailVO itemOrderDetail : itemOrderDetailList) {
+			itemOrderDetail.setSeq(i);	
+			itemOrderDetail.setOrdercode(seq);
 			itemOrderDAO.insertItemOrderDetailByItmeOrderDetail(itemOrderDetail);
+			i++;
 			}
 		} catch (Exception e) {
-			session.rollback();
+			itemOrderDAO.itemOrderDetailRemove(seq);
+			itemOrderDAO.itemOrderRemove(seq);
+			e.printStackTrace();
 		}
 		
 		
