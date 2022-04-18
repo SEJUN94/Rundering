@@ -3,20 +3,20 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class LaundryItemsVO {
-	private String laundryItemsCode;  //세탁품목코드
-	private int price;  //가격
-	private String itemsName;  //품목명
-	private Date registDate;  //등록일
-	private Date modifyDate;  //수정일
-	private String deleteKey; //삭제키
-	private String charger;  //담당자
-	private String laundeyCategory; //세탁품목구분
+	private String laundryItemsCode;  	//세탁품목코드
+	private int price;  				//가격
+	private String itemsName; 			//품목명
+	private Date registDate;  			//등록일
+	private Date modifyDate;  			//수정일
+	private String deleteYn; 			//삭제여부
+	private String charger;  			//담당자
+	private String laundeyCategory; 	//세탁품목구분
 	
 	
 	public LaundryItemsVO() {
 		super();
 	}
-	
+
 	
 	public String getLaundryItemsCode() {
 		return laundryItemsCode;
@@ -48,11 +48,11 @@ public class LaundryItemsVO {
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-	public String getDeleteKey() {
-		return deleteKey;
+	public String getDeleteYn() {
+		return deleteYn;
 	}
-	public void setDeleteKey(String deleteKey) {
-		this.deleteKey = deleteKey;
+	public void setDeleteYn(String deleteYn) {
+		this.deleteYn = deleteYn;
 	}
 	public String getCharger() {
 		return charger;
@@ -66,12 +66,5 @@ public class LaundryItemsVO {
 	public void setLaundeyCategory(String laundeyCategory) {
 		this.laundeyCategory = laundeyCategory;
 	}
-	@Override
-	public String toString() {
-		return "LaundryItemsVO [laundryItemsCode=" + laundryItemsCode + ", price=" + price + ", itemsName=" + itemsName
-				+ ", registDate=" + registDate + ", modifyDate=" + modifyDate + ", deleteKey=" + deleteKey
-				+ ", charger=" + charger + ", laundeyCategory=" + laundeyCategory + "]";
-	}
-	
 	
 }

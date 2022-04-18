@@ -60,6 +60,15 @@
 				let pageMaker=dataMap.pageMaker
 				let cri=dataMap.pageMaker.cri 
 				let	laundryArticlesList =dataMap.laundryArticlesList
+				let pageNumArray = new Array(pageMaker.endPage-pageMaker.startPage+1);
+			    for(var i=0; i<pageMaker.endPage-pageMaker.startPage+1;i++){
+			       pageNumArray[i]=pageMaker.startPage+i;
+			    }
+			    pageMaker.pageNum=pageNumArray;
+			    pageMaker.prevPageNum=pageMaker.startPage-1;
+			    pageMaker.nextPageNum=pageMaker.endPage+1;
+			   
+			
 				let data={
 						pageMaker:pageMaker,
 						cri:cri,

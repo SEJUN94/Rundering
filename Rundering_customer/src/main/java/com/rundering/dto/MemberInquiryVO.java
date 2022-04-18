@@ -3,36 +3,43 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class MemberInquiryVO {
-	private int inqryno;     //문의번호
-	private String memberno;    //회원고유번호
-	private String inqryclcode; //문의분류코드
+	private int inqryno;     	//문의번호
+	private String memberNo;    //회원고유번호
+	private String inqryclCode; //문의분류코드
 	private String title;       //제목
 	private String answercn;    //답변내용
-	private Date answerdate; //답변일자
+	private Date answerdate; 	//답변일자
 	private String content;     //내용
-	private Date inqrydate;   //문의날짜
+	private Date inqrydate;   	//문의날짜
 	private String answerennc;  //답변유무
-	private String deleteat;    //삭제여부
+	private String deleteYn;    //삭제여부
 	private String atchFileNo;  //통합첨부파일 번호
 	private String answrr;      //답변자
 	private String orderno;     //주문번호
+	
+	
+	public MemberInquiryVO() {
+		super();
+	}
+
+
 	public int getInqryno() {
 		return inqryno;
 	}
 	public void setInqryno(int inqryno) {
 		this.inqryno = inqryno;
 	}
-	public String getMemberno() {
-		return memberno;
+	public String getMemberNo() {
+		return memberNo;
 	}
-	public void setMemberno(String memberno) {
-		this.memberno = memberno;
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
-	public String getInqryclcode() {
-		return inqryclcode;
+	public String getInqryclCode() {
+		return inqryclCode;
 	}
-	public void setInqryclcode(String inqryclcode) {
-		this.inqryclcode = inqryclcode;
+	public void setInqryclCode(String inqryclCode) {
+		this.inqryclCode = inqryclCode;
 	}
 	public String getTitle() {
 		return title;
@@ -70,11 +77,11 @@ public class MemberInquiryVO {
 	public void setAnswerennc(String answerennc) {
 		this.answerennc = answerennc;
 	}
-	public String getDeleteat() {
-		return deleteat;
+	public String getDeleteYn() {
+		return deleteYn;
 	}
-	public void setDeleteat(String deleteat) {
-		this.deleteat = deleteat;
+	public void setDeleteYn(String deleteYn) {
+		this.deleteYn = deleteYn;
 	}
 	public String getAtchFileNo() {
 		return atchFileNo;
@@ -95,5 +102,4 @@ public class MemberInquiryVO {
 		this.orderno = orderno;
 	}
 
-	
 }

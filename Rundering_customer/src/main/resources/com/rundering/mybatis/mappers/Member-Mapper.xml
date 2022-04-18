@@ -13,9 +13,10 @@
 	<result column="REGIST_DATE" property="registDate"/>
 	<result column="MODIFY_DATE" property="modifyDate"/>
 	<result column="ENABLE_WHETHER" property="enableWhether"/>
-	<result column="WITHDRAWAL" property="withDrawal"/>
+	<result column="DELETE_YN" property="deleteYn"/>
 	<result column="LASTLOGPSNHOURLIVER" property="lastLogpsnHourLiver"/>
 	<result column="LOGINFAIL_COUNT" property="loginfailCount"/>
+	<result column="EMPLOYEE_ID_YN" property="employeeIdYn"/>
 </resultMap>
 
 
@@ -41,7 +42,7 @@
 		update TB_MEMBER
 		set 
 		ENABLE_WHETHER = 0
-		,WITHDRAWAL = 0
+		,DELETE_YN = 'Y'
 		where id=#{id}
 	</update>
 	<select id="selectIdFindByMember" resultType="int" parameterType="member">

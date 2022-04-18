@@ -3,21 +3,27 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class PdsVO {
-	private int pdsno;        //글번호
-	private String title;        //제목
-	private String wrter;        //작성자
-	private String content;      //내용
-	private int views;        //조회수
+	private int pdsnno;        //글번호
+	private String title;      //제목
+	private String wrter;      //작성자
+	private String content;    //내용
+	private int views;         //조회수
 	private Date registDate;   //등록일
 	private Date modifyDate;   //수정일
-	private String deleteat;     //삭제여부
-	private String atchFileNo;   //통합첨부파일번호
-
-	public int getPdsno() {
-		return pdsno;
+	private String deleteYn;   //삭제여부
+	private String atchFileno; //통합첨부파일번호
+	
+	
+	public PdsVO() {
+		super();
 	}
-	public void setPdsno(int pdsno) {
-		this.pdsno = pdsno;
+	
+	
+	public int getPdsnno() {
+		return pdsnno;
+	}
+	public void setPdsnno(int pdsnno) {
+		this.pdsnno = pdsnno;
 	}
 	public String getTitle() {
 		return title;
@@ -55,16 +61,17 @@ public class PdsVO {
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-	public String getDeleteat() {
-		return deleteat;
+	public String getDeleteYn() {
+		return deleteYn;
 	}
-	public void setDeleteat(String deleteat) {
-		this.deleteat = deleteat;
+	public void setDeleteYn(String deleteYn) {
+		this.deleteYn = deleteYn;
 	}
-	public String getAtchFileNo() {
-		return atchFileNo;
+	public String getAtchFileno() {
+		return atchFileno;
 	}
-	public void setAtchFileNo(String atchFileNo) {
-		this.atchFileNo = atchFileNo;
+	public void setAtchFileno(String atchFileno) {
+		this.atchFileno = atchFileno;
 	}
+	
 }

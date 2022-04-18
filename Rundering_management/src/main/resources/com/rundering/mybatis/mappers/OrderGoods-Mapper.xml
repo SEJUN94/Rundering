@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OrderGoods-Mapper">
+	<resultMap type="orderGoods" id="orderGoodsMap">
+		<result column="ARTICLES_CODE" property="articlesCode"/>
+		<result column="ARTICLES_NAME" property="articlesName"/>
+		<result column="PRICE" property="price"/>
+		<result column="CLCODE" property="clcode"/>
+		<result column="REGIST_DATE" property="registDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="DELETE_YN" property="deleteYn"/>
+		<result column="EACH" property="each"/>
+		<result column="NOTE" property="note"/>
+		<result column="ATCH_FILE_NO" property="atchFileNo"/>
+	</resultMap>
+
+	<select id="orderGoodsList" resultMap="orderGoodsMap" parameterType="str">
+		select *
+		  from TB_LAUNDRY_ARTICLES
+		 where DELETE_YN='N'
+	</select>
+	
+	<select id="selectSearchOrderGoodsListCount" resultType="int">
+		select
+		count(*)
+		from
+		TB_LAUNDRY_ARTICLES
+		where ARTICLES_CODE is not null  	
+		  and DELETE_YN='N'
+		order by REGIST_DATE desc
+	</select>
+	
+	<select id="selectOrderGoodsByBno"  resultMap="orderGoodsMap">
+		select * 
+		from TB_LAUNDRY_ARTICLES
+		where ARTICLES_CODE=#{articlesCode}
+	</select>
+	
+	<update id="insertOrderGoods" parameterType="orderGoods">
+		insert 
+		into 
+		TB_LAUNDRY_ARTICLES(ARTICLES_CODE,ARTICLES_NAME,PRICE,EACH,NOTE,CLCODE,ATCH_FILE_NO)
+		values
+		(#{articlesCode},#{articlesName},#{price},#{each},#{note},#{clcode},#{atchFileNo})
+	</update>
+	
+	<update id="updateOrderGoods" parameterType="orderGoods">
+		update 
+		TB_LAUNDRY_ARTICLES 
+		set 
+		ARTICLES_CODE=#{articlesCode}, ARTICLES_NAME=#{articlesName}, PRICE=#{price}, MODIFY_DATE=sysdate,EACH=#{each},NOTE=#{note}, ATCH_FILE_NO=#{atchFileNo}
+		where ARTICLES_CODE=#{articlesCode}
+	</update>
+	
+	<update id="deleteOrderGoods" parameterType="str">
+		update
+		TB_LAUNDRY_ARTICLES
+		set
+		DELETE_YN='Y'
+		where ARTICLES_CODE=#{articlesCode}
+	</update>
+</mapper>

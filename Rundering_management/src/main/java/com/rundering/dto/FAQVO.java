@@ -3,13 +3,19 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class FAQVO {
-	private int faqno;  //질문번호
-	private String setbukdoorclcode;   //질문분류코드
-	private String question;  //질문
-	private String answer;    //질문
-	private Date registDate;  //등록일
-	private Date modifyDate;   //수정일
-	private String writer;    //작성자
+	private int faqno;  			//질문번호
+	private String setbukdoorclcode;//질문분류코드
+	private String question;  		//질문
+	private String answer;    		//답변
+	private Date registDate;  		//등록일
+	private Date modifyDate;   		//수정일
+	private String writer;    		//작성자
+	
+	
+	public FAQVO() {
+		super();
+	}
+	
 	
 	public int getFaqno() {
 		return faqno;

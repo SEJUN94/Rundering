@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -12,7 +13,7 @@
 		<result column="POSITION" property="position" />
 		<result column="REGIST_DATE" property="registDate" />
 		<result column="MODIFY_DATE" property="modifyDate" />
-		<result column="DELETE_KEY" property="deleteKey" />
+		<result column="DELETE_YN" property="deleteYn" />
 		<result column="MEMBERNO" property="memberno" />
 	
 	</resultMap>
@@ -21,7 +22,7 @@
 	<select id="selectEmployeeById" resultMap="employeesMap" parameterType="str">
 		select *
 		  from tb_employees
-		 where memberno=#{memberNO} 
+		 where memberno=#{memberno} 
 	</select>
 	
 

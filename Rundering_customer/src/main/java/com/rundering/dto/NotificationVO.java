@@ -3,20 +3,26 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class NotificationVO {
-	private String ntcnid;           //알림아이디
+	private String ntcnId;           //알림아이디
 	private String cnfirmat;         //확인여부
 	private String ntcnknd;          //알림종류
 	private String ntcncn;           //알림내용
 	private String ntcnclickhourUrl; //알림클릭시URL
-	private Date occrrncdehour;    //발생일시
-	private Date cnfirmdehour;     //확인일시
-	private String fowonno;          //알림받은사원
+	private Date occrrncdehour;   	 //발생일시
+	private Date cnfirmdehour;  	 //확인일시
+	private String fowonNo;          //알림받은사원
 
-	public String getNtcnid() {
-		return ntcnid;
+	
+	public NotificationVO() {
+		super();
 	}
-	public void setNtcnid(String ntcnid) {
-		this.ntcnid = ntcnid;
+
+	
+	public String getNtcnId() {
+		return ntcnId;
+	}
+	public void setNtcnId(String ntcnId) {
+		this.ntcnId = ntcnId;
 	}
 	public String getCnfirmat() {
 		return cnfirmat;
@@ -54,10 +60,11 @@ public class NotificationVO {
 	public void setCnfirmdehour(Date cnfirmdehour) {
 		this.cnfirmdehour = cnfirmdehour;
 	}
-	public String getFowonno() {
-		return fowonno;
+	public String getFowonNo() {
+		return fowonNo;
 	}
-	public void setFowonno(String fowonno) {
-		this.fowonno = fowonno;
+	public void setFowonNo(String fowonNo) {
+		this.fowonNo = fowonNo;
 	}
+	
 }

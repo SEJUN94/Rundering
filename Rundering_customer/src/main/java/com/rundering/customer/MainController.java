@@ -64,7 +64,7 @@ public class MainController {
 			
 			member = memberService.getMember(member.getId());
 			
-			mac.setMemberno(member.getMemberNo());
+			mac.setMemberNo(member.getMemberNo());
 			
 			memberAdd = mac.toAddr();
 			
