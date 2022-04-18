@@ -38,6 +38,10 @@
 	<bean id="noticeDAO" class="com.rundering.dao.NoticeDAOImpl"
 		p:session-ref="sqlSession"	
 	 />
+	<bean id="itemOrderDAO" class="com.rundering.dao.ItemOrderDAOImpl"
+		p:session-ref="sqlSession" 
+	 />
+	 
 	
 	
 	<!-- Service Layer -->
@@ -63,6 +67,10 @@
 	<bean id="noticeService" class="com.rundering.service.NoticeServiceImpl" 
 		p:noticeDAO-ref="noticeDAO"
 	/>
+	<bean id="itemOrderService" class="com.rundering.service.ItemOrderServiceImpl"
+		p:itemOrderDAO-ref="itemOrderDAO"
+	/>
+	
 	
 	
 </beans>

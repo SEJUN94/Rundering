@@ -2,13 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="pageMaker" value="${dataMap.pageMaker }" />
-<c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <body>
 	<div>
 		<div class="row ml-2 mr-2">
 			<div class="col-6">
-				<div class="card card-primary card-outline col-12" style="height: 765px;">
+				<div class="card card-primary card-outline col-12" style="height: 765px;overflow: auto;">
 					<div class="card-header">
 						<h3 class="card-title">물품리스트</h3>
 						<div class="card-tools"></div>
@@ -23,11 +21,7 @@
 									<th class="width10" style="text-align: center;">담기</th>
 								</tr>
 							</thead>
-	
-							
-					 		
 						</table>
-						
 					</div>
 					<div class="card-footer" id="cardfooter">
 						
@@ -43,6 +37,7 @@
 	
 					</div>
 					<div class="card-body p-0" >
+					<form action="regist" method="post" id="formOrder">
 						<table class="table table-hover " >
 							<thead>
 								<tr style="text-align: center;">
@@ -54,10 +49,14 @@
 									<th class="width15" >취소</th>
 								</tr>
 							</thead>
-							 <tbody id="tbody">
-								
-							</tbody>
+							
+							
+								 <tbody id="tbody">
+
+								</tbody>
 						</table>
+								<input type="hidden" name="totalprice" id="hiddenTotalPrice">
+							</form> 
 					</div>
 					
 				</div>
@@ -66,20 +65,27 @@
 					<div class="card-body">
 						<strong>합계 총금액</strong> 
 						<button class="btn btn-primary float-right" style="margin-left: 10px" onclick="seeTotalPrice()">보기</button>
-						
-						<input  style="width: 100px" class="form-control float-right" id="totalPrice" name="content" type="text">
+						<input  style="width: 100px" class="form-control float-right" id="totalPrice" name="content" type="text" disabled="disabled">
 						
 					</div>
 				</div>
 				<div class="float-right">
-					<button type="button" class="btn btn-primary" onclick="orderGoodsList()">발주</button>
-	
+					<button type="button" class="btn btn-primary" onclick="order_go()">발주</button>
 					<button type="button" class="btn btn-primary">리셋</button>
 				</div>
 	
 			</div>
 		</div>
 	</div>
+
+<script>
+function order_go(){
+	
+    document.querySelector("#hiddenTotalPrice").value=document.querySelector("#totalPrice").value
+    let form= document.querySelector("#formOrder");
+    form.submit();
+}
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <script type="text/x-handlebars-template" id="laundryArticlesList" >
@@ -224,7 +230,6 @@ function orderGoodsList(pageInfo){
 			if(document.querySelector("#pageItem")!=null){
 				document.querySelector("#pageItem").remove()
 			}
-		    console.log($("#cardfooter").innerHTML="");
 			$("#cardfooter").append(pagehtml)
 			$("#listBody").after(html)
 		},

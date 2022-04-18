@@ -35,7 +35,7 @@
 		(
 		item_order_seq.nextval,
 		#{itemOrderPaymentPrice},
-		#{branch_code}
+		#{branchCode}
 		)
 	</insert>
 	

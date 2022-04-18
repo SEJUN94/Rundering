@@ -5,13 +5,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rundering.command.ItemOrderRegistCommand;
+import com.rundering.dto.EmployeesVO;
+import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
 import com.rundering.manage.Criteria;
+import com.rundering.service.ItemOrderService;
 import com.rundering.service.LaundryArticlesService;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +27,9 @@ import org.springframework.stereotype.Controller;
 public class BranchItemOrderController {
 	@Autowired
 	LaundryArticlesService laundryArticlesService; 
+	@Autowired
+	ItemOrderService itemOrderService;
+	
 	
 	@RequestMapping(value="/list",method = RequestMethod.GET)
 	private String list() {
@@ -36,18 +45,31 @@ public class BranchItemOrderController {
 	} 
 	
 	@RequestMapping("/order")
-	private ModelAndView regist( Criteria cri,ModelAndView mnv) {
+	private String order( Criteria cri,ModelAndView mnv) {
 		String url= "/branch/itemorder/itemorder_regist";
-		Map<String, Object> dataMap=null;
+		
+		return url;
+	}
+	@RequestMapping("/regist")
+	private String  regist(HttpSession session ,ItemOrderRegistCommand itemOrderRegistCommand) {
+		String url = "/branch/itemorder/itemorder_regist";
+		EmployeesVO employee= (EmployeesVO) session.getAttribute("loginEmployee");
+		ItemOrderVO itemOrder=itemOrderRegistCommand.itemOrderVO();
+		itemOrder.setBranchCode(employee.getBranchCode());
+		List<ItemOrderDetailVO> itemOrderDetailList =itemOrderRegistCommand.itemOrderDetail();
+		
+		if(itemOrderDetailList==null) {
+			url = "/branch/itemorder/itemorder_regist?from=null";
+		}
 		try {
-			dataMap = laundryArticlesService.getLaundryArticles(cri);
-		} catch (SQLException e) {
+			itemOrderService.insertItemOrder(itemOrder, itemOrderDetailList);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mnv.addObject("dataMap", dataMap);
-		mnv.setViewName(url);
-		return mnv;
+		
+		return url;
 	}
+	
 	@RequestMapping(value = "/orderGoodsList",method = RequestMethod.GET ,produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	private Map<String, Object> orderGoodsList(Criteria cri){

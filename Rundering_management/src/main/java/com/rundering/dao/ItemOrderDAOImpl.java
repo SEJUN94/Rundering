@@ -16,7 +16,7 @@ public class ItemOrderDAOImpl implements ItemOrderDAO{
 	@Override
 	public SqlSession insertItemOrderByItmeOrder(ItemOrderVO itemOrder) throws Exception {
 		
-		 session.insert("ItmeOrder-Mapper.insertItemOrderByItmeOrder", itemOrder);
+		 session.insert("ItemOrder-Mapper.insertItemOrderByItmeOrder", itemOrder);
 		
 		 return session;
 		
