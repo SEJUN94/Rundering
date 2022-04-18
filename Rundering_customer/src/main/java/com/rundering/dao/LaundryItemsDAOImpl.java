@@ -44,8 +44,8 @@ public class LaundryItemsDAOImpl implements LaundryItemsDAO {
 	
 	// 세탁품목 전체 목록조회 - 이용 안내
 	@Override
-	public List<LaundryItemsVO> getlaundryItemsList() throws SQLException {
-		return session.selectList("LaundryItems-Mapper.getlaundryItemsList");
+	public List<LaundryItemsVO> selectlaundryItemsList() throws SQLException {
+		return session.selectList("LaundryItems-Mapper.selectlaundryItemsList");
 	}
 
 
