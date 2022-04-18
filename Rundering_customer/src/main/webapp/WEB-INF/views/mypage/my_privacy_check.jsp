@@ -57,7 +57,8 @@
 	
 	document.querySelector('#password').addEventListener('keyup', (e)=>{
 	    if (e.keyCode === 13) {
-	    	if($('#password').val()== null){
+	    	
+	    	if($('#password').val()== null || $('#password').val().trim()==""){
 				Swal.fire('비밀번호를 입력해주세요.');
 			} else {
 				$.ajax({

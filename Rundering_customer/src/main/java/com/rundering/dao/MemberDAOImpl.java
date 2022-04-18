@@ -16,9 +16,7 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	@Override
 	public MemberVO selectMemberById(String id) throws Exception {
-		
 		MemberVO member= session.selectOne("Member-Mapper.selectMemberById", id);
-		
 		return member;
 	}
 	@Override

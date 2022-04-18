@@ -26,6 +26,7 @@ public class LoginController {
 	@Autowired
 	private MailSendService mss;
 	
+	
 	@RequestMapping("form")
 	public String login() {
 		String url="/login/member_login";

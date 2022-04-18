@@ -19,10 +19,11 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws ServletException, IOException {
 		
-		User user = (User)authentication.getDetails();	
+		User user = (User)authentication.getDetails();
 		
-		MemberVO loginUser = user.getMemberVO();  
-		HttpSession session = request.getSession();		
+		
+		MemberVO loginUser = user.getMemberVO();
+		HttpSession session = request.getSession();
 		session.setAttribute("loginUser", loginUser);
 		session.setMaxInactiveInterval(60*30);
 		

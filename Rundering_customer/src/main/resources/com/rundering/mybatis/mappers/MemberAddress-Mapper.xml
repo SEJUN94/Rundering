@@ -51,6 +51,7 @@
 		)
 	</update>
 	
+	
 	<select id="selectDefaultMemberAddressByMemberNo" resultMap="memberAddressMap" parameterType="str">
 		select * from TB_MEMBER_ADDRESS WHERE MEMBERNO = #{memberNo} AND DEFAULT_YN = 'Y'
 	</select>
