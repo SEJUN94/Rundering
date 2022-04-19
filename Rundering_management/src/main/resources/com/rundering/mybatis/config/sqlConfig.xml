@@ -19,6 +19,7 @@
 		<typeAlias type="com.rundering.dto.NoticeVO" alias="notice" />
 		<typeAlias type="com.rundering.dto.ItemOrderVO" alias="itemOrder" />
 		<typeAlias type="com.rundering.dto.ItemOrderDetailVO" alias="itemOrderDetail" />
+		<typeAlias type="com.rundering.dto.ComCodeVO" alias="comCode" />
 	</typeAliases>
 	
 	

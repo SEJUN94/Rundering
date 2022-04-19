@@ -1,8 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true"%>
+<%@ page trimDirectiveWhitespaces="true"%>\
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="pageMaker" value="${dataMap.pageMaker }" />
+<c:set var="cri" value="${dataMap.pageMaker.cri }" />
+<c:set var="itemOrderList" value="${dataMap.itemOrderList }" />
+<c:set var="comCode" value="${dataMap.comCodeMap }"/>
+<c:set var="totalPrice" value="${dataMap.totalPriceMap}"/>
 
 <body>
+<c:if test="${from eq 'remove' }">
+	<script>
+		alert("취소되었습니다.");
+		window.close();
+		window.opener.location.reload();
+	</script>
+</c:if>
 	<div id="body">
 		<div class="row ml-2 mr-2">
 			<div class="col-12">
@@ -19,13 +33,11 @@
 								</span>
 								<div class="input-group-sm selectWidth">
 									<select class="form-control " name="searchType" id="searchType">
-										<option value="tcw">승인대기</option>
-										<option value="t">승인</option>
-										<option value="t">반려</option>
-										<option value="t">발주대기</option>
-										<option value="t">발주</option>
-										<option value="">미수령</option>
-										<option value="">수령</option>
+										<option value="a">미승인</option>
+										<option value="b">승인</option>
+										
+										<option value="c">미수령</option>
+										<option value="d">수령</option>
 									</select>
 								</div>
 								<span class="input-group-append">
@@ -41,87 +53,33 @@
 					<div class="card-body">
 						<table class="table table-hover text-nowrap">
 							<thead>
-								<tr>
-									<th class="width20">발주번호</th>
-									<th class="width15">총금액</th>
-									<th class="width15">발주신청일</th>
-									<th class="width15">상태</th>
-									<th class="width15">수령일</th>
+								<tr style="text-align: center;">
+									<th class="width25">발주번호</th>
+									<th class="width30">총 가격</th>
+									<th class="width25">발주신청일</th>
+									<th class="width20">상태</th>
 								</tr>
 							</thead>
-
+							
+							
+							
 							<tbody>
-								<tr
-									 onclick="OpenWindow('/Rundering_management/branch/iteamorder/detail.do','상세',800,700);">
-									<td>183</td>
-									<td>100000원</td>
-									<td>2022-03-21</td>
-									<td><span class="tag tag-success">발주대기</span></td>
-									<td>1</td>
-								</tr>
-								<tr>
-									<td>184</td>
-									<td>300000원</td>
-									<td>2021-03-24</td>
-									<td><span class="tag tag-success">승인대기</span></td>
-									<td>2</td>
-								</tr>
-								<tr>
-									<td>183</td>
-									<td>100000원</td>
-									<td>2022-03-21</td>
-									<td><span class="tag tag-success">발주대기</span></td>
-									<td>1</td>
-								</tr>
-								<tr>
-									<td>184</td>
-									<td>300000원</td>
-									<td>2021-03-24</td>
-									<td><span class="tag tag-success">승인대기</span></td>
-									<td>2</td>
-								</tr>
-								<tr>
-									<td>183</td>
-									<td>100000원</td>
-									<td>2022-03-21</td>
-									<td><span class="tag tag-success">발주대기</span></td>
-									<td>1</td>
-								</tr>
-								<tr>
-									<td>184</td>
-									<td>300000원</td>
-									<td>2021-03-24</td>
-									<td><span class="tag tag-success">승인대기</span></td>
-									<td>2</td>
-								</tr>
-								<tr>
-									<td>184</td>
-									<td>300000원</td>
-									<td>2021-03-24</td>
-									<td><span class="tag tag-success">승인대기</span></td>
-									<td>2</td>
-								</tr>
-								<tr>
-									<td>184</td>
-									<td>300000원</td>
-									<td>2021-03-24</td>
-									<td><span class="tag tag-success">승인대기</span></td>
-									<td>2</td>
-								</tr>
-								<tr>
-									<td>183</td>
-									<td>100000원</td>
-									<td>2022-03-21</td>
-									<td><span class="tag tag-success">발주대기</span></td>
-									<td>1</td>
-								</tr>
-								<tr>
-									<td>183</td>
-									<td>100000원</td>
-									<td>2022-03-21</td>
-									<td><span class="tag tag-success">발주대기</span></td>
-									<td>1</td>
-								</tr>
+							<c:if test="${empty itemOrderList }" >
+						<tr>
+							<td colspan="5">
+								<strong>해당 내용이 없습니다.</strong>
+							</td>
+						</tr>
+					</c:if>				
+					<c:forEach items="${itemOrderList }" var="itemOrder">
+						<tr style='cursor:pointer;' onclick="OpenWindow('detail.do?ordercode=${itemOrder.ordercode }','상세보기',800,700);">
+							<td>${itemOrder.ordercode }</td>
+							<td style="text-align: right;">${totalPrice[itemOrder.ordercode] }</td>
+							<td style="text-align: center;"><fmt:formatDate value="${itemOrder.registDate }" pattern="yyyy-MM-dd"/></td>			
+							<td style="text-align: center;">${comCode[itemOrder.itemOrderStatus] }<td>		
+						</tr>
+					</c:forEach>
+								
 							</tbody>
 						</table>
 					</div>

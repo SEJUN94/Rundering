@@ -41,6 +41,9 @@
 	<bean id="itemOrderDAO" class="com.rundering.dao.ItemOrderDAOImpl"
 		p:session-ref="sqlSession" 
 	 />
+	 <bean id="comCodeDAO" class="com.rundering.dao.ComCodeDAOImpl"
+	 	p:session-ref="sqlSession"
+	 />
 	 
 	
 	
@@ -69,6 +72,7 @@
 	/>
 	<bean id="itemOrderService" class="com.rundering.service.ItemOrderServiceImpl"
 		p:itemOrderDAO-ref="itemOrderDAO"
+		p:comCodeDAO-ref="comCodeDAO"
 	/>
 	
 	

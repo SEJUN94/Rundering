@@ -13,16 +13,82 @@
 		<result column="BRANCH_CODE" property="branchCode" />
 		<result column="REGIST_DATE" property="registDate" />
 		<result column="RECEIPT_DATE" property="receiptDate" />
-		
-
 	</resultMap>
-	
 	<resultMap type="itemOrderDetail" id="itemOrderDetailMap">
 		<result column="DETAIL_ORDERCODE" property="detailOrdercode" />
 		<result column="ORDER_COUNT" 	  property="orderCount" />
 		<result column="ARTICLES_CODE"	  property="articlesCode" />
 		<result column="ORDERCODE" 	      property="ordercode" />
+		<result column="PRICE" 	      property="price" />
+		
 	</resultMap>
+	
+	<sql id="search">
+		<if test="searchType == 'a'.toString()">
+			and title like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'b'.toString()">
+			and writer like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'c'.toString()">
+			and content like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'd'.toString()">
+			and (
+			title like '%'||#{keyword}||'%'
+			or
+			content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		<if test="searchType == 'e'.toString()">
+			and (
+			writer like '%'||#{keyword}||'%'
+			or
+			content like '%'||#{keyword}||'%'						
+			)			
+		</if>
+		<if test="searchType == 'f'.toString()">
+				
+		</if>
+	</sql>
+	<select id="selectItemOrderByOrdercode" parameterType="str" resultMap="itemOrderMap">
+		select *
+		  from tb_item_order
+		 where ordercode= #{ordercode} 
+	</select>
+	
+	<select id="selectItemOrderList" resultMap="itemOrderMap">
+		select *
+		  from tb_item_order
+		 where ordercode is not null
+		 <include refid="search"/>
+		 order by regist_date
+	</select>
+	<select id="selectItemOrderDetailByOrdercode" resultMap="itemOrderDetailMap">
+		select *
+		  from tb_item_order_detail
+		 where ordercode = #{ordercode} 
+	</select>
+	
+	<select id="selectItemOrderBranchCodeByOrdercode" resultType="str" parameterType="str">
+		select branch_code
+		  from tb_item_order
+		 where ordercode=#{ordercode} 
+	</select>
+	
+	<select id="selectCount" resultType="int">
+		select count(*)
+		from tb_item_order
+	</select>
+	
+	<select id="selectTotalPriceByOrderCode" resultType="str" parameterType="str">
+		select SUM(price)
+		  from tb_item_order_detail
+		 where ordercode =#{ordercode} 
+	
+	</select>
+	
+	
 	<select id="seq" resultType="str">
 		select item_order_seq.nextval
 		  from dual
@@ -50,16 +116,32 @@
 		ORDERCODE,
 		ARTICLES_CODE, 
 		SEQ,
-		ORDER_COUNT
+		ORDER_COUNT,
+		PRICE
 		) 
 		VALUES 
 		(
 		${ordercode},
 		#{articlesCode},
 		#{seq},
-		#{orderCount}
+		#{orderCount},
+		#{price}
 		)
 	</insert>
+	
+	<update id="updateItemOrderStatusByOrderCode" parameterType="itemOrder">
+		update tb_item_order
+			SET item_order_status = #{itemOrderStatus}
+		WHERE ordercode=#{ordercode}
+	</update>
+	<delete id="deleteItemOrderDetailRemove" parameterType="str">
+		DELETE from tb_item_order_detail where ordercode = #{ordercode}
+	
+	</delete>
+	
+	<delete id="deleteItemOrderRemoveByOrdercode" parameterType="str">
+		DELETE from tb_item_order where ordercode = #{ordercode}
+	</delete>
 	
 	<delete id="itemOrderRemove" parameterType="str">
 		DELETE from tb_item_order where ordercode = #{seq}

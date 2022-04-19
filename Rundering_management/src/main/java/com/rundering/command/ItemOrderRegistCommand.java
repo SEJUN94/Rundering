@@ -38,7 +38,7 @@ public class ItemOrderRegistCommand {
 	}
 	public ItemOrderVO itemOrderVO() {
 		ItemOrderVO itemOrder=new ItemOrderVO();
-		itemOrder.setItemOrderPaymentPrice(Integer.parseInt(totalprice));
+		itemOrder.setItemOrderPaymentPrice(0);
 		
 		return itemOrder;
 		
@@ -47,7 +47,7 @@ public class ItemOrderRegistCommand {
 		List<ItemOrderDetailVO> itemOrderDetailList= new ArrayList<ItemOrderDetailVO>();
 		for(int i = 0 ; i < code.length ; i++) {
 			ItemOrderDetailVO itemOrderDetail = new ItemOrderDetailVO();
-			
+			itemOrderDetail.setPrice(Integer.parseInt(price[i])); 
 			itemOrderDetail.setOrderCount(Integer.parseInt(quantity[i]));
 			itemOrderDetail.setArticlesCode(code[i]);
 			itemOrderDetailList.add(itemOrderDetail);

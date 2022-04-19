@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.ItemOrderRegistCommand;
 import com.rundering.dto.EmployeesVO;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 
 @Controller
 @RequestMapping("/branch/itemorder")
@@ -32,16 +34,49 @@ public class BranchItemOrderController {
 	
 	
 	@RequestMapping(value="/list",method = RequestMethod.GET)
-	private String list() {
+	private ModelAndView list(Criteria cri, ModelAndView mnv,HttpSession session) {
 		String url= "/branch/itemorder/itemorder_list";
-		return url;
+		
+		Map<String, Object> dataMap=null;
+		try {
+			dataMap = itemOrderService.itemOrdeList(cri,session);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		mnv.addObject("dataMap",dataMap);
+		mnv.setViewName(url);
+		 
+		return mnv;
+		
 	}
 	
 	
 	@RequestMapping("/detail")
-	private String detail() {
+	private ModelAndView detail(String ordercode,ModelAndView mnv,HttpSession session) throws Exception{
 		String url= "/branch/itemorder/itemorder_detail";
-		return url;
+		String branchCode = itemOrderService.getBranchCode(ordercode);
+		EmployeesVO employee =(EmployeesVO) session.getAttribute("loginEmployee");
+		Map<String, String> comCodeMap=itemOrderService.comCode();
+		
+		if(employee==null) {
+			url ="/common/loginform";
+			mnv.setViewName(url);
+			return mnv;
+		}
+		
+		if(!branchCode.equals(employee.getBranchCode())){
+			url ="/branch/index";
+			mnv.setViewName(url);
+			return mnv;
+		}
+		ItemOrderVO itemOrder = itemOrderService.getItemOrder(ordercode);
+		List<ItemOrderDetailVO> itemOrderDetailList= itemOrderService.getItemOrdeDetail(ordercode);
+		mnv.addObject("itemOrderDetailList", itemOrderDetailList);
+		mnv.addObject("itemOrder", itemOrder);
+		mnv.addObject("comCodeMap",comCodeMap);
+		mnv.setViewName(url);
+		return mnv;
 	} 
 	
 	@RequestMapping("/order")
@@ -83,11 +118,24 @@ public class BranchItemOrderController {
 		
 	}
 	
-	@RequestMapping("detail/modify")
-	private String modify() {
-		String url = "/branch/itemorder/modify";
+	@RequestMapping("/modify")
+	private String modify(String ordercode,RedirectAttributes rttr) throws Exception{
+		String url = "redirect:/branch/itemorder/modify";
+		ItemOrderVO itemOrder = new ItemOrderVO();
+		itemOrder.setOrdercode(ordercode);
+		itemOrder.setItemOrderStatus("06");
+		itemOrderService.updateState(itemOrder);
+		
+		rttr.addFlashAttribute("from", "modify");
 		return url;
-	
+	}
+	@RequestMapping("/remove")
+	private String remove(String ordercode,RedirectAttributes rttr) throws Exception{
+		String url = "redirect:/branch/itemorder/list";
+		itemOrderService.deleteItemorder(ordercode);
+		
+		rttr.addFlashAttribute("from", "remove");
+		return url;
 	}
 
 }

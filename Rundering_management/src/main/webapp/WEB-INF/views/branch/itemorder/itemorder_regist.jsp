@@ -6,7 +6,7 @@
 	<div>
 		<div class="row ml-2 mr-2">
 			<div class="col-6">
-				<div class="card card-primary card-outline col-12" style="height: 765px;overflow: auto;">
+				<div class="card card-primary card-outline col-12" style="height: 765px;display: block; overflow: auto;">
 					<div class="card-header">
 						<h3 class="card-title">물품리스트</h3>
 						<div class="card-tools"></div>
@@ -17,7 +17,7 @@
 								<tr>
 									<th class="width20" style="text-align: center">물품명</th>
 									<th class="width15" style="text-align: center">사진</th>
-									<th class="width15" style="text-align: center">금액</th>
+									<th class="width5" style="text-align: center">금액</th>
 									<th class="width10" style="text-align: center;">담기</th>
 								</tr>
 							</thead>
@@ -79,9 +79,29 @@
 	</div>
 
 <script>
-function order_go(){
+function order_go(){	
+	let count = document.querySelectorAll(".count")
+	if(count.length==0){
+		alert("발주신청 목록이 없습니다")
+		return;
+	} 
 	
-    document.querySelector("#hiddenTotalPrice").value=document.querySelector("#totalPrice").value
+	let price = document.querySelectorAll(".price");
+	let quantity = document.querySelectorAll(".quantity");
+	for(let i = 0 ; i < price.length; i++){
+		if(price[i].innerText.trim()=="" || price[i].innerText==null){
+			alert("수량을 입력해주세요");
+			return 
+		}
+	}
+	for(let i = 0 ; i < quantity.length; i++){
+		if(quantity[i].value==""||quantity[i].value==null){
+			alert("수량을 입력해주세요");
+			return
+		}
+	}
+	
+	document.querySelector("#hiddenTotalPrice").value=document.querySelector("#totalPrice").value
     let form= document.querySelector("#formOrder");
     form.submit();
 }
@@ -92,7 +112,7 @@ function order_go(){
 <tbody id="removeBody">
 {{#laundryArticlesList}}
 		<tr>
-			<td style="text-align: left;" data-code="{{articlesCode}}" >{{articlesName}}</td>
+			<td style="text-align: left;" class="{{articlesCode}}" data-code="{{articlesCode}}" >{{articlesName}}</td>
 			<td style="text-align: center;">사진</td>
 			<td style="text-align: center;">{{price}}</td>
 			<td style="text-align: center; padding-top: 8px"><button type="button"	class="btn btn-primary btn-sm" onclick="getOrder()" >담기</button></td>
@@ -139,13 +159,13 @@ function order_go(){
 </script>
 
 <script type="text/x-handlebars-template" id="getOrder-tempalet" >
-
-<tr>
+ 
+<tr class="{{code}} count">
 	<input type="hidden" name="code" value="{{code}}">
 	<input type="hidden" name="price" class="inputPrice" value="">
-	<td  >{{name}}</td>
+	<td   >{{name}}</td>
 	<td  style="text-align:center; padding-left:0px;padding-right:0px;"> 
-		<input type="text" name="quantity" value="0" class="form-control" onkeyup="inputNumber()" style="width: 70px; height: 30px; text-align:right; display:inline">
+		<input type="text" name="quantity" class="quantity" value="0" class="form-control" onkeyup="inputNumber()" style="width: 70px; height: 30px; text-align:right; display:inline">
 	</td>
 	<td  style="text-align:right" class="price" data-price="{{price}}"></td> 
 	<td  style="text-align:center;">
@@ -165,13 +185,16 @@ window.onload=function(){
 	orderGoodsList("<%=request.getContextPath()%>/branch/itemorder/orderGoodsList?page="+page);
    
 }   
+
 function page_go(url){
 	if(url==null||url.trim()==""){
 		alert("페이지가 없습니다");
 		return;
 	}
 	orderGoodsList(url);
-}
+} 
+
+
 function numberChange(number){
 	page=number;
 }
@@ -243,6 +266,16 @@ function orderGoodsList(pageInfo){
 
 // 담기
 function getOrder(){
+	
+	
+	let code= event.target.parentNode.parentNode.children[0].dataset.code
+	let count = document.querySelectorAll("."+code)
+	
+	if(count.length>1){
+		return
+	}
+	
+	
 	
 	let dataCode = event.target.parentNode.parentNode.children[0].dataset.code;
 	let price = event.target.parentNode.parentNode.children[2].innerText
@@ -322,8 +355,7 @@ function inputNumber(){
 				sum += parseInt(priceList[i].innerText)
 			}
 		}
-		document.querySelector("#totalPrice").value=sum;
-	
+		document.querySelector("#totalPrice").value=sum;	
 	}
 
 </script>

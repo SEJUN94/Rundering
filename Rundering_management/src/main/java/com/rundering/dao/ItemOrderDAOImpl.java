@@ -1,9 +1,13 @@
 package com.rundering.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
+import com.rundering.manage.Criteria;
 
 public class ItemOrderDAOImpl implements ItemOrderDAO{
 
@@ -38,6 +42,56 @@ public class ItemOrderDAOImpl implements ItemOrderDAO{
 	public void itemOrderDetailRemove(String seq) throws Exception {
 		session.delete("ItemOrder-Mapper.itemOrderDetailRemove",seq);
 	}
+	@Override
+	public List<ItemOrderVO> selectItemOrderList(Criteria cri) throws Exception{
+		int offset=cri.getStartRowNum();
+		int limit=cri.getPerPageNum();		
+		RowBounds rowBounds=new RowBounds(offset,limit);
+		
+		List<ItemOrderVO> itemOrderList = null;
+	 	itemOrderList = session.selectList("ItemOrder-Mapper.selectItemOrderList",cri,rowBounds);
+	 	return itemOrderList;
+	}
+	@Override
+	public int selectCount() throws Exception{
+		int count = session.selectOne("ItemOrder-Mapper.selectCount");
+		return count;
+	}
+	@Override
+	public int selectTotalPriceByOrderCode(String ordercode) throws Exception{
+		int result =0;
+		String totalPrice = session.selectOne("ItemOrder-Mapper.selectTotalPriceByOrderCode",ordercode);
+		
+		if (totalPrice==null) {
+			return result;
+		}
+		int intTotalPrice=Integer.parseInt(totalPrice);
+		return intTotalPrice;
+	}
 	
-
+	@Override
+	public List<ItemOrderDetailVO> selectItemOrderDetailByOrdercode(String ordercode) throws Exception{
+		return session.selectList("ItemOrder-Mapper.selectItemOrderDetailByOrdercode", ordercode);
+	}
+	@Override
+	public String selectItemOrderBranchCodeByOrdercode(String ordercode) throws Exception{
+		return session.selectOne("ItemOrder-Mapper.selectItemOrderBranchCodeByOrdercode",ordercode);
+	}
+	@Override 
+	public ItemOrderVO selectItemOrderByOrdercode(String ordercode) throws Exception{
+		return session.selectOne("ItemOrder-Mapper.selectItemOrderByOrdercode",ordercode);
+	} 
+	@Override
+	public void updateItemOrderStatusByOrderCode(ItemOrderVO itemOrder) throws Exception{
+		session.update("ItemOrder-Mapper.updateItemOrderStatusByOrderCode", itemOrder);
+	}
+	@Override
+	public void deleteItemOrderRemoveByOrdercode(String ordercode) throws Exception{
+		session.delete("ItemOrder-Mapper.deleteItemOrderRemoveByOrdercode", ordercode);
+	}
+	@Override
+	public void deleteItemOrderDetailRemove(String ordercode) throws Exception{
+		session.delete("ItemOrder-Mapper.deleteItemOrderDetailRemove",ordercode);
+	}
+  
 }
