@@ -47,6 +47,7 @@
                                 <option value="0603">서구지점</option>
                                 <option value="0604">유성구지점</option>
                                 <option value="0605">대덕구지점</option>
+                                <option value="0000">본사</option>
                             </select>
                         </div>
                     </div>
@@ -124,8 +125,8 @@
 					data : formData,
 					success : function(response){
 						if(response.toUpperCase() == "OK"){
-							Swal.fire('Rundering 사원등록 신청이 완료되었습니다.', '사원 등록 후 아이디 및 패스워드를 이메일로 보내드리니 이메일을 확인해주세요', 'success' )
 							location.href = "<%=request.getContextPath()%>/common/loginform";
+							Swal.fire('Rundering 사원등록 신청이 완료되었습니다.', '사원 등록 후 아이디 및 패스워드를 이메일로 보내드리니 이메일을 확인해주세요', 'success' )
 							} else {
 							Swal.fire('공백없이 형식에 맞게 작성해주세요!', 'error' )
 							}
