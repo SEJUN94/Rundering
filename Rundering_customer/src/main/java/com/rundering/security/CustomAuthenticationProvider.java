@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.rundering.dto.MemberVO;
 import com.rundering.service.MemberService;
+import com.rundering.util.UserSha256;
 
 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -21,7 +22,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
  
 	@Override 
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
-		 
 		
 		String parameter_id = (String) auth.getPrincipal(); // 로그인 시도한 ID를 가져온다
  		String []split_id = parameter_id.split(":==:");
@@ -30,6 +30,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
  		if(split_id.length==2) login_check=split_id[1];
  		
 		String login_pwd = (String) auth.getCredentials(); //로그인 시도한 Password 를 가져온다.
+		String pw = UserSha256.encrypt(login_pwd);
  		MemberVO member = null;
  		
  		try {
@@ -48,7 +49,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
  	 		
  	 			
  			
- 			if(login_pwd.equals(member.getPassword())) {//아이디 패스워드 일치
+ 			if(pw.equals(member.getPassword())) {//아이디 패스워드 일치
  				UserDetails authUser = new User(member,memberService);
  				boolean invalidCheck = authUser.isAccountNonExpired()
 					  	   && authUser.isAccountNonLocked()

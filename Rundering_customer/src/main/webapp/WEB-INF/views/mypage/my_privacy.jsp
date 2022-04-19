@@ -10,7 +10,7 @@
 		<h3 class="card-title ">회원수정</h3>
 	</div>
 </div>
-
+<form class="form-horizontal" onsubmit="return modify();" method="post">
 <div class="card-body marginfont text-center">
 	<div class="form-group">
 		<div class="row ">
@@ -20,7 +20,7 @@
 			<div class="col-10">
 				<div class="col-12 row">
 					<div class="form-group col-4">
-						<input type="text" class="form-control" name="name" id="name" value="${loginUser.getName() }" disabled style="border:none;background-color:transparent;">
+						<input type="text" class="form-control" name="name" id="name" value="${loginUser.getName() }" disabled style="border:none;background-color:transparent;" readonly>
 					</div>
 				</div>
 			</div>
@@ -34,8 +34,8 @@
 					<div class="form-group col-4">
 						<input type="password" class="form-control" name="password" value="${loginUser.getPassword() }" >
 					</div>
-					<span class="form-group col-7">
-						<button class="btn float-right" id="password" style="border-color: gray;">변경</button>
+					<span class="form-group col-2">
+						<button class="btn float-right" id="pw" name="password" style="border-color: gray;">변경</button>
 					</span>
 				</div>
 			</div>
@@ -49,7 +49,7 @@
 			<div class="col-10" id="divCall">
 				<div class="col-12 row">
 					<div class="form-group col-4">
-						<input type="text" class="form-control" name="call"	value="${loginUser.getPhone() }">
+						<input type="text" class="form-control"  id="phone" name="phone" value="${loginUser.getPhone() }">
 					</div>
 				</div>
 			</div>
@@ -62,8 +62,8 @@
 			</label>
 			<div class="col-10" id="divEmail">
 				<div class="col-12 row">
-					<div class="form-group col-7">
-						<input type="email" class="form-control " name="email" value="${loginUser.getEmail() }" >
+					<div class="form-group col-4">
+						<input type="email" class="form-control " id="email" name="email" value="${loginUser.getEmail() }" >
 					</div>
 				</div>
 			</div>
@@ -76,10 +76,10 @@
 			</label>
 			<div class="col-10">
 				<div class="col-12 row">
-					<div class="form-group col-8">
-						<input type="text" class="form-control" name="add1" id="add1" value="${memberAddressList[0].getAdd1() }" disabled>
+					<div class="form-group col-4">
+						<input type="text" class="form-control" name="add1" id="add1" value="${memberAddressList[0].getAdd1() }" readonly>
 					</div>
-					<span class="form-group col-3">
+					<span class="form-group col-2">
 						<button class="btn float-right" id="modalBtn" style="border-color: gray;" onclick="findAdd();">주소검색</button>
 					</span>
 				</div>
@@ -93,7 +93,7 @@
 			</label>
 			<div class="col-10">
 				<div class="col-12 row">
-					<div class="form-group col-6">
+					<div class="form-group col-4">
 						<input type="text" class="form-control" name="add2" id="add2" value="${memberAddressList[0].getAdd2() }">
 					</div>
 				</div>
@@ -106,10 +106,10 @@
 			</label>
 			<div class="col-10">
 				<div class="col-12 row">
-					<div class="form-group col-8">
-						<input type="hidden" class="form-control" name="zip" id="zip" value="${memberAddressList[0].getZip() }">
+					<div class="form-group col-4">
+						<input type="hidden" class="form-control" name="zip" id="zip" value="${memberAddressList[0].getZip() }" readonly>
 					</div>
-					<span class="form-group col-3">
+					<span class="form-group col-4">
 						<button class="btn float-right" id="address" style="border-color: gray;">수정</button>
 					</span>
 				</div>
@@ -117,6 +117,70 @@
 		</div>
 	</div>
 </div>
+</form>
+
+
+
+<script>
+function modify(){
+	
+}
+
+</script>
+
+<script>
+	//email 중복체크 ajax
+	function emailCheckAjax() {
+		let sp = document.querySelectorAll('.sp');
+		let rst = document.querySelector('#rst1');
+
+		$.ajax({
+			url : '<%=request.getContextPath()%>/emailCheck',
+			data : {
+				'email' : $('#email').val()
+			},
+			type : 'post',
+			success : function(result) {
+				if (result.toUpperCase() == "OK") {
+					$('#rst1').html("이미 존재하는 email입니다").css('color', 'red');
+					sp[4].style.display = 'none';
+					rst.style.display = "inline-block";
+				} else {
+					$('#rst1').html("사용 가능한 email입니다").css('color', 'green');
+					sp[4].style.display = 'none';
+					rst.style.display = "inline-block";
+				}
+			},
+			error : function(error) {
+				//alert("시스템장애로 가입이 불가합니다.");
+				AjaxErrorSecurityRedirectHandler(error.status);
+			}
+		});
+	}
+</script>	
+
+<script>
+
+window.addEventListener('load',com);
+function com(){
+	//유효성검증 - pass
+	$('#pw').on('keyup',function() {
+		let passValue = $('#pw').val().trim();
+		let regPass = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}$/;
+	
+		if (regPass.test(passValue)) {
+			okProc($('#pw'), "사용 가능한 패스워드 입니다!");
+			pwchk = true;
+		} else if (passValue === "") {
+			noProc($('#pw'), "패스워드를 입력하세요");
+			pwchk = false;
+		} else {
+			noProc($('#pw'), "대/소문자,특수문자,숫자 포함 8자리 이상 입력해야함");
+			pwchk = false;
+		}
+	});
+}
+</script>
 
 
 <script>

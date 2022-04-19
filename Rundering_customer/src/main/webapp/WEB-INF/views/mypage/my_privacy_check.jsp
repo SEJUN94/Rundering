@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    
     <h2 class="text-center display-4">회원정보 수정</h2>
     <hr style="border: 2px solid rgb(170, 167, 167);">
     <h2 class="text-center display-6">비밀번호 재확인</h2><br>

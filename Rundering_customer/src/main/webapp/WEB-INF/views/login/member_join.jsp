@@ -92,11 +92,12 @@
 				</div>
 			</div>
 			<div class="form-group verificationCode" style="display: none;">
+				<span style="color: red; font-weight: bold;">*</span>
 				<label for="addr">인증번호</label>
 				<div class="input-group" style="padding-top: 10px;">
-					<input type="text" class="form-control" id="Code" placeholder="인증번호">
-					<button type="button" onclick="verificationCodeCheck()" style="margin-top: 10px;" class="btn btn-outline-primary btn-block">연락처 인증하기</button>
-					<div id="timeLimit" style="position: absolute;padding: 9px;margin-left: 279px;color: gray;font-size: 0.9rem; z-index: 10"></div>
+					<input type="text" class="form-control col-4" id="Code" placeholder="인증번호">
+					<button type="button" onclick="verificationCodeCheck()" style="margin-left: 10px;" class="btn btn-outline-primary btn-block col-2">인증하기</button>
+					<div id="timeLimit" style="position: absolute;padding: 9px;margin-left: 140px;color: gray;font-size: 0.9rem; z-index: 10"></div>
 				</div>
 			</div>
 			<div>
@@ -104,24 +105,19 @@
 					style="color: red; font-weight: bold;">*</span>주소</label>
 			</div>
 			<div class="input-group mb-3 form-group">
-				<input type="text" class="col-lg-6 form-control" id="zip" name="zip" placeholder="우편번호 버튼 Click" disabled>
+				<input type="text" class="col-lg-6 form-control" id="zip" name="zip" placeholder="우편번호 버튼 Click" readonly >
 				<div class="input-group-append">
 					<button type="button" id="modalBtn" class="btn btn-info btn-sm"	onclick="findZip();">우편검색</button>
 				</div>
 			</div>
 			<div class="input-group mb-3 form-group">
-				<input type="text" class="form-control" id="add1" name="add1" placeholder="기본주소" disabled>
+				<input type="text" class="form-control" id="add1" name="add1" placeholder="기본주소" readonly >
 			</div>
 			<div class="input-group mb-3 form-group">
 				<input type="text" class="form-control" id="add2" name="add2" placeholder="상세주소">
 			</div>
 			<div class="row">
 				<div class="col-8">
-					<div class="icheck-primary">
-						<input type="checkbox" id="agreeTerms" name="terms" value="agree">
-						<label for="agreeTerms"> I agree to the <a href="#">terms</a>
-						</label>
-					</div>
 				</div>
 
 				<div class="col-4">
@@ -135,7 +131,7 @@
 </div>
 
 <!-- 알림 sweetalert2 -->
-	<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 
 
 <script>
@@ -187,7 +183,7 @@ function valid(){
 	
 	event.preventDefault();	//submit 이벤트를 막아 페이지 리로드를 방지
 	if(phonchk){
-		if(idchk && pwchk && namechk && passchk && hpchk && mailchk){
+		if(idchk && pwchk && namechk && passchk && hpchk && mailchk && phonchk){
 			let formData = $('form').serialize();
 			
 			var ta1 = $('input[name="add1"]');
@@ -211,9 +207,9 @@ function valid(){
 						},
 					});
 			} else{
-				 //Swal.fire({
+				 Swal.fire({
 		               title: '해당 주소지는 서비스 지역이 아닙니다. 등록 하시겠습니까?',
-		               icon: 'warning',
+		               icon : 'warning' ,
 		               showCancelButton: true,
 		               confirmButtonColor: '#3085d6',
 		               cancelButtonColor: '#d33',
@@ -243,6 +239,8 @@ function valid(){
 		           		}})
 			}
 		}
+	}else {
+		Swal.fire('연락처를 인증해주세요!' );
 	}
 }	
 </script>
@@ -311,7 +309,8 @@ function valid(){
 	
 <script>
 
-window.onload = function() {
+window.addEventListener('load',com);
+	function com(){
 	
 	let responseCode = 0;
 	
@@ -605,7 +604,6 @@ const Toast = Swal.mixin({
 	    }
 	    return formatNum;
 	}
-
 
 </script>
 

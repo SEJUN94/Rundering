@@ -17,12 +17,48 @@ public class AttachVO {
 	private String  regUserId;
 	private Date  updDate;
 	private String  updUserId;
+	private String uploadPath;
+	private String fileName;
+	private String saveFileName;
+	private String fileType;
 
 	public AttachVO() {}
 	
 	public String getAtchFileNo() {
 		return atchFileNo;
 	}
+	public String getUploadPath() {
+		return uploadPath;
+	}
+
+	public void setUploadPath(String uploadPath) {
+		this.uploadPath = uploadPath;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getSaveFileName() {
+		return saveFileName;
+	}
+
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
+	}
+
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
 	public void setAtchFileNo(String atchFileNo) {
 		this.atchFileNo = atchFileNo;
 	}

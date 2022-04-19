@@ -24,4 +24,21 @@ public class MemberServiceImpl implements MemberService{
 		List<String> auth = memberDAO.selectAuthByMemberNo(memberNo);
 		return auth;
 	}
+	
+	//사원등록신청
+	@Override
+	public void applicationEmployee(MemberVO member) throws Exception {
+		memberDAO.applicationEmployee(member);
+	}
+	
+	
+	//등록신청 사원의 고유번호 가져오기
+	@Override
+	public MemberVO getMemberNo(String phone) throws Exception {
+		MemberVO member = memberDAO.getMemberNo(phone);
+		return member;
+	}
+	
+	
+	
 }

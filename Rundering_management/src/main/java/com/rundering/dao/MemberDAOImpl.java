@@ -27,4 +27,19 @@ public class MemberDAOImpl implements MemberDAO{
 		List<String> auth = session.selectList("Member-Mapper.selectAuthByMemberNo",memberNo);
 		return auth;
 	}
+
+	//사원등록신청
+	@Override
+	public void applicationEmployee(MemberVO member) throws Exception {
+		session.update("Member-Mapper.applicationEmployee",member);
+	}
+
+	//등록신청 사원의 고유번호 가져오기
+	@Override
+	public MemberVO getMemberNo(String phone) throws Exception {
+
+		MemberVO member= session.selectOne("Member-Mapper.getMemberById", phone);
+		
+		return member;
+	}
 }

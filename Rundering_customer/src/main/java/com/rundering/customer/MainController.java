@@ -20,6 +20,7 @@ import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.service.MemberAddressService;
 import com.rundering.service.MemberService;
+import com.rundering.util.UserSha256;
 
 @Controller
 public class MainController {
@@ -56,8 +57,12 @@ public class MainController {
 			
 		MemberVO member = mac.toMember();
 		
-		MemberAddressVO memberAdd = null;
+		MemberAddressVO memberAdd;
 		
+		String pw = UserSha256.encrypt(member.getPassword());
+		
+		member.setPassword(pw);
+
 		try {
 			
 			memberService.memberJoin(member);

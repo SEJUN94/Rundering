@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 
-<body>
+
     <div class="row">
         <div class="card-body col-6">
             <div class="row">
-                <h4 class=" col-3">주문내역</h2>
+                <h4 class=" col-3">주문내역</h4>
                 <p style="font-size: 0.9em;" class="col-6">지난 3년간의 주문조회가 가능합니다 &nbsp;</p>
                 <select name="" id="" class="form-control form-group col-3 " style="height: auto;">
                     <option value="">전체기간</option>
@@ -58,4 +57,4 @@
                 </div>
             </div>
         </div>
-</body>
+	</div>

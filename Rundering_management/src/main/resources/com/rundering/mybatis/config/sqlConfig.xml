@@ -10,6 +10,8 @@
 		<typeAlias type="java.lang.Integer" alias="int" />
 		
 		<typeAlias type="com.rundering.dto.MemberVO" alias="member" />
+		<typeAlias type="com.rundering.dto.MemberAddressVO" alias="memberAddress" />
+		<typeAlias type="com.rundering.command.MemberAddCommand" alias="MemberAddCommand" />
 		<typeAlias type="com.rundering.dto.AttachVO" alias="attach" />
 		<typeAlias type="com.rundering.dto.MenuVO" alias="menu" />
 		<typeAlias type="com.rundering.dto.LaundryItemsVO" alias="laundryItems" />
