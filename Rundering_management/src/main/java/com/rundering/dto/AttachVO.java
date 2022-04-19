@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class AttachVO {
 
-	private String  atchFileNo;
+	private int  atchFileNo;
 	private int  atchFileSeq;
 	private String  bizType;
 	private String  filePath;
@@ -20,12 +20,14 @@ public class AttachVO {
 
 	public AttachVO() {}
 	
-	public String getAtchFileNo() {
+	
+	public int getAtchFileNo() {
 		return atchFileNo;
 	}
-	public void setAtchFileNo(String atchFileNo) {
+	public void setAtchFileNo(int atchFileNo) {
 		this.atchFileNo = atchFileNo;
 	}
+
 	public int getAtchFileSeq() {
 		return atchFileSeq;
 	}

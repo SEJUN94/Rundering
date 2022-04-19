@@ -10,16 +10,20 @@ public class AttachDAOImpl implements AttachDAO{
 	public void setSession(SqlSession session) {
 		this.session = session;
 	}
-	
-	@Override
-	public void insertOrderGoodsAtach(AttachVO attach) throws Exception {
-		session.update("Attach-Mapper.insertOrderGoodsAtach",attach);
-	}
 	@Override
 	public int selectFileNo() throws Exception {
 		int seq= session.selectOne("Attach-Mapper.selectFileNo");
 		return seq;
 	}
-	
 
+	@Override
+	public void insertOrderGoodsAtach(AttachVO attach) throws Exception {
+		session.update("Attach-Mapper.insertLaundryArticlesAttach",attach);
+	}
+	
+	@Override
+	public String selectAttachNameByAtchFileNo(int atchFileNo) throws Exception {
+		String articles = session.selectOne("Attach-Mapper.getNameByAtchFileNo", atchFileNo); 
+		return articles;
+	}
 }

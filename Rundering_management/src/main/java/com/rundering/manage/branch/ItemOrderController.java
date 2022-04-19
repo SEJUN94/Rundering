@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.dto.ItemOrderVO;
 import com.rundering.manage.Criteria;
-import com.rundering.service.OrderGoodsService;
+import com.rundering.service.LaundryArticlesService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Controller;
 @RequestMapping("/branch/itemorder")
 public class ItemOrderController {
 	@Autowired
-	OrderGoodsService orderGoodsService; 
+	LaundryArticlesService orderGoodsService; 
 	
 	@RequestMapping(value="/list",method = RequestMethod.GET)
 	private String list() {

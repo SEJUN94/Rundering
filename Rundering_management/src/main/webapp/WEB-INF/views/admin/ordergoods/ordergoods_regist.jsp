@@ -28,7 +28,7 @@
 										class=" btn btn-warning btn-sm btn-flat input-group-addon" >사진변경</label>
 									<input id="inputFileName" class="form-control" type="text"
 										name="tempPicture"  disabled/>
-										<button type="button" id="sendBtn" class="btn btn-primary btn-sm" onclick="regist_go()">등록</button>
+										<button type="button" id="sendBtn" class="btn btn-primary btn-sm" style="height:31px;" onclick="regist_go()">등록</button>
 								</div>
 							</div>
 						</div>
