@@ -18,7 +18,7 @@
 				<h3 class="m-3">지점 발주 내역</h3>
 				<div class="card-body table-responsive p-0 mt-0">
 					<table
-						class="table table-hover text-nowrap card-secondary card-outline">
+						class="table table-hover text-nowrap card-secondary card-outline" style="text-align:center;">
 						<thead>
 							<tr>
 								<th>발주번호</th>
@@ -33,14 +33,28 @@
 							</c:if>
 							<c:forEach items="${itemOrderList }" var="itemOrder">
 								<tr
-									onclick="window.open('<%=request.getContextPath()%>/admin/branchorder/detail?seq=${itemOrder.ordercode }', '발주 상세', 'width=700, height=900');"
+									onclick="window.open('<%=request.getContextPath()%>/admin/branchorder/detail?ordercode=${itemOrder.ordercode }', '발주 상세', 'width=700, height=900');"
 									style="cursor: pointer;">
 									<td>${itemOrder.ordercode }</td>
 									<td>${itemOrder.branchCode }</td>
 									<td>
 										<fmt:formatDate value="${itemOrder.registDate }" pattern="	yy-MM-dd HH:mm" /> 
 									</td>
-									<td><span class="badge badge-warning">${itemOrder.itemOrderStatus }</span></td>
+									<c:if test="${itemOrder.itemOrderStatus eq '01'}">
+										<td><span class="badge badge-warning">승인대기</span></td>
+									</c:if>
+									<c:if test="${itemOrder.itemOrderStatus eq '02'}">
+										<td><span class="badge badge-success">발주대기</span></td>
+									</c:if>
+									<c:if test="${itemOrder.itemOrderStatus eq '03'}">
+										<td><span class="badge badge-warning">미수령</span></td>
+									</c:if>
+									<c:if test="${itemOrder.itemOrderStatus eq '04'}">
+										<td><span class="badge badge-success">수령</span></td>
+									</c:if>
+									<c:if test="${itemOrder.itemOrderStatus eq '05'}">
+										<td><span class="badge badge-danger">반려</span></td>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</tbody>

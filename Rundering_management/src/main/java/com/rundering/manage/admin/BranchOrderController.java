@@ -5,11 +5,19 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.rundering.command.ItemOrderDetailCommand;
+import com.rundering.dto.ItemOrderVO;
 import com.rundering.manage.Criteria;
 import com.rundering.service.ItemOrderService;
 
@@ -32,15 +40,27 @@ public class BranchOrderController {
 	}
 	
 	@RequestMapping("/branchorder/detail")
-	public ModelAndView branchOrderDetail(int seq,String from, ModelAndView mnv) throws SQLException{
+	public ModelAndView branchOrderDetail(String ordercode, ModelAndView mnv) throws SQLException{
 		String url = "admin/branchorder/equipment_order_detail";
 		
-		ItemOrderDetailCommand itemOrderDetail = itemOrderService.getItemOrderDetailList(seq);
+		Map<String, Object> dataMap = itemOrderService.getItemOrderDetailList(ordercode);
 		
-		mnv.addObject("itemOrderDetail", itemOrderDetail);
+		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
 		
 		return mnv;
 	}
 	
+	@RequestMapping(value="/branchorder/modifyStatus", method=RequestMethod.POST)
+	public String branchOrderModify(ItemOrderVO itemOrder, RedirectAttributes rttr) throws SQLException{
+		String url="redirect:/admin/branchorder/detail";
+		
+		itemOrderService.modifyStatus(itemOrder);
+		
+		rttr.addFlashAttribute("from","modify");
+		rttr.addAttribute("ordercode", itemOrder.getOrdercode());
+		
+		return url;
+		
+	}
 }

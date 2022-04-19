@@ -114,7 +114,7 @@
 												<td><fmt:formatDate value="${laundryArticles.modifyDate }"
 														pattern="yyyy-MM-dd" /></td>
 												<td><button class="btn btn-warning btn-sm"
-														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${orderGoods.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
+														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${laundryArticles.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
 											</tr>
 										</c:if>	
 									</c:forEach>	
@@ -151,7 +151,7 @@
 												<td><fmt:formatDate value="${laundryArticles.modifyDate }"
 														pattern="yyyy-MM-dd" /></td>
 												<td><button class="btn btn-warning btn-sm"
-														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${orderGoods.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
+														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${laundryArticles.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
 											</tr>
 										</c:if>	
 									</c:forEach>	
@@ -188,7 +188,7 @@
 												<td><fmt:formatDate value="${laundryArticles.modifyDate }"
 														pattern="yyyy-MM-dd" /></td>
 												<td><button class="btn btn-warning btn-sm"
-														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${orderGoods.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
+														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${laundryArticles.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
 											</tr>
 										</c:if>	
 									</c:forEach>	
@@ -224,7 +224,7 @@
 												<td><fmt:formatDate value="${laundryArticles.modifyDate }"
 														pattern="yyyy-MM-dd" /></td>
 												<td><button class="btn btn-warning btn-sm"
-														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${orderGoods.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
+														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${laundryArticles.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
 											</tr>
 										</c:if>	
 									</c:forEach>	
@@ -261,7 +261,7 @@
 												<td><fmt:formatDate value="${laundryArticles.modifyDate }"
 														pattern="yyyy-MM-dd" /></td>
 												<td><button class="btn btn-warning btn-sm"
-														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${orderGoods.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
+														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${laundryArticles.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
 											</tr>
 										</c:if>	
 									</c:forEach>	

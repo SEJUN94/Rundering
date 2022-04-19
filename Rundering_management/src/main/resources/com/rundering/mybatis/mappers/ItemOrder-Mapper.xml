@@ -14,11 +14,14 @@
 		<result column="CHARGER" property="charger"/>
 		<result column="BRANCH_CODE" property="branchCode"/>
 		<result column="REGIST_DATE" property="registDate"/>
-		<result column="RECEIPT_DATE" property="receipTDate"/>
-		<result column="ARTICLES_CODE" property="articlesCode" />
+		<result column="RECEIPT_DATE" property="receiptDate"/>
+	</resultMap>
+	
+	<resultMap type="itemOrderDetail" id="itemOrderDetailMap">
+		<result column="ORDERCODE" property="ordercode"/>
+		<result column="ARTICLES_CODE" property="articlesCode"/>
 		<result column="SEQ" property="seq"/>
-		<result column="ORDER_COUNT" property="orderCount" />
-		
+		<result column="ORDER_COUNT" property="orderCount"/>
 	</resultMap>
 	
 	<select id="selectSearchItemOrder" parameterType="itemOrder" resultMap="itemOrderMap">
@@ -32,24 +35,35 @@
 		  from TB_ITEM_ORDER
 	</select>
 	
-	<select id="selectItemOrderBySeq" resultType="int">
-		SELECT 
-		A.ORDERCODE
-		,B.ARTICLES_CODE
-		,B.SEQ
-		,B.ORDER_COUNT
-		,A.ITEM_ORDER_PAYMENT_PRICE
-		,A.ITEM_ORDER_STATUS
-		,A.CHARGER
-		,A.BRANCH_CODE
-		,A.REGIST_DATE
-		,A.RECEIPT_DATE
-		FROM TB_ITEM_ORDER A, TB_ITEM_ORDER_DETAIL B
-		WHERE A.ORDERCODE = B.ORDERCODE
-		AND B.ORDERCODE = #{orderCode}
+	<select id="selectItemOrderDetailByOrderCode" parameterType="itemOrder" resultMap="itemOrderMap">
+		select 
+			A.ORDERCODE
+			, A.ITEM_ORDER_PAYMENT_PRICE
+			, A.ITEM_ORDER_STATUS
+			, A.CHARGER
+			, B.BRANCH_NAME as branchName
+			, A.REGIST_DATE
+			, A.RECEIPT_DATE
+		  from TB_ITEM_ORDER A, TB_BRANCH B
+		 where A.ORDERCODE=#{ordercode} 
+		   and A.BRANCH_CODE=B.BRANCH_CODE
 	</select>
 	
+	<select id="selectItemOrderDetail" parameterType="itemOrderDetail" resultMap="itemOrderDetailMap">
+		select 
+		    B.ARTICLES_NAME as articlesName,
+		    A.ORDER_COUNT,
+		    A.ARTICLES_CODE,
+		    B.PRICE*A.ORDER_COUNT as price
+		  from TB_ITEM_ORDER_DETAIL A, TB_LAUNDRY_ARTICLES B
+		 where A.ARTICLES_CODE=B.ARTICLES_CODE
+		   and A.ORDERCODE=#{ordercode}
+	</select>
 	
-	
-	
+	<update id="modifyStatus">
+		update TB_ITEM_ORDER
+		   set 
+		  ITEM_ORDER_STATUS=#{itemOrderStatus}
+		 where ORDERCODE=#{ordercode}	
+	</update>
 </mapper>
