@@ -69,7 +69,7 @@ public class LaundryOrderController {
 	
 	@RequestMapping(value = "/comfirm", method = RequestMethod.POST)
 	public ModelAndView comfirm(LaundryOrderReceiveCommand command, HttpServletRequest request, ModelAndView mnv) throws Exception {
-		String url="/order/order_comfirm";
+		String url="/order/order_confirm";
 		
 		List<LaundryOrderDetailVO> laundryOrderDetailVOList = command.toLaundryOrderDetailVOList();
 		Map<String, Object> dataMap = laundryOrderService.checkOrder(laundryOrderDetailVOList);
