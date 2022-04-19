@@ -24,20 +24,16 @@
 					<div class="card-header">
 						<h3 class="card-title">발주내역</h3>
 						<div class="card-tools">
-
+							
 							<div class="input-group input-group-sm">
-
-								<span class="input-group-append">
-
-									<button class="btn btn-primary">확인</button>
-								</span>
 								<div class="input-group-sm selectWidth">
 									<select class="form-control " name="searchType" id="searchType">
-										<option value="a">미승인</option>
-										<option value="b">승인</option>
-										
-										<option value="c">미수령</option>
-										<option value="d">수령</option>
+										<option value="n" ${cri.searchType eq 'n' ? 'selected':'' }>전체</option>
+									<c:forEach var="i" items="${ comCode}">
+									
+									<option value="${i.key}" ${cri.searchType eq i.key ? 'selected':'' }>${ i.value}</option>
+									
+									</c:forEach>
 									</select>
 								</div>
 								<span class="input-group-append">
@@ -50,7 +46,7 @@
 						</div>
 					</div>
 
-					<div class="card-body">
+					<div class="card-body p-0">
 						<table class="table table-hover text-nowrap">
 							<thead>
 								<tr style="text-align: center;">
@@ -65,16 +61,16 @@
 							
 							<tbody>
 							<c:if test="${empty itemOrderList }" >
-						<tr>
-							<td colspan="5">
-								<strong>해당 내용이 없습니다.</strong>
-							</td>
-						</tr>
-					</c:if>				
+								<tr>
+									<td colspan="5">
+										<strong>해당 내용이 없습니다.</strong>
+									</td>
+								</tr>
+							</c:if>				
 					<c:forEach items="${itemOrderList }" var="itemOrder">
 						<tr style='cursor:pointer;' onclick="OpenWindow('detail.do?ordercode=${itemOrder.ordercode }','상세보기',800,700);">
-							<td>${itemOrder.ordercode }</td>
-							<td style="text-align: right;">${totalPrice[itemOrder.ordercode] }</td>
+							<td style="text-align: center;">${itemOrder.ordercode }</td>
+							<td style="text-align: right;">${totalPrice[itemOrder.ordercode] }원</td>
 							<td style="text-align: center;"><fmt:formatDate value="${itemOrder.registDate }" pattern="yyyy-MM-dd"/></td>			
 							<td style="text-align: center;">${comCode[itemOrder.itemOrderStatus] }<td>		
 						</tr>
@@ -83,7 +79,9 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="card-footer"></div>
+					<div class="card-footer">
+					 	<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+					</div>
 				</div>
 
 			</div>

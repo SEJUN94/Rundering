@@ -58,6 +58,7 @@
 						</tbody>
 						
 					</table>
+					
 				</div>
 			</div>
 		</div>
@@ -104,7 +105,7 @@ function ItemOrderRemove(ordercode){
     console.log(form)
      tag.append(form);
     form.submit();
-}
+} 
 function ItemOrderUpdate(ordercode){
 	let tag= document.querySelector("#formTag")
 	let form = document.createElement("form");
@@ -112,7 +113,7 @@ function ItemOrderUpdate(ordercode){
     form.method="post"
     let input = document.createElement("input")
     input.name="ordercode"
-    input.setAttribute("value","ordercode")
+    input.setAttribute("value",ordercode)
     form.append(input);
     tag.append(form);
     form.submit();

@@ -120,12 +120,12 @@ public class BranchItemOrderController {
 	
 	@RequestMapping("/modify")
 	private String modify(String ordercode,RedirectAttributes rttr) throws Exception{
-		String url = "redirect:/branch/itemorder/modify";
+		String url = "redirect:/branch/itemorder/detail?ordercode="+ordercode;
 		ItemOrderVO itemOrder = new ItemOrderVO();
 		itemOrder.setOrdercode(ordercode);
 		itemOrder.setItemOrderStatus("06");
 		itemOrderService.updateState(itemOrder);
-		
+		//여기에 재고관리 쪽 재고 업데이트 나중에 넣어야 함
 		rttr.addFlashAttribute("from", "modify");
 		return url;
 	}

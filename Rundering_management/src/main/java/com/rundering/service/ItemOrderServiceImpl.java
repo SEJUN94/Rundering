@@ -79,7 +79,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 		}
 		
 		
-		int totalCount = itemOrderDAO.selectCount();
+		int totalCount = itemOrderDAO.selectCount(cri);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);

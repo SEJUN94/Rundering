@@ -24,31 +24,23 @@
 	</resultMap>
 	
 	<sql id="search">
-		<if test="searchType == 'a'.toString()">
-			and title like '%'||#{keyword}||'%'			
+		<if test="searchType == '01'.toString()">
+			and item_order_status = '01'		
 		</if>
-		<if test="searchType == 'b'.toString()">
-			and writer like '%'||#{keyword}||'%'			
+		<if test="searchType == '02'.toString()">
+			and item_order_status = '02'			
 		</if>
-		<if test="searchType == 'c'.toString()">
-			and content like '%'||#{keyword}||'%'			
+		<if test="searchType == '03'.toString()">
+			and item_order_status = '03'		
 		</if>
-		<if test="searchType == 'd'.toString()">
-			and (
-			title like '%'||#{keyword}||'%'
-			or
-			content like '%'||#{keyword}||'%'						
-			)			
+		<if test="searchType == '04'.toString()">
+			and item_order_status = '04'	
 		</if>
-		<if test="searchType == 'e'.toString()">
-			and (
-			writer like '%'||#{keyword}||'%'
-			or
-			content like '%'||#{keyword}||'%'						
-			)			
+		<if test="searchType == '05'.toString()">
+			and item_order_status = '05'		
 		</if>
-		<if test="searchType == 'f'.toString()">
-				
+		<if test="searchType == '06'.toString()">
+			and item_order_status = '06'	
 		</if>
 	</sql>
 	<select id="selectItemOrderByOrdercode" parameterType="str" resultMap="itemOrderMap">
@@ -79,6 +71,8 @@
 	<select id="selectCount" resultType="int">
 		select count(*)
 		from tb_item_order
+		where ordercode is not null
+		<include refid="search"/>
 	</select>
 	
 	<select id="selectTotalPriceByOrderCode" resultType="str" parameterType="str">

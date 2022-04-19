@@ -53,8 +53,8 @@ public class ItemOrderDAOImpl implements ItemOrderDAO{
 	 	return itemOrderList;
 	}
 	@Override
-	public int selectCount() throws Exception{
-		int count = session.selectOne("ItemOrder-Mapper.selectCount");
+	public int selectCount(Criteria cri) throws Exception{
+		int count = session.selectOne("ItemOrder-Mapper.selectCount",cri);
 		return count;
 	}
 	@Override

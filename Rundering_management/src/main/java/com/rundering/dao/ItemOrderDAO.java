@@ -15,7 +15,7 @@ public interface ItemOrderDAO {
 	public void itemOrderRemove(String seq) throws Exception;
 	public void itemOrderDetailRemove(String seq) throws Exception;
 	public List<ItemOrderVO> selectItemOrderList(Criteria cri) throws Exception;
-	public int selectCount() throws Exception;
+	public int selectCount(Criteria cri) throws Exception;
 	public int selectTotalPriceByOrderCode(String ordercode) throws Exception;
 	public List<ItemOrderDetailVO> selectItemOrderDetailByOrdercode(String ordercode) throws Exception;
 	public String selectItemOrderBranchCodeByOrdercode(String ordercode) throws Exception;
