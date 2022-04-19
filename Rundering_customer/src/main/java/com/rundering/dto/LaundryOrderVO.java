@@ -17,7 +17,7 @@ public class LaundryOrderVO {
 	private Date deliveryDate;          //배송완료일자
 	private String orderStatus;         //주문상태코드
 	private String cancelYn;            //취소여부
-	private int paymentNo;              //결제번호
+	private String paymentNo;           //결제번호
 	private String branchCode;          //지점코드
 	private String memberNo;            //회원고유번호
 	private String deliveryEmployeeId;  //배송담당기사
@@ -108,10 +108,10 @@ public class LaundryOrderVO {
 	public void setCancelYn(String cancelYn) {
 		this.cancelYn = cancelYn;
 	}
-	public int getPaymentNo() {
+	public String getPaymentNo() {
 		return paymentNo;
 	}
-	public void setPaymentNo(int paymentNo) {
+	public void setPaymentNo(String paymentNo) {
 		this.paymentNo = paymentNo;
 	}
 	public String getBranchCode() {

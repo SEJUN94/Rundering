@@ -6,9 +6,10 @@
 
 <c:set var="confirmedOrderDetailVOList" value="${dataMap.confirmedOrderDetailVOList }" />
 <c:set var="totalPrice" value="${dataMap.totalPrice }" />
+<c:set var="orderName" value="${dataMap.orderName }" />
 
 <body>
-	<form role="form" action="<%=request.getContextPath()%>/order/payment" method="post">
+	<form role="form" action="<%=request.getContextPath()%>/order/completed" method="post">
 		<div style="width: 60%; margin-left: 20%;">
 			<section class="content-header">
 				<div class="container-fluid">
@@ -50,6 +51,8 @@
 							<input type="hidden" name="laundryItemsCode" value="${laundryItemsCode}" >
 						</c:forEach>
 					</c:if>
+					<input type="hidden" name="paymentNo" id="paymentNo" value="" >
+					<input type="hidden" name="totalPrice" id="totalPrice" value="" >
 			</div>
 			<div class="col-lg-12 p-0">
 				<div class="card">
@@ -105,13 +108,14 @@
 	<!-- iamport.payment.js -->
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script>
+	
 	$("#check_module").click(function () {
 								IMP.init('imp22830422');   //아임포트 관리자계정
 								//결제 시스템을 실행시키는 함수
 								IMP.request_pay({
 									pg: 'html5_inicis',
 									pay_method: 'card',
-									name: 'Rundering 세탁접수',
+									name: '${orderName}',
 										
 									amount: '${totalPrice}',   //테스트 완료 후 가격정보 넣기
 									buyer_email: "${loginUser.email}",
@@ -119,25 +123,32 @@
 									buyer_name: "${loginUser.name}"
 								}, function (rsp) {
 									if (rsp.success) {
-										var msg = '결제가 완료되었습니다.';
+										let msg = '결제가 완료되었습니다.';
 										msg += rsp.buyer_name;
 										msg += rsp.paid_amount;
+										
+										$('#paymentNo').val(rsp.merchant_uid);
+										$('#totalPrice').val(rsp.paid_amount);
 
 										// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
 										// 결제내역을 사용자에게 보여주기 위해 필요함.
 										$.ajax({
 											url: "<%=request.getContextPath()%>/order/payment",
-											type: "post",
-											data: {
-												<%-- "users_id": "<%=usersVo.getUsers_id()%>",
-												"mmbrs_rating": rsp.name,
-												"mmbrs_price": rsp.paid_amount --%>
-											},
+											type: "POST",
+											data: JSON.stringify ({
+												"memberNo": '${loginUser.memberNo}',
+												"paymentNo": rsp.merchant_uid,
+												"paymentType": rsp.pay_method,
+												"paymentName": rsp.name,
+												"paymentPrice": rsp.paid_amount
+											}),
+											contentType:'application/json',
 											dataType: "json",
 											success: function (result) {
-												if (result == "1") {
-													alert(msg);
-
+												if (result.insertResult == "success") {
+													$("form").submit();
+													console.log(msg);
+													
 												} else {
 													alert("DB입력실패");
 													return false;
@@ -145,10 +156,10 @@
 											}
 										});
 									} else {
-										var msg = '결제에 실패하였습니다.';
+										let msg = '결제에 실패하였습니다.';
 										msg += '\n에러내용 : ' + rsp.error_msg;
 									}
-									alert(msg);
+									console.log(msg);
 								});
 							});
 	</script>

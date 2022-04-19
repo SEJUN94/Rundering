@@ -22,7 +22,9 @@
 					PICKUP_REQUEST_DATE,
 					REQUEST_DETAILS,
 					MEMBERNO,
-					AREA)
+					AREA,
+					TOTAL_PRICE,
+					PAYMENTNO)
 					VALUES (
 					#{orderNo},
 					#{contactNumber},
@@ -33,7 +35,10 @@
 					#{pickupRequestDate},
 					#{requestDetails},
 					#{memberNo},
-					#{area})
+					#{area},
+					#{totalPrice},
+					#{paymentNo}
+					)
 			</when>
 	
 			<otherwise>
@@ -46,7 +51,9 @@
 					DELIVERY_REQUEST_DATE,
 					PICKUP_REQUEST_DATE,
 					MEMBERNO,
-					AREA)
+					AREA,
+					TOTAL_PRICE,
+					PAYMENTNO)
 					VALUES (
 					#{orderNo},
 					#{contactNumber},
@@ -56,7 +63,10 @@
 					#{deliveryRequestDate},
 					#{pickupRequestDate},
 					#{memberNo},
-					#{area})
+					#{area},
+					#{totalPrice},
+					#{paymentNo}
+					)
 			</otherwise>
 		</choose>
 	</update>

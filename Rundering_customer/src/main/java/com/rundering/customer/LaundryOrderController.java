@@ -81,8 +81,8 @@ public class LaundryOrderController {
 		return mnv;
 	}
 	
-	@RequestMapping(value = "/payment", method = RequestMethod.POST)
-	public ModelAndView payment(LaundryOrderReceiveCommand command, HttpServletRequest request, ModelAndView mnv) throws Exception {
+	@RequestMapping(value = "/completed", method = RequestMethod.POST)
+	public ModelAndView completed(LaundryOrderReceiveCommand command, HttpServletRequest request, ModelAndView mnv) throws Exception {
 		
 		//주문완료 페이지가 없어 일단 홈화면으로 가도록 함
 		String url="/main";
@@ -106,6 +106,9 @@ public class LaundryOrderController {
 		memberAddress = memberAddressService.getAreaCode(memberAddress);
 		laundryOrder.setArea(memberAddress.getArea());
 		
+		List<LaundryOrderDetailVO> laundryOrderDetailVOList = command.toLaundryOrderDetailVOList();
+ 		laundryOrderService.orderReceive(laundryOrder, laundryOrderDetailVOList);
+ 		
 		
 		mnv.setViewName(url);
 		return mnv;

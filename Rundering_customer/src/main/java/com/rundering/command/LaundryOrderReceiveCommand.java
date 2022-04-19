@@ -21,6 +21,8 @@ public class LaundryOrderReceiveCommand {
 	private String contactNumber;       //배송연락처
 	private String pickupRequestDate;   //수거요청일
 	private String requestDetails;      //요청사항
+	private String totalPrice="0";     		 //총가격
+	private String paymentNo="";      		//결제번호
 	
 	//세탁주문상세테이블 컬럼
 	private String[] laundryItemsCode;  //세탁품목코드
@@ -80,8 +82,18 @@ public class LaundryOrderReceiveCommand {
 	public void setLaundryItemsCode(String[] laundryItemsCode) {
 		this.laundryItemsCode = laundryItemsCode;
 	}
-	
-	
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	public String getPaymentNo() {
+		return paymentNo;
+	}
+	public void setPaymentNo(String paymentNo) {
+		this.paymentNo = paymentNo;
+	}
 	public LaundryOrderVO toLaundryOrderVO() throws ParseException {
 		LaundryOrderVO laundryOrder = new LaundryOrderVO();
 		laundryOrder.setContactNumber(this.contactNumber);
@@ -94,6 +106,8 @@ public class LaundryOrderReceiveCommand {
 		laundryOrder.setAdd1(this.add1);
 		laundryOrder.setAdd2(this.add2);
 		laundryOrder.setRequestDetails(this.requestDetails);
+		laundryOrder.setTotalPrice(Integer.parseInt(this.totalPrice));
+		laundryOrder.setPaymentNo(this.paymentNo);
 		
 		return laundryOrder;
 	}
@@ -108,20 +122,28 @@ public class LaundryOrderReceiveCommand {
 	}
 	
 	public List<LaundryOrderDetailVO> toLaundryOrderDetailVOList() throws Exception{
-		List<LaundryOrderDetailVO> laundryOrderDetailList = new ArrayList<LaundryOrderDetailVO>();
 		
+		List<LaundryOrderDetailVO> laundryOrderDetailList = new ArrayList<LaundryOrderDetailVO>();
 		if (this.laundryItemsCode != null && this.laundryItemsCode.length > 0) {
-			for (String string : this.laundryItemsCode) {
+			
+			if(this.laundryItemsCode[0].length() < 6 && this.laundryItemsCode.length == 2) {
 				LaundryOrderDetailVO vo = new LaundryOrderDetailVO();
-				System.out.println(string);
-				String[] split = string.split(",");
-				vo.setLaundryItemsCode(split[0]);
-				vo.setQuantity(Integer.parseInt(split[1]));
+				vo.setLaundryItemsCode(this.laundryItemsCode[0]);
+				vo.setQuantity(Integer.parseInt(this.laundryItemsCode[1]));
 				laundryOrderDetailList.add(vo);
+			}else {
+				for (String string : this.laundryItemsCode) {
+					LaundryOrderDetailVO vo = new LaundryOrderDetailVO();
+					String[] split = string.split(",");
+					vo.setLaundryItemsCode(split[0]);
+					vo.setQuantity(Integer.parseInt(split[1]));
+					laundryOrderDetailList.add(vo);
+				}
 			}
 		}
 		return laundryOrderDetailList;
 	}
+	
 	public void setAddress(MemberAddressVO memberAddress) {
 		this.zip = memberAddress.getZip();
 		this.add1 = memberAddress.getAdd1();

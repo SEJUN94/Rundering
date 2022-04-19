@@ -18,17 +18,17 @@ public class LaundryItemsServiceImpl implements LaundryItemsService{
 	public void regist(LaundryItemsVO laundryItems) throws Exception{
 		
 		// 세탁품목번호PK가 카테고리+시퀀스라서 카테고리별 시퀀스 처리
-		switch (laundryItems.getLaundeyCategory()) {
+		switch (laundryItems.getLaundryCategory()) {
 		case "CL":
-			String ClothingSequence = laundryItemsDAO.SelectClothingSequenceNextValue();
+			String ClothingSequence = laundryItemsDAO.selectClothingSequenceNextValue();
 			laundryItems.setLaundryItemsCode(ClothingSequence);
 			break;
 		case "BE":
-			String beddingSequence = laundryItemsDAO.SelectBeddingSequenceNextValue();
+			String beddingSequence = laundryItemsDAO.selectBeddingSequenceNextValue();
 			laundryItems.setLaundryItemsCode(beddingSequence);
 			break;
 		case "SH":
-			String shoesSequence = laundryItemsDAO.SelectShoesSequenceNextValue();
+			String shoesSequence = laundryItemsDAO.selectShoesSequenceNextValue();
 			laundryItems.setLaundryItemsCode(shoesSequence);
 			break;
 		}

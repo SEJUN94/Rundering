@@ -181,7 +181,7 @@
 								<tbody class="">
 									<c:if test="${!empty laundryItemsList }">
 										<c:forEach items="${laundryItemsList }" var="laundryItems">
-											<c:if test="${laundryItems.laundeyCategory eq 'CL' }">
+											<c:if test="${laundryItems.laundryCategory eq 'CL' }">
 												<tr style="cursor: pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
 													<td>${laundryItems.itemsName}</td>
 													<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
@@ -211,7 +211,7 @@
 								<tbody>
 									<c:if test="${!empty laundryItemsList }">
 										<c:forEach items="${laundryItemsList }" var="laundryItems">
-											<c:if test="${laundryItems.laundeyCategory eq 'BE' }">
+											<c:if test="${laundryItems.laundryCategory eq 'BE' }">
 												<tr style="cursor: pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
 													<td>${laundryItems.itemsName}</td>
 													<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
@@ -241,7 +241,7 @@
 								<tbody>
 									<c:if test="${!empty laundryItemsList }">
 										<c:forEach items="${laundryItemsList }" var="laundryItems">
-											<c:if test="${laundryItems.laundeyCategory eq 'SH' }">
+											<c:if test="${laundryItems.laundryCategory eq 'SH' }">
 												<tr style="cursor: pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
 													<td>${laundryItems.itemsName}</td>
 													<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
