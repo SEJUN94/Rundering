@@ -23,13 +23,13 @@
 						,ITEMS_NAME
 						,PRICE
 						,CHARGER
-						,LAUNDEY_CATEGORY
+						,LAUNDRY_CATEGORY
 						) VALUES (
-						#{laundeyCategory}||#{laundryItemsCode}
+						#{laundryCategory}||#{laundryItemsCode}
 						,#{itemsName}
 						,#{price}
 						,'MA22001'
-						,#{laundeyCategory}
+						,#{laundryCategory}
 						)
 	</update>
 

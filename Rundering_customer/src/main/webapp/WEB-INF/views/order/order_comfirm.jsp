@@ -25,6 +25,10 @@
 					</div>
 				</div>
 			</section>
+			<div class="card">
+				<img
+					src="<%=request.getContextPath()%>/resources/images/how_use.png" alt="how_use">
+			</div>
 			<div class="card mb-0" style="box-shadow: none;">
 				<div class="card-header">
 					<h3 class=""
@@ -87,16 +91,65 @@
 					<div class="info-box-content">
 						<span class="info-box-text" style="margin: auto;">총 결제 금액</span> 
 						<span class="info-box-number" style="margin: auto;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPrice}" />원</span>
-						<button type="button" class="btn btn-secondary">결제하기</button>
+						<button type="button" id="check_module" class="btn btn-secondary">결제하기</button>
 					</div>
 				</div>
 			</div>
-			<div class="card">
-				<img
-					src="<%=request.getContextPath()%>/resources/images/how_use.png"
-					alt="how_use">
-			</div>
+			
 
 		</div>
 	</form>
+	
+	<!-- jQuery -->
+  	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<!-- iamport.payment.js -->
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+	<script>
+	$("#check_module").click(function () {
+								IMP.init('imp22830422');   //아임포트 관리자계정
+								//결제 시스템을 실행시키는 함수
+								IMP.request_pay({
+									pg: 'html5_inicis',
+									pay_method: 'card',
+									name: 'Rundering 세탁접수',
+										
+									amount: '${totalPrice}',   //테스트 완료 후 가격정보 넣기
+									buyer_email: "${loginUser.email}",
+
+									buyer_name: "${loginUser.name}"
+								}, function (rsp) {
+									if (rsp.success) {
+										var msg = '결제가 완료되었습니다.';
+										msg += rsp.buyer_name;
+										msg += rsp.paid_amount;
+
+										// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
+										// 결제내역을 사용자에게 보여주기 위해 필요함.
+										$.ajax({
+											url: "<%=request.getContextPath()%>/order/payment",
+											type: "post",
+											data: {
+												<%-- "users_id": "<%=usersVo.getUsers_id()%>",
+												"mmbrs_rating": rsp.name,
+												"mmbrs_price": rsp.paid_amount --%>
+											},
+											dataType: "json",
+											success: function (result) {
+												if (result == "1") {
+													alert(msg);
+
+												} else {
+													alert("DB입력실패");
+													return false;
+												}
+											}
+										});
+									} else {
+										var msg = '결제에 실패하였습니다.';
+										msg += '\n에러내용 : ' + rsp.error_msg;
+									}
+									alert(msg);
+								});
+							});
+	</script>
 </body>
