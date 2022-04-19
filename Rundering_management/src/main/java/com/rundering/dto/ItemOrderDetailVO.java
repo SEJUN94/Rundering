@@ -5,12 +5,13 @@ public class ItemOrderDetailVO {
 	private String articlesCode;    //세탁물품코드
 	private int seq; 				//순번
 	private int orderCount;         //발주개수
-	
+	private String articlesName;
+	private String price;
+	private String priceSum;
 	
 	public ItemOrderDetailVO() {
 		super();
 	}
-
 
 	public String getOrdercode() {
 		return ordercode;
@@ -50,7 +51,29 @@ public class ItemOrderDetailVO {
 	public void setOrderCount(int orderCount) {
 		this.orderCount = orderCount;
 	}
-	
-	
+
+	public String getArticlesName() {
+		return articlesName;
+	}
+
+	public void setArticlesName(String articlesName) {
+		this.articlesName = articlesName;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public String getPriceSum() {
+		return priceSum;
+	}
+
+	public void setPriceSum(String priceSum) {
+		this.priceSum = priceSum;
+	}
 	
 }

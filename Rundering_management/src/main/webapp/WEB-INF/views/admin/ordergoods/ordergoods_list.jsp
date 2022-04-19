@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
-<c:set var="orderGoodsList" value="${dataMap.orderGoodsList }" />
+<c:set var="laundryArticlesList" value="${dataMap.laundryArticlesList }" />
 <head>
 <title>Insert title here</title>
 </head>
@@ -61,21 +61,21 @@
 								</tr>
 							</thead>
 							<tbody style="text-align: center;">
-								<c:if test="${empty orderGoodsList }">
+								<c:if test="${empty laundryArticlesList }">
 									<tr>
 										<td colspan="5" style="text-align: center;"><strong>물품이
 												없습니다.</strong></td>
 									</tr>
 								</c:if>
-								<c:if test="${!empty orderGoodsList }">
-									<c:forEach items="${orderGoodsList }" var="orderGoods">
+								<c:if test="${!empty laundryArticlesList }">
+									<c:forEach items="${laundryArticlesList }" var="laundryArticles">
 										<tr>
-											<td>${orderGoods.articlesCode }</td>
-											<td>${orderGoods.articlesName }</td>
-											<td style="text-align: center;">${orderGoods.price }</td>
-											<td><fmt:formatDate value="${orderGoods.registDate }"
+											<td>${laundryArticles.articlesCode }</td>
+											<td>${laundryArticles.articlesName }</td>
+											<td style="text-align: center;">${laundryArticles.price }</td>
+											<td><fmt:formatDate value="${laundryArticles.registDate }"
 													pattern="yyyy-MM-dd" /></td>
-											<td><fmt:formatDate value="${orderGoods.modifyDate }"
+											<td><fmt:formatDate value="${laundryArticles.modifyDate }"
 													pattern="yyyy-MM-dd" /></td>
 											<td><button class="btn btn-warning btn-sm"
 													onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${orderGoods.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
@@ -101,20 +101,20 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:if test="${!empty orderGoodsList }">
+								<c:if test="${!empty laundryArticlesList }">
 
-									<c:forEach items="${orderGoodsList }" var="orderGoods">
-										<c:if test="${orderGoods.clcode eq 'B' }">
+									<c:forEach items="${laundryArticlesList }" var="laundryArticles">
+										<c:if test="${laundryArticles.clcode eq 'B' }">
 											<tr>
-												<td>${orderGoods.articlesCode }</td>
-												<td>${orderGoods.articlesName }</td>
-												<td style="text-align: center;">${orderGoods.price }</td>
-												<td><fmt:formatDate value="${orderGoods.registDate }"
+												<td>${laundryArticles.articlesCode }</td>
+												<td>${laundryArticles.articlesName }</td>
+												<td style="text-align: center;">${laundryArticles.price }</td>
+												<td><fmt:formatDate value="${laundryArticles.registDate }"
 														pattern="yyyy-MM-dd" /></td>
-												<td><fmt:formatDate value="${orderGoods.modifyDate }"
+												<td><fmt:formatDate value="${laundryArticles.modifyDate }"
 														pattern="yyyy-MM-dd" /></td>
 												<td><button class="btn btn-warning btn-sm"
-														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${orderGoods.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
+														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${laundryArticles.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
 											</tr>
 										</c:if>	
 									</c:forEach>	
@@ -138,20 +138,20 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:if test="${!empty orderGoodsList }">
+								<c:if test="${!empty laundryArticlesList }">
 
-									<c:forEach items="${orderGoodsList }" var="orderGoods">
-										<c:if test="${orderGoods.clcode eq 'C' }">
+									<c:forEach items="${laundryArticleList }" var="laundryArticles">
+										<c:if test="${laundryArticles.clcode eq 'C' }">
 											<tr>
-												<td>${orderGoods.articlesCode }</td>
-												<td>${orderGoods.articlesName }</td>
-												<td style="text-align: center;">${orderGoods.price }</td>
-												<td><fmt:formatDate value="${orderGoods.registDate }"
+												<td>${laundryArticles.articlesCode }</td>
+												<td>${laundryArticles.articlesName }</td>
+												<td style="text-align: center;">${laundryArticles.price }</td>
+												<td><fmt:formatDate value="${laundryArticles.registDate }"
 														pattern="yyyy-MM-dd" /></td>
-												<td><fmt:formatDate value="${orderGoods.modifyDate }"
+												<td><fmt:formatDate value="${laundryArticles.modifyDate }"
 														pattern="yyyy-MM-dd" /></td>
 												<td><button class="btn btn-warning btn-sm"
-														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${orderGoods.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
+														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${laundryArticles.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
 											</tr>
 										</c:if>	
 									</c:forEach>	
@@ -175,20 +175,20 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:if test="${!empty orderGoodsList }">
+								<c:if test="${!empty laundryArticlesList }">
 
-									<c:forEach items="${orderGoodsList }" var="orderGoods">
-										<c:if test="${orderGoods.clcode eq 'D' }">
+									<c:forEach items="${laundryArticlesList }" var="laundryArticles">
+										<c:if test="${laundryArticles.clcode eq 'D' }">
 											<tr>
-												<td>${orderGoods.articlesCode }</td>
-												<td>${orderGoods.articlesName }</td>
-												<td style="text-align: center;">${orderGoods.price }</td>
-												<td><fmt:formatDate value="${orderGoods.registDate }"
+												<td>${laundryArticles.articlesCode }</td>
+												<td>${laundryArticles.articlesName }</td>
+												<td style="text-align: center;">${laundryArticles.price }</td>
+												<td><fmt:formatDate value="${laundryArticles.registDate }"
 														pattern="yyyy-MM-dd" /></td>
-												<td><fmt:formatDate value="${orderGoods.modifyDate }"
+												<td><fmt:formatDate value="${laundryArticles.modifyDate }"
 														pattern="yyyy-MM-dd" /></td>
 												<td><button class="btn btn-warning btn-sm"
-														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${orderGoods.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
+														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${laundryArticles.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
 											</tr>
 										</c:if>	
 									</c:forEach>	
@@ -212,19 +212,19 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:if test="${!empty orderGoodsList }">
-									<c:forEach items="${orderGoodsList }" var="orderGoods">
-										<c:if test="${orderGoods.clcode eq 'E' }">
+								<c:if test="${!empty laundryArticlesList }">
+									<c:forEach items="${laundryArticlesList }" var="laundryArticles">
+										<c:if test="${laundryArticles.clcode eq 'E' }">
 											<tr>
-												<td>${orderGoods.articlesCode }</td>
-												<td>${orderGoods.articlesName }</td>
-												<td style="text-align: center;">${orderGoods.price }</td>
-												<td><fmt:formatDate value="${orderGoods.registDate }"
+												<td>${laundryArticles.articlesCode }</td>
+												<td>${laundryArticles.articlesName }</td>
+												<td style="text-align: center;">${laundryArticles.price }</td>
+												<td><fmt:formatDate value="${laundryArticles.registDate }"
 														pattern="yyyy-MM-dd" /></td>
-												<td><fmt:formatDate value="${orderGoods.modifyDate }"
+												<td><fmt:formatDate value="${laundryArticles.modifyDate }"
 														pattern="yyyy-MM-dd" /></td>
 												<td><button class="btn btn-warning btn-sm"
-														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${orderGoods.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
+														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${laundryArticles.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
 											</tr>
 										</c:if>	
 									</c:forEach>	
@@ -248,20 +248,20 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:if test="${!empty orderGoodsList }">
+								<c:if test="${!empty laundryArticlesList }">
 
-									<c:forEach items="${orderGoodsList }" var="orderGoods">
-										<c:if test="${orderGoods.clcode eq 'F' }">
+									<c:forEach items="${laundryArticlesList }" var="laundryArticles">
+										<c:if test="${laundryArticles.clcode eq 'F' }">
 											<tr>
-												<td>${orderGoods.articlesCode }</td>
-												<td>${orderGoods.articlesName }</td>
-												<td style="text-align: center;">${orderGoods.price }</td>
-												<td><fmt:formatDate value="${orderGoods.registDate }"
+												<td>${laundryArticles.articlesCode }</td>
+												<td>${laundryArticles.articlesName }</td>
+												<td style="text-align: center;">${laundryArticles.price }</td>
+												<td><fmt:formatDate value="${laundryArticles.registDate }"
 														pattern="yyyy-MM-dd" /></td>
-												<td><fmt:formatDate value="${orderGoods.modifyDate }"
+												<td><fmt:formatDate value="${laundryArticles.modifyDate }"
 														pattern="yyyy-MM-dd" /></td>
 												<td><button class="btn btn-warning btn-sm"
-														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${orderGoods.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
+														onclick="window.open('<%=request.getContextPath() %>/admin/ordergoods/detail?articlesCode=${laundryArticles.articlesCode }&from=list ','발주물품등록', 'width=600, height=600')">상세</button></td>
 											</tr>
 										</c:if>	
 									</c:forEach>	

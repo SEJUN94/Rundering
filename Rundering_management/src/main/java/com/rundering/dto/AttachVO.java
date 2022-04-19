@@ -24,9 +24,7 @@ public class AttachVO {
 
 	public AttachVO() {}
 	
-	public String getAtchFileNo() {
-		return atchFileNo;
-	}
+	
 	public String getUploadPath() {
 		return uploadPath;
 	}
@@ -62,6 +60,11 @@ public class AttachVO {
 	public void setAtchFileNo(String atchFileNo) {
 		this.atchFileNo = atchFileNo;
 	}
+
+	public String getAtchFileNo() {
+		return atchFileNo;
+	}
+
 	public int getAtchFileSeq() {
 		return atchFileSeq;
 	}

@@ -14,7 +14,7 @@ public class LaundryItemsServiceImpl implements LaundryItemsService{
 	public void regist(LaundryItemsVO laundryItems) {
 		
 		// 세탁품목번호PK가 카테고리+시퀀스라서 카테고리별 시퀀스 처리
-		switch (laundryItems.getLaundeyCategory()) {
+		switch (laundryItems.getLaundryCategory()) {
 		case "CL":
 			String ClothingSequence = laundryItemsDAO.SelectClothingSequenceNextValue();
 			laundryItems.setLaundryItemsCode(ClothingSequence);

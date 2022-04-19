@@ -13,7 +13,7 @@
 		<result column="MODIFY_DATE" property="modifyDate" />
 		<result column="DELETE_YN" property="deleteYn" />
 		<result column="CHARGER" property="charger" />
-		<result column="LAUNDEY_CATEGORY" property="laundeyCategory" />
+		<result column="LAUNDRY_CATEGORY" property="laundryCategory" />
 	</resultMap>
 
 
@@ -47,11 +47,11 @@
 						,CHARGER
 						,LAUNDEY_CATEGORY
 						) VALUES (
-						#{laundeyCategory}||#{laundryItemsCode}
+						#{laundryCategory}||#{laundryItemsCode}
 						,#{itemsName}
 						,#{price}
 						,'MA22001'
-						,#{laundeyCategory}
+						,#{laundryCategory}
 						)
 	</update>
 	

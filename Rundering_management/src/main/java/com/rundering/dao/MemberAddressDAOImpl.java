@@ -6,7 +6,7 @@ import com.rundering.dto.MemberAddressVO;
 
 public class MemberAddressDAOImpl implements MemberAddressDAO {
 	
-	SqlSession session;
+	private SqlSession session;
 
 	
 	public void setSession(SqlSession session) {

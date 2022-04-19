@@ -20,14 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.jsp.util.MakeFileName;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryArticlesVO;
-import com.rundering.service.OrderGoodsService;
+import com.rundering.service.LaundryArticlesService;
 
 @RestController
 @RequestMapping("/admin/ordergoods")
-public class OrderGoodsRestController {
-
-	@Resource(name = "orderGoodsService")
-	private OrderGoodsService orderGoodsService;
+public class LaundryArticlesRestController {
 
 	@Resource(name = "picturePath")
 	private String picturePath;

@@ -3,14 +3,19 @@ package com.rundering.service;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
+import com.rundering.dao.MemberAddressDAO;
+import com.rundering.dao.PaymentDAO;
 import com.rundering.dto.LaundryItemsVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.dto.PaymentVO;
 
 public class LaundryOrderServiceImpl implements LaundryOrderService {
 	
@@ -25,6 +30,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	private LaundryItemsDAO laundryItemsDAO;
 	public void setLaundryItemsDAO(LaundryItemsDAO laundryItemsDAO) {
 		this.laundryItemsDAO = laundryItemsDAO;
+	}
+	private PaymentDAO paymentDAO;
+	public void setPaymentDAO(PaymentDAO paymentDAO) {
+		this.paymentDAO = paymentDAO;
 	}
 	
 	//세탁주문접수
@@ -42,22 +51,64 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		Date deliveryRequestDate = cal.getTime();
 		laundryOrder.setDeliveryRequestDate(deliveryRequestDate);
 		
-		//주문상태 설정 - 공통코드 수거대기상태 -> 01
-		laundryOrder.setOdrerStatus("01");
 		
 		//세탁주문테이블 insert
 		laundryOrderDAO.insertLaundryOrder(laundryOrder);
+		
 		//세탁주문상세테이블 insert
 		for (int i = 0; i < laundryOrderDetailVOList.size(); i++) {
 			LaundryOrderDetailVO laundryOrderDetail = laundryOrderDetailVOList.get(i);
 			laundryOrderDetail.setOrderNo(orderNo);
 			laundryOrderDetail.setDetailOrderno(String.format("%04d", i+1));
-			//가격 조회 후 설정
+			//가격, 품목명 조회 후 설정
 			LaundryItemsVO laundryItems = laundryItemsDAO.selectLaundryItemsBylaundryItemsCode(laundryOrderDetail.getLaundryItemsCode());
 			int price = laundryItems.getPrice() * laundryOrderDetail.getQuantity();
 			laundryOrderDetail.setPrice(price);
+			laundryOrderDetail.setItemsName(laundryItems.getItemsName());
 			
 			laundryOrderDetailDAO.insertLaundryOrderDetail(laundryOrderDetail);
 		}
+		
+		//결제테이블 세탁주문번호update
+		PaymentVO payment = new PaymentVO();
+		payment.setOrderNo(orderNo);
+		payment.setPaymentNo(laundryOrder.getPaymentNo());
+		paymentDAO.updatePaymentOrderNo(payment);
+		
+	}
+
+	@Override
+	public Map<String, Object> checkOrder(List<LaundryOrderDetailVO> laundryOrderDetailVOList)
+			throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		int totalPrice = 0;
+		
+		StringBuilder builder = new StringBuilder();
+		for (LaundryOrderDetailVO laundryOrderDetail : laundryOrderDetailVOList) {
+			//가격, 품목명 조회 후 설정
+			LaundryItemsVO laundryItems = laundryItemsDAO.selectLaundryItemsBylaundryItemsCode(laundryOrderDetail.getLaundryItemsCode());
+			int price = laundryItems.getPrice() * laundryOrderDetail.getQuantity();
+			totalPrice += price;
+			laundryOrderDetail.setPrice(price);
+			laundryOrderDetail.setItemsName(laundryItems.getItemsName());
+			builder.append(laundryOrderDetail.getItemsName());
+			builder.append(", ");
+		}
+		//주문명 설정 - 품목명+품목명+...
+		String orderName = builder.toString();
+		orderName = orderName.substring(0, orderName.length() - 2);
+		if(orderName.length() > 12) {
+			orderName = orderName.substring(0, 12);
+			builder.setLength(0);
+			builder.append(orderName);
+			builder.append("...");
+			orderName = builder.toString();
+		}
+		
+		dataMap.put("confirmedOrderDetailVOList", laundryOrderDetailVOList);
+		dataMap.put("totalPrice", totalPrice);
+		dataMap.put("orderName", orderName);
+		
+		return dataMap;
 	}
 }
