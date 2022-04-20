@@ -59,18 +59,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="phone" name="phone" placeholder="휴대폰 ex)010-1234-5678">
+                    <div class="form-group input-group mb-3">
+                        <input type="text" class="form-control" id="phone" name="phone" pattern="010[0-9]{8}" placeholder="휴대폰  ex)01012345678">
                         <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-phone"></span>
-                            </div>
+                            <button type="button" class="btn btn-info btn-ml" onclick="phone_verification();">인증</button>
                         </div>
                     </div>
+                    <div class="form-group verificationCode" style="display: none;">
+						<div class="input-group" >
+							<input type="text" class="form-control col-8" id="Code" placeholder="인증번호">
+							<button type="button" onclick="verificationCodeCheck()"  class="btn btn-outline-primary btn-block col-4">인증하기</button>
+							<div id="timeLimit" style="position: absolute;padding: 9px;margin-left: 150px;color: gray;font-size: 0.9rem; z-index: 10"></div>
+						</div>
+					</div>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" id="zip" name="zip" placeholder="우편번호 버튼 Click" readonly>
                         <div class="input-group-append">
-                            <button type="button" id="modalBtn" class="btn btn-info btn-sm" onclick="findZip();">우편검색</button>
+                            <button type="button" id="modalBtn" class="btn btn-info btn-ml" onclick="findZip();">우편검색</button>
                         </div>
                     </div>
                     <div class="input-group mb-3">
@@ -152,7 +157,7 @@
 <script>
 	const certify_ajax = function (phoneNumber){
 		const v_ajax = new XMLHttpRequest();
-	    v_ajax.open("POST","<%=request.getContextPath() %>/order/certifyPhoneNum",true);
+	    v_ajax.open("POST","<%=request.getContextPath() %>/common/certifyPhoneNum",true);
 	    v_ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 	    v_ajax.send('phoneNumber=' + encodeURIComponent(phoneNumber));
 	    v_ajax.onreadystatechange = function(){
@@ -172,7 +177,145 @@
 	
 </script>
 
+<script>
+let isRunning = false;
 
+const Toast = Swal.mixin({
+   toast: true,
+   position: 'center',
+   showConfirmButton: false,
+   timer: 1500,
+   timerProgressBar: false,
+   didOpen: (toast) => {
+     toast.addEventListener('mouseenter', Swal.stopTimer);
+     toast.addEventListener('mouseleave', Swal.resumeTimer);
+   }
+ });
+
+
+  function form_phone_show(){
+	  
+	  let form_phone = document.querySelector('.newphone');	
+	  let input_phone = document.querySelector('.newphone input');	
+	  let form_code = document.querySelector('.verificationCode');	
+	  let input_code = document.querySelector('.verificationCode input');	
+	  let show_btn = document.querySelector('.phoneChenge');
+	  
+	  if(form_phone.style.display == 'block'){
+		  show_btn.innerText = '변경';
+		  form_phone.style.display = 'none';
+		  form_code.style.display = 'none';
+		  input_phone.value = '';
+		  input_code.value = '';
+		  
+	  }else{
+		  form_phone.style.display = 'block';
+		  show_btn.innerText = '취소';
+	  }
+  }
+
+
+  function phone_verification() {
+	  
+      let tel = document.getElementById('phone').value;
+      
+      let regPhone = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
+      
+      if (regPhone.test(tel) !== true) {
+		
+		    Toast.fire({
+		      icon: 'warning',
+		      title: '휴대폰번호를 다시 확인해주세요.'
+		    });
+      }else{
+    	  document.querySelector('.verificationCode').style.display = 'block';  
+    	  certify_ajax(tel);
+    	  const timeLimit = document.getElementById("timeLimit");
+    	  startTimer(180,timeLimit);
+      }
+  }
+ 
+  function startTimer(count, display) {
+      
+	  let minutes, seconds;
+      let timer = setInterval(function () {
+      minutes = parseInt(count / 60, 10);
+      seconds = parseInt(count % 60, 10);
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      display.innerHTML = minutes + ":" + seconds;
+	  
+      // 타이머 끝
+      if (--count < 0) {
+	     clearInterval(timer);
+	     Toast.fire({
+		      icon: 'warning',
+		      title: '인증시간이 초과되었습니다.\n재인증 해주세요.'
+		    });
+	     isRunning = false;
+      }
+  }, 1000);
+       isRunning = true;
+}
+  let responseCode = 0;
+  function verificationCodeCheck() {
+	  let codeInput = document.querySelector('#Code');
+	  
+	  if(isRunning && responseCode !== 0){
+	  		if(codeInput.value == responseCode){
+		     	let phone = document.querySelector('#phone');
+		     	
+		     	phone.setAttribute('value',phone.value);
+		     	console.log('phone.value',phone.value);
+		     	phonchk = true;
+	  			Toast.fire({
+	     		      icon: 'success',
+	     		      title: '인증되었습니다.'
+	     		});
+	  			
+	  			form_phone_show();
+	  		}else{
+	  			Toast.fire({
+	  		      icon: 'warning',
+	  		      title: '인증번호가 틀렸습니다.'
+	  		    });
+	  		}
+	  	}
+  }
+  
+  
+  
+  function phoneFomatter(num,type){
+	    let formatNum = '';
+
+	    if(num.length==11){
+	        if(type==0){
+	            formatNum = num.replace(/(\d{3})(\d{4})(\d{4})/, '$1-****-$3');
+	        }else{
+	            formatNum = num.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+	        }
+	    }else if(num.length==8){
+	        formatNum = num.replace(/(\d{4})(\d{4})/, '$1-$2');
+	    }else{
+	        if(num.indexOf('02')==0){
+	            if(type==0){
+	                formatNum = num.replace(/(\d{2})(\d{4})(\d{4})/, '$1-****-$3');
+	            }else{
+	                formatNum = num.replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3');
+	            }
+	        }else{
+	            if(type==0){
+	                formatNum = num.replace(/(\d{3})(\d{3})(\d{4})/, '$1-***-$3');
+	            }else{
+	                formatNum = num.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+	            }
+	        }
+	    }
+	    return formatNum;
+	}
+
+</script>
 
 <script>
 function findZip() {

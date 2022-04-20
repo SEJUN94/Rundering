@@ -86,6 +86,7 @@ public class MainController {
 	}
 	
 	
+	
 	@RequestMapping("/idCheck")
 	@ResponseBody
 	public ResponseEntity<String> idCheck(String id) throws Exception {
