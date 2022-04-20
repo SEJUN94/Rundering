@@ -16,31 +16,31 @@ th, td {
 }
 
 .no {
-	width: 12%;
+	width: 10%;
 }
 
 .boardtitle {
-	width: 15%;
-}
-
-.objectname {
-	width: 13%
-}
-
-.writer {
-	width: 13%;
-}
-
-.branchName {
-	width: 15%;
-}
-
-.date {
 	width: 20%;
 }
 
+.object {
+	width: 14%
+}
+
+.writer {
+	width: 14%;
+}
+
+.branchName {
+	width: 14%;
+}
+
+.date {
+	width: 14%;
+}
+
 .yn {
-	width: 12%;
+	width: 14%;
 }
 </style>
 </head>
@@ -76,8 +76,8 @@ th, td {
 							<table class="table table-hover text-nowrap">
 								<thead>
 									<tr>
-										<th class="no" id=>번호</th>
-										<th class="boardtitle">제목</th>
+										<th class="no">번호</th>
+										<th class="boardtitle" >제목</th>
 										<th class="object">물품명</th>
 										<th class="writer">요청자</th>
 										<th class="branchName">지점</th>
@@ -94,8 +94,8 @@ th, td {
 									<tr
 										onclick="OpenWindow('detail?from=list&sno=${asRequest.asno }','상세보기',900,700);">
 										<td class="no">${asRequest.asno }</td>
-										<td class="boardtitle" style="text-align: inherit;">${asRequest.title }</td>
-										<td class="objecct">${asRequest.objectname }</td>
+										<td class="boardtitle">${asRequest.title }</td>
+										<td class="object">${asRequest.objectname }</td>
 										<td class="writer">${asRequest.employeeId }</td>
 										<td class="branchName">${asRequest.branchCode }</td>
 										<td class="date"><fmt:formatDate

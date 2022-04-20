@@ -20,6 +20,7 @@
 		<result column="EMPLOYEE_ID" property="employeeId" />
 		<result column="BRANCH_CODE" property="branchCode" />
 		<result column="ARTICLES_CODE" property="articlesCode" />
+		<result column="REQUEST_DATE" property="requestDate" />
 	
 	</resultMap>
 	
@@ -61,6 +62,7 @@
 		    d.branch_name as branch_code,
 		    b.regist_date,
 		    b.articles_code,
+		    b.request_date,
 		    b.checkyn
 		from tb_employees a, tb_as b, tb_member c, tb_branch d, tb_laundry_articles e, tb_laundry_fixtures f
 		    where a.employee_id = b.employee_id
@@ -83,7 +85,7 @@
 	</select>
 	
 	<select id="selectAsRequestByAsno" parameterType="int" resultMap="asRequestMap" >
-		select b.asno, b.title, b.ascontent, b.regist_date, c.name as employee_id, d.branch_name as branch_code
+		select b.asno, b.title, b.ascontent, b.regist_date, c.name as employee_id, d.branch_name as branch_code, b.request_date
 	    from tb_employees a, tb_as b, tb_member c, tb_branch d, tb_laundry_articles e, tb_laundry_fixtures f
 	    where asno=#{asno}
 	    	and a.employee_id = b.writer
@@ -122,17 +124,27 @@
 			title,
 			ascontent,
 			employee_id,
-			branch_code,			
+			branch_code,
+			request_date,			
 			fixtures_code,
 			articles_code
 			) values(
-						asno_seq.nextval,
-						#{title},
-						#{ascontent},
-						#{employeeId},
-						#{branchCode},
-						#{fixturesCode},
-						#{articlesCode})
+					asno_seq.nextval,
+					#{title},
+					#{ascontent},
+					#{employeeId},
+					#{branchCode},
+					#{requestDate},
+					#{fixturesCode},
+					#{articlesCode})
+	</select>
+	
+	<!-- 비품받아오는 쿼리 -->
+	<select id="getfixturesCode" resultMap="asRequestMap" >
+		SELECT *
+		    FROM TB_LAUNDRY_FIXTURES
+		    WHERE ARTICLES_CODE = #{articlesCode}
+		    AND BRANCH_CODE = #{branchCode}
 	</select>
 	
 	<!-- 수정 -->

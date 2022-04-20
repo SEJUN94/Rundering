@@ -46,6 +46,7 @@ public class AsRequestController {
 
 		String url = "redirect:/branch/asrequest/list";
 
+		System.out.println(asRequest);
 		asRequestService.regist(asRequest);
 
 		rttr.addFlashAttribute("from", "regist");

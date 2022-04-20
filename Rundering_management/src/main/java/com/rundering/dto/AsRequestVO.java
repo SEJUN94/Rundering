@@ -15,6 +15,7 @@ public class AsRequestVO {
 	private String branchCode; // 지점코드
 	private String articlesCode; // 세탁물품코드
 	private String objectname; // 물품명
+	private String requestDate; //고장발생일
 
 	public String getObjectname() {
 		return objectname;
@@ -115,5 +116,24 @@ public class AsRequestVO {
 	public void setArticlesCode(String articlesCode) {
 		this.articlesCode = articlesCode;
 	}
+
+	public String getRequestDate() {
+		return requestDate;
+	}
+
+	public void setRequestDate(String requestDate) {
+		this.requestDate = requestDate;
+	}
+
+	@Override
+	public String toString() {
+		return "AsRequestVO [asno=" + asno + ", fixturesCode=" + fixturesCode + ", title=" + title + ", ascontent="
+				+ ascontent + ", registDate=" + registDate + ", checkyn=" + checkyn + ", modifyDate=" + modifyDate
+				+ ", deleteyn=" + deleteyn + ", employeeId=" + employeeId + ", branchCode=" + branchCode
+				+ ", articlesCode=" + articlesCode + ", objectname=" + objectname + ", requestDate=" + requestDate
+				+ "]";
+	}
+	
+	
 
 }

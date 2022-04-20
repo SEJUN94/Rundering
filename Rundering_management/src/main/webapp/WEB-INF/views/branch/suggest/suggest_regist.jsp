@@ -33,8 +33,7 @@
 							class="form-control" value="${loginEmployee.branchCode }">
 					</div>
 					<div class="form-group">
-						<label for="content" style="margin-left: 10px; font-size: large;">내
-							용</label>
+						<label for="content" style="margin-left: 10px; font-size: large;">▼▽▼건의할 내용을 입력하세요▼▽▼</label>
 						<textarea style="border: none; height: 100px; resize: none;"
 							class="textarea" rows="10" cols="20" id="content" name="content"></textarea>
 					</div>
