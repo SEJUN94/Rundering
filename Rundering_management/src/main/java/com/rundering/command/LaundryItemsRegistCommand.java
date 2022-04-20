@@ -39,7 +39,7 @@ public class LaundryItemsRegistCommand {
 		laundryItems.setPrice(Integer.parseInt(this.price));
 		laundryItems.setItemsName(this.itemsName);
 		//laundryItems.setCharger(this.charger);
-		laundryItems.setLaundeyCategory(this.laundeyCategory);
+		laundryItems.setLaundryCategory(this.laundeyCategory);
 		
 		return laundryItems; 
 	}

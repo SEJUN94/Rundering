@@ -27,33 +27,6 @@
 		SELECT * FROM TB_LAUNDRY_ITEMS WHERE LAUNDRY_ITEMS_CODE = #{laundryItemsCode}
 	</select>
 
-	<select id="selectClothingSequenceNextValue" resultType="str">
-		select LPAD(CLOTHING_ITEMS_CODE_SEQ.NEXTVAL, 3, 0) from DUAL
-	</select>
-	<select id="selectBeddingSequenceNextValue" resultType="str">
-		select LPAD(BEDDING_ITEMS_CODE_SEQ.NEXTVAL, 3, 0) from DUAL
-	</select>
-	<select id="selectShoesSequenceNextValue" resultType="str">
-		select LPAD(SHOES_ITEMS_CODE_SEQ.NEXTVAL, 3, 0) from DUAL
-	</select>
-	
-	
-
-	<update id="insertLaundryItems" parameterType="laundryItems">
-		INSERT INTO TB_LAUNDRY_ITEMS(
-						LAUNDRY_ITEMS_CODE
-						,ITEMS_NAME
-						,PRICE
-						,CHARGER
-						,LAUNDEY_CATEGORY
-						) VALUES (
-						#{laundryCategory}||#{laundryItemsCode}
-						,#{itemsName}
-						,#{price}
-						,'MA22001'
-						,#{laundryCategory}
-						)
-	</update>
 	
 
 </mapper>
