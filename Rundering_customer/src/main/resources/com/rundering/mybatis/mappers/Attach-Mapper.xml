@@ -25,5 +25,30 @@
 		 atch_file_no_seq.nextval
 		 from dual
 	</select>
+	
+	<update id="insertAttach">
+		INSERT INTO TB_ATTACH_FILE
+		(
+			ATCH_FILE_NO,
+			ATCH_FILE_SEQ,
+			BIZ_TYPE,
+			FILE_PATH,
+			FILE_NM,
+			SAVE_FILE_NM,
+			FILE_CONT_TYPE,
+			FILE_SIZE
+		) 
+		VALUES 
+		(
+			#{atchFileNo},
+			#{atchFileSeq},
+			#{bizType},
+			#{filePath},
+			#{fileNm},
+			#{saveFileNm},
+			#{fileContType},
+			#{fileSize}
+		)
+	</update>
   
 </mapper>
