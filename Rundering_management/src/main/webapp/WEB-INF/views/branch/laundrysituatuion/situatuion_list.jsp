@@ -3,80 +3,66 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 
 <body>
-	<h3 class="ml-3">검색</h3>
-	<div class="card card-primary card-outline ml-3 mr-3">
-		<div class="card-body">
-			<div class="input-group input-group-sm">
-				<div class="input-group input-group-sm col-3">
+							
+	
+		<div class="row ml-2 mr-2">
+			
+			<div class="col-12">
+			<div class="card-header" style="padding :10px;">
+				<div class=" float-right">
+							<div class="input-group input-group-sm float-right ">
+								<div class="input-group-sm selectWidth">
+									<select class="form-control" name="searchType" id="searchType">
+										<option value="tcw">전 체</option>
+										<option value="t">제 목</option>
+										<option value="w">작성자</option>
+										<option value="c">내 용</option>
+										<option value="tc">제목+내용</option>
+										<option value="cw">작성자+내용</option>
+										<option value="tcw">작성자+제목+내용</option>
+									</select>
+								</div>
+								<div class="input-group-sm textWidth">
+									<input class="form-control " type="text" name="keyword"
+										placeholder="검색어를 입력하세요." value="">
+								</div>
+								<span class="input-group-append">
 
-					<select class="form-control col-md-6" name="perPageNum"
-						id="perPageNum" onchange="list_go();">
-						<option value="10">정렬개수</option>
-						<option value="20">20개씩</option>
-						<option value="50">50개씩</option>
-						<option value="100">100개씩</option>
+									<button class="btn btn-primary" type="button"
+										onclick="list_go(1);" data-card-widget="search">
+										<i class="fa fa-fw fa-search"></i>
+									</button>
+								</span>
+						</div>
+					</div>
+					</div>
+				<div class="card card-primary card-outline">
+					<div class="card-header">
+						<h3 class="card-title">세탁 현황 관리</h3>
+						<div class="card-tools">
+							<div class="input-group input-group-sm">
+								<div class="input-group-sm selectWidth">
+									<select class="form-control" name="searchType" id="searchType">
+										<option value="tcw">전 체</option>
+										<option value="t">제 목</option>
+										<option value="w">작성자</option>
+										<option value="c">내 용</option>
+										<option value="tc">제목+내용</option>
+										<option value="cw">작성자+내용</option>
+										<option value="tcw">작성자+제목+내용</option>
+									</select>
+								</div>
+								<span class="input-group-append">
 
-					</select> <select class="form-control col-md-7" name="searchType"
-						id="searchType">
-						<option value="w">수거전</option>
-						<option value="w">수거중</option>
-						<option value="w">입고</option>
-						<option value="c">세탁전</option>
-						<option value="tc">세탁중</option>
-						<option value="tc">세탁완료</option>
-						<option value="w">출고</option>
-						<option value="w">배송중</option>
-					</select>
-
-				</div>
-				<div class="col-5"></div>
-				<select class="form-control col-md-2" name="searchType"
-					id="searchType">
-					<option value="w">이름</option>
-					<option value="w">주소</option>
-					<option value="w">이름+주소</option>
-					<option value="w">배송중</option>
-				</select> <input class="form-control col-md-2" type="text" name="keyword"
-					placeholder="검색어를 입력하세요." value=""><span
-					class="input-group-append">
-					<button class="btn btn-primary" type="button" onclick="list_go(1);"
-						data-card-widget="search">
-						<i class="fa fa-fw fa-search"></i>
-					</button>
-				</span>
-			</div>
-		</div>
-	</div>
-
-	<div class="row ml-2 mr-2">
-		<div class="col-12">
-			<div class="card card-primary card-outline">
-				<div class="card-header">
-					<h3 class="card-title">세탁현황</h3>
-					<div class="input-group row col-sm-3  input-group-sm float-right">
-						<!-- search bar -->
-						<!-- sort num -->
-
-						<!-- search bar -->
-						<select class="form-control col-md-9" name="searchType"
-							id="searchType">
-							<option value="" selected="">입고</option>
-							<option value="">세탁전</option>
-							<option value="">세탁중</option>
-							<option value="">세탁완료</option>
-
-						</select>
-						<!-- keyword -->
-						<span class="input-group-append">
-							<button class="btn btn-primary" type="button" id="searchBtn"
-								data-card-widget="search" onclick="statusChange();">상태변경</button>
-						</span>
-						<!-- end : search bar -->
+									<button class="btn btn-primary" type="button"
+										onclick="list_go(1);" data-card-widget="search">
+										상태변경
+									</button>
+								</span>
+							</div>
+						</div>
 					</div>
 
-
-
-				</div>
 
 				<table class="table table-hover text-nowrap">
 					<thead>
@@ -183,10 +169,13 @@
 
 			<div class="row">
 				<div class="col-12">
-					<div class="card card-primary card-outline">
+					<div class="card ">
 						<div class="card-header">
 							<h3 class="card-title">요청사항</h3>
-							<div class="card-tools"></div>
+							<div class="float-right ">
+									<button type="button" class="btn btn-sm btn-primary"
+										data-toggle="modal" data-target="#modal-lg" style ="width:  50px">답변</button>
+								</div>
 						</div>
 						<div class="ml-2 mr-2">
 							<div class="col-12 float-left">
@@ -194,10 +183,7 @@
 									<label for="exampleInputBorder ml-2" id="requestText"
 										class="mt-3">얼룩이 뭍어있어요 깨끗하게 세요asdasdasdasdasdsadasd</label>
 								</div>
-								<div class="float-right mb-3 mr-2">
-									<button type="button" class="btn btn-primary"
-										data-toggle="modal" data-target="#modal-lg">답변</button>
-								</div>
+								
 
 							</div>
 						</div>

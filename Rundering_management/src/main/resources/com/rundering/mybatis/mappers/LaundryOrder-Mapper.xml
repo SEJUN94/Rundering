@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="LaundryOrder-Mapper">
+	
+	<resultMap type="laundryOrder" id="laundryOrderMap">
+		<result column="ORDER_NO" 		 property="orderNo" />
+		<result column="REQUEST_DETAILS" property="requestDetails" />
+		<result column="ORDER_DATE"      property="orderDate" />
+		<result column="CONTACT_NUMBER"  property="contactNumber" />
+		<result column="DELIVERY_REQUEST_DATE" property="deliveryRequestDate" />
+		<result column="TOTAL_PRICE" property="totalPrice" />
+		<result column="PICKUP_REQUEST_DATE" property="pickupRequestDate" />
+		<result column="PICKUP_DATE" property="pickupDate" />
+		<result column="BRANCH_ARRIVAL_DATE" property="branchArrivalDate" />
+		<result column="AREA" property="area" />
+		<result column="DELIVERY_DATE" property="deliveryDate" />
+		<result column="ORDER_STATUS" property="orderStatus" />
+		<result column="CANCEL_YN" property="cancelYn" />
+		<result column="PAYMENTNO" property="paymentno" />
+		<result column="BRANCH_CODE" property="branchCode" />
+		<result column="MEMBERNO" property="memberno" />
+		<result column="DELIVERY_EMPLOYEE_ID" property="deliveryEmployeeId" />
+		<result column="PICKUP_EMPLOYEE_ID" property="pickupEmployeeId" />
+		<result column="ZIP" property="zip" />
+		<result column="ADD1" property="add1" />
+		<result column="ADD2" property="add2" />
+		<result column="ATCH_FILE_NO" property="atchFileNo" />
+		<result column="REPLYNO" property="replyno" />
+	 
+	
+	</resultMap>
+
+
+	<select id="selectLaundryOrderSequenceNextValue" resultType="str">
+		select FN_LAUNDRY_ORDER_NO('now') from DUAL
+	</select>
+
+	<select id="selectCount" resultType="int">
+		select count(*)
+		from TB_LAUNDRY_ORDER
+		where ORDER_NO is not null
+		<include refid="search"/>
+	</select>
+	
+	<select id="selectLaundryOrderList" resultMap="itemOrderMap">
+		select *
+		  from TB_LAUNDRY_ORDER
+		 where ORDER_NO is not null
+		 <include refid="search"/>
+		 order by ORDER_DATE
+	</select>
+
+
+
+
+	<update id="insertLaundryOrder" parameterType="laundryOrder">
+		<choose>
+			<when test="requestDetails != null">
+				INSERT INTO TB_LAUNDRY_ORDER
+					(ORDER_NO,
+					CONTACT_NUMBER,
+					DELIVERY_REQUEST_DATE,
+					PICKUP_REQUEST_DATE,
+					ORDER_STATUS,
+					REQUEST_DETAILS,
+					MEMBERNO)
+					VALUES
+					 (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus},#{requestDetails},#{memberNo})
+			</when>
+	
+			<otherwise>
+				INSERT INTO TB_LAUNDRY_ORDER
+					(ORDER_NO,
+					CONTACT_NUMBER,
+					DELIVERY_REQUEST_DATE,
+					PICKUP_REQUEST_DATE,
+					ORDER_STATUS,
+					MEMBERNO)
+					VALUES (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus},#{memberNo})
+			</otherwise>
+		</choose>
+	</update>
+	
+	
+
+</mapper>

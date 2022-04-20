@@ -63,7 +63,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 		
 		EmployeesVO emp = (EmployeesVO)session.getAttribute("loginEmployee");
 		
-		
+		 
 		String empBranch= emp.getBranchCode();
 		List<ComCodeVO> itemOrderComCode = comCodeDAO.selectItemOrderCode();
 		list = itemOrderDAO.selectItemOrderList(cri);
