@@ -89,7 +89,7 @@
 	    from tb_employees a, tb_as b, tb_member c, tb_branch d, tb_laundry_articles e, tb_laundry_fixtures f
 	    where asno=#{asno}
 	    	and a.employee_id = b.employee_id
-	    	and a.memberno=c.memberno
+	    	and a.memberno = c.memberno
 	    	and b.branch_code = d.branch_code
 	        and b.fixtures_code = f.fixtures_code
 	        and b.articles_code = e.articles_code
