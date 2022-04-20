@@ -18,5 +18,12 @@ public class ComCodeDAOImpl implements ComCodeDAO{
 		return session.selectList("ComCode-Mapper.selectItemOrderCode");
 	}
 
+	@Override
+	public List<ComCodeVO> selectLaundryStatusCode() throws Exception {
+	
+		return session.selectList("ComCode-Mapper.selectLaundryStatusCode");
+	}
+	
+
 
 }

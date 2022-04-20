@@ -20,6 +20,10 @@
 		<typeAlias type="com.rundering.dto.ItemOrderVO" alias="itemOrder" />
 		<typeAlias type="com.rundering.dto.ItemOrderDetailVO" alias="itemOrderDetail" />
 		<typeAlias type="com.rundering.dto.ComCodeVO" alias="comCode" />
+		<typeAlias type="com.rundering.dto.LaundryOrderVO" alias="laundryOrder" />
+		<typeAlias type="com.rundering.dto.LaundryItemsVO" alias="laundryItems" />
+		<typeAlias type="com.rundering.dto.LaundryOrderDetailVO" alias="laundryOrderDetail"/>
+		
 	</typeAliases>
 	
 	

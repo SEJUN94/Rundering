@@ -25,7 +25,7 @@ public class LaundryOrderVO {
 	private String zip;					//우편번호
 	private String add1;				//주소
 	private String add2;				//상세주소
-	
+	private int replyno;
 	
 	public LaundryOrderVO() {
 		super();
@@ -158,5 +158,18 @@ public class LaundryOrderVO {
 	public void setAdd2(String add2) {
 		this.add2 = add2;
 	}
+
+
+	public int getReplyno() {
+		return replyno;
+	}
+
+
+	public void setReplyno(int replyno) {
+		this.replyno = replyno;
+	}
+
+
+	
 	
 }

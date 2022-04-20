@@ -18,5 +18,13 @@
 		  from tb_com_code
 		 where com_code_grp='ITEM_ORDER'
 	</select>
+	<select id="selectLaundryStatusCode" resultMap="comCode">
+		select *
+		  from tb_com_code
+		 where com_code_grp='ORDER_STATUS' 
+	</select>
+	
+	
+	
 
 </mapper>

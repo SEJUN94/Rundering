@@ -20,7 +20,8 @@
 					ORDER_STATUS,
 					REQUEST_DETAILS,
 					MEMBERNO)
-					VALUES (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus},#{requestDetails},#{memberNo})
+					VALUES
+					 (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus},#{requestDetails},#{memberNo})
 			</when>
 	
 			<otherwise>
