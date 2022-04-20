@@ -40,13 +40,13 @@ public class AsRequestServiceImpl implements AsRequestService {
 		return dataMap;
 	}
 
-	/*
-	 * @Override public AsRequestVO getAsRequest(int asno) throws SQLException {
-	 * asRequestDAO.increaseViewCount(asno);
-	 * 
-	 * AsRequestVO asRequest = asRequestDAO.selectAsRequestByAsno(asno); return
-	 * asRequest; }
-	 */
+//	@Override
+//	public AsRequestVO getAsRequest(int asno) throws SQLException {
+//		asRequestDAO.checkAsRequest(asno);
+//		
+//		AsRequestVO asRequest = asRequestDAO.selectAsRequestByAsno(asno);
+//		return asRequest;
+//	}
 
 	@Override
 	public AsRequestVO getCheck(int asno) throws SQLException {

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,8 +25,8 @@ import com.rundering.service.AsRequestServiceImpl;
 public class AsRequestController {
 	@Autowired
 	AsRequestServiceImpl asRequestService;
-	
-	//리스트
+
+	// 리스트
 	@RequestMapping(value = "/list")
 	private ModelAndView asRequestList(Criteria cri, ModelAndView mnv) throws Exception {
 		String url = "branch/asrequest/asrequest_list";
@@ -36,7 +37,7 @@ public class AsRequestController {
 
 		return mnv;
 	}
-	
+
 	@RequestMapping("/registForm")
 	private String asRequestRegistForm() {
 
@@ -51,14 +52,13 @@ public class AsRequestController {
 
 		String url = "redirect:/branch/asrequest/list";
 
-		System.out.println(asRequest);
 		asRequestService.regist(asRequest);
 
 		rttr.addFlashAttribute("from", "regist");
 
 		return url;
 	}
-	
+
 	@RequestMapping(value = "/detail")
 	private ModelAndView asRequestDetail(int asno, @RequestParam(defaultValue = "") String from,
 			HttpServletRequest request, ModelAndView mnv, HttpSession session) throws SQLException {
@@ -70,9 +70,9 @@ public class AsRequestController {
 		if (!from.equals("list")) {
 			asRequest = asRequestService.getAsRequestModify(asno);
 		} else {
+			
 			EmployeesVO employees = (EmployeesVO) session.getAttribute("loginEmployee");
-			System.out.println(employees.getEmployeeId());
-			if (employees.getBranchCode().equals("0000")) {
+			if (employees.getBranchCode().equals("000000")) {
 				asRequest = asRequestService.getCheck(asno);
 			}
 			
@@ -84,5 +84,6 @@ public class AsRequestController {
 
 		return mnv;
 	}
-	
+
+
 }
