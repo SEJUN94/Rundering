@@ -105,7 +105,6 @@ function ItemOrderRemove(ordercode){
     console.log(form)
      tag.append(form);
     form.submit();
-    console.log()
 } 
 function ItemOrderUpdate(ordercode){
 	let tag= document.querySelector("#formTag")
