@@ -7,7 +7,7 @@ public class LaundryItemsRegistCommand {
 	private String price;  //가격
 	private String itemsName;  //품목명
 	private String charger;  //담당자
-	private String laundeyCategory; //세탁품목구분
+	private String laundryCategory; //세탁품목구분
 	
 	public String getPrice() {
 		return price;
@@ -27,11 +27,11 @@ public class LaundryItemsRegistCommand {
 	public void setCharger(String charger) {
 		this.charger = charger;
 	}
-	public String getLaundeyCategory() {
-		return laundeyCategory;
+	public String getLaundryCategory() {
+		return laundryCategory;
 	}
-	public void setLaundeyCategory(String laundeyCategory) {
-		this.laundeyCategory = laundeyCategory;
+	public void setLaundryCategory(String laundryCategory) {
+		this.laundryCategory = laundryCategory;
 	}
 	
 	public LaundryItemsVO toLaundryItemsVO() {
@@ -39,7 +39,7 @@ public class LaundryItemsRegistCommand {
 		laundryItems.setPrice(Integer.parseInt(this.price));
 		laundryItems.setItemsName(this.itemsName);
 		//laundryItems.setCharger(this.charger);
-		laundryItems.setLaundryCategory(this.laundeyCategory);
+		laundryItems.setLaundryCategory(this.laundryCategory);
 		
 		return laundryItems; 
 	}

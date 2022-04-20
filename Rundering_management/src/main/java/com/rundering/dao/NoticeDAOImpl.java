@@ -68,24 +68,19 @@ public class NoticeDAOImpl implements NoticeDAO {
 	@Override
 	public void insertNotice(NoticeVO notice) throws SQLException {
 		session.update("Notice-Mapper.insertNotice", notice);
-		
 	}
 
 
 	@Override
 	public void updateNotice(NoticeVO notice) throws SQLException {
-		session.update("Notice-Mapper.updateNotice", notice);
-		
+		session.update("Notice-Mapper.updateNotice", notice);	
 	}
 
 
 	@Override
 	public void deleteNotice(int noticeno) throws SQLException {
 		session.update("Notice-Mapper.deleteNotice", noticeno);
-		
 	}
-
-	
 
 
 }
