@@ -1,16 +1,21 @@
 package com.rundering.manage.admin;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.LaundryItemsRegistCommand;
 import com.rundering.dto.LaundryItemsVO;
+import com.rundering.dto.NoticeVO;
+import com.rundering.manage.Criteria;
 import com.rundering.service.LaundryItemsService;
 
 
@@ -22,12 +27,14 @@ public class LaundryItemsController {
 	private LaundryItemsService laundryItemsService;
 	
 	@RequestMapping("/list")
-	public String laundryItemsList() {
+	public ModelAndView laundryItemsList(Criteria cri, ModelAndView mnv) throws SQLException {
 		String url = "admin/laundryitems/laundryitems_list";
-		Map<String, Object> dataMap = null;
+		Map<String, Object> dataMap = laundryItemsService.getLaundryItemsList(cri);
 		
-		//dataMap = laundryItemsService
-		return url;
+		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+		return mnv;
+
 	}
 	
 	@RequestMapping(value = "/regist", method = RequestMethod.GET)
@@ -35,17 +42,49 @@ public class LaundryItemsController {
 		return "admin/laundryitems/laundryitems_regist";
 	}
 	@RequestMapping(value =  "/regist", method = RequestMethod.POST)
-	public String laundryItemRegist(LaundryItemsRegistCommand command, ModelAndView mnv) {
+	public String laundryItemRegist(LaundryItemsRegistCommand command, ModelAndView mnv,RedirectAttributes rttr  ) throws SQLException {
 		
 		LaundryItemsVO laundryItems = command.toLaundryItemsVO();
 		laundryItemsService.regist(laundryItems);
-		
+		rttr.addFlashAttribute("from", "regist");
 		return "redirect:/admin/laundryitems/regist";
 	}
 	
-	@RequestMapping("/modify")
-	public String laundryItemModify() {
-		return "admin/laundryitems/laundryitems_modify";
+	@RequestMapping("/modifyForm")
+	public ModelAndView laundryItemModify(String laundryItemsCode, ModelAndView mnv) throws SQLException {
+		String url="admin/laundryitems/laundryitems_modify";
+		LaundryItemsVO laundryItems = laundryItemsService.getLaundryItemsByItemCode(laundryItemsCode);
+		
+		mnv.addObject("laundryItems",laundryItems);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	@RequestMapping(value="/modify",method=RequestMethod.POST)
+	public String noticeModify(LaundryItemsVO laundryItems,
+						     HttpServletRequest request,
+							 RedirectAttributes rttr)throws Exception{
+		String url = "redirect:/admin/laundryitems/modifyForm";
+		
+		laundryItemsService.modify(laundryItems);
+		
+		rttr.addAttribute("laundryItemsCode",laundryItems.getLaundryItemsCode());
+		rttr.addFlashAttribute("from","laundryItems");
+		return url;
+	}
+	
+	@RequestMapping(value="/remove",method=RequestMethod.GET)
+	public String remove(String laundryItemsCode,RedirectAttributes rttr) throws Exception{
+		String url="redirect:/admin/laundryitems/list";
+			
+		System.out.println(laundryItemsCode);
+		laundryItemsService.remove(laundryItemsCode);		
+		
+		rttr.addAttribute("laundryItemsCode",laundryItemsCode);
+		rttr.addFlashAttribute("from","remove");
+		
+		return url;
 	}
 	
 }

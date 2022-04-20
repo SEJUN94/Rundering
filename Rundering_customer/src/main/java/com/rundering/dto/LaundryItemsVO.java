@@ -10,7 +10,7 @@ public class LaundryItemsVO {
 	private Date modifyDate;  			//수정일
 	private String deleteYn; 			//삭제여부
 	private String charger;  			//담당자
-	private String laundeyCategory; 	//세탁품목구분
+	private String laundryCategory; 	//세탁품목구분
 	
 	
 	public LaundryItemsVO() {
@@ -60,11 +60,11 @@ public class LaundryItemsVO {
 	public void setCharger(String charger) {
 		this.charger = charger;
 	}
-	public String getLaundeyCategory() {
-		return laundeyCategory;
+	public String getLaundryCategory() {
+		return laundryCategory;
 	}
-	public void setLaundeyCategory(String laundeyCategory) {
-		this.laundeyCategory = laundeyCategory;
+	public void setLaundryCategory(String laundryCategory) {
+		this.laundryCategory = laundryCategory;
 	}
 	
 }

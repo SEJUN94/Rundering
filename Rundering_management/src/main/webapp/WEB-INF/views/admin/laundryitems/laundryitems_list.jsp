@@ -6,7 +6,7 @@
 
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
-<c:set var="noticeList" value="${dataMap.noticeList }" />
+<c:set var="laundryItemsList" value="${dataMap.laundryItemsList }" />
     
 <title>세탁 품목 관리</title>
 
@@ -17,62 +17,70 @@
 				<div class="card-header">
 					<h3 class="card-title" style="font-size: 1.75rem;">세탁 품목</h3>
 					<div class="card-tools">
-						<div class="input-group" style="width: 250px;">
-							<input type="text" name="table_search"
-								class="form-control float-right" placeholder="품목명">
-							<div class="input-group-append">
-								<button type="submit" class="btn btn-default">
-									<i class="fas fa-search"></i>
-								</button>
-							</div>
+						<div class="input-group input-group-sm" style="width: 300px;">
+							<select class="form-control col-md-4" name="searchType"
+									id="searchType">
+									<option value="tc" ${cri.searchType eq 'tc' ? 'selected':'' }>전체</option>
+									<option value="t" ${cri.searchType eq 't' ? 'selected':'' }>품목번호</option>
+									<option value="c" ${cri.searchType eq 'c' ? 'selected':'' }>품목명</option>
+								</select> <input class="form-control" type="text" name="keyword"
+									placeholder="검색어를 입력하세요." value="" /> <span
+									class="input-group-append">
+									<button class="btn btn-primary" type="button"
+										onclick="list_go(1);" data-card-widget="search">
+										<i class="fa fa-fw fa-search"></i>
+									</button>
+								</span>
 						</div>
 					</div>
 				</div>
 
-
 				<div class="card-body table-responsive p-0 mt-0">
+				<form role="form" class="form-horizontal" action="regist"
+						method="post" name="registForm">
 					<table
 						class="table table-hover text-nowrap card-secondary card-outline">
 						<thead>
 							<tr>
-							    <th class="category">구분</th>
-								<th class="itemcode">품목번호</th>
-								<th class="itemname">품목명</th>
-								<th class="price">세탁가격</th>
+							    <th style="width:150px;">구분</th>
+								<th style="width:180px;">품목번호</th>
+								<th style="width:180px;">품목명</th>
+								<th style="width:150px;">세탁가격</th>
+								<th style="width:70px;">수정</th>
+								<th style="width:80px;">삭제</th>
+								
 							</tr>
 						</thead>
 						<tbody>
-							<c:if test="${empty noticeList }">
+							<c:if test="${empty laundryItemsList }">
 									<tr>
 										<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
 									</tr>
 								</c:if>
-								<c:forEach items="${noticeList }" var="notice">
-									<tr style='font-size: 0.85em; cursor: pointer;'
-										onclick="OpenWindow('detail?from=list&noticeno=${notice.noticeno }','상세보기',800,700);">
-										<td>${notice.noticeno }</td>
-										<td id="Title"
+								<c:forEach items="${laundryItemsList }" var="laundryItems">
+									<tr style='font-size: 0.85em;'>
+										<td>${laundryItems.laundryCategory }</td>
+										<td id="laundryItemsCode"
 											style="text-align: left; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-											${notice.title }</td>
-										<td data-target="notice-employeeId">${notice.employeeId}</td>
-										<td><fmt:formatDate value="${notice.registDate }"
-												pattern="yyyy-MM-dd" /></td>
-										<td><span class="badge bg-red">${notice.views }</span></td>
+											${laundryItems.laundryItemsCode }</td>
+										<td>${laundryItems.itemsName}</td>
+										<td>${laundryItems.price }</td>
+										<td><button type="button" class="btn btn-block btn-warning btn-xs"
+										onclick="window.open('<%=request.getContextPath()%>/admin/laundryitems/modifyForm?laundryItemsCode=${laundryItems.laundryItemsCode }','세탁품목수정', 'width=600, height=600')">수정</button></td>
+										<td><button type="button" class="btn btn-block btn-danger btn-xs" onclick="remove_go('remove','${laundryItems.laundryItemsCode}');">삭제</button></td>
 									</tr>
 								</c:forEach>
 						</tbody>
 					</table>
-
+				</form>
 
 					<div class="card-footer" >
 						
 						<%@ include file="/WEB-INF/views/common/pagination.jsp" %>
 							<div class="float-right mb-3 mr-2">
-						<a	href="<%=request.getContextPath()%>/admin/notice/registform">
-						
 							<button type="button" class="btn btn-primary"
-								data-toggle="modal" data-target="#modal-lg">물품등록</button>
-						</a>
+							onclick="window.open('<%=request.getContextPath()%>/admin/laundryitems/regist','세탁품목등록', 'width=600, height=600')">
+							물품등록</button>
 					</div>
 
 				</div>
@@ -81,6 +89,19 @@
 		</div>
 	</div>
 </div>
+<script>
+
+function remove_go(url,laundryItemsCode){
+	   if(confirm("삭제하시겠습니까?")){
+	      alert("삭제되었습니다.")   
+	      location.href=url+"?laundryItemsCode="+laundryItemsCode
+	   }
+		window.opener.location.reload();
+	}
+
+
+
+</script>
 
 </body>
 </html>
