@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:set var="pageMaker" value="${dataMap.pageMaker }" />
+<c:set var="cri" value="${dataMap.pageMaker.cri }" />
+<c:set var="laundryItemsList" value="${dataMap.laundryItemsList }" />
+
 <head>
 </head>
 <title>세탁 품목 등록</title>
@@ -13,21 +20,19 @@
 				<!-- form start -->
 				<div class="card">
 					<div class="register-card-body">
-						<form role="form" class="form-horizontal" action="<%=request.getContextPath() %>/admin/laundryitems/regist" method="post">
-							<input type="hidden" name="picture">
+						<form role="form" name="registForm" class="form-horizontal" action="<%=request.getContextPath() %>/admin/laundryitems/regist" method="post">
+							<input type="hidden" name="laundryitems">
 							<div class="input-group mb-3">
 								<div class="mailbox-attachments clearfix" style="text-align: center; margin: 0 auto">
-									
-									
-
+										
 								</div>
 								<br>
 							</div>
 							<div class="form-group row">
-								<label for="laundeyCategory" class="col-sm-3" style="font-size: 0.9em;">
+								<label for="laundryCategory" class="col-sm-3" style="font-size: 0.9em;">
 									<span style="color: red; font-weight: bold;">*</span>품목구분</label>
 								<div class="col-sm-9 input-group-sm">
-									<select class="form-control" name="laundeyCategory" id="laundeyCategory">
+									<select class="form-control" name="laundryCategory" id="laundryCategory">
 										<option value="CL">의류</option>
 										<option value="BE">침구</option>
 										<option value="SH">신발</option>
@@ -56,13 +61,44 @@
 									<input class="form-control" name="pwd" type="password" id="pwd">
 								</div>
 							</div> -->
-							<button type="submit" id="sendBtn" class="btn btn-primary btn-sm float-right ">등록</button>
-							&nbsp;&nbsp;
 						</form>
+							<button onclick="regist_go()" id="sendBtn" class="btn btn-primary btn-sm float-right ">등록</button>
+							&nbsp;&nbsp;
 							
 					</div>
 				</div>
 				</div>
 			</section>
+ <script>
+	
+	function regist_go(){
+		var form = document.registForm;
+		var itemsName = form.itemsName.value;
+	    var price = form.price.value;
+	    
+	    if(itemsName==""){
+	        alert("품목명과 가격을 모두 입력하세요.");
+	        return;
+	    }
+	    if(price ==""){
+	    	alert("가격을 입력하세요")
+	    	return;
+	    }
+	    $("form[role='form']").submit();
+	    
+	}
+			
+ </script>
+ 
+	 
+	 <c:if test="${from eq 'regist'}" >
+	 	<script>
+			alert("등록되었습니다.");
+			window.close();
+			window.opener.location.reload();
+		 </script>
+	</c:if>
+ 
+
 
 </body>
