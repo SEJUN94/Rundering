@@ -60,7 +60,7 @@ public class MainController {
 		MemberAddressVO memberAdd;
 		
 		String pw = UserSha256.encrypt(member.getPassword());
-		
+		System.out.println();
 		member.setPassword(pw);
 
 		try {
