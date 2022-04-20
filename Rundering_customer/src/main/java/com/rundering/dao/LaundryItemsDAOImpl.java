@@ -16,17 +16,17 @@ public class LaundryItemsDAOImpl implements LaundryItemsDAO {
 
 	// 의류 시퀀스
 	@Override
-	public String SelectClothingSequenceNextValue() throws SQLException{
+	public String selectClothingSequenceNextValue() throws SQLException{
 		return session.selectOne("LaundryItems-Mapper.selectClothingSequenceNextValue");
 	}
 	// 침구 시퀀스
 	@Override
-	public String SelectBeddingSequenceNextValue() throws SQLException{
+	public String selectBeddingSequenceNextValue() throws SQLException{
 		return session.selectOne("LaundryItems-Mapper.selectBeddingSequenceNextValue");
 	}
 	// 신발 시퀀스
 	@Override
-	public String SelectShoesSequenceNextValue() throws SQLException{
+	public String selectShoesSequenceNextValue() throws SQLException{
 		return session.selectOne("LaundryItems-Mapper.selectShoesSequenceNextValue");
 	}
 
@@ -44,8 +44,8 @@ public class LaundryItemsDAOImpl implements LaundryItemsDAO {
 	
 	// 세탁품목 전체 목록조회 - 이용 안내
 	@Override
-	public List<LaundryItemsVO> getlaundryItemsList() throws SQLException {
-		return session.selectList("LaundryItems-Mapper.getlaundryItemsList");
+	public List<LaundryItemsVO> selectlaundryItemsList() throws SQLException {
+		return session.selectList("LaundryItems-Mapper.selectlaundryItemsList");
 	}
 
 

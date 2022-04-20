@@ -8,11 +8,11 @@ import com.rundering.dto.LaundryItemsVO;
 public interface LaundryItemsDAO {
 	
 	//의류 시퀀스
-	public String SelectClothingSequenceNextValue() throws SQLException;
+	public String selectClothingSequenceNextValue() throws SQLException;
 	//침구 시퀀스
-	public String SelectBeddingSequenceNextValue() throws SQLException;
+	public String selectBeddingSequenceNextValue() throws SQLException;
 	//신발 시퀀스
-	public String SelectShoesSequenceNextValue() throws SQLException;
+	public String selectShoesSequenceNextValue() throws SQLException;
 	
 	
 	//세탁품목 등록
@@ -20,5 +20,5 @@ public interface LaundryItemsDAO {
 	//세탁품목 조회 - BylaundryItemsCode
 	public LaundryItemsVO selectLaundryItemsBylaundryItemsCode(String laundryItemsCode) throws SQLException;
 	//세탁품목 조회 - 전체 
-	public List<LaundryItemsVO> getlaundryItemsList() throws SQLException;
+	public List<LaundryItemsVO> selectlaundryItemsList() throws SQLException;
 }

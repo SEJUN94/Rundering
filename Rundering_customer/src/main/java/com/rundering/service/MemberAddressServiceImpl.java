@@ -1,6 +1,7 @@
 package com.rundering.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.rundering.dao.MemberAddressDAO;
 import com.rundering.dto.MemberAddressVO;
@@ -15,6 +16,36 @@ public class MemberAddressServiceImpl implements MemberAddressService{
 	@Override
 	public void memberAddressRegist(MemberAddressVO memberAdd) throws Exception {
 		
+		memberAdd = getAreaCode(memberAdd);
+		
+		if(memberAdd.getDefaultYn().equals("Y")) {
+			memberAddressDAO.updateAllMemberAddressDefaultN(memberAdd.getMemberNo());
+		}
+		
+		memberAddressDAO.addRegist(memberAdd);
+		
+	}
+	
+	//기본주소지 조회
+	@Override
+	public MemberAddressVO getDefaultMemberAddress(String memberNo) throws SQLException {
+		return memberAddressDAO.selectDefaultMemberAddressByMemberNo(memberNo);
+	}
+	
+	//주소지 조회 - 주소번호로
+	@Override
+	public MemberAddressVO getMemberAddress(String addressNo) throws SQLException {
+		return memberAddressDAO.selectMemberAddressByAddressNo(addressNo);
+	}
+	
+	//회원주소지 목록 조회 - memberNo로
+	@Override
+	public List<MemberAddressVO> getMemberAddressList(String memberNo) throws SQLException {
+		return memberAddressDAO.selectMemberAddressListByMemberNo(memberNo);
+	}
+
+	@Override
+	public MemberAddressVO getAreaCode(MemberAddressVO memberAdd) {
 		String ta = memberAdd.getAdd1().substring(0,2);
 		String ar = memberAdd.getAdd1().substring(3,5);
 		
@@ -52,17 +83,9 @@ public class MemberAddressServiceImpl implements MemberAddressService{
 		}else {
 			
 		}
-		
-		
-		memberAddressDAO.addRegist(memberAdd);
-		
+		return memberAdd;
 	}
-	
-	//기본주소지 조회
-	@Override
-	public MemberAddressVO getDefaultMemberAddress(String memberNo) throws SQLException {
-		return memberAddressDAO.selectDefaultMemberAddressByMemberNo(memberNo);
-	}
+
 	
 	
 }

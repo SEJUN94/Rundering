@@ -1,6 +1,7 @@
 package com.rundering.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -24,6 +25,24 @@ public class MemberAddressDAOImpl implements MemberAddressDAO{
 	@Override
 	public MemberAddressVO selectDefaultMemberAddressByMemberNo(String memberNo) throws SQLException {
 		return session.selectOne("MemberAddress-Mapper.selectDefaultMemberAddressByMemberNo", memberNo);
+	}
+
+
+	@Override
+	public List<MemberAddressVO> selectMemberAddressListByMemberNo(String memberNo) {
+		return session.selectList("MemberAddress-Mapper.selectMemberAddressListByMemberNo",memberNo);
+	}
+
+
+	@Override
+	public void updateAllMemberAddressDefaultN(String memberNo) throws SQLException {
+		session.update("MemberAddress-Mapper.updateAllMemberAddressDefaultN",memberNo);
+	}
+
+
+	@Override
+	public MemberAddressVO selectMemberAddressByAddressNo(String addressNo) throws SQLException {
+		return session.selectOne("MemberAddress-Mapper.selectMemberAddressByAddressNo", addressNo);
 	}
 	
 	

@@ -101,7 +101,6 @@
 </style>
 </head>
 
-<title>세탁 주문접수</title>
 
 <body>
 
@@ -129,7 +128,12 @@
 				</div>
 
 				<div class="hiddenInput">
-					<input type="text" name="loginUser" value="${loginUser.memberNo}" style="display: none;"> <input type="tel" class="form-control" id="contactNumber" name="contactNumber" value="${command.contactNumber}" style="display: none;">
+					<input type="hidden" name="contactNumber" value="${command.contactNumber}" >
+					<input type="hidden" name="addressNo" value="${command.addressNo}" >
+					<input type="hidden" name="zip" value="${command.zip}" >
+					<input type="hidden" name="add1" value="${command.add1}" >
+					<input type="hidden" name="add2" value="${command.add2}" >
+					<input type="hidden" name="setDefaultAddr" value="${command.setDefaultAddr}" >
 				</div>
 
 				<div class="card-body col-6" style="margin: auto; margin-top: 25px;">
@@ -177,7 +181,7 @@
 								<tbody class="">
 									<c:if test="${!empty laundryItemsList }">
 										<c:forEach items="${laundryItemsList }" var="laundryItems">
-											<c:if test="${laundryItems.laundeyCategory eq 'CL' }">
+											<c:if test="${laundryItems.laundryCategory eq 'CL' }">
 												<tr style="cursor: pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
 													<td>${laundryItems.itemsName}</td>
 													<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
@@ -207,7 +211,7 @@
 								<tbody>
 									<c:if test="${!empty laundryItemsList }">
 										<c:forEach items="${laundryItemsList }" var="laundryItems">
-											<c:if test="${laundryItems.laundeyCategory eq 'BE' }">
+											<c:if test="${laundryItems.laundryCategory eq 'BE' }">
 												<tr style="cursor: pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
 													<td>${laundryItems.itemsName}</td>
 													<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>
@@ -237,7 +241,7 @@
 								<tbody>
 									<c:if test="${!empty laundryItemsList }">
 										<c:forEach items="${laundryItemsList }" var="laundryItems">
-											<c:if test="${laundryItems.laundeyCategory eq 'SH' }">
+											<c:if test="${laundryItems.laundryCategory eq 'SH' }">
 												<tr style="cursor: pointer;" onclick="displayAddItems('${laundryItems.itemsName}','<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />','${laundryItems.laundryItemsCode}')">
 													<td>${laundryItems.itemsName}</td>
 													<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price}" />원</td>

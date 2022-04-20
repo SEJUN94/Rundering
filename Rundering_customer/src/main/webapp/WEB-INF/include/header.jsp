@@ -15,7 +15,7 @@
 					<li><a href="<%=request.getContextPath()%>/3agree">회원가입</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
-					<li><h2 style="padding:11px 16px;;font-weight:600;">${loginUser.getName() }님</h2></li>
+					<li><h2 style="padding:11px 16px;font-weight:600;">${loginUser.getName() }님</h2></li>
 					<li><a href="<%=request.getContextPath()%>/mypage">마이페이지</a></li>
 					<li><a href="<%=request.getContextPath()%>/logout">로그아웃</a></li>
 				</sec:authorize>

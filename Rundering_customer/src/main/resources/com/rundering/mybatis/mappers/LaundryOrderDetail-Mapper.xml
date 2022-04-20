@@ -11,9 +11,11 @@
 					ORDER_NO,
 					PRICE,
 					LAUNDRY_ITEMS_CODE,
-					QUANTITY)
+					QUANTITY,
+					ITEMS_NAME
+					)
 					VALUES (
-					#{detailOrderno},#{orderNo},#{price},#{laundryItemsCode},#{quantity}
+					#{detailOrderno},#{orderNo},#{price},#{laundryItemsCode},#{quantity},#{itemsName}
 					)
 	</update>
 

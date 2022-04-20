@@ -1,6 +1,5 @@
 package com.rundering.customer;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -47,40 +46,74 @@ public class LaundryOrderController {
 		MemberAddressVO defaultMemberAddress = memberAddressService.getDefaultMemberAddress(loginUser.getMemberNo());
 		mnv.addObject("defaultMemberAddress",defaultMemberAddress);
 		
+		List<MemberAddressVO> memberAddressList = memberAddressService.getMemberAddressList(loginUser.getMemberNo());
+		mnv.addObject("memberAddressList",memberAddressList);
+		
 		mnv.setViewName(url);
 		
 		return mnv;
 	}
 
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)
-	public ModelAndView order( ModelAndView mnv) throws Exception {
+	public ModelAndView order(LaundryOrderReceiveCommand command, ModelAndView mnv) throws Exception {
 		String url="/order/order";
 
 		Map<String, Object> dataMap = laundryItemsService.getlaundryItemsList();
 		
+		mnv.addObject("command",command);
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
 		
 		return mnv;
 	}
 	
-	@RequestMapping("/comfirm")
-	public String comfirm(LaundryOrderReceiveCommand command, HttpServletRequest request) throws Exception {
-		String url="/order/order_comfirm1";
+	@RequestMapping(value = "/comfirm", method = RequestMethod.POST)
+	public ModelAndView comfirm(LaundryOrderReceiveCommand command, HttpServletRequest request, ModelAndView mnv) throws Exception {
+		String url="/order/order_confirm";
+		
+		List<LaundryOrderDetailVO> laundryOrderDetailVOList = command.toLaundryOrderDetailVOList();
+		Map<String, Object> dataMap = laundryOrderService.checkOrder(laundryOrderDetailVOList);
+		
+		mnv.setViewName(url);
+		mnv.addObject("command",command);
+		mnv.addObject("dataMap", dataMap);
+		
+		return mnv;
+	}
+	
+	@RequestMapping(value = "/completed", method = RequestMethod.POST)
+	public ModelAndView completed(LaundryOrderReceiveCommand command, HttpServletRequest request, ModelAndView mnv) throws Exception {
+		
+		//주문완료 페이지가 없어 일단 홈화면으로 가도록 함
+		String url="/main";
 		
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
 		
+		MemberAddressVO memberAddress = command.toMemberAddressVO();
+		//새로운 주소지일 경우 주소지 등록
+		if(command.getAddressNo().equals("0")) {
+			memberAddress.setMemberNo(loginUser.getMemberNo());
+			memberAddressService.memberAddressRegist(memberAddress);
+		}else {
+			//새로운 주소지 아닐경우 주소번호로 주소지가져오기
+			memberAddress = memberAddressService.getMemberAddress(command.getAddressNo());
+			command.setAddress(memberAddress);
+		}
+		
 		LaundryOrderVO laundryOrder = command.toLaundryOrderVO();
 		laundryOrder.setMemberNo(loginUser.getMemberNo());
+		memberAddress = memberAddressService.getAreaCode(memberAddress);
+		laundryOrder.setArea(memberAddress.getArea());
 		
 		List<LaundryOrderDetailVO> laundryOrderDetailVOList = command.toLaundryOrderDetailVOList();
+ 		laundryOrderService.orderReceive(laundryOrder, laundryOrderDetailVOList);
+ 		
 		
-		laundryOrderService.orderReceive(laundryOrder, laundryOrderDetailVOList);
+		mnv.setViewName(url);
+		return mnv;
 		
 		
-		
-		return url;
 	}
 
 }
