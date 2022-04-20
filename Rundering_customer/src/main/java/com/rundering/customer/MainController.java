@@ -20,6 +20,7 @@ import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.service.MemberAddressService;
 import com.rundering.service.MemberService;
+import com.rundering.util.UserSha256;
 
 @Controller
 public class MainController {
