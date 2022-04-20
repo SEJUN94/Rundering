@@ -58,6 +58,8 @@ public class MainController {
 		
 		MemberAddressVO memberAdd = null;
 		
+		String pw = UserSha256.encrypt(member.getPassword());
+		member.setPassword(pw);
 		try {
 			
 			memberService.memberJoin(member);
