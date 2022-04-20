@@ -12,6 +12,7 @@ public class LaundrySituatuionController {
 		String url = "branch/laundrysituatuion/situatuion_list";
 		return url;
 
+		
 	}
 	
 
