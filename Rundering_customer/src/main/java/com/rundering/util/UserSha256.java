@@ -20,7 +20,7 @@ public class UserSha256 {
 				}
 				hexString.append(hex);
 			}
-			return hexString.toString();
+			return hexString.toString();a
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
