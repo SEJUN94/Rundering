@@ -7,7 +7,7 @@
 <mapper namespace="Suggest-mapper">
 
 	<!-- 언더바컬럼재정의 -->
-	<resultMap type="SuggestBoard" id="SuggestBoardMap">
+	<resultMap type="suggest" id="suggestMap">
 	
 		<result column="SNO" property="sno" />
 		<result column="TITLE" property="title" />
@@ -15,10 +15,10 @@
 		<result column="REGIST_DATE" property="registDate" />
 		<result column="MODIFY_DATE" property="modifyDate" />
 		<result column="DELETE_YN" property="deleteYn" />
-		<result column="VIEWCNT" property="viewCnt" />
+		<result column="VIEWCNT" property="viewcnt" />
 		<result column="WRITER" property="writer" />
 		<result column="BRANCH_NAME" property="branchName" />
-		<result column="CHECKYN" property="checkYn" />
+		<result column="CHECKYN" property="checkyn" />
 		
 	
 	</resultMap>
@@ -50,7 +50,7 @@
 	</sql>
 	
 	<!-- 리스트보기 -->
-	<select id="selectSearchAnonymousList" resultMap="SuggestBoardMap" >
+	<select id="selectSearchSuggestList" resultMap="suggestMap" >
 		select
 		    b.sno,
 		    b.title,
@@ -58,29 +58,30 @@
 		    c.name as writer,
 		    d.branch_name,
 		    b.regist_date,
-		    b.viewcnt
+		    b.viewcnt,
+		    b.checkyn
 		from tb_employees a, TB_SUGGEST_BOARD b, tb_member c, tb_branch d
 		where a.employee_id = b.writer
 		  and a.memberno = c.memberno
 		  and b.branch_name = d.branch_code
-		  and b.delete_yn='N'
+		  and b.deleteyn='N'
 		  <include refid="search" />
-		order by b.ano desc
+		order by b.sno desc
 	</select>
 	
-	<select id="selectSearchAnonymousListCount" resultType="int">
+	<select id="selectSearchSuggestListCount" resultType="int">
 		select
 		count(*) 
 		from TB_SUGGEST_BOARD b
-		where b.ano is not null
+		where b.sno is not null
 		<!-- <include refid="search" /> -->
 		order by b.regist_date desc
 	</select>
 	
-	<select id="selectAnonymousByAno" parameterType="int" resultMap="SuggestBoardMap" >
+	<select id="selectSuggestBySno" parameterType="int" resultMap="suggestMap" >
 		select b.sno, b.title, b.content, b.regist_date, c.name as writer, d.branch_name
 	    from tb_employees a, TB_SUGGEST_BOARD b, tb_member c, tb_branch d
-	    where ano=#{ano}
+	    where sno=#{sno}
 	    	and a.employee_id = b.writer
 	    	and a.memberno=c.memberno
 	    	and b.writer=a.employee_id
@@ -94,20 +95,20 @@
 			where sno=#{sno}
 	</update>
 	
-	<select id="selectAnonymousSequenceNextValue" resultType="int">
-		select ano_seq.nextVal
+	<select id="selectSuggestSequenceNextValue" resultType="int">
+		select sno_seq.nextVal
 			from dual
 	</select>
 	
 	<!-- 삽입 -->
-	<select id="insertAnonymous" resultType="SuggestBoard">
+	<select id="insertSuggest" resultType="suggest">
 		insert into TB_SUGGEST_BOARD(
 			sno,
 			title,
 			writer,
 			branch_name,
 			content) values(
-						ano_seq.nextval,
+						sno_seq.nextval,
 						#{title},
 						#{writer},
 						#{branchName},
@@ -115,7 +116,7 @@
 	</select>
 	
 	<!-- 수정 -->
-	<update id="updateAnonymous" parameterType="SuggestBoard">
+	<update id="updateSuggest" parameterType="suggest">
 		update TB_SUGGEST_BOARD
 		set 
 		title=#{title},content=#{content}
@@ -123,11 +124,10 @@
 	</update>
 	
 	<!-- 삭제 -->
-	<update id="deleteAnonymous" parameterType="int" >
+	<update id="deleteSuggest" parameterType="int" >
 		delete 
 		from TB_SUGGEST_BOARD
-		where SNO=#{sno}		
+		where sno=#{sno}		
 	</update>	
-
 
 </mapper>

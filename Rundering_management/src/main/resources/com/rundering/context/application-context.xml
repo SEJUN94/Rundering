@@ -14,6 +14,9 @@
 	</bean>
 	 
 	<!-- Repository Layer -->
+	<bean id="asRequestDAO" class="com.rundering.dao.AsRequestDAOImpl"
+		p:session-ref="sqlSession"
+	/>
 	<bean id="memberDAO" class="com.rundering.dao.MemberDAOImpl"
 		p:session-ref="sqlSession"
 	/>
@@ -26,7 +29,7 @@
 	<bean id="laundryItemsDAO" class="com.rundering.dao.LaundryItemsDAOImpl"
 		p:session-ref="sqlSession"
 	/>
-	<bean id="anonymousDAO" class="com.rundering.dao.AnonymousDAOImpl"
+	<bean id="suggestDAO" class="com.rundering.dao.SuggestDAOImpl"
 		p:session-ref="sqlSession"
 	/>
 	<bean id="employeesDAO" class="com.rundering.dao.EmployeesDAOImpl"
@@ -48,6 +51,9 @@
 	
 	
 	<!-- Service Layer -->
+	<bean id="asRequestService" class="com.rundering.service.AsRequestServiceImpl"
+		p:asRequestDAO-ref="asRequestDAO"
+	/>	
 	<bean id="menuService" class="com.rundering.service.MenuServiceImpl"
 		p:menuDAOBean-ref="menuDAO"
 	/>	
@@ -58,8 +64,8 @@
 	<bean id="laundryItemsService" class="com.rundering.service.LaundryItemsServiceImpl"
 		p:laundryItemsDAO-ref="laundryItemsDAO" 
 	/>
-	<bean id="AnonymousService" class="com.rundering.service.AnonymousServiceImpl"
-		p:anonymousDAO-ref="anonymousDAO"
+	<bean id="suggestService" class="com.rundering.service.SuggestServiceImpl"
+		p:suggestDAO-ref="suggestDAO"
 	/>	
 	<bean id="memberService" class="com.rundering.service.MemberServiceImpl"
 		p:memberDAO-ref="memberDAO"

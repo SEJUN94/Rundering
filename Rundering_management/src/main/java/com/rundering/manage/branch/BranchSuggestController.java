@@ -3,11 +3,11 @@ package com.rundering.manage.branch;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,22 +21,23 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.rundering.dto.SuggestBoardVO;
+import com.rundering.dto.EmployeesVO;
+import com.rundering.dto.SuggestVO;
 import com.rundering.manage.Criteria;
-import com.rundering.service.AnonymousServiceImpl;
+import com.rundering.service.SuggestServiceImpl;
 import com.rundering.util.MakeFileName;
 
 @Controller
 @RequestMapping("/branch/suggest")
 public class BranchSuggestController {
 	@Autowired
-	AnonymousServiceImpl anonymousService;
+	SuggestServiceImpl suggestService;
 
 	@RequestMapping(value = "/list")
 	private ModelAndView suggestList(Criteria cri, ModelAndView mnv) throws Exception {
 		String url = "branch/suggest/suggest_list";
 
-		Map<String, Object> dataMap = anonymousService.getAnonymousList(cri);
+		Map<String, Object> dataMap = suggestService.getSuggestList(cri);
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
 
@@ -44,51 +45,54 @@ public class BranchSuggestController {
 	}
 
 	@RequestMapping(value = "/detail")
-	private ModelAndView suggestDetail(int ano, @RequestParam(defaultValue = "") String from,
-			HttpServletRequest request, ModelAndView mnv) throws SQLException {
+	private ModelAndView suggestDetail(int sno, @RequestParam(defaultValue = "") String from,
+			HttpServletRequest request, ModelAndView mnv, HttpSession session) throws SQLException {
 
 		String url = "branch/suggest/suggest_detail";
 
-		SuggestBoardVO anonymous = null;
+		SuggestVO suggest = null;
 
 		if (!from.equals("list")) {
-			anonymous = anonymousService.getAnonymousModify(ano);
+			suggest = suggestService.getSuggestModify(sno);
 		} else {
-			anonymous = anonymousService.getAnonymous(ano);
-			url = "redirect:/branch/suggest/detail?ano=" + ano;
+			suggest = suggestService.getSuggest(sno);
+			
+			EmployeesVO employees = (EmployeesVO) session.getAttribute("loginEmployee");
+			System.out.println(employees.getEmployeeId());
+			if (employees.getBranchCode().equals("0000")) {
+				suggest = suggestService.getCheck(sno);
+			}
+			
+			url = "redirect:/branch/suggest/detail?sno=" + sno;
 		}
 
-		mnv.addObject("anonymous", anonymous);
+		mnv.addObject("suggest", suggest);
 		mnv.setViewName(url);
 
 		return mnv;
 	}
 
 	@RequestMapping("/modifyForm")
-	public ModelAndView modifyForm(int ano, ModelAndView mnv) throws Exception {
+	public ModelAndView modifyForm(int sno, ModelAndView mnv) throws Exception {
 
 		String url = "branch/suggest/suggest_modify";
 
-		SuggestBoardVO anonymous = anonymousService.getAnonymousModify(ano);
+		SuggestVO suggest = suggestService.getSuggestModify(sno);
 
-		mnv.addObject("anonymous", anonymous);
+		mnv.addObject("suggest", suggest);
 		mnv.setViewName(url);
 
 		return mnv;
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyPost(SuggestBoardVO Suggest, HttpServletRequest request, RedirectAttributes rttr)
-			throws Exception {
+	public String modifyPost(SuggestVO suggest, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
 		String url = "redirect:/branch/suggest/detail";
-				
-		//<p> tag remove
-//		anonymous.setContent((String)request.getAttribute("XSScontent")); 
-		
-		anonymousService.modify(Suggest);
 
-		rttr.addAttribute("ano", Suggest.getSno());
+		suggestService.modify(suggest);
+
+		rttr.addAttribute("sno", suggest.getSno());
 		rttr.addFlashAttribute("from", "modify");
 
 		return url;
@@ -103,15 +107,12 @@ public class BranchSuggestController {
 	}
 
 	@RequestMapping(value = "/regist")
-	public String suggestRegist(SuggestBoardVO Suggest, HttpServletRequest request, RedirectAttributes rttr)
+	public String suggestRegist(SuggestVO suggest, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
 
 		String url = "redirect:/branch/suggest/list";
 
-		// <p> tag remove
-		/* anonymous.setContent((String)request.getAttribute("XSStitle")); */
-
-		anonymousService.regist(Suggest);
+		suggestService.regist(suggest);
 
 		rttr.addFlashAttribute("from", "regist");
 
@@ -122,10 +123,10 @@ public class BranchSuggestController {
 	public String remove(int sno, RedirectAttributes rttr) throws Exception {
 		String url = "redirect:/branch/suggest/detail";
 
-		anonymousService.remove(sno);
+		suggestService.remove(sno);
 
 		rttr.addFlashAttribute("from", "remove");
-		rttr.addAttribute("ano", sno);
+		rttr.addAttribute("sno", sno);
 
 		return url;
 	}
@@ -140,6 +141,7 @@ public class BranchSuggestController {
 
 		String fileName = null;
 		HashMap<String, String> dataMap = new HashMap<String, String>();
+
 		/* 파일유무확인 */
 		ResponseEntity<HashMap<String, String>> entity = null;
 		if (!(multi == null || multi.isEmpty() || multi.getSize() > 1024 * 1024 * 2)) {

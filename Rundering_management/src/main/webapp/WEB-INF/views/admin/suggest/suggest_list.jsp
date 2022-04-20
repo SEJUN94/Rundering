@@ -94,7 +94,7 @@ th, td {
 									<tr
 										onclick="OpenWindow('detail?from=list&sno=${suggest.sno }','상세보기',900,700);">
 										<td class="no">${suggest.sno }</td>
-										<td class="boardtitle" style="text-align: inherit;">${suggest.title }</td>
+										<td class="boardtitle">${suggest.title }</td>
 										<td class="writer">${suggest.writer }</td>
 										<td class="branchName">${suggest.branchName }</td>
 										<td class="date"><fmt:formatDate
@@ -107,9 +107,9 @@ th, td {
 
 							<div class="float-right mt-3 mr-3 mb-3">
 
-								<button class="btn btn-primary" type="button" id="registBtn"
+								<%-- <button class="btn btn-primary" type="button" id="registBtn"
 									onclick="location.href='<%=request.getContextPath()%>/branch/suggest/registForm'">
-									작성하기</button>
+									작성하기</button> --%>
 							</div>
 						</div>
 
@@ -123,5 +123,4 @@ th, td {
 			</div>
 		</div>
 	</div>
-
 </body>
