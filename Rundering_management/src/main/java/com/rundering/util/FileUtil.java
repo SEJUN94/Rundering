@@ -1,0 +1,80 @@
+package com.rundering.util;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.io.IOUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.rundering.dto.AttachVO;
+
+
+public class FileUtil {
+	
+	//비동기 파일 저장후 이름 가져오기 orginalfileName 는 원본 파일명 fileName 저장된 파일명
+	public Map<String, String> saveFile(MultipartFile multiFile,String savePath){
+		Map<String, String> fileMap = new HashMap<String, String>();
+		if (multiFile != null) {
+				String fileName = MakeFileName.toUUIDFileName(multiFile.getOriginalFilename(), "$$");
+				File target = new File(savePath, fileName);
+				target.mkdirs();
+				fileMap.put("orginalName", multiFile.getOriginalFilename());
+				fileMap.put("fileName", fileName);
+		}
+		return fileMap;
+	}
+	
+	//파일 이름 파라미터 fileNames, filePath 파일 경로 , biztype 업무구분 , regUser 작성자
+	public List<AttachVO> getAttachVOList(String[] fileNames,String filePath ){
+		List<AttachVO> attachList = new ArrayList<AttachVO>();
+		int seq = 1;
+		if(fileNames!=null) {
+			for (String  fileName : fileNames) {
+				if(fileName!=null) {
+					File target = new File(filePath, fileName);
+					AttachVO attach =  new AttachVO();
+					attach.setAtchFileSeq(seq);
+					attach.setFilePath(filePath);
+					attach.setFileNm(MakeFileName.parseFileNameFromUUID(fileName, "\\$\\$") );
+					attach.setSaveFileNm(fileName);
+					attach.setFileContType(fileName.substring(fileName.lastIndexOf('.') + 1).toUpperCase());
+					attach.setFileSize(target.length()/1024);
+					attachList.add(attach);
+				}
+			}
+		}
+		return attachList;
+	}
+		
+	// 이미지 불러오기 위한 바이트 데이터 스크립트 or html 태그 src or url 속성에서 get 형식으로 불러와서 배열을 내보내주면됨
+	public byte[] getPicture(String fileNo,String filePath,String fileName) throws Exception{
+		// 내일 이미지 불러오는거 좀더 쉽게 만들어 주도록 하죠
+		
+		InputStream in = null;
+		byte[] bytes = null;
+		
+		try {
+			in = new FileInputStream(new File(filePath, fileName));
+
+			bytes=IOUtils.toByteArray(in);
+
+		} finally {
+			in.close();
+		}
+		return bytes;
+		
+	}
+	//파일 삭제
+	public void remove(String filePath,String fileName) {
+		File imageFile = new File(filePath, fileName);
+		if (imageFile.exists()) {
+			imageFile.delete();
+		}
+	}
+
+}
