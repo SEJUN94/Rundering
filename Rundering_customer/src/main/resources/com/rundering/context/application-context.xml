@@ -9,6 +9,10 @@
 	<bean id="boardPath" class="java.lang.String">
 		<constructor-arg value="${board.upload}" />      
 	</bean>
+	<!-- laundryorder.picture -->
+	<bean id="laundryorderpicturePath" class="java.lang.String">
+		<constructor-arg value="${laundryorder.picture}" />      
+	</bean>
 	
 	<bean id="sensSms" class="com.rundering.util.SensSms" />
 	

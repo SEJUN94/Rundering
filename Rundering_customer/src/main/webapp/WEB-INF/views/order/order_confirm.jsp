@@ -8,6 +8,15 @@
 <c:set var="totalPrice" value="${dataMap.totalPrice }" />
 <c:set var="orderName" value="${dataMap.orderName }" />
 
+<head>
+<style>
+.inputRow {
+	padding: 11px;
+	margin-left: 50px;
+}
+</style>
+</head>
+
 <body>
 	<form role="form" action="<%=request.getContextPath()%>/order/completed" method="post">
 		<div style="width: 60%; margin-left: 20%;">
@@ -54,7 +63,7 @@
 					<input type="hidden" name="paymentNo" id="paymentNo" value="" >
 					<input type="hidden" name="totalPrice" id="totalPrice" value="" >
 			</div>
-			<div class="col-lg-12 p-0">
+			<div class="col-8 mt-3" style="margin: auto;">
 				<div class="card">
 					<div class="card-body table-responsive p-0">
 						<table class="table table-striped table-valign-middle">
@@ -63,7 +72,6 @@
 									<th>품목명</th>
 									<th>수량</th>
 									<th style="width: 120px;">금액</th>
-									<th>사진첨부</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -73,7 +81,6 @@
 												<td>${orderDetail.itemsName }</td>
 												<td>${orderDetail.quantity }개</td>
 												<td style="text-align: right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${orderDetail.price }" />원</td>
-												<td><a class="btn btn-app m-0"><i class="fas fa-save"></i> Save</a></td>
 											</tr>
 									</c:forEach>
 								</c:if>
@@ -85,12 +92,27 @@
 				</div>
 
 			</div>
-			<p class="mb-3" style="text-align: center;">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</p>
+			
+			<p class="mt-5 mb-3" style="text-align: center;">세탁물 보호를 위해 접수하신 세탁물의 상태 확인이 가능한 사진을 첨부 바랍니다.</p>
+			
+			<div class="form-group col-8" style="margin: auto;">								
+								<div class="card">
+									<div class="card-header" style="text-align: center;">
+										<h5 style="display:inline;">사진첨부</h5>
+										&nbsp;&nbsp;<button class="btn btn-xs btn-secondary"
+										onclick="addFile_go();"	type="button" id="addFileBtn"><i class="fas fa-images"></i> Add File</button>
+									</div>									
+									<div class="card-footer fileInput p-0">
+										<div class="inputRow" data-no="0"><input type="file" name="uploadFile" style="display: inline;"><button onclick="remove_go(0);" style="border:0; outline:0;" class="badge bg-red" type="button">X</button></div>
+									</div>
+								</div>
+							</div>
+			<p class="mt-4 mb-3" style="text-align: center;">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</p>
 
 			<div class="col-lg-5 card" style="margin-left: 215px;">
 				<div class="info-box mb-3">
 					<span class="info-box-icon bg-success elevation-1">
-					<i class="fas fa-shopping-cart"></i></span>
+					<i class="fas fa-credit-card"></i></span>
 					<div class="info-box-content">
 						<span class="info-box-text" style="margin: auto;">총 결제 금액</span> 
 						<span class="info-box-number" style="margin: auto;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPrice}" />원</span>
@@ -107,6 +129,63 @@
   	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<!-- iamport.payment.js -->
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+	
+	
+<script>
+
+var dataNum = 1;
+
+	function addFile_go(){
+	   
+	   if($('input[name="uploadFile"]').length >= 5){
+	      alert("사진 첨부는 5개까지만 가능합니다.");
+	      return;
+	   }
+	   
+	   var div = $("<div>").addClass("inputRow").attr("data-no", dataNum);
+	   var input = $("<input>").attr({"type":"file", "name":"uploadFile"}).css("display", "inline");
+	   
+	   div.append(input).append("<button onclick='remove_go("+dataNum+");' style='border:0; outline:0;' class='badge bg-red' type='button'>X</button>");
+	   
+	   $('.fileInput').append(div);
+	   dataNum++;
+	}
+
+	function remove_go(dataNum){
+		if($('input[name="uploadFile"]').length == 1){
+		      alert("사진 첨부는 필수입니다.");
+		      return;
+		   }
+		$('div[data-no="'+dataNum+'"]').remove();
+	}
+	
+	function regist_go(){
+		//alert("regist btn click");
+		
+		var files = $('input[name="uploadFile"]');
+		for(var file of files){
+			console.log(file.name + " : "+ file.value);
+			if(file.value == ""){
+				alert("파일을 선택하세요.");
+				file.focus();
+				file.click();
+				return;
+			}
+		}
+		
+		if($("input[name='title']").val()==""){ //form.title.value
+			alert("제목은 필수입니다.");
+		$("input[name='title']").focus();
+		return;
+		}
+		
+		$("form[role='form']").submit();
+		
+	}
+	
+</script> 
+    
+	
 	<script>
 	
 	$("#check_module").click(function () {

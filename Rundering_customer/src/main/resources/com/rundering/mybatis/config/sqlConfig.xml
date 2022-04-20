@@ -17,6 +17,8 @@
 		<typeAlias type="com.rundering.dto.LaundryItemsVO" alias="laundryItems" />
 		<typeAlias type="com.rundering.dto.LaundryOrderDetailVO" alias="laundryOrderDetail" />
 		<typeAlias type="com.rundering.dto.PaymentVO" alias="payment" />
+		<typeAlias type="com.rundering.dto.AttachVO" alias="attach" />
+		<typeAlias type="com.rundering.dto.ComCodeVO" alias="comCode" />
 		
 		
 	</typeAliases>
