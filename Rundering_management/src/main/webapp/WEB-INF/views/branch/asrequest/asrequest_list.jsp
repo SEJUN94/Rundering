@@ -92,7 +92,7 @@ th, td {
 								</c:if>
 								<c:forEach items="${asRequestList }" var="asRequest">
 									<tr
-										onclick="OpenWindow('detail?from=list&sno=${asRequest.asno }','상세보기',900,700);">
+										onclick="OpenWindow('detail?from=list&asno=${asRequest.asno }','상세보기',900,700);">
 										<td class="no">${asRequest.asno }</td>
 										<td class="boardtitle">${asRequest.title }</td>
 										<td class="object">${asRequest.objectname }</td>

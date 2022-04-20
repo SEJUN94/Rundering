@@ -88,7 +88,7 @@
 		select b.asno, b.title, b.ascontent, b.regist_date, c.name as employee_id, d.branch_name as branch_code, b.request_date
 	    from tb_employees a, tb_as b, tb_member c, tb_branch d, tb_laundry_articles e, tb_laundry_fixtures f
 	    where asno=#{asno}
-	    	and a.employee_id = b.writer
+	    	and a.employee_id = employee_id
 	    	and a.memberno=c.memberno
 	    	and b.branch_code = d.branch_code
 	        and b.fixtures_code = f.fixtures_code

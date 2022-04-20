@@ -1,16 +1,21 @@
 package com.rundering.manage.branch;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.dto.AsRequestVO;
+import com.rundering.dto.EmployeesVO;
+import com.rundering.dto.SuggestVO;
 import com.rundering.manage.Criteria;
 import com.rundering.service.AsRequestServiceImpl;
 
@@ -52,6 +57,32 @@ public class AsRequestController {
 		rttr.addFlashAttribute("from", "regist");
 
 		return url;
+	}
+	
+	@RequestMapping(value = "/detail")
+	private ModelAndView asRequestDetail(int asno, @RequestParam(defaultValue = "") String from,
+			HttpServletRequest request, ModelAndView mnv, HttpSession session) throws SQLException {
+
+		String url = "branch/asrequest/asrequest_detail";
+
+		AsRequestVO asRequest = null;
+
+		if (!from.equals("list")) {
+			asRequest = asRequestService.getAsRequestModify(asno);
+		} else {
+			EmployeesVO employees = (EmployeesVO) session.getAttribute("loginEmployee");
+			System.out.println(employees.getEmployeeId());
+			if (employees.getBranchCode().equals("0000")) {
+				asRequest = asRequestService.getCheck(asno);
+			}
+			
+			url = "redirect:/branch/asrequest/detail?asno=" + asno;
+		}
+
+		mnv.addObject("asRequest", asRequest);
+		mnv.setViewName(url);
+
+		return mnv;
 	}
 	
 }
