@@ -95,6 +95,7 @@
 			
 			<p class="mt-5 mb-3" style="text-align: center;">세탁물 보호를 위해 접수하신 세탁물의 상태 확인이 가능한 사진을 첨부 바랍니다.</p>
 			
+			
 			<div class="form-group col-8" style="margin: auto;">								
 								<div class="card">
 									<div class="card-header" style="text-align: center;">
@@ -103,7 +104,7 @@
 										onclick="addFile_go();"	type="button" id="addFileBtn"><i class="fas fa-images"></i> Add File</button>
 									</div>									
 									<div class="card-footer fileInput p-0">
-										<div class="inputRow" data-no="0"><input type="file" name="uploadFile" style="display: inline;"><button onclick="remove_go(0);" style="border:0; outline:0;" class="badge bg-red" type="button">X</button></div>
+										<div class="inputRow" data-no="0"><input type="file" name="pictureFile" style="display: inline;"><button onclick="remove_go(0);" style="border:0; outline:0;" class="badge bg-red" type="button">X</button></div>
 									</div>
 								</div>
 							</div>
@@ -137,13 +138,13 @@ var dataNum = 1;
 
 	function addFile_go(){
 	   
-	   if($('input[name="uploadFile"]').length >= 5){
+	   if($('input[name="pictureFile"]').length >= 5){
 	      alert("사진 첨부는 5개까지만 가능합니다.");
 	      return;
 	   }
 	   
 	   var div = $("<div>").addClass("inputRow").attr("data-no", dataNum);
-	   var input = $("<input>").attr({"type":"file", "name":"uploadFile"}).css("display", "inline");
+	   var input = $("<input>").attr({"type":"file", "name":"pictureFile"}).css("display", "inline");
 	   
 	   div.append(input).append("<button onclick='remove_go("+dataNum+");' style='border:0; outline:0;' class='badge bg-red' type='button'>X</button>");
 	   
@@ -152,7 +153,7 @@ var dataNum = 1;
 	}
 
 	function remove_go(dataNum){
-		if($('input[name="uploadFile"]').length == 1){
+		if($('input[name="pictureFile"]').length == 1){
 		      alert("사진 첨부는 필수입니다.");
 		      return;
 		   }
@@ -162,7 +163,7 @@ var dataNum = 1;
 	function regist_go(){
 		//alert("regist btn click");
 		
-		var files = $('input[name="uploadFile"]');
+		var files = $('input[name="pictureFile"]');
 		for(var file of files){
 			console.log(file.name + " : "+ file.value);
 			if(file.value == ""){
@@ -184,6 +185,41 @@ var dataNum = 1;
 	}
 	
 </script> 
+
+<script>
+$('input[name="pictureFile"]').change(function(){
+	
+	let form = $('form');
+	//let formData = new FormData(form);
+	
+	console.log(form);
+	<%-- $.ajax({
+		url: "<%=request.getContextPath()%>/order/picture",
+		data:formData,
+		type:'POST',
+		processData:false,
+		contentType:false,
+		success:function(data){
+			//업로드 확인변수 세팅
+			$('input[name="checkUpload"]').val(1);
+			//저장된 파일명 저장.
+			$('input#oldFile').val(data); //변경시 삭제될 파일명
+			$('form[role="form"] input[name="picture"]').val(data);
+			alert("사진이 업로드 되었습니다.");
+		},
+		error:function(error){
+			//alert("현재 사진 업로드가 불가합니다. \n관리자에게 연락바랍니다.");
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	}); --%>
+
+
+});
+
+
+	
+</script>
+
     
 	
 	<script>

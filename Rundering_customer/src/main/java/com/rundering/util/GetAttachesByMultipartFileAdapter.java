@@ -27,11 +27,11 @@ public class GetAttachesByMultipartFileAdapter {
 				multi.transferTo(target);
 				AttachVO attach = new AttachVO();
 				
-				attach.setUploadPath(savePath);
-				attach.setSaveFileName(fileName);
-				attach.setFileName(multi.getOriginalFilename());
-				attach.setFileType(fileName.substring(fileName.lastIndexOf('.') + 1)
-						.toUpperCase());
+//				attach.setUploadPath(savePath);
+//				attach.setSaveFileName(fileName);
+//				attach.setFileName(multi.getOriginalFilename());
+//				attach.setFileType(fileName.substring(fileName.lastIndexOf('.') + 1)
+//						.toUpperCase());
 				attach.setFileSize(target.length()/1024);
 				attachList.add(attach);
 			}
