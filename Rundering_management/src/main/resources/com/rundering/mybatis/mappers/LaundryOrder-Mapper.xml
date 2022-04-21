@@ -32,6 +32,26 @@
 	 
 	
 	</resultMap>
+	<sql id="search">
+		<if test="searchType == '01'.toString()">
+			and item_order_status = '01'		
+		</if>
+		<if test="searchType == '02'.toString()">
+			and item_order_status = '02'			
+		</if>
+		<if test="searchType == '03'.toString()">
+			and item_order_status = '03'		
+		</if>
+		<if test="searchType == '04'.toString()">
+			and item_order_status = '04'	
+		</if>
+		<if test="searchType == '05'.toString()">
+			and item_order_status = '05'		
+		</if>
+		<if test="searchType == '06'.toString()">
+			and item_order_status = '06'	
+		</if>
+	</sql>
 
 
 	<select id="selectLaundryOrderSequenceNextValue" resultType="str">
@@ -43,15 +63,24 @@
 		from TB_LAUNDRY_ORDER
 		where ORDER_NO is not null
 		<include refid="search"/>
+		<if test="!branchCode.equals('') and branchCode!=null">
+			and branch_code = #{branchCode}
+		</if>
+		
 	</select>
 	
-	<select id="selectLaundryOrderList" resultMap="itemOrderMap">
+	<select id="selectLaundryOrderList" resultMap="laundryOrderMap">
 		select *
 		  from TB_LAUNDRY_ORDER
 		 where ORDER_NO is not null
 		 <include refid="search"/>
+		 <if test="!branchCode.equals('') and branchCode!=null">
+			and branch_code = #{branchCode}
+		</if>
 		 order by ORDER_DATE
+		 
 	</select>
+	
 
 
 

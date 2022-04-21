@@ -4,7 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="Reply-Mapper">
- 	<resultMap type="" id="">
+ 	
+ 
+ 	<resultMap type="reply" id="replyMap">
  		<result column="REPLYNO" 		property="replyno" />
  		<result column="REPLY_CONTENT"  property="replyContent" />
  		<result column="MEMBERNO" 		property="memberno" />
@@ -15,7 +17,7 @@
  		<result column="DELETE_YN"		property="deleteYn" />
  	
  	</resultMap>
- 	<select id="selectReplyByReplyNo">
+ 	<select id="selectReplyByReplyNo" resultMap="replyMap">
  		select *
  		  from tb_reply
  		 where replyno=#{replyno} 

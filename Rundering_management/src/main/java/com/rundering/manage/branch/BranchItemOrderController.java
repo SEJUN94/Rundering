@@ -13,6 +13,7 @@ import com.rundering.dto.ItemOrderVO;
 import com.rundering.manage.Criteria;
 import com.rundering.service.ItemOrderService;
 import com.rundering.service.LaundryArticlesService;
+import com.rundering.util.BranchCriteria;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -34,9 +35,8 @@ public class BranchItemOrderController {
 	
 	
 	@RequestMapping(value="/list",method = RequestMethod.GET)
-	private ModelAndView list(Criteria cri, ModelAndView mnv,HttpSession session) {
+	private ModelAndView list(BranchCriteria cri, ModelAndView mnv,HttpSession session) {
 		String url= "/branch/itemorder/itemorder_list";
-		
 		Map<String, Object> dataMap=null;
 		try {
 			dataMap = itemOrderService.itemOrdeList(cri,session);

@@ -17,6 +17,8 @@ import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
 import com.rundering.manage.Criteria;
 import com.rundering.manage.PageMaker;
+import com.rundering.util.BranchCriteria;
+import com.rundering.util.BranchPageMaker;
 
 public class ItemOrderServiceImpl implements ItemOrderService {
 		
@@ -52,7 +54,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 		}
 	}
 	@Override
-	public Map<String, Object> itemOrdeList(Criteria cri, HttpSession session) throws Exception{
+	public Map<String, Object> itemOrdeList(BranchCriteria cri, HttpSession session) throws Exception{
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		Map<String,String> comCodeMap = new HashMap<String, String>();		
 		Map<String,Integer> totalPriceMap = new HashMap<String,Integer>();
@@ -62,7 +64,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 		int totalPrice=0;
 		
 		EmployeesVO emp = (EmployeesVO)session.getAttribute("loginEmployee");
-		
+		cri.setBranchCode(emp.getBranchCode());
 		 
 		String empBranch= emp.getBranchCode();
 		List<ComCodeVO> itemOrderComCode = comCodeDAO.selectItemOrderCode();
@@ -80,8 +82,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 		
 		
 		int totalCount = itemOrderDAO.selectCount(cri);
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
+		BranchPageMaker pageMaker = new BranchPageMaker();
+		pageMaker.setCri(cri); 
 		pageMaker.setTotalCount(totalCount);
 		 
 		dataMap.put("itemOrderList", itemOrderList);

@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.manage.Criteria;
+import com.rundering.util.BranchCriteria;
 
 public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 	
@@ -31,7 +32,7 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		session.update("LaundryOrder-Mapper.insertLaundryOrder", laundryOrder);
 	}
 	@Override
-	public List<LaundryOrderVO> selectLaundryOrderList(Criteria cri) throws Exception{
+	public List<LaundryOrderVO> selectLaundryOrderList(BranchCriteria cri) throws Exception{
 		int offset=cri.getStartRowNum();
 		int limit=cri.getPerPageNum();		
 		RowBounds rowBounds=new RowBounds(offset,limit);
@@ -39,7 +40,7 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		
 	}
 	@Override
-	public int selectCount(Criteria cri) throws Exception{
+	public int selectCount(BranchCriteria cri) throws Exception{
 		int count = session.selectOne("LaundryOrder-Mapper.selectCount",cri);
 		return count;
 	}

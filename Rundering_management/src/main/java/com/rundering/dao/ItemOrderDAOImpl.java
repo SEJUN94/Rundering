@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
 import com.rundering.manage.Criteria;
+import com.rundering.util.BranchCriteria;
 
 public class ItemOrderDAOImpl implements ItemOrderDAO{
 
@@ -43,7 +44,7 @@ public class ItemOrderDAOImpl implements ItemOrderDAO{
 		session.delete("ItemOrder-Mapper.itemOrderDetailRemove",seq);
 	}
 	@Override
-	public List<ItemOrderVO> selectItemOrderList(Criteria cri) throws Exception{
+	public List<ItemOrderVO> selectItemOrderList(BranchCriteria cri) throws Exception{
 		int offset=cri.getStartRowNum();
 		int limit=cri.getPerPageNum();		
 		RowBounds rowBounds=new RowBounds(offset,limit);
@@ -53,7 +54,7 @@ public class ItemOrderDAOImpl implements ItemOrderDAO{
 	 	return itemOrderList;
 	}
 	@Override
-	public int selectCount(Criteria cri) throws Exception{
+	public int selectCount(BranchCriteria cri) throws Exception{
 		int count = session.selectOne("ItemOrder-Mapper.selectCount",cri);
 		return count;
 	}
