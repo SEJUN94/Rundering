@@ -47,9 +47,7 @@
 	 <bean id="comCodeDAO" class="com.rundering.dao.ComCodeDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
-	 <bean id="attachDAO" class="com.rundering.dao.AttachDAOImpl" 
-		p:session-ref="sqlSession"
-	/>
+	
 	
 	 
 	
