@@ -12,6 +12,10 @@
 	<bean id="boardPath" class="java.lang.String">
 		<constructor-arg value="${board.upload}" />      
 	</bean>
+	
+	
+	<!-- 문자알림  -->
+	<bean id="sensSms" class="com.rundering.util.SensSms" />
 	 
 	<!-- Repository Layer -->
 	<bean id="asRequestDAO" class="com.rundering.dao.AsRequestDAOImpl"

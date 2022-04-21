@@ -70,7 +70,7 @@
                 <a href="worker_forgot_password.html">I forgot my password</a>
             </p>
             <p class="mb-0">
-                <a href="<%=request.getContextPath() %>/common/login" class="text-center">새로운 계정 발급하기</a>
+                <a href="<%=request.getContextPath() %>/common/application" class="text-center">새로운 계정 발급하기</a>
             </p>
         </div>
     </div>
