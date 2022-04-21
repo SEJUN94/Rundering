@@ -12,7 +12,12 @@
 <style>
 .inputRow {
 	padding: 11px;
-	margin-left: 50px;
+	margin-left: 68px;
+}
+.inputRow button{
+	padding: 6px;
+	padding-bottom: 5px;
+	margin-left: 2px;
 }
 </style>
 </head>
@@ -92,9 +97,10 @@
 				</div>
 
 			</div>
-			
+			</div>
+			</form>
+			<div style="width: 60%; margin-left: 20%;">
 			<p class="mt-5 mb-3" style="text-align: center;">세탁물 보호를 위해 접수하신 세탁물의 상태 확인이 가능한 사진을 첨부 바랍니다.</p>
-			
 			
 			<div class="form-group col-8" style="margin: auto;">								
 								<div class="card">
@@ -104,27 +110,36 @@
 										onclick="addFile_go();"	type="button" id="addFileBtn"><i class="fas fa-images"></i> Add File</button>
 									</div>									
 									<div class="card-footer fileInput p-0">
-										<div class="inputRow" data-no="0"><input type="file" name="pictureFile" style="display: inline;"><button onclick="remove_go(0);" style="border:0; outline:0;" class="badge bg-red" type="button">X</button></div>
+										<div class="inputRow" data-no="0">
+											<label for="inputFile" data-no="0" class="btn btn-secondary btn-sm input-group-addon" onclick="justPressed(this)">파일선택</label>
+											<input id="inputFileName" type="text" name="tempPicture" data-no="0" disabled/>
+											<button onclick="remove_go(0);" style="border:0; outline:0;padding: 6px;padding-bottom: 5px;margin-left: 2px;" class="badge bg-red" type="button">X</button>
+										</div>
+									</div>
+									<div class="overlay" style="display: none;">
+									  <i class="fas fa-2x fa-spinner fa-spin"></i>
 									</div>
 								</div>
 							</div>
-			<p class="mt-4 mb-3" style="text-align: center;">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</p>
+			<p class="mt-5 mb-3" style="text-align: center;">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</p>
 
-			<div class="col-lg-5 card" style="margin-left: 215px;">
-				<div class="info-box mb-3">
-					<span class="info-box-icon bg-success elevation-1">
-					<i class="fas fa-credit-card"></i></span>
-					<div class="info-box-content">
-						<span class="info-box-text" style="margin: auto;">총 결제 금액</span> 
-						<span class="info-box-number" style="margin: auto;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPrice}" />원</span>
-						<button type="button" id="check_module" class="btn btn-secondary">결제하기</button>
+			<div class="col-lg-5 card" style="margin-left: 215px;box-shadow: none;">
+				<div class="info-box mb-0" style="box-shadow: none;border-bottom: 1px solid rgba(0,0,0,.125);  border-top: 1px solid rgba(0,0,0,.125);">
+					<div class="info-box-content" style="text-align: left;font-weight: 500;font-size: 1.1rem;">
+						<span class="info-box-text">총 결제 금액</span> 
+						<div class="row" style="padding-left: 5px;justify-content: end;"><span class="info-box-number m-0" style="font-size: 2rem"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPrice}" /></span><span style="padding-top: 15px;padding-left: 5px;font-weight: 700;font-size: 1.2rem;">원</span></div>
 					</div>
 				</div>
 			</div>
+			<button type="submit" id="check_module" style="margin: auto;" class="btn btn-primary btn-block col-6 mt-4 mb-4" onclick="regist_go();">결제하기</button>
 			
+			
+		  </div>
 
-		</div>
-	</form>
+		<form role="imageForm" method="post" enctype="multipart/form-data">
+			<input id="inputFile" name="pictureFile" type="file" class="form-controll" style="display: none;" />
+		</form>
+	
 	
 	<!-- jQuery -->
   	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
@@ -138,22 +153,23 @@ var dataNum = 1;
 
 	function addFile_go(){
 	   
-	   if($('input[name="pictureFile"]').length >= 5){
+	   if($('input[name="tempPicture"]').length >= 5){
 	      alert("사진 첨부는 5개까지만 가능합니다.");
 	      return;
 	   }
 	   
 	   var div = $("<div>").addClass("inputRow").attr("data-no", dataNum);
-	   var input = $("<input>").attr({"type":"file", "name":"pictureFile"}).css("display", "inline");
 	   
-	   div.append(input).append("<button onclick='remove_go("+dataNum+");' style='border:0; outline:0;' class='badge bg-red' type='button'>X</button>");
+	   div.append("<label for='inputFile' data-no="+dataNum+" class='btn btn-secondary btn-sm input-group-addon' onclick='justPressed(this)''>파일선택</label>")
+	   .append("<input id='inputFileName' type='text' name='tempPicture' data-no="+dataNum+" style='margin-left: 4px;' disabled/>")
+	   .append("<button onclick='remove_go("+dataNum+");' style='border:0; outline:0;padding: 6px;padding-bottom: 5px;margin-left: 6px;' class='badge bg-red' type='button'>X</button>");
 	   
 	   $('.fileInput').append(div);
 	   dataNum++;
 	}
 
 	function remove_go(dataNum){
-		if($('input[name="pictureFile"]').length == 1){
+		if($('input[name="tempPicture"]').length == 1){
 		      alert("사진 첨부는 필수입니다.");
 		      return;
 		   }
@@ -161,57 +177,72 @@ var dataNum = 1;
 	}
 	
 	function regist_go(){
-		//alert("regist btn click");
 		
-		var files = $('input[name="pictureFile"]');
-		for(var file of files){
+		let files = $('input[name="tempPicture"]');
+		for(let file of files){
 			console.log(file.name + " : "+ file.value);
 			if(file.value == ""){
-				alert("파일을 선택하세요.");
+				alert("사진 파일을 선택하세요.");
 				file.focus();
 				file.click();
 				return;
 			}
 		}
-		
-		if($("input[name='title']").val()==""){ //form.title.value
-			alert("제목은 필수입니다.");
-		$("input[name='title']").focus();
-		return;
-		}
-		
-		$("form[role='form']").submit();
+		payment_go();
 		
 	}
 	
 </script> 
 
 <script>
+
+function findByAttributeValue(attribute, value, element_type)    {
+	  element_type = element_type || "*";
+	  var All = document.getElementsByTagName(element_type);
+	  for (var i = 0; i < All.length; i++)       {
+	    if (All[i].getAttribute(attribute) == value) { return All[i]; }
+	  }
+	}
+
+let justPressedLabel = 0;
+
+function justPressed(label){
+	justPressedLabel = label.dataset.no;
+	console.log("justPressedLabel : "+justPressedLabel);
+}
+
 $('input[name="pictureFile"]').change(function(){
 	
-	let form = $('form');
-	//let formData = new FormData(form);
+	let spinner = document.querySelector('.overlay');
+	spinner.style.display = 'flex';
 	
-	console.log(form);
-	<%-- $.ajax({
+
+	let imageForm = $('form[role="imageForm"]')[0];
+	let picture = $('form[role="imageForm"]').find('[name="pictureFile"]')[0]; 
+	let inputFileName = findByAttributeValue("data-no",justPressedLabel,"input")
+	
+	 
+	let formData = new FormData(imageForm);
+	
+	 $.ajax({
 		url: "<%=request.getContextPath()%>/order/picture",
 		data:formData,
 		type:'POST',
 		processData:false,
 		contentType:false,
 		success:function(data){
-			//업로드 확인변수 세팅
-			$('input[name="checkUpload"]').val(1);
-			//저장된 파일명 저장.
-			$('input#oldFile').val(data); //변경시 삭제될 파일명
-			$('form[role="form"] input[name="picture"]').val(data);
-			alert("사진이 업로드 되었습니다.");
+			//저장된 파일명 저장해야함
+			//$('form[role="form"] input[name="picture"]').val(data);
+			
+			console.log(data+"사진이 업로드 되었습니다.");
+			inputFileName.value = picture.files[0].name;
+			spinner.style.display = 'none';
 		},
 		error:function(error){
 			//alert("현재 사진 업로드가 불가합니다. \n관리자에게 연락바랍니다.");
 			AjaxErrorSecurityRedirectHandler(error.status);
 		}
-	}); --%>
+	});
 
 
 });
@@ -224,58 +255,58 @@ $('input[name="pictureFile"]').change(function(){
 	
 	<script>
 	
-	$("#check_module").click(function () {
-								IMP.init('imp22830422');   //아임포트 관리자계정
-								//결제 시스템을 실행시키는 함수
-								IMP.request_pay({
-									pg: 'html5_inicis',
-									pay_method: 'card',
-									name: '${orderName}',
-										
-									amount: '${totalPrice}',   //테스트 완료 후 가격정보 넣기
-									buyer_email: "${loginUser.email}",
-
-									buyer_name: "${loginUser.name}"
-								}, function (rsp) {
-									if (rsp.success) {
-										let msg = '결제가 완료되었습니다.';
-										msg += rsp.buyer_name;
-										msg += rsp.paid_amount;
-										
-										$('#paymentNo').val(rsp.merchant_uid);
-										$('#totalPrice').val(rsp.paid_amount);
-
-										// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
-										// 결제내역을 사용자에게 보여주기 위해 필요함.
-										$.ajax({
-											url: "<%=request.getContextPath()%>/order/payment",
-											type: "POST",
-											data: JSON.stringify ({
-												"memberNo": '${loginUser.memberNo}',
-												"paymentNo": rsp.merchant_uid,
-												"paymentType": rsp.pay_method,
-												"paymentName": rsp.name,
-												"paymentPrice": rsp.paid_amount
-											}),
-											contentType:'application/json',
-											dataType: "json",
-											success: function (result) {
-												if (result.insertResult == "success") {
-													$("form").submit();
-													console.log(msg);
-													
-												} else {
-													alert("DB입력실패");
-													return false;
-												}
-											}
-										});
-									} else {
-										let msg = '결제에 실패하였습니다.';
-										msg += '\n에러내용 : ' + rsp.error_msg;
-									}
+	function payment_go(){
+				IMP.init('imp22830422');   //아임포트 관리자계정
+				//결제 시스템을 실행시키는 함수
+				IMP.request_pay({
+					pg: 'html5_inicis',
+					pay_method: 'card',
+					name: '${orderName}',
+						
+					amount: '${totalPrice}',   //테스트 완료 후 가격정보 넣기
+					buyer_email: "${loginUser.email}",
+	
+					buyer_name: "${loginUser.name}"
+				}, function (rsp) {
+					if (rsp.success) {
+						let msg = '결제가 완료되었습니다.';
+						msg += rsp.buyer_name;
+						msg += rsp.paid_amount;
+						
+						$('#paymentNo').val(rsp.merchant_uid);
+						$('#totalPrice').val(rsp.paid_amount);
+	
+						// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
+						// 결제내역을 사용자에게 보여주기 위해 필요함.
+						$.ajax({
+							url: "<%=request.getContextPath()%>/order/payment",
+							type: "POST",
+							data: JSON.stringify ({
+								"memberNo": '${loginUser.memberNo}',
+								"paymentNo": rsp.merchant_uid,
+								"paymentType": rsp.pay_method,
+								"paymentName": rsp.name,
+								"paymentPrice": rsp.paid_amount
+							}),
+							contentType:'application/json',
+							dataType: "json",
+							success: function (result) {
+								if (result.insertResult == "success") {
+									$("form[role='form']").submit();
 									console.log(msg);
-								});
-							});
+									
+								} else {
+									alert("DB입력실패");
+									return false;
+								}
+							}
+						});
+					} else {
+						let msg = '결제에 실패하였습니다.';
+						msg += '\n에러내용 : ' + rsp.error_msg;
+					}
+					console.log(msg);
+				});
+			}
 	</script>
 </body>
