@@ -1,8 +1,10 @@
 package com.rundering.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.rundering.dto.MemberVO;
+import com.rundering.util.AppCriteria;
 
 public interface MemberService {
 	public MemberVO getMember(String id) throws Exception;
