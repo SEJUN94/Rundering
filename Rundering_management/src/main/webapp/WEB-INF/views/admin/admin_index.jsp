@@ -12,7 +12,6 @@
 	<iframe name="ifr" src="" frameborder="0" style= "width: 100%; height:85vh;"></iframe>
 	
 	<script>
-			
 	console.log(history.pushState);
 	
 		function goPage(url,menuCode){

@@ -19,6 +19,12 @@
 	<result column="EMPLOYEE_ID_YN" property="employeeIdYn"/>
 </resultMap>
 
+	<select id="selectEmployeeById" resultMap="memberMap" parameterType="str">
+		select *
+		  from TB_MEMBER
+		 where id=#{id}
+		   and EMPLOYEE_ID_YN='Y'
+	</select>
  
 	<select id="selectMemberById" resultMap="memberMap" parameterType="str">
 		select *
@@ -31,10 +37,5 @@
 		from TB_USER_AUTH
 		where memberno=#{memberNo}
 	</select>
-
-
-	 
-
-	
 
 </mapper>
