@@ -13,6 +13,7 @@ public interface MemberService {
 
 	public void loginFailIncrease(String memberNo) throws Exception;
 	public void loginSuccess(String memberNo) throws Exception;
+	
 	// 아이디 중복체크
 	public MemberVO checkId(String id) throws Exception;
 	

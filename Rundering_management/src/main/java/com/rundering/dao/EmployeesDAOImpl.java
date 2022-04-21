@@ -3,7 +3,6 @@ package com.rundering.dao;
 import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.dto.EmployeesVO;
-import com.rundering.dto.MemberVO;
 
 public class EmployeesDAOImpl implements EmployeesDAO{
 	SqlSession session;
@@ -15,6 +14,12 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 	public EmployeesVO selectEmployeeById(String MemberNo) throws Exception {
 		EmployeesVO employees = session.selectOne("Employees-Mapper.selectEmployeeById", MemberNo);
 		return employees;
+	}
+	
+	//사원등록
+	@Override
+	public void employeeRegist(EmployeesVO ev) throws Exception {
+		session.update("Employees-Mapper.employeeRegist",ev);
 	}
  
 	
