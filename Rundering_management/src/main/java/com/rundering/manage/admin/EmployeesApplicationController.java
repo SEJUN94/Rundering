@@ -26,7 +26,7 @@ public class EmployeesApplicationController {
 	@Autowired
 	EmployeesService employeesService;
 	
-	@RequestMapping("/list")
+	@RequestMapping("/main")
 	public ModelAndView employeeapplication(HttpServletRequest request,ModelAndView mnv,AppCriteria cri) throws Exception {
 		String url = "admin/employeeapplication/employeeapplication_main";
 		
