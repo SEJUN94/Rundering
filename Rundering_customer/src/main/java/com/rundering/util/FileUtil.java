@@ -12,6 +12,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rundering.dto.AttachVO;
+import com.rundering.service.AttachServiceClass;
 
 
 public class FileUtil {
@@ -30,7 +31,8 @@ public class FileUtil {
 	}
 	
 	//파일 이름 파라미터 fileNames, filePath 파일 경로 , biztype 업무구분 , regUser 작성자
-	public List<AttachVO> getAttachVOList(String[] fileNames,String filePath ){
+	public List<AttachVO> getAttachVOList(String[] fileNames,String filePath,String bizType,AttachServiceClass attachService){
+		
 		List<AttachVO> attachList = new ArrayList<AttachVO>();
 		int seq = 1;
 		if(fileNames!=null) {
@@ -40,6 +42,7 @@ public class FileUtil {
 					AttachVO attach =  new AttachVO();
 					attach.setAtchFileSeq(seq);
 					attach.setFilePath(filePath);
+					attach.setBizType(bizType);
 					attach.setFileNm(MakeFileName.parseFileNameFromUUID(fileName, "\\$\\$") );
 					attach.setSaveFileNm(fileName);
 					attach.setFileContType(fileName.substring(fileName.lastIndexOf('.') + 1).toUpperCase());
@@ -52,21 +55,30 @@ public class FileUtil {
 	}
 		
 	// 이미지 불러오기 위한 바이트 데이터 스크립트 or html 태그 src or url 속성에서 get 형식으로 불러와서 배열을 내보내주면됨
-	public byte[] getPicture(String fileNo,String filePath,String fileName) throws Exception{
+	public List<byte[]> getPicture(String fileNo,AttachServiceClass attachService) throws Exception{
 		// 내일 이미지 불러오는거 좀더 쉽게 만들어 주도록 하죠
-		
-		InputStream in = null;
-		byte[] bytes = null;
-		
-		try {
-			in = new FileInputStream(new File(filePath, fileName));
+		List<AttachVO> attachList = null;
+		attachList = attachService.getAttachVOList(fileNo, attachList);
+		List<byte[]> byteArrayList = new ArrayList<byte[]>();
+		for (AttachVO attach : attachList) {
+			
+			InputStream in = null;
+			byte[] bytes = null;
+			
+			try {
+				in = new FileInputStream(new File(attach.getFilePath(), attach.getSaveFileNm()));
 
-			bytes=IOUtils.toByteArray(in);
+				bytes=IOUtils.toByteArray(in);
 
-		} finally {
-			in.close();
+			} finally {
+				in.close();
+			}
+			byteArrayList.add(bytes);
+			
+			
 		}
-		return bytes;
+		
+		return byteArrayList;
 		
 	}
 	//파일 삭제
@@ -75,6 +87,9 @@ public class FileUtil {
 		if (imageFile.exists()) {
 			imageFile.delete();
 		}
+	}
+	public void dbRemove(String fileNo,AttachServiceClass attachService) throws Exception{
+		attachService.fileRemove(fileNo);
 	}
 
 }
