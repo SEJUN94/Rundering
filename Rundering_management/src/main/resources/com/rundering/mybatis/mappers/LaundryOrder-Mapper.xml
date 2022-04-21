@@ -42,18 +42,8 @@
 		select count(*)
 		from TB_LAUNDRY_ORDER
 		where ORDER_NO is not null
-		<include refid="search"/>
 	</select>
 	
-	<select id="selectLaundryOrderList" resultMap="itemOrderMap">
-		select *
-		  from TB_LAUNDRY_ORDER
-		 where ORDER_NO is not null
-		 <include refid="search"/>
-		 order by ORDER_DATE
-	</select>
-
-
 
 
 	<update id="insertLaundryOrder" parameterType="laundryOrder">
