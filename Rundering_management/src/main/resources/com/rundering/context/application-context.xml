@@ -47,6 +47,9 @@
 	 <bean id="comCodeDAO" class="com.rundering.dao.ComCodeDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
+	 <bean id="memberAddressDAO" class="com.rundering.dao.MemberAddressDAOImpl"
+		p:session-ref="sqlSession"	
+	 />
 	
 	
 	 
@@ -85,6 +88,10 @@
 	<bean id="attachService" class="com.rundering.service.AttachService"
 		p:attachDAO-ref="attachDAO"
 	/>
+		<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl" 
+		p:memberAddressDAO-ref="memberAddressDAO"
+	/>
+	
 	
 	
 	

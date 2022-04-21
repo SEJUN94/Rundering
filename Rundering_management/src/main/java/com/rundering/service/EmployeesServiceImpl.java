@@ -15,4 +15,11 @@ public class EmployeesServiceImpl implements EmployeesService{
 		EmployeesVO employee= employeesDAO.selectEmployeeByMno(memberno);
 		return employee;
 	}
+	//사원등록
+	@Override
+	public void employeeRegist(EmployeesVO ev) throws Exception {
+		employeesDAO.employeeRegist(ev);
+		
+	}
+	
 }

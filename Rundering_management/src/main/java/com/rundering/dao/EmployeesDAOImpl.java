@@ -16,6 +16,13 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 		EmployeesVO employees = session.selectOne("Employees-Mapper.selectEmployeeByMno", memberno);
 		return employees;
 	}
+	
+
+	//사원등록
+	@Override
+	public void employeeRegist(EmployeesVO ev) throws Exception {
+		session.update("Employees-Mapper.employeeRegist",ev);
+	}
  
 	
 }
