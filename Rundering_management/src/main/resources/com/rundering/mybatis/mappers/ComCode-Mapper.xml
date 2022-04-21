@@ -23,6 +23,17 @@
 		  from tb_com_code
 		 where com_code_grp='ORDER_STATUS' 
 	</select>
+	<select id="selectComCodeByComCodeGrp" resultMap="comCodeMap">
+	select *
+		  from tb_com_code
+		 where com_code_grp=#{comCodeGrp} 
+	</select>
+	<select id="selectComCodeByUpperComCode" resultMap="comCodeMap">
+	select *
+		  from tb_com_code
+		 where upper_com_code=#{upperComCode} 
+	</select>
+	
 	
 	
 	

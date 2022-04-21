@@ -18,6 +18,6 @@ public interface LaundryOrderDAO {
 	public List<LaundryOrderVO> selectLaundryOrderList(BranchCriteria cri) throws Exception;
 
 	public int selectCount(BranchCriteria cri) throws Exception;
-			
+	public void updateLaundryOrderStatusByOrderNo(LaundryOrderVO laundryOrderVO) throws Exception;		
 	
 }

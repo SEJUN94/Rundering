@@ -13,6 +13,8 @@ public interface LaundryOrderService {
 
 	Map<String, Object> laundryOrderList(BranchCriteria cri) throws Exception;
 
+	void updateStatus(List<LaundryOrderVO> laundryOrderList) throws Exception;
+
 	
 			
 	

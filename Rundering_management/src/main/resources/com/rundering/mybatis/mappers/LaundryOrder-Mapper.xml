@@ -34,22 +34,34 @@
 	</resultMap>
 	<sql id="search">
 		<if test="searchType == '01'.toString()">
-			and item_order_status = '01'		
+			and order_status = '01'		
 		</if>
 		<if test="searchType == '02'.toString()">
-			and item_order_status = '02'			
+			and order_status = '02'			
 		</if>
 		<if test="searchType == '03'.toString()">
-			and item_order_status = '03'		
+			and order_status = '03'		
 		</if>
 		<if test="searchType == '04'.toString()">
-			and item_order_status = '04'	
+			and order_status = '04'		
 		</if>
 		<if test="searchType == '05'.toString()">
-			and item_order_status = '05'		
+			and order_status = '05'		
 		</if>
 		<if test="searchType == '06'.toString()">
-			and item_order_status = '06'	
+			and order_status = '06'		
+		</if>
+		<if test="searchType == '07'.toString()">
+			and order_status = '07'		
+		</if>
+		<if test="searchType == '08'.toString()">
+			and order_status = '08'		
+		</if>
+		<if test="searchType == '09'.toString()">
+			and order_status = '09'		
+		</if>
+		<if test="searchType == '10'.toString()">
+			and order_status = '10'		
 		</if>
 	</sql>
 
@@ -73,15 +85,19 @@
 		select *
 		  from TB_LAUNDRY_ORDER
 		 where ORDER_NO is not null
-		 <include refid="search"/>
 		 <if test="!branchCode.equals('') and branchCode!=null">
 			and branch_code = #{branchCode}
 		</if>
+		<include refid="search"/>
 		 order by ORDER_DATE
 		 
 	</select>
 	
-
+	<update id="updateLaundryOrderStatusByOrderNo" parameterType="laundryOrder" >
+		update TB_LAUNDRY_ORDER
+		   set order_status=#{orderStatus}
+		 where order_no=#{orderNo} 
+	</update>
 
 
 

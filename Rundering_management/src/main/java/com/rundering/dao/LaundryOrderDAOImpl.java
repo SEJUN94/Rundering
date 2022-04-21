@@ -44,6 +44,12 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		int count = session.selectOne("LaundryOrder-Mapper.selectCount",cri);
 		return count;
 	}
+
+	@Override
+	public void updateLaundryOrderStatusByOrderNo(LaundryOrderVO laundryOrderVO) throws Exception {
+		session.update("LaundryOrder-Mapper.updateLaundryOrderStatusByOrderNo", laundryOrderVO);
+		
+	}
 	
 	
 
