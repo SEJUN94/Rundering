@@ -22,6 +22,14 @@
 		 where DELETE_YN='N'
 	</select>
 	
+	<select id="NotALaundryArticlesList" resultMap="laundryArticlesMap" parameterType="str">
+		select *
+		  from TB_LAUNDRY_ARTICLES
+		 where DELETE_YN='N'
+		   and CLCODE !='A'
+	</select>
+	
+	
 	<select id="selectSearchLaundryArticlesListCount" resultType="int">
 		select
 		count(*)

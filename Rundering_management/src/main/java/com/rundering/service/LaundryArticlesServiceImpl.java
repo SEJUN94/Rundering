@@ -31,7 +31,7 @@ public class LaundryArticlesServiceImpl implements LaundryArticlesService {
 	public Map<String, Object> getLaundryArticles(Criteria cri) throws SQLException {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 
-		List<LaundryArticlesVO> laundryArticlesList = laundryArticlesDAO.LaundryArticlesList(cri);
+		List<LaundryArticlesVO> laundryArticlesList = laundryArticlesDAO.NotALaundryArticlesList(cri);
 
 		// 전체 board 개수
 		int totalCount = laundryArticlesDAO.selectLaundryArticlesCriteriaTotalCount(cri);
