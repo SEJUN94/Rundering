@@ -211,11 +211,19 @@ function justPressed(label){
 	console.log("justPressedLabel : "+justPressedLabel);
 }
 
+
+function createHiddenInputNode(saveFileNm) {
+	let input = document.createElement('input');
+	input.setAttribute('type', 'hidden');
+	input.setAttribute('name', 'saveFileNm');
+	input.setAttribute('value', saveFileNm);
+	return input;
+	}
+
 $('input[name="pictureFile"]').change(function(){
 	
 	let spinner = document.querySelector('.overlay');
 	spinner.style.display = 'flex';
-	
 
 	let imageForm = $('form[role="imageForm"]')[0];
 	let picture = $('form[role="imageForm"]').find('[name="pictureFile"]')[0]; 
@@ -231,11 +239,13 @@ $('input[name="pictureFile"]').change(function(){
 		processData:false,
 		contentType:false,
 		success:function(data){
-			//저장된 파일명 저장해야함
-			//$('form[role="form"] input[name="picture"]').val(data);
+			//저장된 파일명 input태그만들어 저장
+			const hiddenInput = document.querySelector(".hiddenInput");
+			hiddenInput.append(createHiddenInputNode(data));
 			
 			console.log(data+"사진이 업로드 되었습니다.");
 			inputFileName.value = picture.files[0].name;
+			
 			spinner.style.display = 'none';
 		},
 		error:function(error){

@@ -27,6 +27,9 @@ public class LaundryOrderReceiveCommand {
 	//세탁주문상세테이블 컬럼
 	private String[] laundryItemsCode;  //세탁품목코드
 	
+	//첨부파일 컬럼
+	private String[] saveFileNm;	//저장파일명
+	
 	
 	public String getSetDefaultAddr() {
 		return setDefaultAddr;
@@ -93,6 +96,13 @@ public class LaundryOrderReceiveCommand {
 	}
 	public void setPaymentNo(String paymentNo) {
 		this.paymentNo = paymentNo;
+	}
+	
+	public String[] getSaveFileNm() {
+		return saveFileNm;
+	}
+	public void setSaveFileNm(String[] saveFileNm) {
+		this.saveFileNm = saveFileNm;
 	}
 	public LaundryOrderVO toLaundryOrderVO() throws ParseException {
 		LaundryOrderVO laundryOrder = new LaundryOrderVO();
