@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.rundering.dto.MemberVO;
 import com.rundering.service.EmployeesService;
 import com.rundering.service.MemberService;
+import com.rundering.util.UserSha256;
 
 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -28,7 +29,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	@Override 
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
 		String login_id = (String) auth.getPrincipal(); // 로그인 시도한 ID를 가져온다
-		String login_pwd = (String) auth.getCredentials(); //로그인 시도한 Password 를 가져온다.
+		String pw = (String) auth.getCredentials(); //로그인 시도한 Password 를 가져온다.
+		String login_pwd = UserSha256.encrypt(pw);
+		
  		MemberVO member = null;
  		try {
  			member=memberService.getEmployee(login_id);

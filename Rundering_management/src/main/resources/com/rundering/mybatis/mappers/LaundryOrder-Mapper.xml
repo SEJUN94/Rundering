@@ -32,7 +32,9 @@
 	 
 	
 	</resultMap>
-
+	
+	<sql id="search">
+	</sql>
 
 	<select id="selectLaundryOrderSequenceNextValue" resultType="str">
 		select FN_LAUNDRY_ORDER_NO('now') from DUAL
@@ -45,16 +47,13 @@
 		<include refid="search"/>
 	</select>
 	
-	<select id="selectLaundryOrderList" resultMap="itemOrderMap">
+	<select id="selectLaundryOrderList" resultMap="laundryOrderMap">
 		select *
 		  from TB_LAUNDRY_ORDER
 		 where ORDER_NO is not null
 		 <include refid="search"/>
 		 order by ORDER_DATE
 	</select>
-
-
-
 
 	<update id="insertLaundryOrder" parameterType="laundryOrder">
 		<choose>
@@ -83,7 +82,4 @@
 			</otherwise>
 		</choose>
 	</update>
-	
-	
-
 </mapper>
