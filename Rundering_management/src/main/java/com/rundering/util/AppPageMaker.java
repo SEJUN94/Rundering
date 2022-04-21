@@ -10,7 +10,7 @@ public class AppPageMaker {
 	private boolean next; // 다음페이지 버튼 유무
 
 	private int displayPageNum = 5; // 한 페이지에 보여줄 페이지번호 개수
-	
+	//
 	AppCriteria cri = new AppCriteria(); 
 	
 	// starPage,endPage, prev, next 설정. by totalCount
