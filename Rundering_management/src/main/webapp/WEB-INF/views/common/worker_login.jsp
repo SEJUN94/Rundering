@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!DOCTYPE html>
 <head>
 <style>
     .bg{
@@ -23,7 +24,6 @@
 </head>
 <body>
 <img class="bg" src="imgfile/rundering_bg.jpg" alt="rundering_bg">
-
 <div class="login-box">
     <div class="login-logo">
         <div><img class="logo" src="imgfile/RunderingLogo.png" alt="Rundering"></div>

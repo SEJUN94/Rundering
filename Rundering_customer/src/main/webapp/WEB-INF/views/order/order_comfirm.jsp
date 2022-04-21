@@ -83,7 +83,6 @@
 						</table>
 					</div>
 				</div>
-
 			</div>
 			<p class="mb-3" style="text-align: center;">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</p>
 

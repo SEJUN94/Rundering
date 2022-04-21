@@ -13,11 +13,9 @@ public class EmployeesVO {
 	private String deleteYn; 		//삭제여부
 	private String memberno; 		//회원고유번호
 	
-	
 	public EmployeesVO() {
 		super();
 	}
-
 
 	public String getEmployeeId() {
 		return employeeId;

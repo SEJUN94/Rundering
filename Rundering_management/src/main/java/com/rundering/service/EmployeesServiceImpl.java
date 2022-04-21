@@ -1,7 +1,6 @@
 package com.rundering.service;
 
 import com.rundering.dao.EmployeesDAO;
-import com.rundering.dao.EmployeesDAOImpl;
 import com.rundering.dto.EmployeesVO;
 
 public class EmployeesServiceImpl implements EmployeesService{
@@ -12,10 +11,8 @@ public class EmployeesServiceImpl implements EmployeesService{
 	}
 	
 	@Override
-	public EmployeesVO getEmployee(String memberNo) throws Exception {
-		EmployeesVO employee= employeesDAO.selectEmployeeById(memberNo);
+	public EmployeesVO getEmployee(String memberno) throws Exception {
+		EmployeesVO employee= employeesDAO.selectEmployeeByMno(memberno);
 		return employee;
 	}
-
-	
 }

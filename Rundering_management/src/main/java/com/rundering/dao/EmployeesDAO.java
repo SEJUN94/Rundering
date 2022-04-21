@@ -6,6 +6,6 @@ import com.rundering.dto.MemberVO;
 public interface EmployeesDAO {
 
 
-	public EmployeesVO selectEmployeeById(String MemberNo) throws Exception;
+	public EmployeesVO selectEmployeeByMno(String MemberNo) throws Exception;
 
 }

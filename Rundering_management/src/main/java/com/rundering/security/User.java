@@ -27,8 +27,6 @@ public class User implements UserDetails {
 		this.memberService=memberService;
 		this.employeeService=employeesService;
 	}
-	
-	
 	 
 	@Override 
 	public Collection<? extends GrantedAuthority> getAuthorities(){
@@ -85,14 +83,13 @@ public class User implements UserDetails {
 	public boolean isEnabled() {// 탈퇴 혹은 삭제 : enabled = 0
 		return member.getEnableWhether()!=0;
 	}
-	
 	public MemberVO getMemberVO() {
 		return this.member;
 	}
-	public EmployeesVO getEmployeesVO() {
+	public EmployeesVO getEmployeesVO(String memberno) {
 		EmployeesVO employees=null;
 		try {
-			employees = employeeService.getEmployee(member.getMemberNo());
+			employees = employeeService.getEmployee(memberno);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

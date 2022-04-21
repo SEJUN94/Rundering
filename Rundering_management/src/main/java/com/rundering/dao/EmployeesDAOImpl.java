@@ -12,8 +12,8 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 		this.session = session;
 	}
 	@Override
-	public EmployeesVO selectEmployeeById(String MemberNo) throws Exception {
-		EmployeesVO employees = session.selectOne("Employees-Mapper.selectEmployeeById", MemberNo);
+	public EmployeesVO selectEmployeeByMno(String memberno) throws Exception {
+		EmployeesVO employees = session.selectOne("Employee-Mapper.selectEmployeeByMno", memberno);
 		return employees;
 	}
  
