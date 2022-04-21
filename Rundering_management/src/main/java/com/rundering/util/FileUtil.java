@@ -16,7 +16,7 @@ import com.rundering.service.AttachServiceClass;
 
 
 public class FileUtil {
-	
+	//
 	//비동기 파일 저장후 이름 가져오기 orginalfileName 는 원본 파일명 fileName 저장된 파일명
 	public Map<String, String> saveFile(MultipartFile multiFile,String savePath){
 		Map<String, String> fileMap = new HashMap<String, String>();
