@@ -49,9 +49,6 @@
                         </li> 
                         
 					</c:forEach>
-
-						
-                       
 					
 					</ul>
 				</nav>

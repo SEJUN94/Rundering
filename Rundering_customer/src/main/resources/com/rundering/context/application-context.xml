@@ -35,6 +35,9 @@
 	<bean id="paymentDAO" class="com.rundering.dao.PaymentDAOImpl"
 		p:session-ref="sqlSession"
 	/>
+	<bean id="attachDAO" class="com.rundering.dao.AttachDAOImpl" 
+		p:session-ref="sqlSession"
+	/>
 	
 		
 	
@@ -57,8 +60,12 @@
 	<bean id="mailSendService" class="com.rundering.service.MailSendService"
 		p:mailSender-ref="mailSender"
 	/>  
+	<bean id="attachServicee" class="com.rundering.service.AttachServiceClass"
+		p:attachDAO-ref="attachDAO"
+	/>
 	
 	
 	
-</beans>
+	
+</beans> 
  

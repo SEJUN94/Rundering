@@ -11,5 +11,7 @@ public interface AttachDAO {
 	public int selectFileNo() throws Exception;
 	//파일정보 insert
 	public void insertAttach(AttachVO attach) throws SQLException;
+	public List<AttachVO> selectAttachVOByFileNo(String fileNo) throws Exception;
+	public  void deleteAttchFileRemoveByFileNo(String fileNo) throws Exception;
 	
 }

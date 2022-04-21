@@ -19,8 +19,10 @@
 		<ul class="navbar-nav ml-auto">
 
 			<li class="nav-item"><a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">지점장명</a></li>
-			<li class="nav-item"><button type="button" class="btn btn-block btn-sm btn-outline-dark" id="logoutbtn">LOGOUT</button></li>
-
+			<li class="nav-item">
+				<button type="button" class="btn btn-block btn-sm btn-outline-dark" id="logoutbtn"
+										onclick="location.href='<%=request.getContextPath() %>/common/logout';" >LOGOUT
+				</button></li>
 		</ul>
 	</nav>
 
