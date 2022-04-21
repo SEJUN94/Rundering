@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="Member-Mapper">
-<resultMap type="member" id="memberMap">
-	<result column="MEMBERNO" property="memberNo"/>
-	<result column="ID" property="id"/>
-	<result column="PASSWORD" property="password"/>
-	<result column="NAME" property="name"/>
-	<result column="PHONE" property="phone"/>
-	<result column="EMAIL" property="email"/>
-	<result column="REGIST_DATE" property="registDate"/>
-	<result column="MODIFY_DATE" property="modifyDate"/>
-	<result column="ENABLE_WHETHER" property="enableWhether"/>
-	<result column="DELETE_YN" property="deleteYn"/>
-	<result column="LASTLOGPSNHOURLIVER" property="lastLogpsnHourLiver"/>
-	<result column="LOGINFAIL_COUNT" property="loginfailCount"/>
-	<result column="EMPLOYEE_ID_YN" property="employeeIdYn"/>
-</resultMap>
+
+
+	<resultMap type="member" id="memberMap">
+		<result column="MEMBERNO" property="memberNo" />
+		<result column="ID" property="id" />
+		<result column="PASSWORD" property="password" />
+		<result column="NAME" property="name" />
+		<result column="PHONE" property="phone" />
+		<result column="EMAIL" property="email" />
+		<result column="REGIST_DATE" property="registDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="ENABLE_WHETHER" property="enableWhether" />
+		<result column="DELETE_YN" property="deleteYn" />
+		<result column="LASTLOGPSNHOURLIVER" property="lastLogpsnHourLiver" />
+		<result column="LOGINFAIL_COUNT" property="loginfailCount" />
+		<result column="EMPLOYEE_ID_YN" property="employeeIdYn" />
+	</resultMap>
 
 	<select id="selectEmployeeById" resultMap="memberMap" parameterType="str">
 		select *
-		  from TB_MEMBER
-		 where id=#{id}
-		   and EMPLOYEE_ID_YN='Y'
+		from TB_MEMBER
+		where id=#{id}
+		and EMPLOYEE_ID_YN='Y'
 	</select>
- 
+
 	<select id="selectMemberById" resultMap="memberMap" parameterType="str">
 		select *
 		from TB_MEMBER
@@ -35,7 +36,50 @@
 	<select id="selectAuthByMemberNo" resultType="str" parameterType="str">
 		select AUTH_GRP_CODE
 		from TB_USER_AUTH
-		where memberno=#{memberNo}
+		where
+		MEMBERNO=#{memberNo}
 	</select>
 
+	<update id="applicationEmployee" parameterType="member">
+		INSERT INTO
+		TB_MEMBER(MEMBERNO,PASSWORD,NAME,PHONE,EMAIL)
+		VALUES
+		(MEMBERNO_SEQ.NEXTVAL,#{password},#{name},#{phone},#{email})
+	</update>
+	​
+	<select id="getMemberById" resultMap="memberMap" parameterType="str">
+		select *
+		from TB_MEMBER
+		where id is null
+		and phone=#{phone}
+	</select>
+	​
+	<update id="updatemplmem" parameterType="member">
+		UPDATE
+		TB_MEMBER
+		SET
+		(ID,PASSWORD,EMPLOYEE_ID_YN) =
+		(#{id},#{password},'Y')
+		where =
+		#{memberNo}
+	</update>
+	​
+	<select id="getemplapplist" resultMap="memberMap" parameterType="str">
+		SELECT *
+		FROM TB_MEMBER
+		WHERE ID IS NULL
+		and
+		password= #{password}
+	</select>
+	​
+	​
+	<select id="applistCount" resultType="int">
+		select
+		count(*)
+		FROM
+		TB_MEMBER
+		WHERE ID IS NULL
+		order by REGIST_DATE desc
+	</select>
+	​
 </mapper>
