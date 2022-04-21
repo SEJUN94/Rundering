@@ -121,6 +121,28 @@ public class LaundryOrderRESTController {
 		return entity;
 
 	}
+	@RequestMapping(value = "/deletePicture", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+	public ResponseEntity<String> deletePicture(String deleteFileName) throws Exception {
+		
+		ResponseEntity<String> entity = null;
+		
+		String result = "";
+		HttpStatus status = null;
+		
+		File imageFile = new File(picturePath, deleteFileName);
+		if (!deleteFileName.isEmpty() && imageFile.exists()) {
+			imageFile.delete();
+			result = deleteFileName+"파일 삭제 성공";
+			status = HttpStatus.OK;
+		}else {
+			result = "파일이 존재하지 않습니다.";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		entity = new ResponseEntity<String>(result, status);
+		
+		return entity;
+		
+	}
 
 	// 사진파일띄울거면 수정
 //	@RequestMapping(value = "/getPicture", produces = "text/plain;charset=utf-8")

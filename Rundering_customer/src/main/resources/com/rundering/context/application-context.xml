@@ -60,7 +60,7 @@
 	<bean id="mailSendService" class="com.rundering.service.MailSendService"
 		p:mailSender-ref="mailSender"
 	/>  
-	<bean id="attachServicee" class="com.rundering.service.AttachServiceClass"
+	<bean id="attachService" class="com.rundering.service.AttachService"
 		p:attachDAO-ref="attachDAO"
 	/>
 	

@@ -24,7 +24,8 @@
 					MEMBERNO,
 					AREA,
 					TOTAL_PRICE,
-					PAYMENTNO)
+					PAYMENTNO,
+					ATCH_FILE_NO)
 					VALUES (
 					#{orderNo},
 					#{contactNumber},
@@ -37,7 +38,8 @@
 					#{memberNo},
 					#{area},
 					#{totalPrice},
-					#{paymentNo}
+					#{paymentNo},
+					#{atchFileNo}
 					)
 			</when>
 	
@@ -53,7 +55,8 @@
 					MEMBERNO,
 					AREA,
 					TOTAL_PRICE,
-					PAYMENTNO)
+					PAYMENTNO,
+					ATCH_FILE_NO)
 					VALUES (
 					#{orderNo},
 					#{contactNumber},
@@ -65,7 +68,8 @@
 					#{memberNo},
 					#{area},
 					#{totalPrice},
-					#{paymentNo}
+					#{paymentNo},
+					#{atchFileNo}
 					)
 			</otherwise>
 		</choose>

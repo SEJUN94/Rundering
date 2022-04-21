@@ -173,6 +173,27 @@ var dataNum = 1;
 		      alert("사진 첨부는 필수입니다.");
 		      return;
 		   }
+		 let deleteFile = findByAttributeValue("data-uploadedno",dataNum,"input");
+		 let deleteFileName = deleteFile.value;
+		 
+		 deleteFile.remove();
+		 
+		 const v_ajax = new XMLHttpRequest();
+		    v_ajax.open("POST","<%=request.getContextPath()%>/order/deletePicture",true);
+		    v_ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+		    v_ajax.send('deleteFileName=' + deleteFileName);
+		    v_ajax.onreadystatechange = function(){
+		    	 if (v_ajax.readyState === XMLHttpRequest.DONE) {
+			            if (v_ajax.status === 200) {
+			               //const response = JSON.parse(v_ajax.responseText);
+			               console.log(v_ajax.responseText);
+			               //console.log(data+"사진이 삭제 되었습니다.");
+			            } else {
+			            	AjaxErrorSecurityRedirectHandler(error.status);
+			            }
+			     }
+		    }
+		
 		$('div[data-no="'+dataNum+'"]').remove();
 	}
 	
@@ -217,6 +238,7 @@ function createHiddenInputNode(saveFileNm) {
 	input.setAttribute('type', 'hidden');
 	input.setAttribute('name', 'saveFileNm');
 	input.setAttribute('value', saveFileNm);
+	input.setAttribute('data-uploadedno', justPressedLabel);
 	return input;
 	}
 

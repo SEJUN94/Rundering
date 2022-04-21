@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.LaundryOrderReceiveCommand;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
+import com.rundering.service.AttachService;
 import com.rundering.service.LaundryItemsService;
 import com.rundering.service.LaundryOrderService;
 import com.rundering.service.MemberAddressService;
@@ -32,6 +34,11 @@ public class LaundryOrderController {
 	private LaundryItemsService laundryItemsService;
 	@Resource(name="memberAddressService")
 	private MemberAddressService memberAddressService;
+	@Resource(name = "attachService")
+	private AttachService attachService;
+	
+	@Resource(name = "laundryorderpicturePath")
+	private String picturePath;
 	
 	
 	@RequestMapping("")
@@ -101,8 +108,13 @@ public class LaundryOrderController {
 			command.setAddress(memberAddress);
 		}
 		
+		//첨부파일 정보 저장
+		List<AttachVO> attachVOList = command.toAttachVOList(picturePath);
+		int atchFileNo = attachService.insertFile(attachVOList);
+		
 		LaundryOrderVO laundryOrder = command.toLaundryOrderVO();
 		laundryOrder.setMemberNo(loginUser.getMemberNo());
+		laundryOrder.setAtchFileNo(String.valueOf(atchFileNo));
 		memberAddress = memberAddressService.getAreaCode(memberAddress);
 		laundryOrder.setArea(memberAddress.getArea());
 		

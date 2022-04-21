@@ -1,14 +1,17 @@
 package com.rundering.command;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberAddressVO;
+import com.rundering.util.MakeFileName;
 
 public class LaundryOrderReceiveCommand {
 	
@@ -160,6 +163,33 @@ public class LaundryOrderReceiveCommand {
 		if(memberAddress.getAdd2() != null) {
 			this.add2 =  memberAddress.getAdd2();
 		}
+	}
+	
+	public List<AttachVO> toAttachVOList(String savePath) {
+		List<AttachVO> attachList = new ArrayList<AttachVO>();
+		if (this.saveFileNm != null && this.saveFileNm.length > 0) {
+			int cnt = 1;
+			for (String saveFile : saveFileNm) {
+
+				String fileNm = MakeFileName.parseFileNameFromUUID(saveFile, "\\$\\$");
+				File file = new File(savePath, saveFile);
+				file.length();
+
+				// DB에 저장할 attach에 file 내용 추가.
+				AttachVO attach = new AttachVO();
+				attach.setFileNm(fileNm);
+				attach.setSaveFileNm(saveFile);
+				attach.setFilePath(savePath);
+				attach.setFileSize(file.length()/1024);
+				attach.setBizType("세탁주문");
+				attach.setFileContType(saveFile.substring(saveFile.lastIndexOf(".") + 1).toUpperCase());
+				attach.setAtchFileSeq(cnt);
+				cnt++;
+				
+				attachList.add(attach);
+			}
+		}
+		return attachList;
 	}
 	
 }

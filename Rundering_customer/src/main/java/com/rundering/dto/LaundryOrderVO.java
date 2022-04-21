@@ -25,7 +25,8 @@ public class LaundryOrderVO {
 	private String zip;					//우편번호
 	private String add1;				//주소
 	private String add2;				//상세주소
-	private int replyno;
+	private String atchFileNo;			//통합첨부파일번호
+	private int replyno;				//댓글번호
 	
 	public LaundryOrderVO() {
 		super();
@@ -156,6 +157,12 @@ public class LaundryOrderVO {
 	}
 	public void setAdd2(String add2) {
 		this.add2 = add2;
+	}
+	public String getAtchFileNo() {
+		return atchFileNo;
+	}
+	public void setAtchFileNo(String atchFileNo) {
+		this.atchFileNo = atchFileNo;
 	}
 	public int getReplyno() {
 		return replyno;

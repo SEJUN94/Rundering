@@ -12,7 +12,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rundering.dto.AttachVO;
-import com.rundering.service.AttachServiceClass;
+import com.rundering.service.AttachService;
 
 
 public class FileUtil {
@@ -31,7 +31,7 @@ public class FileUtil {
 	}
 	
 	//파일 이름 파라미터 fileNames, filePath 파일 경로 , biztype 업무구분 , regUser 작성자
-	public List<AttachVO> getAttachVOList(String[] fileNames,String filePath,String bizType,AttachServiceClass attachService){
+	public List<AttachVO> getAttachVOList(String[] fileNames,String filePath,String bizType,AttachService attachService){
 		
 		List<AttachVO> attachList = new ArrayList<AttachVO>();
 		int seq = 1;
@@ -55,10 +55,10 @@ public class FileUtil {
 	}
 		
 	// 이미지 불러오기 위한 바이트 데이터 스크립트 or html 태그 src or url 속성에서 get 형식으로 불러와서 배열을 내보내주면됨
-	public List<byte[]> getPicture(String fileNo,AttachServiceClass attachService) throws Exception{
+	public List<byte[]> getPicture(String fileNo,AttachService attachService) throws Exception{
 		// 내일 이미지 불러오는거 좀더 쉽게 만들어 주도록 하죠
 		List<AttachVO> attachList = null;
-		attachList = attachService.getAttachVOList(fileNo, attachList);
+		attachList = attachService.getAttachVOList(fileNo);
 		List<byte[]> byteArrayList = new ArrayList<byte[]>();
 		for (AttachVO attach : attachList) {
 			
@@ -88,7 +88,7 @@ public class FileUtil {
 			imageFile.delete();
 		}
 	}
-	public void dbRemove(String fileNo,AttachServiceClass attachService) throws Exception{
+	public void dbRemove(String fileNo,AttachService attachService) throws Exception{
 		attachService.fileRemove(fileNo);
 	}
 

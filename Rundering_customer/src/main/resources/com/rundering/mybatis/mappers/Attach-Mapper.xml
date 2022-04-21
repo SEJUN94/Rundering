@@ -32,7 +32,7 @@
 	</select>
 	
 	
-	<update id="insertAttach">
+	<update id="insertAttach" parameterType="attach">
 		INSERT INTO TB_ATTACH_FILE
 		(
 			ATCH_FILE_NO,
