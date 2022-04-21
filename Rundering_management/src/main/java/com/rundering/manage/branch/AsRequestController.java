@@ -16,15 +16,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.dto.AsRequestVO;
 import com.rundering.dto.EmployeesVO;
-import com.rundering.dto.SuggestVO;
 import com.rundering.manage.Criteria;
 import com.rundering.service.AsRequestServiceImpl;
+import com.rundering.service.LaundryFixturesServiceImpl;
 
 @Controller
 @RequestMapping("/branch/asrequest")
 public class AsRequestController {
 	@Autowired
 	AsRequestServiceImpl asRequestService;
+	
+	@Autowired
+	LaundryFixturesServiceImpl laundryFixturesService;
 
 	// 리스트
 	@RequestMapping(value = "/list")
@@ -53,8 +56,37 @@ public class AsRequestController {
 		String url = "redirect:/branch/asrequest/list";
 
 		asRequestService.regist(asRequest);
-
+		asRequestService.getItemList(asRequest);
+		
+		rttr.addAttribute("getItemList", asRequest.getArticlesCode());
 		rttr.addFlashAttribute("from", "regist");
+
+		return url;
+	}
+	
+	@RequestMapping("/modifyForm")
+	public ModelAndView modifyForm(int asno, ModelAndView mnv) throws Exception {
+
+		String url = "branch/asrequest/asrequest_modify";
+
+		AsRequestVO asRequest = asRequestService.getAsRequestModify(asno);
+	
+		mnv.addObject("asRequest", asRequest);
+		
+		mnv.setViewName(url);
+
+		return mnv;
+	}
+
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modifyPost(AsRequestVO asRequest, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+
+		String url = "redirect:/branch/asrequest/detail";
+		
+		asRequestService.modify(asRequest);
+
+		rttr.addAttribute("asno", asRequest.getAsno());
+		rttr.addFlashAttribute("from", "modify");
 
 		return url;
 	}
@@ -83,6 +115,18 @@ public class AsRequestController {
 		mnv.setViewName(url);
 
 		return mnv;
+	}
+	
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public String remove(int asno, RedirectAttributes rttr) throws Exception {
+		String url = "redirect:/branch/asrequest/detail";
+
+		asRequestService.remove(asno);
+
+		rttr.addFlashAttribute("from", "remove");
+		rttr.addAttribute("asno", asno);
+
+		return url;
 	}
 
 

@@ -68,6 +68,12 @@ public class AsRequestServiceImpl implements AsRequestService {
 	}
 
 	@Override
+	public void getItemList(AsRequestVO asRequest) throws SQLException {
+		asRequestDAO.selectItemList(asRequest);
+		
+	}
+
+	@Override
 	public void modify(AsRequestVO asRequest) throws SQLException {
 		asRequestDAO.updateAsRequest(asRequest);
 	}
@@ -76,5 +82,6 @@ public class AsRequestServiceImpl implements AsRequestService {
 	public void remove(int asno) throws SQLException {
 		asRequestDAO.deleteAsRequest(asno);
 	}
+
 
 }

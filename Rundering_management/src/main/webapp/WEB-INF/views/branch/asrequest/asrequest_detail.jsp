@@ -37,7 +37,7 @@
 						<h3 class="card-title p-1">상세보기</h3>
 					</div>
 					<!--end card-header  -->
-					<div class="card-body pad">
+					<div class="card-body pad col-12">
 						<div class="form-group">
 							<label for="title">제 목</label> <input type="text" id="title"
 								readonly name='title' class="form-control"
@@ -46,7 +46,7 @@
 						<div class="form-group ">
 							<div class="row">
 								<div class="col">
-									<label for="employeeId">작성자 <input type="text" id="employeeId"
+									<label for="employeeId">요청자 <input type="text" id="employeeId"
 										readonly name="employeeId" class="form-control"
 										value="${asRequest.employeeId }"></label>
 								</div>
@@ -62,8 +62,24 @@
 								</div>
 							</div>
 						</div>
+						<div class="form-group ">
+							<div class="row">
+								<div class="col-6">
+									<label for="fixturesName">고장물품 </label>
+									<input type="text" id="fixturesName"
+										readonly name="fixturesName" class="form-control"
+										value="${asRequest.fixturesName }">
+								</div>
+								<div class="col-6">
+									<label for="requestDate">고장날짜 </label>
+									<input type="text" id="requestDate"
+										readonly name="requestDate" class="form-control"
+										value="${asRequest.requestDate }">
+								</div>
+							</div>
+						</div>
 						<div class="form-group">
-							<label for="ascontent">내 용</label>
+							<label for="ascontent">요청 내용</label>
 							<div>${asRequest.ascontent }</div>
 						</div>
 
@@ -72,10 +88,10 @@
 					<div class="card-footer">
 						<div class="float-right">
 							<button type="button" class="btn btn-danger" id="removeBtn"
-								onclick="remove_go('${suggest.sno}');">삭제</button>
+								onclick="remove_go('${asRequest.asno}');">삭제</button>
 							&nbsp;&nbsp;
 							<button type="button" class="btn btn-warning" id="cancelBtn"
-								onclick="modify_go('${suggest.sno}');">수정</button>
+								onclick="modify_go('${asRequest.asno}');">수정</button>
 							&nbsp;&nbsp;
 							<button type="button" class="btn btn-primary" id="cancelBtn"
 								onclick="CloseWindow();">닫 기</button>
@@ -91,11 +107,11 @@
 	</section>
 	<!-- /.content -->
 	<script>
-		function modify_go(sno) {
+		function modify_go(asno) {
 			location.href = "modifyForm?asno=" + asno;
 		}
 
-		function remove_go(sno) {
+		function remove_go(asno) {
 			location.href = "remove?asno=" + asno;
 		}
 

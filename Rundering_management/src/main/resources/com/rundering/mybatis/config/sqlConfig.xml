@@ -17,6 +17,7 @@
 		<typeAlias type="com.rundering.dto.EmployeesVO" alias="employees" />
 		<typeAlias type="com.rundering.dto.SuggestVO" alias="suggest" />
 		<typeAlias type="com.rundering.dto.LaundryArticlesVO" alias="laundryArticles" />
+		<typeAlias type="com.rundering.dto.LaundryFixturesVO" alias="laundryFixtures" />
 		<typeAlias type="com.rundering.dto.NoticeVO" alias="notice" />
 		<typeAlias type="com.rundering.dto.ItemOrderVO" alias="itemOrder" />
 		<typeAlias type="com.rundering.dto.ItemOrderDetailVO" alias="itemOrderDetail" />

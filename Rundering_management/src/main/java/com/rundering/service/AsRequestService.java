@@ -22,6 +22,9 @@ public interface AsRequestService {
 
 	// 등록
 	void regist(AsRequestVO asrequest) throws SQLException;
+	
+	//물품리스트 중복제거
+	void getItemList(AsRequestVO asrequest) throws SQLException;
 
 	// 수정
 	void modify(AsRequestVO asrequest) throws SQLException;

@@ -85,7 +85,7 @@
 	</select>
 	
 	<select id="selectAsRequestByAsno" parameterType="int" resultMap="asRequestMap" >
-		select b.asno, b.title, b.ascontent, b.regist_date, c.name as employee_id, d.branch_name as branch_code, b.request_date
+		select b.asno, b.title, b.ascontent, b.regist_date, f.fixtures_name as fixturesName, c.name as employee_id, d.branch_name as branch_code, b.request_date
 	    from tb_employees a, tb_as b, tb_member c, tb_branch d, tb_laundry_articles e, tb_laundry_fixtures f
 	    where asno=#{asno}
 	    	and a.employee_id = b.employee_id
@@ -139,19 +139,17 @@
 					#{articlesCode})
 	</select>
 	
-	<!-- 비품받아오는 쿼리 -->
-	<select id="getfixturesCode" resultMap="asRequestMap" >
-		SELECT *
-		    FROM TB_LAUNDRY_FIXTURES
-		    WHERE ARTICLES_CODE = #{articlesCode}
-		    AND BRANCH_CODE = #{branchCode}
-	</select>
+	<!-- 물건리스트 호출 (중복제거)-->
+	<select id="selectItemList" resultType="asRequest">
+        select distinct articles_code
+        from TB_LAUNDRY_FIXTURES
+    </select>
 	
 	<!-- 수정 -->
 	<update id="updateAsRequest" parameterType="asRequest">
 		update tb_as
 		set 
-		title=#{title},ascontent=#{ascontent},fixturesCode=#{fixturesCode},#{articlesCode}
+			title=#{title},ascontent=#{ascontent}, fixtures_code=#{fixturesCode}, request_date=#{requestDate}
 		where asno=#{asno}
 	</update>
 	
