@@ -13,22 +13,14 @@ public class AttachDAOImpl implements AttachDAO{
 	public void setSession(SqlSession session) {
 		this.session = session;
 	}
+	
+	//atch_file_no_seq.nextval
 	@Override
 	public int selectFileNo() throws Exception {
-		int seq= session.selectOne("Attach-Mapper.selectFileNo");
-		return seq;
+		int atchFileNoSeq= session.selectOne("Attach-Mapper.selectFileNo");
+		return atchFileNoSeq;
 	}
 
-	@Override
-	public void insertOrderGoodsAtach(AttachVO attach) throws Exception {
-		session.update("Attach-Mapper.insertOrderGoodsAttach",attach);
-	}
-	
-	@Override
-	public List<AttachVO> selectAttachByArticlesCode(int atchFileNo) throws Exception {
-		List<AttachVO> articles = session.selectList("Attach-Mapper.selectLaundryArticlesAttach", atchFileNo); 
-		return articles;
-	}
 	@Override
 	public void insertAttach(AttachVO attach) throws SQLException {
 		session.update("Attach-Mapper.insertAttach",attach);
@@ -41,6 +33,7 @@ public class AttachDAOImpl implements AttachDAO{
 	public void deleteAttchFileRemoveByFileNo(String fileNo) throws Exception{
 		session.delete("Attach-Mapper.deleteAttchFileRemoveByFileNo", fileNo);
 	}
+
 	
 
 }

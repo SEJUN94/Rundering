@@ -9,6 +9,10 @@
 	<bean id="boardPath" class="java.lang.String">
 		<constructor-arg value="${board.upload}" />      
 	</bean>
+	<!-- laundryorder.picture -->
+	<bean id="laundryorderpicturePath" class="java.lang.String">
+		<constructor-arg value="${laundryorder.picture}" />      
+	</bean>
 	
 	<bean id="sensSms" class="com.rundering.util.SensSms" />
 	
@@ -29,6 +33,9 @@
 		p:session-ref="sqlSession"
 	/>
 	<bean id="paymentDAO" class="com.rundering.dao.PaymentDAOImpl"
+		p:session-ref="sqlSession"
+	/>
+	<bean id="attachDAO" class="com.rundering.dao.AttachDAOImpl" 
 		p:session-ref="sqlSession"
 	/>
 	
@@ -53,8 +60,12 @@
 	<bean id="mailSendService" class="com.rundering.service.MailSendService"
 		p:mailSender-ref="mailSender"
 	/>  
+	<bean id="attachServicee" class="com.rundering.service.AttachServiceClass"
+		p:attachDAO-ref="attachDAO"
+	/>
 	
 	
 	
-</beans>
+	
+</beans> 
  

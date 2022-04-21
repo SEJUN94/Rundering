@@ -30,6 +30,7 @@
 		<pattern>/resources/*</pattern>
 		<pattern>/login</pattern>
 		<pattern>/fordelivery/login</pattern>
+		<pattern>/common/loginform</pattern>
 	</excludes>
 
 

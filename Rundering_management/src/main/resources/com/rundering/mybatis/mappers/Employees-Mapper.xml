@@ -24,6 +24,22 @@
 		 where memberno=#{memberno} 
 	</select>
 	
+	<select id="selectEmployeeByMno" resultMap="employeesMap" parameterType="str">
+		select 
+			A.EMPLOYEE_ID as EMPLOYEE_ID
+			,A.BRANCH_CODE as BRANCH_CODE
+			,A.JOINING_COMPANY_DATE as JOINING_COMPANY_DATE
+			,A.DEPARTMENT as DEPARTMENT
+			,A.POSITION as POSITION
+			,A.REGIST_DATE as REGIST_DATE
+			,A.MODIFY_DATE as MODIFY_DATE
+			,A.DELETE_YN as DELETE_YN
+			,A.MEMBERNO as MEMBERNO
+		  from TB_EMPLOYEES A, TB_MEMBER B
+		 where A.MEMBERNO = B.MEMBERNO
+		   and A.MEMBERNO=#{memberno}
+	</select>
+	
 
 
 </mapper>

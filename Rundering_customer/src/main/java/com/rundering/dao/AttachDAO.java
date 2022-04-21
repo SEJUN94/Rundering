@@ -6,16 +6,12 @@ import java.util.List;
 import com.rundering.dto.AttachVO;
 
 public interface AttachDAO {
-	public void insertOrderGoodsAtach(AttachVO attach) throws Exception;
 	
+	//atch_file_no_seq.nextval 가져오기
 	public int selectFileNo() throws Exception;
-	
-	public List<AttachVO> selectAttachByArticlesCode(int atchFileNo) throws Exception;
+	//파일정보 insert
 	public void insertAttach(AttachVO attach) throws SQLException;
 	public List<AttachVO> selectAttachVOByFileNo(String fileNo) throws Exception;
 	public  void deleteAttchFileRemoveByFileNo(String fileNo) throws Exception;
 	
-
 }
-
-

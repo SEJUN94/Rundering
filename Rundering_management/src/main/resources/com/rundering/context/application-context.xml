@@ -57,6 +57,7 @@
 	 	p:session-ref="sqlSession"
 	 />
 	 
+	
 	 
 	
 	
@@ -95,6 +96,9 @@
 		p:laundryOrderDAO-ref="laundryOrderDAO"
 		p:laundryOrderDetailDAO-ref="laundryOrderDetailDAO"
 		p:replyDAO-ref="replyDAO"
+	/>
+	<bean id="attachServicee" class="com.rundering.service.AttachServiceClass"
+		p:attachDAO-ref="attachDAO"
 	/>
 	
 	

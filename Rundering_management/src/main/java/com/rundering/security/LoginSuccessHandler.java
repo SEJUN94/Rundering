@@ -23,7 +23,10 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		User user = (User)authentication.getDetails();	
 		
 		MemberVO loginMember = user.getMemberVO();
-		EmployeesVO loginEmployee = user.getEmployeesVO();
+		String memberno = loginMember.getMemberNo();
+		
+		EmployeesVO loginEmployee = user.getEmployeesVO(memberno);
+ 		
 		HttpSession session = request.getSession();		
 		session.setAttribute("loginMember", loginMember);
 		session.setAttribute("loginEmployee", loginEmployee);
