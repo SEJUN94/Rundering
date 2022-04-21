@@ -19,20 +19,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.dto.ItemOrderVO;
 import com.rundering.manage.Criteria;
+import com.rundering.service.AdminItemOrderService;
 import com.rundering.service.ItemOrderService;
 
 @Controller
 @RequestMapping("/admin")
 public class BranchOrderController {
 	
-	@Resource(name="itemOrderService")
-	private ItemOrderService itemOrderService;
+	@Resource(name="adminItemOrderService")
+	private AdminItemOrderService adminItemOrderService;
 	
 	@RequestMapping("/branchorder/list")
 	public ModelAndView branchItemOrderList(Criteria cri, ModelAndView mnv) throws SQLException {
 		String url = "/admin/branchorder/equipment_order_list";
 
-		Map<String, Object> dataMap = itemOrderService.getItemOrderList(cri);
+		Map<String, Object> dataMap = adminItemOrderService.getItemOrderList(cri);
 
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
@@ -43,7 +44,7 @@ public class BranchOrderController {
 	public ModelAndView branchOrderDetail(String ordercode, ModelAndView mnv) throws SQLException{
 		String url = "admin/branchorder/equipment_order_detail";
 		
-		Map<String, Object> dataMap = itemOrderService.getItemOrderDetailList(ordercode);
+		Map<String, Object> dataMap = adminItemOrderService.getItemOrderDetailList(ordercode);
 		
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
@@ -55,7 +56,7 @@ public class BranchOrderController {
 	public String branchOrderModify(ItemOrderVO itemOrder, RedirectAttributes rttr) throws SQLException{
 		String url="redirect:/admin/branchorder/detail";
 		
-		itemOrderService.modifyStatus(itemOrder);
+		adminItemOrderService.modifyStatus(itemOrder);
 		
 		rttr.addFlashAttribute("from","modify");
 		rttr.addAttribute("ordercode", itemOrder.getOrdercode());
