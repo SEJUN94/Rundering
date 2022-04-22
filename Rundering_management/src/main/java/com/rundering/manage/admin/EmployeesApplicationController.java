@@ -28,22 +28,31 @@ public class EmployeesApplicationController {
 	
 	@RequestMapping("/main")
 	public ModelAndView employeeapplication(HttpServletRequest request,ModelAndView mnv,AppCriteria cri) throws Exception {
-		String url = "admin/employeeapplication/employeeapplication_main";
+		String url = "admin/employee/employeeapplication_main";
 		
 		HttpSession session = request.getSession();
-		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		EmployeesVO ev = (EmployeesVO) session.getAttribute("loginEmployee");
 		
-		cri.setPassword(loginUser.getPassword());
-		
+		cri.setPassword(ev.getBranchCode());
 		
 		Map<String, Object> dataMap = memberService.getEmplAppList(cri);
-		
 		
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
 		
 		return mnv;
 	}
+	
+	@RequestMapping("/detail")
+	public ModelAndView detail() throws Exception {
+		
+		
+		return null;
+		
+	}
+	
+	
+	
 	
 	@RequestMapping("/regist")
 	public String regeist(MemberVO mv, EmployeesVO ev) throws Exception {

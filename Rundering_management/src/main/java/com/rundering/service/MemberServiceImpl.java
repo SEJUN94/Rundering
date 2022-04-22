@@ -61,7 +61,7 @@ public class MemberServiceImpl implements MemberService {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 
 		List<MemberVO> appList = memberDAO.getEmplAppList(cri);
-
+		
 		// 전체 list 개수
 		int totalCount = memberDAO.applistCount(cri);
 		// PageMaker 생성.

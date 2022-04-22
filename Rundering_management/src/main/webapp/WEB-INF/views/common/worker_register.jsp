@@ -42,12 +42,12 @@
                         <div class="input-group-append">
                             <select class="btn btn-info btn-sm form-control" name="password" id="password">
                                 <option value="">지점선택</option>
-                                <option value="0601">동구지점</option>
-                                <option value="0602">중구지점</option>
-                                <option value="0603">서구지점</option>
-                                <option value="0604">유성구지점</option>
-                                <option value="0605">대덕구지점</option>
-                                <option value="0000">본사</option>
+                                <option value="060101">동구지점</option>
+                                <option value="060201">중구지점</option>
+                                <option value="060301">서구지점</option>
+                                <option value="060401">유성구지점</option>
+                                <option value="060501">대덕구지점</option>
+                                <option value="000000">본사</option>
                             </select>
                         </div>
                     </div>

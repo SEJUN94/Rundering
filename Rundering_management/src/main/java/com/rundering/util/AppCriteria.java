@@ -2,7 +2,7 @@ package com.rundering.util;
 public class AppCriteria {
 	
 	private int page=1;
-	private int perPageNum = 10;
+	private int perPageNum = 5;
 	private String searchType="";
 	private String keyword="";
 	private String password;
@@ -31,7 +31,7 @@ public class AppCriteria {
 	}
 	public void setPerPageNum(int perPageNum) {
 		if(perPageNum < 1) {
-			this.perPageNum = 10;
+			this.perPageNum = 5;
 		}else {
 			this.perPageNum = perPageNum;
 		}
