@@ -20,6 +20,36 @@
  		  from tb_reply
  		 where replyno=#{replyno} 
  	</select>
+ 	<select id="selectReplySeq" resultType="int">
+ 		select replyno_seq.nextval
+ 		  from dual
+ 	</select>
+ 	<insert id="insertReplyByReplyVO" parameterType="reply">
+ 		insert into tb_reply
+ 		(REPLYNO,
+ 	     REPLY_CONTENT,
+ 	     MEMBERNO,
+ 	     REPLYNO_SEQ
+ 		)
+ 		values( select #{replyno},
+		 			   #{replyContent},
+		 			   #{memberno},
+		 			   max(replyno_seq)+1
+		 		  from tb_reply
+ 		)
+ 	</insert>
+ 	
+	<insert id="insertReplyByReplyVOFirst" parameterType="reply">
+		insert into tb_reply
+		(REPLYNO,
+	     REPLY_CONTENT,
+	     MEMBERNO,
+		)
+		values( #{replyno},
+	 			#{replyContent},
+	 			 #{memberno}
+		)
+ 	</insert>
  	
  	
  

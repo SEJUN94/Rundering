@@ -9,6 +9,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.dto.ReplyVO;
 import com.rundering.manage.Criteria;
 import com.rundering.util.BranchCriteria;
 
@@ -50,6 +51,8 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		session.update("LaundryOrder-Mapper.updateLaundryOrderStatusByOrderNo", laundryOrderVO);
 		
 	}
+
+	
 	
 	
 

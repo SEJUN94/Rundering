@@ -81,7 +81,7 @@
 					<c:forEach items="${laundryOrderList }" var="laundryOrder">
 		
 						<tr class="mouseHover">
-							<td style="text-align: center;">${laundryOrder.orderNo }</td>
+							<td class="orderno" style="text-align: center;">${laundryOrder.orderNo }</td>
 							<td style="text-align: center;">${laundryOrder.area }</td>
 							<td class="textCut textDetail" 
 								data-text="${laundryOrder.requestDetails }">
@@ -127,37 +127,45 @@
 									<label for="exampleInputBorder ml-2" id="requestText"
 										class="mt-3"></label>
 								</div>
-								
-
-							</div>
-						</div>
-						<div class="modal fade" id="modal-lg" style="display: none;"
-							aria-hidden="true">
-							<div class="modal-dialog modal-lg">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h4 class="modal-title">Large Modal</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">×</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<p>One fine body…</p>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-primary">작성</button>
-										<button type="button" class="btn btn-danger"
-											data-dismiss="modal">닫기</button>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="modal-lg" style="display: none;"
+							aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">답변</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="request" id="replyForm">
+					<textarea rows="5" class="form-control" name="replyContent">
+					
+					</textarea>
+						 
+						<input type="hidden" name="replyno" id="replyno" value="">
+					</form>
+					
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="">작성</button>
+					<button type="button" class="btn btn-danger"data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script>
  window.onload=function(){ 
     let texts= document.querySelectorAll(".textCut");
@@ -176,6 +184,10 @@
     for(let i of mouseHover){
         i.addEventListener("click",function(){
             textContent.innerHTML=event.target.parentElement.querySelectorAll(".textDetail")[0].dataset.text
+            orderno=event.target.parentElement.querySelectorAll(".orderno")[0].innerText;
+        	replyno= document.querySelector("#replyno")
+        	replyno.setAttribute("value",orderno);
+        	console.log(replyno)
         })
     }
     let inputHiddens=document.querySelectorAll(".inputHidden")

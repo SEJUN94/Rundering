@@ -15,6 +15,7 @@ import com.rundering.dao.ReplayDAO;
 import com.rundering.dto.LaundryItemsVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.dto.ReplyVO;
 import com.rundering.dto.SuggestVO;
 import com.rundering.manage.Criteria;
 import com.rundering.manage.PageMaker;
@@ -75,8 +76,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		for (LaundryOrderVO laundryOrder : laundryOrderList) {
 			laundryOrderDAO.updateLaundryOrderStatusByOrderNo(laundryOrder);
 		}
+	}
+	public void insertRequest(ReplyVO peply) throws Exception{
 		
-	
+		
 	}
 	
 }
