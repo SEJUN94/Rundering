@@ -23,7 +23,15 @@ public class ComCodeDAOImpl implements ComCodeDAO{
 	
 		return session.selectList("ComCode-Mapper.selectLaundryStatusCode");
 	}
-	
+
+	@Override
+	public List<ComCodeVO> selectComCodeByComCodeGrp(String comCodeGrp) throws Exception {
+		return session.selectList("ComCode-Mapper.selectComCodeByComCodeGrp",comCodeGrp);
+	}
+	@Override
+	public List<ComCodeVO> selectComCodeByUpperComCode(String comCodeGrp) throws Exception {
+		return session.selectList("ComCode-Mapper.selectComCodeByUpperComCode",comCodeGrp);
+	}
 
 
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
 import com.rundering.manage.Criteria;
+import com.rundering.util.BranchCriteria;
 
 public interface ItemOrderService {
 
@@ -16,7 +17,6 @@ public interface ItemOrderService {
 	public void insertItemOrder(ItemOrderVO itemOrder, List<ItemOrderDetailVO> itemOrderDetailList) throws Exception;
 
 
-	public Map<String, Object> itemOrdeList(Criteria cri, HttpSession session) throws Exception;
 
 
 	public List<ItemOrderDetailVO> getItemOrdeDetail(String ordercode) throws Exception;
@@ -35,5 +35,8 @@ public interface ItemOrderService {
 
 
 	public void deleteItemorder(String ordercode) throws Exception;
+
+
+	public Map<String, Object> itemOrdeList(BranchCriteria cri, HttpSession session) throws Exception;
 	
 }

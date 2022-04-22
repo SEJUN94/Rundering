@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
 import com.rundering.manage.Criteria;
+import com.rundering.util.BranchCriteria;
 
 public interface ItemOrderDAO {
 	public void insertItemOrderByItmeOrder(ItemOrderVO itemOrder) throws Exception;
@@ -14,8 +15,8 @@ public interface ItemOrderDAO {
 	public String seq() throws Exception;
 	public void itemOrderRemove(String seq) throws Exception;
 	public void itemOrderDetailRemove(String seq) throws Exception;
-	public List<ItemOrderVO> selectItemOrderList(Criteria cri) throws Exception;
-	public int selectCount(Criteria cri) throws Exception;
+	public List<ItemOrderVO> selectItemOrderList(BranchCriteria cri) throws Exception;
+	public int selectCount(BranchCriteria cri) throws Exception;
 	public int selectTotalPriceByOrderCode(String ordercode) throws Exception;
 	public List<ItemOrderDetailVO> selectItemOrderDetailByOrdercode(String ordercode) throws Exception;
 	public String selectItemOrderBranchCodeByOrdercode(String ordercode) throws Exception;

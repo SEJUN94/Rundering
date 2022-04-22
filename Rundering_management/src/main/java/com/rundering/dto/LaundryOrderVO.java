@@ -17,7 +17,7 @@ public class LaundryOrderVO {
 	private Date deliveryDate;          //배송완료일자
 	private String orderStatus;         //주문상태코드
 	private String cancelYn;            //취소여부
-	private String paymentNo;           //결제번호
+	private String paymentno;           //결제번호
 	private String branchCode;          //지점코드
 	private String memberNo;            //회원고유번호
 	private String deliveryEmployeeId;  //배송담당기사
@@ -30,13 +30,29 @@ public class LaundryOrderVO {
 	public LaundryOrderVO() {
 		super();
 	}
-
+	 
 	public String getOrderNo() {
 		return orderNo;
 	}
+
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
+
+
+
+	public String getMemberNo() {
+		return memberNo;
+	}
+
+
+
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
+	}
+
+
+
 	public String getRequestDetails() {
 		return requestDetails;
 	}
@@ -109,22 +125,25 @@ public class LaundryOrderVO {
 	public void setCancelYn(String cancelYn) {
 		this.cancelYn = cancelYn;
 	}
-	public String getPaymentNo() {
-		return paymentNo;
+	
+	public String getPaymentno() {
+		return paymentno;
 	}
-	public void setPaymentNo(String paymentNo) {
-		this.paymentNo = paymentNo;
+
+	public void setPaymentno(String paymentno) {
+		this.paymentno = paymentno;
 	}
+
 	public String getBranchCode() {
 		return branchCode;
 	}
 	public void setBranchCode(String branchCode) {
 		this.branchCode = branchCode;
 	}
-	public String getMemberNo() {
+	public String getMemberno() {
 		return memberNo;
 	}
-	public void setMemberNo(String memberNo) {
+	public void setMemberno(String memberNo) {
 		this.memberNo = memberNo;
 	}
 	public String getDeliveryEmployeeId() {

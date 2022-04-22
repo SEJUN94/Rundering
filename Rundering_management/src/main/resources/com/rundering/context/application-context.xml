@@ -47,6 +47,16 @@
 	 <bean id="comCodeDAO" class="com.rundering.dao.ComCodeDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
+	 <bean id="replyDAO" class="com.rundering.dao.ReplyDAOImpl"
+	 	p:session-ref="sqlSession"
+	 />
+	 <bean id="laundryOrderDAO" class="com.rundering.dao.LaundryOrderDAOImpl"
+	 	p:session-ref="sqlSession"
+	 />
+	 <bean id="laundryOrderDetailDAO" class="com.rundering.dao.LaundryOrderDetailDAOImpl"
+	 	p:session-ref="sqlSession"
+	 />
+	 
 	
 	
 	 
@@ -85,7 +95,14 @@
 	<bean id="attachService" class="com.rundering.service.AttachService"
 		p:attachDAO-ref="attachDAO"
 	/>
-	
+	<bean id="laundtyOrderService" class="com.rundering.service.LaundryOrderServiceImpl" 
+      p:laundryItemsDAO-ref="laundryItemsDAO"
+      p:laundryOrderDAO-ref="laundryOrderDAO"
+      p:laundryOrderDetailDAO-ref="laundryOrderDetailDAO"
+      p:replyDAO-ref="replyDAO"
+      p:comCodeDAO-ref="comCodeDAO"
+   />
+
 	
 	
 </beans>

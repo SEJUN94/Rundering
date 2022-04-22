@@ -55,6 +55,17 @@ public class LaundryArticlesDAOImpl implements LaundryArticlesDAO{
 	public void deleteLaundryArticles(String articlesCode) throws SQLException {
 		session.update("LaundryArticles-Mapper.deleteLaundryArticles",articlesCode);
 	}
+	@Override
+	public List<LaundryArticlesVO> NotALaundryArticlesList(Criteria cri) throws SQLException {
+		int offset=cri.getStartRowNum();
+		int limit=cri.getPerPageNum();		
+		RowBounds rowBounds=new RowBounds(offset,limit);		
+		
+		List<LaundryArticlesVO> laundryArticlesList=
+				session.selectList("LaundryArticles-Mapper.NotALaundryArticlesList",cri,rowBounds);
+		
+		return laundryArticlesList;
+	}
 
 	
 	

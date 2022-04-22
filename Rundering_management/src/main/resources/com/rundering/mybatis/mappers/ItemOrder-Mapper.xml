@@ -73,6 +73,9 @@
 		from tb_item_order
 		where ordercode is not null
 		<include refid="search"/>
+		 <if test="!branchCode.equals('') and branchCode!=null">
+			and branch_code = #{branchCode}
+		</if>
 	</select>
 	
 	<select id="selectTotalPriceByOrderCode" resultType="str" parameterType="str">
