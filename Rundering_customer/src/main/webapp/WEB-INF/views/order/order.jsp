@@ -145,7 +145,7 @@
 
 
 					<div class="">
-						<input type="date" class="form-control" name="pickupRequestDate" min="${nowDate }" max="${twoWeeksAfterDate}"> <span class="sp"></span>
+						<input type="date" class="form-control" name="pickupRequestDate" min="${nowDate }" max="${twoWeeksAfterDate}" required> <span class="sp"></span>
 					</div>
 
 					<div class="input-group mb-3" style="margin-top: 20px;">

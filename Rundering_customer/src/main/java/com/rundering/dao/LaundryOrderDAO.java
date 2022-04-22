@@ -11,6 +11,9 @@ public interface LaundryOrderDAO {
 	
 	// 세탁주문접수
 	public void insertLaundryOrder(LaundryOrderVO laundryOrder) throws SQLException;
+	
+	// 세탁주문조회 - 주문번호로
+	public LaundryOrderVO selectLaundryOrderByOrderNo(String orderNo) throws SQLException;
 			
 	
 }

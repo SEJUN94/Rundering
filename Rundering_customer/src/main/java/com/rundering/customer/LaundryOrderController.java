@@ -92,7 +92,7 @@ public class LaundryOrderController {
 	public ModelAndView completed(LaundryOrderReceiveCommand command, HttpServletRequest request, ModelAndView mnv) throws Exception {
 		
 		//주문완료 페이지가 없어 일단 홈화면으로 가도록 함
-		String url="/main";
+		String url="/order/order_completed";
 		
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
@@ -119,9 +119,11 @@ public class LaundryOrderController {
 		laundryOrder.setArea(memberAddress.getArea());
 		
 		List<LaundryOrderDetailVO> laundryOrderDetailVOList = command.toLaundryOrderDetailVOList();
- 		laundryOrderService.orderReceive(laundryOrder, laundryOrderDetailVOList);
+ 		String orderNo = laundryOrderService.orderReceive(laundryOrder, laundryOrderDetailVOList);
  		
+ 		LaundryOrderVO registeredLaundryOrder = laundryOrderService.getLaundryOrder(orderNo);
 		
+ 		mnv.addObject("registeredLaundryOrder", registeredLaundryOrder);
 		mnv.setViewName(url);
 		return mnv;
 		

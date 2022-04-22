@@ -26,5 +26,11 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		session.update("LaundryOrder-Mapper.insertLaundryOrder", laundryOrder);
 	}
 
+	@Override
+	public LaundryOrderVO selectLaundryOrderByOrderNo(String orderNo) throws SQLException {
+		LaundryOrderVO laundryOrder = session.selectOne("LaundryOrder-Mapper.selectLaundryOrderByOrderNo",orderNo);
+		return laundryOrder;
+	}
+
 
 }

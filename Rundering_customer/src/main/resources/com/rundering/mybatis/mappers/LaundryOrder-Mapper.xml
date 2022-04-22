@@ -5,6 +5,32 @@
   
 <mapper namespace="LaundryOrder-Mapper">
 
+	<resultMap type="laundryOrder" id="laundryOrderMap">
+		<result column="ORDER_NO" 		 property="orderNo" />
+		<result column="REQUEST_DETAILS" property="requestDetails" />
+		<result column="ORDER_DATE"      property="orderDate" />
+		<result column="CONTACT_NUMBER"  property="contactNumber" />
+		<result column="DELIVERY_REQUEST_DATE" property="deliveryRequestDate" />
+		<result column="TOTAL_PRICE" property="totalPrice" />
+		<result column="PICKUP_REQUEST_DATE" property="pickupRequestDate" />
+		<result column="PICKUP_DATE" property="pickupDate" />
+		<result column="BRANCH_ARRIVAL_DATE" property="branchArrivalDate" />
+		<result column="AREA" property="area" />
+		<result column="DELIVERY_DATE" property="deliveryDate" />
+		<result column="ORDER_STATUS" property="orderStatus" />
+		<result column="CANCEL_YN" property="cancelYn" />
+		<result column="PAYMENTNO" property="paymentNo" />
+		<result column="BRANCH_CODE" property="branchCode" />
+		<result column="MEMBERNO" property="memberNo" />
+		<result column="DELIVERY_EMPLOYEE_ID" property="deliveryEmployeeId" />
+		<result column="PICKUP_EMPLOYEE_ID" property="pickupEmployeeId" />
+		<result column="ZIP" property="zip" />
+		<result column="ADD1" property="add1" />
+		<result column="ADD2" property="add2" />
+		<result column="ATCH_FILE_NO" property="atchFileNo" />
+		<result column="REPLYNO" property="replyNo" />
+	</resultMap>
+
 	<select id="selectLaundryOrderSequenceNextValue" resultType="str">
 		select FN_LAUNDRY_ORDER_NO('now') from DUAL
 	</select>
@@ -74,5 +100,9 @@
 			</otherwise>
 		</choose>
 	</update>
-
+	
+	<select id="selectLaundryOrderByOrderNo" parameterType="str" resultMap="laundryOrderMap">
+		SELECT * FROM TB_LAUNDRY_ORDER WHERE ORDER_NO = #{orderNo}
+	</select>
+	
 </mapper>

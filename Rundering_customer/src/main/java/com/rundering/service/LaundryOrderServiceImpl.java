@@ -38,7 +38,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	
 	//세탁주문접수
 	@Override
-	public void orderReceive(LaundryOrderVO laundryOrder, List<LaundryOrderDetailVO> laundryOrderDetailVOList) throws SQLException {
+	public String orderReceive(LaundryOrderVO laundryOrder, List<LaundryOrderDetailVO> laundryOrderDetailVOList) throws SQLException {
 		//주문번호 시퀀스로 가져오기
 		String orderNo = laundryOrderDAO.selectLaundryOrderSequenceNextValue();
 		laundryOrder.setOrderNo(orderNo);
@@ -74,6 +74,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		payment.setOrderNo(orderNo);
 		payment.setPaymentNo(laundryOrder.getPaymentNo());
 		paymentDAO.updatePaymentOrderNo(payment);
+		return orderNo;
 		
 	}
 
@@ -110,5 +111,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		dataMap.put("orderName", orderName);
 		
 		return dataMap;
+	}
+
+	@Override
+	public LaundryOrderVO getLaundryOrder(String orderNo) throws SQLException {
+		return laundryOrderDAO.selectLaundryOrderByOrderNo(orderNo);
 	}
 }
