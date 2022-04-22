@@ -56,19 +56,20 @@ public class EmployeesApplicationController {
 	}
 	
 	@RequestMapping("/detail")
-	public ResponseEntity<String> detail(ModelAndView mnv,String memberNo) throws Exception {
+	public ResponseEntity<MemberVO> detail(String memberNo) throws Exception {
 		
-		ResponseEntity<String> entity = null;
+		ResponseEntity<MemberVO> entity = null;
+		System.out.println(memberNo+"dsadsadasdasdasdasds");
 		
 		try {
 			MemberVO mv = memberService.getEmpAppinfo(memberNo);
 			if (mv != null) {
-				entity = new ResponseEntity<String>("duplicated", HttpStatus.OK);
+				entity = new ResponseEntity<MemberVO>(mv, HttpStatus.OK);
 			} else {
-				entity = new ResponseEntity<String>("", HttpStatus.OK);
+				System.out.println("실행 안됨!!!");
 			}
 		} catch (SQLException e) {
-		entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		entity = new ResponseEntity<MemberVO>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		
