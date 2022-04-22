@@ -35,14 +35,6 @@
 				<div class="card card-outline card-info">
 					<div class="card-header">
 						<h3 class="card-title p-1">상세보기</h3>
-						<div class="card-tools">
-							<%-- <button type="button" class="btn btn-primary" id="modifyBtn" onclick="modify_go('${suggest.sno}');">수 정</button>
-							&nbsp;&nbsp;
-							<button type="button" class="btn btn-danger" id="removeBtn" onclick="remove_go('${suggest.sno}');">삭 제</button>
-							&nbsp;&nbsp; --%>
-							<button type="button" class="btn btn-warning" id="cancelBtn"
-								onclick="CloseWindow();">닫 기</button>
-						</div>
 					</div>
 					<!--end card-header  -->
 					<div class="card-body pad">
@@ -77,7 +69,16 @@
 
 					</div>
 					<!--end card-body  -->
-					<div class="card-footer" style="display: none"></div>
+					<div class="card-footer">
+						<div class="float-right">
+							<%-- <button type="button" class="btn btn-primary" id="modifyBtn" onclick="modify_go('${suggest.sno}');">수 정</button>
+							&nbsp;&nbsp;
+							<button type="button" class="btn btn-danger" id="removeBtn" onclick="remove_go('${suggest.sno}');">삭 제</button>
+							&nbsp;&nbsp; --%>
+							<button type="button" class="btn btn-primary" id="cancelBtn"
+								onclick="CloseWindow();">닫 기</button>
+						</div>
+					</div>
 					<!--end card-footer  -->
 				</div>
 				<!-- end card -->

@@ -87,12 +87,12 @@
 					<!--end card-body  -->					
 					<div class="card-footer">
 						<div class="float-right">
-							<%-- <button type="button" class="btn btn-danger" id="removeBtn"
+							<button type="button" class="btn btn-danger" id="removeBtn"
 								onclick="remove_go('${asRequest.asno}');">삭제</button>
 							&nbsp;&nbsp;
 							<button type="button" class="btn btn-warning" id="cancelBtn"
 								onclick="modify_go('${asRequest.asno}');">수정</button>
-							&nbsp;&nbsp; --%>
+							&nbsp;&nbsp;
 							<button type="button" class="btn btn-primary" id="cancelBtn"
 								onclick="CloseWindow();">닫 기</button>
 						</div>
@@ -106,7 +106,7 @@
 		<!-- end row -->
 	</section>
 	<!-- /.content -->
-	<!-- <script>
+	<script>
 		function modify_go(asno) {
 			location.href = "modifyForm?asno=" + asno;
 		}
@@ -123,5 +123,5 @@
 		window.close();
 		window.opener.location.reload();
 		</c:if>
-	</script> -->
+	</script>
 </body>
