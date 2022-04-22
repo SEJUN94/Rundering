@@ -57,6 +57,11 @@ public class AsRequestDAOImpl implements AsRequestDAO {
 	public void insertAsRequest(AsRequestVO AsRequest) throws SQLException {
 		session.update("AsRequest-mapper.insertAsRequest", AsRequest);
 	}
+	
+	@Override
+	public void selectItemList(AsRequestVO AsRequest) throws SQLException {
+		session.update("AsRequest-mapper.selectItemList", AsRequest);
+	}
 
 	@Override
 	public void updateAsRequest(AsRequestVO AsRequest) throws SQLException {

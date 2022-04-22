@@ -21,6 +21,8 @@ public interface AsRequestDAO {
 	int selectAsRequestSequenceNextValue() throws SQLException;
 
 	void insertAsRequest(AsRequestVO AsRequest) throws SQLException;
+	
+	void selectItemList(AsRequestVO AsRequest) throws SQLException;
 
 	void updateAsRequest(AsRequestVO AsRequest) throws SQLException;
 

@@ -58,8 +58,7 @@ public class BranchSuggestController {
 			suggest = suggestService.getSuggest(sno);
 			
 			EmployeesVO employees = (EmployeesVO) session.getAttribute("loginEmployee");
-			System.out.println(employees.getEmployeeId());
-			if (employees.getBranchCode().equals("0000")) {
+			if (employees.getBranchCode().equals("000000")) {
 				suggest = suggestService.getCheck(sno);
 			}
 			

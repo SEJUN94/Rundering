@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.SuggestVO;
 import com.rundering.manage.Criteria;
 import com.rundering.service.SuggestServiceImpl;
@@ -35,7 +37,7 @@ public class AdminSuggestController {
 	
 	@RequestMapping(value = "/detail")
 	private ModelAndView suggestDetail(int sno, @RequestParam(defaultValue = "") String from,
-			HttpServletRequest request, ModelAndView mnv) throws SQLException {
+			HttpServletRequest request, ModelAndView mnv, HttpSession session) throws SQLException {
 
 		String url = "admin/suggest/suggest_detail";
 
@@ -45,7 +47,10 @@ public class AdminSuggestController {
 			suggest = suggestService.getSuggestModify(sno);
 		} else {
 			suggest = suggestService.getSuggest(sno);
-			suggest = suggestService.getCheck(sno);
+			EmployeesVO employees = (EmployeesVO) session.getAttribute("loginEmployee");
+			if (employees.getBranchCode().equals("000000")) {
+				suggest = suggestService.getCheck(sno);
+			}
 			url = "redirect:/admin/suggest/detail?sno=" + sno;
 		}
 

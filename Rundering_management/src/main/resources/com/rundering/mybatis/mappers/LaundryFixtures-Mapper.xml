@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LaundryFixtures-mapper">
+
+	<!-- 언더바컬럼재정의 -->
+	<resultMap type="laundryFixtures" id="laundryFixturesMap">
+
+		<result column="FIXTURES_CODE" property="fixturesCode" />
+		<result column="REGIST_DATE" property="registDate" />
+		<result column="STATUS" property="status" />
+		<result column="DISPOSITION_DATE" property="dispositionDate" />
+		<result column="BRANCH_CODE" property="branchCode" />
+		<result column="ARTICLES_CODE" property="articlesCode" />
+		<result column="FIXTURES_NAME" property="fixturesName" />
+
+	</resultMap>
+
+
+	<select id="getFixturesCodeAsRequest" parameterType="laundryFixtures" resultType="str">
+		select A.FIXTURES_CODE as FIXTURES_CODE
+            from TB_LAUNDRY_FIXTURES A,TB_BRANCH B
+            where B.BRANCH_CODE = A.BRANCH_CODE
+            AND B.BRANCH_NAME =  #{branchCode}
+            AND A.FIXTURES_NAME = #{fixturesName}
+	</select>
+
+</mapper>

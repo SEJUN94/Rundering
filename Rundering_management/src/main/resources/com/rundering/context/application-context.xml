@@ -26,6 +26,9 @@
 	<bean id="laundryArticlesDAO" class="com.rundering.dao.LaundryArticlesDAOImpl"
 		p:session-ref="sqlSession"
 	/>
+	<bean id="laundryFixturesDAO" class="com.rundering.dao.LaundryFixturesDAOImpl"
+		p:session-ref="sqlSession"
+	/>
 	<bean id="laundryItemsDAO" class="com.rundering.dao.LaundryItemsDAOImpl"
 		p:session-ref="sqlSession"
 	/>
@@ -72,6 +75,9 @@
 	<bean id="laundryArticlesService" class="com.rundering.service.LaundryArticlesServiceImpl"
 		p:laundryArticlesDAO-ref="laundryArticlesDAO"
 		p:attachDAO-ref="attachDAO"
+	/>	
+	<bean id="laundryFixturesService" class="com.rundering.service.LaundryFixturesServiceImpl"
+		p:laundryFixturesDAO-ref="laundryFixturesDAO"
 	/>	
 	<bean id="laundryItemsService" class="com.rundering.service.LaundryItemsServiceImpl"
 		p:laundryItemsDAO-ref="laundryItemsDAO" 

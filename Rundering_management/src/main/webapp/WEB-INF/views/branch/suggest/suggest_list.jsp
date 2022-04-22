@@ -76,7 +76,7 @@ th, td {
 							<table class="table table-hover text-nowrap">
 								<thead>
 									<tr>
-										<th class="no" id=>번호</th>
+										<th class="no">번호</th>
 										<th class="boardtitle">제목</th>
 										<th class="writer">작성자</th>
 										<th class="branchName">지점</th>
