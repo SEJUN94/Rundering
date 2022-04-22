@@ -26,7 +26,7 @@ public class LaundryItemsController {
 	private LaundryItemsService laundryItemsService;
 	
 	@RequestMapping("/list")
-	public ModelAndView laundryItemsList(Criteria cri, ModelAndView mnv) throws SQLException {
+	public ModelAndView laundryItemsList(Criteria cri, ModelAndView mnv) throws Exception {
 		String url = "admin/laundryitems/laundryitems_list";
 		Map<String, Object> dataMap = laundryItemsService.getLaundryItemsList(cri);
 		
@@ -61,7 +61,7 @@ public class LaundryItemsController {
 	}
 	
 	@RequestMapping(value="/modify",method=RequestMethod.POST)
-	public String noticeModify(LaundryItemsVO laundryItems,
+	public String Modify(LaundryItemsVO laundryItems,
 						     HttpServletRequest request,
 							 RedirectAttributes rttr)throws Exception{
 		String url = "redirect:/admin/laundryitems/modifyForm";

@@ -39,14 +39,46 @@
             </div>
             <div class="card-footer">
                 <div class="float-right">
-                    <button type="button" class="btn btn-primary">뒤로가기</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">댓글작성 </button>
-                    <button type="button" class="btn btn-danger" onclick="remove_go('${notice.noticeno}');">삭제</button>
+                 <!--    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">댓글작성 </button> -->
                     <button type="button" class="btn btn-warning" onclick="modify_go('${notice.noticeno}');">수정</button>
+                    <button type="button" class="btn btn-danger" onclick="remove_go('${notice.noticeno}');">삭제</button>
+                    <button type="button" class="btn btn-primary"  onclick="CloseWindow();">닫기</button>
                 </div>
             </div>
         </div>
     </div>
+    
+     <!-- Reply content -->
+    <section class="content container-fluid">
+    	<!-- reply component start --> 
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card card-info">					
+					<div class="card-body">
+						<!-- The time line -->
+						<div class="timeline">
+							<!-- timeline time label -->
+							<div class="time-label" id="repliesDiv">
+								<span class="bg-green">Replies List </span>							
+							</div>
+							
+						</div>
+					</div>
+					<div class="card-footer">
+						<label for="newReplyText">Reply Text</label>
+						<input class="form-control" type="text"	placeholder="REPLY TEXT" id="newReplyText">
+						<br/>
+						<button type="button" class="btn btn-primary" id="replyAddBtn" onclick="replyRegist_go();">ADD REPLY</button>
+					</div>				
+				</div>			
+				
+			</div><!-- end col-md-12 -->
+		</div><!-- end row -->
+    </section>
+    
+    
+    
+   	<!-- modal -->
     <div class="modal fade" id="modal-lg" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

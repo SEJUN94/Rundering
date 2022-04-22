@@ -8,7 +8,7 @@ import com.rundering.dto.LaundryItemsVO;
 
 public interface LaundryItemsService {
 	
-	public Map<String, Object> getLaundryItemsList(Criteria cri) throws SQLException;
+	public Map<String, Object> getLaundryItemsList(Criteria cri) throws Exception;
 	
 	//modify때문에 vo정보를 가져오는 메소드 생성
 	public LaundryItemsVO getLaundryItemsByItemCode(String laundryItemsCode) throws SQLException;

@@ -43,6 +43,7 @@
 		AND B.LAUNDRY_ITEMS_CODE is not null
 		AND B.DELETE_YN='N'
 		<include refid="search" />
+		order by B.regist_date desc
 	
 	</select>
 	
@@ -65,6 +66,19 @@
 		from
 		TB_LAUNDRY_ITEMS
 		where LAUNDRY_ITEMS_CODE is not null
+		<if test="searchType == 't'.toString()">
+			AND LAUNDRY_ITEMS_CODE like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'c'.toString()">
+			AND ITEMS_NAME like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'tc'.toString()">
+			AND (
+			LAUNDRY_ITEMS_CODE like '%'||#{keyword}||'%'
+			or
+			ITEMS_NAME like '%'||#{keyword}||'%'						
+			)			
+		</if>
 	</select>
 	
 
@@ -89,6 +103,7 @@
 		set 
 		ITEMS_NAME=#{itemsName},price=#{price}
 		where LAUNDRY_ITEMS_CODE=#{laundryItemsCode}
+		
 	</update>
 	
 	

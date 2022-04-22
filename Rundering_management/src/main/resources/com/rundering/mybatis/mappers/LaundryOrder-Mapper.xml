@@ -32,7 +32,23 @@
 	 
 	
 	</resultMap>
-
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			AND B.LAUNDRY_ITEMS_CODE like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'c'.toString()">
+			AND B.ITEMS_NAME like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'tc'.toString()">
+			AND (
+			B.LAUNDRY_ITEMS_CODE like '%'||#{keyword}||'%'
+			or
+			B.ITEMS_NAME like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>
+	
+	
 
 	<select id="selectLaundryOrderSequenceNextValue" resultType="str">
 		select FN_LAUNDRY_ORDER_NO('now') from DUAL
@@ -45,7 +61,7 @@
 		<include refid="search"/>
 	</select>
 	
-	<select id="selectLaundryOrderList" resultMap="itemOrderMap">
+	<select id="selectLaundryOrderList" resultMap="laundryOrderMap">
 		select *
 		  from TB_LAUNDRY_ORDER
 		 where ORDER_NO is not null

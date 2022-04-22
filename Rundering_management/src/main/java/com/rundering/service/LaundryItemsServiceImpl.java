@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.LaundryItemsDAO;
+import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.LaundryItemsVO;
 import com.rundering.manage.Criteria;
 import com.rundering.manage.PageMaker;
@@ -15,6 +17,11 @@ public class LaundryItemsServiceImpl implements LaundryItemsService{
 	private LaundryItemsDAO laundryItemsDAO;
 	public void setLaundryItemsDAO(LaundryItemsDAO laundryItemsDAO) {
 		this.laundryItemsDAO = laundryItemsDAO;
+	}
+	
+	private ComCodeDAO comCodeDAO;
+	public void setComCodeDAO(ComCodeDAO comCodeDAO) {
+		this.comCodeDAO = comCodeDAO;
 	}
 
 	@Override
@@ -41,9 +48,14 @@ public class LaundryItemsServiceImpl implements LaundryItemsService{
 	}
 
 	@Override
-	public Map<String, Object> getLaundryItemsList(Criteria cri) throws SQLException {
+	public Map<String, Object> getLaundryItemsList(Criteria cri) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		List<LaundryItemsVO> laundryItemsList = laundryItemsDAO.selectlaundryItemsList(cri);
+		List<ComCodeVO> comCodeList =  comCodeDAO.selectLaundryCategory();
+		Map<String, String> codeMap = new HashMap<String, String>();
+		for (ComCodeVO comCodeVO : comCodeList) {
+			codeMap.put(comCodeVO.getComCode(), comCodeVO.getComCodeNm()) ;
+		}
 		
 		// 전체 board 개수
 		int totalCount = laundryItemsDAO.selectLaundryItemsCriteriaTotalCount(cri);
@@ -55,6 +67,8 @@ public class LaundryItemsServiceImpl implements LaundryItemsService{
 
 		dataMap.put("laundryItemsList", laundryItemsList);
 		dataMap.put("pageMaker", pageMaker);
+		dataMap.put("codeMap", codeMap);
+		
 		
 		return dataMap;
 	}

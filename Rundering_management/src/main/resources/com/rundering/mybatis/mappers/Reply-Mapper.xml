@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="Reply-Mapper">
- 	<resultMap type="" id="">
+ 	<resultMap type="reply" id="replyMap">
  		<result column="REPLYNO" 		property="replyno" />
  		<result column="REPLY_CONTENT"  property="replyContent" />
  		<result column="MEMBERNO" 		property="memberno" />
@@ -15,12 +15,40 @@
  		<result column="DELETE_YN"		property="deleteYn" />
  	
  	</resultMap>
- 	<select id="selectReplyByReplyNo">
+ 	<select id="selectReplyByReplyNo" resultMap="replyMap">
  		select *
- 		  from tb_reply
- 		 where replyno=#{replyno} 
+ 		  from TB_REPLY
+ 		 where REPLYNO=#{replyno} 
  	</select>
  	
- 	
+	<select id="selectReplySeqNextValue" resultType="int" >
+		select TB_REPLY_seq.nextval
+		from dual		
+	</select>
+	
+	<select id="selectReplyList" resultType="reply">
+		select *
+		from TB_REPLY
+		where REPLYNO=#{replyno}
+		order by replyno asc
+	</select>
+	
+	<update id="insertReply" >
+		insert into TB_REPLY(replyno,replyContent,memberno)
+		values(#{replyno},#{replyContent},#{memberno})
+	</update>
+	
+	<update id="updateReply" parameterType="reply">
+		update TB_REPLY
+		set 
+		replyContent=#{replyContent},
+		updatedate=sysdate
+		where replyno=#{replyno}		
+	</update>
+	
+	<update id="deleteReply" parameterType="int">
+		delete from TB_REPLY
+		where replyno=#{replyno}		
+	</update>	
  
  </mapper>
