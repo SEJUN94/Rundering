@@ -33,5 +33,10 @@ public class ComCodeDAOImpl implements ComCodeDAO{
 		return session.selectList("ComCode-Mapper.selectComCodeByUpperComCode",comCodeGrp);
 	}
 
+	@Override
+	public List<ComCodeVO> selectLaundryCategory() throws Exception {
+		return session.selectList("ComCode-Mapper.selectLaundryCategory");
+	}
+
 
 }

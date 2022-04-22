@@ -23,6 +23,11 @@
 		  from tb_com_code
 		 where com_code_grp='ORDER_STATUS' 
 	</select>
+	<select id="selectLaundryCategory" resultMap="comCodeMap">
+		select *
+		  from tb_com_code
+		 where com_code_grp='LAUNDRY_CATEGORY' 
+	</select>
 	<select id="selectComCodeByComCodeGrp" resultMap="comCodeMap">
 	select *
 		  from tb_com_code
