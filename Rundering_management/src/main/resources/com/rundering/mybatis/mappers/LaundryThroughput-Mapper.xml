@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LaundryThroughput-Mapper">
+	<resultMap type="laundryThroughput" id="laundryThroughputMap">
+		<result column="THROUGHPUT_NO" property="throughputNo"/>
+		<result column="LAUNDRY_QUOTA" property="laundryQuota"/>
+		<result column="TOTAL_THROUGHPUT" property="totalThroughput"/>
+		<result column="OVERSHOOT" property="overshoot"/>
+		<result column="AREA" property="area"/>
+		<result column="LDATE" property="date"/>
+		<result column="BRANCH_CODE" property="branchCode"/>
+	</resultMap>
+	
+	<select id="laundryQuotaList" resultMap="laundryThroughputMap">
+		SELECT 
+			A.THROUGHPUT_NO,
+			A.LAUNDRY_QUOTA,
+			A.TOTAL_THROUGHPUT,
+			A.OVERSHOOT,
+			A.AREA,
+			A.LDATE,
+			A.BRANCH_CODE,
+			(A.TOTAL_THROUGHPUT/A.LAUNDRY_QUOTA*100) as quotaPercent,
+			B.BRANCH_NAME as branchName
+		  from TB_LAUNDRY_THROUGHPUT A, TB_BRANCH B
+		 where A.BRANCH_CODE=B.BRANCH_CODE
+	</select>
+	
+	<select id="laundryQuotaDetail" resultMap="laundryThroughputMap" parameterType="str">
+		SELECT 
+			A.THROUGHPUT_NO,
+			A.LAUNDRY_QUOTA,
+			A.TOTAL_THROUGHPUT,
+			A.OVERSHOOT,
+			A.AREA,
+			A.LDATE,
+			A.BRANCH_CODE,
+			(A.TOTAL_THROUGHPUT/A.LAUNDRY_QUOTA*100) as quotaPercent,
+			B.BRANCH_NAME as branchName
+		  from TB_LAUNDRY_THROUGHPUT A, TB_BRANCH B
+		 where A.BRANCH_CODE=B.BRANCH_CODE
+		   and A.THROUGHPUT_NO=#{throughputNo}
+			
+	</select>
+	
+</mapper>
