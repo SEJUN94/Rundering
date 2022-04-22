@@ -19,16 +19,16 @@
 		<result column="DELIVERY_DATE" property="deliveryDate" />
 		<result column="ORDER_STATUS" property="orderStatus" />
 		<result column="CANCEL_YN" property="cancelYn" />
-		<result column="PAYMENTNO" property="paymentno" />
+		<result column="PAYMENTNO" property="paymentNo" />
 		<result column="BRANCH_CODE" property="branchCode" />
-		<result column="MEMBERNO" property="memberno" />
+		<result column="MEMBERNO" property="memberNo" />
 		<result column="DELIVERY_EMPLOYEE_ID" property="deliveryEmployeeId" />
 		<result column="PICKUP_EMPLOYEE_ID" property="pickupEmployeeId" />
 		<result column="ZIP" property="zip" />
 		<result column="ADD1" property="add1" />
 		<result column="ADD2" property="add2" />
 		<result column="ATCH_FILE_NO" property="atchFileNo" />
-		<result column="REPLYNO" property="replyno" />
+		<result column="REPLYNO" property="replyNo" />
 	 
 	
 	</resultMap>
@@ -66,10 +66,6 @@
 	</sql>
 
 
-	<select id="selectLaundryOrderSequenceNextValue" resultType="str">
-		select FN_LAUNDRY_ORDER_NO('now') from DUAL
-	</select>
-
 	<select id="selectCount" resultType="int">
 		select count(*)
 		from TB_LAUNDRY_ORDER
@@ -99,35 +95,6 @@
 		 where order_no=#{orderNo} 
 	</update>
 
-
-
-	<update id="insertLaundryOrder" parameterType="laundryOrder">
-		<choose>
-			<when test="requestDetails != null">
-				INSERT INTO TB_LAUNDRY_ORDER
-					(ORDER_NO,
-					CONTACT_NUMBER,
-					DELIVERY_REQUEST_DATE,
-					PICKUP_REQUEST_DATE,
-					ORDER_STATUS,
-					REQUEST_DETAILS,
-					MEMBERNO)
-					VALUES
-					 (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus},#{requestDetails},#{memberNo})
-			</when>
-	
-			<otherwise>
-				INSERT INTO TB_LAUNDRY_ORDER
-					(ORDER_NO,
-					CONTACT_NUMBER,
-					DELIVERY_REQUEST_DATE,
-					PICKUP_REQUEST_DATE,
-					ORDER_STATUS,
-					MEMBERNO)
-					VALUES (#{orderNo},#{contactNumber},#{deliveryRequestDate},#{pickupRequestDate},#{orderStatus},#{memberNo})
-			</otherwise>
-		</choose>
-	</update>
 	
 	
 

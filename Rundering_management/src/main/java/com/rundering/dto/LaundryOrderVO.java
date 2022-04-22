@@ -17,7 +17,7 @@ public class LaundryOrderVO {
 	private Date deliveryDate;          //배송완료일자
 	private String orderStatus;         //주문상태코드
 	private String cancelYn;            //취소여부
-	private String paymentno;           //결제번호
+	private String paymentNo;           //결제번호
 	private String branchCode;          //지점코드
 	private String memberNo;            //회원고유번호
 	private String deliveryEmployeeId;  //배송담당기사
@@ -25,34 +25,19 @@ public class LaundryOrderVO {
 	private String zip;					//우편번호
 	private String add1;				//주소
 	private String add2;				//상세주소
-	private int replyno;
+	private String atchFileNo;			//통합첨부파일번호
+	private int replyNo;				//댓글번호
 	
 	public LaundryOrderVO() {
 		super();
 	}
-	 
+
 	public String getOrderNo() {
 		return orderNo;
 	}
-
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
-
-
-
-	public String getMemberNo() {
-		return memberNo;
-	}
-
-
-
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
-	}
-
-
-
 	public String getRequestDetails() {
 		return requestDetails;
 	}
@@ -125,25 +110,22 @@ public class LaundryOrderVO {
 	public void setCancelYn(String cancelYn) {
 		this.cancelYn = cancelYn;
 	}
-	
-	public String getPaymentno() {
-		return paymentno;
+	public String getPaymentNo() {
+		return paymentNo;
 	}
-
-	public void setPaymentno(String paymentno) {
-		this.paymentno = paymentno;
+	public void setPaymentNo(String paymentNo) {
+		this.paymentNo = paymentNo;
 	}
-
 	public String getBranchCode() {
 		return branchCode;
 	}
 	public void setBranchCode(String branchCode) {
 		this.branchCode = branchCode;
 	}
-	public String getMemberno() {
+	public String getMemberNo() {
 		return memberNo;
 	}
-	public void setMemberno(String memberNo) {
+	public void setMemberNo(String memberNo) {
 		this.memberNo = memberNo;
 	}
 	public String getDeliveryEmployeeId() {
@@ -176,11 +158,17 @@ public class LaundryOrderVO {
 	public void setAdd2(String add2) {
 		this.add2 = add2;
 	}
-	public int getReplyno() {
-		return replyno;
+	public String getAtchFileNo() {
+		return atchFileNo;
 	}
-	public void setReplyno(int replyno) {
-		this.replyno = replyno;
+	public void setAtchFileNo(String atchFileNo) {
+		this.atchFileNo = atchFileNo;
+	}
+	public int getReplyNo() {
+		return replyNo;
+	}
+	public void setReplyNo(int replyNo) {
+		this.replyNo = replyNo;
 	}
 	
 	
