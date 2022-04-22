@@ -64,7 +64,7 @@
 									</c:if>
 								<c:if test="${!empty laundryItemsList }">
 									<c:forEach items="${laundryItemsList }" var="laundryItems">
-										<c:if test="${laundryItems.laundeyCategory eq 'CL' }">
+										<c:if test="${laundryItems.laundryCategory eq 'CL' }">
 											<tr>
 												<td>${laundryItems.itemsName }</td>
 												<td>${laundryItems.price }원</td>
@@ -89,7 +89,7 @@
 							<tbody>
 								<c:if test="${!empty laundryItemsList }">
 									<c:forEach items="${laundryItemsList }" var="laundryItems">
-										<c:if test="${laundryItems.laundeyCategory eq 'SH' }">
+										<c:if test="${laundryItems.laundryCategory eq 'SH' }">
 											<tr>
 												<td>${laundryItems.itemsName }</td>
 												<td>${laundryItems.price }원</td>
@@ -114,7 +114,7 @@
 							<tbody>
 								<c:if test="${!empty laundryItemsList }">
 									<c:forEach items="${laundryItemsList }" var="laundryItems">
-										<c:if test="${laundryItems.laundeyCategory eq 'BE' }">
+										<c:if test="${laundryItems.laundryCategory eq 'BE' }">
 											<tr>
 												<td>${laundryItems.itemsName }</td>
 												<td>${laundryItems.price }원</td>
