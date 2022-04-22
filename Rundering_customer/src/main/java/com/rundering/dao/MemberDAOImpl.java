@@ -16,9 +16,7 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	@Override
 	public MemberVO selectMemberById(String id) throws Exception {
-		
 		MemberVO member= session.selectOne("Member-Mapper.selectMemberById", id);
-		
 		return member;
 	}
 	@Override
@@ -88,6 +86,13 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public void deleteMember(String id) throws Exception {
 		session.update("Member-Mapper.deleteMember",id);	
+	}
+	
+	// 개인정보 변경시 패스워드 체크
+	@Override
+	public String checkPw(String id) throws Exception {
+		String pw = session.selectOne("Member-Mapper.checkPw",id);
+		return pw;
 	}
 	
 

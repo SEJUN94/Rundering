@@ -65,7 +65,6 @@
 		   and email=#{email}
 	</select>
 	
-	
 	<update id="updateLoginfailCountByMemberNo" parameterType="str">
 		update TB_MEMBER
 		   set loginfail_count=loginfail_count+1
