@@ -37,6 +37,11 @@ public class ComCodeDAOImpl implements ComCodeDAO{
 	public List<ComCodeVO> selectLaundryCategory() throws Exception {
 		return session.selectList("ComCode-Mapper.selectLaundryCategory");
 	}
-
+	
+	// 전체 부서 가져오기
+	@Override
+	public List<ComCodeVO> getDepartment() throws Exception {
+		return session.selectList("ComCode-Mapper.getDepartment");
+	}
 
 }

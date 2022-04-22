@@ -85,4 +85,11 @@
 		where =
 		#{memberNo}
 	</update>
+	
+	<update id="removeByNo" parameterType="str">
+		DELETE 
+		FROM TB_MEMBER
+		WHERE MEMBERNO = #{MEMBERNO}
+	</update>
+	
 </mapper>

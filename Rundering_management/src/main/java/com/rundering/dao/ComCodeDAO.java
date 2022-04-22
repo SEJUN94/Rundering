@@ -12,4 +12,6 @@ public interface ComCodeDAO {
 	public List<ComCodeVO> selectComCodeByUpperComCode(String comCodeGrp) throws Exception;
 	public List<ComCodeVO> selectLaundryCategory() throws Exception;
 	
+	// 전체 부서 가져오기
+	public List<ComCodeVO> getDepartment() throws Exception;
 }

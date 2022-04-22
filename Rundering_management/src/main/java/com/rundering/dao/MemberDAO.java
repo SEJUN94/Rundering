@@ -30,4 +30,7 @@ public interface MemberDAO {
 
 	// 전체 개수 체크
 	public int applistCount(AppCriteria cri) throws SQLException;
+	
+	// 등록 신청 사원 반려 
+	public int removeByNo(String memberNo) throws Exception;
 }

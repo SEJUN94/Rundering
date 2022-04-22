@@ -98,6 +98,7 @@
 	/>
 	<bean id="employeesService" class="com.rundering.service.EmployeesServiceImpl"
 		p:employeesDAO-ref="employeesDAO" 
+		p:comCodeDAO-ref="comCodeDAO"
 	/>
 	<bean id="noticeService" class="com.rundering.service.NoticeServiceImpl" 
 		p:noticeDAO-ref="noticeDAO"

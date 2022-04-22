@@ -29,4 +29,7 @@ public interface MemberService {
 	//로그인시 지점코드가 같은 사원신청 리스트 가져오기
 	public Map<String, Object> getEmplAppList(AppCriteria cri) throws Exception;
 	
+	// 등록 신청 사원 반려 
+	public int removeByNo(String memberNo) throws Exception;
+	
 }

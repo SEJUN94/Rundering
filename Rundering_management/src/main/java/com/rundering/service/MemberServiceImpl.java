@@ -82,4 +82,11 @@ public class MemberServiceImpl implements MemberService {
 		
 		return mv;
 	}
+	
+	// 등록 신청 사원 반려 
+	@Override
+	public int removeByNo(String memberNo) throws Exception {
+		return memberDAO.removeByNo(memberNo);
+		
+	}
 }

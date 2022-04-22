@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.dto.BranchVO;
+import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.service.BranchService;
@@ -46,8 +47,15 @@ public class EmployeesApplicationController {
 		
 		List<BranchVO> branchList = branchService.getBranchList();
 		
+		BranchVO bv = branchService.getBranchByCode(ev.getBranchCode());
+		
 		Map<String, Object> dataMap = memberService.getEmplAppList(cri);
 		
+		List<ComCodeVO> cvList = employeesService.getDepartment();
+		
+		
+		mnv.addObject("cvList" , cvList);
+		mnv.addObject("bv" , bv);
 		mnv.addObject("branchList",branchList);
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
@@ -59,10 +67,10 @@ public class EmployeesApplicationController {
 	public ResponseEntity<MemberVO> detail(String memberNo) throws Exception {
 		
 		ResponseEntity<MemberVO> entity = null;
-		System.out.println(memberNo+"dsadsadasdasdasdasds");
 		
 		try {
 			MemberVO mv = memberService.getEmpAppinfo(memberNo);
+			System.out.println(mv.getPassword()+"11111111111111111111111111");
 			if (mv != null) {
 				entity = new ResponseEntity<MemberVO>(mv, HttpStatus.OK);
 			} else {
@@ -71,14 +79,31 @@ public class EmployeesApplicationController {
 		} catch (SQLException e) {
 		entity = new ResponseEntity<MemberVO>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		return entity;
+	}
+	
+	@RequestMapping("/remove")
+	public ResponseEntity<String> remove(String memberNo) throws Exception {
+		
+		ResponseEntity<String> entity = null;
+		System.out.println(memberNo+"dsadsadasdasdasdasds");
+		
+		try {
+			int cnt = memberService.removeByNo(memberNo);
+			
+			if (cnt != 0) {
+				entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+			} else {
+				entity = new ResponseEntity<String>("", HttpStatus.OK);
+			}
+		} catch (SQLException e) {
+		entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		
 		
 		return entity;
 		
 	}
-	
-	
-	
 	
 	@RequestMapping("/regist")
 	public String regeist(MemberVO mv, EmployeesVO ev) throws Exception {

@@ -39,6 +39,12 @@
 		 where upper_com_code=#{upperComCode} 
 	</select>
 	
+	<select id="getDepartment" resultMap="comCodeMap">
+		SELECT *
+		FROM TB_COM_CODE
+		WHERE COM_CODE_GRP = 'DEPARTMENT'
+	</select>
+	
 	
 	
 	
