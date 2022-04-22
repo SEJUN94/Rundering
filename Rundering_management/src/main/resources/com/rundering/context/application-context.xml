@@ -91,7 +91,7 @@
 		p:itemOrderDAO-ref="itemOrderDAO"
 		p:comCodeDAO-ref="comCodeDAO"
 	/>
-	<bean id="laundtyOrderService" class="com.rundering.service.LaundryOrderServiceImpl" 
+	<bean id="laundryOrderService" class="com.rundering.service.LaundryOrderServiceImpl" 
 		p:laundryItemsDAO-ref="laundryItemsDAO"
 		p:laundryOrderDAO-ref="laundryOrderDAO"
 		p:laundryOrderDetailDAO-ref="laundryOrderDetailDAO"
@@ -100,6 +100,10 @@
 	/>
 	<bean id="attachServicee" class="com.rundering.service.AttachServiceClass"
 		p:attachDAO-ref="attachDAO"
+	/>
+	
+	<bean id="replySerivce"  class="com.rundering.service.ReplyServiceImpl" 
+		p:replyDAO-ref="replyDAO"
 	/>
 	
 	

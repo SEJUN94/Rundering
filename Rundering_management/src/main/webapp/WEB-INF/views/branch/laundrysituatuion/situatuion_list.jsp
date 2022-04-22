@@ -96,8 +96,6 @@
 									</c:if>
 								</c:forEach>
 							</td>
-							
-							
 						
 						</tr>
 						
@@ -149,17 +147,17 @@
 				</div>
 				<div class="modal-body">
 					<form action="request" id="replyForm">
-					<textarea rows="5" class="form-control" name="replyContent">
+					<textarea rows="5" class="form-control" name="replyContent" id="replyContent">
 					
 					</textarea>
 						 
-						<input type="hidden" name="replyno" id="replyno" value="">
 					</form>
 					
 					
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" onclick="">작성</button>
+				
+					<button type="button" class="btn btn-primary" onclick="fistRegistReply()">작성</button>
 					<button type="button" class="btn btn-danger"data-dismiss="modal">닫기</button>
 				</div>
 			</div>
@@ -177,8 +175,6 @@
         }else{
             i.innerHTML=i.dataset.text
         } 
-        
-        
     }
     let mouseHover = document.querySelectorAll(".mouseHover");
     for(let i of mouseHover){
@@ -199,7 +195,6 @@
 </script>
 
 <script>
-	
 	function statusChange(){
 		let form=document.querySelector("#form");
 		let selects =document.querySelectorAll(".select");
@@ -220,13 +215,39 @@
 		form.submit();
 	
 	}
-	
 	function selectAll() {
 		let selects =document.querySelectorAll(".select");
     	for(i of selects){
     		i.checked=true
     	}
 	}
-		
 </script>
+
+<script>
+function firstRegistReply(){
+    replyContent= document.querySelector("#replyContent");
+    if(replyContent.value==null || replyContent.value.trim==null){
+        return
+    }
+  
+    
+    $.ajax({
+        url:"url:"<%=request.getContextPath()%>/branch/reply"",
+        type:"post",
+        data:,
+        success:function(data){
+            alert("댓글이 등록. \n 마지막 페이지로 이동합니다.");
+            replyPage=data;
+            getPage("<%=request.getContextPath()%>/replies/"+bno+"/"+data);
+            $('#newReplyText').val("");	
+        }error:function(error){
+		//alert('댓글이 등록을 실패했습니다.');
+		AjaxErrorSecurityRedirectHandler(error.status);
+	}
+    })
+}
+
+</script>
+
+
 </body>
