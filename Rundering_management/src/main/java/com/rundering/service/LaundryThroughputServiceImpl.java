@@ -1,6 +1,8 @@
 package com.rundering.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.rundering.dao.LaundryThroughputDAO;
 import com.rundering.dto.LaundryThroughPutVO;
@@ -22,9 +24,15 @@ public class LaundryThroughputServiceImpl implements LaundryThroughputService{
 	}
 
 	@Override
-	public LaundryThroughPutVO getLaundryQuatoByThroughputNo(String throughputNo) throws Exception {
-		LaundryThroughPutVO throughput = laundryThroughputDAO.selectLaundryQuatoByThroughputNo(throughputNo);
+	public Map<String, Object> getLaundryQuatoByThroughputNo(String throughputNo) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
-		return throughput;
+		LaundryThroughPutVO throughput = laundryThroughputDAO.selectLaundryQuatoByThroughputNo(throughputNo);
+		List<LaundryThroughPutVO> throughputList =  laundryThroughputDAO.throughputList();
+		
+		dataMap.put("throughput", throughput);
+		dataMap.put("throughputList", throughputList);
+		
+		return dataMap;
 	}
 }

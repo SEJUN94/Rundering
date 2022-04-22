@@ -1,9 +1,11 @@
 package com.rundering.manage.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,11 +54,21 @@ public class BranchController {
 	public ModelAndView branchQuotaDetail(String throughputNo, ModelAndView mnv) throws Exception{ 
 		String url="/admin/branchinfo/branch_quota_detail";
 		
-		LaundryThroughPutVO throughput = laundryThroughputService.getLaundryQuatoByThroughputNo(throughputNo);
+		Map<String, Object> dataMap = laundryThroughputService.getLaundryQuatoByThroughputNo(throughputNo);
 		
-		mnv.addObject("throughput",throughput);
+		//mnv.addObject("throughput",throughput);
+		mnv.addObject("dataMap",dataMap);
 		mnv.setViewName(url);
 		
 		return mnv;
+	}
+	
+	@RequestMapping("/chart")
+	public ResponseEntity<List<LaundryThroughPutVO>> chartjs()throws Exception{
+		ResponseEntity<List<LaundryThroughPutVO>> entity = null;
+		
+		
+		
+		return entity;
 	}
 }

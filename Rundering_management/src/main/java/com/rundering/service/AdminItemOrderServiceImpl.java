@@ -52,8 +52,6 @@ public class AdminItemOrderServiceImpl implements AdminItemOrderService{
 		dataMap.put("itemOrder", itemOrder);
 		dataMap.put("itemOrderDetail", itemOrderDetail);
 		
-		System.out.println(ordercode);
-		
 		return dataMap;
 	}
 
