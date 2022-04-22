@@ -137,7 +137,7 @@
 		  </div>
 
 		<form role="imageForm" method="post" enctype="multipart/form-data">
-			<input id="inputFile" name="pictureFile" type="file" class="form-controll" style="display: none;" />
+			<input id="inputFile" name="pictureFile" type="file" class="form-controll" accept="image/jpeg, image/png, image/jpg" style="display: none;" />
 		</form>
 	
 	
@@ -173,7 +173,13 @@ var dataNum = 1;
 		      alert("사진 첨부는 필수입니다.");
 		      return;
 		   }
-		 let deleteFile = findByAttributeValue("data-uploadedno",dataNum,"input");
+		deleteUploadFile(dataNum);
+		
+		$('div[data-no="'+dataNum+'"]').remove();
+	}
+	
+	function deleteUploadFile(dataNum){
+		let deleteFile = findByAttributeValue("data-uploadedno",dataNum,"input");
 		 let deleteFileName = deleteFile.value;
 		 
 		 deleteFile.remove();
@@ -189,12 +195,10 @@ var dataNum = 1;
 			               console.log(v_ajax.responseText);
 			               //console.log(data+"사진이 삭제 되었습니다.");
 			            } else {
-			            	AjaxErrorSecurityRedirectHandler(error.status);
+			            	//AjaxErrorSecurityRedirectHandler(error.status);
 			            }
 			     }
 		    }
-		
-		$('div[data-no="'+dataNum+'"]').remove();
 	}
 	
 	function regist_go(){
@@ -249,8 +253,31 @@ $('input[name="pictureFile"]').change(function(){
 
 	let imageForm = $('form[role="imageForm"]')[0];
 	let picture = $('form[role="imageForm"]').find('[name="pictureFile"]')[0]; 
-	let inputFileName = findByAttributeValue("data-no",justPressedLabel,"input")
+	let inputFileName = findByAttributeValue("data-no",justPressedLabel,"input");
 	
+	let fileFormat = picture.value.substr(picture.value.lastIndexOf(".")+1).toUpperCase();
+	
+	if(picture.value == ""){
+		spinner.style.display = 'none';
+		return;
+	}
+	//이미지 확장자 jpg 확인
+	if(!(fileFormat == "JPG" || fileFormat == "JPEG" || fileFormat == "PNG")){
+		alert("이미지는 jpg/jpeg/png 형식만 가능합니다.");
+		spinner.style.display = 'none';
+		return;
+	}
+	// 이미지 파일 용량 체크
+	if(picture.files[0].size>1024*1024*5){
+		alert("사진 용량은 5MB 이하만 가능합니다.");
+		spinner.style.display = 'none';
+		return;
+	};
+	
+	
+	if(findByAttributeValue("data-uploadedno",justPressedLabel,"input")){
+		deleteUploadFile(justPressedLabel);
+	}
 	 
 	let formData = new FormData(imageForm);
 	
