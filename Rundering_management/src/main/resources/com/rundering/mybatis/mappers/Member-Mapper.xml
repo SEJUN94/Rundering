@@ -48,6 +48,12 @@
 		and phone=#{phone}
 	</select>
 
+	<select id="getEmpAppinfo" resultMap="memberMap">
+		SELECT *
+		FROM TB_MEMBER
+		WHERE MEMBERNO = #{memberNo}
+	</select>
+	
 	<select id="getemplapplist" resultMap="memberMap" parameterType="str">
 		SELECT *
 	      FROM TB_MEMBER

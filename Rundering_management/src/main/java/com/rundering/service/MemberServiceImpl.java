@@ -74,4 +74,12 @@ public class MemberServiceImpl implements MemberService {
 
 		return dataMap;
 	}
+	
+	// 등록 신청 사원의 디테일 정보 가져오기
+	@Override
+	public MemberVO getEmpAppinfo(String memberNO) throws Exception {
+		MemberVO mv = memberDAO.getEmpAppinfo(memberNO);
+		
+		return mv;
+	}
 }

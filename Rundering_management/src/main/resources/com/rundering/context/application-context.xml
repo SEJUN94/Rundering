@@ -54,6 +54,9 @@
 	 <bean id="memberAddressDAO" class="com.rundering.dao.MemberAddressDAOImpl"
 		p:session-ref="sqlSession"	
 	 />
+	 <bean id="branchDAO" class="com.rundering.dao.BranchDAOImpl"
+		p:session-ref="sqlSession"	
+	 />
 	
 	
 	 
@@ -94,6 +97,9 @@
 	/>
 		<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl" 
 		p:memberAddressDAO-ref="memberAddressDAO"
+	/>
+		<bean id="branchService" class="com.rundering.service.BranchServiceImpl" 
+		p:branchDAO-ref="branchDAO"
 	/>
 	
 	

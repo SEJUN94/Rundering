@@ -20,6 +20,9 @@ public interface MemberService {
 	//등록사원의 고유번호 가져오기
 	public MemberVO getMemberNo(String phone) throws Exception;
 	
+	//신청 등록 사원의 디테일 출력
+	public MemberVO getEmpAppinfo(String memberNO) throws Exception;
+	
 	//사원등록 후 아이디 및 비밀번호 변경
 	public void updateMember(MemberVO member) throws Exception;
 	

@@ -78,5 +78,14 @@ public class MemberDAOImpl implements MemberDAO {
 		int count = session.selectOne("Member-Mapper.applistCount", cri);
 		return count;
 	}
+	
+	// 등록 신청 사원의 디테일 정보 가져오기
+	@Override
+	public MemberVO getEmpAppinfo(String memberNO) throws Exception {
+		
+		MemberVO member = session.selectOne("Member-Mapper.getEmpAppinfo", memberNO);
+
+		return member;
+	}
 
 }

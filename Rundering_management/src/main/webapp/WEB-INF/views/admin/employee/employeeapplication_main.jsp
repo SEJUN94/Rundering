@@ -7,6 +7,7 @@
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="appList" value="${dataMap.appList }" />
+<c:set var="branchList" value="${branchList}" />
 
 
 
@@ -88,7 +89,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>이름</label> <input type="text" class="form-control"
-									id="name" name="name" value="${} }" readonly />
+									id="name" name="name" value="" readonly />
 							</div>
 							<div class="form-group">
 								<label>연락처</label> <input type="text" class="form-control"
@@ -107,9 +108,9 @@
 									aria-hidden="true">
 									<option selected="selected" data-select2-id="11" value="">등록 신청시 지점명</option>
 									<option disabled="disabled">선택하세요 (disabled)</option>
-									<option value="{지점코드  }">지점명1</option>
-									<option value="{지점코드  }">지점명2</option>
-									<option value="{지점코드  }">지점명3</option>
+									<c:forEach items="${branchList }" var="list">
+										<option value="${list.branchCode }">${list.branchName}</option>
+									</c:forEach>
 								</select>
 							</div>
 							<div class="form-group">
