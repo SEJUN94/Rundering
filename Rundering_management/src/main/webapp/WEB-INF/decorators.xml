@@ -7,7 +7,7 @@
 	</decorator>
 	
 	<decorator name="adminDaterangepicker" page="admin_daterange_decorator.jsp">
-		<pattern>/admin/laundryorder</pattern>
+		<pattern>/admin/laundryorder/list</pattern>
 	</decorator>
 	
 	<decorator name="branchMain" page="branch_main_decorator.jsp">

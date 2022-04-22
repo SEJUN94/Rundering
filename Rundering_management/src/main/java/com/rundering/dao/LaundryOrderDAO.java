@@ -15,8 +15,11 @@ public interface LaundryOrderDAO {
 	
 	// 세탁주문접수
 	public void insertLaundryOrder(LaundryOrderVO laundryOrder) throws SQLException;
-
+	
+	//지점 - 세탁주문목록
 	public List<LaundryOrderVO> selectLaundryOrderList(BranchCriteria cri) throws Exception;
+	//본사 - 세탁주문목록
+	public List<LaundryOrderVO> selectAdminLaundryOrderList() throws Exception;
 
 	public int selectCount(BranchCriteria cri) throws Exception;
 	public void updateLaundryOrderStatusByOrderNo(LaundryOrderVO laundryOrderVO) throws Exception;		

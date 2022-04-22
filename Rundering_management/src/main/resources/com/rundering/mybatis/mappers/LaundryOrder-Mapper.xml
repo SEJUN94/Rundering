@@ -89,6 +89,13 @@
 		 
 	</select>
 	
+	<select id="selectAdminLaundryOrderList" resultMap="laundryOrderMap">
+		select *
+		  from TB_LAUNDRY_ORDER
+		 where ORDER_NO is not null
+		 order by ORDER_DATE DESC
+	</select>
+	
 	<update id="updateLaundryOrderStatusByOrderNo" parameterType="laundryOrder" >
 		update TB_LAUNDRY_ORDER
 		   set order_status=#{orderStatus}

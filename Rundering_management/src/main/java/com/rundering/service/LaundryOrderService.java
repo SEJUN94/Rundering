@@ -17,6 +17,7 @@ public interface LaundryOrderService {
 	void updateStatus(List<LaundryOrderVO> laundryOrderList) throws Exception;
 	public void insertRequest(ReplyVO peply) throws Exception;
 	
+	Map<String, Object> getAdminlaundryOrderList() throws Exception;
 			
 	
 }

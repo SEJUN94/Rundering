@@ -4,22 +4,9 @@
 <body>
 
 	<!-- 상세검색 카드 -->
-	<div class="card card-secondary card-outline ml-3 mr-3 mb-2">
+	<div class="card ml-3 mr-3 mb-0">
 		<form class="form-horizontal">
 			<div class="card-body">
-				<div class="form-group row m-0">
-					<label for="searchcontents" class="col-sm-2 col-form-label">주문검색</label>
-					<div class="col-sm-10">
-						<select class="form-control"
-							style="display: inline-block; width: auto;">
-							<option>주문번호</option>
-							<option>주문자명</option>
-							<option>연락처</option>
-							<option>배송지</option>
-						</select> <input type="text" class="form-control" id="searchcontents"
-							placeholder="검색어" style="display: inline-block; width: 50%;">
-					</div>
-				</div>
 				<div class="form-group row m-0">
 					<label for="orderstatus" class="col-sm-2 col-form-label">주문상태</label>
 					<div class="col-sm-10 p-2" style="display: inline-flex;">
@@ -71,134 +58,53 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-footer text-center p-2">
-				<button type="submit" class="btn btn-primary mr-2">검색</button>
-				<button type="submit" class="btn btn-default">초기화</button>
-			</div>
 		</form>
 	</div>
 	
 	
 	<div class="row ml-3 mr-3">
 		<div class="col-12 p-0">
-			<div class="card m-0">
-				<h3 class="m-3">세탁 주문</h3>
+			<div class="card m-0 card-secondary card-outline">
+			<div class="card-header">
+					<h3 class="card-title" style="font-size: 1.75rem;">세탁 주문</h3>
+					<div class="card-tools">
+						<div class="input-group input-group-sm" style="width: 300px;margin-top: auto;">
+							<select class="form-control col-md-4" name="searchType" id="searchType">
+									<option>주문자명</option>
+									<option>배송연락처</option>
+								</select> <input class="form-control" type="text" name="keyword" placeholder="검색어를 입력하세요." value=""> <span class="input-group-append">
+									<button class="btn btn-primary" type="button" onclick="list_go(1);" data-card-widget="search">
+										<i class="fa fa-fw fa-search"></i>
+									</button>
+								</span>
+						</div>
+					</div>
+				</div>
 
 				<div class="card-body table-responsive p-0 mt-0">
 					<table
-						class="table table-hover text-nowrap card-secondary card-outline">
+						class="table table-hover text-nowrap">
 						<thead>
 							<tr>
-								<th>주문일</th>
+								<th>주문일시</th>
 								<th>주문번호</th>
-								<th>세탁물</th>
-								<th>주문자</th>
-								<th>결제금액</th>
-								<th>주문상태</th>
-							</tr>
-						</thead>
+								<th>수거요청일</th>
+								<th>지역분류코드</th>
+								<th>지점코드</th>
+								<th>주문상태코드</th>
+							</tr>   
+						</thead>    
 						<tbody>
 							<tr
 								onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
 								style="cursor: pointer;">
 								<td>2022-03-29-15:30</td>
-								<td>18354654</td>
+								<td></td>
 								<td>티셔츠 1개, 니트 2개</td>
 								<td>구건회</td>
 								<td>14,000원</td>
-								<td>수거완료</td>
+								<td></td>
 							</tr>
-							<tr
-								onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
-								style="cursor: pointer;">
-								<td>2022-03-29-15:30</td>
-								<td>18354654</td>
-								<td>티셔츠 1개, 니트 2개, 정장자켓 3개...</td>
-								<td>구건회</td>
-								<td>14,000원</td>
-								<td>수거완료</td>
-							</tr>
-							<tr
-								onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
-								style="cursor: pointer;">
-								<td>2022-03-29-15:30</td>
-								<td>18354654</td>
-								<td>티셔츠 1개, 니트 2개</td>
-								<td>구건회</td>
-								<td>14,000원</td>
-								<td>배송중</td>
-							</tr>
-							<tr
-								onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
-								style="cursor: pointer;">
-								<td>2022-03-29-15:30</td>
-								<td>18354654</td>
-								<td>티셔츠 1개, 니트 2개</td>
-								<td>구건회</td>
-								<td>14,000원</td>
-								<td>수거중</td>
-							</tr>
-							<tr
-								onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
-								style="cursor: pointer;">
-								<td>2022-03-29-15:30</td>
-								<td>18354654</td>
-								<td>티셔츠 1개, 니트 2개</td>
-								<td>구건회</td>
-								<td>14,000원</td>
-								<td>수거완료</td>
-							</tr>
-							<tr
-								onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
-								style="cursor: pointer;">
-								<td>2022-03-29-15:30</td>
-								<td>18354654</td>
-								<td>티셔츠 1개, 니트 2개</td>
-								<td>구건회</td>
-								<td>14,000원</td>
-								<td>세탁중</td>
-							</tr>
-							<tr
-								onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
-								style="cursor: pointer;">
-								<td>2022-03-29-15:30</td>
-								<td>18354654</td>
-								<td>티셔츠 1개, 니트 2개</td>
-								<td>구건회</td>
-								<td>14,000원</td>
-								<td>세탁중</td>
-							</tr>
-							<tr
-								onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
-								style="cursor: pointer;">
-								<td>2022-03-29-15:30</td>
-								<td>18354654</td>
-								<td>티셔츠 1개, 니트 2개</td>
-								<td>구건회</td>
-								<td>14,000원</td>
-								<td>세탁중</td>
-							</tr>
-							<tr
-								onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
-								style="cursor: pointer;">
-								<td>2022-03-29-15:30</td>
-								<td>18354654</td>
-								<td>티셔츠 1개, 니트 2개</td>
-								<td>구건회</td>
-								<td>14,000원</td>
-								<td>수거완료</td>
-							</tr>
-							<tr
-								onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
-								style="cursor: pointer;">
-								<td>2022-03-29-15:30</td>
-								<td>18354654</td>
-								<td>티셔츠 1개, 니트 2개</td>
-								<td>구건회</td>
-								<td>14,000원</td>
-								<td>배송완료</td>
-							</tr>
-						
 						</tbody>
 					</table>
 

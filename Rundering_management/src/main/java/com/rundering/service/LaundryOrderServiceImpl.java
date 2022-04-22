@@ -81,5 +81,12 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		
 		
 	}
+	@Override
+	public Map<String, Object> getAdminlaundryOrderList() throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<LaundryOrderVO> laundryOrderList = laundryOrderDAO.selectAdminLaundryOrderList();
+		dataMap.put("laundryOrderList", laundryOrderList);
+		return dataMap;
+	}
 	
 }

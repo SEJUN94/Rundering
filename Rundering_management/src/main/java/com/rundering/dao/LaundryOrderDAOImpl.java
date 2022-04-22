@@ -52,6 +52,11 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		
 	}
 
+	@Override
+	public List<LaundryOrderVO> selectAdminLaundryOrderList() throws Exception {
+		return session.selectList("LaundryOrder-Mapper.selectAdminLaundryOrderList");
+	}
+
 	
 	
 	
