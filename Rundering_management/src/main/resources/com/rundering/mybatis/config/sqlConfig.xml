@@ -11,6 +11,7 @@
 		
 		<typeAlias type="com.rundering.dto.AsRequestVO" alias="asRequest" />
 		<typeAlias type="com.rundering.dto.MemberVO" alias="member" />
+		<typeAlias type="com.rundering.dto.MemberAddressVO" alias="memberAddress" />
 		<typeAlias type="com.rundering.dto.AttachVO" alias="attach" />
 		<typeAlias type="com.rundering.dto.MenuVO" alias="menu" />
 		<typeAlias type="com.rundering.dto.LaundryItemsVO" alias="laundryItems" />
@@ -26,6 +27,9 @@
 		<typeAlias type="com.rundering.dto.LaundryItemsVO" alias="laundryItems" />
 		<typeAlias type="com.rundering.dto.LaundryOrderDetailVO" alias="laundryOrderDetail"/>
 		<typeAlias type="com.rundering.dto.ReplyVO" alias="reply"/>
+		<typeAlias type="com.rundering.dto.BranchVO" alias="branch"/>
+
+
 		
 	</typeAliases>
 	

@@ -12,6 +12,10 @@
 	<bean id="boardPath" class="java.lang.String">
 		<constructor-arg value="${board.upload}" />      
 	</bean>
+	
+	
+	<!-- 문자알림  -->
+	<bean id="sensSms" class="com.rundering.util.SensSms" />
 	 
 	<!-- Repository Layer -->
 	<bean id="asRequestDAO" class="com.rundering.dao.AsRequestDAOImpl"
@@ -59,9 +63,12 @@
 	 <bean id="laundryOrderDetailDAO" class="com.rundering.dao.LaundryOrderDetailDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
-	 
-	
-	
+	 <bean id="memberAddressDAO" class="com.rundering.dao.MemberAddressDAOImpl"
+		p:session-ref="sqlSession"	
+	 />
+	 <bean id="branchDAO" class="com.rundering.dao.BranchDAOImpl"
+		p:session-ref="sqlSession"	
+	 />
 	 
 	
 	
@@ -109,7 +116,14 @@
       p:replyDAO-ref="replyDAO"
       p:comCodeDAO-ref="comCodeDAO"
    />
-
+		<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl" 
+		p:memberAddressDAO-ref="memberAddressDAO"
+	/>
+		<bean id="branchService" class="com.rundering.service.BranchServiceImpl" 
+		p:branchDAO-ref="branchDAO"
+	/>
+	
+	
 	
 	
 </beans>

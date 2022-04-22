@@ -13,7 +13,8 @@ public class BranchVO {
 	private String branchContact; 		//연락처
 	private Date branchModifyDate; 		//수정일
 	private String deleteYN; 			//삭제여부
-	private String topareaCode; 		//지역분류코드
+	private String toparea; 			//상위지역분류
+	private String area;				//지역분류
 	
 	
 	public BranchVO() {
@@ -121,14 +122,26 @@ public class BranchVO {
 	}
 
 
-	public String getTopareaCode() {
-		return topareaCode;
+	String getToparea() {
+		return toparea;
 	}
 
 
-	public void setTopareaCode(String topareaCode) {
-		this.topareaCode = topareaCode;
+	void setToparea(String toparea) {
+		this.toparea = toparea;
 	}
+
+
+	String getArea() {
+		return area;
+	}
+
+
+	void setArea(String area) {
+		this.area = area;
+	}
+
+
 	
 	
 	

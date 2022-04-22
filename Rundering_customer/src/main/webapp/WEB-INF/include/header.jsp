@@ -16,15 +16,21 @@
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li><h2 style="padding:11px 16px;font-weight:600;">${loginUser.getName() }님</h2></li>
-					<li><a href="<%=request.getContextPath()%>/mypage">마이페이지</a></li>
+					<li><a href="#">마이페이지</a>
+						<ul>
+							<li><a href="<%=request.getContextPath()%>/mypage">회원정보수정</a></li>
+							<li><a href="<%=request.getContextPath()%>/mypage/orderhistory">주문내역</a></li>
+							<li><a href="<%=request.getContextPath()%>/mypage/voicelist">문의내역</a></li>
+							<li><a href="<%=request.getContextPath()%>/mypage/secedeform">회원탈퇴</a></li>
+						</ul>
+					</li>
 					<li><a href="<%=request.getContextPath()%>/logout">로그아웃</a></li>
 				</sec:authorize>
 			</ul>
 		</div>
 
-		<a href="<%=request.getContextPath()%>/home" class="logo"> <img
-			src="<%=request.getContextPath()%>/resources/images/Rundering.png"
-			alt="Rundreing" />
+		<a href="<%=request.getContextPath()%>/home" class="logo"> 
+			<img src="<%=request.getContextPath()%>/resources/images/Rundering.png"alt="Rundreing" />
 		</a>
 
 
@@ -36,7 +42,8 @@
 						<li><a href="<%=request.getContextPath()%>/guide/howuse">이용방법</a></li>
 						<li><a href="<%=request.getContextPath()%>/guide/price/list">가격안내</a></li>
 						<li><a href="<%=request.getContextPath()%>/guide/area">서비스 지역</a></li>
-					</ul></li>
+					</ul>
+				</li>
 				<li><a href="<%=request.getContextPath()%>/order">세탁주문</a></li>
 				<li><a href="#">고객센터</a>
 					<ul>
