@@ -95,16 +95,17 @@
 							</tr>   
 						</thead>    
 						<tbody>
-							<tr
-								onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
-								style="cursor: pointer;">
-								<td>2022-03-29-15:30</td>
-								<td></td>
-								<td>티셔츠 1개, 니트 2개</td>
-								<td>구건회</td>
-								<td>14,000원</td>
-								<td></td>
-							</tr>
+							<c:forEach items="${laundryOrderList }" var="laundryOrder" >
+								<tr onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
+									style="cursor: pointer;">
+									<td>2022-03-29-15:30</td>
+									<td>${laundryOrder.orderNo }</td>
+									<td>티셔츠 1개, 니트 2개</td>
+									<td>구건회</td>
+									<td>14,000원</td>
+									<td></td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 
