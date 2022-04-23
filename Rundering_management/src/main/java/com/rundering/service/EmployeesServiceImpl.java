@@ -57,7 +57,7 @@ public class EmployeesServiceImpl implements EmployeesService {
 				mv.setPassword(pw);
 				mv.setMemberNo(ev.getMemberno());
 
-				cnt += memberDAO.updateMember(mv);
+				memberDAO.updateMember(mv);
 
 			}
 

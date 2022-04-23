@@ -48,13 +48,6 @@ public class MemberServiceImpl implements MemberService {
 		return member;
 	}
 
-	// 사원등록 후 아이디 및 비밀번호 변경
-	@Override
-	public int updateMember(MemberVO member) throws Exception {
-		
-		return memberDAO.updateMember(member);
-
-	}
 
 	// 로그인시 지점코드가 같은 사원신청 리스트 가져오기
 	@Override
@@ -90,4 +83,5 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.removeByNo(memberNo);
 		
 	}
+
 }

@@ -51,8 +51,8 @@ public class MemberDAOImpl implements MemberDAO {
 
 	// 사원등록 후 아디디 및 비밀번호 변경
 	@Override
-	public int updateMember(MemberVO member) throws Exception {
-		return session.selectOne("Member-Mapper.updatemplmem", member);
+	public void updateMember(MemberVO member) throws Exception {
+		 session.selectOne("Member-Mapper.updatemplmem", member); 
 
 	}
 
