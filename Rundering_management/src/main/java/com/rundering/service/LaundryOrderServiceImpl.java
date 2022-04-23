@@ -8,11 +8,14 @@ import com.rundering.command.BranchCriteria;
 import com.rundering.command.BranchPageMaker;
 import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
+import com.rundering.dao.BranchDAO;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
 import com.rundering.dao.ReplyDAO;
+import com.rundering.dto.BranchVO;
+import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.ReplyVO;
 import com.rundering.util.ComCodeUtil;
@@ -38,6 +41,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	private ComCodeDAO comCodeDAO;
 	public void setComCodeDAO(ComCodeDAO comCodeDAO) {
 		this.comCodeDAO = comCodeDAO;
+	}
+	private BranchDAO branchDAO;
+	public void setBranchDAO(BranchDAO branchDAO) {
+		this.branchDAO = branchDAO;
 	}
 	@Override
 	public Map<String,Object> laundryOrderList(BranchCriteria cri) throws Exception{
@@ -77,7 +84,19 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	}
 	@Override
 	public Map<String, Object> getAdminlaundryOrderList(Criteria cri) throws Exception {
+		ComCodeUtil comCodeUtil =new ComCodeUtil();
 		Map<String, Object> dataMap = new HashMap<String, Object>();
+		Map<String,String> orderCodeMap = new HashMap<String, String>();
+		Map<String,String> areaCodeMap = new HashMap<String, String>();
+		Map<String,String> branchNameMap = new HashMap<String, String>();
+		comCodeUtil.getUpperCodeMap("ORDER_STATUS", orderCodeMap, comCodeDAO);
+		comCodeUtil.getCodeMap("AREA", areaCodeMap, comCodeDAO);
+		
+		List<BranchVO> branchList = branchDAO.getBranchList();
+		for (BranchVO branchVO : branchList) {
+			branchNameMap.put(branchVO.getBranchCode(), branchVO.getBranchName());
+		}
+		
 		List<LaundryOrderVO> laundryOrderList = laundryOrderDAO.selectAdminLaundryOrderList(cri);
 		
 		int totalCount = laundryOrderDAO.selectCount(cri);
@@ -88,6 +107,9 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		
 		dataMap.put("laundryOrderList", laundryOrderList);
 		dataMap.put("pageMaker", pageMaker);
+		dataMap.put("orderCodeMap",orderCodeMap);
+		dataMap.put("areaCodeMap",areaCodeMap);
+		dataMap.put("branchNameMap",branchNameMap);
 		return dataMap;
 	}
 	
