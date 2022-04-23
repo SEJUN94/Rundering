@@ -37,7 +37,7 @@
 	<select id="selectAuthByMemberNo" resultType="str" parameterType="str">
 		select AUTH_GRP_CODE
 		  from TB_USER_AUTH
-		 where MEMBERO=#{memberNo} 
+		 where MEMBERNO=#{memberNo} 
 	</select>
 
 
