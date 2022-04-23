@@ -10,7 +10,7 @@ import com.rundering.dto.LaundryOrderVO;
 public interface LaundryOrderService {
 	
 	// 세탁주문접수
-	String orderReceive(LaundryOrderVO laundryOrder, List<LaundryOrderDetailVO> laundryOrderDetailVOList) throws SQLException;
+	String orderReceive(LaundryOrderVO laundryOrder, List<LaundryOrderDetailVO> laundryOrderDetailVOList) throws Exception;
 	
 	// 결제정보 금액확인
 	Map<String, Object> checkOrder(List<LaundryOrderDetailVO> laundryOrderDetailVOList) throws SQLException;

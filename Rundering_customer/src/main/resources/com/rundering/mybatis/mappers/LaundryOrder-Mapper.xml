@@ -51,7 +51,8 @@
 					AREA,
 					TOTAL_PRICE,
 					PAYMENTNO,
-					ATCH_FILE_NO)
+					ATCH_FILE_NO,
+					REPLYNO)
 					VALUES (
 					#{orderNo},
 					#{contactNumber},
@@ -65,7 +66,8 @@
 					#{area},
 					#{totalPrice},
 					#{paymentNo},
-					#{atchFileNo}
+					#{atchFileNo},
+					#{replyNo}
 					)
 			</when>
 	
@@ -82,7 +84,8 @@
 					AREA,
 					TOTAL_PRICE,
 					PAYMENTNO,
-					ATCH_FILE_NO)
+					ATCH_FILE_NO,
+					REPLYNO)
 					VALUES (
 					#{orderNo},
 					#{contactNumber},
@@ -95,7 +98,8 @@
 					#{area},
 					#{totalPrice},
 					#{paymentNo},
-					#{atchFileNo}
+					#{atchFileNo},
+					#{replyNo}
 					)
 			</otherwise>
 		</choose>

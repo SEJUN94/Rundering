@@ -12,6 +12,7 @@ import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
 import com.rundering.dao.MemberAddressDAO;
 import com.rundering.dao.PaymentDAO;
+import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.LaundryItemsVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
@@ -35,10 +36,14 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	public void setPaymentDAO(PaymentDAO paymentDAO) {
 		this.paymentDAO = paymentDAO;
 	}
+	private ReplyDAO replyDAO;
+	public void setReplyDAO(ReplyDAO replyDAO) {
+		this.replyDAO = replyDAO;
+	}
 	
 	//세탁주문접수
 	@Override
-	public String orderReceive(LaundryOrderVO laundryOrder, List<LaundryOrderDetailVO> laundryOrderDetailVOList) throws SQLException {
+	public String orderReceive(LaundryOrderVO laundryOrder, List<LaundryOrderDetailVO> laundryOrderDetailVOList) throws Exception {
 		//주문번호 시퀀스로 가져오기
 		String orderNo = laundryOrderDAO.selectLaundryOrderSequenceNextValue();
 		laundryOrder.setOrderNo(orderNo);
@@ -51,6 +56,8 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		Date deliveryRequestDate = cal.getTime();
 		laundryOrder.setDeliveryRequestDate(deliveryRequestDate);
 		
+		int replySeq = replyDAO.selectReplySeq();
+		laundryOrder.setReplyNo(replySeq);
 		
 		//세탁주문테이블 insert
 		laundryOrderDAO.insertLaundryOrder(laundryOrder);
