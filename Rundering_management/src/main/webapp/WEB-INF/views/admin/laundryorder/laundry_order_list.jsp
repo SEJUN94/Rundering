@@ -87,10 +87,10 @@
 
 				<div class="card-body table-responsive p-0 mt-0">
 					<table
-						class="table table-hover text-nowrap">
+						class="table table-hover text-nowrap" style="text-align: center;">
 						<thead>
 							<tr>
-								<th>주문일시</th>
+								<th style="width: 230px;">주문일시</th>
 								<th>주문번호</th>
 								<th>수거요청일</th>
 								<th>지역분류</th>
@@ -100,7 +100,7 @@
 						</thead>    
 						<tbody>
 							<c:forEach items="${laundryOrderList }" var="laundryOrder" >
-								<tr onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
+								<tr onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do?orderNo=${laundryOrder.orderNo }', '주문 상세', 'width=700, height=900');"
 									style="cursor: pointer;">
 									<td><fmt:formatDate value="${laundryOrder.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 									<td>${laundryOrder.orderNo }</td>

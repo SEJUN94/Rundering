@@ -16,9 +16,11 @@ import com.rundering.dao.LaundryOrderDetailDAO;
 import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.ComCodeVO;
+import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.ReplyVO;
 import com.rundering.util.ComCodeUtil;
+import com.rundering.util.FormatUtil;
 
 public class LaundryOrderServiceImpl implements LaundryOrderService {
 	
@@ -110,6 +112,33 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		dataMap.put("orderCodeMap",orderCodeMap);
 		dataMap.put("areaCodeMap",areaCodeMap);
 		dataMap.put("branchNameMap",branchNameMap);
+		return dataMap;
+	}
+	@Override
+	public Map<String, Object> getlaundryOrderByOrderNo(String orderNo) throws Exception {
+		ComCodeUtil comCodeUtil =new ComCodeUtil();
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		Map<String,String> orderCodeMap = new HashMap<String, String>();
+		Map<String,String> areaCodeMap = new HashMap<String, String>();
+		Map<String,String> branchNameMap = new HashMap<String, String>();
+		comCodeUtil.getUpperCodeMap("ORDER_STATUS", orderCodeMap, comCodeDAO);
+		comCodeUtil.getCodeMap("AREA", areaCodeMap, comCodeDAO);
+		
+		List<BranchVO> branchList = branchDAO.getBranchList();
+		for (BranchVO branchVO : branchList) {
+			branchNameMap.put(branchVO.getBranchCode(), branchVO.getBranchName());
+		}
+		
+		LaundryOrderVO laundryOrder = laundryOrderDAO.selectLaundryOrderByOrderNo(orderNo);
+		List<LaundryOrderDetailVO> laundryOrderDetailList = laundryOrderDetailDAO.selectlaundryOrderDetailListByOrderNo(orderNo);
+		
+		laundryOrder.setContactNumber(FormatUtil.hyphenationPhoneNum(laundryOrder.getContactNumber()));
+		
+		dataMap.put("orderCodeMap",orderCodeMap);
+		dataMap.put("areaCodeMap",areaCodeMap);
+		dataMap.put("branchNameMap",branchNameMap);
+		dataMap.put("laundryOrder", laundryOrder);
+		dataMap.put("laundryOrderDetailList", laundryOrderDetailList);
 		return dataMap;
 	}
 	

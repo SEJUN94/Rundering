@@ -29,9 +29,8 @@
 		<result column="ADD2" property="add2" />
 		<result column="ATCH_FILE_NO" property="atchFileNo" />
 		<result column="REPLYNO" property="replyNo" />
-	 
-	
 	</resultMap>
+	
 	<sql id="search">
 		<if test="searchType == '01'.toString()">
 			and order_status = '01'		
@@ -109,7 +108,14 @@
 		   set order_status=#{orderStatus}
 		 where order_no=#{orderNo} 
 	</update>
-
+	
+	<select id="selectLaundryOrderByOrderNo"  resultMap="laundryOrderMap" parameterType="str">
+		select *
+		  from TB_LAUNDRY_ORDER
+		 where ORDER_NO = #{orderNo}
+	</select>
+	
+	
 	
 	
 

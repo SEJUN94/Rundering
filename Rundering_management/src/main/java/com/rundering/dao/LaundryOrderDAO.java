@@ -24,5 +24,7 @@ public interface LaundryOrderDAO {
 	public int selectCount(Criteria cri) throws Exception;
 	public void updateLaundryOrderStatusByOrderNo(LaundryOrderVO laundryOrderVO) throws Exception;		
 	
+	//본사 - 세탁주문조회
+	public LaundryOrderVO selectLaundryOrderByOrderNo(String orderNo) throws SQLException;
 	
 }

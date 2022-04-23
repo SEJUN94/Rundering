@@ -62,6 +62,13 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		return session.selectList("LaundryOrder-Mapper.selectAdminLaundryOrderList",cri,rowBounds);
 	}
 
+	@Override
+	public LaundryOrderVO selectLaundryOrderByOrderNo(String orderNo) throws SQLException {
+		return session.selectOne("LaundryOrder-Mapper.selectLaundryOrderByOrderNo",orderNo);
+	}
+
+
+
 	
 	
 	
