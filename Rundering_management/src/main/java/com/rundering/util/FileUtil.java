@@ -55,30 +55,22 @@ public class FileUtil {
 	}
 		
 	// 이미지 불러오기 위한 바이트 데이터 스크립트 or html 태그 src or url 속성에서 get 형식으로 불러와서 배열을 내보내주면됨
-	public List<byte[]> getPicture(String fileNo,AttachService attachService) throws Exception{
+	public List<String> getPicture(String fileNo,AttachService attachService) throws Exception{
 		// 내일 이미지 불러오는거 좀더 쉽게 만들어 주도록 하죠
 		List<AttachVO> attachList = null;
 		attachList = attachService.getAttachVOList(fileNo);
-		List<byte[]> byteArrayList = new ArrayList<byte[]>();
+		List<String> stringArrayList = new ArrayList<String>();
 		for (AttachVO attach : attachList) {
 			
-			InputStream in = null;
-			byte[] bytes = null;
 			
-			try {
-				in = new FileInputStream(new File(attach.getFilePath(), attach.getSaveFileNm()));
+			String file=attach.getFilePath()+attach.getSaveFileNm();
 
-				bytes=IOUtils.toByteArray(in);
 
-			} finally {
-				in.close();
-			}
-			byteArrayList.add(bytes);
-			
+			stringArrayList.add(file);
 			
 		}
 		
-		return byteArrayList;
+		return stringArrayList;
 		
 	}
 	//파일 삭제

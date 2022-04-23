@@ -1,8 +1,11 @@
 package com.rundering.manage;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -21,8 +24,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rundering.command.MemberAddCommand;
 import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
+import com.rundering.service.AttachService;
 import com.rundering.service.MemberAddressService;
 import com.rundering.service.MemberService;
+import com.rundering.util.FileUtil;
 import com.rundering.util.FormatUtil;
 import com.rundering.util.PhoneResDTO.SendSmsResponse;
 import com.rundering.util.SensSms;
@@ -35,9 +40,12 @@ public class CommonController {
 	
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private AttachService attachService;
 	
 	@Resource(name="memberAddressService")
 	private MemberAddressService memberAddressService;
+
 	
 	
 	@RequestMapping("/common/application")
@@ -125,4 +133,21 @@ public class CommonController {
 		model.addAttribute("message","세션이 만료되었습니다.");
 		return url;
 	}
+	
+	//파일 이미지 불러오기
+	@RequestMapping(value = "/common/getimage",method = RequestMethod.POST,produces ="application/json;charset=UTF-8")
+	@ResponseBody
+	public ResponseEntity<List<String>> getImageString(String fileNo) {
+		FileUtil fileUtil=new FileUtil();
+		ResponseEntity<List<String>> resp = null;
+		List<String>  file = null;
+		try {
+			file= fileUtil.getPicture(fileNo, attachService);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		resp = new ResponseEntity<List<String>>(file,HttpStatus.OK);
+		return resp;
+	}
+	
 }
