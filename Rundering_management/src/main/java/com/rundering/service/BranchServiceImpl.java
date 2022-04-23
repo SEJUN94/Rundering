@@ -2,14 +2,14 @@ package com.rundering.service;
 
 import java.util.List;
 
-import com.rundering.dao.BranchDAOImpl;
+import com.rundering.dao.BranchDAO;
 import com.rundering.dto.BranchVO;
 
 public class BranchServiceImpl implements BranchService {
 
-	BranchDAOImpl branchDAO;
+	BranchDAO branchDAO;
 
-	public void setBranchDAO(BranchDAOImpl branchDAO) {
+	public void setBranchDAO(BranchDAO branchDAO) {
 		this.branchDAO = branchDAO;
 	}
 

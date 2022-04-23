@@ -18,9 +18,14 @@ public class ComCodeServiceImpl implements ComCodeService {
 	@Override
 	public List<ComCodeVO> getDepartment() throws Exception {
 
-		List<ComCodeVO> comCodeList = comCodeDAO.getDepartment();
-		
-		return comCodeList;
+		return comCodeDAO.getDepartment();
+	}
+
+	// 전체 부서 가져오기
+	@Override
+	public List<ComCodeVO> getPosition() throws Exception {
+
+		return comCodeDAO.getPosition();
 	}
 
 

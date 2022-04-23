@@ -43,5 +43,11 @@ public class ComCodeDAOImpl implements ComCodeDAO{
 	public List<ComCodeVO> getDepartment() throws Exception {
 		return session.selectList("ComCode-Mapper.getDepartment");
 	}
+	
+	// 전체 부서 가져오기
+	@Override
+	public List<ComCodeVO> getPosition() throws Exception {
+		return session.selectList("ComCode-Mapper.getPosition");
+	}
 
 }

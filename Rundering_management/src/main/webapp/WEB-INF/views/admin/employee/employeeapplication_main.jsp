@@ -10,7 +10,8 @@
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="appList" value="${dataMap.appList }" />
 <c:set var="branchList" value="${branchList}" />
-<c:set var="cvList" value="${cvList}" />
+<c:set var="dpList" value="${dpList}" />
+<c:set var="poList" value="${poList}" />
 <c:set var="bv" value="${bv}" />
 
 
@@ -114,22 +115,34 @@
 								<label>부서</label> <select
 									class="form-control select2 select2-hidden-accessible"
 									style="width: 100%;" data-select2-id="9" tabindex="-1"
-									aria-hidden="true">
-									<option selected="selected" data-select2-id="11">부서명</option>
-									<c:forEach items="${cvList }" var="list">
+									aria-hidden="true" id="department" name="department" value="" >
+									<option selected="selected" data-select2-id="11" >부서명</option>
+									<c:forEach items="${dpList }" var="list">
 									<option value="${list.comCode }">${list.comCodeNm }</option>
 									</c:forEach>
 								</select>
 							</div>
-
-							<div class="form-group" style="margin-top: 45px;">
-								<div class="float-right col-4" style="margin-right: 0;">
+							<div class="form-group">
+								<label>직책</label> <select
+									class="form-control select2 select2-hidden-accessible"
+									style="width: 100%;" data-select2-id="9" tabindex="-1"
+									aria-hidden="true" id="position" name="position" value="">
+									<option selected="selected" data-select2-id="11" >직책명</option>
+									<c:forEach items="${poList }" var="list">
+									<option value="${list.comCode }">${list.comCodeNm }</option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+					</div>
+					<input type="hidden" id="memNo" name="memNo" value="" >
+					<input type="hidden" id="jd" name="jd" value="" >
+							<div class="form-group" style="">
+								<div class="float-right col-2" style="margin-right: 0;">
 									<button type="submit" class="btn col-12 btn-primary"
 										onclick="regist()">등록</button>
 								</div>
 							</div>
-						</div>
-					</div>
 				</div>
 			</form>
 		</div>
@@ -139,9 +152,41 @@
 
 <script>
 	let nm = document.querySelector('#name');
+	let jd = document.querySelector('#jd');
+	let memNo = document.querySelector('#memNo');
 	let name = document.querySelector('input[id="name"]');
 	let phone = document.querySelector('input[id="phone"]');
 	let email = document.querySelector('input[id="email"]');
+	
+	function regist(){
+		
+		console.log(jd.value)
+		console.log(memNo.value)
+		
+		$.ajax({
+			url : '<%=request.getContextPath()%>/admin/employeeapplication/regist',
+			data : {
+				'department' : $('#department').val()
+				,'branchCode' : $('#branchCode').val()
+				,'position' : $('#position').val()
+				,'memberno' : memNo.value
+				
+			},
+			type : 'post',
+			success : function(ok) {
+				if(ok.toUpperCase() == "OK"){
+					Swal.fire('등록 성공', '해당 신청을 등록하였습니다.', 'success' )
+					
+				} else {
+					Swal.fire('error', '시스템 오류로 등록 할 수 없습니다.' , 'error')
+				}
+			},
+			error : function(error) {
+				alert('오류')
+				//AjaxErrorSecurityRedirectHandler(error.status);
+			}
+		});
+	}
 	
 	function detail(no) {
 		console.log(this);
@@ -155,8 +200,10 @@
 				nm.value = mv.name
 				phone.value = mv.phone
 				email.setAttribute('value',mv.email)
-				
-				
+				jd.setAttribute('value',mv.registDate)
+				memNo.setAttribute('value',mv.memberNo)		
+				console.log(jd.value)
+				console.log(memNo.value)
 			},
 			error : function(error) {
 				AjaxErrorSecurityRedirectHandler(error.status);
@@ -188,8 +235,7 @@
 		
 	}
 	
-	function regirst(){
-			
-	}
+	
+	
 </script>
 

@@ -80,10 +80,10 @@
 		UPDATE
 		TB_MEMBER
 		SET
-		(ID,PASSWORD,EMPOYEE_ID_YN) =
-		(#{id},#{password},'Y')
-		where =
-		#{memberNo}
+		ID = #{id}
+		,PASSWORD = #{password}
+		,EMPLOYEE_ID_YN = 'Y'
+		where MEMBERNO = #{memberNo}
 	</update>
 	
 	<update id="removeByNo" parameterType="str">

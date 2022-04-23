@@ -39,22 +39,28 @@
 		 where A.MEMBERNO = B.MEMBERNO
 		   and A.MEMBERNO=#{memberno}
 	</select>
-	<update id="employeeRegist" parameterType="employees">
+	<update id="employeeRegist" parameterType="employees" >
 		INSERT INTO
 		TB_EMPLOYEES(
 		EMPLOYEE_ID
 		,BRANCH_CODE
-		,JOINING_COMPANY_DATE
 		,DEPARTMENT
+		,POSITION
 		,MEMBERNO
 		) VALUES(
 		#{department} ||'22'||LPAD(EMPLOYEE_ID_SEQ.NEXTVAL, 3, 0)
 		,#{branchCode}
-		,#{joiningCompanyDate}
 		,#{department}
+		,#{position}
 		,#{memberno}
 		)
 	</update>
+	
+	<select id="getEmployeeByNo" resultMap="employeesMap" parameterType="str" >
+		SELECT *
+		FROM TB_EMPLOYEES
+		WHERE MEMBERNO = #{memberno}
+	</select>
 
 
 </mapper>

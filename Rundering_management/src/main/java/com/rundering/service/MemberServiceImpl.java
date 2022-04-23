@@ -4,16 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.rundering.dao.MemberDAOImpl;
+import com.rundering.dao.MemberDAO;
 import com.rundering.dto.MemberVO;
 import com.rundering.util.AppCriteria;
 import com.rundering.util.AppPageMaker;
 
 public class MemberServiceImpl implements MemberService {
 
-	MemberDAOImpl memberDAO;
+	MemberDAO memberDAO;
 
-	public void setMemberDAO(MemberDAOImpl memberDAO) {
+	public void setMemberDAO(MemberDAO memberDAO) {
 		this.memberDAO = memberDAO;
 	}
 
@@ -50,8 +50,9 @@ public class MemberServiceImpl implements MemberService {
 
 	// 사원등록 후 아이디 및 비밀번호 변경
 	@Override
-	public void updateMember(MemberVO member) throws Exception {
-		memberDAO.updateMember(member);
+	public int updateMember(MemberVO member) throws Exception {
+		
+		return memberDAO.updateMember(member);
 
 	}
 
