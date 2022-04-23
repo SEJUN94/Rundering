@@ -19,6 +19,16 @@
  		select *
  		  from TB_REPLY
  		 where REPLYNO=#{replyno} 
+ 		  from tb_reply
+ 		 where replyno=#{replyno}
+ 		   and delete_yn = 'N'
+ 		 order by regist_date asc 
+ 	</select>
+ 	<select id="selectReplyCountByReplyno">
+ 		select count(replyno_seq)
+ 		  from tb_reply
+ 		 where replyno=#{replyno}
+ 		   and delete_yn = 'N'
  	</select>
  	<select id="selectReplySeq" resultType="int">
  		select replyno_seq.nextval

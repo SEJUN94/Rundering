@@ -1,21 +1,19 @@
 package com.rundering.dao;
 
-import java.sql.SQLException;
 import java.util.List;
-
-import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.dto.ReplyVO;
 
-
 public interface ReplyDAO {
+	public List<ReplyVO> selectReplyByReplyNo(String replyNo) throws Exception;
 
-	void insertReply( ReplyVO reply) throws SQLException;
-	void updateReply( ReplyVO reply) throws SQLException;
-	void deleteReply( int replyno) throws SQLException;
+	int selectReplySeq() throws Exception;
+
+	void insertReplyByReplyVO(ReplyVO reply) throws Exception;
+
+	void insertReplyByReplyVOFirst(ReplyVO reply) throws Exception;
 	
-	int selectReplySeqNextValue() throws SQLException;
-	List<ReplyVO> selectReplyListPage(int replyno) throws SQLException;
+	int selectReplyCountByReplyno(String replyno) throws Exception;
 	
 	
 }

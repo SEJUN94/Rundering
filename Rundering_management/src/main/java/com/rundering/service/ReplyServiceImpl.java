@@ -1,56 +1,50 @@
 package com.rundering.service;
 
-import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.rundering.dao.MemberDAO;
 import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.ReplyVO;
+import com.rundering.manage.Criteria;
+import com.rundering.manage.PageMaker;
 
-public class ReplyServiceImpl implements ReplyService{
+public class ReplyServiceImpl implements ReplyService {
+	ReplyDAO replyDAO;
 	
-	private ReplyDAO replyDAO;
-
 	public void setReplyDAO(ReplyDAO replyDAO) {
 		this.replyDAO = replyDAO;
 	}
-
-	private MemberDAO MemberDAO;
-	public void setMemberDAO(MemberDAO MemberDAO) {
-		this.MemberDAO = MemberDAO;
-	}
 	
 	@Override
-	public List<ReplyVO> getReplyList(int replyno)throws Exception {
+	public Map<String, Object> getReplyList(String replyno,Criteria cri) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<ReplyVO> replyList = replyDAO.selectReplyByReplyNo(replyno);
+		
+		
+		PageMaker pageMaker = new PageMaker();
+		
+		int totalCount = replyDAO.selectReplyCountByReplyno(replyno);
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
 
-		List<ReplyVO> replyList = replyDAO.selectReplyListPage(replyno);
-
-		if(replyList!=null)for(ReplyVO reply : replyList) {
-			MemberDAO.selectMemberById(reply.getMemberno());
-		}
-
-		return replyList;
+		dataMap.put("replyList", replyList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
 	}
-
 	@Override
-	public void registReply(ReplyVO reply) throws SQLException {
-		int replyno = replyDAO.selectReplySeqNextValue();
+	public void firstRegistReply(ReplyVO reply) throws Exception {
+		int replyno = replyDAO.selectReplySeq();
 		reply.setReplyno(replyno);
+		replyDAO.insertReplyByReplyVOFirst(reply);
 
-		replyDAO.insertReply(reply);
 	}
-
-	@Override
-	public void modifyReply(ReplyVO reply) throws SQLException {
-		replyDAO.updateReply(reply);
-	}
-
-	@Override
-	public void removeReply(int replyno) throws SQLException {
-		replyDAO.deleteReply(replyno);
-	}
-
 	
+	@Override
+	public void registReply(ReplyVO reply) throws Exception {
+		replyDAO.insertReplyByReplyVO(reply);
+	}
 	
 
 }
