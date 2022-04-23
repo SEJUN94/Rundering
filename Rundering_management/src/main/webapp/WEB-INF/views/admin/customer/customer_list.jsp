@@ -6,6 +6,7 @@
 
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
+<c:set var="memberList" value="${dataMap.memberList }" />
 
 <head>
 <style>
@@ -36,14 +37,37 @@
 </style>
 </head>
 <body>
-	<div id="body">
+	<div class="row ml-3 mr-3">
+      <div class="col-12 p-0">
+         <div class="card m-0 card-secondary card-outline">
+         <div class="card-header" style="border-bottom: 0px;">
+               <h3 class="card-title" style="font-size: 1.75rem;">회원 관리</h3>
+              <!-- search -->
+						
+            </div>
+	
 		<div class="row">
-			<div class="col-12">
-				<div class="card card-primary card-outline">
-					<div class="card-header">
-						<h3 class="card-title">회원 목록</h3>
-						<div class="card-tools">
-							<div class="input-group input-group-sm" style="width: 400px;">
+			<div class="col-12 card">
+				<div class="row">
+					<div class="col-6">
+						<div class="card-header p-0 pt-1 border-bottom-0">
+							
+								<ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist" style="display: inline-flex;">
+								<li class="nav-item">
+								<a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">전체회원</a>
+								</li>
+								<li class="nav-item">
+								<a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">휴면회원</a>
+								</li>
+								<li class="nav-item">
+								<a class="nav-link" id="custom-tabs-three-messages-tab" data-toggle="pill" href="#custom-tabs-three-messages" role="tab" aria-controls="custom-tabs-three-messages" aria-selected="false">탈퇴회원</a>
+								</li>
+							</ul>	
+						</div>
+						
+					</div>
+					<div class="col-6 float-right">
+							<div class="input-group input-group-sm float-right" style="width: 400px; padding-top: 3px">
 								<select class="form-control col-md-4" name="searchType"
 									id="searchType">
 									<option value="tc" ${cri.searchType eq 'tc' ? 'selected':'' }>전체</option>
@@ -58,8 +82,9 @@
 									</button>
 								</span>
 							</div>
-						</div>
 					</div>
+				</div>		
+					
 
 					<div class="card table-responsive p-0">
 						<table class="table table-hover text-nowrap">
@@ -82,7 +107,7 @@
 								<c:forEach items="${memberList }" var="member">
 									<tr style='font-size: 0.85em;'>
 										<td>${member.memberNo }</td>
-										<td>${member.title }</td>
+										<td>${member.id }</td>
 										<td>${member.name}</td>
 										<td>${member.phone }</td>
 										<td>${member.email }</td>
@@ -94,14 +119,8 @@
 					</div>
 					<div class="card-footer">
 						<%@ include file="/WEB-INF/views/common/pagination.jsp" %>
-						<div class="float-right mb-3 mr-2">
-							<a
-								href="<%=request.getContextPath()%>/admin/notice/registform">
-							</a>
-						</div>
 					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 

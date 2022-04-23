@@ -24,16 +24,17 @@ public interface MemberService {
 	// 로그인시 지점코드가 같은 사원신청 리스트 가져오기
 	public Map<String, Object> getEmplAppList(AppCriteria cri) throws Exception;
 
-	// 고객 리스트 조회
-	public List<MemberVO> getMemberList(Criteria cri) throws Exception;
-
-	// 고객 정보 조회
-	public MemberVO getMember(String id) throws Exception;
-
+	// 사원여부
+	public MemberVO getEmployee(String id) throws Exception;
+	
 	// 권한그룹코드 분류
 	public List<String> getAuthList(String memberNo) throws Exception;
 
-	// 사원여부
-	public MemberVO getEmployee(String id) throws Exception;
-
+	// 고객 리스트 조회
+	public Map<String, Object> getMemberList(Criteria cri) throws Exception;
+	
+	// 고객 정보 조회
+	public MemberVO getMember(String id) throws Exception;
+	
+	
 }

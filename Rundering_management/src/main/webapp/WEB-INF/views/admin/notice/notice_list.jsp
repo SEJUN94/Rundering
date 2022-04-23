@@ -40,7 +40,7 @@
 	<div id="body">
 		<div class="row">
 			<div class="col-12">
-				<div class="card card-primary card-outline">
+				<div class="card card-secondary card-outline">
 					<div class="card-header">
 						<h3 class="card-title">공지사항</h3>
 						<div class="card-tools">

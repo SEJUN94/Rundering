@@ -57,7 +57,9 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public void regist(NoticeVO notice) throws SQLException {
+		  	int replyno = noticeDAO.selectNoticeSequenceNextValue();
 			int noticeno = noticeDAO.selectNoticeSequenceNextValue();
+			notice.setReplyNo(replyno);
 			notice.setNoticeno(noticeno);
 			noticeDAO.insertNotice(notice);
 	}

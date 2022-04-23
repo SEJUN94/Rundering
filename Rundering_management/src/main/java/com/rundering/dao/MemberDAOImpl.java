@@ -2,6 +2,7 @@ package com.rundering.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -15,18 +16,6 @@ public class MemberDAOImpl implements MemberDAO {
 
 	public void setSession(SqlSession session) {
 		this.session = session;
-	}
-
-	@Override
-	public MemberVO selectMemberById(String id) throws Exception {
-		MemberVO member = session.selectOne("Member-Mapper.selectMemberById", id);
-		return member;
-	}
-
-	@Override
-	public List<String> selectAuthByMemberNo(String memberNo) throws Exception {
-		List<String> auth = session.selectList("Member-Mapper.selectAuthByMemberNo", memberNo);
-		return auth;
 	}
 
 	@Override
@@ -87,7 +76,25 @@ public class MemberDAOImpl implements MemberDAO {
 		return member;
 	}
 
+	//권한그룹
+	@Override
+	public List<String> selectAuthByMemberNo(String memberNo) throws Exception {
+		List<String> auth = session.selectList("Member-Mapper.selectAuthByMemberNo", memberNo);
+		return auth;
+	}
+	
+	
+	
+	
+	
+	//고객 정보
+	@Override
+	public MemberVO selectMemberById(String id) throws Exception {
+		MemberVO member = session.selectOne("Member-Mapper.selectMemberById", id);
+		return member;
+	}
 
+	//고객리스트
 	@Override
 	public List<MemberVO> selectMemberList(Criteria cri) throws Exception {
 		int offset = cri.getStartRowNum();
@@ -100,14 +107,14 @@ public class MemberDAOImpl implements MemberDAO {
 		return memberList;
 	}
 
-
+	//일반 리스트 전체 개수
 	@Override
 	public int selectMemberListCount() throws Exception {
 		int totalCount = session.selectOne("Member-Mapper.selectMemberListCount");
 		return totalCount;
 	}
 
-
+	//검색 결과의 전체 리스트 개수
 	@Override
 	public int selectMemberListCount(Criteria cri) throws Exception {
 		int totalCount = session.selectOne("Member-Mapper.selectSearchMemberListCount",cri);
