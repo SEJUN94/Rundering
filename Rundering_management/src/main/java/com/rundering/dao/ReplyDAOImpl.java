@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.dto.ReplyVO;
 
-public class ReplyDAOImpl implements ReplayDAO{
+public class ReplyDAOImpl implements ReplyDAO{
 	SqlSession session;
 	
 	public void setSession(SqlSession session) {
@@ -27,7 +27,12 @@ public class ReplyDAOImpl implements ReplayDAO{
 	}
 	@Override
 	public void insertReplyByReplyVOFirst(ReplyVO reply) throws Exception{
-		session.insert("Reply-Mapper.insertReplyByReplyVOFirst");
+		session.insert("Reply-Mapper.insertReplyByReplyVOFirst",reply);
+	}
+
+	@Override 
+	public int selectReplyCountByReplyno(String replyno) throws Exception {
+		return session.selectOne("Reply-Mapper.selectReplyCountByReplyno", replyno);
 	}
 	
 	

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.rundering.dao.MemberDAOImpl;
 import com.rundering.dto.MemberVO;
+import com.rundering.manage.Criteria;
 import com.rundering.util.AppCriteria;
 import com.rundering.util.AppPageMaker;
 
@@ -81,5 +82,10 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO mv = memberDAO.getEmpAppinfo(memberNO);
 		
 		return mv;
+	}
+
+	@Override
+	public List<MemberVO> getMemberList(Criteria cri) throws Exception {
+		return null;
 	}
 }

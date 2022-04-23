@@ -55,6 +55,12 @@
 		from dual
 	</select>
 	
+	<select id="selectReplySequenceNextValue" resultType="int">
+		select REPLYNO_SEQ.nextVal
+		from dual
+	</select>
+	 
+	
 	<select id="selectSearchNoticeListCount" resultType="int">
 		select
 		count(*) 

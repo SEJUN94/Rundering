@@ -11,14 +11,9 @@ import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
-import com.rundering.dao.ReplayDAO;
-import com.rundering.dto.LaundryItemsVO;
-import com.rundering.dto.LaundryOrderDetailVO;
+import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.ReplyVO;
-import com.rundering.dto.SuggestVO;
-import com.rundering.manage.Criteria;
-import com.rundering.manage.PageMaker;
 import com.rundering.util.BranchCriteria;
 import com.rundering.util.BranchPageMaker;
 import com.rundering.util.ComCodeUtil;
@@ -37,8 +32,8 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	public void setLaundryItemsDAO(LaundryItemsDAO laundryItemsDAO) {
 		this.laundryItemsDAO = laundryItemsDAO;
 	}
-	private ReplayDAO replyDAO;
-	public void setReplyDAO(ReplayDAO replyDAO) {
+	private ReplyDAO replyDAO;
+	public void setReplyDAO(ReplyDAO replyDAO) {
 		this.replyDAO = replyDAO;
 	}
 	private ComCodeDAO comCodeDAO;
