@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.rundering.dao.MemberDAOImpl;
 import com.rundering.dto.MemberVO;
+import com.rundering.manage.Criteria;
 
 public class MemberServiceImpl implements MemberService{
 	
@@ -29,5 +30,10 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO getEmployee(String id) throws Exception {
 		MemberVO member = memberDAO.selectEmployeeById(id);
 		return member;
+	}
+
+	@Override
+	public List<MemberVO> getMemberList(Criteria cri) throws Exception {
+		return null;
 	}
 }

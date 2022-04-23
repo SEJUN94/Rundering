@@ -63,7 +63,12 @@ public class NoticeDAOImpl implements NoticeDAO {
 		int seq_num=session.selectOne("Notice-Mapper.selectNoticeSequenceNextValue");
 		return seq_num;
 	}
-
+	
+	@Override
+	public int selectReplySequenceNextValue() throws SQLException {
+		int seq_num=session.selectOne("Notice-Mapper.selectReplySequenceNextValue");
+		return seq_num;
+	}
 
 	@Override
 	public void insertNotice(NoticeVO notice) throws SQLException {
@@ -81,6 +86,9 @@ public class NoticeDAOImpl implements NoticeDAO {
 	public void deleteNotice(int noticeno) throws SQLException {
 		session.update("Notice-Mapper.deleteNotice", noticeno);
 	}
+
+
+	
 
 
 }
