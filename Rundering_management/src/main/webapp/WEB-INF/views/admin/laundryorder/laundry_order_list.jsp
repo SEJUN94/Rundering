@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:set var="cri" value="${pageMaker.cri }" />
 
 <body>
 
@@ -98,12 +102,12 @@
 							<c:forEach items="${laundryOrderList }" var="laundryOrder" >
 								<tr onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
 									style="cursor: pointer;">
-									<td>2022-03-29-15:30</td>
+									<td><fmt:formatDate value="${laundryOrder.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 									<td>${laundryOrder.orderNo }</td>
-									<td>티셔츠 1개, 니트 2개</td>
-									<td>구건회</td>
-									<td>14,000원</td>
-									<td></td>
+									<td><fmt:formatDate value="${laundryOrder.pickupRequestDate }" pattern="yyyy-MM-dd"/></td>
+									<td>${laundryOrder.area }</td>
+									<td>${laundryOrder.branchCode }</td>
+									<td>${laundryOrder.orderStatus }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -111,21 +115,7 @@
 
 
 					<div class="card-footer">
-						<nav aria-label="Contacts Page Navigation">
-							<ul class="pagination justify-content-center m-0">
-								<li class="page-item active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">4</a></li>
-								<li class="page-item"><a class="page-link" href="#">5</a></li>
-								<li class="page-item"><a class="page-link" href="#"> <i
-										class="fas fa-angle-right"></i>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#"> <i
-										class="fas fa-angle-double-right"></i>
-								</a></li>
-							</ul>
-						</nav>
+						<%@ include file="/WEB-INF/views/common/pagination.jsp" %>
 					</div>
 
 				</div>

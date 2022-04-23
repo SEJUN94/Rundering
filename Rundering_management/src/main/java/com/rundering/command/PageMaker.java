@@ -1,4 +1,4 @@
-package com.rundering.manage;
+package com.rundering.command;
 
 public class PageMaker {
 	

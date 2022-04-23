@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.Criteria;
 import com.rundering.dto.NoticeVO;
-import com.rundering.manage.Criteria;
 import com.rundering.manage.HomeController;
 import com.rundering.service.NoticeService;
 

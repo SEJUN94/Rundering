@@ -1,12 +1,13 @@
 package com.rundering.service;
 
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.BranchCriteria;
+import com.rundering.command.BranchPageMaker;
+import com.rundering.command.Criteria;
+import com.rundering.command.PageMaker;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
@@ -14,8 +15,6 @@ import com.rundering.dao.LaundryOrderDetailDAO;
 import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.ReplyVO;
-import com.rundering.util.BranchCriteria;
-import com.rundering.util.BranchPageMaker;
 import com.rundering.util.ComCodeUtil;
 
 public class LaundryOrderServiceImpl implements LaundryOrderService {
@@ -77,10 +76,18 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		
 	}
 	@Override
-	public Map<String, Object> getAdminlaundryOrderList() throws Exception {
+	public Map<String, Object> getAdminlaundryOrderList(Criteria cri) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		List<LaundryOrderVO> laundryOrderList = laundryOrderDAO.selectAdminLaundryOrderList();
+		List<LaundryOrderVO> laundryOrderList = laundryOrderDAO.selectAdminLaundryOrderList(cri);
+		
+		int totalCount = laundryOrderDAO.selectCount(cri);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		
 		dataMap.put("laundryOrderList", laundryOrderList);
+		dataMap.put("pageMaker", pageMaker);
 		return dataMap;
 	}
 	

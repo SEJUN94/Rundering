@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.Criteria;
 import com.rundering.dto.SuggestVO;
-import com.rundering.manage.Criteria;
 
 public class SuggestDAOImpl implements SuggestDAO {
 	private SqlSession session;

@@ -3,10 +3,9 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.rundering.command.BranchCriteria;
+import com.rundering.command.Criteria;
 import com.rundering.dto.LaundryOrderVO;
-import com.rundering.dto.ReplyVO;
-import com.rundering.manage.Criteria;
-import com.rundering.util.BranchCriteria;
 
 public interface LaundryOrderDAO {
 	
@@ -19,9 +18,10 @@ public interface LaundryOrderDAO {
 	//지점 - 세탁주문목록
 	public List<LaundryOrderVO> selectLaundryOrderList(BranchCriteria cri) throws Exception;
 	//본사 - 세탁주문목록
-	public List<LaundryOrderVO> selectAdminLaundryOrderList() throws Exception;
+	public List<LaundryOrderVO> selectAdminLaundryOrderList(Criteria cri) throws Exception;
 
 	public int selectCount(BranchCriteria cri) throws Exception;
+	public int selectCount(Criteria cri) throws Exception;
 	public void updateLaundryOrderStatusByOrderNo(LaundryOrderVO laundryOrderVO) throws Exception;		
 	
 	
