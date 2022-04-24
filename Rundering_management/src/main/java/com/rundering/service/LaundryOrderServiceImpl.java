@@ -7,11 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.dao.AttachDAO;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
 import com.rundering.dao.ReplyDAO;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.ReplyVO;
 import com.rundering.util.BranchCriteria;
@@ -39,6 +41,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	private ComCodeDAO comCodeDAO;
 	public void setComCodeDAO(ComCodeDAO comCodeDAO) {
 		this.comCodeDAO = comCodeDAO;
+	}
+	private AttachDAO attachDAO;
+	public void setAttachDAO(AttachDAO attachDAO) {
+		this.attachDAO = attachDAO;
 	}
 	@Override
 	public Map<String,Object> laundryOrderList(BranchCriteria cri) throws Exception{
@@ -72,9 +78,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 			laundryOrderDAO.updateLaundryOrderStatusByOrderNo(laundryOrder);
 		}
 	}
-	public void insertRequest(ReplyVO peply) throws Exception{
-		
-		
+	@Override
+	public List<AttachVO> selectAttachList(String attchNo) throws Exception{
+		return attachDAO.selectAttachVOByFileNo(attchNo);
 	}
+
 	
 }

@@ -49,17 +49,6 @@
  		)
  	</insert>
  	
-	<insert id="insertReplyByReplyVOFirst" parameterType="reply">
-		insert into tb_reply
-		(REPLYNO,
-	     REPLY_CONTENT,
-	     MEMBERNO,
-		)
-		values( #{replyno},
-	 			#{replyContent},
-	 			 #{memberno}
-		)
- 	</insert>
  	
 	<select id="selectReplySeqNextValue" resultType="int" >
 		select TB_REPLY_seq.nextval

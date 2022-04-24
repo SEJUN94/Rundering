@@ -41,23 +41,7 @@ public class BranchReplyController {
 	}
 	
 	
-	@RequestMapping(value = "firstRegist",method = RequestMethod.POST)
-	public ResponseEntity<String> firstRegist(ReplyVO reply,HttpSession session,Criteria cri) {
-		ResponseEntity<String> resp = null;
-		MemberVO member= (MemberVO)session.getAttribute("loginMember");
-		
-		reply.setMemberno(member.getMemberNo());
-		try {
-			replySerivce.firstRegistReply(reply);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		resp = new ResponseEntity<String>("success", HttpStatus.OK);
-		return resp;
-		
-	}
+	
 	@RequestMapping(value = "regist",method = RequestMethod.POST)
 	public ResponseEntity<String> regist (ReplyVO reply,HttpSession session,Criteria cri){
 		ResponseEntity<String> resp = null;

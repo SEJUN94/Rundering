@@ -93,10 +93,10 @@
 											items="${laundryCodeMap }" var="laundryCode">
 											<c:if test="${laundryOrder.orderStatus eq  laundryCode.key}">
 												<input type="checkbox" name="" class="select">
-												<input type="hidden" value="${laundryOrder.orderNo }"
-													name="orderNo" class="inputHidden">
+												<input type="hidden" value="${laundryOrder.orderNo }"	name="orderNo" class="inputHidden">
 											</c:if>
-										</c:forEach></td>
+										</c:forEach>
+									</td>
 								</tr>
 
 							</c:forEach>
@@ -111,50 +111,8 @@
 
 			<div class="row">
 				<div class="col-12 col-sm-5" >	
-					<div class="card card-tabs" style="height: 300px" >
-						<div class="card-header p-0 pt-1" >
-							<div class="float-left" style="margin-top: 10px;margin-left: 10px">이미지</div>
-							<div class="float-right" >
-							<ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-								<li class="nav-item"><a class="nav-link active"
-									id="custom-tabs-one-home-tab" data-toggle="pill"
-									href="#custom-tabs-one-home" role="tab"
-									aria-controls="custom-tabs-one-home" aria-selected="true" style="border-left: 1px solid #dee2e6;">1</a>
-								</li>
-								<li class="nav-item"><a class="nav-link"
-									id="custom-tabs-one-profile-tab" data-toggle="pill"
-									href="#custom-tabs-one-profile" role="tab"
-									aria-controls="custom-tabs-one-profile" aria-selected="false" style="border-left: 1px solid #dee2e6;" >2</a>
-								</li>
-								<li class="nav-item"><a class="nav-link"
-									id="custom-tabs-one-messages-tab" data-toggle="pill"
-									href="#custom-tabs-one-messages" role="tab"
-									aria-controls="custom-tabs-one-messages" aria-selected="false" style="border-left: 1px solid #dee2e6;">3</a>
-								</li>
-								<li class="nav-item"><a class="nav-link"
-									id="custom-tabs-one-settings-tab" data-toggle="pill"
-									href="#custom-tabs-one-settings" role="tab"
-									aria-controls="custom-tabs-one-settings" aria-selected="false" style="border-left: 1px solid #dee2e6;">4</a>
-								</li>
-							</ul>
-							</div>
-						</div>
-						<div class="card-body" style="padding: 0px">
-							<div class="tab-content" id="custom-tabs-one-tabContent">
-								<div class="tab-pane fade show active" id="custom-tabs-one-home"
-									role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-									1.</div>
-								<div class="tab-pane fade" id="custom-tabs-one-profile"
-									role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
-								2</div>
-								<div class="tab-pane fade" id="custom-tabs-one-messages"
-									role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
-									3</div>
-								<div class="tab-pane fade" id="custom-tabs-one-settings"
-									role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
-								4</div>
-							</div>
-						</div>
+					<div class="card card-tabs" style="height: 300px" id="imgtag" >
+		
 
 					</div>
 				</div>
@@ -199,12 +157,8 @@
 					<form action="request" id="replyForm">
 						<textarea rows="5" class="form-control" name="replyContent"
 							id="replyContent">
-					
 					</textarea>
-
 					</form>
-
-
 				</div>
 				<div class="modal-footer">
 
@@ -215,6 +169,68 @@
 			</div>
 		</div>
 	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+	<script type="text/x-handlebars-template" id="fileImage-tempalet" >
+	
+		<div class="card-header p-0 pt-1" >
+			<div class="float-left" style="margin-top: 10px;margin-left: 10px">이미지</div>
+			<div class="float-right" >
+				<ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+				{{#list}}
+					<li class="nav-item"><a class="nav-link active"
+						id="custom-tabs-one-home-tab" data-toggle="pill"
+						href="#custom-tabs-one-home" role="tab"
+						aria-controls="custom-tabs-one-home" aria-selected="true" style="border-left: 1px solid #dee2e6;">{{@index}}</a>
+					</li>
+				{{/list}}
+				</ul>
+			</div>
+		</div>
+		{{#list}}
+		<div class="card-body" style="padding: 0px">
+			<div class="tab-content" id="custom-tabs-one-tabContent">
+				<div class="tab-pane fade show active" id="custom-tabs-one-home"
+					role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+					<img alt="" src="{{this}}">
+				</div>
+			</div>
+		</div>
+		{{/list}}
+	</script>
+	
+	<script>
+	// 이미지 불러오기 
+	function getImages(atchFileNo){
+		    $.ajax({
+		        url:"<%=request.getContextPath()%>/branch/laundrysituatuion/getimgs",
+		        type:"post",
+		        data: {
+		        	atchFileNo:atchFileNo
+		        },
+		        dataType:"json",
+		        success:function(data){
+		        	console.log(data)
+		        	let source = $("#fileImage-tempalet").html(); 
+		        	//핸들바 템플릿 컴파일
+		        	let template = Handlebars.compile(source); 
+					let imgList= data;
+		        	//핸들바 템플릿에 바인딩할 데이터
+		        	let handleData = {
+		        	    	list: imgList
+		        	}; 
+
+		        	let html = template(handleData);
+
+		        	$('#imgtag').append(html);
+		        },
+		        error:function(error){
+				//alert('댓글이 등록을 실패했습니다.');
+				AjaxErrorSecurityRedirectHandler(error.status);
+			}
+		    })
+	}
+	</script>
+
 
 	<script>
  window.onload=function(){ 
@@ -233,12 +249,12 @@
         i.addEventListener("click",function(){
             textContent.innerHTML=event.target.parentElement.querySelectorAll(".textDetail")[0].dataset.text
             orderno=event.target.parentElement.querySelectorAll(".orderno")[0].innerText;
-        	replyno= document.querySelector("#replyno")
-        	replyno.setAttribute("value",orderno);
-
-        
-        
-        
+            atchFileNo=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.atchno
+            console.log(event.target.parentElement.querySelectorAll(".orderno")[0].dataset.atchno)            
+            getImages(atchFileNo);
+            
+        	//replyno= document.querySelector("#replyno")
+        	//replyno.setAttribute("value",orderno);
         })
     }
     let inputHiddens=document.querySelectorAll(".inputHidden")
@@ -298,7 +314,7 @@ function firstRegistReply(){
         }error:function(error){
 		//alert('댓글이 등록을 실패했습니다.');
 		AjaxErrorSecurityRedirectHandler(error.status);
-	}
+		}
     })
 }
 

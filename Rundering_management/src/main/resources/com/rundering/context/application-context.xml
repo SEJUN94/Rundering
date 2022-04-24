@@ -115,6 +115,7 @@
 		p:laundryOrderDetailDAO-ref="laundryOrderDetailDAO"
 		p:replyDAO-ref="replyDAO"
 		p:comCodeDAO-ref="comCodeDAO"
+		p:attachDAO-ref="attachDAO"
 	/>
 	<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl" 
 		p:memberAddressDAO-ref="memberAddressDAO"
