@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.BranchInfoDetailCommand;
+import com.rundering.dto.BranchVO;
 import com.rundering.dto.LaundryThroughPutVO;
 
 public class LaundryThroughputDAOImpl implements LaundryThroughputDAO{
@@ -28,6 +30,12 @@ public class LaundryThroughputDAOImpl implements LaundryThroughputDAO{
 		LaundryThroughPutVO throughput = session.selectOne("LaundryThroughput-Mapper.laundryQuotaDetail", throughputNo);
 		
 		return throughput;
+	}
+	@Override
+	public BranchInfoDetailCommand selectBranchDetail(String branchCode) throws Exception {
+		BranchInfoDetailCommand branchList = session.selectOne("LaundryThroughput-Mapper.branchDetail", branchCode);
+		
+		return branchList;
 	}
 	
 }

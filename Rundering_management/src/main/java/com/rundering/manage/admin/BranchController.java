@@ -5,11 +5,13 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rundering.command.BranchInfoDetailCommand;
 import com.rundering.dto.LaundryThroughPutVO;
 import com.rundering.service.LaundryThroughputService;
 
@@ -26,8 +28,15 @@ public class BranchController {
 	}
 	
 	@RequestMapping("/infodetail")
-	public String pointInfodetail() {
-		return "admin/branchinfo/branch_info_detail";
+	public ModelAndView pointInfodetail(ModelAndView mnv, String branchCode) throws Exception{
+		String url="admin/branchinfo/branch_info_detail";
+		
+		BranchInfoDetailCommand branchDetail = laundryThroughputService.getBranchDetail(branchCode);
+		
+		mnv.addObject("branchDetail", branchDetail);
+		mnv.setViewName(url);
+		
+		return mnv;
 	}
 	@RequestMapping("/detail")
 	public String pointDetail() {
@@ -64,10 +73,12 @@ public class BranchController {
 	}
 	
 	@RequestMapping("/chart")
-	public ResponseEntity<List<LaundryThroughPutVO>> chartjs()throws Exception{
-		ResponseEntity<List<LaundryThroughPutVO>> entity = null;
+	public ResponseEntity<Map<String, Object>> chartjs(String throughputNo)throws Exception{
+		ResponseEntity<Map<String, Object>> entity = null;
 		
+		Map<String, Object> dataMap= laundryThroughputService.getLaundryQuatoByThroughputNo(throughputNo);
 		
+		entity = new ResponseEntity<Map<String, Object>>(dataMap ,HttpStatus.CREATED);
 		
 		return entity;
 	}

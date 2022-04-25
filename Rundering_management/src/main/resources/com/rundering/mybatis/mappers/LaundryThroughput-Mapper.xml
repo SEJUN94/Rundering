@@ -15,6 +15,22 @@
 		<result column="BRANCH_CODE" property="branchCode"/>
 	</resultMap>
 	
+	<resultMap type="branch" id="branchMap">
+		<result column="BRANCH_CODE" property="branchCode"/>
+		<result column="BRANCH_NAME" property="branchName"/>
+		<result column="ZIP" property="zip"/>
+		<result column="BRANCH_LNDRPCRYMSLMCOQY" property="branchLndrpcrymslmcoqy"/>
+		<result column="BRANCH_REGIST_DATE" property="branchRegistDate"/>
+		<result column="BRANCH_CONTACT" property="branchContact"/>
+		<result column="BRANCH_MODIFY_DATE" property="branchModifyDate"/>
+		<result column="DELETE_YN" property="deleteYN"/>
+		<result column="TOPAREA" property="topareaCode"/>
+		<result column="ADD1" property="add1"/>
+		<result column="ADD2" property="add2"/>
+		<result column="AREA" property="area"/>
+	
+	</resultMap>
+	
 	<select id="laundryQuotaList" resultMap="laundryThroughputMap">
 		SELECT 
 			A.THROUGHPUT_NO,
@@ -28,6 +44,8 @@
 			B.BRANCH_NAME as branchName
 		  from TB_LAUNDRY_THROUGHPUT A, TB_BRANCH B
 		 where A.BRANCH_CODE=B.BRANCH_CODE
+		   and TO_CHAR(A.LDATE,'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD')
+		 order by A.LDATE desc
 	</select>
 	
 	<select id="laundryQuotaDetail" resultMap="laundryThroughputMap" parameterType="str">
@@ -44,7 +62,24 @@
 		  from TB_LAUNDRY_THROUGHPUT A, TB_BRANCH B
 		 where A.BRANCH_CODE=B.BRANCH_CODE
 		   and A.THROUGHPUT_NO=#{throughputNo}
-			
 	</select>
 	
+	<select id="branchDetail" resultType="com.rundering.command.BranchInfoDetailCommand" parameterType="str">
+		SELECT 
+			A.BRANCH_NAME as branchName,
+			A.BRANCH_CODE as branchCode,
+			A.BRANCH_CONTACT as branchContact,
+			A.TOPAREA as topareaCode,
+			A.AREA as area,
+			C.NAME as name,
+			C.PHONE as phone,
+			C.EMAIL as email,
+			A.ADD1 || ' ' || A.ADD2 as addr
+		  from TB_BRANCH A, TB_EMPLOYEES B, TB_MEMBER C, TB_COM_CODE D
+		 WHERE B.POSITION = D.COM_CODE
+           AND D.COM_CODE_NM='지점장'
+		   AND A.BRANCH_CODE = #{branchCode}
+           AND A.BRANCH_CODE=B.BRANCH_CODE
+           AND B.MEMBERNO=C.MEMBERNO
+	</select>
 </mapper>

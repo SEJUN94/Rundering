@@ -3,18 +3,18 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class BranchVO {
-	private String branchCode; 			//지점코드
-	private String branchName;			//지점명
-	private String zip; 				//우편번호
-	private String add1;				//주소
-	private String add2;				//상세주소
-	private int branchLndrpcrymslmcoqy; //세탁가능수량
-	private Date branchRegistDate; 		//등록일
-	private String branchContact; 		//연락처
-	private Date branchModifyDate; 		//수정일
-	private String deleteYN; 			//삭제여부
-	private String topareaCode; 		//지역분류코드
-	
+	private String branchCode; 				//지점코드
+	private String branchName;				//지점명
+	private String zip; 					//우편번호
+	private String add1;					//주소
+	private String add2;					//상세주소
+	private int    branchLndrpcrymslmcoqy; //세탁가능수량
+	private Date   branchRegistDate; 		//등록일
+	private String branchContact; 			//연락처
+	private Date   branchModifyDate; 		//수정일
+	private String deleteYN; 				//삭제여부
+	private String topareaCode; 			//지역분류코드
+	private String area;					//지역코드
 	
 	public BranchVO() {
 		super();
@@ -60,26 +60,21 @@ public class BranchVO {
 		this.add1 = add1;
 	}
 
-
 	public String getAdd2() {
 		return add2;
 	}
-
 
 	public void setAdd2(String add2) {
 		this.add2 = add2;
 	}
 
-
 	public int getBranchLndrpcrymslmcoqy() {
 		return branchLndrpcrymslmcoqy;
 	}
 
-
 	public void setBranchLndrpcrymslmcoqy(int branchLndrpcrymslmcoqy) {
 		this.branchLndrpcrymslmcoqy = branchLndrpcrymslmcoqy;
 	}
-
 
 	public Date getBranchRegistDate() {
 		return branchRegistDate;
@@ -129,10 +124,13 @@ public class BranchVO {
 	public void setTopareaCode(String topareaCode) {
 		this.topareaCode = topareaCode;
 	}
-	
-	
-	
-	
-	
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
 	
 }

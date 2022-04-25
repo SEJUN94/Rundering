@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.BranchInfoDetailCommand;
 import com.rundering.dao.LaundryThroughputDAO;
+import com.rundering.dto.BranchVO;
 import com.rundering.dto.LaundryThroughPutVO;
 
 public class LaundryThroughputServiceImpl implements LaundryThroughputService{
@@ -34,5 +36,12 @@ public class LaundryThroughputServiceImpl implements LaundryThroughputService{
 		dataMap.put("throughputList", throughputList);
 		
 		return dataMap;
+	}
+
+	@Override
+	public BranchInfoDetailCommand getBranchDetail(String branchCode) throws Exception {
+		BranchInfoDetailCommand branchDetail = laundryThroughputDAO.selectBranchDetail(branchCode);
+		
+		return branchDetail;
 	}
 }
