@@ -19,6 +19,10 @@
 		</div>
 	</section>
 </script>
-<script type="">
-
+<script >
+function replyList(replyNo){
+	replyList()
+	
+	//주문 회원번호와 댓글 작성 회원번호가 다를시 작성자는 직원이란걸 유추할수 있다
+}
 </script>

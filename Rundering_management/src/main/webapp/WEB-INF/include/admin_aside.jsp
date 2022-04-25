@@ -17,7 +17,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column subMenuList" data-widget="treeview" role="menu" style="font-size: 1.18rem;">
                     <c:forEach items="${key}" var="dataKey" >
 						<c:set var="menuList" value="${dataMap[dataKey] }" />
-						
+						<c:if test="${menuList[0].menuCode ne 'A000000' }">	
 						<li class="nav-item">
                             <a href="javascript:goPage('<%=request.getContextPath()%>${menuList[0].menuUrl}','${menuList[0].menuCode}');" class="nav-link">
                                 <i class="nav-icon fas fa-bars"></i>
@@ -29,10 +29,8 @@
                                      </c:if>
                                 </p>
                             </a>
-                        
                             <c:if test="${fn:length(menuList) > 1}">
 	                            <ul class="nav nav-treeview">
-		                            
 	                            		 <c:forEach var="menu" items="${menuList }" begin="1">
 											<li class="nav-item">
 												<a	href="javascript:goPage('<%=request.getContextPath()%>${menu.menuUrl}','${menu.menuCode}');"	class="nav-link">
@@ -40,16 +38,14 @@
 												</a>
 											</li>
 										</c:forEach>  
-								
 								</ul>
 								</c:if>
                         </li> 
-                        
+                        </c:if>
 					</c:forEach>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
-
             </div>
             <!-- /.sidebar -->
         </aside>
