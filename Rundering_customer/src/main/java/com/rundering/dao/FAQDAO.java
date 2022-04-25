@@ -11,4 +11,8 @@ public interface FAQDAO {
 	List<FAQVO> selectSearchFAQList(Criteria cri) throws SQLException;
 
 	int selectSearchFAQListCount(Criteria cri) throws SQLException;
+	
+	int selectFAQSequenceNextValue() throws SQLException;
+	
+	void insertFAQ(FAQVO FAQ) throws SQLException;
 }

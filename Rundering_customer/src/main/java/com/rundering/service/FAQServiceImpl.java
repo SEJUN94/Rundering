@@ -38,4 +38,10 @@ public class FAQServiceImpl implements FAQService {
 
 		return dataMap;
 	}
+	
+	@Override
+	public void regist(FAQVO faq) throws SQLException {
+		faqDAO.insertFAQ(faq);
+	}
+
 }
