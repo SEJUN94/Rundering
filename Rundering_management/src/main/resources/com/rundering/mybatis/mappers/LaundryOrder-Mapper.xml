@@ -115,7 +115,21 @@
 		 where ORDER_NO = #{orderNo}
 	</select>
 	
+	<select id="selectLaundryOrderListNotAssignedToBranchByArea"  resultMap="laundryOrderMap" parameterType="str">
+		SELECT *
+		  FROM TB_LAUNDRY_ORDER
+		 WHERE BRANCH_CODE IS NULL
+		  AND ORDER_STATUS = '01'
+		  AND AREA = #{area}
+          AND PICKUP_REQUEST_DATE = TO_CHAR(SYSDATE, 'YYYY/MM/DD')
+         ORDER BY ORDER_DATE
+	</select>
 	
+	<update id="updateLaundryOrderbranchCode" parameterType="laundryOrder" >
+		UPDATE TB_LAUNDRY_ORDER
+		   SET BRANCH_CODE=#{branchCode}
+		 WHERE ORDER_NO=#{orderNo} 
+	</update>
 	
 	
 

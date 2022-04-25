@@ -6,8 +6,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<beans:bean id="orderTask"
-				class="com.rundering.scheduler.OrderTaskScheduler"
+	<beans:bean id="orderTask" class="com.rundering.scheduler.OrderTaskScheduler"
+		p:branchDAO-ref="branchDAO"
+		p:laundryOrderDAO-ref="laundryOrderDAO"
+		p:comCodeDAO-ref="comCodeDAO"
 	/>
 	<scheduler id="assignLaundryOrderScheduler"/>
 	

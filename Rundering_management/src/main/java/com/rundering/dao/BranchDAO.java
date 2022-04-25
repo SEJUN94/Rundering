@@ -10,6 +10,10 @@ public interface BranchDAO {
 	public List<BranchVO> selectBranchList() throws Exception;
 	
 	//지점조회 - by branchCode
-	public BranchVO selectBranchByBranchCode(String branchCode) throws Exception; 
+	public BranchVO selectBranchByBranchCode(String branchCode) throws Exception;
+	
+	// 지역별 지점목록 가져오기 - by 공통코드 지역분류코드 AREA
+	public List<BranchVO> selectBranchListByArea(String area) throws Exception;
+		
 	
 }

@@ -24,5 +24,10 @@ public class BranchDAOImpl implements BranchDAO {
 	public BranchVO selectBranchByBranchCode(String branchCode) throws Exception {
 		return session.selectOne("Branch-Mapper.selectBranchByBranchCode", branchCode);
 	}
+	// 전체 지점정보 가져오기
+	public List<BranchVO> selectBranchListByArea(String area) throws Exception {
+		List<BranchVO> branchList = session.selectList("Branch-Mapper.selectBranchListByArea",area);
+		return branchList;
+	}
 
 }

@@ -23,12 +23,19 @@
 	<select id="selectBranchList" resultMap="branchMap" >
 		SELECT *
 		FROM TB_BRANCH
+		WHERE DELETE_YN = 'N'
 	</select>
 	
 	<select id="selectBranchByBranchCode" resultMap="branchMap" parameterType="str">
 		SELECT *
 		FROM TB_BRANCH
 		WHERE BRANCH_CODE = #{branchCode}
+	</select>
+	
+	<select id="selectBranchListByArea" resultMap="branchMap" parameterType="str">
+		SELECT *
+		FROM TB_BRANCH
+		WHERE AREA = #{area}
 	</select>
 
 

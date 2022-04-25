@@ -170,6 +170,15 @@ public class LaundryOrderVO {
 	public void setReplyNo(int replyNo) {
 		this.replyNo = replyNo;
 	}
+
+	@Override
+	public String toString() {
+		return "LaundryOrderVO [orderNo=" + orderNo + ", requestDetails=" + requestDetails + ", orderDate=" + orderDate
+				+ ", contactNumber=" + contactNumber +", pickupRequestDate=" + pickupRequestDate + ", deliveryRequestDate=" + deliveryRequestDate + ", totalPrice="
+				+ totalPrice + ", area=" + area + ", orderStatus=" + orderStatus + ", memberNo=" + memberNo + ", zip=" + zip + ", add1=" + add1 + ", add2=" + add2
+				;
+	}
+	
 	
 	
 }
