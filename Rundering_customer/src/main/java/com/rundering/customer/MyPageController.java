@@ -18,7 +18,6 @@ import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.service.MemberAddressService;
 import com.rundering.service.MemberService;
-import com.rundering.util.FormatUtil;
 import com.rundering.util.UserSha256;
 
 
@@ -75,6 +74,28 @@ public class MyPageController {
 		mnv.setViewName(url);
 		
 		return mnv;
+	}
+	
+	@RequestMapping("/pwModify")
+	public ResponseEntity<String> pwModify(HttpServletRequest request,String password) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+	
+		String pw = UserSha256.encrypt(password);
+		loginUser.setPassword(pw);
+
+		try {
+			
+			memberService.updatePassword(loginUser);
+			
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	return entity;
 	}
 	
 	

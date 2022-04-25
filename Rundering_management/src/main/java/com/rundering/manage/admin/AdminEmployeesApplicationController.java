@@ -21,12 +21,13 @@ import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.service.BranchService;
 import com.rundering.service.EmployeesService;
+import com.rundering.service.MailSendService;
 import com.rundering.service.MemberService;
 import com.rundering.util.AppCriteria;
 
 @Controller
 @RequestMapping("admin/employeeapplication")
-public class EmployeesApplicationController {
+public class AdminEmployeesApplicationController {
 
 	@Autowired
 	MemberService memberService;
@@ -36,6 +37,9 @@ public class EmployeesApplicationController {
 
 	@Autowired
 	BranchService branchService;
+	
+	@Autowired
+	private MailSendService mailSendService;
 
 	@RequestMapping("/main")
 	public ModelAndView employeeapplication(HttpServletRequest request, ModelAndView mnv, AppCriteria cri)
@@ -111,10 +115,13 @@ public class EmployeesApplicationController {
 	@ResponseBody
 	public ResponseEntity<String> regeist(EmployeesVO ev) throws Exception {
 		ResponseEntity<String> entity = null;
+
 		try {
+			
 			int cnt = employeesService.employeeRegist(ev);
 
 			if (cnt != 0) {
+				mailSendService.sendIdPwMail(ev.getMemberno());
 				entity = new ResponseEntity<String>("OK", HttpStatus.OK);
 			} else {
 				entity = new ResponseEntity<String>("", HttpStatus.OK);

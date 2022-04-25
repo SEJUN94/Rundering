@@ -11,6 +11,7 @@ public interface MemberDAO {
 
 	public List<String> selectAuthByMemberNo(String memberNo) throws Exception;
 
+	// 아이디를 통한 사원의 정보 가져오기
 	public MemberVO selectEmployeeById(String id) throws Exception;
 
 	// 사원등록신청
@@ -33,4 +34,5 @@ public interface MemberDAO {
 	
 	// 등록 신청 사원 반려 
 	public int removeByNo(String memberNo) throws Exception;
+	
 }

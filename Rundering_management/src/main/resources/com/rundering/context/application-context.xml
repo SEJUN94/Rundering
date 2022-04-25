@@ -118,12 +118,17 @@
       p:replyDAO-ref="replyDAO"
       p:comCodeDAO-ref="comCodeDAO"
    />
-		<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl" 
-		p:memberAddressDAO-ref="memberAddressDAO"
+	<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl" 
+	  p:memberAddressDAO-ref="memberAddressDAO"
 	/>
-		<bean id="branchService" class="com.rundering.service.BranchServiceImpl" 
-		p:branchDAO-ref="branchDAO"
+	<bean id="branchService" class="com.rundering.service.BranchServiceImpl" 
+	  p:branchDAO-ref="branchDAO"
 	/>
+	<!--이메일 발송 서비스  -->
+	<bean id="mailSendService" class="com.rundering.service.MailSendService"
+	  p:mailSender-ref="mailSender"
+	  p:memberDAO-ref="memberDAO" 
+	/>  
 	
 	
 	

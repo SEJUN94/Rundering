@@ -184,7 +184,7 @@ function valid(){
 	               cancelButtonColor: '#d33',
 	               confirmButtonText: '승인',
 	               cancelButtonText: '취소',
-	               reverseButtons: true, // 버튼 순서 거꾸로
+	               reverseButtons: true // 버튼 순서 거꾸로
 	               
 	             }).then((result) => {
 	                 if (result.isConfirmed) {

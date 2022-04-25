@@ -16,6 +16,7 @@ public class MemberDAOImpl implements MemberDAO {
 		this.session = session;
 	}
 
+	// 아이디를 통한 사원의 정보 가져오기
 	@Override
 	public MemberVO selectMemberById(String id) throws Exception {
 		MemberVO member = session.selectOne("Member-Mapper.selectMemberById", id);
