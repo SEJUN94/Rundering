@@ -1,11 +1,14 @@
 package com.rundering.manage;
 
+import com.rundering.dto.MemberVO;
+
 public class Criteria {
 	
 	private int page=1;
 	private int perPageNum = 10;
 	private String searchType="";
 	private String keyword="";
+	private String customerSort="";
 	
 	private int startRowNum=0;
 	
@@ -53,6 +56,13 @@ public class Criteria {
 	}
 	public int getStartRowNum() {
 		return this.startRowNum;
+	}
+	
+	public String getCustomerSort() {
+		return customerSort;
+	}
+	public void setCustomerSort(String customerSort) {
+		this.customerSort = customerSort;
 	}
 	
 }

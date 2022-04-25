@@ -100,6 +100,17 @@
 		order by regDate desc
 	</select>
 	
+	<sql id="searchSort">	
+		<if test="customerSort == '01'.toString()">
+		</if>
+		<if test="customerSort == '0'.toString()">
+			AND ENABLE_WHETHER like '0'		
+		</if>
+		<if test="customerSort == 'Y'.toString()">
+			AND DELETE_YN like 'Y'		
+		</if>
+	</sql>	
+	
 	<sql id="search">	
 		<if test="searchType == 't'.toString()">
 			AND memberNo like '%'||#{keyword}||'%'			
@@ -115,11 +126,15 @@
 			)			
 		</if>
 	</sql>	
-	<select id="selectSearchMemberList" resultType="member">
+	
+	
+	
+	<select id="selectSearchMemberList"  resultMap="memberMap">
 		select
 		* 
 		from TB_MEMBER
 		where memberNo is not null
+		<include refid="searchSort" />
 		<include refid="search" />
 		AND EMPLOYEE_ID_YN = 'N'
 		
@@ -130,6 +145,7 @@
 		count(*) 
 		from TB_MEMBER
 		where memberNo is not null
+		<include refid="searchSort" />
 		<include refid="search" />
 		AND EMPLOYEE_ID_YN = 'N'
 	</select>
