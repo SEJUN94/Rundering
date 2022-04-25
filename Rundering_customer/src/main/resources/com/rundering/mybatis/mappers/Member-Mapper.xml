@@ -42,6 +42,7 @@
 		update TB_MEMBER
 		set 
 		ENABLE_WHETHER = 0
+		,MODIFY_DATE = SYSDATE
 		,DELETE_YN = 'Y'
 		where id=#{id}
 	</update>
@@ -89,6 +90,7 @@
 	<update id="updatePasswordByMember" parameterType="member">
 		update tb_member
 		   set password=#{password}
+		   ,MODIFY_DATE = SYSYDATE
 		 where id=#{id}  
 	
 	</update>

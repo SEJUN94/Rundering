@@ -137,7 +137,7 @@ function pwModify(){
 	let pw = document.querySelector('#password');
 	event.preventDefault(); // 이벤트를 막아 페이지 리로드를 방지
 	console.log(pw.value)
-	if(pw.value != null || pw.value != "" ){
+	if(pw.value!=""){
 	
 		 Swal.fire({
 	         title: '비밀번호를 변경하시겠습니까?',
