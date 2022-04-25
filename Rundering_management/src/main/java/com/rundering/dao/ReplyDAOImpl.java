@@ -13,8 +13,8 @@ public class ReplyDAOImpl implements ReplyDAO{
 		this.session = session;
 	}
 	
-	@Override
-	public List<ReplyVO> selectReplyByReplyNo(String replyNo) throws Exception{
+	@Override 
+	public List<ReplyVO> selectReplyByReplyNo(int replyNo) throws Exception{
 		return session.selectList("Reply-Mapper.selectReplyByReplyNo", replyNo);
 	}
 	@Override
@@ -31,9 +31,14 @@ public class ReplyDAOImpl implements ReplyDAO{
 	}
 
 	@Override 
-	public int selectReplyCountByReplyno(String replyno) throws Exception {
+	public int selectReplyCountByReplyno(int replyno) throws Exception {
 		return session.selectOne("Reply-Mapper.selectReplyCountByReplyno", replyno);
 	}
+	@Override
+	public int selectReplyCheckByReplyno(int replyno) throws Exception{
+		return session.selectOne("Reply-Mapper.selectReplyCheckByReplyno",replyno);
+	}
+	
 	
 	
 	

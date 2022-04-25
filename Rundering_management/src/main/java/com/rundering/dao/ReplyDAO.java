@@ -5,7 +5,7 @@ import java.util.List;
 import com.rundering.dto.ReplyVO;
 
 public interface ReplyDAO {
-	public List<ReplyVO> selectReplyByReplyNo(String replyNo) throws Exception;
+	public List<ReplyVO> selectReplyByReplyNo(int replyNo) throws Exception;
 
 	int selectReplySeq() throws Exception;
 
@@ -13,7 +13,10 @@ public interface ReplyDAO {
 
 	void insertReplyByReplyVOFirst(ReplyVO reply) throws Exception;
 	
-	int selectReplyCountByReplyno(String replyno) throws Exception;
+	int selectReplyCountByReplyno(int replyno) throws Exception;
+
+	int selectReplyCheckByReplyno(int replyno) throws Exception;
+
 	
 	
 }

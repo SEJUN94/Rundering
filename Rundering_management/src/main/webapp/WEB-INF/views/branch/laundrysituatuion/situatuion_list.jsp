@@ -18,6 +18,7 @@
 						<div class="input-group-sm selectWidth">
 							<select class="form-control" name="searchType" id="searchType"
 								onchange="list_go('1')">
+								<option value="">전체</option>
 								<c:forEach items="${orderCodeMap }" var="orderCode">
 									<option value="${orderCode.key }"
 										${cri.searchType eq orderCode.key ? 'selected':'' }>${orderCode.value }</option>
@@ -81,7 +82,7 @@
 
 								<tr class="mouseHover">
 									<td class="orderno" style="text-align: center;"
-										data-atchNo="${laundryOrder.atchFileNo }">${laundryOrder.orderNo }</td>
+										data-atchNo="${laundryOrder.atchFileNo }" data-replyno="${laundryOrder.replyNo }">${laundryOrder.orderNo }</td>
 									<td style="text-align: center;">${laundryOrder.area }</td>
 									<td class="textCut textDetail"
 										data-text="${laundryOrder.requestDetails }"></td>
@@ -110,21 +111,20 @@
 
 			<div class="row">
 				<div class="col-12 col-sm-5">
-					<div class="card card-tabs" style="height: 300px" >
-					<div class="card-header p-0 border-bottom-0">
-						<div class="float-left" style="margin-top: 10px;margin-left: 10px">이미지</div>
-							<div class="float-right " id="imgtag" >
-							</div>
+					<div class="card card-tabs" style="height: 300px">
+						<div class="card-header p-0 border-bottom-0">
+							<div class="float-left"
+								style="margin-top: 10px; margin-left: 10px">이미지</div>
+							<div class="float-right " id="imgtag"></div>
+						</div>
+						<div class="card-body imgsrc" style="padding: 0px" id="hrefimg">
+							<img alt="" src="" id="imgsrc" class="col-12"
+								style="height: 100%; display: none;">
+						</div>
 					</div>
-					<div class="card-body imgsrc" style="padding: 0px" id="hrefimg">
-						<img alt="" src="" id="imgsrc" class="col-12" style="height: 100%;display: none;" >
-					</div>
-		
-				</div>
-				
 				</div>
 
-				<div class="col-12 col-sm-7">
+				<div class="col-12 col-sm-7" id="reply" style="height: 300px; overflow: auto;">
 					<div class="card ">
 						<div class="card-header">
 							<h3 class="card-title">요청사항</h3>
@@ -133,53 +133,53 @@
 									data-toggle="modal" data-target="#modal-lg" style="width: 50px">답변</button>
 							</div>
 						</div>
-						
+
 						<div class="ml-2 mr-2">
-							<div class="col-12 float-left" >
+							<div class="col-12 float-left">
 								<div class="form-group">
 									<label for="exampleInputBorder ml-2" id="requestText"
 										class="mt-3"></label>
 								</div>
 							</div>
 						</div>
+					</div> 
+				
+
+
+				</div>
+
+			</div>
+		</div>
+
+		<div class="modal fade" id="modal-lg" style="display: none;"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">답변</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
 					</div>
-
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-	<div class="modal fade" id="modal-lg" style="display: none;"
-		aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">답변</h4>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form action="request" id="replyForm">
-						<textarea rows="5" class="form-control" name="replyContent"
-							id="replyContent">
+					<div class="modal-body">
+						<form action="request" id="replyForm">
+							<textarea rows="5" class="form-control" name="replyContent"
+								id="replyContent">
 					</textarea>
-					</form>
-				</div>
-				<div class="modal-footer">
+						</form>
+					</div>
+					<div class="modal-footer">
 
-					<button type="button" class="btn btn-primary"
-						onclick="fistRegistReply()">작성</button>
-					<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn btn-primary" id="registBtn" data-replyno onclick="registReply()">작성</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+					</div>
 				</div>
 			</div>
+
 		</div>
-		
-	</div>
-	<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-	<script type="text/x-handlebars-template" id="fileImage-template">
+		<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+		<script type="text/x-handlebars-template" id="fileImage-template" >
 		<ul class="nav nav-tabs" id="custom-tabs-four-tab">
 			{{#count}}
 			<li class="nav-item">
@@ -190,13 +190,11 @@
 			{{/count}}
 		</ul>	
 	</script>
-
-	<script>
+		<script>
 	let imgList =null;
+	// 이미지 src 속성변경하여 이미지 바꾸깅~~
 	function changeSrc(){
 		let targetText=event.target.innerText-1;
-	
-		
 		document.querySelector("#imgsrc").src="data:image/jpg;base64,"+imgList[targetText];
 	}
 	
@@ -227,10 +225,6 @@
 		        	$('#imgtag').append(html);
 		        	document.querySelector("#imgsrc").src="data:image/jpg;base64,"+imgList[0];
 		        	document.querySelector("#imgsrc").style.display="flex";
-					
-					
-					
-
 		        },
 		        error:function(error){
 				//alert('댓글이 등록을 실패했습니다.');
@@ -241,7 +235,7 @@
 	</script>
 
 
-	<script>
+		<script>
  window.onload=function(){ 
     let texts= document.querySelectorAll(".textCut");
     
@@ -257,9 +251,12 @@
     for(let i of mouseHover){
         i.addEventListener("click",function(){
             textContent.innerHTML=event.target.parentElement.querySelectorAll(".textDetail")[0].dataset.text
-            orderno=event.target.parentElement.querySelectorAll(".orderno")[0].innerText;
-            atchFileNo=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.atchno
-            getImages(atchFileNo);
+            let orderno=event.target.parentElement.querySelectorAll(".orderno")[0].innerText;
+            let atchFileNo=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.atchno
+            let replyNo=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.replyno
+          //  getImages(atchFileNo);
+           	document.querySelector("#registBtn").dataset.replyno=replyNo
+            
         	//replyno= document.querySelector("#replyno")
         	//replyno.setAttribute("value",orderno);
         })
@@ -272,7 +269,7 @@
  }
 </script>
 
-	<script>
+		<script>
 	function statusChange(){
 		let form=document.querySelector("#form");
 		let selects =document.querySelectorAll(".select");
@@ -301,51 +298,34 @@
 	}
 </script>
 
-	<script>
-function firstRegistReply(){
-    replyContent= document.querySelector("#replyContent");
-    if(replyContent.value==null || replyContent.value.trim==null){
+<script>
+function registReply(){
+    let replyContent= document.querySelector("#replyContent").value;
+    let replyno =  event.target.dataset.replyno
+    console.log(replyContent)
+	console.log(replyno)    
+    if(replyno==null||replyno==""){
+    	return;
+    }
+    if(replyContent==null || replyContent.trim==""){
         return
     }
-  
-    
-<%--     $.ajax({
-        url:"url:"<%=request.getContextPath()%>/branch/reply"",
+
+     $.ajax({
+        url:"<%=request.getContextPath()%>/branch/reply/regist",
         type:"post",
-        data:,
+        data:{
+        	replyno:replyno,
+        	replyContent:replyContent
+        },
         success:function(data){
             alert("댓글이 등록. \n 마지막 페이지로 이동합니다.");
-            replyPage=data;
-            getPage("<%=request.getContextPath()%>/replies/"+bno+"/"+data);
-            $('#newReplyText').val("");	
-        }error:function(error){
-		//alert('댓글이 등록을 실패했습니다.');
+        },
+        error:function(error){
 		AjaxErrorSecurityRedirectHandler(error.status);
 		}
-    }) --%>
+    }); 
 }
-
-</script>
-	<script type="text/javascript">
-// 	 function request_go(atchNo){
-// 		 $.ajax({
-<%-- 		        url:<%=request.getContextPath()%>/common/getimage, --%>
-// 		        type:"post",
-// 		        data: {
-// 		        	atchFileNo : atchNo
-// 		        },
-// 		        dataType="json",
-// 		        success:function(data){
-// 		        	for(let i of data){
-		        		
-// 		        	}
-// 		        }
-// 		        error:function(error){
-// 				//alert('댓글이 등록을 실패했습니다.');
-// 				AjaxErrorSecurityRedirectHandler(error.status);
-// 			}
-// 		    })
-// 	} 
 
 </script>
 

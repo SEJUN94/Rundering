@@ -30,10 +30,21 @@
  		 where replyno=#{replyno}
  		   and delete_yn = 'N'
  	</select>
+ 	
+ 	<select id="selectReplyCheckByReplyno"  parameterType="int" resultType="int">
+ 		select count(replyno)
+ 		  from tb_reply
+ 		 where replyno=#{replyno}
+ 	</select>
+ 	
+ 	
  	<select id="selectReplySeq" resultType="int">
  		select replyno_seq.nextval
  		  from dual
  	</select>
+ 	
+ 	
+ 	
  	<insert id="insertReplyByReplyVO" parameterType="reply">
  		insert into tb_reply
  		(REPLYNO,
@@ -41,13 +52,23 @@
  	     MEMBERNO,
  	     REPLYNO_SEQ
  		)
- 		values( select #{replyno},
+ 		select #{replyno},
 		 			   #{replyContent},
 		 			   #{memberno},
-		 			   max(replyno_seq)+1
-		 		  from tb_reply
- 		)
+		 			   <if test="count == 0">
+		 			  	1
+		 			  	from dual
+		 			   </if>
+		 			   <if test="count > 0">
+		 			    max(replyno_seq)+1
+		 			      from tb_reply
+		 			  where replyno=#{replyno}
+		 		
+		 			   </if>
+		 			   
+ 		
  	</insert>
+ 
  	
  	
 	<select id="selectReplySeqNextValue" resultType="int" >

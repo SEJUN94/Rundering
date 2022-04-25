@@ -10,14 +10,13 @@ public class ReplyVO {
 	private Date modifyDate;       //수정일
 	private int replynoSeq;  	   //댓글순번
 	private String atchFileNo;     //통합첨부파일번호
-	private String deleteYn;	   //삭제여부
+	private String deleteYn;    	//삭제여부
 	
 	
+	private int count = 0;  
 	public ReplyVO() {
 		super();
 	}
-
-
 	public int getReplyno() {
 		return replyno;
 	}
@@ -65,6 +64,12 @@ public class ReplyVO {
 	}
 	public void setDeleteYn(String deleteYn) {
 		this.deleteYn = deleteYn;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 	
 }
