@@ -106,9 +106,10 @@ th, td {
 							</table>
 
 							<div class="float-right mt-3 mr-3 mb-3">
-								<%-- <button class="btn btn-primary" type="button" id="registBtn"
+
+								<button class="btn btn-primary" type="button" id="registBtn"
 									onclick="location.href='<%=request.getContextPath()%>/branch/asrequest/registForm'">
-									요청하기</button> --%>
+									요청하기</button>
 							</div>
 						</div>
 

@@ -56,7 +56,7 @@ public class AdminAsRequestController {
 				asRequest = asRequestService.getCheck(asno);
 			}
 			
-			url = "redirect:/branch/asrequest/detail?asno=" + asno;
+			url = "redirect:/admin/asrequest/detail?asno=" + asno;
 		}
 
 		mnv.addObject("asRequest", asRequest);

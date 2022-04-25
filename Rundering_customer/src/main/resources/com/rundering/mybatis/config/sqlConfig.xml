@@ -20,6 +20,7 @@
 		<typeAlias type="com.rundering.dto.AttachVO" alias="attach" />
 		<typeAlias type="com.rundering.dto.ComCodeVO" alias="comCode" />
 		<typeAlias type="com.rundering.dto.ReplyVO" alias="reply" />
+		<typeAlias type="com.rundering.dto.FAQVO" alias="faq" />
 		
 		
 	</typeAliases>

@@ -95,6 +95,14 @@
 			where sno=#{sno}
 	</update>
 	
+	<update id="checkSuggest" parameterType="suggest">
+		update TB_SUGGEST_BOARD
+			set
+			checkyn = '확인'
+			where sno=#{sno}
+			and checkyn = '미확인'
+	</update>
+	
 	<select id="selectSuggestSequenceNextValue" resultType="int">
 		select sno_seq.nextVal
 			from dual
