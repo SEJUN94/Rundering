@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.rundering.command.Criteria;
-import com.rundering.dao.MemberDAOImpl;
+import com.rundering.dao.MemberDAO;
 import com.rundering.dto.MemberVO;
 import com.rundering.util.AppCriteria;
 import com.rundering.util.AppPageMaker;
 
 public class MemberServiceImpl implements MemberService {
 
-	MemberDAOImpl memberDAO;
+	MemberDAO memberDAO;
 
-	public void setMemberDAO(MemberDAOImpl memberDAO) {
+	public void setMemberDAO(MemberDAO memberDAO) {
 		this.memberDAO = memberDAO;
 	}
 
@@ -49,20 +49,13 @@ public class MemberServiceImpl implements MemberService {
 		return member;
 	}
 
-	// 사원등록 후 아이디 및 비밀번호 변경
-	@Override
-	public void updateMember(MemberVO member) throws Exception {
-		memberDAO.updateMember(member);
-
-	}
-
 	// 로그인시 지점코드가 같은 사원신청 리스트 가져오기
 	@Override
 	public Map<String, Object> getEmplAppList(AppCriteria cri) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 
 		List<MemberVO> appList = memberDAO.getEmplAppList(cri);
-		
+
 		// 전체 list 개수
 		int totalCount = memberDAO.applistCount(cri);
 		// PageMaker 생성.
@@ -75,12 +68,12 @@ public class MemberServiceImpl implements MemberService {
 
 		return dataMap;
 	}
-	
+
 	// 등록 신청 사원의 디테일 정보 가져오기
 	@Override
 	public MemberVO getEmpAppinfo(String memberNO) throws Exception {
 		MemberVO mv = memberDAO.getEmpAppinfo(memberNO);
-		
+
 		return mv;
 	}
 
@@ -88,4 +81,12 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> getMemberList(Criteria cri) throws Exception {
 		return null;
 	}
+
+	// 등록 신청 사원 반려
+	@Override
+	public int removeByNo(String memberNo) throws Exception {
+		return memberDAO.removeByNo(memberNo);
+
+	}
+
 }

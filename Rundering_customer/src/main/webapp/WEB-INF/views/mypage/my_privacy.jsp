@@ -2,8 +2,12 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
-	<!-- 주소api -->
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
+<!-- 주소api -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <div class="card card-secondary">
 	<div class="card-header">
@@ -32,10 +36,10 @@
 			<div class="col-10" id="divPassword">
 				<div class="col-12 row">
 					<div class="form-group col-4">
-						<input type="password" class="form-control" name="password" value="${loginUser.getPassword() }" >
+						<input type="password" class="form-control" id="password" name="password" placeholder="변경 버튼을 통해 수정이 가능합니다.">
 					</div>
 					<span class="form-group col-2">
-						<button class="btn float-right" id="pw" name="password" style="border-color: gray;">변경</button>
+						<button class="btn float-right" id="pw" name="pw" style="border-color: gray;" onclick="pwModify()">변경</button>
 					</span>
 				</div>
 			</div>
@@ -124,6 +128,55 @@
 <script>
 function modify(){
 	
+}
+
+</script>
+
+<script>
+function pwModify(){
+	let pw = document.querySelector('#password');
+	event.preventDefault(); // 이벤트를 막아 페이지 리로드를 방지
+	console.log(pw.value)
+	if(pw.value!=""){
+	
+		 Swal.fire({
+	         title: '비밀번호를 변경하시겠습니까?',
+	         icon: 'warning',
+	         showCancelButton: true,
+	         confirmButtonColor: '#3085d6',
+	         cancelButtonColor: '#d33',
+	         confirmButtonText: '승인',
+	         cancelButtonText: '취소',
+	         reverseButtons: true // 버튼 순서 거꾸로
+	         
+	       }).then((result) => {
+	           if (result.isConfirmed) {
+	        	   $.ajax({
+	        			url : '<%=request.getContextPath()%>/mypage/pwModify',
+	        			data : {
+	        				'password' : $('#password').val()
+	        			},
+	        			type : 'post',
+	        			success : function(result) {
+	        				if (result.toUpperCase() == "OK") {
+	        					Swal.fire('변경 완료', '비밀변호 변경이 완료되었습니다.', 'success' )
+	        				} else {
+	        					Swal.fire('비밀번호 변경에 실패하였습니다.', 'error' )
+	        				}
+	        			},
+	        			error : function(error) {
+	        				AjaxErrorSecurityRedirectHandler(error.status);
+	        			}
+	        		});
+	               
+	           }
+	        })
+	} else{
+		Swal.fire({
+				icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title: '비밀번호를 입력하세요',
+		});
+	}
 }
 
 </script>

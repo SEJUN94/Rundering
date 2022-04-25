@@ -24,6 +24,12 @@
 		SELECT *
 		FROM TB_BRANCH
 	</select>
+	
+	<select id="getBranchByCode" resultMap="branchMap" parameterType="str">
+		SELECT *
+    	FROM TB_BRANCH
+    	WHERE BRANCH_CODE = #{branchCode}
+	</select>
 
 
 </mapper>

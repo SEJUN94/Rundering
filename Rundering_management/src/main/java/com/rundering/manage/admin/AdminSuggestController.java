@@ -15,14 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.rundering.command.Criteria;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.SuggestVO;
-import com.rundering.service.SuggestServiceImpl;
+import com.rundering.service.SuggestService;
 
 @Controller
 @RequestMapping("/admin/suggest")
 public class AdminSuggestController {
 	
 	@Autowired
-	SuggestServiceImpl suggestService;
+	SuggestService suggestService;
 
 	@RequestMapping(value = "/list")
 	private ModelAndView suggestList(Criteria cri, ModelAndView mnv) throws Exception {

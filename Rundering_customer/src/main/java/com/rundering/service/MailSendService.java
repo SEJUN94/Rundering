@@ -1,6 +1,5 @@
 package com.rundering.service;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 import javax.mail.MessagingException;

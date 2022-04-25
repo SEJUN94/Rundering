@@ -134,13 +134,4 @@ public class AsRequestVO {
 		this.fixturesName = fixturesName;
 	}
 
-	@Override
-	public String toString() {
-		return "AsRequestVO [asno=" + asno + ", fixturesCode=" + fixturesCode + ", title=" + title + ", ascontent="
-				+ ascontent + ", registDate=" + registDate + ", checkyn=" + checkyn + ", modifyDate=" + modifyDate
-				+ ", deleteyn=" + deleteyn + ", employeeId=" + employeeId + ", branchCode=" + branchCode
-				+ ", articlesCode=" + articlesCode + ", objectname=" + objectname + ", requestDate=" + requestDate
-				+ ", fixturesName=" + fixturesName + "]";
-	}
-
 }

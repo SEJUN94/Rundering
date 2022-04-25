@@ -17,6 +17,7 @@ public class MemberDAOImpl implements MemberDAO {
 		this.session = session;
 	}
 
+	// 아이디를 통한 사원의 정보 가져오기
 	@Override
 	public MemberVO selectMemberById(String id) throws Exception {
 		MemberVO member = session.selectOne("Member-Mapper.selectMemberById", id);
@@ -53,8 +54,7 @@ public class MemberDAOImpl implements MemberDAO {
 	// 사원등록 후 아디디 및 비밀번호 변경
 	@Override
 	public void updateMember(MemberVO member) throws Exception {
-
-		session.selectOne("Member-Mapper.updatemplmem", member);
+		 session.selectOne("Member-Mapper.updatemplmem", member); 
 
 	}
 
@@ -85,6 +85,13 @@ public class MemberDAOImpl implements MemberDAO {
 		MemberVO member = session.selectOne("Member-Mapper.getEmpAppinfo", memberNO);
 
 		return member;
+	}
+	
+	// 등록 신청 사원 반려 
+	@Override
+	public int removeByNo(String memberNo) throws Exception {
+		return session.update("Member-Mapper.removeByNo",memberNo);
+		
 	}
 
 

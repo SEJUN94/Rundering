@@ -3,11 +3,16 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="appList" value="${dataMap.appList }" />
 <c:set var="branchList" value="${branchList}" />
+<c:set var="dpList" value="${dpList}" />
+<c:set var="poList" value="${poList}" />
+<c:set var="bv" value="${bv}" />
 
 
 
@@ -60,7 +65,7 @@
 								<td style="vertical-align: middle"><fmt:formatDate
 										value="${list.registDate }" pattern="yyyy-MM-dd" /></td>
 								<td style="vertical-align: middle"><button type="submit"
-										class="btn btn-danger btn-sm" onclick="remove()">반려</button></td>
+										class="btn btn-danger btn-sm" onclick="remove('${list.memberNo}')">반려</button></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -88,52 +93,56 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label>이름</label> <input type="text" class="form-control"
-									id="name" name="name" value="" readonly />
+								<label>이름</label> 
+								<input type="text" class="form-control"	id="name" name="name" value="" readonly />
 							</div>
 							<div class="form-group">
-								<label>연락처</label> <input type="text" class="form-control"
-									id="name" name="name" value="" readonly />
+								<label>연락처</label> 
+								<input type="text" class="form-control"	id="phone" name="phone" value="" readonly />
 							</div>
 							<div class="form-group">
-								<label>이메일</label> <input type="text" class="form-control"
-									id="email" name="eamil" value="" readonly />
+								<label>이메일</label> 
+								<input type="text" class="form-control"	id="email" name="eamil" value="" readonly />
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label>지점</label> <select
-									class="form-control select2 select2-hidden-accessible"
-									style="width: 100%;" data-select2-id="9" tabindex="-1"
-									aria-hidden="true">
-									<option selected="selected" data-select2-id="11" value="">등록 신청시 지점명</option>
-									<option disabled="disabled">선택하세요 (disabled)</option>
-									<c:forEach items="${branchList }" var="list">
-										<option value="${list.branchCode }">${list.branchName}</option>
-									</c:forEach>
-								</select>
+								<label>지점</label>
+								<input type="hidden" class="form-control"	id="branchCode" name="branchCode" value="${bv.branchCode }" readonly > 
+								<input type="text" class="form-control"	value="${bv.branchName }" readonly > 
 							</div>
 							<div class="form-group">
 								<label>부서</label> <select
 									class="form-control select2 select2-hidden-accessible"
 									style="width: 100%;" data-select2-id="9" tabindex="-1"
-									aria-hidden="true">
-									<option selected="selected" data-select2-id="11">부서명</option>
-									<option disabled="disabled">California (disabled)</option>
-									<option value="">인사</option>
-									<option value="">잘</option>
-									<option value="">한다</option>
+									aria-hidden="true" id="department" name="department" value="" >
+									<option selected="selected" data-select2-id="11" >부서명</option>
+									<c:forEach items="${dpList }" var="list">
+									<option value="${list.comCode }">${list.comCodeNm }</option>
+									</c:forEach>
 								</select>
 							</div>
-
-							<div class="form-group" style="margin-top: 45px;">
-								<div class="float-right col-4" style="margin-right: 0;">
+							<div class="form-group">
+								<label>직책</label> <select
+									class="form-control select2 select2-hidden-accessible"
+									style="width: 100%;" data-select2-id="9" tabindex="-1"
+									aria-hidden="true" id="position" name="position" value="">
+									<option selected="selected" data-select2-id="11" >직책명</option>
+									<c:forEach items="${poList }" var="list">
+									<option value="${list.comCode }">${list.comCodeNm }</option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+					</div>
+					<input type="hidden" id="memNo" name="memNo" value="" >
+					<input type="hidden" id="jd" name="jd" value="" >
+							<div class="form-group" style="">
+								<div class="float-right col-2" style="margin-right: 0;">
 									<button type="submit" class="btn col-12 btn-primary"
 										onclick="regist()">등록</button>
 								</div>
 							</div>
-						</div>
-					</div>
 				</div>
 			</form>
 		</div>
@@ -141,8 +150,44 @@
 </div>
 
 
-
 <script>
+	let nm = document.querySelector('#name');
+	let jd = document.querySelector('#jd');
+	let memNo = document.querySelector('#memNo');
+	let name = document.querySelector('input[id="name"]');
+	let phone = document.querySelector('input[id="phone"]');
+	let email = document.querySelector('input[id="email"]');
+	
+	function regist(){
+		
+		console.log(jd.value)
+		console.log(memNo.value)
+		
+		$.ajax({
+			url : '<%=request.getContextPath()%>/admin/employeeapplication/regist',
+			data : {
+				'department' : $('#department').val()
+				,'branchCode' : $('#branchCode').val()
+				,'position' : $('#position').val()
+				,'memberno' : memNo.value
+				
+			},
+			type : 'post',
+			success : function(ok) {
+				if(ok.toUpperCase() == "OK"){
+					Swal.fire('등록 성공', '해당 신청을 등록하였습니다.', 'success' )
+					
+				} else {
+					Swal.fire('error', '시스템 오류로 등록 할 수 없습니다.' , 'error')
+				}
+			},
+			error : function(error) {
+				alert('오류')
+				//AjaxErrorSecurityRedirectHandler(error.status);
+			}
+		});
+	}
+	
 	function detail(no) {
 		console.log(this);
 		$.ajax({
@@ -151,13 +196,46 @@
 				'memberNo' : no
 			},
 			type : 'post',
-			success : function(result) {
-				
+			success : function(mv) {
+				nm.value = mv.name
+				phone.value = mv.phone
+				email.setAttribute('value',mv.email)
+				jd.setAttribute('value',mv.registDate)
+				memNo.setAttribute('value',mv.memberNo)		
+				console.log(jd.value)
+				console.log(memNo.value)
 			},
 			error : function(error) {
 				AjaxErrorSecurityRedirectHandler(error.status);
 			}
 		});
 	}
+	
+	function remove(no){
+		console.log(this);
+		$.ajax({
+			url : '<%=request.getContextPath()%>/admin/employeeapplication/remove',
+			data : {
+				'memberNo' : no
+			},
+			type : 'post',
+			success : function(ok) {
+				if(ok.toUpperCase() == "OK"){
+					Swal.fire('해당 신청을 반려하였습니다.', '반려', 'success' )
+					setTimeout(function(){location.reload();},1000);
+				} else {
+					Swal.fire('error', '시스템 오류로 반려 할 수 없습니다.' , 'error')
+				}
+				
+			},
+			error : function(error) {
+				AjaxErrorSecurityRedirectHandler(error.status);
+			}
+		});
+		
+	}
+	
+	
+	
 </script>
 

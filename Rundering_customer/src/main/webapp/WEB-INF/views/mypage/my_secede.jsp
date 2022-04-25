@@ -1,5 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 
     <h2 class="text-center " style="background-color: rgb(223, 219, 219); border-bottom: 1px solid gray; padding-bottom: 40px;padding-top: 40px;">이때까지 이용해주셔서 감사합니다 !!</h2>
 
@@ -59,10 +64,17 @@
 			},
 			success : function(response){
 				if(response.toUpperCase() == "OK"){
-					Swal.fire('Rundering 회원탈퇴되었습니다.', '다음에 다시 이용해주세요.', 'success' )
+					Swal.fire({
+						icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title: 'Rundering 회원탈퇴되었습니다.',
+						text: '다음에 다시 이용해주세요.' 
+					});
 					location.href = "<%=request.getContextPath()%>/login/form";
 					} else {
-					Swal.fire('비밀번호가 일치하지 않습니다.', 'error' )
+						Swal.fire({
+							icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+							title: '비밀번호가 일치하지 않습니다.',
+						});
 					}
 				},
 				error : function(xhr) {

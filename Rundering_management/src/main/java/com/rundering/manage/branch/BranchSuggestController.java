@@ -24,14 +24,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.rundering.command.Criteria;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.SuggestVO;
-import com.rundering.service.SuggestServiceImpl;
+import com.rundering.service.SuggestService;
 import com.rundering.util.MakeFileName;
 
 @Controller
 @RequestMapping("/branch/suggest")
 public class BranchSuggestController {
 	@Autowired
-	SuggestServiceImpl suggestService;
+	SuggestService suggestService;
 
 	@RequestMapping(value = "/list")
 	private ModelAndView suggestList(Criteria cri, ModelAndView mnv) throws Exception {
