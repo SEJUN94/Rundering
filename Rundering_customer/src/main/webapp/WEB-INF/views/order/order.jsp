@@ -397,6 +397,9 @@
 	
 	// 수량 input태그에 직접 입력시 
 	function updateValue(item){
+		if(isNaN(item.value)){
+			item.value = 1;
+		}
 		if(!item.value || (item.value < 1)){
 			item.value = 1;
 		}
