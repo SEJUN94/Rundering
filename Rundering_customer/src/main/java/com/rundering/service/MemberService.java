@@ -26,7 +26,7 @@ public interface MemberService {
 	public void memberJoin(MemberVO member) throws Exception;
 
 	// 회원 정보 수정
-	public void modifyMember(MemberVO member) throws Exception;
+	public void modifyMember(MemberAddCommand mac) throws Exception;
 
 	// 회원정보 삭제(비활성화)
 	public void deleteMember(String id) throws Exception;

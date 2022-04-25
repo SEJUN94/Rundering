@@ -21,5 +21,8 @@ public interface MemberAddressDAO {
 	
 	//주소지 목록 조회 - memberNo
 	public List<MemberAddressVO> selectMemberAddressListByMemberNo(String memberNo) throws SQLException;
+	
+	//기본 주소지 수정
+	public void updateDefaultAddress(MemberAddressVO memberAdd) throws Exception;
 
 }

@@ -1,7 +1,6 @@
 package com.rundering.customer;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -69,21 +68,29 @@ public class MyPageController {
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
 		
-		loginUser.setPassword(UserSha256.encrypt(loginUser.getPassword()));
-		List<MemberAddressVO> memberAddressList = memberAddressService.getMemberAddressList(loginUser.getMemberNo());
-		mnv.addObject("memberAddressList",memberAddressList);
+		//loginUser.setPassword(UserSha256.encrypt(loginUser.getPassword()));
+		MemberAddressVO memberAddress = memberAddressService.getDefaultMemberAddress(loginUser.getMemberNo());
+		mnv.addObject("memberAddress",memberAddress);
 		mnv.setViewName(url);
 		
 		return mnv;
 	}
 	
 	@RequestMapping("/memberModify")
-	public String memberModify(MemberAddCommand mac) throws Exception{
-		String url = "/mypage/my_privacy_check";
+	public ResponseEntity<String> memberModify(MemberAddCommand mac) {
 		
+		ResponseEntity<String> entity = null;
 		
+		try {
+			memberService.modifyMember(mac);
+			
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		return url;
+		return entity;
 	}
 	
 	
