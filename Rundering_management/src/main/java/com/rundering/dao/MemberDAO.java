@@ -8,7 +8,10 @@ import com.rundering.dto.MemberVO;
 import com.rundering.util.AppCriteria;
 
 public interface MemberDAO {
-	// 고객 정보 조회
+	// 고객 정보 조회 - By memberNo
+	public MemberVO selectMemberByMemberNo(String memberNo) throws Exception;
+	
+	// 고객 정보 조회 - By id
 	public MemberVO selectMemberById(String id) throws Exception;
 
 	public List<String> selectAuthByMemberNo(String memberNo) throws Exception;

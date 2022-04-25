@@ -142,6 +142,15 @@ public class BranchVO {
 	}
 
 
+	@Override
+	public String toString() {
+		return "BranchVO [branchCode=" + branchCode + ", branchName=" + branchName + ", zip=" + zip + ", add1=" + add1
+				+ ", add2=" + add2 + ", branchLndrpcrymslmcoqy=" + branchLndrpcrymslmcoqy + ", branchRegistDate="
+				+ branchRegistDate + ", branchContact=" + branchContact + ", branchModifyDate=" + branchModifyDate
+				+ ", deleteYN=" + deleteYN + ", toparea=" + toparea + ", area=" + area + "]";
+	}
+
+	
 	
 	
 	

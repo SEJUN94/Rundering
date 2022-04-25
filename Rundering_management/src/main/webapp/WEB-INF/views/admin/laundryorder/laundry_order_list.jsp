@@ -87,27 +87,32 @@
 
 				<div class="card-body table-responsive p-0 mt-0">
 					<table
-						class="table table-hover text-nowrap">
+						class="table table-hover text-nowrap" style="text-align: center;">
 						<thead>
 							<tr>
-								<th>주문일시</th>
+								<th style="width: 230px;">주문일시</th>
 								<th>주문번호</th>
 								<th>수거요청일</th>
-								<th>지역분류코드</th>
-								<th>지점코드</th>
-								<th>주문상태코드</th>
+								<th>지역분류</th>
+								<th>담당지점</th>
+								<th>주문상태</th>
 							</tr>   
 						</thead>    
 						<tbody>
 							<c:forEach items="${laundryOrderList }" var="laundryOrder" >
-								<tr onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do', '주문 상세', 'width=700, height=900');"
+								<tr onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do?orderNo=${laundryOrder.orderNo }', '주문 상세', 'width=800, height=900');"
 									style="cursor: pointer;">
 									<td><fmt:formatDate value="${laundryOrder.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 									<td>${laundryOrder.orderNo }</td>
 									<td><fmt:formatDate value="${laundryOrder.pickupRequestDate }" pattern="yyyy-MM-dd"/></td>
-									<td>${laundryOrder.area }</td>
-									<td>${laundryOrder.branchCode }</td>
-									<td>${laundryOrder.orderStatus }</td>
+									<td>${areaCodeMap[laundryOrder.area]}</td>
+									<c:if test="${!empty laundryOrder.branchCode }"> 
+									<td>${branchNameMap[laundryOrder.branchCode]}</td>
+									</c:if>
+									<c:if test="${empty laundryOrder.branchCode }"> 
+									<td>미할당</td>
+									</c:if>
+									<td>${orderCodeMap[laundryOrder.orderStatus]}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

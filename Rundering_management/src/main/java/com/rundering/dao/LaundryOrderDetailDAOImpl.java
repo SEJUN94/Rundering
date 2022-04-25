@@ -1,6 +1,6 @@
 package com.rundering.dao;
 
-import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -12,11 +12,12 @@ public class LaundryOrderDetailDAOImpl implements LaundryOrderDetailDAO{
 	public void setSession(SqlSession session) {
 		this.session = session;
 	}
-	
-	// 세탁주문상세 등록
+
 	@Override
-	public void insertLaundryOrderDetail(LaundryOrderDetailVO laundryOrderDetail) throws SQLException {
-		session.update("LaundryOrderDetail-Mapper.insertLaundryOrderDetail",laundryOrderDetail);
+	public List<LaundryOrderDetailVO> selectlaundryOrderDetailListByOrderNo(String orderNo) {
+		return session.selectList("LaundryOrderDetail-Mapper.selectlaundryOrderDetailListByOrderNo", orderNo);
 	}
+
+	
 
 }

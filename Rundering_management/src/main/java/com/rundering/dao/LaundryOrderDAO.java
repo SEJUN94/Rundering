@@ -9,12 +9,6 @@ import com.rundering.dto.LaundryOrderVO;
 
 public interface LaundryOrderDAO {
 	
-	// 세탁주문번호생성
-	public String selectLaundryOrderSequenceNextValue() throws SQLException;
-	
-	// 세탁주문접수
-	public void insertLaundryOrder(LaundryOrderVO laundryOrder) throws SQLException;
-	
 	//지점 - 세탁주문목록
 	public List<LaundryOrderVO> selectLaundryOrderList(BranchCriteria cri) throws Exception;
 	//본사 - 세탁주문목록
@@ -24,5 +18,11 @@ public interface LaundryOrderDAO {
 	public int selectCount(Criteria cri) throws Exception;
 	public void updateLaundryOrderStatusByOrderNo(LaundryOrderVO laundryOrderVO) throws Exception;		
 	
+	//본사 - 세탁주문조회
+	public LaundryOrderVO selectLaundryOrderByOrderNo(String orderNo) throws SQLException;
+	//지점할당되지 않은 오늘이 수거요청일인 주문 목록 - By area
+	public List<LaundryOrderVO> selectLaundryOrderListNotAssignedToBranchByArea(String area) throws Exception;
+	//지점할당
+	public void updateLaundryOrderbranchCode(LaundryOrderVO laundryOrder) throws Exception;
 	
 }

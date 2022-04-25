@@ -16,6 +16,7 @@ public interface LaundryOrderService {
 	public void insertRequest(ReplyVO peply) throws Exception;
 	
 	Map<String, Object> getAdminlaundryOrderList(Criteria cri) throws Exception;
-			
+	
+	Map<String, Object> getlaundryOrderByOrderNo(String orderNo) throws Exception;
 	
 }

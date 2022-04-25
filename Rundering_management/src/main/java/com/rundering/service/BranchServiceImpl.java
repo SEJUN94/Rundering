@@ -16,9 +16,7 @@ public class BranchServiceImpl implements BranchService {
 	// 전체 지점정보 가져오기
 	@Override
 	public List<BranchVO> getBranchList() throws Exception {
-
-		List<BranchVO> branchList = branchDAO.getBranchList();
-		
+		List<BranchVO> branchList = branchDAO.selectBranchList();
 		return branchList;
 	}
 

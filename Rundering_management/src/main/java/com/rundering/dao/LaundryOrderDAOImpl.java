@@ -17,18 +17,6 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		this.session = session;
 	}
 	
-	// 세탁주문번호생성
-	@Override
-	public String selectLaundryOrderSequenceNextValue() throws SQLException {
-		String orderNo = session.selectOne("LaundryOrder-Mapper.selectLaundryOrderSequenceNextValue");
-		return orderNo;
-	}
-	
-	// 세탁주문접수
-	@Override
-	public void insertLaundryOrder(LaundryOrderVO laundryOrder) throws SQLException {
-		session.update("LaundryOrder-Mapper.insertLaundryOrder", laundryOrder);
-	}
 	@Override
 	public List<LaundryOrderVO> selectLaundryOrderList(BranchCriteria cri) throws Exception{
 		int offset=cri.getStartRowNum();
@@ -61,6 +49,23 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		RowBounds rowBounds=new RowBounds(offset,limit);
 		return session.selectList("LaundryOrder-Mapper.selectAdminLaundryOrderList",cri,rowBounds);
 	}
+
+	@Override
+	public LaundryOrderVO selectLaundryOrderByOrderNo(String orderNo) throws SQLException {
+		return session.selectOne("LaundryOrder-Mapper.selectLaundryOrderByOrderNo",orderNo);
+	}
+
+	@Override
+	public List<LaundryOrderVO> selectLaundryOrderListNotAssignedToBranchByArea(String area) throws Exception {
+		return session.selectList("LaundryOrder-Mapper.selectLaundryOrderListNotAssignedToBranchByArea",area);
+	}
+
+	@Override
+	public void updateLaundryOrderbranchCode(LaundryOrderVO laundryOrder) throws Exception {
+		session.update("LaundryOrder-Mapper.updateLaundryOrderbranchCode", laundryOrder);
+	}
+
+
 
 	
 	
