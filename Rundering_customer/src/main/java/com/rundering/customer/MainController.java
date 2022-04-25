@@ -103,6 +103,7 @@ public class MainController {
 		return entity;
 	}
 	
+	// 이메일 중복 체크
 	@RequestMapping("/emailCheck")
 	@ResponseBody
 	public ResponseEntity<String> emailCheck(String email) throws Exception {

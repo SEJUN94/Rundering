@@ -92,4 +92,13 @@
 		WHERE MEMBERNO = #{MEMBERNO}
 	</update>
 	
+	
+	<update id="modifyPwById" parameterType="member">
+		UPDATE
+		TB_MEMBER
+		SET
+		PASSWORD = #{password}
+		WHERE ID = #{id}
+	</update>
+	
 </mapper>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rundering.command.MemberAddCommand;
 import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.service.MemberAddressService;
@@ -61,8 +62,8 @@ public class MyPageController {
 	}
 	
 	
-	@RequestMapping("/memberModify")
-	public ModelAndView memberModify(HttpServletRequest request, ModelAndView mnv) throws Exception {
+	@RequestMapping("/memberModifyform")
+	public ModelAndView memberModifyForm(HttpServletRequest request, ModelAndView mnv) throws Exception {
 		String url = "/mypage/my_privacy";
 		
 		HttpSession session = request.getSession();
@@ -75,6 +76,16 @@ public class MyPageController {
 		
 		return mnv;
 	}
+	
+	@RequestMapping("/memberModify")
+	public String memberModify(MemberAddCommand mac) throws Exception{
+		String url = "/mypage/my_privacy_check";
+		
+		
+		
+		return url;
+	}
+	
 	
 	@RequestMapping("/pwModify")
 	public ResponseEntity<String> pwModify(HttpServletRequest request,String password) throws Exception {
@@ -91,8 +102,11 @@ public class MyPageController {
 			memberService.updatePassword(loginUser);
 			
 			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+			
 		} catch (SQLException e) {
+			
 			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+			
 		}
 
 	return entity;
@@ -150,6 +164,25 @@ public class MyPageController {
 		return entity;
 	}
 	
+	// 이메일 중복 체크 
+	@RequestMapping("/emailCheck")
+	@ResponseBody
+	public ResponseEntity<String> emailCheck(String email) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		try {
+			MemberAddCommand mac = memberService.checkEmail(email);
+			if (mac != null) {
+				entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+			} else {
+				entity = new ResponseEntity<String>("", HttpStatus.OK);
+			}
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return entity;
+	}
 	
 	
 }

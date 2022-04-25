@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.MemberAddCommand;
 import com.rundering.dto.MemberAddressVO;
@@ -26,6 +27,7 @@ import com.rundering.service.MemberService;
 import com.rundering.util.FormatUtil;
 import com.rundering.util.PhoneResDTO.SendSmsResponse;
 import com.rundering.util.SensSms;
+import com.rundering.util.UserSha256;
 
 @Controller
 public class CommonController {
@@ -116,6 +118,47 @@ public class CommonController {
 		
 		return url;
 	}
+	
+	@RequestMapping("/common/findpassword")
+	public String findPassword() {
+		String url = "common/worker_forgot_password";
+		
+		
+		
+		return url;
+	}
+	
+	@RequestMapping("/common/change/newpasswordform")
+	public ModelAndView changePasswordForm(ModelAndView mnv,String id) {
+		String url = "common/worker_change_new_password";
+		
+		mnv.addObject("id" , id);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	@RequestMapping("/common/change/newpassword")
+	public ResponseEntity<String> changePassword(String id,String password) {
+		ResponseEntity<String> entity = null;
+
+		MemberVO mv = new MemberVO();
+		
+		password = UserSha256.encrypt(password);
+		
+		mv.setId(id);
+		mv.setPassword(password);
+		
+		try {
+			memberService.modifyPwById(mv);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
+	
+	
 	@RequestMapping("/security/accessDenied")
 	public void accessDenied() {}
 	

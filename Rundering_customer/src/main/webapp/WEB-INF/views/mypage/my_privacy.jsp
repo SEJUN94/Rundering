@@ -68,6 +68,8 @@
 				<div class="col-12 row">
 					<div class="form-group col-4">
 						<input type="email" class="form-control " id="email" name="email" value="${loginUser.getEmail() }" >
+						<span class="sp1"></span> 
+						<span id="rst1"></span>
 					</div>
 				</div>
 			</div>
@@ -76,7 +78,7 @@
 	<div class="form-group">
 		<div class="row ">
 			<label for="call" class="col-2">
-				<p>주소</p>
+				<p>기본 주소지</p>
 			</label>
 			<div class="col-10">
 				<div class="col-12 row">
@@ -112,9 +114,10 @@
 				<div class="col-12 row">
 					<div class="form-group col-4">
 						<input type="hidden" class="form-control" name="zip" id="zip" value="${memberAddressList[0].getZip() }" readonly>
+						<input type="hidden" class="form-control" name="id" id="id" value="${loginUser.getId() }" readonly>
 					</div>
-					<span class="form-group col-4">
-						<button class="btn float-right" id="address" style="border-color: gray;">수정</button>
+					<span class="form-group col-2">
+						<button class="btn float-right" type="submit" id="sendBtn" style="border-color: gray;">수정</button>
 					</span>
 				</div>
 			</div>
@@ -123,13 +126,12 @@
 </div>
 </form>
 
-
-
 <script>
-function modify(){
-	
-}
-
+	function modify(){
+		event.preventDefault(); // 이벤트를 막아 페이지 리로드를 방지
+		
+		
+	}
 </script>
 
 <script>
@@ -161,34 +163,35 @@ function pwModify(){
 	        				if (result.toUpperCase() == "OK") {
 	        					Swal.fire('변경 완료', '비밀변호 변경이 완료되었습니다.', 'success' )
 	        				} else {
-	        					Swal.fire('비밀번호 변경에 실패하였습니다.', 'error' )
+	        					Swal.fire({
+	        						icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+	        						title: '비밀번호 변경에 실패하였습니다.',
+	        					});
 	        				}
 	        			},
 	        			error : function(error) {
 	        				AjaxErrorSecurityRedirectHandler(error.status);
 	        			}
 	        		});
-	               
 	           }
 	        })
 	} else{
 		Swal.fire({
-				icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
 				title: '비밀번호를 입력하세요',
 		});
 	}
 }
-
 </script>
 
 <script>
 	//email 중복체크 ajax
 	function emailCheckAjax() {
-		let sp = document.querySelectorAll('.sp');
+		let sp = document.querySelectorAll('.sp1');
 		let rst = document.querySelector('#rst1');
 
 		$.ajax({
-			url : '<%=request.getContextPath()%>/emailCheck',
+			url : '<%=request.getContextPath()%>/mypage/emailCheck',
 			data : {
 				'email' : $('#email').val()
 			},
@@ -196,11 +199,11 @@ function pwModify(){
 			success : function(result) {
 				if (result.toUpperCase() == "OK") {
 					$('#rst1').html("이미 존재하는 email입니다").css('color', 'red');
-					sp[4].style.display = 'none';
+					sp.style.display = 'none';
 					rst.style.display = "inline-block";
 				} else {
 					$('#rst1').html("사용 가능한 email입니다").css('color', 'green');
-					sp[4].style.display = 'none';
+					sp.style.display = 'none';
 					rst.style.display = "inline-block";
 				}
 			},
@@ -213,7 +216,6 @@ function pwModify(){
 </script>	
 
 <script>
-
 window.addEventListener('load',com);
 function com(){
 	//유효성검증 - pass
@@ -232,9 +234,39 @@ function com(){
 			pwchk = false;
 		}
 	});
+	
+	//유효성검증 - mail
+	$('#email').on('keyup', function() {
+		//유효성검증(validation check) - email
+		let mailValue = $('#email').val().trim();
+		let regMail = /^[0-9a-zA-Z]+@[0-9a-zA-Z]+(\.[a-z]+){1,2}$/;
+		let sp = document.querySelectorAll('.sp');
+		let rst = document.querySelector('#rst1');
+		
+		if (regMail.test(mailValue)) {
+			emailCheckAjax();
+			okProc($('#email'), "");
+			mailchk = true;
+		} else if (mailValue === "") {
+			sp[4].style.display = "inline-block"
+			rst.style.display = "none";
+			noProc('#email', " 메일을 입력하세요");
+			mailchk = false;
+		} else {
+			sp[4].style.display = "inline-block"
+			rst.style.display = "none";
+			noProc($('#email'), "형식에 맞게 입력하세요");
+			mailchk = false;
+		}
+	});
+	
+	// 회원가입 전송
+	$('#sendBtn').on('click', modify)
+	
 }
-</script>
 
+	
+</script>
 
 <script>
 function findAdd() {
@@ -242,14 +274,14 @@ function findAdd() {
 		oncomplete : function(data) {
 			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
 			var addr = ''; // 주소 변수
-
+			
 			//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
 			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
 				addr = data.roadAddress;
 			} else { // 사용자가 지번 주소를 선택했을 경우(J)
 				addr = data.jibunAddress;
 			}
-
+			
 			// 우편번호와 주소 정보를 해당 필드에 넣는다.
 			document.getElementById('zip').value = data.zonecode;
 			document.getElementById("add1").value = addr;
@@ -257,6 +289,6 @@ function findAdd() {
 			document.getElementById("add2").focus();
 		}
 	}).open();
-}	
+}
 </script>
 

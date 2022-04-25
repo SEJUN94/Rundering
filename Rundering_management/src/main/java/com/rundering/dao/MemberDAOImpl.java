@@ -121,4 +121,10 @@ public class MemberDAOImpl implements MemberDAO {
 		return totalCount;
 	}
 
+	// 새로운 비밀번호로 변경
+	@Override
+	public void modifyPwById(MemberVO mv) throws Exception {
+		session.selectOne("Member-Mapper.modifyPwById",mv);
+	}
+
 }

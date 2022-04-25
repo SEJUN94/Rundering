@@ -42,7 +42,7 @@
 				type : 'post',
 				success : function(result) {
 					if (result.toUpperCase() == "DUPLICATED") {
-						 location.href = "<%=request.getContextPath()%>/mypage/memberModify";
+						 location.href = "<%=request.getContextPath()%>/mypage/memberModifyform";
 					} else {
 						 Swal.fire('비밀번호가 틀렸습니다!');				
 					}
@@ -69,7 +69,7 @@
 					type : 'post',
 					success : function(result) {
 						if (result.toUpperCase() == "DUPLICATED") {
-							 location.href = "<%=request.getContextPath()%>/mypage/memberModify";
+							 location.href = "<%=request.getContextPath()%>/mypage/memberModifyform";
 						} else {
 							 Swal.fire('비밀번호가 틀렸습니다!');				
 						}

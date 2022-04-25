@@ -89,4 +89,10 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
+	// 새로운 비밀번호로 변경
+	@Override
+	public void modifyPwById(MemberVO mv) throws Exception {
+		memberDAO.modifyPwById(mv);
+	}
+
 }
