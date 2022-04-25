@@ -9,25 +9,23 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.dto.AsRequestVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.manage.Criteria;
-import com.rundering.service.AsRequestServiceImpl;
-import com.rundering.service.LaundryFixturesServiceImpl;
+import com.rundering.service.AsRequestService;
+import com.rundering.service.LaundryFixturesService;
 
 @Controller
 @RequestMapping("/admin/asrequest")
 public class AdminAsRequestController {
 	@Autowired
-	AsRequestServiceImpl asRequestService;
+	AsRequestService asRequestService;
 	
 	@Autowired
-	LaundryFixturesServiceImpl laundryFixturesService;
+	LaundryFixturesService laundryFixturesService;
 
 	// 리스트
 	@RequestMapping(value = "/list")

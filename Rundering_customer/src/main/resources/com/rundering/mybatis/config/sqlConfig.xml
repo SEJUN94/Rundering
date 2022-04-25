@@ -19,6 +19,7 @@
 		<typeAlias type="com.rundering.dto.PaymentVO" alias="payment" />
 		<typeAlias type="com.rundering.dto.AttachVO" alias="attach" />
 		<typeAlias type="com.rundering.dto.ComCodeVO" alias="comCode" />
+		<typeAlias type="com.rundering.dto.FAQVO" alias="faq" />
 		
 		
 	</typeAliases>

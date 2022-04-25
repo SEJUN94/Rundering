@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FAQ-Mapper">
+	<resultMap type="faq" id="fqaMap">
+		<result column="FAQNO" property="faqno" />
+		<result column="SETBUKDOORCLCODE" property="setbukdoorclcode" />
+		<result column="QUESTION" property="question" />
+		<result column="ANSWER" property="answer" />
+		<result column="REGIST_DATE" property="registDate" />
+		<result column="MODIFY_DATE" property="modifyDate" />
+		<result column="WRITER" property="writer" />
+		<result column="SECRETYN" property="secretyn" />
+		<result column="ANSWER_WRITER" property="answerwriter" />
+		<result column="FAQYN" property="faqyn" />
+		<result column="FCONTENT" property="fcontent" />		
+	</resultMap>
+	
+	<sql id="search">
+		<if test="searchType == 't'.toString()">
+			and a.setbukdoorclcode like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'c'.toString()">
+			and a.question like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'w'.toString()">
+			and b.name like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'tcw'.toString()">
+			and (
+			a.setbukdoorclcode like '%'||#{keyword}||'%'
+			or
+			a.question like '%'||#{keyword}||'%'
+			or
+			b.name like '%'||#{keyword}||'%'		
+			)			
+		</if>
+	</sql>
+	
+	<!-- 리스트보기 -->
+	<select id="selectSearchFAQList" resultMap="faqMap" >
+		select
+		    a.faqno,
+	        a.setbukdoorclcode,
+	        a.question,
+	        a.fcontent,
+	        b.name as writer,
+	        a.regist_date,
+	        a.secretyn,
+	        a.faqyn
+		from tb_faq a, tb_member b
+		    where a.writer = b.memberno
+   			and a.faqyn = 'N'
+		      <include refid="search" />
+		 	order by a.faqno desc
+	</select>
+	
+	<select id="selectSearchFAQListCount" resultType="int">
+		select
+		count(*) 
+		from tb_faq a
+		where a.faqno is not null
+		<!-- <include refid="search" /> -->
+		order by a.regist_date desc
+	</select>
+	
+	
+	
+
+
+
+</mapper>

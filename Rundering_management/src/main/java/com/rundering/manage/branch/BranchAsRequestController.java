@@ -17,17 +17,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.rundering.dto.AsRequestVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.manage.Criteria;
-import com.rundering.service.AsRequestServiceImpl;
-import com.rundering.service.LaundryFixturesServiceImpl;
+import com.rundering.service.AsRequestService;
+import com.rundering.service.LaundryFixturesService;
 
 @Controller
 @RequestMapping("/branch/asrequest")
 public class BranchAsRequestController {
 	@Autowired
-	AsRequestServiceImpl asRequestService;
+	AsRequestService asRequestService;
 	
 	@Autowired
-	LaundryFixturesServiceImpl laundryFixturesService;
+	LaundryFixturesService laundryFixturesService;
 
 	// 리스트
 	@RequestMapping(value = "/list")

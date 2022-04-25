@@ -18,16 +18,16 @@ public class AsRequestVO {
 	private String requestDate; // 고장발생일
 	private String fixturesName; // 물품호칭
 
+	public AsRequestVO() {
+		super();
+	}
+
 	public String getObjectname() {
 		return objectname;
 	}
 
 	public void setObjectname(String objectname) {
 		this.objectname = objectname;
-	}
-
-	public AsRequestVO() {
-		super();
 	}
 
 	public int getAsno() {
