@@ -9,7 +9,7 @@
 <c:set var="laundryCodeMap" value="${dataMap.laundryCodeMap }" />
 <c:set var="orderCodeMap" value="${dataMap.orderCodeMap }" />
 <body>
-	<div class="row ml-2 mr-2">
+	<div class="row ml-2 mr-2 " id="body">
 
 		<div class="col-12">
 			<div class="card-header" style="padding: 10px;">
@@ -93,12 +93,11 @@
 											items="${laundryCodeMap }" var="laundryCode">
 											<c:if test="${laundryOrder.orderStatus eq  laundryCode.key}">
 												<input type="checkbox" name="" class="select">
-												<input type="hidden" value="${laundryOrder.orderNo }"	name="orderNo" class="inputHidden">
+												<input type="hidden" value="${laundryOrder.orderNo }"
+													name="orderNo" class="inputHidden">
 											</c:if>
-										</c:forEach>
-									</td>
+										</c:forEach></td>
 								</tr>
-
 							</c:forEach>
 						</tbody>
 					</table>
@@ -110,36 +109,45 @@
 			</div>
 
 			<div class="row">
-				<div class="col-12 col-sm-5" >	
-					<div class="card card-tabs" style="height: 300px" id="imgtag" >
+				<div class="col-12 col-sm-5">
+					<div class="card card-tabs" style="height: 300px" >
+					<div class="card-header p-0 border-bottom-0">
+						<div class="float-left" style="margin-top: 10px;margin-left: 10px">이미지</div>
+							<div class="float-right " id="imgtag" >
+							</div>
+					</div>
+					<div class="card-body imgsrc" style="padding: 0px" id="hrefimg">
+						<img alt="" src="" id="imgsrc" class="col-12" style="height: 100%;display: none;" >
+					</div>
 		
+				</div>
+				
+				</div>
 
-					</div>
-				</div>
-	
-					<div class="col-12 col-sm-7">
-			<div class="card ">
-				<div class="card-header">
-					<h3 class="card-title">요청사항</h3>
-					<div class="float-right">
-						<button type="button" class="btn btn-sm btn-primary"
-							data-toggle="modal" data-target="#modal-lg" style="width: 50px">답변</button>
-					</div>
-				</div>
-				<div class="ml-2 mr-2">
-					<div class="col-12 float-left">
-						<div class="form-group">
-							<label for="exampleInputBorder ml-2" id="requestText"
-								class="mt-3"></label>
+				<div class="col-12 col-sm-7">
+					<div class="card ">
+						<div class="card-header">
+							<h3 class="card-title">요청사항</h3>
+							<div class="float-right">
+								<button type="button" class="btn btn-sm btn-primary"
+									data-toggle="modal" data-target="#modal-lg" style="width: 50px">답변</button>
+							</div>
+						</div>
+						
+						<div class="ml-2 mr-2">
+							<div class="col-12 float-left" >
+								<div class="form-group">
+									<label for="exampleInputBorder ml-2" id="requestText"
+										class="mt-3"></label>
+								</div>
+							</div>
 						</div>
 					</div>
+
 				</div>
 			</div>
 
 		</div>
-		</div>
-	
-	</div>
 	</div>
 
 	<div class="modal fade" id="modal-lg" style="display: none;"
@@ -168,37 +176,30 @@
 				</div>
 			</div>
 		</div>
+		
 	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-	<script type="text/x-handlebars-template" id="fileImage-tempalet" >
-	
-		<div class="card-header p-0 pt-1" >
-			<div class="float-left" style="margin-top: 10px;margin-left: 10px">이미지</div>
-			<div class="float-right" >
-				<ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-				{{#list}}
-					<li class="nav-item"><a class="nav-link active"
-						id="custom-tabs-one-home-tab" data-toggle="pill"
-						href="#custom-tabs-one-home" role="tab"
-						aria-controls="custom-tabs-one-home" aria-selected="true" style="border-left: 1px solid #dee2e6;">{{@index}}</a>
-					</li>
-				{{/list}}
-				</ul>
-			</div>
-		</div>
-		{{#list}}
-		<div class="card-body" style="padding: 0px">
-			<div class="tab-content" id="custom-tabs-one-tabContent">
-				<div class="tab-pane fade show active" id="custom-tabs-one-home"
-					role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-					<img alt="" src="{{this}}">
-				</div>
-			</div>
-		</div>
-		{{/list}}
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+	<script type="text/x-handlebars-template" id="fileImage-template">
+		<ul class="nav nav-tabs" id="custom-tabs-four-tab">
+			{{#count}}
+			<li class="nav-item">
+				<a class="nav-link" style="border: 1px solid #dee2e6;" href="#" onclick="changeSrc()">
+					{{this}} 
+				</a>
+			</li>
+			{{/count}}
+		</ul>	
 	</script>
-	
+
 	<script>
+	let imgList =null;
+	function changeSrc(){
+		let targetText=event.target.innerText-1;
+	
+		
+		document.querySelector("#imgsrc").src="data:image/jpg;base64,"+imgList[targetText];
+	}
+	
 	// 이미지 불러오기 
 	function getImages(atchFileNo){
 		    $.ajax({
@@ -209,19 +210,27 @@
 		        },
 		        dataType:"json",
 		        success:function(data){
-		        	console.log(data)
-		        	let source = $("#fileImage-tempalet").html(); 
-		        	//핸들바 템플릿 컴파일
-		        	let template = Handlebars.compile(source); 
-					let imgList= data;
-		        	//핸들바 템플릿에 바인딩할 데이터
-		        	let handleData = {
-		        	    	list: imgList
-		        	}; 
-
+ 		        	let source = $("#fileImage-template").html(); 
+		        	let template = Handlebars.compile(source);
+					imgList= new Array();
+					let count = 0;
+					let countArray = new Array();
+					for(let i of data){
+						imgList.push(i);
+						count +=1;
+						countArray.push(count);
+					}
+					let handleData= {
+							count:countArray
+					};
 		        	let html = template(handleData);
-
 		        	$('#imgtag').append(html);
+		        	document.querySelector("#imgsrc").src="data:image/jpg;base64,"+imgList[0];
+		        	document.querySelector("#imgsrc").style.display="flex";
+					
+					
+					
+
 		        },
 		        error:function(error){
 				//alert('댓글이 등록을 실패했습니다.');
@@ -250,9 +259,7 @@
             textContent.innerHTML=event.target.parentElement.querySelectorAll(".textDetail")[0].dataset.text
             orderno=event.target.parentElement.querySelectorAll(".orderno")[0].innerText;
             atchFileNo=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.atchno
-            console.log(event.target.parentElement.querySelectorAll(".orderno")[0].dataset.atchno)            
             getImages(atchFileNo);
-            
         	//replyno= document.querySelector("#replyno")
         	//replyno.setAttribute("value",orderno);
         })
@@ -302,7 +309,7 @@ function firstRegistReply(){
     }
   
     
-    $.ajax({
+<%--     $.ajax({
         url:"url:"<%=request.getContextPath()%>/branch/reply"",
         type:"post",
         data:,
@@ -315,30 +322,30 @@ function firstRegistReply(){
 		//alert('댓글이 등록을 실패했습니다.');
 		AjaxErrorSecurityRedirectHandler(error.status);
 		}
-    })
+    }) --%>
 }
 
 </script>
 	<script type="text/javascript">
-	function request_go(atchNo){
-		 $.ajax({
-		        url:<%=request.getContextPath()%>/common/getimage,
-		        type:"post",
-		        data: {
-		        	atchFileNo : atchNo
-		        },
-		        dataType="json",
-		        success:function(data){
-		        	for(let i of data){
+// 	 function request_go(atchNo){
+// 		 $.ajax({
+<%-- 		        url:<%=request.getContextPath()%>/common/getimage, --%>
+// 		        type:"post",
+// 		        data: {
+// 		        	atchFileNo : atchNo
+// 		        },
+// 		        dataType="json",
+// 		        success:function(data){
+// 		        	for(let i of data){
 		        		
-		        	}
-		        }
-		        error:function(error){
-				//alert('댓글이 등록을 실패했습니다.');
-				AjaxErrorSecurityRedirectHandler(error.status);
-			}
-		    })
-	}
+// 		        	}
+// 		        }
+// 		        error:function(error){
+// 				//alert('댓글이 등록을 실패했습니다.');
+// 				AjaxErrorSecurityRedirectHandler(error.status);
+// 			}
+// 		    })
+// 	} 
 
 </script>
 

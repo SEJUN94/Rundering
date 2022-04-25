@@ -21,14 +21,18 @@ import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.ReplyVO;
 import com.rundering.manage.Criteria;
+import com.rundering.service.AttachService;
 import com.rundering.service.LaundryOrderService;
 import com.rundering.util.BranchCriteria;
+import com.rundering.util.FileUtil;
 
 @Controller
 @RequestMapping("/branch/laundrysituatuion")
 public class LaundrySituatuionController {
 	@Autowired
 	LaundryOrderService laundryOrderService;
+	@Autowired
+	AttachService attachService;
 	
 	@RequestMapping("/list")
 	private String situatuionList(Model model,BranchCriteria cri,HttpSession session) throws Exception {
@@ -64,20 +68,17 @@ public class LaundrySituatuionController {
 	}
 	@RequestMapping(value =  "/getimgs",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	private  List<String> situationGetImage(String atchFileNo){
-		List<String> filePathNameList = new ArrayList<String>(); 
-		List<AttachVO> attachList = null; 
+	private  ResponseEntity<List<byte[]>> situationGetImage(String atchFileNo){
+		FileUtil fileUtil = new FileUtil();
+		 
+		ResponseEntity<List<byte[]>> resp=null;;
 		try {
-			attachList= laundryOrderService.selectAttachList(atchFileNo);
-			for (AttachVO attach : attachList) {
-				String pathName="";
-				pathName=attach.getFilePath()+attach.getSaveFileNm();
-				filePathNameList.add(pathName);
-			}
+			resp = fileUtil.getPicture(atchFileNo, attachService);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return filePathNameList;
+		
+		return resp;
 	}
 	
 }
