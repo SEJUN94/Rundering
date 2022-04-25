@@ -16,7 +16,13 @@ public class MemberDAOImpl implements MemberDAO {
 	public void setSession(SqlSession session) {
 		this.session = session;
 	}
-
+	
+	@Override
+	public MemberVO selectMemberByMemberNo(String memberNo) throws Exception {
+		MemberVO member = session.selectOne("Member-Mapper.selectMemberByMemberNo", memberNo);
+		return member;
+	}
+	
 	@Override
 	public MemberVO selectMemberById(String id) throws Exception {
 		MemberVO member = session.selectOne("Member-Mapper.selectMemberById", id);
@@ -113,5 +119,7 @@ public class MemberDAOImpl implements MemberDAO {
 		int totalCount = session.selectOne("Member-Mapper.selectSearchMemberListCount",cri);
 		return totalCount;
 	}
+
+	
 
 }

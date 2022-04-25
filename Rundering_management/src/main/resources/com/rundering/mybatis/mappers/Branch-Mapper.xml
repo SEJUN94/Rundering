@@ -20,9 +20,15 @@
 		<result column="AREA" property="area" />
 	</resultMap>
 
-	<select id="getBranchList" resultMap="branchMap" >
+	<select id="selectBranchList" resultMap="branchMap" >
 		SELECT *
 		FROM TB_BRANCH
+	</select>
+	
+	<select id="selectBranchByBranchCode" resultMap="branchMap" parameterType="str">
+		SELECT *
+		FROM TB_BRANCH
+		WHERE BRANCH_CODE = #{branchCode}
 	</select>
 
 

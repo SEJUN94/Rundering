@@ -100,7 +100,7 @@
 						</thead>    
 						<tbody>
 							<c:forEach items="${laundryOrderList }" var="laundryOrder" >
-								<tr onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do?orderNo=${laundryOrder.orderNo }', '주문 상세', 'width=700, height=900');"
+								<tr onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do?orderNo=${laundryOrder.orderNo }', '주문 상세', 'width=800, height=900');"
 									style="cursor: pointer;">
 									<td><fmt:formatDate value="${laundryOrder.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 									<td>${laundryOrder.orderNo }</td>

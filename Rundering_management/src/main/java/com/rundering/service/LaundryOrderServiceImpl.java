@@ -13,11 +13,13 @@ import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
+import com.rundering.dao.MemberDAO;
 import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.dto.MemberVO;
 import com.rundering.dto.ReplyVO;
 import com.rundering.util.ComCodeUtil;
 import com.rundering.util.FormatUtil;
@@ -47,6 +49,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	private BranchDAO branchDAO;
 	public void setBranchDAO(BranchDAO branchDAO) {
 		this.branchDAO = branchDAO;
+	}
+	private MemberDAO memberDAO;
+	public void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
 	}
 	@Override
 	public Map<String,Object> laundryOrderList(BranchCriteria cri) throws Exception{
@@ -94,7 +100,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		comCodeUtil.getUpperCodeMap("ORDER_STATUS", orderCodeMap, comCodeDAO);
 		comCodeUtil.getCodeMap("AREA", areaCodeMap, comCodeDAO);
 		
-		List<BranchVO> branchList = branchDAO.getBranchList();
+		List<BranchVO> branchList = branchDAO.selectBranchList();
 		for (BranchVO branchVO : branchList) {
 			branchNameMap.put(branchVO.getBranchCode(), branchVO.getBranchName());
 		}
@@ -124,13 +130,15 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		comCodeUtil.getUpperCodeMap("ORDER_STATUS", orderCodeMap, comCodeDAO);
 		comCodeUtil.getCodeMap("AREA", areaCodeMap, comCodeDAO);
 		
-		List<BranchVO> branchList = branchDAO.getBranchList();
-		for (BranchVO branchVO : branchList) {
-			branchNameMap.put(branchVO.getBranchCode(), branchVO.getBranchName());
-		}
-		
 		LaundryOrderVO laundryOrder = laundryOrderDAO.selectLaundryOrderByOrderNo(orderNo);
 		List<LaundryOrderDetailVO> laundryOrderDetailList = laundryOrderDetailDAO.selectlaundryOrderDetailListByOrderNo(orderNo);
+		
+		if(laundryOrder.getBranchCode() != null) {
+			BranchVO branch = branchDAO.selectBranchByBranchCode(laundryOrder.getBranchCode());
+			laundryOrder.setBranchCode(branch.getBranchName());
+		}
+		MemberVO member = memberDAO.selectMemberByMemberNo(laundryOrder.getMemberNo());
+		laundryOrder.setMemberNo(member.getName());
 		
 		laundryOrder.setContactNumber(FormatUtil.hyphenationPhoneNum(laundryOrder.getContactNumber()));
 		

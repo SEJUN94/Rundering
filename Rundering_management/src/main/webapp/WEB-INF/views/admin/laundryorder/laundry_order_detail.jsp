@@ -5,16 +5,27 @@
 
 <title>세탁주문 상세</title>
 <body>
-	<div class="col-12">
+	<div class="col-6">
 		<h3 class="m-3">세탁주문 상세</h3>
 		<div class="p-3 m-0 card-secondary card-outline">
 			<div class="row">
 				<div class="col-12">
-					<h4>
-						주문일: <fmt:formatDate value="${laundryOrder.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/> | 주문번호: ${laundryOrder.orderNo } <span class="float-right">세탁지점명
-							<span class="badge bg-secondary">${orderCodeMap[laundryOrder.orderStatus]}</span>
+					<h5>
+						주문일: <span class="float-right"> <fmt:formatDate value="${laundryOrder.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+					</h5>
+					<h5>
+						주문번호: <span class="float-right"> ${laundryOrder.orderNo }</span>
+					</h5> 
+					<h5><c:if test="${!empty laundryOrder.branchCode }">
+							${laundryOrder.branchCode }
+						</c:if> 
+						<c:if test="${empty laundryOrder.branchCode }">
+							지점미할당
+						</c:if> 
+						<span class="float-right">
+						<span class="badge bg-secondary">${orderCodeMap[laundryOrder.orderStatus]}</span>
 						</span>
-					</h4>
+					</h5>
 				</div>
 			</div>
 			<div class="card-body p-0">
