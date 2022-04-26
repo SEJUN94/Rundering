@@ -82,7 +82,7 @@
 
 								<tr class="mouseHover">
 									<td class="orderno" style="text-align: center;"
-										data-atchNo="${laundryOrder.atchFileNo }" data-replyno="${laundryOrder.replyNo }">${laundryOrder.orderNo }</td>
+										data-atchNo="${laundryOrder.atchFileNo }" data-replyno="${laundryOrder.replyNo }" data-memberno="${laundryOrder.memberNo }">${laundryOrder.orderNo }</td>
 									<td style="text-align: center;">${laundryOrder.area }</td>
 									<td class="textCut textDetail"
 										data-text="${laundryOrder.requestDetails }"></td>
@@ -125,7 +125,7 @@
 				</div>
 
 				<div class="col-12 col-sm-7" id="reply" style="height: 300px; overflow: auto;">
-					<div class="card ">
+					<div class="card " style="padding-left:0px;padding-right: 0px;">
 						<div class="card-header">
 							<h3 class="card-title">요청사항</h3>
 							<div class="float-right">
@@ -133,21 +133,28 @@
 									data-toggle="modal" data-target="#modal-lg" style="width: 50px">답변</button>
 							</div>
 						</div>
-
-						<div class="ml-2 mr-2">
-							<div class="col-12 float-left">
-								<div class="form-group">
-									<label for="exampleInputBorder ml-2" id="requestText"
-										class="mt-3"></label>
-								</div>
-							</div>
+					</div>
+					<section class="content">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="timeline" style="margin:0px">
+											<div style="margin-right:0px">
+												<i class="fas fa-user bg-yellow"></i>
+												<div class="timeline-item" style="margin-right:0px;">
+													<span class="time" style="padding:0px"><i class="fas fa-clock"></i> 
+													</span>
+													<p id="requestText"></p>
+												</div>
+						  				 </div>
+									</div>
+							 </div>
+		 				 </div>
 						</div>
+					</section>
+					<div id="replyTag">
 					</div> 
-				
-
-
 				</div>
-
 			</div>
 		</div>
 
@@ -164,22 +171,47 @@
 					</div>
 					<div class="modal-body">
 						<form action="request" id="replyForm">
-							<textarea rows="5" class="form-control" name="replyContent"
-								id="replyContent">
-					</textarea>
+							<input type="text" class="form-control" name="replyContent"	id="replyContent" >
+							</input> 
 						</form>
 					</div>
 					<div class="modal-footer">
-
 						<button type="button" class="btn btn-primary" id="registBtn" data-replyno onclick="registReply()">작성</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
 					</div>
 				</div>
 			</div>
-
 		</div>
+		
+		<div class="modal fade" id="modal-modify" style="display: none;"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">수정</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form action="request" id="replyForm">
+							<input type="text" class="form-control" name="replyContent"	id="replyModifyContent" >
+							</input> 
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="modifyBtn" data-replyno onclick="replyModify()">작성</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
 		</div>
+		
+		
 		<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+		<%@include file="./reply.jsp" %>
+		
 		<script type="text/x-handlebars-template" id="fileImage-template" >
 		<ul class="nav nav-tabs" id="custom-tabs-four-tab">
 			{{#count}}
@@ -223,7 +255,10 @@
 							count:countArray
 					};
 		        	let html = template(handleData);
-		        	$('#imgtag').remove();
+		        	if($('#custom-tabs-four-tab')!=null){
+		        		$('#custom-tabs-four-tab').remove();
+		        	}
+		        	
 		        	$('#imgtag').append(html);
 		        	document.querySelector("#imgsrc").src="data:image/jpg;base64,"+imgList[0];
 		        	document.querySelector("#imgsrc").style.display="flex";
@@ -242,6 +277,7 @@
     let texts= document.querySelectorAll(".textCut");
     
     let textContent = document.querySelector("#requestText");
+    console.log(textContent)
     for (let i of texts){
         if(i.dataset.text.length>20){
             i.innerHTML=i.dataset.text.substring(0,20)+"..."
@@ -252,13 +288,22 @@
     let mouseHover = document.querySelectorAll(".mouseHover");
     for(let i of mouseHover){
         i.addEventListener("click",function(){
-            textContent.innerHTML=event.target.parentElement.querySelectorAll(".textDetail")[0].dataset.text
+            let textDetail =event.target.parentElement.querySelectorAll(".textDetail")[0].dataset.text;
+            if(textDetail==null||textDetail.trim()==""){
+            	document.querySelector("#requestText").innerText="요청사항이없습니다";
+            }else{
+            	textContent.innerText=textDetail;
+            }
+            
             let orderno=event.target.parentElement.querySelectorAll(".orderno")[0].innerText;
             let atchFileNo=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.atchno
             let replyNo=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.replyno
+            let memberNo=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.memberno
+           
             getImages(atchFileNo);
            	document.querySelector("#registBtn").dataset.replyno=replyNo
-            
+           	document.querySelector("#registBtn").dataset.memberno=memberNo
+           	replyList(replyNo,memberNo)
         	//replyno= document.querySelector("#replyno")
         	//replyno.setAttribute("value",orderno);
         })
@@ -300,35 +345,6 @@
 	}
 </script>
 
-<script>
-function registReply(){
-    let replyContent= document.querySelector("#replyContent").value;
-    let replyno =  event.target.dataset.replyno
-    console.log(replyContent)
-	console.log(replyno)    
-    if(replyno==null||replyno==""){
-    	return;
-    }
-    if(replyContent==null || replyContent.trim==""){
-        return
-    }
 
-     $.ajax({
-        url:"<%=request.getContextPath()%>/branch/reply/regist",
-        type:"post",
-        data:{
-        	replyno:replyno,
-        	replyContent:replyContent
-        },
-        success:function(data){
-            alert("댓글이 등록. \n 마지막 페이지로 이동합니다.");
-        },
-        error:function(error){
-		AjaxErrorSecurityRedirectHandler(error.status);
-		}
-    }); 
-}
-
-</script>
 
 </body>

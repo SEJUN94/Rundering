@@ -38,6 +38,14 @@ public class ReplyDAOImpl implements ReplyDAO{
 	public int selectReplyCheckByReplyno(int replyno) throws Exception{
 		return session.selectOne("Reply-Mapper.selectReplyCheckByReplyno",replyno);
 	}
+	@Override
+	public void deleteReply(ReplyVO reply) throws Exception{
+		session.delete("Reply-Mapper.deleteReply",reply);
+	}
+	@Override
+	public void updateReply(ReplyVO reply) throws Exception{
+		session.update("Reply-Mapper.updateReply",reply);
+	}
 	
 	
 	

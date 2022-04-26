@@ -16,8 +16,9 @@
 	<scheduled-tasks scheduler="assignLaundryOrderScheduler">
 		<scheduled ref="orderTask"
 				   method="assignLaundryOrderToBranch"
-				   cron="*/5 * * * * *"/>
-				   <!-- cron="* * 22 * * *"/> -->
+				    cron="* * 22 * * *"/>
+<!-- 				   cron="*/5 * * * * *"/> -->
+				   
 	</scheduled-tasks>
 	
 </beans:beans>

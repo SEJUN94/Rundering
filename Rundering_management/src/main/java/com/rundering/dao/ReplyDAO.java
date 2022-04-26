@@ -17,6 +17,10 @@ public interface ReplyDAO {
 
 	int selectReplyCheckByReplyno(int replyno) throws Exception;
 
+	void deleteReply(ReplyVO reply) throws Exception;
+
+	void updateReply(ReplyVO reply) throws Exception;
+
 	
 	
 }
