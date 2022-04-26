@@ -42,7 +42,12 @@
 				<p class="text-muted m-0">${laundryOrder.add2}</p>
 				<hr>
 				<strong><i class="fas fa-pencil-alt mr-1"></i> 요청사항</strong>
+				<c:if test="${!empty laundryOrder.requestDetails }">
 				<p class="text-muted">${laundryOrder.requestDetails}</p>
+				</c:if>
+				<c:if test="${empty laundryOrder.requestDetails }">
+					<p class="text-muted">-</p>
+				</c:if>
 			</div>
 			<hr>
 

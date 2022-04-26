@@ -91,10 +91,9 @@ public class LaundryOrderController {
 	
 	@RequestMapping(value = "/completed", method = RequestMethod.POST)
 	public ModelAndView completed(@RequestParam(defaultValue = "") String from,LaundryOrderReceiveCommand command, HttpServletRequest request, ModelAndView mnv) throws Exception {
-		System.out.println(from);
-		//주문완료 페이지가 없어 일단 홈화면으로 가도록 함
 		String url="/order/order_completed";
 		
+//		System.out.println(from);
 //		if(!from.equals("confirm")) {
 //			//insert가 된 후 새로고침 시
 //			LaundryOrderVO registeredLaundryOrder = laundryOrderService.getLaundryOrderByPaymentNo(command.getPaymentNo());
