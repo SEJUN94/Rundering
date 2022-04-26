@@ -11,7 +11,7 @@
 		p:comCodeDAO-ref="comCodeDAO"
 	/>
 	<scheduler id="assignLaundryOrderScheduler"/>
-	
+	 
 	<scheduled-tasks scheduler="assignLaundryOrderScheduler">
 		<scheduled ref="orderTask"
 				   method="assignLaundryOrderToBranch"

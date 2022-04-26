@@ -6,31 +6,28 @@ import java.util.Map;
 
 import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
+import com.rundering.dao.MemberDAO;
 import com.rundering.dao.ReplyDAO;
+import com.rundering.dto.MemberVO;
 import com.rundering.dto.ReplyVO;
 
 public class ReplyServiceImpl implements ReplyService {
 	ReplyDAO replyDAO;
-	
 	public void setReplyDAO(ReplyDAO replyDAO) {
 		this.replyDAO = replyDAO;
 	}
+
+	MemberDAO memberDAO;
+	public void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
+	}
 	
 	@Override
-	public Map<String, Object> getReplyList(String replyno,Criteria cri) throws Exception {
+	public Map<String, Object> getRequestReplyList(String replyno) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		int replynoInt =Integer.parseInt(replyno); 
 		List<ReplyVO> replyList = replyDAO.selectReplyByReplyNo(replynoInt);
-		
-		
-		PageMaker pageMaker = new PageMaker();
-		
-		int totalCount = replyDAO.selectReplyCountByReplyno(replynoInt);
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(totalCount);
- 
 		dataMap.put("replyList", replyList);
-		dataMap.put("pageMaker", pageMaker); 
 		
 		return dataMap;
 	}
@@ -41,6 +38,14 @@ public class ReplyServiceImpl implements ReplyService {
 		reply.setCount(count);
 		replyDAO.insertReplyByReplyVO(reply);
 	}
-	
+
+	@Override
+	public void replyRemove(ReplyVO reply) throws Exception {
+		replyDAO.deleteReply(reply);
+	}
+	@Override
+	public void replyModify(ReplyVO reply) throws Exception{
+		replyDAO.updateReply(reply);
+	}
 
 }

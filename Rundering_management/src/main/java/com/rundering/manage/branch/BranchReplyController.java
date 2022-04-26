@@ -25,15 +25,14 @@ public class BranchReplyController {
 	@Autowired
 	ReplyService replySerivce;
 	
-	@RequestMapping(value = "list",method =RequestMethod.GET)
+	@RequestMapping(value = "list",method =RequestMethod.GET,produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> replyList(String replyno,Criteria cri) {
+	public ResponseEntity<Map<String, Object>> replyList(String replyno) {
 		ResponseEntity<Map<String, Object>> resp = null;
 		Map<String, Object> dataMap=null;
 		try {
-			dataMap = replySerivce.getReplyList(replyno, cri);
+			dataMap = replySerivce.getRequestReplyList(replyno);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -44,6 +43,7 @@ public class BranchReplyController {
 	
 	
 	@RequestMapping(value = "regist",method = RequestMethod.POST)
+	@ResponseBody
 	public ResponseEntity<String> regist (ReplyVO reply,HttpSession session,Criteria cri){
 		ResponseEntity<String> resp = null;
 		MemberVO member = (MemberVO) session.getAttribute("loginMember");
@@ -55,6 +55,31 @@ public class BranchReplyController {
 			e.printStackTrace();
 		}
 		return resp;
+	}
+	
+	@RequestMapping(value = "modify",method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> modify (ReplyVO reply,HttpSession session,Criteria cri){
+		ResponseEntity<String> resp = null;
+		reply.setReplyContent(HTMLInputFilter.htmlSpecialChars(reply.getReplyContent()));
+		try {
+			replySerivce.replyModify(reply);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resp;
+	}
+	
+	@RequestMapping(value="remove")
+	@ResponseBody
+	public void remove (ReplyVO reply) {
+		try {
+			replySerivce.replyRemove(reply);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
