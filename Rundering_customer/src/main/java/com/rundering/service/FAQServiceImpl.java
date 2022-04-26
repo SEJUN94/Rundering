@@ -40,8 +40,24 @@ public class FAQServiceImpl implements FAQService {
 	}
 	
 	@Override
+	public FAQVO getFAQModify(int faqno) throws SQLException {
+		FAQVO faq = faqDAO.selectFAQByFaqno(faqno);
+		return faq;
+	}
+	
+	@Override
 	public void regist(FAQVO faq) throws SQLException {
 		faqDAO.insertFAQ(faq);
+	}
+	
+	@Override
+	public void modify(FAQVO faq) throws SQLException {
+		faqDAO.updateFAQ(faq);
+	}
+	
+	@Override
+	public void remove(int faqno) throws SQLException {
+		faqDAO.deleteFAQ(faqno);
 	}
 
 }

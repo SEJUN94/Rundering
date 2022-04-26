@@ -69,8 +69,7 @@ th, td {
 					<div class="input-group input-group-sm" style="width: 300px;">
 						<select class="form-control col-md-4" name="searchType"
 							id="searchType">
-							<option value="tcw" ${cri.searchType eq 'tcw' ? 'selected':'' }>전체</option>
-							<option value="t" ${cri.searchType eq 't' ? 'selected':'' }>카테고리</option>
+							<option value="cw" ${cri.searchType eq 'cw' ? 'selected':'' }>전체</option>
 							<option value="c" ${cri.searchType eq 'c' ? 'selected':'' }>제목</option>
 							<option value="w" ${cri.searchType eq 'w' ? 'selected':'' }>질문자</option>
 						</select> <input class="form-control" type="text" name="keyword"
@@ -106,7 +105,11 @@ th, td {
 						<tr
 							onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',900,700);">
 							<td class="no">${faq.faqno }</td>
-							<td class="category">${faq.setbukdoorclcode }</td>
+							<td class="category"><c:choose>
+												<c:when test="${faq.setbukdoorclcode == 'OR'}">주문문의</c:when>
+												<c:when test="${faq.setbukdoorclcode == 'US'}">이용문의</c:when>
+												<c:when test="${faq.setbukdoorclcode == 'ET'}">기타문의</c:when>
+											   </c:choose></td>
 							<td class="title">${faq.question }</td>
 							<td class="writer">${faq.writer }</td>
 							<td class="date"><fmt:formatDate value="${faq.registDate }"

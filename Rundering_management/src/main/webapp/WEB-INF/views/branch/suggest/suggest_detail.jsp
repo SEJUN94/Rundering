@@ -74,7 +74,7 @@
 							<button type="button" class="btn btn-danger" id="removeBtn"
 								onclick="remove_go('${suggest.sno}');">삭제</button>
 							&nbsp;&nbsp;
-							<button type="button" class="btn btn-warning" id="cancelBtn"
+							<button type="button" class="btn btn-warning" id="modifyBtn"
 								onclick="modify_go('${suggest.sno}');">수정</button>
 							&nbsp;&nbsp;
 							<button type="button" class="btn btn-primary" id="cancelBtn"
