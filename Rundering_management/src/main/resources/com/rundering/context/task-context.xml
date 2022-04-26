@@ -5,7 +5,6 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
 	<beans:bean id="orderTask" class="com.rundering.scheduler.OrderTaskScheduler"
 		p:branchDAO-ref="branchDAO"
 		p:laundryOrderDAO-ref="laundryOrderDAO"
@@ -16,8 +15,8 @@
 	<scheduled-tasks scheduler="assignLaundryOrderScheduler">
 		<scheduled ref="orderTask"
 				   method="assignLaundryOrderToBranch"
-				   cron="*/5 * * * * *"/>
-				   <!-- cron="* * 22 * * *"/> -->
+				   cron="* * 22 * * *"/>
+				   <!-- cron="*/5 * * * * *"/> -->
 	</scheduled-tasks>
 	
 </beans:beans>

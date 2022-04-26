@@ -207,8 +207,6 @@
 				email.setAttribute('value',mv.email)
 				jd.setAttribute('value',mv.registDate)
 				memNo.setAttribute('value',mv.memberNo)		
-				console.log(jd.value)
-				console.log(memNo.value)
 			},
 			error : function(error) {
 				AjaxErrorSecurityRedirectHandler(error.status);
