@@ -21,9 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.SuggestVO;
-import com.rundering.manage.Criteria;
 import com.rundering.service.SuggestServiceImpl;
 import com.rundering.util.MakeFileName;
 
@@ -34,7 +34,7 @@ public class BranchSuggestController {
 	SuggestServiceImpl suggestService;
 
 	@RequestMapping(value = "/list")
-	private ModelAndView suggestList(Criteria cri, ModelAndView mnv) throws Exception {
+	private ModelAndView suggestList(CustomerListCriteria cri, ModelAndView mnv) throws Exception {
 		String url = "branch/suggest/suggest_list";
 
 		Map<String, Object> dataMap = suggestService.getSuggestList(cri);

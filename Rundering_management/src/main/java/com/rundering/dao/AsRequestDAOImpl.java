@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.AsRequestVO;
-import com.rundering.manage.Criteria;
 
 public class AsRequestDAOImpl implements AsRequestDAO {
 	private SqlSession session;
@@ -17,7 +17,7 @@ public class AsRequestDAOImpl implements AsRequestDAO {
 	}
 
 	@Override
-	public List<AsRequestVO> selectSearchAsRequestList(Criteria cri) throws SQLException {
+	public List<AsRequestVO> selectSearchAsRequestList(CustomerListCriteria cri) throws SQLException {
 
 		int offset = cri.getStartRowNum();
 		int limit = cri.getPerPageNum();
@@ -29,7 +29,7 @@ public class AsRequestDAOImpl implements AsRequestDAO {
 	}
 
 	@Override
-	public int selectSearchAsRequestListCount(Criteria cri) throws SQLException {
+	public int selectSearchAsRequestListCount(CustomerListCriteria cri) throws SQLException {
 		return session.selectOne("AsRequest-mapper.selectSearchAsRequestListCount", cri);
 	}
 

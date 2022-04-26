@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.CustomerListCriteria;
+import com.rundering.command.CustomerListPageMaker;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.LaundryItemsVO;
-import com.rundering.manage.Criteria;
-import com.rundering.manage.PageMaker;
 
 public class LaundryItemsServiceImpl implements LaundryItemsService{
 	
@@ -48,7 +48,7 @@ public class LaundryItemsServiceImpl implements LaundryItemsService{
 	}
 
 	@Override
-	public Map<String, Object> getLaundryItemsList(Criteria cri) throws Exception {
+	public Map<String, Object> getLaundryItemsList(CustomerListCriteria cri) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		List<LaundryItemsVO> laundryItemsList = laundryItemsDAO.selectlaundryItemsList(cri);
 		List<ComCodeVO> comCodeList =  comCodeDAO.selectLaundryCategory();
@@ -61,7 +61,7 @@ public class LaundryItemsServiceImpl implements LaundryItemsService{
 		int totalCount = laundryItemsDAO.selectLaundryItemsCriteriaTotalCount(cri);
 		
 		// PageMaker 생성.
-		PageMaker pageMaker = new PageMaker();
+		CustomerListPageMaker pageMaker = new CustomerListPageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
 

@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.command.LaundryItemsRegistCommand;
 import com.rundering.dto.LaundryItemsVO;
-import com.rundering.manage.Criteria;
 import com.rundering.service.LaundryItemsService;
 
 
@@ -26,7 +26,7 @@ public class LaundryItemsController {
 	private LaundryItemsService laundryItemsService;
 	
 	@RequestMapping("/list")
-	public ModelAndView laundryItemsList(Criteria cri, ModelAndView mnv) throws Exception {
+	public ModelAndView laundryItemsList(CustomerListCriteria cri, ModelAndView mnv) throws Exception {
 		String url = "admin/laundryitems/laundryitems_list";
 		Map<String, Object> dataMap = laundryItemsService.getLaundryItemsList(cri);
 		

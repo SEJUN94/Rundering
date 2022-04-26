@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.rundering.manage.Criteria;
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.service.LaundryArticlesService;
@@ -31,7 +31,7 @@ public class LaundryArticlesController {
 	private LaundryArticlesService laundryArticlesService;
 
 	@RequestMapping("/ordergoods/list")
-	public ModelAndView OrderGoodsList(Criteria cri, ModelAndView mnv) throws SQLException {
+	public ModelAndView OrderGoodsList(CustomerListCriteria cri, ModelAndView mnv) throws SQLException {
 		String url = "admin/ordergoods/ordergoods_list";
 
 		Map<String, Object> dataMap = laundryArticlesService.getLaundryArticles(cri);

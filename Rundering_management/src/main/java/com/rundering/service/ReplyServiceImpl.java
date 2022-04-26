@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.CustomerListCriteria;
+import com.rundering.command.CustomerListPageMaker;
 import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.ReplyVO;
-import com.rundering.manage.Criteria;
-import com.rundering.manage.PageMaker;
 
 public class ReplyServiceImpl implements ReplyService {
 	ReplyDAO replyDAO;
@@ -17,12 +17,12 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 	
 	@Override
-	public Map<String, Object> getReplyList(String replyno,Criteria cri) throws Exception {
+	public Map<String, Object> getReplyList(String replyno,CustomerListCriteria cri) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		List<ReplyVO> replyList = replyDAO.selectReplyByReplyNo(replyno);
 		
 		
-		PageMaker pageMaker = new PageMaker();
+		CustomerListPageMaker pageMaker = new CustomerListPageMaker();
 		
 		int totalCount = replyDAO.selectReplyCountByReplyno(replyno);
 		pageMaker.setCri(cri);

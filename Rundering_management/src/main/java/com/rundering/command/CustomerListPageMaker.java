@@ -1,6 +1,6 @@
-package com.rundering.manage;
+package com.rundering.command;
 
-public class PageMaker {
+public class CustomerListPageMaker {
 	
 	private int totalCount; // 전체 행의 개수
 	private int startPage = 1; // 시작 페이지 번호
@@ -11,7 +11,7 @@ public class PageMaker {
 
 	private int displayPageNum = 5; // 한 페이지에 보여줄 페이지번호 개수
 	
-	Criteria cri = new Criteria(); 
+	CustomerListCriteria cri = new CustomerListCriteria(); 
 	
 	// starPage,endPage, prev, next 설정. by totalCount
 	private void calcData() {
@@ -91,11 +91,11 @@ public class PageMaker {
 		this.displayPageNum = displayPageNum;
 	}
 
-	public Criteria getCri() {
+	public CustomerListCriteria getCri() {
 		return cri;
 	}
 
-	public void setCri(Criteria cri) {
+	public void setCri(CustomerListCriteria cri) {
 		this.cri = cri;
 	}
 	

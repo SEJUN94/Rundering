@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.MemberVO;
-import com.rundering.manage.Criteria;
 import com.rundering.util.AppCriteria;
 
 public interface MemberDAO {
@@ -32,10 +32,10 @@ public interface MemberDAO {
 	int selectMemberListCount() throws Exception;
 
 	// 검색 결과의 전체 리스트 개수
-	int selectMemberListCount(Criteria cri) throws Exception;
+	int selectMemberListCount(CustomerListCriteria cri) throws Exception;
 	
 	// 고객리스트 조회
-	public List<MemberVO> selectMemberList(Criteria cri) throws Exception;
+	public List<MemberVO> selectMemberList(CustomerListCriteria cri) throws Exception;
 
 	// 고객 정보 조회
 	public MemberVO selectMemberById(String id) throws Exception;

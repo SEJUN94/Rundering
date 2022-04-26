@@ -9,14 +9,14 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.CustomerListCriteria;
+import com.rundering.command.CustomerListPageMaker;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.ItemOrderDAO;
 import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
-import com.rundering.manage.Criteria;
-import com.rundering.manage.PageMaker;
 import com.rundering.util.BranchCriteria;
 import com.rundering.util.BranchPageMaker;
 

@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.MemberVO;
 import com.rundering.dto.ReplyVO;
-import com.rundering.manage.Criteria;
 import com.rundering.service.ReplyService;
 
 @Controller
@@ -26,7 +26,7 @@ public class BranchReplyController {
 	
 	@RequestMapping(value = "list",method =RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> replyList(String replyno,Criteria cri) {
+	public ResponseEntity<Map<String, Object>> replyList(String replyno,CustomerListCriteria cri) {
 		ResponseEntity<Map<String, Object>> resp = null;
 		Map<String, Object> dataMap=null;
 		try {
@@ -42,7 +42,7 @@ public class BranchReplyController {
 	
 	
 	@RequestMapping(value = "firstRegist",method = RequestMethod.POST)
-	public ResponseEntity<String> firstRegist(ReplyVO reply,HttpSession session,Criteria cri) {
+	public ResponseEntity<String> firstRegist(ReplyVO reply,HttpSession session,CustomerListCriteria cri) {
 		ResponseEntity<String> resp = null;
 		MemberVO member= (MemberVO)session.getAttribute("loginMember");
 		
@@ -59,7 +59,7 @@ public class BranchReplyController {
 		
 	}
 	@RequestMapping(value = "regist",method = RequestMethod.POST)
-	public ResponseEntity<String> regist (ReplyVO reply,HttpSession session,Criteria cri){
+	public ResponseEntity<String> regist (ReplyVO reply,HttpSession session,CustomerListCriteria cri){
 		ResponseEntity<String> resp = null;
 		MemberVO member = (MemberVO) session.getAttribute("loginMember");
 

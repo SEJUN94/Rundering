@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.command.ItemOrderRegistCommand;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
-import com.rundering.manage.Criteria;
 import com.rundering.service.ItemOrderService;
 import com.rundering.service.LaundryArticlesService;
 import com.rundering.util.BranchCriteria;
@@ -80,7 +80,7 @@ public class BranchItemOrderController {
 	} 
 	
 	@RequestMapping("/order")
-	private String order( Criteria cri,ModelAndView mnv) {
+	private String order( CustomerListCriteria cri,ModelAndView mnv) {
 		String url= "/branch/itemorder/itemorder_regist";
 		
 		return url;
@@ -107,7 +107,7 @@ public class BranchItemOrderController {
 	
 	@RequestMapping(value = "/orderGoodsList",method = RequestMethod.GET ,produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	private Map<String, Object> orderGoodsList(Criteria cri){
+	private Map<String, Object> orderGoodsList(CustomerListCriteria cri){
 		Map<String, Object> dataMap=null;
 		try {
 			dataMap = laundryArticlesService.getLaundryArticles(cri);

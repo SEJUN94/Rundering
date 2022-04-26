@@ -3,8 +3,8 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.LaundryItemsVO;
-import com.rundering.manage.Criteria;
 
 public interface LaundryItemsDAO {
 	
@@ -21,9 +21,9 @@ public interface LaundryItemsDAO {
 	//세탁품목 조회 - BylaundryItemsCode
 	public LaundryItemsVO selectLaundryItemsBylaundryItemsCode(String laundryItemsCode) throws SQLException;
 	//세탁품목 조회 - 전체 
-	public List<LaundryItemsVO> selectlaundryItemsList(Criteria cri) throws SQLException;
+	public List<LaundryItemsVO> selectlaundryItemsList(CustomerListCriteria cri) throws SQLException;
 	
-	int selectLaundryItemsCriteriaTotalCount(Criteria cri) throws SQLException;
+	int selectLaundryItemsCriteriaTotalCount(CustomerListCriteria cri) throws SQLException;
 	
 	void updateLaundryItem(LaundryItemsVO laundryItems) throws SQLException;
 	

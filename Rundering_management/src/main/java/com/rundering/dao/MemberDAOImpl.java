@@ -7,8 +7,8 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.MemberVO;
-import com.rundering.manage.Criteria;
 import com.rundering.util.AppCriteria;
 
 public class MemberDAOImpl implements MemberDAO {
@@ -96,7 +96,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	//고객리스트
 	@Override
-	public List<MemberVO> selectMemberList(Criteria cri) throws Exception {
+	public List<MemberVO> selectMemberList(CustomerListCriteria cri) throws Exception {
 		int offset = cri.getStartRowNum();
 		int limit = cri.getPerPageNum();
 		RowBounds rowBounds = new RowBounds(offset,limit);
@@ -116,7 +116,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	//검색 결과의 전체 리스트 개수
 	@Override
-	public int selectMemberListCount(Criteria cri) throws Exception {
+	public int selectMemberListCount(CustomerListCriteria cri) throws Exception {
 		int totalCount = session.selectOne("Member-Mapper.selectSearchMemberListCount",cri);
 		return totalCount;
 	}

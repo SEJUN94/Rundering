@@ -1,8 +1,8 @@
-package com.rundering.manage;
+package com.rundering.command;
 
 import com.rundering.dto.MemberVO;
 
-public class Criteria {
+public class CustomerListCriteria {
 	
 	private int page=1;
 	private int perPageNum = 10;

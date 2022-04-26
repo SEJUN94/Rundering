@@ -5,11 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.rundering.manage.Criteria;
-import com.rundering.manage.PageMaker;
-
 import oracle.jdbc.oracore.OracleTypeDATE;
 
+import com.rundering.command.CustomerListCriteria;
+import com.rundering.command.CustomerListPageMaker;
 import com.rundering.dao.AttachDAO;
 import com.rundering.dao.LaundryArticlesDAO;
 import com.rundering.dto.AttachVO;
@@ -28,7 +27,7 @@ public class LaundryArticlesServiceImpl implements LaundryArticlesService {
 	}
 
 	@Override
-	public Map<String, Object> getLaundryArticles(Criteria cri) throws SQLException {
+	public Map<String, Object> getLaundryArticles(CustomerListCriteria cri) throws SQLException {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 
 		List<LaundryArticlesVO> laundryArticlesList = laundryArticlesDAO.NotALaundryArticlesList(cri);
@@ -36,7 +35,7 @@ public class LaundryArticlesServiceImpl implements LaundryArticlesService {
 		// 전체 board 개수
 		int totalCount = laundryArticlesDAO.selectLaundryArticlesCriteriaTotalCount(cri);
 		// PageMaker 생성.
-		PageMaker pageMaker = new PageMaker();
+		CustomerListPageMaker pageMaker = new CustomerListPageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
 

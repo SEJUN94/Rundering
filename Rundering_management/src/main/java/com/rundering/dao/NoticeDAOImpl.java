@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
-import com.rundering.manage.Criteria;
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.NoticeVO;
 
 
@@ -21,7 +21,7 @@ public class NoticeDAOImpl implements NoticeDAO {
 
 
 	@Override
-	public List<NoticeVO> selectNoticeList(Criteria cri) throws SQLException {
+	public List<NoticeVO> selectNoticeList(CustomerListCriteria cri) throws SQLException {
 		
 		int offset=cri.getStartRowNum();
 		int limit=cri.getPerPageNum();
@@ -32,7 +32,7 @@ public class NoticeDAOImpl implements NoticeDAO {
 
 
 	@Override
-	public int selectSearchNoticeListCount(Criteria cri) throws SQLException {
+	public int selectSearchNoticeListCount(CustomerListCriteria cri) throws SQLException {
 		int count = session.selectOne("Notice-Mapper.selectSearchNoticeListCount", cri);
 		return count;
 	}

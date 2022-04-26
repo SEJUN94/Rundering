@@ -3,8 +3,8 @@ package com.rundering.service;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.MemberVO;
-import com.rundering.manage.Criteria;
 import com.rundering.util.AppCriteria;
 
 public interface MemberService {
@@ -31,7 +31,7 @@ public interface MemberService {
 	public List<String> getAuthList(String memberNo) throws Exception;
 
 	// 고객 리스트 조회
-	public Map<String, Object> getMemberList(Criteria cri) throws Exception;
+	public Map<String, Object> getMemberList(CustomerListCriteria cri) throws Exception;
 	
 	// 고객 정보 조회
 	public MemberVO getMember(String id) throws Exception;

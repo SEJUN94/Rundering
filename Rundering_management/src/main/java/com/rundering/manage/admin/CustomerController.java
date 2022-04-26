@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.rundering.manage.Criteria;
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.service.MemberService;
 
 @Controller
@@ -18,7 +18,7 @@ public class CustomerController {
 	MemberService memberService;
 
 	@RequestMapping("/list")
-	public ModelAndView customerList(Criteria cri, ModelAndView mnv) {
+	public ModelAndView customerList(CustomerListCriteria cri, ModelAndView mnv) {
 		String url = "admin/customer/customer_list";
 		Map<String, Object> dataMap = null;
 		try {

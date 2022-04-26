@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.CustomerListCriteria;
+import com.rundering.command.CustomerListPageMaker;
 import com.rundering.dao.MemberDAOImpl;
 import com.rundering.dto.MemberVO;
-import com.rundering.manage.Criteria;
-import com.rundering.manage.PageMaker;
 import com.rundering.util.AppCriteria;
 import com.rundering.util.AppPageMaker;
 
@@ -91,11 +91,11 @@ public class MemberServiceImpl implements MemberService {
 
 	//고객리스트
 	@Override
-	public Map<String, Object> getMemberList(Criteria cri) throws Exception {
-		Criteria searchCri = (Criteria)cri;
+	public Map<String, Object> getMemberList(CustomerListCriteria cri) throws Exception {
+		CustomerListCriteria searchCri = (CustomerListCriteria)cri;
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 
-		PageMaker pageMaker = new PageMaker();
+		CustomerListPageMaker pageMaker = new CustomerListPageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(memberDAO.selectMemberListCount(searchCri));
 

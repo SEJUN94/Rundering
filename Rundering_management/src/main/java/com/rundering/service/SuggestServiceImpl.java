@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.CustomerListCriteria;
+import com.rundering.command.CustomerListPageMaker;
 import com.rundering.dao.SuggestDAO;
 import com.rundering.dto.SuggestVO;
-import com.rundering.manage.Criteria;
-import com.rundering.manage.PageMaker;
 
 public class SuggestServiceImpl implements SuggestService {
 
@@ -19,7 +19,7 @@ public class SuggestServiceImpl implements SuggestService {
 	}
 
 	@Override
-	public Map<String, Object> getSuggestList(Criteria cri) throws SQLException {
+	public Map<String, Object> getSuggestList(CustomerListCriteria cri) throws SQLException {
 
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 
@@ -30,7 +30,7 @@ public class SuggestServiceImpl implements SuggestService {
 		int totalCount = suggestDAO.selectSearchSuggestListCount(cri);
 
 		// PageMaker 생성.
-		PageMaker pageMaker = new PageMaker();
+		CustomerListPageMaker pageMaker = new CustomerListPageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
 

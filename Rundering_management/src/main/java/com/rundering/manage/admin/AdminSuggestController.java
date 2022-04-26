@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.SuggestVO;
-import com.rundering.manage.Criteria;
 import com.rundering.service.SuggestServiceImpl;
 
 @Controller
@@ -25,7 +25,7 @@ public class AdminSuggestController {
 	SuggestServiceImpl suggestService;
 
 	@RequestMapping(value = "/list")
-	private ModelAndView suggestList(Criteria cri, ModelAndView mnv) throws Exception {
+	private ModelAndView suggestList(CustomerListCriteria cri, ModelAndView mnv) throws Exception {
 		String url = "admin/suggest/suggest_list";
 
 		Map<String, Object> dataMap = suggestService.getSuggestList(cri);

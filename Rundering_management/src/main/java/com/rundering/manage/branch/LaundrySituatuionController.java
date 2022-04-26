@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.ReplyVO;
-import com.rundering.manage.Criteria;
 import com.rundering.service.LaundryOrderService;
 import com.rundering.util.BranchCriteria;
 

@@ -3,13 +3,13 @@ package com.rundering.service;
 import java.sql.SQLException;
 import java.util.Map;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.AsRequestVO;
-import com.rundering.manage.Criteria;
 
 public interface AsRequestService {
 
 	// 목록조회
-	public Map<String, Object> getAsRequestList(Criteria cri) throws SQLException;
+	public Map<String, Object> getAsRequestList(CustomerListCriteria cri) throws SQLException;
 
 	// 상세보기
 	/* AsRequestVO getAsRequest(int asno) throws SQLException; */

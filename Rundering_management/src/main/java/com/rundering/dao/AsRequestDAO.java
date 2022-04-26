@@ -3,14 +3,14 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.AsRequestVO;
-import com.rundering.manage.Criteria;
 
 public interface AsRequestDAO {
 
-	List<AsRequestVO> selectSearchAsRequestList(Criteria cri) throws SQLException;
+	List<AsRequestVO> selectSearchAsRequestList(CustomerListCriteria cri) throws SQLException;
 
-	int selectSearchAsRequestListCount(Criteria cri) throws SQLException;
+	int selectSearchAsRequestListCount(CustomerListCriteria cri) throws SQLException;
 
 	AsRequestVO selectAsRequestByAsno(int asno) throws SQLException;
 

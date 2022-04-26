@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.LaundryItemsVO;
-import com.rundering.manage.Criteria;
 
 public class LaundryItemsDAOImpl implements LaundryItemsDAO {
 
@@ -46,7 +46,7 @@ public class LaundryItemsDAOImpl implements LaundryItemsDAO {
 	
 	// 세탁품목 전체 목록조회 - 이용 안내
 	@Override
-	public List<LaundryItemsVO> selectlaundryItemsList(Criteria cri) throws SQLException {
+	public List<LaundryItemsVO> selectlaundryItemsList(CustomerListCriteria cri) throws SQLException {
 		int offset=cri.getStartRowNum();
 		int limit=cri.getPerPageNum();		
 		RowBounds rowBounds=new RowBounds(offset,limit);		
@@ -55,7 +55,7 @@ public class LaundryItemsDAOImpl implements LaundryItemsDAO {
 	}
 
 	@Override
-	public int selectLaundryItemsCriteriaTotalCount(Criteria cri) throws SQLException {
+	public int selectLaundryItemsCriteriaTotalCount(CustomerListCriteria cri) throws SQLException {
 		int count = session.selectOne("LaundryItems-Mapper.selectLaundryItemsCriteriaTotalCount",cri);
 		return count;
 	}

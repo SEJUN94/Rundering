@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
-import com.rundering.manage.Criteria;
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.LaundryArticlesVO;
 
 public class LaundryArticlesDAOImpl implements LaundryArticlesDAO{
@@ -16,7 +16,7 @@ public class LaundryArticlesDAOImpl implements LaundryArticlesDAO{
 		this.session = session;
 	}
 	@Override
-	public List<LaundryArticlesVO> LaundryArticlesList(Criteria cri) throws SQLException {
+	public List<LaundryArticlesVO> LaundryArticlesList(CustomerListCriteria cri) throws SQLException {
 		
 		int offset=cri.getStartRowNum();
 		int limit=cri.getPerPageNum();		
@@ -28,7 +28,7 @@ public class LaundryArticlesDAOImpl implements LaundryArticlesDAO{
 		return laundryArticlesList;
 	}
 	@Override
-	public int selectLaundryArticlesCriteriaTotalCount(Criteria cri) throws SQLException {
+	public int selectLaundryArticlesCriteriaTotalCount(CustomerListCriteria cri) throws SQLException {
 		int count=session.selectOne("LaundryArticles-Mapper.selectSearchLaundryArticlesListCount",cri);
 		return count;
 	}
@@ -56,7 +56,7 @@ public class LaundryArticlesDAOImpl implements LaundryArticlesDAO{
 		session.update("LaundryArticles-Mapper.deleteLaundryArticles",articlesCode);
 	}
 	@Override
-	public List<LaundryArticlesVO> NotALaundryArticlesList(Criteria cri) throws SQLException {
+	public List<LaundryArticlesVO> NotALaundryArticlesList(CustomerListCriteria cri) throws SQLException {
 		int offset=cri.getStartRowNum();
 		int limit=cri.getPerPageNum();		
 		RowBounds rowBounds=new RowBounds(offset,limit);		

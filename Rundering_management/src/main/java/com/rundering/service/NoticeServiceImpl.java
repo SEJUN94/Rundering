@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.rundering.manage.Criteria;
-import com.rundering.manage.PageMaker;
+import com.rundering.command.CustomerListCriteria;
+import com.rundering.command.CustomerListPageMaker;
 import com.rundering.dao.NoticeDAO;
 import com.rundering.dto.NoticeVO;
 
@@ -19,7 +19,7 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public Map<String, Object> getNoticeList(Criteria cri) throws SQLException {
+	public Map<String, Object> getNoticeList(CustomerListCriteria cri) throws SQLException {
 
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 
@@ -30,7 +30,7 @@ public class NoticeServiceImpl implements NoticeService{
 		int totalCount = noticeDAO.selectSearchNoticeListCount(cri);
 		
 		// PageMaker 생성.
-		PageMaker pageMaker = new PageMaker();
+		CustomerListPageMaker pageMaker = new CustomerListPageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
 

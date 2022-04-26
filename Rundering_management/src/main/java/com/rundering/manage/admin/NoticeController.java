@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.NoticeVO;
-import com.rundering.manage.Criteria;
 import com.rundering.manage.HomeController;
 import com.rundering.service.NoticeService;
 
@@ -34,7 +34,7 @@ public class NoticeController {
 	NoticeService noticeService;
 	
 	@RequestMapping("/list")
-	public ModelAndView noticeList(Criteria cri, ModelAndView mnv) {
+	public ModelAndView noticeList(CustomerListCriteria cri, ModelAndView mnv) {
 		String url = "admin/notice/notice_list";
 		Map<String, Object> dataMap = null;
 		try {

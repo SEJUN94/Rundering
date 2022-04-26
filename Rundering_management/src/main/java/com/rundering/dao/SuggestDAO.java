@@ -3,14 +3,14 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.SuggestVO;
-import com.rundering.manage.Criteria;
 
 public interface SuggestDAO {
 
-	List<SuggestVO> selectSearchSuggestList(Criteria cri) throws SQLException;
+	List<SuggestVO> selectSearchSuggestList(CustomerListCriteria cri) throws SQLException;
 
-	int selectSearchSuggestListCount(Criteria cri) throws SQLException;
+	int selectSearchSuggestListCount(CustomerListCriteria cri) throws SQLException;
 
 	SuggestVO selectSuggestBySno(int sno) throws SQLException;
 

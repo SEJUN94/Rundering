@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.AsRequestVO;
 import com.rundering.dto.EmployeesVO;
-import com.rundering.manage.Criteria;
 import com.rundering.service.AsRequestServiceImpl;
 import com.rundering.service.LaundryFixturesServiceImpl;
 
@@ -31,7 +31,7 @@ public class AdminAsRequestController {
 
 	// 리스트
 	@RequestMapping(value = "/list")
-	private ModelAndView asRequestList(Criteria cri, ModelAndView mnv) throws Exception {
+	private ModelAndView asRequestList(CustomerListCriteria cri, ModelAndView mnv) throws Exception {
 		String url = "admin/asrequest/asrequest_list";
 
 		Map<String, Object> dataMap = asRequestService.getAsRequestList(cri);

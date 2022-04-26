@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.CustomerListCriteria;
+import com.rundering.command.CustomerListPageMaker;
 import com.rundering.dao.AsRequestDAO;
 import com.rundering.dto.AsRequestVO;
-import com.rundering.manage.Criteria;
-import com.rundering.manage.PageMaker;
 
 public class AsRequestServiceImpl implements AsRequestService {
 
@@ -19,7 +19,7 @@ public class AsRequestServiceImpl implements AsRequestService {
 	}
 
 	@Override
-	public Map<String, Object> getAsRequestList(Criteria cri) throws SQLException {
+	public Map<String, Object> getAsRequestList(CustomerListCriteria cri) throws SQLException {
 
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 
@@ -30,7 +30,7 @@ public class AsRequestServiceImpl implements AsRequestService {
 		int totalCount = asRequestDAO.selectSearchAsRequestListCount(cri);
 
 		// PageMaker 생성.
-		PageMaker pageMaker = new PageMaker();
+		CustomerListPageMaker pageMaker = new CustomerListPageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
 

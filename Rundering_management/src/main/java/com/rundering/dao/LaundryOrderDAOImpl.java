@@ -8,9 +8,9 @@ import javax.naming.spi.DirStateFactory.Result;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.ReplyVO;
-import com.rundering.manage.Criteria;
 import com.rundering.util.BranchCriteria;
 
 public class LaundryOrderDAOImpl implements LaundryOrderDAO{

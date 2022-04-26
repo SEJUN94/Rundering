@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.SuggestVO;
-import com.rundering.manage.Criteria;
 
 public class SuggestDAOImpl implements SuggestDAO {
 	private SqlSession session;
@@ -17,7 +17,7 @@ public class SuggestDAOImpl implements SuggestDAO {
 	}
 
 	@Override
-	public List<SuggestVO> selectSearchSuggestList(Criteria cri) throws SQLException {
+	public List<SuggestVO> selectSearchSuggestList(CustomerListCriteria cri) throws SQLException {
 
 		int offset = cri.getStartRowNum();
 		int limit = cri.getPerPageNum();
@@ -28,7 +28,7 @@ public class SuggestDAOImpl implements SuggestDAO {
 	}
 
 	@Override
-	public int selectSearchSuggestListCount(Criteria cri) throws SQLException {
+	public int selectSearchSuggestListCount(CustomerListCriteria cri) throws SQLException {
 		return session.selectOne("Suggest-mapper.selectSearchSuggestListCount", cri);
 	}
 

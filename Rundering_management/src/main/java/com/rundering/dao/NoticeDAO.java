@@ -3,15 +3,14 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-
-import com.rundering.manage.Criteria;
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.NoticeVO;
 
 public interface NoticeDAO {
 	
-	List<NoticeVO> selectNoticeList(Criteria cri) throws SQLException;
+	List<NoticeVO> selectNoticeList(CustomerListCriteria cri) throws SQLException;
 	
-	int selectSearchNoticeListCount(Criteria cri) throws SQLException;
+	int selectSearchNoticeListCount(CustomerListCriteria cri) throws SQLException;
 	
 	NoticeVO selectNoticeByNno(  int nno) throws SQLException;
 	
