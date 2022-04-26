@@ -70,6 +70,17 @@
 		                        FROM TB_MEMBER_ADDRESS 
 		                        WHERE MEMBERNO = #{memberNo})
  	</update>
+ 	
+ 		<update id="updateDefaultAddress" parameterType="memberAddress">
+		 UPDATE TB_MEMBER_ADDRESS
+		   SET ADD1 = #{add1}
+			,ADD2 = #{add2}
+			,ZIP = #{zip}
+		 WHERE ADDRESS_NO IN (SELECT ADDRESS_NO 
+		                        FROM TB_MEMBER_ADDRESS 
+		                       WHERE MEMBERNO = #{memberNo})
+		   AND DEFAULT_YN = 'Y'
+ 	</update>
 	
 
 </mapper>

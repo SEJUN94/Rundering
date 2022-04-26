@@ -3,14 +3,22 @@ package com.rundering.service;
 import java.util.List;
 
 import com.rundering.command.MemberAddCommand;
+import com.rundering.dao.MemberAddressDAOImpl;
 import com.rundering.dao.MemberDAOImpl;
+import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
 
 public class MemberServiceImpl implements MemberService {
 	MemberDAOImpl memberDAO;
+	
+	MemberAddressDAOImpl memberAddressDAO;
 
 	public void setMemberDAO(MemberDAOImpl memberDAO) {
 		this.memberDAO = memberDAO;
+	}
+	
+	public void setmemberAddressDAO(MemberAddressDAOImpl memberAddressDAO) {
+		this.memberAddressDAO = memberAddressDAO;
 	}
 
 	@Override
@@ -65,8 +73,15 @@ public class MemberServiceImpl implements MemberService {
 
 	// 회원정보수정
 	@Override
-	public void modifyMember(MemberVO member) throws Exception {
+	public void modifyMember(MemberAddCommand mac) throws Exception {
+		//커맨드 주입
+		MemberVO member = mac.toMember();
+		MemberAddressVO memberAdd = mac.toAddr();
+		
+		//회원테이블의 회원정보 수정
 		memberDAO.modifyMember(member);
+		//기본주소지 수정
+		memberAddressDAO.updateDefaultAddress(memberAdd);
 	}
 
 	// 회원 탈퇴(비활성화)

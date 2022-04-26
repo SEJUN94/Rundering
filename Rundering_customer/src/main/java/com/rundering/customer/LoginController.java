@@ -42,11 +42,13 @@ public class LoginController {
 		String url="/login/member_forgot_account";
 		return url;
 	}
+	
 	@RequestMapping("/findpassword")
 	public String forgot_password() {
 		String url="/login/member_forgot_password";
 		return url;
 	}
+	
 	@RequestMapping(value ="/idfindmailcheck",method = RequestMethod.POST,produces = "application/json;charset=utf-8") 
 	@ResponseBody
 	public ResponseEntity<Map<String, String>> idFindMailCheck(MemberVO member) {
@@ -72,6 +74,7 @@ public class LoginController {
 		
 		return entity;
 	}
+	
 	@RequestMapping(value ="/passwordfindmailcheck",method = RequestMethod.POST,produces = "application/json;charset=utf-8") 
 	@ResponseBody
 	public ResponseEntity<Map<String, String>> passwordFindMailCheck(MemberVO member) {

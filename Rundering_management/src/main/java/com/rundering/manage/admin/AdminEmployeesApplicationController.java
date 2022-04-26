@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rundering.command.AppCriteria;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.EmployeesVO;
@@ -23,7 +24,6 @@ import com.rundering.service.BranchService;
 import com.rundering.service.EmployeesService;
 import com.rundering.service.MailSendService;
 import com.rundering.service.MemberService;
-import com.rundering.util.AppCriteria;
 
 @Controller
 @RequestMapping("admin/employeeapplication")

@@ -3,9 +3,9 @@ package com.rundering.service;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.AppCriteria;
 import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.MemberVO;
-import com.rundering.util.AppCriteria;
 
 public interface MemberService {
 
@@ -37,4 +37,7 @@ public interface MemberService {
 	public MemberVO getMember(String id) throws Exception;
 	
 	
+	// 새로운 비밀번호로 변경
+	public void modifyPwById(MemberVO mv) throws Exception;
+
 }

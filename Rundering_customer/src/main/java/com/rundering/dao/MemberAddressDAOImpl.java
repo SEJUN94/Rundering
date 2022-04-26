@@ -27,7 +27,7 @@ public class MemberAddressDAOImpl implements MemberAddressDAO{
 		return session.selectOne("MemberAddress-Mapper.selectDefaultMemberAddressByMemberNo", memberNo);
 	}
 
-
+	
 	@Override
 	public List<MemberAddressVO> selectMemberAddressListByMemberNo(String memberNo) {
 		return session.selectList("MemberAddress-Mapper.selectMemberAddressListByMemberNo",memberNo);
@@ -43,6 +43,13 @@ public class MemberAddressDAOImpl implements MemberAddressDAO{
 	@Override
 	public MemberAddressVO selectMemberAddressByAddressNo(String addressNo) throws SQLException {
 		return session.selectOne("MemberAddress-Mapper.selectMemberAddressByAddressNo", addressNo);
+	}
+
+	//기본 주소지 수정
+	@Override
+	public void updateDefaultAddress(MemberAddressVO memberAdd) throws Exception {
+		session.update("MemberAddress-Mapper.updateDefaultAddress",memberAdd);
+		
 	}
 	
 	

@@ -135,15 +135,17 @@
 
 
 <script>
+
 function okProc(ele, str){
 	let vs = $(ele).parents('.form-group').find('.sp');
 	$(vs).html(str).css('color','green');
 }
+
 function noProc(ele, str){
-	
 	let vs = $(ele).parents('.form-group').find('.sp');
 	$(vs).html(str).css('color','red');
 }
+
 </script>
 
 <script>
@@ -408,9 +410,7 @@ window.addEventListener('load',com);
 			hpchk = false;
 		}
 	});
-
 	
-
 	//유효성검증 - mail
 	$('#email').on('keyup', function() {
 		//유효성검증(validation check) - email
@@ -439,8 +439,8 @@ window.addEventListener('load',com);
 	// 회원가입 전송
 	$('#sendBtn').on('click', valid)
 }
-
 </script>
+
 <script>
 function findZip() {
 	new daum.Postcode({

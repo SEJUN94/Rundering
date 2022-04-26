@@ -50,6 +50,7 @@
 	<!-- Service Layer -->
 	<bean id="memberService" class="com.rundering.service.MemberServiceImpl"
 		p:memberDAO-ref="memberDAO"
+		p:memberAddressDAO-ref="memberAddressDAO"
 	/>
 	<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl"
 		p:memberAddressDAO-ref="memberAddressDAO"

@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.AppCriteria;
+import com.rundering.command.AppPageMaker;
 import com.rundering.command.CustomerListCriteria;
 import com.rundering.command.CustomerListPageMaker;
 import com.rundering.dao.MemberDAO;
 import com.rundering.dto.MemberVO;
-import com.rundering.util.AppCriteria;
-import com.rundering.util.AppPageMaker;
 
 public class MemberServiceImpl implements MemberService {
 
@@ -105,5 +105,11 @@ public class MemberServiceImpl implements MemberService {
 		return dataMap;
 	}
 
+
+	// 새로운 비밀번호로 변경
+	@Override
+	public void modifyPwById(MemberVO mv) throws Exception {
+		memberDAO.modifyPwById(mv);
+	}
 
 }

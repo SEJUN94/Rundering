@@ -174,10 +174,17 @@
 			type : 'post',
 			success : function(ok) {
 				if(ok.toUpperCase() == "OK"){
-					Swal.fire('등록 성공', '해당 신청을 등록하였습니다.', 'success' )
+					Swal.fire({
+						icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title: '등록 성공',
+						text: '해당 신청을 등록하였습니다.'
+					});
 					setTimeout(function(){location.reload();},1000);
 				} else {
-					Swal.fire('error', '시스템 오류로 등록 할 수 없습니다.' , 'error')
+					Swal.fire({
+						icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title: '시스템 오류로 반려 할 수 없습니다.'
+					});
 				}
 			},
 			error : function(error) {
@@ -222,12 +229,18 @@
 			type : 'post',
 			success : function(ok) {
 				if(ok.toUpperCase() == "OK"){
-					Swal.fire('해당 신청을 반려하였습니다.', '반려', 'success' )
+					Swal.fire({
+						icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title: '반려',
+						text: '해당 신청을 반려하였습니다.'
+					});
 					setTimeout(function(){location.reload();},1000);
 				} else {
-					Swal.fire('error', '시스템 오류로 반려 할 수 없습니다.' , 'error')
+					Swal.fire({
+						icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title: '시스템 오류로 반려 할 수 없습니다.'
+					});
 				}
-				
 			},
 			error : function(error) {
 				AjaxErrorSecurityRedirectHandler(error.status);

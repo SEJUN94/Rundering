@@ -161,4 +161,13 @@
 		AND EMPLOYEE_ID_YN = 'N'
 	</select>
 	
+	
+	<update id="modifyPwById" parameterType="member">
+		UPDATE
+		TB_MEMBER
+		SET
+		PASSWORD = #{password}
+		WHERE ID = #{id}
+	</update>
+	
 </mapper>

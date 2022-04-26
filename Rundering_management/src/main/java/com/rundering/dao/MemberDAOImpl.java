@@ -6,9 +6,9 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.AppCriteria;
 import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.MemberVO;
-import com.rundering.util.AppCriteria;
 
 public class MemberDAOImpl implements MemberDAO {
 	SqlSession session;
@@ -131,6 +131,12 @@ public class MemberDAOImpl implements MemberDAO {
 	public int selectMemberListCount(CustomerListCriteria cri) throws Exception {
 		int totalCount = session.selectOne("Member-Mapper.selectSearchMemberListCount",cri);
 		return totalCount;
+	}
+
+	// 새로운 비밀번호로 변경
+	@Override
+	public void modifyPwById(MemberVO mv) throws Exception {
+		session.selectOne("Member-Mapper.modifyPwById",mv);
 	}
 
 }

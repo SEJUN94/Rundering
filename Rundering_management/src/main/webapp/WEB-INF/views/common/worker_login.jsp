@@ -67,7 +67,7 @@
             </form>
             
             <p class="mb-1">
-                <a href="worker_forgot_password.html">I forgot my password</a>
+                <a href="<%=request.getContextPath()%>/common/findpassword">I forgot my password</a>
             </p>
             <p class="mb-0">
                 <a href="<%=request.getContextPath() %>/common/application" class="text-center">새로운 계정 발급하기</a>

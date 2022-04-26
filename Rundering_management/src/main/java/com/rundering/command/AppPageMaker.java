@@ -1,4 +1,5 @@
-package com.rundering.util;
+package com.rundering.command;
+
 public class AppPageMaker {
 	
 	private int totalCount; // 전체 행의 개수

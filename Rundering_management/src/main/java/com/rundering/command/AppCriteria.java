@@ -1,4 +1,4 @@
-package com.rundering.util;
+package com.rundering.command;
 public class AppCriteria {
 	
 	private int page=1;

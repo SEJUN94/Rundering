@@ -3,9 +3,9 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.rundering.command.AppCriteria;
 import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.MemberVO;
-import com.rundering.util.AppCriteria;
 
 public interface MemberDAO {
 	// 고객 정보 조회 - By memberNo
@@ -48,5 +48,8 @@ public interface MemberDAO {
 
 	// 등록 신청 사원 반려 
 	public int removeByNo(String memberNo) throws Exception;
+	
+	// 새로운 비밀번호로 변경
+	public void modifyPwById(MemberVO mv) throws Exception;
 	
 }
