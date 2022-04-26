@@ -16,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.BranchCriteria;
 import com.rundering.command.Criteria;
-import com.rundering.command.CustomerListCriteria;
 import com.rundering.command.ItemOrderRegistCommand;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.ItemOrderDetailVO;

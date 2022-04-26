@@ -10,7 +10,7 @@ public class ItemOrderVO {
 	private String branchCode; 			//지점코드
 	private Date registDate;			//등록일 
 	private Date receiptDate; 			//수령일
-	
+	private String branchName;			//지점명
 	
 	public ItemOrderVO() {
 		super();
@@ -84,6 +84,16 @@ public class ItemOrderVO {
 
 	public void setReceiptDate(Date receiptDate) {
 		this.receiptDate = receiptDate;
+	}
+
+
+	public String getBranchName() {
+		return branchName;
+	}
+
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
 	}
 	
 	

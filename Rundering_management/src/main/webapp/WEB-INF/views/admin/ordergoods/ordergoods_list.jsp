@@ -103,7 +103,7 @@
 							<tbody>
 								<c:if test="${!empty laundryArticlesList }">
 
-									<c:forEach items="${laundryArticlesList }" var="orderGoods">
+									<c:forEach items="${laundryArticlesList }" var="laundryArticles">
 										<c:if test="${laundryArticles.clcode eq 'B' }">
 											<tr>
 												<td>${laundryArticles.articlesCode }</td>

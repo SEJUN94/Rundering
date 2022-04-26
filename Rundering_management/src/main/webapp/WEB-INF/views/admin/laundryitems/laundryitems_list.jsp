@@ -56,7 +56,6 @@
 								<th style="width:150px;">세탁가격</th>
 								<th style="width:70px;">수정</th>
 								<th style="width:80px;">삭제</th>
-								
 							</tr>
 						</thead>
 						<tbody>
@@ -81,7 +80,6 @@
 						</tbody>
 					</table>
 				</form>
-
 					<div class="card-footer" >
 						
 						<%@ include file="/WEB-INF/views/common/pagination.jsp" %>
@@ -90,7 +88,6 @@
 							onclick="window.open('<%=request.getContextPath()%>/admin/laundryitems/regist','세탁품목등록', 'width=600, height=600')">
 							물품등록</button>
 					</div>
-
 				</div>
 
 			</div>

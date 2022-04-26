@@ -69,6 +69,12 @@
 	<bean id="branchDAO" class="com.rundering.dao.BranchDAOImpl"
 		p:session-ref="sqlSession"	
 	/>
+	 <bean id="adminItemOrderDAO" class="com.rundering.dao.AdminItemOrderDAOImpl"
+		p:session-ref="sqlSession" 
+	 />
+	 <bean id="laundryThroughputDAO" class="com.rundering.dao.LaundryThroughputDAOImpl"
+	 	p:session-ref="sqlSession"
+	 />
 	 
 	
 	
@@ -134,6 +140,12 @@
 	  p:mailSender-ref="mailSender"
 	  p:memberDAO-ref="memberDAO" 
 	/>  
+	<bean id="adminItemOrderService" class="com.rundering.service.AdminItemOrderServiceImpl"
+		p:adminItemOrderDAO-ref="adminItemOrderDAO"
+	/>
+	<bean id="laundryThroughputService" class="com.rundering.service.LaundryThroughputServiceImpl"
+		p:laundryThroughputDAO-ref="laundryThroughputDAO"
+	/>
 	
 	
 	

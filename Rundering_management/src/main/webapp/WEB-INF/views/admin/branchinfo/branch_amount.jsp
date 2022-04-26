@@ -14,8 +14,6 @@
 	padding: 20px;
 }
 </style>
-
-
 <head>
 </head>
 

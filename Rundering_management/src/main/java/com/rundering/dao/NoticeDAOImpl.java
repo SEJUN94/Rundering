@@ -7,7 +7,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.command.Criteria;
-import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.NoticeVO;
 
 

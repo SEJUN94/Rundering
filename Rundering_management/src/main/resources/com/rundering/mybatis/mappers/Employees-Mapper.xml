@@ -16,7 +16,6 @@
 		<result column="MEMBERNO" property="memberno" />
 	
 	</resultMap>
-
 	
 	<select id="selectEmployeeById" resultMap="employeesMap" parameterType="str">
 		select *
