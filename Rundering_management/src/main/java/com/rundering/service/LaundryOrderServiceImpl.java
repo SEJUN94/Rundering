@@ -66,8 +66,13 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		Map<String,String> laundryCodeMap = new HashMap<String, String>();
 		comCodeUtil.getCodeMap("LAUNDRY_STATUS", laundryCodeMap, comCodeDAO);
 		comCodeUtil.getUpperCodeMap("ORDER_STATUS", orderCodeMap, comCodeDAO);
-		
 		List<LaundryOrderVO> laundryOrderList = laundryOrderDAO.selectLaundryOrderList(cri);
+		Map<String, Object> detailMap = new HashMap<String, Object>();
+		
+		for (LaundryOrderVO laundryOrder : laundryOrderList) {
+			List<LaundryOrderDetailVO> LaundryOrderDetailList = laundryOrderDetailDAO.selectlaundryOrderDetailListByOrderNo(laundryOrder.getOrderNo());
+			detailMap.put(laundryOrder.getOrderNo(), LaundryOrderDetailList);
+		}
 		
 		// 전체 board 개수
 		int totalCount = laundryOrderDAO.selectCount(cri);
@@ -81,6 +86,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		dataMap.put("pageMaker", pageMaker);
 		dataMap.put("laundryCodeMap",laundryCodeMap);
 		dataMap.put("orderCodeMap",orderCodeMap);
+		dataMap.put("detailMap",detailMap);
 
 		return dataMap;
 	}

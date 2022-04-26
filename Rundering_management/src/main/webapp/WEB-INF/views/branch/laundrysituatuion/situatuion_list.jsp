@@ -8,6 +8,7 @@
 <c:set var="laundryOrderList" value="${dataMap.laundryOrderList }" />
 <c:set var="laundryCodeMap" value="${dataMap.laundryCodeMap }" />
 <c:set var="orderCodeMap" value="${dataMap.orderCodeMap }" />
+<c:set var="detailMap" value="${dataMap.detailMap }"/>
 <body>
 	<div class="row ml-2 mr-2 " id="body">
 
@@ -78,12 +79,18 @@
 
 						<tbody>
 							<c:forEach items="${laundryOrderList }" var="laundryOrder">
-
+								
 								<tr class="mouseHover">
 									<td class="orderno" style="text-align: center;"
-										data-atchNo="${laundryOrder.atchFileNo }" data-replyno="${laundryOrder.replyNo }" data-memberno="${laundryOrder.memberNo }">${laundryOrder.orderNo }</td>
+										data-orderdate="<fmt:formatDate
+											value="${laundryOrder.orderDate }"
+											pattern="yyyy-MM-dd" />" data-atchNo="${laundryOrder.atchFileNo }" data-replyno="${laundryOrder.replyNo }" data-memberno="${laundryOrder.memberNo }">${laundryOrder.orderNo }</td>
 									<td class="textCut textDetail"
-										data-text="${laundryOrder.requestDetails }"></td>
+										data-text="${laundryOrder.requestDetails }">
+										<c:forEach items="${detailMap[laundryOrder.orderNo] }" var="orderDetail">
+											${orderDetail.itemsName } : ${orderDetail.quantity }개 	
+										</c:forEach>
+										</td>
 									<td style="text-align: center;">${orderCodeMap[laundryOrder.orderStatus] }</td>
 									<td style="text-align: center;"><fmt:formatDate
 											value="${laundryOrder.deliveryRequestDate }"
@@ -127,8 +134,11 @@
 						<div class="card-header">
 							<h3 class="card-title">요청사항</h3>
 							<div class="float-right">
-								<button type="button" class="btn btn-sm btn-primary"
-									data-toggle="modal" data-target="#modal-lg" style="width: 50px">답변</button>
+							<span class="time" style="padding:0px"><span id="requestDate"></span>
+							<i class="fas fa-clock"></i> </span>
+								<button type="button" class="btn btn-sm btn-primary"	data-toggle="modal" data-target="#modal-lg" style="width: 50px">
+								답변
+								</button>
 							</div>
 						</div>
 					</div>
@@ -140,8 +150,7 @@
 											<div style="margin-right:0px">
 												<i class="fas fa-user bg-yellow"></i>
 												<div class="timeline-item" style="margin-right:0px;">
-													<span class="time" style="padding:0px"><i class="fas fa-clock"></i> 
-													</span>
+													
 													<p id="requestText"></p>
 												</div>
 						  				 </div>
@@ -278,9 +287,9 @@
     console.log(textContent)
     for (let i of texts){
         if(i.dataset.text.length>20){
-            i.innerHTML=i.dataset.text.substring(0,20)+"..."
+            i.innerHTML=i.innerText.substring(0,20)+"..."
         }else{
-            i.innerHTML=i.dataset.text
+            i.innerHTML=i.innerText;
         } 
     }
     let mouseHover = document.querySelectorAll(".mouseHover");
@@ -294,11 +303,13 @@
             }
             
             let orderno=event.target.parentElement.querySelectorAll(".orderno")[0].innerText;
+            let orderDate=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.orderdate;
             let atchFileNo=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.atchno
             let replyNo=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.replyno
             let memberNo=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.memberno
-           
-            getImages(atchFileNo);
+          
+        //    getImages(atchFileNo);
+            document.querySelector("#requestDate").innerText=orderDate;
            	document.querySelector("#registBtn").dataset.replyno=replyNo
            	document.querySelector("#registBtn").dataset.memberno=memberNo
            	replyList(replyNo,memberNo)
