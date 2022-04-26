@@ -40,6 +40,8 @@
 		</interceptor>
 	</interceptors>
 	
+	<!-- Views -->
+	<beans:bean id="downloadFile" class="com.rundering.view.FileDownloadView" />
 	
 	
 </beans:beans>
