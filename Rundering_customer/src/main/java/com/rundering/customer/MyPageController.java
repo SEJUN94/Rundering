@@ -247,6 +247,37 @@ public class MyPageController {
 		return entity;
 	}
 	
+	// 내 주소 기본 주소지로 변경 및 수정
+	public ResponseEntity<String> modifyDefaultAdd(MemberAddressVO memberAdd){
+		
+		ResponseEntity<String> entity = null;
+		
+		try {
+			memberAddressService.modifyDefaultAddress(memberAdd);
+			
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+		} catch (Exception e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return entity;
+		
+	}
+		
+	// 내 주소지 수정
+	public ResponseEntity<String> modifyAdd(MemberAddressVO memberAdd){
+		ResponseEntity<MemberAddressVO> entity = null;
+		
+		
+		
+		return null;
+	
+	}
+	
+	// 내 주소지 기본 주소지로 변경 및 등록
+	
+	// 내 주소지 추가 등록
+	
 	
 	
 }
