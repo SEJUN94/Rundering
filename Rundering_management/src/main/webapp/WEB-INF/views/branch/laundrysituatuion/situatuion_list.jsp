@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>\
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
@@ -68,8 +68,7 @@
 						<thead>
 							<tr>
 								<th class="width10" style="text-align: center;">주문번호</th>
-								<th class="width10" style="text-align: center;">지역</th>
-								<th class="width40" style="text-align: center;">요청사항</th>
+								<th class="width50" style="text-align: center;">세탁 물품</th>
 								<th class="width10" style="text-align: center;">세탁물 상태</th>
 								<th class="width10" style="text-align: center;">배송요청일</th>
 								<th class="width5" style="text-align: center;"
@@ -83,7 +82,6 @@
 								<tr class="mouseHover">
 									<td class="orderno" style="text-align: center;"
 										data-atchNo="${laundryOrder.atchFileNo }" data-replyno="${laundryOrder.replyNo }" data-memberno="${laundryOrder.memberNo }">${laundryOrder.orderNo }</td>
-									<td style="text-align: center;">${laundryOrder.area }</td>
 									<td class="textCut textDetail"
 										data-text="${laundryOrder.requestDetails }"></td>
 									<td style="text-align: center;">${orderCodeMap[laundryOrder.orderStatus] }</td>
@@ -207,7 +205,7 @@
 				</div>
 			</div>
 		</div>
-		
+		</div>
 		
 		<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 		<%@include file="./reply.jsp" %>
