@@ -251,19 +251,22 @@ header .sub-menu ul.menu li {
 	position: relative;
 }
 
-header .sub-menu ul.menu li::before {
-	content: "";
-	width: 1px;
-	height: 12px;
-	background-color: #e5e5e5;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	margin: auto;
+/* 마이페이지 서브메뉴 숨기기 */
+.smul {
+background-color: rgba( 228, 231, 233, 0.5 );
+display:none; 
+height:auto;
+border:0px;
+position:absolute;
+width:120px;
+z-index:200;
+/*top:1em;
+/*left:0;*/
 }
 
-header .sub-menu ul.menu li:first-child::before {
-	display: none;
+/* 마이페이지 메뉴 호버 */
+.sub-menu li:hover .smul{
+display:block;
 }
 
 header .sub-menu ul.menu li a {
@@ -275,44 +278,6 @@ header .sub-menu ul.menu li a {
 
 header .sub-menu ul.menu li a:hover {
 	color: #000;
-}
-
-header .sub-menu .search {
-	position: relative;
-	height: 34px;
-}
-
-header .sub-menu .search input {
-	width: 36px;
-	height: inherit;
-	padding: 4px 10px;
-	border: 1px solid #ccc;
-	box-sizing: border-box;
-	border-radius: 5px;
-	outline: none;
-	background-color: #fff;
-	color: #777;
-	font-size: 12px;
-	transition: width .4s;
-}
-
-header .sub-menu .search input:focus {
-	width: 190px;
-	border-color: #669900;
-}
-
-header .sub-menu .search .material-icons {
-	height: 24px;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 5px;
-	margin: auto;
-	transition: .4s;
-}
-
-header .sub-menu .search.focused .material-icons {
-	opacity: 0;
 }
 
 header .main-menu {

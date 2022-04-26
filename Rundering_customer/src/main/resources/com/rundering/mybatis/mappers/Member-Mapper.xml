@@ -39,25 +39,26 @@
 	</update>
 	
 	<update id="deleteMember" parameterType="str" >
-		update TB_MEMBER
-		set 
+		UPDATE TB_MEMBER
+		SET 
 		ENABLE_WHETHER = 0
 		,MODIFY_DATE = SYSDATE
 		,DELETE_YN = 'Y'
-		where id=#{id}
+		WHERE ID=#{id}
 	</update>
+	
 	<select id="selectIdFindByMember" resultType="int" parameterType="member">
-		select COUNT(*) 
-		  from TB_MEMBER
-		 where name=#{name}
-		   and email=#{email}
+		SELECT COUNT(*) 
+		  FROM TB_MEMBER
+		 WHERE NAME=#{name}
+		   AND EMAIL=#{email}
 	</select>
 	<select id="selectPasswordFindByMember" resultType="int" parameterType="member">
-		select COUNT(*)
-		  from TB_MEMBER
-		 where name=#{name}
-		   and email=#{email}
-		   and id=#{id}
+		SELECT COUNT(*)
+		  FROM TB_MEMBER
+		 WHERE name=#{name}
+		   AND email=#{email}
+		   AND id=#{id}
 	</select>
 	<select id="selectGetFindIdByMember"  resultType="str" parameterType="member">
 		select id 
@@ -82,22 +83,22 @@
 		 where MEMBERNO=#{memberNo} 
 	</update>
 	<update id="modifyMember" parameterType="member" >
-		update TB_MEMBER 
-		set 
+		UPDATE TB_MEMBER 
+		SET 
 		EMAIL=#{email},PHONE=#{phone},MODIFY_DATE=SYSDATE
 		WHERE ID=#{id}
 	</update>
 	
 	<update id="updatePasswordByMember" parameterType="member">
-		update tb_member
-		   set password=#{password}
-		   ,MODIFY_DATE = SYSYDATE
+		UPDATE TB_MEMBER
+		   SET PASSWORD=#{password}
+		   ,MODIFY_DATE = SYSDATE
 		 where ID=#{id}  
 	</update>
 	
 
 	<select id="checkId" resultType="member" parameterType="str">
-		SELECT id
+		SELECT ID
 		FROM TB_MEMBER
 		WHERE ID =#{id}
 	</select>
@@ -109,7 +110,7 @@
 	</select>
 	
 	<select id="checkEmail" resultType="MemberAddCommand" parameterType="str">
-		SELECT email
+		SELECT EMAIL
 		FROM TB_MEMBER
 		WHERE email =#{email}
 	</select>
