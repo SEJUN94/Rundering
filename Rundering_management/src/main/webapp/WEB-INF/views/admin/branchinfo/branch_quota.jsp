@@ -3,7 +3,6 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <style>
 </style>
 <head>
@@ -42,7 +41,7 @@
 				<tbody>
 					<c:if test="${empty throughputList }">
 						<tr>
-							<td colspan="4" style="text-align:center;"><strong>해당 내용이 없습니다.</strong></td>
+							<td colspan="5" style="text-align:center;"><strong>해당 내용이 없습니다.</strong></td>
 						</tr>
 					</c:if>
 					<c:forEach items="${throughputList }" var="throughput">
@@ -87,7 +86,6 @@
 				</tbody>
 			</table>
 		</div>
-
 	</div>
 </div>
 </body>

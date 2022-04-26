@@ -14,13 +14,13 @@
 		<!-- form start -->
 		<div class="card">
 			<div class="card-body">
-				<form role="form" class="form-horizontal" action="regist"
+				<form role="registForm" class="form-horizontal" action="regist"
 					method="post" name="registForm">
 					<input type="hidden" name="picture">
 					<div class="row">
 						<div class="input-group col-md-12">
 							<div class="col-md-12" style="text-align: center;">
-								<div class="goodsPicture" data-id="${orderGoods.articlesCode }"
+								<div class="goodsPicture" data-id="${laundryArticles.articlesCode }"
 									id="pictureView"
 									style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto; margin-bottom: 5px;"></div>
 								<div class="input-group input-group-sm">
@@ -28,7 +28,8 @@
 										class=" btn btn-warning btn-sm btn-flat input-group-addon" >사진변경</label>
 									<input id="inputFileName" class="form-control" type="text"
 										name="tempPicture"  disabled/>
-										<button type="button" id="sendBtn" class="btn btn-primary btn-sm" onclick="regist_go()">등록</button>
+										<button type="button" id="sendBtn" class="btn btn-primary btn-sm" onclick="upload_go()"
+												style="height:31px;">등록</button>
 								</div>
 							</div>
 						</div>
@@ -51,7 +52,7 @@
 								id="articlesCode">
 						</div>
 					</div>
-
+	
 					<div class="form-group row">
 						<!-- search bar -->
 						<!-- sort num -->
@@ -60,15 +61,15 @@
 						</label>
 						<div class="col-sm-8 input-group-sm">
 							<select id="clcode" name="clcode" class="form-control">
-								<option value="B" ${orderGoods.clcode eq 'B' ? 'selected':'' }>가루세제</option>
-								<option value="C" ${orderGoods.clcode eq 'C' ? 'selected':'' }>엑체세제</option>
-								<option value="D" ${orderGoods.clcode eq 'D' ? 'selected':'' }>섬유유연제</option>
-								<option value="E" ${orderGoods.clcode eq 'E' ? 'selected':'' }>세탁비누</option>
-								<option value="F" ${orderGoods.clcode eq 'F' ? 'selected':'' }>세탁보조용품</option>
+								<option value="B" ${laundryArticles.clcode eq 'B' ? 'selected':'' }>가루세제</option>
+								<option value="C" ${laundryArticles.clcode eq 'C' ? 'selected':'' }>엑체세제</option>
+								<option value="D" ${laundryArticles.clcode eq 'D' ? 'selected':'' }>섬유유연제</option>
+								<option value="E" ${laundryArticles.clcode eq 'E' ? 'selected':'' }>세탁비누</option>
+								<option value="F" ${laundryArticles.clcode eq 'F' ? 'selected':'' }>세탁보조용품</option>
 							</select>
 						</div>
 					</div>
-
+	
 					<div class="form-group row">
 						<label for="price" class="col-sm-4"> <span
 							style="color: red; font-weight: bold;">*</span>판매가
@@ -88,15 +89,15 @@
 						<div class="col-sm-3 input-group-sm">
 							<select onchange="list_go(1);" id="each" name="each"
 								class="form-control">
-								<option value="n" ${orderGoods.each eq 'n' ? 'selected':'' }>개</option>
-								<option value="h" ${orderGoods.each eq 'h' ? 'selected':'' }>매</option>
-								<option value="g" ${orderGoods.each eq 'g' ? 'selected':'' }>g</option>
-								<option value="kg" ${orderGoods.each eq 'kg' ? 'selected':'' }>kg</option>
-								<option value="ml" ${orderGoods.each eq 'ml' ? 'selected':'' }>ml</option>
-								<option value="l" ${orderGoods.each eq 'l' ? 'selected':'' }>L</option>
+								<option value="n" ${laundryArticles.each eq 'n' ? 'selected':'' }>개</option>
+								<option value="h" ${laundryArticles.each eq 'h' ? 'selected':'' }>매</option>
+								<option value="g" ${laundryArticles.each eq 'g' ? 'selected':'' }>g</option>
+								<option value="kg" ${laundryArticles.each eq 'kg' ? 'selected':'' }>kg</option>
+								<option value="ml" ${laundryArticles.each eq 'ml' ? 'selected':'' }>ml</option>
+								<option value="l" ${laundryArticles.each eq 'l' ? 'selected':'' }>L</option>
 							</select>
 						</div>
-
+	
 					</div>
 					<div class="form-group row">
 						<label for="note" class="col-sm-4"> <span
@@ -106,10 +107,12 @@
 							<input class="form-control" name="note" type="text" id="note">
 						</div>
 					</div>
-					<div class="btn-group float-right">
+
+				</form>
+				<div class="btn-group float-right">
 					<div class="input-group-sm">
-						<button type="submit" id="sendBtn" class="btn btn-primary btn-sm"
-							>등록</button>
+						<button id="sendBtn" class="btn btn-primary btn-sm"
+							onclick="registPOST_go()">등록</button>
 					</div>
 					&nbsp;&nbsp;
 					<div class="input-group-sm">
@@ -117,14 +120,11 @@
 							onclick="history.go(-1);">목록</button>
 					</div>
 				</div>
-
-				</form>
-				
 			</div>
 		</div>
 	</div>
 </section>
-<form role="imageForm" action="regist" method="post" 
+<form role="imageForm" action="regist" method="post" name="imageForm"
 	  enctype="multipart/form-data">
 	<input id="inputFile" name="pictureFile" type="file" class="form-control"
 		   onchange="picture_go();"	style="display:none;">
@@ -133,7 +133,6 @@
 </form>
 <script>
 	var formData="";
-	
 	function picture_go(){
 	   var form = $('form[role="imageForm"]');
 	   var picture = form.find('[id=inputFile]')[0];
@@ -145,7 +144,7 @@
 	   		alert("이미지는 jpg/jpeg 형식만 가능합니다.");
 	   		picture.value="";      
 	   		return;
-		} 
+	   		} 
 	
 		//이미지 파일 용량 체크
 	   if(picture.files[0].size>1024*1024*5){
@@ -156,7 +155,6 @@
 	   //업로드 확인변수 초기화 (사진변경)
 	   form.find('[name="checkUpload"]').val(0);	
 	   document.getElementById('inputFileName').value=picture.files[0].name;
-	   
 	   if (picture.files && picture.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function (e) {
@@ -170,8 +168,34 @@
 		}
 	}
 </script>
+
 <script>
-	function regist_go() {
+	function registPOST_go() {
+		var form = document.registForm;
+		var imgForm = document.imageForm;
+		
+		if (imgForm.checkUpload.value == "0") {
+			alert("사진업로드는 필수입니다.");
+			return;
+		}
+		if (form.articlesName.value == "") {
+			alert("상품명은 필수입니다.");
+			return;
+		}
+		if (form.articlesCode.value == "") {
+			alert("세탁물품코드는 필수입니다.");
+			return;
+		}
+		if (form.price.value == "") {
+			alert("물품가격은 필수입니다.");
+			return;
+		}
+		$("form[role='registForm']").submit();
+	}
+</script>
+
+<script>
+	function upload_go() {
 		$.ajax({
 			  url:"<%=request.getContextPath()%>/admin/ordergoods/picture",
 		      data:formData,
@@ -185,9 +209,7 @@
 		          $('input[name="checkUpload"]').val(1);
 		          //저장된 파일명 저장.
 		          $('input#oldFile').val(data.fileName); // 변경시 삭제될 파일명	  
-		          $('form[role="form"]  input[name="picture"]').val(data.fileName);
-		          var a=  $('form[role="form"]  input[name="picture"]').val();
-		          alert(a);
+		          $('form[role="registForm"] input[name="picture"]').val(data.fileName);
 		      },
 		      error:function(error){
 		    	  AjaxErrorSecurityRedirectHandler(error.status);		
