@@ -1,22 +1,17 @@
 package com.rundering.manage.branch;
 
-import java.io.File;
-import java.util.HashMap;
+import java.sql.SQLException;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.rundering.util.MakeFileName;
+import com.rundering.command.Criteria;
+import com.rundering.dto.NoticeVO;
+import com.rundering.service.NoticeService;
 
 
 
@@ -24,16 +19,38 @@ import com.rundering.util.MakeFileName;
 @RequestMapping("/branch/notice")
 public class BranchNoticeController {
 	
+	@Autowired
+	NoticeService noticeService;
+	
 	@RequestMapping(value = "/list")
-	private String noticeList() {
+	private ModelAndView noticeList(Criteria cri, ModelAndView mnv) {
 		String url="branch/notice/notice_list";
-		return url;
+		Map<String, Object> dataMap = null;		
+		try {
+			dataMap = noticeService.getNoticeList(cri);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+		return mnv;
 	}
 	
 	@RequestMapping(value = "/detail")
-	private String noticeDetail() {
+	private ModelAndView noticeDetail(int noticeno,  @RequestParam(defaultValue="") String from, ModelAndView mnv) throws Exception {
 		String url="branch/notice/notice_detail";
-		return url;
+		NoticeVO notice = null;
+		
+		if(from.equals("list")) {
+			notice = noticeService.getNotice(noticeno);
+			url="redirect:/admin/notice/detail.do?noticeno="+noticeno;
+		}
+		
+		mnv.addObject("notice",notice);
+		mnv.setViewName(url);
+		
+		return mnv;
 	}
 	
 
