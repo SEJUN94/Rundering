@@ -17,6 +17,6 @@
 				   method="assignLaundryOrderToBranch"
 				   cron="* * 22 * * *"/>
 				   <!-- cron="*/5 * * * * *"/> -->
-	</scheduled-tasks>
+	</scheduled-tasks> 
 	
 </beans:beans>
