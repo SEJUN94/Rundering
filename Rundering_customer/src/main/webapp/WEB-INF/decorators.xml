@@ -10,6 +10,8 @@
 	<decorator name="openWindow" page="open_decorator.jsp">
 		<pattern>/login</pattern>
 		<pattern>/login/*</pattern>
+		<pattern>/question/detail*</pattern>
+		<pattern>/question/modify*</pattern>
 	</decorator>
 
 	<excludes>

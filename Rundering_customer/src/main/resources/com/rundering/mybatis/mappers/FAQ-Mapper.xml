@@ -20,19 +20,14 @@
 	</resultMap>
 	
 	<sql id="search">
-		<if test="searchType == 't'.toString()">
-			and a.setbukdoorclcode like '%'||#{keyword}||'%'
-		</if>
 		<if test="searchType == 'c'.toString()">
 			and a.question like '%'||#{keyword}||'%'
 		</if>
 		<if test="searchType == 'w'.toString()">
 			and b.name like '%'||#{keyword}||'%'
 		</if>
-		<if test="searchType == 'tcw'.toString()">
-			and (
-			a.setbukdoorclcode like '%'||#{keyword}||'%'
-			or
+		<if test="searchType == 'cw'.toString()">
+			and
 			a.question like '%'||#{keyword}||'%'
 			or
 			b.name like '%'||#{keyword}||'%'		
@@ -89,9 +84,24 @@
 					#{secretyn})
 	</select>
 	
+	<select id="selectFAQByFaqno" parameterType="int" resultMap="faqMap" >
+		select a.faqno, a.setbukdoorclcode, a.question, a.fcontent, a.regist_date, b.name as writer, a.answer
+		  from tb_faq a, tb_member b
+		 where faqno=#{faqno}
+		   and a.writer = b.memberno
+	</select>
 	
+	<update id="updateFAQ" parameterType="faq">
+		update tb_faq
+		set 
+			question=#{question},fcontent=#{fcontent},setbukdoorclcode=#{setbukdoorclcode}
+		where faqno=#{faqno}
+	</update>
 	
-
-
+	<update id="deleteFAQ" parameterType="int" >
+		delete
+		from tb_faq
+		where faqno=#{faqno}		
+	</update>
 
 </mapper>

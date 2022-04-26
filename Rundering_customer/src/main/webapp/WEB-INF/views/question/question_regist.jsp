@@ -49,9 +49,11 @@
 						</div>
 						<div class=" col">
 							<div class="form-group">
-								<label for="memberno"
+								<label for="writer"
 									style="margin-left: 10px; margin-top: 10px; font-size: large;">요청자</label>
-								<input type="text" id="memberno" name="memberno" readonly
+								<input type="hidden" name="writer" id="writer"
+									class="form-control" value="${loginUser.memberNo }" >
+								<input type="text" readonly
 									class="form-control" value="${loginUser.name }">
 							</div>
 						</div>

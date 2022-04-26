@@ -13,4 +13,13 @@ public interface FAQService {
 
 	// 등록
 	void regist(FAQVO faq) throws SQLException;
+	
+	// 수정화면 상세
+	FAQVO getFAQModify(int faqno) throws SQLException;
+	
+	// 수정
+	void modify(FAQVO faq) throws SQLException;
+	
+	// 삭제
+	void remove(int faqno) throws SQLException;
 }

@@ -15,4 +15,10 @@ public interface FAQDAO {
 	int selectFAQSequenceNextValue() throws SQLException;
 	
 	void insertFAQ(FAQVO FAQ) throws SQLException;
+	
+	FAQVO selectFAQByFaqno(int faqno) throws SQLException;
+	
+	void updateFAQ(FAQVO FAQ) throws SQLException;
+	
+	void deleteFAQ(int faqno) throws SQLException;
 }
