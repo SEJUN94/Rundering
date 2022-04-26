@@ -1,4 +1,4 @@
-package com.rundering.customer;
+package com.rundering.command;
 
 public class PageMaker {
 	

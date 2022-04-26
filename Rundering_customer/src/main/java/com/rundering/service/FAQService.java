@@ -3,7 +3,7 @@ package com.rundering.service;
 import java.sql.SQLException;
 import java.util.Map;
 
-import com.rundering.customer.Criteria;
+import com.rundering.command.Criteria;
 import com.rundering.dto.FAQVO;
 
 public interface FAQService {

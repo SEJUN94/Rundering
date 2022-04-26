@@ -111,15 +111,13 @@ th, td {
 							<td class="writer">${faq.writer }</td>
 							<td class="date"><fmt:formatDate value="${faq.registDate }"
 									pattern="yyyy-MM-dd" /></td>
-							<td class="yn">
-								<c:choose>
+							<td class="yn"><c:choose>
 									<c:when test="${faq.secretyn == 'Y'}">
-									<i class="fas fa-lock fa-fw" style="color: var(--fa-navy);"></i>
+										<i class="fas fa-lock fa-fw" style="color: var(- -fa-navy);"></i>
 									</c:when>
 									<c:when test="${faq.secretyn == 'N'}">
 									</c:when>
-								</c:choose>
-							</td>
+								</c:choose></td>
 						</tr>
 					</c:forEach>
 				</table>

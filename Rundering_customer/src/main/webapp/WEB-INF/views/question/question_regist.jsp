@@ -30,7 +30,7 @@
 		<form role="form" action="regist" method="post" name="registForm">
 			<div class="card-body">
 				<div class="form-group">
-					<label for="title"
+					<label for="question"
 						style="margin-left: 10px; margin-top: 10px; font-size: large;">제목</label>
 					<input type="text" name="question" id="question"
 						class="form-control" placeholder="제목을 입력하세요">
@@ -38,52 +38,45 @@
 				<div class="form-group">
 					<div class="row">
 						<div class=" col">
-							<div class="form-group">
-								<label for="setbukdoorclcode"
-									style="margin-left: 10px; margin-top: 10px; font-size: large;">카테고리
-									구분</label> <select id="setbukdoorclcode" name="setbukdoorclcode"
-									class="form-control">
-									<option value="US">이용 문의</option>
-									<option value="OR">주문 문의</option>
-									<option value="ET">기타 문의</option>
-								</select>
-							</div>
+							<label for="setbukdoorclcode"
+								style="margin-left: 10px; margin-top: 10px; font-size: large;">카테고리
+								구분</label> <select id="setbukdoorclcode" name="setbukdoorclcode"
+								class="form-control">
+								<option value="US">이용 문의</option>
+								<option value="OR">주문 문의</option>
+								<option value="ET">기타 문의</option>
+							</select>
 						</div>
 						<div class=" col">
 							<div class="form-group">
-								<label for="writer"
+								<label for="memberno"
 									style="margin-left: 10px; margin-top: 10px; font-size: large;">요청자</label>
-								<input type="text" id="writer" readonly name="writer"
+								<input type="text" id="memberno" name="memberno" readonly
 									class="form-control" value="${loginUser.name }">
 							</div>
-
 						</div>
 						<div class="col">
 							<div class="form-group">
 								<label for="secretyn"
 									style="margin-left: 10px; margin-top: 10px; font-size: large;">공개여부</label>
-
-								<div class=" col">
-									<div class="form-group">
-										<div
-											style="margin-left: 10px; margin-top: 10px; font-size: large;">
-											<input type="radio" name="secretyn" id="secretyn" value="Y" />
-											공개 &nbsp;&nbsp;
-											<input type="radio" name="secretyn" id="secretyn" value="N" />
-											비공개
-										</div>
+								<div class="form-group">
+									<div style="margin-left: 10px; margin-top: 10px; font-size: large;">
+										<input type="radio" name="secretyn" id="secretyn" value="Y" />
+										공개 &nbsp;&nbsp;
+										<input type="radio" name="secretyn" id="secretyn" value="N" />
+										비공개
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="fcontent" style="margin-left: 10px; font-size: large;">▼▽▼문의할
-					내용을 입력하세요▼▽▼</label>
-				<textarea style="border: none; height: 100px; resize: none;"
-					class="textarea" rows="10" cols="20" id="fcontent" name="fcontent"></textarea>
+				<div class="form-group">
+					<label for="fcontent" style="margin-left: 10px; font-size: large;">▼▽▼문의할
+						내용을 입력하세요▼▽▼</label>
+					<textarea style="border: none; height: 100px; resize: none;"
+						class="textarea" rows="10" cols="20" id="fcontent" name="fcontent"></textarea>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -104,7 +97,7 @@
 	<script>
 		function regist_go() {
 			var form = document.registForm;
-			if (form.title.value == "") {
+			if (form.question.value == "") {
 				alert("제목은 필수입니다.");
 				return;
 			}
