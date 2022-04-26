@@ -47,8 +47,8 @@
 				<li><a href="<%=request.getContextPath()%>/order">세탁주문</a></li>
 				<li><a href="#">고객센터</a>
 					<ul>
-						<li><a href="<%=request.getContextPath()%>/customercenter/faq">자주묻는질문</a></li>
-						<li><a href="<%=request.getContextPath()%>/customercenter/question/board">문의사항</a></li>
+						<li><a href="<%=request.getContextPath()%>/question/faq">자주묻는질문</a></li>
+						<li><a href="<%=request.getContextPath()%>/question/list">문의사항</a></li>
 					</ul></li>
 			</ul>
 		</div>

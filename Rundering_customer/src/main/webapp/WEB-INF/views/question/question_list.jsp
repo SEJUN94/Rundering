@@ -65,7 +65,6 @@ th, td {
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h3 class="card-title">문의게시판</h3>
 				<div class="card-tools">
 					<div class="input-group input-group-sm" style="width: 300px;">
 						<select class="form-control col-md-4" name="searchType"
@@ -110,9 +109,15 @@ th, td {
 							<td class="category">${faq.setbukdoorclcode }</td>
 							<td class="title">${faq.question }</td>
 							<td class="writer">${faq.writer }</td>
-							<td class="date"><fmt:formatDate
-									value="${faq.registDate }" pattern="yyyy-MM-dd" /></td>
-							<td class="yn">${faq.secretyn }</td>
+							<td class="date"><fmt:formatDate value="${faq.registDate }"
+									pattern="yyyy-MM-dd" /></td>
+							<td class="yn"><c:choose>
+									<c:when test="${faq.secretyn == 'Y'}">
+										<i class="fas fa-lock fa-fw" style="color: var(- -fa-navy);"></i>
+									</c:when>
+									<c:when test="${faq.secretyn == 'N'}">
+									</c:when>
+								</c:choose></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -120,7 +125,7 @@ th, td {
 
 					<button class="btn btn-primary" type="button" id="registBtn"
 						onclick="location.href='<%=request.getContextPath()%>/question/registForm'">
-						작성하기</button>
+						문의하기</button>
 				</div>
 			</div>
 		</div>

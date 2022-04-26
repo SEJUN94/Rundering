@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
-import com.rundering.customer.Criteria;
+import com.rundering.command.Criteria;
 import com.rundering.dto.FAQVO;
 
 public class FAQDAOImpl implements FAQDAO {
@@ -26,10 +26,20 @@ public class FAQDAOImpl implements FAQDAO {
 		List<FAQVO> faqList = session.selectList("FAQ-mapper.selectSearchFAQList", cri, rowBounds);
 		return faqList;
 	}
-	
+
 	@Override
 	public int selectSearchFAQListCount(Criteria cri) throws SQLException {
 		return session.selectOne("FAQ-mapper.selectSearchFAQListCount", cri);
+	}
+
+	@Override
+	public int selectFAQSequenceNextValue() throws SQLException {
+		return session.selectOne("FAQ-mapper.selecFAQSequenceNextValue");
+	}
+	
+	@Override
+	public void insertFAQ(FAQVO FAQ) throws SQLException {
+		session.update("FAQ-mapper.insertFAQ", FAQ);
 	}
 
 }

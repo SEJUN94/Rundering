@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.rundering.customer.Criteria;
-import com.rundering.customer.PageMaker;
+import com.rundering.command.Criteria;
+import com.rundering.command.PageMaker;
 import com.rundering.dao.FAQDAO;
 import com.rundering.dto.FAQVO;
 
@@ -38,4 +38,10 @@ public class FAQServiceImpl implements FAQService {
 
 		return dataMap;
 	}
+	
+	@Override
+	public void regist(FAQVO faq) throws SQLException {
+		faqDAO.insertFAQ(faq);
+	}
+
 }

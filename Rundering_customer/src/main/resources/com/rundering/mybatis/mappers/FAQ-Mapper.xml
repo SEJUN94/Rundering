@@ -2,8 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="FAQ-Mapper">
+<mapper namespace="FAQ-mapper">
 	<resultMap type="faq" id="faqMap">
+	
 		<result column="FAQNO" property="faqno" />
 		<result column="SETBUKDOORCLCODE" property="setbukdoorclcode" />
 		<result column="QUESTION" property="question" />
@@ -14,7 +15,8 @@
 		<result column="SECRETYN" property="secretyn" />
 		<result column="ANSWER_WRITER" property="answerwriter" />
 		<result column="FAQYN" property="faqyn" />
-		<result column="FCONTENT" property="fcontent" />		
+		<result column="FCONTENT" property="fcontent" />	
+			
 	</resultMap>
 	
 	<sql id="search">
@@ -63,6 +65,28 @@
 		where a.faqno is not null
 		<!-- <include refid="search" /> -->
 		order by a.regist_date desc
+	</select>
+
+	<select id="selectFAQSequenceNextValue" resultType="int">
+		select faqno_seq.nextVal
+			from dual
+	</select>
+	
+	<select id="insertFAQ" resultType="faq">
+		insert into tb_faq(
+			faqno,
+			setbukdoorclcode,
+			question,
+			fcontent,
+			writer,
+			secretyn
+			) values (
+					faqno_seq.nextval,
+					#{setbukdoorclcode},
+					#{question},
+					#{fcontent},
+					#{writer},
+					#{secretyn})
 	</select>
 	
 	

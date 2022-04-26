@@ -10,14 +10,10 @@ public class FAQVO {
 	private Date registDate; // 등록일
 	private Date modifyDate; // 수정일
 	private String writer; // 작성자
-	private boolean secretyn; // 비밀글여부
+	private String secretyn; // 비밀글여부
 	private String answer_writer; // 답글작성자(본사)
-	private boolean faqyn; // FAQ여부
+	private String faqyn; // FAQ여부
 	private String fcontent; // 질문애용
-
-	public FAQVO() {
-		super();
-	}
 
 	public int getFaqno() {
 		return faqno;
@@ -75,11 +71,11 @@ public class FAQVO {
 		this.writer = writer;
 	}
 
-	public boolean isSecretyn() {
+	public String getSecretyn() {
 		return secretyn;
 	}
 
-	public void setSecretyn(boolean secretyn) {
+	public void setSecretyn(String secretyn) {
 		this.secretyn = secretyn;
 	}
 
@@ -91,11 +87,11 @@ public class FAQVO {
 		this.answer_writer = answer_writer;
 	}
 
-	public boolean isFaqyn() {
+	public String getFaqyn() {
 		return faqyn;
 	}
 
-	public void setFaqyn(boolean faqyn) {
+	public void setFaqyn(String faqyn) {
 		this.faqyn = faqyn;
 	}
 
