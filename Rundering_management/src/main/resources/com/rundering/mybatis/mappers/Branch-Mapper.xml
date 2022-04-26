@@ -43,6 +43,29 @@
     	FROM TB_BRANCH
     	WHERE BRANCH_CODE = #{branchCode}
 	</select>
-
+	
+	<select id="selectExcessCapacityOfTodayLaundryByArea" parameterType="str" resultType="int">
+		SELECT A.SUMBRANCH_LNDRPCRYMSLMCOQY - B.CNTORDER
+	         FROM (SELECT SUM(BRANCH_LNDRPCRYMSLMCOQY) AS SUMBRANCH_LNDRPCRYMSLMCOQY
+	                FROM TB_BRANCH
+	               WHERE AREA= #{area}) A,
+	              (SELECT COUNT(*) AS CNTORDER
+	                  FROM TB_LAUNDRY_ORDER
+	                 WHERE BRANCH_CODE LIKE #{area}||'%'
+	                  AND ORDER_STATUS = '01'
+	                  AND PICKUP_REQUEST_DATE = TO_CHAR(SYSDATE, 'YYYY/MM/DD')) B
+	</select>
+	
+	<select id="selectExcessCapacityOfTodayLaundryByBranchCode" parameterType="str" resultType="int">
+		SELECT A.SUMBRANCH_LNDRPCRYMSLMCOQY - B.CNTORDER
+         FROM (SELECT BRANCH_LNDRPCRYMSLMCOQY AS SUMBRANCH_LNDRPCRYMSLMCOQY
+                FROM TB_BRANCH
+               WHERE BRANCH_CODE = #{branchCode}) A,
+              (SELECT COUNT(*) AS CNTORDER
+              FROM TB_LAUNDRY_ORDER
+             WHERE BRANCH_CODE = #{branchCode}
+              AND PICKUP_REQUEST_DATE = TO_CHAR(SYSDATE, 'YYYY/MM/DD')
+              AND ORDER_STATUS = '01') B
+	</select>
 
 </mapper>
