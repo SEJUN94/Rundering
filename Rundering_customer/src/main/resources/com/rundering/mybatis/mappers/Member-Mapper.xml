@@ -23,13 +23,13 @@
 	<select id="selectMemberById" resultMap="memberMap" parameterType="str">
 		select *
 		from TB_MEMBER
-		where id=#{id}
+		where ID=#{id}
 	</select>
 
 	<select id="selectAuthByMemberNo" resultType="str" parameterType="str">
 		select AUTH_GRP_CODE
 		from TB_USER_AUTH
-		where memberno=#{memberNo}
+		where MEMBERNO=#{memberNo}
 	</select>
 
 	<update id="memberJoin" parameterType="member">
@@ -85,7 +85,7 @@
 		update TB_MEMBER 
 		set 
 		EMAIL=#{email},PHONE=#{phone},MODIFY_DATE=SYSDATE
-		where MEMBERNO=#{memberNo}
+		WHERE ID=#{id}
 	</update>
 	
 	<update id="updatePasswordByMember" parameterType="member">

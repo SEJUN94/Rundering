@@ -14,7 +14,7 @@
 		<h3 class="card-title ">회원수정</h3>
 	</div>
 </div>
-<form class="form-horizontal" onsubmit="return modify();" method="post">
+<form class="form-horizontal" method="post">
 <div class="card-body marginfont text-center">
 	<div class="form-group">
 		<div class="row ">
@@ -119,7 +119,7 @@
 						<input type="hidden" class="form-control" name="memberNo" id="memberNo" value="${loginUser.getMemberNo() }" readonly>
 					</div>
 					<span class="form-group col-2">
-						<button class="btn float-right" type="submit" id="sendBtn" style="border-color: gray;">수정</button>
+						<button class="btn float-right" type="submit" onClick="modify();" id="sendBtn" style="border-color: gray;">수정</button>
 					</span>
 				</div>
 			</div>
@@ -152,7 +152,8 @@
 	        				'phone' : $('#phone').val(),
 	        				'add1' : $('#add1').val(),
 	        				'add2' : $('#add2').val(),
-	        				'zip' : $('#zip').val()
+	        				'zip' : $('#zip').val(),
+	        				'memberNo' : $('#memberNo').val()
 	        			},
 	        			type : 'post',
 	        			success : function(result) {
@@ -168,10 +169,11 @@
 	        			},
 	        			error : function(error) {
 	        				AjaxErrorSecurityRedirectHandler(error.status);
-	        			}
+	        			},
 	        		});
 	           }
 		
+		})
 	}
 </script>
 
@@ -325,6 +327,7 @@ function com(){
 
 <script>
 function findAdd() {
+	event.preventDefault(); // 이벤트를 막아 페이지 리로드를 방지
 	new daum.Postcode({
 		oncomplete : function(data) {
 			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
