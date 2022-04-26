@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.rundering.command.Criteria;
+import com.rundering.command.CustomerListCriteria;
+import com.rundering.command.CustomerListPageMaker;
 import com.rundering.dao.MemberDAO;
 import com.rundering.dto.MemberVO;
 import com.rundering.util.AppCriteria;
@@ -17,19 +18,7 @@ public class MemberServiceImpl implements MemberService {
 	public void setMemberDAO(MemberDAO memberDAO) {
 		this.memberDAO = memberDAO;
 	}
-
-	@Override
-	public MemberVO getMember(String id) throws Exception {
-		MemberVO member = memberDAO.selectMemberById(id);
-		return member;
-	}
-
-	@Override
-	public List<String> getAuthList(String memberNo) throws Exception {
-		List<String> auth = memberDAO.selectAuthByMemberNo(memberNo);
-		return auth;
-	}
-
+	
 	@Override
 	public MemberVO getEmployee(String id) throws Exception {
 		MemberVO member = memberDAO.selectEmployeeById(id);
@@ -76,10 +65,12 @@ public class MemberServiceImpl implements MemberService {
 
 		return mv;
 	}
-
+	
+	//권한그룹
 	@Override
-	public List<MemberVO> getMemberList(Criteria cri) throws Exception {
-		return null;
+	public List<String> getAuthList(String memberNo) throws Exception {
+		List<String> auth = memberDAO.selectAuthByMemberNo(memberNo);
+		return auth;
 	}
 
 	// 등록 신청 사원 반려
@@ -88,5 +79,31 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.removeByNo(memberNo);
 
 	}
+	
+	//고객 정보 	
+	@Override
+	public MemberVO getMember(String id) throws Exception {
+		MemberVO member = memberDAO.selectMemberById(id);
+		return member;
+	}
+
+	//고객리스트
+	@Override
+	public Map<String, Object> getMemberList(CustomerListCriteria cri) throws Exception {
+		CustomerListCriteria searchCri = (CustomerListCriteria)cri;
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+
+		CustomerListPageMaker pageMaker = new CustomerListPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(memberDAO.selectMemberListCount(searchCri));
+
+		List<MemberVO> memberList = memberDAO.selectMemberList(searchCri);
+
+		dataMap.put("memberList", memberList);
+		dataMap.put("pageMaker", pageMaker);
+
+		return dataMap;
+	}
+
 
 }

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.rundering.command.Criteria;
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.NoticeVO;
 
 public interface NoticeDAO {

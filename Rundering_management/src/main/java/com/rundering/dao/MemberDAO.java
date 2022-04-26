@@ -3,7 +3,7 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.rundering.command.Criteria;
+import com.rundering.command.CustomerListCriteria;
 import com.rundering.dto.MemberVO;
 import com.rundering.util.AppCriteria;
 
@@ -37,14 +37,14 @@ public interface MemberDAO {
 	// 전체 개수 체크
 	public int applistCount(AppCriteria cri) throws SQLException;
 
-	// 고객리스트 조회
-	List<MemberVO> selectMemberList(Criteria cri) throws Exception;
-
 	// 일반 리스트 전체 개수
 	int selectMemberListCount() throws Exception;
 
 	// 검색 결과의 전체 리스트 개수
-	int selectMemberListCount(Criteria cri) throws Exception;
+	int selectMemberListCount(CustomerListCriteria cri) throws Exception;
+	
+	// 고객리스트 조회
+	public List<MemberVO> selectMemberList(CustomerListCriteria cri) throws Exception;
 
 	// 등록 신청 사원 반려 
 	public int removeByNo(String memberNo) throws Exception;

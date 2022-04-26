@@ -16,8 +16,6 @@ public interface ItemOrderService {
 	public void insertItemOrder(ItemOrderVO itemOrder, List<ItemOrderDetailVO> itemOrderDetailList) throws Exception;
 
 
-
-
 	public List<ItemOrderDetailVO> getItemOrdeDetail(String ordercode) throws Exception;
 
 
