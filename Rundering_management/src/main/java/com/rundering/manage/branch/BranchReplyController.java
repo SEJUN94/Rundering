@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.josephoconnell.html.HTMLInputFilter;
+import com.rundering.command.Criteria;
 import com.rundering.dto.MemberVO;
 import com.rundering.dto.ReplyVO;
-import com.rundering.manage.Criteria;
 import com.rundering.service.ReplyService;
 
 @Controller

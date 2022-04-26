@@ -1,5 +1,7 @@
 package com.rundering.manage;
 
+import com.rundering.command.Criteria;
+
 public class PageMaker {
 	
 	private int totalCount; // 전체 행의 개수

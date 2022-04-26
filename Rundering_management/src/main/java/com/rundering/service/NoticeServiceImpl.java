@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.rundering.manage.Criteria;
 import com.rundering.manage.PageMaker;
+import com.rundering.command.Criteria;
 import com.rundering.dao.NoticeDAO;
 import com.rundering.dto.NoticeVO;
 

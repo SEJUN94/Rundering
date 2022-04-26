@@ -21,9 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.Criteria;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.SuggestVO;
-import com.rundering.manage.Criteria;
 import com.rundering.service.SuggestServiceImpl;
 import com.rundering.util.MakeFileName;
 

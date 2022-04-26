@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.BranchCriteria;
+import com.rundering.command.BranchPageMaker;
 import com.rundering.dao.AttachDAO;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.LaundryItemsDAO;
@@ -16,8 +18,6 @@ import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.ReplyVO;
-import com.rundering.util.BranchCriteria;
-import com.rundering.util.BranchPageMaker;
 import com.rundering.util.ComCodeUtil;
 
 public class LaundryOrderServiceImpl implements LaundryOrderService {

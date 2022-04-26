@@ -3,10 +3,10 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.rundering.command.BranchCriteria;
+import com.rundering.command.Criteria;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.ReplyVO;
-import com.rundering.manage.Criteria;
-import com.rundering.util.BranchCriteria;
 
 public interface LaundryOrderDAO {
 	

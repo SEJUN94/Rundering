@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.Criteria;
 import com.rundering.dao.SuggestDAO;
 import com.rundering.dto.SuggestVO;
-import com.rundering.manage.Criteria;
 import com.rundering.manage.PageMaker;
 
 public class SuggestServiceImpl implements SuggestService {

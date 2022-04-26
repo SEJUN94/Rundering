@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.Criteria;
 import com.rundering.dao.MemberDAOImpl;
 import com.rundering.dto.MemberVO;
-import com.rundering.manage.Criteria;
 import com.rundering.util.AppCriteria;
 import com.rundering.util.AppPageMaker;
 

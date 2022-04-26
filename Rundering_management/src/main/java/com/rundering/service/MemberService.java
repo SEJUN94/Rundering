@@ -3,8 +3,8 @@ package com.rundering.service;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.Criteria;
 import com.rundering.dto.MemberVO;
-import com.rundering.manage.Criteria;
 import com.rundering.util.AppCriteria;
 
 public interface MemberService {

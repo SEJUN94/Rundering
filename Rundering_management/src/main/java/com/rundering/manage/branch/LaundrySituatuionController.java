@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rundering.command.BranchCriteria;
+import com.rundering.command.Criteria;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.ReplyVO;
-import com.rundering.manage.Criteria;
 import com.rundering.service.AttachService;
 import com.rundering.service.LaundryOrderService;
-import com.rundering.util.BranchCriteria;
 import com.rundering.util.FileUtil;
 
 @Controller

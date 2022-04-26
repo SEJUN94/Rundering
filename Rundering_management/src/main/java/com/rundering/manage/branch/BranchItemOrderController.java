@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.BranchCriteria;
+import com.rundering.command.Criteria;
 import com.rundering.command.ItemOrderRegistCommand;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
-import com.rundering.manage.Criteria;
 import com.rundering.service.ItemOrderService;
 import com.rundering.service.LaundryArticlesService;
-import com.rundering.util.BranchCriteria;
 
 import java.sql.SQLException;
 import java.util.List;

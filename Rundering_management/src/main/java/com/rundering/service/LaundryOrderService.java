@@ -4,12 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.BranchCriteria;
+import com.rundering.command.Criteria;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.ReplyVO;
-import com.rundering.manage.Criteria;
-import com.rundering.util.BranchCriteria;
 
 public interface LaundryOrderService {
 

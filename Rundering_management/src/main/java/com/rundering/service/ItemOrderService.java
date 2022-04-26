@@ -6,10 +6,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.rundering.command.BranchCriteria;
+import com.rundering.command.Criteria;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
-import com.rundering.manage.Criteria;
-import com.rundering.util.BranchCriteria;
 
 public interface ItemOrderService {
 
