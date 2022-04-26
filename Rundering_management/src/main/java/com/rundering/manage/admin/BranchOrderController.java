@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.Criteria;
 import com.rundering.dto.ItemOrderVO;
-import com.rundering.manage.Criteria;
 import com.rundering.service.AdminItemOrderService;
 import com.rundering.service.ItemOrderService;
 

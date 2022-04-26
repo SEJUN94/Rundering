@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.Criteria;
+import com.rundering.command.PageMaker;
 import com.rundering.dao.AsRequestDAO;
 import com.rundering.dto.AsRequestVO;
-import com.rundering.manage.Criteria;
-import com.rundering.manage.PageMaker;
 
 public class AsRequestServiceImpl implements AsRequestService {
 

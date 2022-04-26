@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rundering.command.Criteria;
 import com.rundering.dto.SuggestVO;
-import com.rundering.manage.Criteria;
 import com.rundering.service.SuggestServiceImpl;
 
 @Controller

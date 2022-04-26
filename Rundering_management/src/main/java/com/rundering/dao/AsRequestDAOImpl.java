@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.Criteria;
 import com.rundering.dto.AsRequestVO;
-import com.rundering.manage.Criteria;
 
 public class AsRequestDAOImpl implements AsRequestDAO {
 	private SqlSession session;

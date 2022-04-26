@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.Criteria;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
-import com.rundering.manage.Criteria;
 
 public interface ItemOrderDAO {
 	public void insertItemOrderByItmeOrder(ItemOrderVO itemOrder) throws Exception;

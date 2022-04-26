@@ -3,8 +3,8 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.rundering.command.Criteria;
 import com.rundering.dto.AsRequestVO;
-import com.rundering.manage.Criteria;
 
 public interface AsRequestDAO {
 

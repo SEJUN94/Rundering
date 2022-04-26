@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.rundering.manage.Criteria;
+import com.rundering.command.Criteria;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.service.LaundryArticlesService;

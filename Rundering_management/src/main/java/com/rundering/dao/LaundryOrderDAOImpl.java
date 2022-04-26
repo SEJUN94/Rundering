@@ -8,8 +8,8 @@ import javax.naming.spi.DirStateFactory.Result;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.Criteria;
 import com.rundering.dto.LaundryOrderVO;
-import com.rundering.manage.Criteria;
 
 public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 	
