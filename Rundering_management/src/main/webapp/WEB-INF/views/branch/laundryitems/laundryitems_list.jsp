@@ -47,8 +47,6 @@
 								<th style="width:180px;">품목번호</th>
 								<th style="width:180px;">품목명</th>
 								<th style="width:150px;">세탁가격</th>
-								<th style="width:70px;">수정</th>
-								<th style="width:80px;">삭제</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -65,41 +63,19 @@
 											${laundryItems.laundryItemsCode }</td>
 										<td>${laundryItems.itemsName}</td>
 										<td>${laundryItems.price }</td>
-										<td><button type="button" class="btn btn-block btn-warning btn-xs"
-										onclick="window.open('<%=request.getContextPath()%>/admin/laundryitems/modifyForm?laundryItemsCode=${laundryItems.laundryItemsCode }','세탁품목수정', 'width=600, height=600')">수정</button></td>
-										<td><button type="button" class="btn btn-block btn-danger btn-xs" onclick="remove_go('remove','${laundryItems.laundryItemsCode}');">삭제</button></td>
 									</tr>
 								</c:forEach>
 						</tbody>
 					</table>
 				</form>
-					<div class="card-footer" >
-						
+					<div class="card-footer" >	
 						<%@ include file="/WEB-INF/views/common/pagination.jsp" %>
-							<div class="float-right mb-3 mr-2">
-							<button type="button" class="btn btn-primary"
-							onclick="window.open('<%=request.getContextPath()%>/admin/laundryitems/regist','세탁품목등록', 'width=600, height=600')">
-							물품등록</button>
+						
 					</div>
 				</div>
 
 			</div>
 		</div>
 	</div>
-</div>
-<script>
-
-function remove_go(url,laundryItemsCode){
-	   if(confirm("삭제하시겠습니까?")){
-	      alert("삭제되었습니다.")   
-	      location.href=url+"?laundryItemsCode="+laundryItemsCode
-	   }
-		window.opener.location.reload();
-	}
-
-
-
-</script>
-
 </body>
 </html>

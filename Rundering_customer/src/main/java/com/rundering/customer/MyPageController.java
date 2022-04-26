@@ -1,11 +1,14 @@
 package com.rundering.customer;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rundering.command.Criteria;
 import com.rundering.command.MemberAddCommand;
 import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
+import com.rundering.service.FAQService;
 import com.rundering.service.MemberAddressService;
 import com.rundering.service.MemberService;
 import com.rundering.util.UserSha256;
@@ -31,12 +36,17 @@ public class MyPageController {
 	@Resource(name="memberAddressService")
 	private MemberAddressService memberAddressService;
 	
+	@Autowired
+	FAQService faqService;
+	
+	// 비밀번호 체크 폼
 	@RequestMapping("")
 	public String mypage() {
 		String url = "/mypage/my_privacy_check";
 		return url;
 	}	
 	
+	// 비밀번호 체크
 	@RequestMapping("/pwCheck")
 	public ResponseEntity<String> pwCheck(String password,HttpSession session) throws Exception {
 		ResponseEntity<String> entity = null;
@@ -60,7 +70,7 @@ public class MyPageController {
 		return entity;
 	}
 	
-	
+	// 회원정보 수정 폼
 	@RequestMapping("/memberModifyform")
 	public ModelAndView memberModifyForm(HttpServletRequest request, ModelAndView mnv) throws Exception {
 		String url = "/mypage/my_privacy";
@@ -76,6 +86,7 @@ public class MyPageController {
 		return mnv;
 	}
 	
+	// 회원정보 수정 폼
 	@RequestMapping("/memberModify")
 	public ResponseEntity<String> memberModify(MemberAddCommand mac) {
 		
@@ -93,7 +104,7 @@ public class MyPageController {
 		return entity;
 	}
 	
-	
+	// 비밀번호 비동기 변경
 	@RequestMapping("/pwModify")
 	public ResponseEntity<String> pwModify(HttpServletRequest request,String password) throws Exception {
 		ResponseEntity<String> entity = null;
@@ -119,7 +130,6 @@ public class MyPageController {
 	return entity;
 	}
 	
-	
 	//주문내역
 	@RequestMapping("/orderhistory")
 	private String orderhistory() {
@@ -129,10 +139,15 @@ public class MyPageController {
 
 	
 	//문의내역
-	@RequestMapping("/voicelist")
-	private String voiceList() {
-		String url = "mypage/my_voiceList";
-		return url;
+	@RequestMapping("/myinquiry/list")
+	private ModelAndView myInquiryList(Criteria cri, ModelAndView mnv) throws Exception {
+		String url = "mypage/my_inquiry_list";
+		
+		Map<String, Object> dataMap = faqService.getFAQList(cri);
+		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+
+		return mnv;
 	}
 	
 	
@@ -190,6 +205,48 @@ public class MyPageController {
 
 		return entity;
 	}
+	
+	// 내 주소 관리
+	@RequestMapping("/myaddress")
+	public ModelAndView myaddress(HttpServletRequest request, ModelAndView mnv) throws Exception {
+		String url = "/mypage/my_address";
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		
+		MemberAddressVO defaultMemberAddress = memberAddressService.getDefaultMemberAddress(loginUser.getMemberNo());
+		mnv.addObject("defaultMemberAddress",defaultMemberAddress);
+		
+		List<MemberAddressVO> memberAddressList = memberAddressService.getMemberAddressList(loginUser.getMemberNo());
+		mnv.addObject("memberAddressList",memberAddressList);
+		
+		mnv.setViewName(url);
+		
+		return mnv;
+	}	
+	
+	
+	// 내 주소 디테일
+	@RequestMapping("/myaddress/detail")
+	public ResponseEntity<MemberAddressVO> addrDetail(String addressNo){
+		
+		ResponseEntity<MemberAddressVO> entity = null;
+		
+		try {
+		
+			MemberAddressVO mv = memberAddressService.getMemberAddress(addressNo);
+			
+			if (mv != null) {
+				entity = new ResponseEntity<MemberAddressVO>(mv, HttpStatus.OK);
+			} else {
+				System.out.println("실행 안됨!!!");
+			}
+		} catch (SQLException e) {
+			entity = new ResponseEntity<MemberAddressVO>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return entity;
+	}
+	
 	
 	
 }
