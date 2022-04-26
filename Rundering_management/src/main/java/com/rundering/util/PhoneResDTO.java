@@ -1,6 +1,5 @@
 package com.rundering.util;
 
-import java.security.Timestamp;
 import java.util.List;
 
 public class PhoneResDTO {

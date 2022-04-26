@@ -3,9 +3,9 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.rundering.command.AppCriteria;
 import com.rundering.command.Criteria;
 import com.rundering.dto.MemberVO;
-import com.rundering.util.AppCriteria;
 
 public interface MemberDAO {
 	// 고객 정보 조회
