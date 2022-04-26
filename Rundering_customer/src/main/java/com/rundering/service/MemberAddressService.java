@@ -21,4 +21,16 @@ public interface MemberAddressService {
 
 	//주소지 목록 조회 - memberNo로
 	public List<MemberAddressVO> getMemberAddressList(String memberNo) throws SQLException;
+	
+	//기본 주소지로 등록
+	public void defaultAddressRegist(MemberAddressVO memberAdd) throws Exception;
+	
+	// 주소지 추가 등록
+	public void addAddressRegist(MemberAddressVO memberAdd) throws Exception;
+	
+	// 기본 주소지로 변경 및 수정 
+	public void modifyDefaultAddress(MemberAddressVO memberAdd) throws Exception;
+	
+	// 주소지 수정
+	public void modifyAddress(MemberAddressVO memberAdd) throws Exception;
 }

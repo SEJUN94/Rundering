@@ -18,7 +18,7 @@ public class MemberAddressDAOImpl implements MemberAddressDAO{
 	
 	@Override
 	public void addRegist(MemberAddressVO memberAdd) throws Exception {
-		session.update("MemberAddress-Mapper.addRegist",memberAdd);
+		session.update("MemberAddress-Mapper.addressRegist",memberAdd);
 	}
 
 
@@ -50,6 +50,30 @@ public class MemberAddressDAOImpl implements MemberAddressDAO{
 	public void updateDefaultAddress(MemberAddressVO memberAdd) throws Exception {
 		session.update("MemberAddress-Mapper.updateDefaultAddress",memberAdd);
 		
+	}
+
+	//주소지 추가 등록
+	@Override
+	public void addrRegist(MemberAddressVO memberAdd) throws Exception {
+		session.update("MemberAddress-Mapper.addaddressRegist",memberAdd);
+	}
+
+	//기본 주소지 초기화
+	@Override
+	public void updateDefaultReset(String memberNo) throws Exception {
+		session.update("MemberAddress-Mapper.updateDefaultReset",memberNo);
+	}
+
+	// 기본 주소지로 변경 및 수정 
+	@Override
+	public void modifyDefaultAddr(MemberAddressVO memberAdd) throws Exception {
+		session.update("MemberAddress-Mapper.modifyDefaultAddr",memberAdd);
+	}
+
+	// 주소지 수정
+	@Override
+	public void modifyAddr(MemberAddressVO memberAdd) throws Exception {
+		session.update("MemberAddress-Mapper.modifyAddr",memberAdd);
 	}
 	
 	

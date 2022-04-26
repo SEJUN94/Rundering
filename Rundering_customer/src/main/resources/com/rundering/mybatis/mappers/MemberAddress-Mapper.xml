@@ -37,15 +37,39 @@
 			,#{area}
 		</if>
 	</sql>
+	
+	<sql id="noArea">
+		<if test="add1.substring(0,2) == '대전'.toString()">
+			,AREA = #{area}
+		</if>
+	</sql>
+	
+	<sql id="noAdd2">
+		<if test="!(add2 == null)">
+			,ADD2 = #{add2}
+		</if>
+	</sql>
 
 
-	<update id="addRegist" parameterType="memberAddress">
+	<update id="addressRegist" parameterType="memberAddress">
 		INSERT INTO
 		TB_MEMBER_ADDRESS(ADDRESS_NO,ADD1,ZIP,MEMBERNO,TOPAREA
 		<include refid="add2" />
 		<include refid="area" />
 		)
 		VALUES(WEEKSMALLNO_SEQ.NEXTVAL,#{add1},#{zip},#{memberNo},#{toparea}
+		<include refid="add2_va" />
+		<include refid="area_va" />
+		)
+	</update>
+	
+	<update id="addaddressRegist" parameterType="memberAddress">
+		INSERT INTO
+		TB_MEMBER_ADDRESS(ADDRESS_NO,ADD1,ZIP,DEFAULT_YN,MEMBERNO,TOPAREA
+		<include refid="add2" />
+		<include refid="area" />
+		)
+		VALUES(WEEKSMALLNO_SEQ.NEXTVAL,#{add1},#{zip},'N',#{memberNo},#{toparea}
 		<include refid="add2_va" />
 		<include refid="area_va" />
 		)
@@ -81,6 +105,40 @@
 		                       WHERE MEMBERNO = #{memberNo})
 		   AND DEFAULT_YN = 'Y'
  	</update>
+ 	
+ 	<update id="updateDefaultReset" parameterType="str">
+ 		UPDATE TB_MEMBER_ADDRESS
+			SET
+			 DELETE_YN = 'N'
+			,MODIFY_DATE = SYSDATE
+		  WHERE MEMBERNO = #{memberNo}
+			AND DELETE_YN = 'Y'
+ 	</update>
+ 	
+ 	<update id="modifyDefaultAddr" parameterType="memberAddress">
+ 		UPDATE TB_MEMBER_ADDRESS
+			SET 
+			 ZIP = #{zip}
+			,ADD1 = #{add1}
+			,DEFAULT_YN = 'Y'
+			,TOPAREA = #{toparea}
+			<include refid="noArea" />
+			<include refid="noAdd2" />
+		    WHERE ADDRESS_NO = #{addressNo}
+ 	</update>
+ 	
+ 	<update id="modifyAddr" parameterType="memberAddress">
+ 		UPDATE TB_MEMBER_ADDRESS
+			SET 
+			 ZIP = #{zip}
+			,ADD1 = #{add1}
+			,TOPAREA = #{toparea}
+			<include refid="noArea" />
+			<include refid="noAdd2" />
+			WHERE ADDRESS_NO = #{addressNo}
+ 	</update>
+ 	
+ 	
 	
 
 </mapper>
