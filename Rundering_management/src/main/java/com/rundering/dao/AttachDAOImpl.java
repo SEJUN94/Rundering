@@ -21,7 +21,7 @@ public class AttachDAOImpl implements AttachDAO{
 
 	@Override
 	public void insertOrderGoodsAtach(AttachVO attach) throws Exception {
-		session.update("Attach-Mapper.insertOrderGoodsAttach",attach);
+		session.update("Attach-Mapper.insertLaundryArticlesAttach",attach);
 	}
 	
 	@Override

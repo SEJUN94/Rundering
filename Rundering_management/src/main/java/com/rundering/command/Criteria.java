@@ -7,6 +7,8 @@ public class Criteria {
 	private String searchType="";
 	private String keyword="";
 	
+	private String clcode="";
+	
 	private int startRowNum=0;
 	
 	public int getPage() {
@@ -54,6 +56,15 @@ public class Criteria {
 	public int getStartRowNum() {
 		return this.startRowNum;
 	}
+	
+	public String getClcode() {
+		return clcode;
+	}
+	public void setClcode(String clcode) {
+		this.clcode = clcode;
+	}
+	
+	
 	
 }
 

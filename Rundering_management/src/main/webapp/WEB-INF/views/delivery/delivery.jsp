@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-
 <body>
 	<div class="card card-outline card-outline-tabs card-success">
 
@@ -22,7 +21,6 @@
 						배송 목록</a></li>
 			</ul>
 		</div>
-
 		<div class="card-body p-0">
 			<table class="table table-striped" style="font-size: 1.2rem;">
 				<thead>
@@ -75,7 +73,6 @@
 				</tbody>
 			</table>
 		</div>
-
 		<div class="card-footer clearfix">
 			<ul class="pagination m-0 justify-content-center">
 				<li class="page-item"><a class="page-link" href="#">«</a></li>

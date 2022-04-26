@@ -15,6 +15,7 @@ public class ForDeliveryController {
 	@RequestMapping("/main")
 	public String main() {
 		String url="/delivery/main";
+		
 		return url;
 	}
 	@RequestMapping("/pickup")

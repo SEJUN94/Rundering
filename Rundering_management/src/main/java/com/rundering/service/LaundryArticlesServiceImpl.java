@@ -54,17 +54,10 @@ public class LaundryArticlesServiceImpl implements LaundryArticlesService {
 	}
 
 	@Override
-	public Map<String, Object> getLaundryArticles(String articlesCode, AttachVO attach) throws SQLException {
-		
-		Map<String, Object> dataMap = new HashMap<String, Object>();
-		
+	public LaundryArticlesVO getLaundryArticles(String articlesCode) throws SQLException {
 		LaundryArticlesVO laundryArticles = laundryArticlesDAO.selectLaundryArticlesListByArticlesCode(articlesCode);
-	//	AttachVO attachName = attachDAO.
 		
-		dataMap.put("laudnryArticles", laundryArticles);
-		dataMap.put("attachName", "attachName");
-		
-		return dataMap;
+		return laundryArticles;
 	}
 
 

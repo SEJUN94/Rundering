@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.jsp.util.MakeFileName;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryArticlesVO;
+import com.rundering.service.AttachService;
 import com.rundering.service.LaundryArticlesService;
+import com.rundering.util.FileUtil;
 
 @RestController
 @RequestMapping("/admin/ordergoods")
@@ -28,6 +32,12 @@ public class LaundryArticlesRestController {
 
 	@Resource(name = "picturePath")
 	private String picturePath;
+	
+	@Resource(name = "laundryArticlesService")
+	private LaundryArticlesService laundryArticlesService;
+	
+	@Autowired
+	private AttachService attachService;
 
 	private Map<String, String> savePicture(String oldPicture, MultipartFile multi) throws Exception {
 		String fileName = null;
@@ -70,25 +80,23 @@ public class LaundryArticlesRestController {
 			status = HttpStatus.BAD_REQUEST;
 		} else {
 			status = HttpStatus.OK;
-			result.put("result", "업로드 성공.!");
+			result.put("result", "업로드 성공!!");
 		}
 		entity = new ResponseEntity<Map<String, String>>(result, status);
+		
 		
 		return entity;
 	}
 	@RequestMapping(value = "/getPicture", produces = "text/plain;charset=utf-8")
-	public ResponseEntity<byte[]> getPicture(String articlesCode, AttachVO attach) throws Exception {
-
-		//String picture = orderGoodsService.getOrderGoods(articlesCode, attach).getPicture();
-		InputStream in = null;
+	public ResponseEntity<byte[]> getPicture(String atchFileNo, AttachVO attach) throws Exception {
+		
+		FileUtil fileUtil = new FileUtil();
+		ResponseEntity<List<byte[]>> en = fileUtil.getPicture(atchFileNo, attachService);
+		List<byte[]> bs =en.getBody();
+		byte[] file = bs.get(0);
+		
 		ResponseEntity<byte[]> entity = null;
-		String imgPath = this.picturePath;
-		try {
-		//	in = new FileInputStream(new File(imgPath, picture));
-			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), HttpStatus.CREATED);
-		} finally {
-			in.close();
-		}
+		entity = new ResponseEntity<byte[]>(file, HttpStatus.CREATED);
 		return entity;
 	}
 

@@ -34,10 +34,9 @@ public class LaundryArticlesDAOImpl implements LaundryArticlesDAO{
 	}
 	
 	@Override
-	public LaundryArticlesVO selectLaundryArticlesListByArticlesCode(String articlesCode)
-			throws SQLException {
+	public LaundryArticlesVO selectLaundryArticlesListByArticlesCode(String articlesCode) throws SQLException {
 		LaundryArticlesVO ordergoods=
-				session.selectOne("LaundryArticles-Mapper.selectLaundryArticlesByArticlesCode",articlesCode);
+				session.selectOne("LaundryArticles-Mapper.selectLaundryArticlesByArticlesCode", articlesCode);
 		return ordergoods;
 	}
 
