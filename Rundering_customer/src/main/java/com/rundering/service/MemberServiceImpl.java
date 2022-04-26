@@ -3,23 +3,23 @@ package com.rundering.service;
 import java.util.List;
 
 import com.rundering.command.MemberAddCommand;
-import com.rundering.dao.MemberAddressDAOImpl;
+import com.rundering.dao.MemberAddressDAO;
 import com.rundering.dao.MemberDAOImpl;
 import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
 
 public class MemberServiceImpl implements MemberService {
-	MemberDAOImpl memberDAO;
-	
-	MemberAddressDAOImpl memberAddressDAO;
-
+	private MemberDAOImpl memberDAO;
 	public void setMemberDAO(MemberDAOImpl memberDAO) {
 		this.memberDAO = memberDAO;
 	}
 	
-	public void setmemberAddressDAO(MemberAddressDAOImpl memberAddressDAO) {
+	private MemberAddressDAO memberAddressDAO;
+	public void setMemberAddressDAO(MemberAddressDAO memberAddressDAO) {
 		this.memberAddressDAO = memberAddressDAO;
 	}
+
+	
 
 	@Override
 	public MemberVO getMember(String id) throws Exception {
