@@ -406,7 +406,7 @@
 		if(item.value > 99){
 			 Toast.fire({
 			      icon: 'warning',
-			      title: '최대 주문 가능 수량은 99개입니다.'
+			      title: '세탁주문 최대 수량은 99개입니다.'
 			    });
 			 item.value = 1;
 		}

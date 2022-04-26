@@ -23,7 +23,7 @@
 </head>
 
 <body>
-	<form role="form" action="<%=request.getContextPath()%>/order/completed" method="post">
+	<form role="form" action="<%=request.getContextPath()%>/order/completed?from=confirm" method="post">
 		<div style="width: 60%; margin-left: 20%;">
 			<section class="content-header">
 				<div class="container-fluid">
@@ -176,10 +176,14 @@ var dataNum = 1;
 		deleteUploadFile(dataNum);
 		
 		$('div[data-no="'+dataNum+'"]').remove();
+		
 	}
 	
 	function deleteUploadFile(dataNum){
-		let deleteFile = findByAttributeValue("data-uploadedno",dataNum,"input");
+		 let deleteFile = findByAttributeValue("data-uploadedno",dataNum,"input");
+		 if(!deleteFile) {
+			 return;
+		 }
 		 let deleteFileName = deleteFile.value;
 		 
 		 deleteFile.remove();

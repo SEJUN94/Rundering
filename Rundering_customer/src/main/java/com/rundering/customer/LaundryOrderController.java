@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.LaundryOrderReceiveCommand;
@@ -89,10 +90,19 @@ public class LaundryOrderController {
 	}
 	
 	@RequestMapping(value = "/completed", method = RequestMethod.POST)
-	public ModelAndView completed(LaundryOrderReceiveCommand command, HttpServletRequest request, ModelAndView mnv) throws Exception {
-		
+	public ModelAndView completed(@RequestParam(defaultValue = "") String from,LaundryOrderReceiveCommand command, HttpServletRequest request, ModelAndView mnv) throws Exception {
+		System.out.println(from);
 		//주문완료 페이지가 없어 일단 홈화면으로 가도록 함
 		String url="/order/order_completed";
+		
+//		if(!from.equals("confirm")) {
+//			//insert가 된 후 새로고침 시
+//			LaundryOrderVO registeredLaundryOrder = laundryOrderService.getLaundryOrderByPaymentNo(command.getPaymentNo());
+//		}else {
+//			//insert 첫 요청 시
+//			//밑의 insert처리부분들어와야함
+//			url="redirect:/order/completed";
+//		}
 		
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
