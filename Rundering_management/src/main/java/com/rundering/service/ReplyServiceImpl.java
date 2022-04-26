@@ -19,30 +19,26 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override
 	public Map<String, Object> getReplyList(String replyno,Criteria cri) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		List<ReplyVO> replyList = replyDAO.selectReplyByReplyNo(replyno);
+		int replynoInt =Integer.parseInt(replyno); 
+		List<ReplyVO> replyList = replyDAO.selectReplyByReplyNo(replynoInt);
 		
 		
 		PageMaker pageMaker = new PageMaker();
 		
-		int totalCount = replyDAO.selectReplyCountByReplyno(replyno);
+		int totalCount = replyDAO.selectReplyCountByReplyno(replynoInt);
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
-
+ 
 		dataMap.put("replyList", replyList);
-		dataMap.put("pageMaker", pageMaker);
+		dataMap.put("pageMaker", pageMaker); 
 		
 		return dataMap;
-	}
-	@Override
-	public void firstRegistReply(ReplyVO reply) throws Exception {
-		int replyno = replyDAO.selectReplySeq();
-		reply.setReplyno(replyno);
-		replyDAO.insertReplyByReplyVOFirst(reply);
-
 	}
 	
 	@Override
 	public void registReply(ReplyVO reply) throws Exception {
+		int count =replyDAO.selectReplyCheckByReplyno(reply.getReplyno());
+		reply.setCount(count);
 		replyDAO.insertReplyByReplyVO(reply);
 	}
 	

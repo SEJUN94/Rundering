@@ -7,21 +7,27 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rundering.command.BranchCriteria;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.service.AttachService;
 import com.rundering.service.LaundryOrderService;
+import com.rundering.util.FileUtil;
 
 @Controller
 @RequestMapping("/branch/laundrysituatuion")
 public class LaundrySituatuionController {
 	@Autowired
 	LaundryOrderService laundryOrderService;
+	@Autowired
+	AttachService attachService;
 	
 	@RequestMapping("/list")
 	private String situatuionList(Model model,BranchCriteria cri,HttpSession session) throws Exception {
@@ -49,19 +55,25 @@ public class LaundrySituatuionController {
 		laundryOrderService.updateStatus(laundryOrderList);
 		return url;
 	}
-	/*
-	 * @RequestMapping(value = "/requestregist", method =
-	 * RequestMethod.POST,produces = "application/json;charset=UTF-8")
-	 * 
-	 * @ResponseBody private ResponseEntity<Map<String, Object>> regist(ReplyVO
-	 * reply) {
-	 * 
-	 * }
-	 */
 	
 	@RequestMapping("/detail")
 	private String situatuonDetail() {
 		String url = "branch/laundrysituatuion/situatuion_modify";
 		return url; 
 	}
+	@RequestMapping(value =  "/getimgs",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	private  ResponseEntity<List<byte[]>> situationGetImage(String atchFileNo){
+		FileUtil fileUtil = new FileUtil();
+		 
+		ResponseEntity<List<byte[]>> resp=null;;
+		try {
+			resp = fileUtil.getPicture(atchFileNo, attachService);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resp;
+	}
+	
 }

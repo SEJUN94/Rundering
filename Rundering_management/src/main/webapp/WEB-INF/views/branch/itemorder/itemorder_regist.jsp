@@ -210,6 +210,7 @@ function orderGoodsList(pageInfo){
 			
 			let source = $("#laundryArticlesList").html();
 			let pageSource = $("#pagination-template").html();
+			
 			let pageTemplate = Handlebars.compile(pageSource); 
 			let template = Handlebars.compile(source); 
 			
@@ -246,6 +247,7 @@ function orderGoodsList(pageInfo){
 			
 			let html = template(data);
 			let pagehtml = pageTemplate(pageMaker);
+			
 			$("#listBody").innerHTML="";
 			if($("#removeBody")!=null){
 				$("#removeBody").remove()

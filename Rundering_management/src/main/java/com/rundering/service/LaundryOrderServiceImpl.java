@@ -8,6 +8,7 @@ import com.rundering.command.BranchCriteria;
 import com.rundering.command.BranchPageMaker;
 import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
+import com.rundering.dao.AttachDAO;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.LaundryItemsDAO;
@@ -15,12 +16,11 @@ import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
 import com.rundering.dao.MemberDAO;
 import com.rundering.dao.ReplyDAO;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.BranchVO;
-import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberVO;
-import com.rundering.dto.ReplyVO;
 import com.rundering.util.ComCodeUtil;
 import com.rundering.util.FormatUtil;
 
@@ -54,6 +54,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	public void setMemberDAO(MemberDAO memberDAO) {
 		this.memberDAO = memberDAO;
 	}
+	private AttachDAO attachDAO;
+	public void setAttachDAO(AttachDAO attachDAO) {
+		this.attachDAO = attachDAO;
+	}
 	@Override
 	public Map<String,Object> laundryOrderList(BranchCriteria cri) throws Exception{
 		ComCodeUtil comCodeUtil =new ComCodeUtil();
@@ -86,9 +90,9 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 			laundryOrderDAO.updateLaundryOrderStatusByOrderNo(laundryOrder);
 		}
 	}
-	public void insertRequest(ReplyVO peply) throws Exception{
-		
-		
+	@Override
+	public List<AttachVO> selectAttachList(String attchNo) throws Exception{
+		return attachDAO.selectAttachVOByFileNo(attchNo);
 	}
 	@Override
 	public Map<String, Object> getAdminlaundryOrderList(Criteria cri) throws Exception {

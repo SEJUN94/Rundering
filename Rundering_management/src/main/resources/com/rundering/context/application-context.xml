@@ -125,6 +125,7 @@
 		p:comCodeDAO-ref="comCodeDAO"
 		p:branchDAO-ref="branchDAO"
 		p:memberDAO-ref="memberDAO"
+		p:attachDAO-ref="attachDAO"
 	/>
 	<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl" 
 		p:memberAddressDAO-ref="memberAddressDAO"

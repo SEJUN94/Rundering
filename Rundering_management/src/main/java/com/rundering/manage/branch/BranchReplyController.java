@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.josephoconnell.html.HTMLInputFilter;
 import com.rundering.command.Criteria;
 import com.rundering.dto.MemberVO;
 import com.rundering.dto.ReplyVO;
 import com.rundering.service.ReplyService;
 
 @Controller
-@RequestMapping("baranch/reply")
+@RequestMapping("branch/reply")
 public class BranchReplyController {
 
 	@Autowired
@@ -41,33 +42,16 @@ public class BranchReplyController {
 	}
 	
 	
-	@RequestMapping(value = "firstRegist",method = RequestMethod.POST)
-	public ResponseEntity<String> firstRegist(ReplyVO reply,HttpSession session,Criteria cri) {
-		ResponseEntity<String> resp = null;
-		MemberVO member= (MemberVO)session.getAttribute("loginMember");
-		
-		reply.setMemberno(member.getMemberNo());
-		try {
-			replySerivce.firstRegistReply(reply);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		resp = new ResponseEntity<String>("success", HttpStatus.OK);
-		return resp;
-		
-	}
+	
 	@RequestMapping(value = "regist",method = RequestMethod.POST)
 	public ResponseEntity<String> regist (ReplyVO reply,HttpSession session,Criteria cri){
 		ResponseEntity<String> resp = null;
 		MemberVO member = (MemberVO) session.getAttribute("loginMember");
-
 		reply.setMemberno(member.getMemberNo());
+		reply.setReplyContent(HTMLInputFilter.htmlSpecialChars(reply.getReplyContent()));
 		try {
 			replySerivce.registReply(reply);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resp;
