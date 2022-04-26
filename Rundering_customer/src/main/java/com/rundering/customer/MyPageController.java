@@ -248,36 +248,66 @@ public class MyPageController {
 	}
 	
 	// 내 주소 기본 주소지로 변경 및 수정
-	public ResponseEntity<String> modifyDefaultAdd(MemberAddressVO memberAdd){
+	@RequestMapping("/myaddress/defaultmodify")
+	public ResponseEntity<String> modifyDefaultAdd(HttpServletRequest request,MemberAddressVO memberAdd){
+		ResponseEntity<String> response = null;
 		
-		ResponseEntity<String> entity = null;
+		HttpSession session = request.getSession();
+		MemberVO mv = (MemberVO) session.getAttribute("loginUser");
 		
+		memberAdd.setMemberNo(mv.getMemberNo());
 		try {
 			memberAddressService.modifyDefaultAddress(memberAdd);
-			
-			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+			response = new ResponseEntity<String>("OK", HttpStatus.OK);
 		} catch (Exception e) {
-			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+			response = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		return entity;
-		
+		return response;
 	}
 		
 	// 내 주소지 수정
+	@RequestMapping("/myaddress/modify")
 	public ResponseEntity<String> modifyAdd(MemberAddressVO memberAdd){
-		ResponseEntity<MemberAddressVO> entity = null;
-		
-		
-		
-		return null;
-	
+		ResponseEntity<String> response = null;
+		try {
+			memberAddressService.modifyAddress(memberAdd);
+			response = new ResponseEntity<String>("OK", HttpStatus.OK);
+		} catch (Exception e) {
+			response = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return response;
 	}
 	
 	// 내 주소지 기본 주소지로 변경 및 등록
+	@RequestMapping("/myaddress/defaultregist")
+	public ResponseEntity<String> defaultAddressRegist(HttpServletRequest request,MemberAddressVO memberAdd){
+		ResponseEntity<String> response = null;
+		
+		HttpSession session = request.getSession();
+		MemberVO mv = (MemberVO) session.getAttribute("loginUser");
+		
+		memberAdd.setMemberNo(mv.getMemberNo());
+		
+		try {
+			memberAddressService.defaultAddressRegist(memberAdd);
+			response = new ResponseEntity<String>("OK", HttpStatus.OK);
+		} catch (Exception e) {
+			response = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return response;
+	}
 	
 	// 내 주소지 추가 등록
-	
-	
+	@RequestMapping("/myaddress/regist")
+	public ResponseEntity<String> addAddressRegist(MemberAddressVO memberAdd){
+		ResponseEntity<String> response = null;
+		try {
+			memberAddressService.addAddressRegist(memberAdd);
+			response = new ResponseEntity<String>("OK", HttpStatus.OK);
+		} catch (Exception e) {
+			response = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return response;
+	}
 	
 }

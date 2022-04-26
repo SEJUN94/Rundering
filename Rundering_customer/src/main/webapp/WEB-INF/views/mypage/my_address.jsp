@@ -126,7 +126,7 @@
 										placeholder="기본주소" value="" readonly>
 								</div>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control" id="add21" name="add21"
+									<input type="text" class="form-control" id="add22" name="add22"
 										placeholder="상세주소" value=""> <input type="hidden"
 										class="form-control" id="addressNo1" name="addressNo1"
 										value="">
@@ -258,7 +258,7 @@
 				document.getElementById('zip1').value = data.zonecode;
 				document.getElementById("add11").value = addr;
 				// 커서를 상세주소 필드로 이동한다.
-				document.getElementById("add21").focus();
+				document.getElementById("add22").focus();
 			}
 		}).open();
 	}
@@ -284,13 +284,12 @@
 	let defualt = document.querySelector('#setDefaultAddr'); 
 	let defualt1 = document.querySelector('#setDefaultAddr1'); 
 	
-	var ta1 = $('input[name="add1"]');
-	var ta2 = ta1.val();
+	var ta2 = add1.value
 	var topArea = ta2.substr(0,2);
 	
-	var ta2 = $('input[name="add11"]');
-	var ta3 = ta2.val();
-	var topArea1 = ta3.substr(0,2);
+	var ta3 = document.querySelector('#add11');
+	var ta4 = ta3.value
+	var topArea1 = ta4.substr(0,2);
 	
 	//주소 수정 
 	function addrmodify(){
@@ -309,7 +308,7 @@
 		             }).then((result) => {
 		                 if (result.isConfirmed) {
 		                    $.ajax({
-		                     url : '<%=request.getContextPath()%>/mypage/ ',
+		                     url : '<%=request.getContextPath()%>/mypage/myaddress/defaultmodify',
 		                     type : 'post',
 		                     data : {
 		                    	 'add1' : $('#add1').val(),
@@ -345,7 +344,7 @@
 		             }).then((result) => {
 		                 if (result.isConfirmed) {
 		                    $.ajax({
-		                     url : '<%=request.getContextPath()%>/mypage/ ',
+		                     url : '<%=request.getContextPath()%>/mypage/myaddress/modify',
 		                     type : 'post',
 		                     data : {
 		                    	 'add1' : $('#add1').val(),
@@ -384,7 +383,7 @@
 	             }).then((result) => {
 	                 if (result.isConfirmed) {
 	                    $.ajax({
-	                     url : '<%=request.getContextPath()%>/mypage/  ',
+	                     url : '<%=request.getContextPath()%>/mypage/myaddress/defaultmodify',
 	                     type : 'post',
 	                     data : {
 	                    	 'add1' : $('#add1').val(),
@@ -420,7 +419,7 @@
 		             }).then((result) => {
 		                 if (result.isConfirmed) {
 		                    $.ajax({
-		                     url : '<%=request.getContextPath()%>/mypage/  ',
+		                     url : '<%=request.getContextPath()%>/mypage/myaddress/modify',
 		                     type : 'post',
 		                     data : {
 		                    	 'add1' : $('#add1').val(),
@@ -450,7 +449,7 @@
 	}
 	
 	function addrregist(){
-		if(${fn:length(memberAddressList)} > 3) {
+		if(${fn:length(memberAddressList)} < 3) {
 			
 			if(topArea1 == "대전"){
 				if(defualt1.value != 'Y'){
@@ -467,7 +466,7 @@
 			             }).then((result) => {
 			                 if (result.isConfirmed) {
 			                    $.ajax({
-			                     url : '<%=request.getContextPath()%>/mypage/ ',
+			                     url : '<%=request.getContextPath()%>/mypage/myaddress/defaultregist',
 			                     type : 'post',
 			                     data : {
 			                    	 'add1' : $('#add1').val(),
@@ -503,7 +502,7 @@
 			             }).then((result) => {
 			                 if (result.isConfirmed) {
 			                    $.ajax({
-			                     url : '<%=request.getContextPath()%>/mypage/ ',
+			                     url : '<%=request.getContextPath()%>/mypage/myaddress/regist',
 			                     type : 'post',
 			                     data : {
 			                    	 'add1' : $('#add1').val(),
@@ -542,7 +541,7 @@
 		             }).then((result) => {
 		                 if (result.isConfirmed) {
 		                    $.ajax({
-		                     url : '<%=request.getContextPath()%>/mypage/  ',
+		                     url : '<%=request.getContextPath()%>/mypage/myaddress/defaultregist',
 		                     type : 'post',
 		                     data : {
 		                    	 'add1' : $('#add1').val(),
@@ -578,7 +577,7 @@
 			             }).then((result) => {
 			                 if (result.isConfirmed) {
 			                    $.ajax({
-			                     url : '<%=request.getContextPath()%>/mypage/  ',
+			                     url : '<%=request.getContextPath()%>/mypage/myaddress/regist',
 			                     type : 'post',
 			                     data : {
 			                    	 'add1' : $('#add1').val(),
