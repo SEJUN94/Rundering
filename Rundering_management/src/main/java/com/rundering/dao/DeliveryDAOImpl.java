@@ -22,7 +22,7 @@ public class DeliveryDAOImpl implements DeliveryDAO{
 
 		List<LaundryOrderVO> collect = session.selectList("Delivery-Mapper.selectDeliveryList", orderStatus);
 		
-		return collect;
+		return collect; 
 	}
 
 	@Override

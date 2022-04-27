@@ -30,7 +30,7 @@
 		<result column="ADD2" property="add2"/>
 		<result column="ATCH_FILE_NO" property="atchFileNo"/>
 		<result column="REPLYNO" property="replyNo"/>
-	</resultMap>
+	</resultMap> 
 	
 	<resultMap type="laundryOrderDetail" id="laundryOrderDetailMap">
 		<result column="DETAIL_ORDERNO" property="detailOrderno"/>

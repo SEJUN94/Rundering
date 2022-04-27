@@ -7,7 +7,7 @@ import com.rundering.command.Criteria;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 
-public interface DeliveryService {
+public interface DeliveryService { 
 	
 	List<LaundryOrderVO> getDeliveryList(String orderStatus) throws Exception;
 	

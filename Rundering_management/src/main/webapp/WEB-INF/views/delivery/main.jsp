@@ -25,7 +25,7 @@
     "><i class="fa fa-bell"></i> 진행중인 수거 1건</button>
         <button type="button" class="btn btn-block btn-outline-success btn-lg" 
         onclick="location.href='<%=request.getContextPath()%>/fordelivery/delivery?orderStatus=06'"
-        style="
+        style=" 
         font-size: 2rem;
         padding: 2rem 0;
         margin: 2rem 0;
