@@ -17,13 +17,13 @@
 					<div class="col-sm-11 p-2 pl-4" style="display: inline-flex;">
 						<c:forEach items="${orderCodeMap }" var="orderCode" >
 							<div class="form-check ">
-								<input class="form-check-input" type="checkbox" name="orderStatus" id="${orderCode.key}" onclick="list_go('1');" value="${orderCode.key}" <c:if test = "${fn:contains(cri.orderStatus, orderCode.key)}">checked</c:if>><label class="form-check-label" for="${orderCode.key}">${orderCode.value}&nbsp;&nbsp;</label>
+								<input class="form-check-input" type="checkbox" name="orderStatus" id="${orderCode.key}" onclick="list_go('1');" value="${orderCode.key}" ${fn:contains(cri.orderStatus, orderCode.key) ? 'checked' : ''} ><label class="form-check-label" for="${orderCode.key}">${orderCode.value}&nbsp;&nbsp;</label>
 							</div>
 						</c:forEach>
 					</div>
 				</div>
 				<div class="form-group row m-0">
-					<label for="orderperiod" class="col-sm-1 col-form-label pr-0">수거요청일</label>
+					<label for="dates" class="col-sm-1 col-form-label pr-0">수거요청일</label>
 					<div class="col-sm-4 pl-4">
 						<div class="input-group">
 							<div class="input-group-prepend">
@@ -31,6 +31,29 @@
 							</div>
 							<input type="text" id="dates" class="form-control" name="pickupRequestDate" value="${cri.pickupRequestDate }">
 						</div>
+					</div>
+					<label for="branchCode" class="col-sm-1 col-form-label ml-3" style="text-align: end;">담당지점</label>
+					<div class="col-sm-2">
+						<select class="form-control" name="branchCode" id="branchCode" style="width: auto;" onchange="list_go('1')">
+								<option value="">전체</option>
+								<option value="notAssigned" ${cri.branchCode eq 'notAssigned' ? 'selected':'' }>미할당</option>
+								<c:forEach items="${branchNameMap }" var="branchCode">
+									<c:if test="${branchCode.key ne '000000'}">
+									<option value="${branchCode.key }"
+										${cri.branchCode eq branchCode.key ? 'selected':'' }>${branchCode.value }</option>
+									</c:if>
+								</c:forEach>
+						</select>
+					</div>
+					<label for="area" class="col-sm-1 col-form-label ml-5" style="text-align: end;">지역분류</label>
+					<div class="col-sm-2">
+						<select class="form-control" name="area" id="area" style="width: auto;" onchange="list_go('1')">
+								<option value="">전체</option>
+								<c:forEach items="${areaCodeMap }" var="areaCode">
+										<option value="${areaCode.key }"
+											${cri.area eq areaCode.key ? 'selected':'' }>${areaCode.value }</option>
+								</c:forEach>
+						</select>
 					</div>
 				</div>
 			</div>
@@ -44,19 +67,6 @@
 			<div class="card-header">
 					<h3 class="card-title" style="font-size: 1.75rem;">세탁 주문</h3>
 					<span class="text-muted" style="display: inline-block;margin-top: 6px;padding-left: 15px;">검색결과 <fmt:formatNumber type="number" maxFractionDigits="3" value="${pageMaker.totalCount }" />개</span>
-					<div class="card-tools">
-						<div class="input-group input-group-sm" style="width: 300px;margin-top: auto;">
-							<select class="form-control col-md-4" name="searchType" id="searchType">
-									<option>지점명</option>
-									<option>주문자명</option>
-									<option>배송연락처</option>
-								</select> <input class="form-control" type="text" name="keyword" placeholder="검색어를 입력하세요." value=""> <span class="input-group-append">
-									<button class="btn btn-primary" type="button" onclick="list_go(1);" data-card-widget="search">
-										<i class="fa fa-fw fa-search"></i>
-									</button>
-								</span>
-						</div>
-					</div>
 				</div>
 
 				<div class="card-body table-responsive p-0 mt-0">

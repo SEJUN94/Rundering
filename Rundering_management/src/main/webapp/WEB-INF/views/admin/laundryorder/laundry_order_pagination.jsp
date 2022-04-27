@@ -37,8 +37,8 @@
 	<input type='hidden' name="page" value="" />
 	<input type='hidden' name="orderStatus" value="" />
 	<input type='hidden' name="pickupRequestDate" value="" />
-	<!-- <input type='hidden' name="searchType" value="" />
-	<input type='hidden' name="keyword" value="" /> -->
+	<input type='hidden' name="branchCode" value="" />
+	<input type='hidden' name="area" value="" />
 </form>
 
 <script>
@@ -53,7 +53,9 @@
 			orderStatusArr.push($(this).val());
 		});
 		jobForm.find("[name='orderStatus']").val(orderStatusArr);
-		jobForm.find("[name='pickupRequestDate']").val($('input[name="pickupRequestDate"]').val());
+		jobForm.find("[name='pickupRequestDate']").val($('div.input-group>input[name="pickupRequestDate"]').val());
+		jobForm.find("[name='branchCode']").val($('select[name="branchCode"]').val());
+		jobForm.find("[name='area']").val($('select[name="area"]').val());
 		/* jobForm.find("[name='searchType']").val($('select[name="searchType"]').val()); */
 		/* jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val()); */
 	

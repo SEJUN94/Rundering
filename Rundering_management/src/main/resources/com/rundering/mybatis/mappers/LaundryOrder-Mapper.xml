@@ -124,12 +124,22 @@
 		</if>
 	</sql>
 	
-	<sql id="searchPickupRequestDate">
+	<sql id="searchAdminLaundryOrderList">
 		<if test="pickupRequestDate!=null and !pickupRequestDate.equals('')">
-			 and PICKUP_REQUEST_DATE  BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') 
+			AND PICKUP_REQUEST_DATE  BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') 
                                      AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
 		</if>
+		<if test="branchCode!=null and !branchCode.equals('') and !branchCode.equals('notAssigned')">
+			AND BRANCH_CODE = #{branchCode}
+		</if>
+		<if test="branchCode!=null and branchCode.equals('notAssigned')">
+			AND BRANCH_CODE IS NULL
+		</if>
+		<if test="area!=null and !area.equals('')">
+			AND AREA = #{area}
+		</if>
 	</sql>
+	
 
 	<select id="selectCount" resultType="int">
 		select count(*)
@@ -159,7 +169,7 @@
 		  from TB_LAUNDRY_ORDER
 		 where ORDER_NO is not null
 		 <include refid="searchOrderStatus"/>
-		 <include refid="searchPickupRequestDate"/>
+		 <include refid="searchAdminLaundryOrderList"/>
 		 order by PICKUP_REQUEST_DATE DESC
 	</select>
 	
@@ -169,7 +179,7 @@
 		  from TB_LAUNDRY_ORDER
 		 where ORDER_NO is not null
 		 <include refid="searchOrderStatus"/>
-		 <include refid="searchPickupRequestDate"/>
+		 <include refid="searchAdminLaundryOrderList"/>
 	</select>
 	
 	<update id="updateLaundryOrderStatusByOrderNo" parameterType="laundryOrder" >
