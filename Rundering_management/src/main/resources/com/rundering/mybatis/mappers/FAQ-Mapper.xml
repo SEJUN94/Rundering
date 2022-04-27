@@ -19,6 +19,8 @@
 		<result column="ANSWER_WRITER" property="answerwriter" />
 		<result column="FAQYN" property="faqyn" />
 		<result column="FCONTENT" property="fcontent" />
+		<result column="ORDERNO" property="orderno" />
+		<result column="ATCH_FILE_NO" property="atchfileno" />
 
 	</resultMap>
 

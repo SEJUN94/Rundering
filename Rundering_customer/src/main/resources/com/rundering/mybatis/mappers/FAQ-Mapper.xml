@@ -19,6 +19,8 @@
 		<result column="ANSWER_WRITER" property="answerwriter" />
 		<result column="FAQYN" property="faqyn" />
 		<result column="FCONTENT" property="fcontent" />
+		<result column="ORDERNO" property="orderno" />
+		<result column="ATCH_FILE_NO" property="atchfileno" />
 
 	</resultMap>
 
@@ -52,9 +54,9 @@
 			a.answer
 		from tb_faq a, tb_member b
 			where a.writer = b.memberno
-			and a.faqyn = 'N'
+				and a.faqyn = 'N'
 			<include refid="search" />
-		order by a.faqno desc
+			order by a.faqno desc
 	</select>
 
 	<select id="selectSearchFAQListCount" resultType="int">
@@ -68,7 +70,7 @@
 
 	<select id="selectFAQByFaqno" parameterType="int" resultMap="faqMap">
 		select a.faqno, a.setbukdoorclcode, a.question, a.fcontent, a.regist_date, b.name as writer, a.answer
-		from tb_faq a, tb_member b, tb_laundery_order c
+		from tb_faq a, tb_member b
 		where faqno=#{faqno}
 			and a.writer = b.memberno
 	</select>
@@ -108,5 +110,15 @@
 		from tb_faq
 		where faqno=#{faqno}
 	</update>
+	
+	<!-- 자주묻는질문 리스트보기 -->
+	<select id="selectFrequentlyList" resultMap="faqMap">
+		select
+		    question as 문의내용,
+		    answer as 답변
+		  from tb_faq
+		 where faqyn = 'Y'
+		 order by faqno asc;
+	</select>
 
 </mapper>

@@ -60,4 +60,17 @@ public class FAQServiceImpl implements FAQService {
 		faqDAO.deleteFAQ(faqno);
 	}
 
+	/* 아코디언 */
+	
+	@Override
+	public Map<String, Object> getFAQFrequentlyList(Criteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+
+		List<FAQVO> frequentlyList = faqDAO.selectSearchFAQList(cri);
+
+		dataMap.put("frequentlyList", frequentlyList);
+
+		return dataMap;
+	}
+
 }

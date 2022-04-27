@@ -22,4 +22,7 @@ public interface FAQService {
 	
 	// 삭제
 	void remove(int faqno) throws SQLException;
+	
+	/* 아코디언 */
+	public Map<String, Object> getFAQFrequentlyList(Criteria cri) throws SQLException;
 }

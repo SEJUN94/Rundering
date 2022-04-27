@@ -25,6 +25,18 @@ public class FAQController {
 	@Autowired
 	FAQService faqService;
 
+	//아코디언
+	@RequestMapping("/faq")
+	private ModelAndView frequentlyList(Criteria cri, ModelAndView mnv) throws Exception {
+		String url = "question/frequently_questions";
+		
+		Map<String, Object> dataMap = faqService.getFAQFrequentlyList(cri);
+		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
 	// 리스트
 	@RequestMapping(value = "/list")
 	private ModelAndView faqList(Criteria cri, ModelAndView mnv) throws Exception {
