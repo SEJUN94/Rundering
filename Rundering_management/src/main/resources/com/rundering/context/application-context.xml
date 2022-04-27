@@ -109,6 +109,9 @@
 	/>
 	<bean id="noticeService" class="com.rundering.service.NoticeServiceImpl" 
 		p:noticeDAO-ref="noticeDAO"
+		p:replyDAO-ref="replyDAO"
+		p:branchDAO-ref="branchDAO"
+		p:employeesDAO-ref="employeesDAO"
 	/>
 	<bean id="itemOrderService" class="com.rundering.service.ItemOrderServiceImpl"
 		p:itemOrderDAO-ref="itemOrderDAO"

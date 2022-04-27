@@ -2,6 +2,7 @@ package com.rundering.dao;
 
 import java.util.List;
 
+import com.rundering.command.Criteria;
 import com.rundering.dto.ReplyVO;
 
 public interface ReplyDAO {
@@ -20,6 +21,8 @@ public interface ReplyDAO {
 	void deleteReply(ReplyVO reply) throws Exception;
 
 	void updateReply(ReplyVO reply) throws Exception;
+
+	List<ReplyVO> selectReplyByReplyNo(int replyNo, Criteria cri) throws Exception;
 
 	
 	

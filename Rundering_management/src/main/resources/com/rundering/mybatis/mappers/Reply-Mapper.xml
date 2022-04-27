@@ -22,7 +22,7 @@
  		   and delete_yn = 'N'
  		 order by regist_date asc 
  	</select>
- 	<select id="selectReplyCountByReplyno">
+ 	<select id="selectReplyCountByReplyno" resultType="int">
  		select count(replyno_seq)
  		  from tb_reply
  		 where replyno=#{replyno}
@@ -95,8 +95,8 @@
 	</update>
 	
 	<update id="deleteReply" parameterType="int">
-		update from TB_REPLY
-		set delete_yn="Y"
+		update TB_REPLY
+		set delete_yn='Y' 
 		where replyno=#{replyno}	
 		  and replyno_seq=#{replynoSeq}	
 	</update>	

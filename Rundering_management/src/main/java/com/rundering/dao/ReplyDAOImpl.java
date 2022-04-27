@@ -2,8 +2,10 @@ package com.rundering.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.Criteria;
 import com.rundering.dto.ReplyVO;
 
 public class ReplyDAOImpl implements ReplyDAO{
@@ -16,6 +18,14 @@ public class ReplyDAOImpl implements ReplyDAO{
 	@Override 
 	public List<ReplyVO> selectReplyByReplyNo(int replyNo) throws Exception{
 		return session.selectList("Reply-Mapper.selectReplyByReplyNo", replyNo);
+	}
+	@Override 
+	public List<ReplyVO> selectReplyByReplyNo(int replyNo,Criteria cri) throws Exception{
+		int offset=cri.getStartRowNum();
+		int limit=cri.getPerPageNum();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("Reply-Mapper.selectReplyByReplyNo", replyNo,rowBounds);
+		
 	}
 	@Override
 	public int selectReplySeq() throws Exception{
