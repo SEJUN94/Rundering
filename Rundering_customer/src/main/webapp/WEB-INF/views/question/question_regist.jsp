@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <head>
 <link rel="stylesheet"
@@ -103,6 +102,11 @@
 				alert("제목은 필수입니다.");
 				return;
 			}
+			if (form.secretyn.value == "") {
+				alert("공개여부를 선택하세요.");
+				return;
+			}
+			alert("등록되었습니다.");
 			form.submit();
 		}
 	</script>

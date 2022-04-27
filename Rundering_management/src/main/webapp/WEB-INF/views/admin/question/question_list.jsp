@@ -134,12 +134,6 @@ th, td {
 						</tr>
 					</c:forEach>
 				</table>
-				<div class="float-right mt-3 mr-3 mb-3">
-
-					<button class="btn btn-primary" type="button" id="registBtn"
-						onclick="location.href='<%=request.getContextPath()%>/question/registForm'">
-						문의하기</button>
-				</div>
 			</div>
 		</div>
 

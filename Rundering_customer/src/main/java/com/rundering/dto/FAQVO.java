@@ -1,6 +1,6 @@
 package com.rundering.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class FAQVO {
 	private int faqno; // 질문번호

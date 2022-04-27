@@ -108,8 +108,10 @@
 									</div>
 								</div>
 								<label for="ascontent">내 용</label>
-								<textarea class="textarea" name="ascontent" id="ascontent"
-									rows="25" cols="90" placeholder="1000자 내외로 작성하세요.">${fn:escapeXml(asRequest.ascontent)}</textarea>
+								<div class="form-group">
+									<textarea style="border: none; height: 100px; resize: none;"
+										class="textarea" rows="25" cols="50" name="ascontent" id="ascontent">${fn:escapeXml(asRequest.ascontent)}</textarea>
+								</div>
 							</div>
 						</form>
 					</div>

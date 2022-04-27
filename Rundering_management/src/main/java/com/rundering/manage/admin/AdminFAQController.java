@@ -1,4 +1,4 @@
-package com.rundering.customer;
+package com.rundering.manage.admin;
 
 import java.sql.SQLException;
 import java.util.Map;
@@ -19,8 +19,8 @@ import com.rundering.dto.FAQVO;
 import com.rundering.service.FAQService;
 
 @Controller
-@RequestMapping("/question")
-public class FAQController {
+@RequestMapping("/admin/question")
+public class AdminFAQController {
 
 	@Autowired
 	FAQService faqService;
@@ -28,7 +28,7 @@ public class FAQController {
 	// 리스트
 	@RequestMapping(value = "/list")
 	private ModelAndView faqList(Criteria cri, ModelAndView mnv) throws Exception {
-		String url = "question/question_list";
+		String url = "admin/question/question_list";
 
 		Map<String, Object> dataMap = faqService.getFAQList(cri);
 		mnv.addObject("dataMap", dataMap);
@@ -37,35 +37,15 @@ public class FAQController {
 		return mnv;
 	}
 
-	@RequestMapping("/registForm")
-	private String faqRegistForm() {
-
-		String url = "question/question_regist";
-
-		return url;
-	}
-
-	@RequestMapping(value = "/regist")
-	public String faqRegist(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-
-		String url = "redirect:/question/list";
-
-		faqService.regist(faq);
-
-		rttr.addFlashAttribute("from", "regist");
-
-		return url;
-	}
-
 	@RequestMapping(value = "/detail")
 	private ModelAndView faqDetail(int faqno, @RequestParam(defaultValue = "") String from, HttpServletRequest request,
 			ModelAndView mnv, HttpSession session) throws SQLException {
 
-		String url = "question/question_detail";
+		String url = "admin/question/question_detail";
 
 		FAQVO faq = null;
 
-		faq = faqService.getFAQModify(faqno);
+		faq = faqService.getFAQReply(faqno);
 
 		mnv.addObject("faq", faq);
 		mnv.setViewName(url);
@@ -73,12 +53,12 @@ public class FAQController {
 		return mnv;
 	}
 
-	@RequestMapping("/modifyForm")
-	public ModelAndView modifyForm(int faqno, ModelAndView mnv) throws Exception {
+	@RequestMapping("/replyForm")
+	public ModelAndView replyForm(int faqno, ModelAndView mnv) throws Exception {
 
-		String url = "question/question_modify";
+		String url = "admin/question/question_reply";
 
-		FAQVO faq = faqService.getFAQModify(faqno);
+		FAQVO faq = faqService.getFAQReply(faqno);
 
 		mnv.addObject("faq", faq);
 
@@ -87,27 +67,15 @@ public class FAQController {
 		return mnv;
 	}
 
-	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyPost(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+	@RequestMapping(value = "/reply", method = RequestMethod.POST)
+	public String replyPost(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
-		String url = "redirect:/question/detail";
+		String url = "redirect:/admin/question/detail";
 
-		faqService.modify(faq);
+		faqService.reply(faq);
 
 		rttr.addAttribute("faqno", faq.getFaqno());
-		rttr.addFlashAttribute("from", "modify");
-
-		return url;
-	}
-
-	@RequestMapping(value = "/remove", method = RequestMethod.GET)
-	public String remove(int faqno, RedirectAttributes rttr) throws Exception {
-		String url = "redirect:/question/detail";
-
-		faqService.remove(faqno);
-
-		rttr.addFlashAttribute("from", "remove");
-		rttr.addAttribute("faqno", faqno);
+		rttr.addFlashAttribute("from", "reply");
 
 		return url;
 	}

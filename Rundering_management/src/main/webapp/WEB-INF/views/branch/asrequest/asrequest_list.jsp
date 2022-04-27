@@ -56,8 +56,7 @@ th, td {
 							<div class="input-group input-group-sm" style="width: 300px;">
 								<select class="form-control col-md-4" name="searchType"
 									id="searchType">
-									<option value="tcwb"
-										${cri.searchType eq 'tcwb' ? 'selected':'' }>전체</option>
+									<option value="tcwb" ${cri.searchType eq 'tcwb' ? 'selected':'' }>전체</option>
 									<option value="t" ${cri.searchType eq 't' ? 'selected':'' }>제목</option>
 									<option value="c" ${cri.searchType eq 'c' ? 'selected':'' }>내용</option>
 									<option value="w" ${cri.searchType eq 'w' ? 'selected':'' }>담당자</option>

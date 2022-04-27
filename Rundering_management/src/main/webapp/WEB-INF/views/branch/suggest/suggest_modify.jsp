@@ -65,8 +65,10 @@
 									</div>
 								</div>
 								<label for="content">내 용</label>
-								<textarea class="textarea" name="content" id="content" rows="25"
-									cols="90" placeholder="1000자 내외로 작성하세요.">${fn:escapeXml(suggest.content)}</textarea>
+								<div class="form-group">
+									<textarea style="border: none; height: 100px; resize: none;"
+										class="textarea" rows="25" cols="50" name="content" id="content">${fn:escapeXml(suggest.content)}</textarea>
+								</div>
 							</div>
 						</form>
 					</div>

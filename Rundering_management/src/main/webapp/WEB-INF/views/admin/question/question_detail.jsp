@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:set var="faqanswer" value="${faq.answer }" />
 
@@ -50,9 +49,6 @@
 									<label for="writer">요청자 <input type="text" id="writer"
 										readonly name="writer" class="form-control"
 										value="${faq.writer }"></label>
-									 <%-- <input type="text" id="employeeId"
-										readonly name="employeeId" class="form-control"
-										value="${asRequest.employeeId }"> --%>
 								</div>
 								<div class="col">
 									<label for="setbukdoorclcode">카테고리 <input type="text"
@@ -89,14 +85,8 @@
 					<!--end card-body  -->					
 					<div class="card-footer">
 						<div class="float-right">
-							<button type="button" class="btn btn-danger" id="removeBtn"
-								onclick="remove_go('${faq.faqno}');">삭제</button>
-							&nbsp;&nbsp;
-							<%-- <button type="button" class="btn btn-primary" id="replyBtn"
+							<button type="button" class="btn btn-warning" id="replyBtn"
 								onclick="reply_go('${faq.faqno}');">답글</button>
-							&nbsp;&nbsp; --%>
-							<button type="button" class="btn btn-warning" id="modifyBtn"
-								onclick="modify_go('${faq.faqno}');">수정</button>
 							&nbsp;&nbsp;
 							<button type="button" class="btn btn-primary" id="cancelBtn"
 								onclick="CloseWindow();">닫기</button>
@@ -112,25 +102,11 @@
 	</section>
 	<!-- /.content -->
 	<script>
-		/* function reply_go(faqno) {
+		function reply_go(faqno) {
 			location.href = "replyForm?faqno=" + faqno;
-		} */
-		function modify_go(faqno) {
-			location.href = "modifyForm?faqno=" + faqno;
 		}
-		function remove_go(faqno) {
-			location.href = "remove?faqno=" + faqno;
-		}
-		/* <c:if test="${from eq 'reply' }">
+		<c:if test="${from eq 'reply' }">
 		alert("등록되었습니다.");
-		</c:if> */
-		<c:if test="${from eq 'modify' }">
-		alert("수정되었습니다.");
-		</c:if>
-		<c:if test="${from eq 'remove'}">
-		alert("삭제되었습니다.");
-		window.close();
-		window.opener.location.reload();
 		</c:if>
 	</script>
 </body>
