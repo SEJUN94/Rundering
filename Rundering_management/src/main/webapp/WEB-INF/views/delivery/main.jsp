@@ -17,19 +17,19 @@
     </div>
     <div class="m-3" style="">
         <button type="button" class="btn btn-block btn-outline-info btn-lg" 
-        onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickup.do'"
+        onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickup?orderStatus=02'"
         style="
         font-size: 2rem;
         padding: 2rem 0;
         margin: 2rem 0;
-    "><i class="fa fa-bell"></i> 진행중인 수거 4건</button>
+    "><i class="fa fa-bell"></i> 진행중인 수거 1건</button>
         <button type="button" class="btn btn-block btn-outline-success btn-lg" 
-        onclick="location.href='<%=request.getContextPath()%>/fordelivery/delivery.do'"
-        style="
+        onclick="location.href='<%=request.getContextPath()%>/fordelivery/delivery?orderStatus=06'"
+        style=" 
         font-size: 2rem;
         padding: 2rem 0;
         margin: 2rem 0;
-    "><i class="fa fa-bell"></i> 진행중인 배송 15건</button>
+    "><i class="fa fa-bell"></i> 진행중인 배송 1건</button>
     </div>
 
 </body>

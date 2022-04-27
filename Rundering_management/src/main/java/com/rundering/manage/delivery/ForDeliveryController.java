@@ -1,11 +1,23 @@
 package com.rundering.manage.delivery;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.rundering.command.Criteria;
+import com.rundering.dto.LaundryOrderVO;
+import com.rundering.service.DeliveryService;
 
 @Controller
 @RequestMapping("/fordelivery")
 public class ForDeliveryController {
+	
+	@Autowired
+	private DeliveryService deliveryService;
 	
 	@RequestMapping("/login")
 	public String login() {
@@ -13,8 +25,9 @@ public class ForDeliveryController {
 		return url;
 	}
 	@RequestMapping("/main")
-	public String main() {
+	public String main() throws Exception{
 		String url="/delivery/main";
+		
 		
 		return url;
 	}
@@ -24,14 +37,26 @@ public class ForDeliveryController {
 		return url;
 	}
 	@RequestMapping("/delivery")
-	public String delivery() {
+	public ModelAndView deliveryList(String orderStatus, ModelAndView mnv) throws Exception{
 		String url="/delivery/delivery";
-		return url;
+		
+		List<LaundryOrderVO> deliveryList =  deliveryService.getDeliveryList(orderStatus);
+		
+		mnv.addObject("deliveryList",deliveryList);
+		mnv.setViewName(url);
+		
+		return mnv;
 	}
 	
 	@RequestMapping("/deliverydetail")
-	public String deliverydetail() {
+	public ModelAndView deliverydetail(String orderNo, ModelAndView mnv) throws Exception {
 		String url="/delivery/delivery_detail";
-		return url;
+		
+		Map<String, Object> dataMap = deliveryService.getDeliveryByOrderNo(orderNo);
+		
+		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
 	}
 }

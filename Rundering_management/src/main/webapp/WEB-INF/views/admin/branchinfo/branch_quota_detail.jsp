@@ -84,6 +84,7 @@
 </form>   
    
 <script>
+var monday=null;
    window.onload = function(){
       setTimeout(function() {
          setweekBtn();
@@ -119,9 +120,8 @@
       $("#endDate").text(sunDate);
    }
    
-   
    function getLaundryQuotaInfo(week){
-      let monday = moment(week).day(1).format("YYYYMMDD");
+      monday = moment(week).day(1).format("YYYYMMDD");
       let tuesday = moment(week).day(2).format("YYYYMMDD");
       let wednesday = moment(week).day(3).format("YYYYMMDD");
       let thursday = moment(week).day(4).format("YYYYMMDD");
@@ -142,7 +142,6 @@
       timeRequestForm.submit();
    }
 
-   
 var labels = [];
 <c:forEach items="${throughputList }" var="throughputList">
 	<c:if test="${throughputList.branchCode eq '060101'}">

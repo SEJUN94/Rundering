@@ -15,10 +15,10 @@
                 <div class="navbar-collapse order-3 collapse" id="navbarCollapse" style="">
                     <ul class="navbar-nav" style="text-align: center; font-size: 1.3rem;">
                         <li class="nav-item pb-2">
-                            <a href="<%=request.getContextPath() %>/fordelivery/pickup.do" class="nav-link">수거</a>
+                            <a href="<%=request.getContextPath() %>/fordelivery/pickup?orderStatus=02" class="nav-link">수거</a>
                         </li>
                         <li class="nav-item pb-2">
-                            <a href="<%=request.getContextPath() %>/fordelivery/delivery.do" class="nav-link">배송</a>
+                            <a href="<%=request.getContextPath() %>/fordelivery/delivery?orderStatus=06" class="nav-link">배송</a>
                         </li>
                         <li class="nav-item pb-2">
                             <a href="#" class="nav-link">공지</a>
