@@ -36,4 +36,5 @@ public interface MemberAddressDAO {
 	
 	// 주소지 수정
 	public void modifyAddr(MemberAddressVO memberAdd) throws Exception;
+	
 }

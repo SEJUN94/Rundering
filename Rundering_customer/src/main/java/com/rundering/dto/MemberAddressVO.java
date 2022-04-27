@@ -13,6 +13,7 @@ public class MemberAddressVO {
 	private String memberNo; 	//회원고유번호
 	private String area;	 	//지역분류코드
 	private String toparea;  	//상위지역분류
+	private String addrNo;		//jsp에서 String으로 No를 받아올때 받을 변수
 	
 	
 	public MemberAddressVO() {
@@ -79,6 +80,12 @@ public class MemberAddressVO {
 	}
 	public void setToparea(String toparea) {
 		this.toparea = toparea;
+	}
+	public String getAddrNo() {
+		return addrNo;
+	}
+	public void setAddrNo(String addrNo) {
+		this.addrNo = addrNo;
 	}
 	
 }

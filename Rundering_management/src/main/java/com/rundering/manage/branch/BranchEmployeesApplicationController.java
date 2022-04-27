@@ -118,15 +118,10 @@ public class BranchEmployeesApplicationController {
 
 		try {
 			
-			int cnt = employeesService.employeeRegist(ev);
+			employeesService.employeeRegist(ev);
 
-			if (cnt != 0) {
-				mailSendService.sendIdPwMail(ev.getMemberno());
-				entity = new ResponseEntity<String>("OK", HttpStatus.OK);
-			} else {
-				entity = new ResponseEntity<String>("", HttpStatus.OK);
-			}
-
+			mailSendService.sendIdPwMail(ev.getMemberno());
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
 		} catch (SQLException e) {
 			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

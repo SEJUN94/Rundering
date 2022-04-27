@@ -72,7 +72,7 @@
 				</table>
 			</div>
 			<div class="card-footer">
-				<%@ include file="/WEB-INF/views/branch/employee/pagination.jsp"%>
+				<%@ include file="/WEB-INF/views/admin/employee/pagination.jsp"%>
 			</div>
 		</div>
 	</div>

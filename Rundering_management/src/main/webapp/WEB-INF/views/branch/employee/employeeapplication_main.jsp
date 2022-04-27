@@ -72,7 +72,7 @@
 				</table>
 			</div>
 			<div class="card-footer">
-				<%@ include file="/WEB-INF/views/branch/employee/pagination.jsp"%>
+				<%@ include file="/WEB-INF/views/admin/employee/pagination.jsp"%>
 			</div>
 		</div>
 	</div>
@@ -163,7 +163,7 @@
 		event.preventDefault(); // 이벤트를 막아 페이지 리로드를 방지
 		
 		$.ajax({
-			url : '<%=request.getContextPath()%>/branch/employeeapplication/regist',
+			url : '<%=request.getContextPath()%>/admin/employeeapplication/regist',
 			data : {
 				'department' : $('#department').val()
 				,'branchCode' : $('#branchCode').val()
@@ -182,7 +182,7 @@
 					setTimeout(function(){location.reload();},1000);
 				} else {
 					Swal.fire({
-						icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
 						title: '시스템 오류로 반려 할 수 없습니다.'
 					});
 				}
@@ -196,7 +196,7 @@
 	function detail(no) {
 		console.log(this);
 		$.ajax({
-			url : '<%=request.getContextPath()%>/branch/employeeapplication/detail',
+			url : '<%=request.getContextPath()%>/admin/employeeapplication/detail',
 			data : {
 				'memberNo' : no
 			},
@@ -207,8 +207,6 @@
 				email.setAttribute('value',mv.email)
 				jd.setAttribute('value',mv.registDate)
 				memNo.setAttribute('value',mv.memberNo)		
-				console.log(jd.value)
-				console.log(memNo.value)
 			},
 			error : function(error) {
 				AjaxErrorSecurityRedirectHandler(error.status);
@@ -222,7 +220,7 @@
 		event.preventDefault(); // 이벤트를 막아 페이지 리로드를 방지
 		
 		$.ajax({
-			url : '<%=request.getContextPath()%>/branch/employeeapplication/remove',
+			url : '<%=request.getContextPath()%>/admin/employeeapplication/remove',
 			data : {
 				'memberNo' : no
 			},

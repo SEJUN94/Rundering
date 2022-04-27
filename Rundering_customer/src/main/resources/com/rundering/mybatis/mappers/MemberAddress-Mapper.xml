@@ -109,10 +109,10 @@
  	<update id="updateDefaultReset" parameterType="str">
  		UPDATE TB_MEMBER_ADDRESS
 			SET
-			 DELETE_YN = 'N'
+			 DEFAULT_YN = 'N'
 			,MODIFY_DATE = SYSDATE
 		  WHERE MEMBERNO = #{memberNo}
-			AND DELETE_YN = 'Y'
+			AND DEFAULT_YN = 'Y'
  	</update>
  	
  	<update id="modifyDefaultAddr" parameterType="memberAddress">

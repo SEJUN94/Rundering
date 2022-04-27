@@ -20,8 +20,7 @@
 
 <body>
 
-	<div
-		style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
+	<div style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
 
 		<section class="content-header">
 			<div class="container-fluid">
@@ -37,6 +36,7 @@
 					</div>
 				</div>
 			</div>
+			<hr style="border: 1px solid rgb(170, 167, 167);">
 		</section>
 
 		<form role="form" class="form-horizontal form" method="post">
@@ -51,7 +51,7 @@
 								style="width: 100%; border-top: 1px solid rgba(0, 0, 0, .125); border-bottom: 1px solid rgba(0, 0, 0, .125);">
 								<input type="radio" value="${defaultMemberAddress.addressNo}"
 									onchange="newAddr(this);" onclick="dfdetail(${defaultMemberAddress.addressNo});" name="addressNo"
-									id="${defaultMemberAddress.addressNo}"> <label
+									id="${defaultMemberAddress.addressNo}" > <label
 									for="${defaultMemberAddress.addressNo}"
 									style="font-weight: 500;">기본 주소지</label>
 							</div>
@@ -64,7 +64,7 @@
 											<input type="radio" value="${memberAddress.addressNo}" onclick="detail(${memberAddress.addressNo});"
 												onchange="newAddr(this);" name="addressNo"
 												id="${memberAddress.addressNo}"> <label
-												for="${memberAddress.addressNo}" style="font-weight: 500;">주소${status.index }</label>
+												for="${memberAddress.addressNo}" style="font-weight: 500;">주소${status.count }</label>
 										</div>
 									</c:if>
 								</c:forEach>
@@ -73,16 +73,15 @@
 							<div class="icheck-primary pt-1 pb-3 pl-1"
 								style="width: 100%; border-bottom: 1px solid rgba(0, 0, 0, .125);">
 								<input type="radio" value="0" name="addressNo"
-									id="newAddrInputBtn" onchange="newAddr(this);" checked> <label
-									for="newAddrInputBtn" style="font-weight: 500;">새로운 주소지
-									등록</label>
+									id="newAddrInputBtn" onchange="newAddr(this);"> <label
+									for="newAddrInputBtn" style="font-weight: 500;">새로운 주소지 등록</label>
 							</div>
 
 							<!--기존 등록지 수정 -->
 							<div class="newAddrInput1 pt-2" style="display:; width: 100%;">
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" id="zip" name="zip"
-										placeholder="우편번호" value="" readonly>
+										placeholder="우편번호" readonly>
 									<div class="input-group-append">
 										<button type="button" id="modalBtn" class="btn btn-primary"
 											onclick="findZip();">주소검색</button>
@@ -90,11 +89,11 @@
 								</div>
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" id="add1" name="add1"
-										placeholder="기본주소" value="" readonly>
+										placeholder="기본주소" readonly>
 								</div>
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" id="add2" name="add2"
-										placeholder="상세주소" value=""> <input type="hidden"
+										placeholder="상세주소" > <input type="hidden"
 										class="form-control" id="addressNo" name="addressNo" value="">
 								</div>
 								<div class="row">
@@ -115,27 +114,25 @@
 								style="display: none; width: 100%;">
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" id="zip1" name="zip1"
-										placeholder="우편번호" value="" readonly>
+										placeholder="우편번호" readonly>
 									<div class="input-group-append">
 										<button type="button" id="modalBtn" class="btn btn-primary"
 											onclick="findZip1();">주소검색</button>
 									</div>
 								</div>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control" id="add11" name="add11"
-										placeholder="기본주소" value="" readonly>
+									<input type="text" class="form-control" id="add3" name="add3"
+										placeholder="기본주소"  readonly>
 								</div>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control" id="add22" name="add22"
-										placeholder="상세주소" value=""> <input type="hidden"
-										class="form-control" id="addressNo1" name="addressNo1"
-										value="">
+									<input type="text" class="form-control" id="add4" name="add4"
+										placeholder="상세주소" > 
 								</div>
 								<div class="row">
 									<div class="pl-2">
 										<div class="icheck-primary">
 											<input type="checkbox" name="setDefaultAddr1" value="Y"
-												id="setDefaultAddr1"> <label for="setDefaultAddr"
+												id="setDefaultAddr1"> <label for="setDefaultAddr1"
 												style="font-weight: 500;"> 기본주소지로 등록 </label>
 											<button type="button" class="btn btn-outline-secondary"
 												style="margin-left: 140px;" onclick="addrregist();">등록</button>
@@ -161,12 +158,13 @@
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
 	
 	let zip = document.querySelector('#zip');
 	let add1 = document.querySelector('#add1');
 	let add2 = document.querySelector('#add2');
+	let addrNo = document.querySelector('#addressNo');
 	
 
 	function dfdetail(no){
@@ -180,6 +178,7 @@
 				zip.value = mv.zip
 				add1.value = mv.add1
 				add2.value = mv.add2
+				addrNo.value = mv.addrNo
 			},
 			error : function(error) {
 				//alert("시스템장애로 가입이 불가합니다.");
@@ -200,6 +199,7 @@
 				zip.value = mv.zip
 				add1.value = mv.add1
 				add2.value = mv.add2
+				addrNo.value = mv.addrNo
 			},
 			error : function(error) {
 				//alert("시스템장애로 가입이 불가합니다.");
@@ -213,10 +213,7 @@
 
 
 	<script>
-	window.onload = function(){
-		 let responseCode = 0;
-	}
-	
+
 	//주소 수정
 	function findZip() {
 		new daum.Postcode({
@@ -256,9 +253,9 @@
 
 				// 우편번호와 주소 정보를 해당 필드에 넣는다.
 				document.getElementById('zip1').value = data.zonecode;
-				document.getElementById("add11").value = addr;
+				document.getElementById("add3").value = addr;
 				// 커서를 상세주소 필드로 이동한다.
-				document.getElementById("add22").focus();
+				document.getElementById("add4").focus();
 			}
 		}).open();
 	}
@@ -281,20 +278,17 @@
 </script>
 
 	<script>
-	let defualt = document.querySelector('#setDefaultAddr'); 
-	let defualt1 = document.querySelector('#setDefaultAddr1'); 
-	
-	var ta2 = add1.value
-	var topArea = ta2.substr(0,2);
-	
-	var ta3 = document.querySelector('#add11');
-	var ta4 = ta3.value
-	var topArea1 = ta4.substr(0,2);
-	
+
 	//주소 수정 
 	function addrmodify(){
+		let defualt = document.querySelector('#setDefaultAddr'); 
+		let ta = document.getElementById('add1').value;
+		let topArea = ta.substr(0,2);
+		
+		console.log(ta)
+		console.log(defualt.value)
 		if(topArea == "대전"){
-			if(defualt.value != 'Y'){
+			if(defualt.checked){
 				Swal.fire({
 		               title: '기본 주소지로 수정하시겠습니까?',
 		               icon : 'warning' ,
@@ -314,7 +308,7 @@
 		                    	 'add1' : $('#add1').val(),
 		                    	 'add2' : $('#add2').val(),
 		                    	 'zip' : $('#zip').val(),
-		                    	 'addressNo' : $('#addressNo').val()
+		                    	 'addrNo' : $('#addressNo').val()
 		                     },
 		                     success : function(response){
 		                        if(response.toUpperCase() == "OK"){
@@ -350,7 +344,7 @@
 		                    	 'add1' : $('#add1').val(),
 		                    	 'add2' : $('#add2').val(),
 		                    	 'zip' : $('#zip').val(),
-		                    	 'addressNo' : $('#addressNo').val()
+		                    	 'addrNo' : $('#addressNo').val()
 		                     },
 		                     success : function(response){
 		                        if(response.toUpperCase() == "OK"){
@@ -369,7 +363,7 @@
 			}
 			
 		}else{
-			if(defualt.value != 'Y'){
+			if(defualt.checked){
 			 Swal.fire({
 	               title: '해당 주소지는 서비스 지역이 아닙니다. 기본 주소지로 수정 하시겠습니까?',
 	               icon : 'warning' ,
@@ -389,7 +383,7 @@
 	                    	 'add1' : $('#add1').val(),
 	                    	 'add2' : $('#add2').val(),
 	                    	 'zip' : $('#zip').val(),
-	                    	 'addressNo' : $('#addressNo').val()
+	                    	 'addrNo' : $('#addressNo').val()
 	                     },
 	                     success : function(response){
 	                        if(response.toUpperCase() == "OK"){
@@ -425,7 +419,7 @@
 		                    	 'add1' : $('#add1').val(),
 		                    	 'add2' : $('#add2').val(),
 		                    	 'zip' : $('#zip').val(),
-		                    	 'addressNo' : $('#addressNo').val()
+		                    	 'addrNo' : $('#addressNo').val()
 		                     },
 		                     success : function(response){
 		                        if(response.toUpperCase() == "OK"){
@@ -448,11 +442,16 @@
 		
 	}
 	
+	// 주소지 등록
 	function addrregist(){
+		let defualt1 = document.querySelector('#setDefaultAddr1'); 
+		let ta1 = document.getElementById('add3').value;
+		let topArea1 = ta1.substr(0,2);
+		
+		console.log(ta1)
 		if(${fn:length(memberAddressList)} < 3) {
-			
 			if(topArea1 == "대전"){
-				if(defualt1.value != 'Y'){
+				if(defualt1.value == 'Y'){
 					Swal.fire({
 			               title: '기본 주소지로 등록 하시겠습니까?',
 			               icon : 'warning' ,
@@ -469,10 +468,9 @@
 			                     url : '<%=request.getContextPath()%>/mypage/myaddress/defaultregist',
 			                     type : 'post',
 			                     data : {
-			                    	 'add1' : $('#add1').val(),
-			                    	 'add2' : $('#add2').val(),
-			                    	 'zip' : $('#zip').val(),
-			                    	 'memberNo' : $('#memberNo').val()
+			                    	 'add1' : $('#add3').val(),
+			                    	 'add2' : $('#add4').val(),
+			                    	 'zip' : $('#zip1').val()
 			                     },
 			                     success : function(response){
 			                        if(response.toUpperCase() == "OK"){
@@ -505,10 +503,9 @@
 			                     url : '<%=request.getContextPath()%>/mypage/myaddress/regist',
 			                     type : 'post',
 			                     data : {
-			                    	 'add1' : $('#add1').val(),
-			                    	 'add2' : $('#add2').val(),
-			                    	 'zip' : $('#zip').val(),
-			                    	 'memberNo' : $('#memberNo').val()
+			                    	 'add1' : $('#add3').val(),
+			                    	 'add2' : $('#add4').val(),
+			                    	 'zip' : $('#zip1').val()
 			                     },
 			                     success : function(response){
 			                        if(response.toUpperCase() == "OK"){
@@ -527,7 +524,7 @@
 				}
 				
 			}else{
-				if(defualt1.value != 'Y'){
+				if(defualt1.value == 'Y'){
 				 Swal.fire({
 		               title: '해당 지역은 서비스 지역이 아닙니다. 기본 주소지로 등록 하시겠습니까?',
 		               icon : 'warning' ,
@@ -544,10 +541,9 @@
 		                     url : '<%=request.getContextPath()%>/mypage/myaddress/defaultregist',
 		                     type : 'post',
 		                     data : {
-		                    	 'add1' : $('#add1').val(),
-		                    	 'add2' : $('#add2').val(),
-		                    	 'zip' : $('#zip').val(),
-		                    	 'memberNo' : $('#memberNo').val()
+		                    	 'add1' : $('#add3').val(),
+		                    	 'add2' : $('#add4').val(),
+		                    	 'zip' : $('#zip1').val()
 		                     },
 		                     success : function(response){
 		                        if(response.toUpperCase() == "OK"){
@@ -580,10 +576,9 @@
 			                     url : '<%=request.getContextPath()%>/mypage/myaddress/regist',
 			                     type : 'post',
 			                     data : {
-			                    	 'add1' : $('#add1').val(),
-			                    	 'add2' : $('#add2').val(),
-			                    	 'zip' : $('#zip').val(),
-			                    	 'memberNo' : $('#memberNo').val()
+			                    	 'add1' : $('#add3').val(),
+			                    	 'add2' : $('#add4').val(),
+			                    	 'zip' : $('#zip1').val(),
 			                     },
 			                     success : function(response){
 			                        if(response.toUpperCase() == "OK"){

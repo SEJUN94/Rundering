@@ -38,32 +38,26 @@ public class EmployeesServiceImpl implements EmployeesService {
 
 	// 사원등록
 	@Override
-	public int employeeRegist(EmployeesVO ev) throws Exception {
+	public void employeeRegist(EmployeesVO ev) throws Exception {
 
-		int cnt = employeesDAO.employeeRegist(ev);
+		employeesDAO.employeeRegist(ev);
 
-		if (cnt != 0) {
+		ev = employeesDAO.getEmployeeByNo(ev.getMemberno());
 
-			ev = employeesDAO.getEmployeeByNo(ev.getMemberno());
+		if (ev != null) {
 
-			if (ev != null) {
+			// 임시비밀번호 해쉬처리
+			String pw = UserSha256.encrypt(ev.getEmployeeId());
 
-				// 임시비밀번호 해쉬처리
-				String pw = UserSha256.encrypt(ev.getEmployeeId());
+			MemberVO mv = new MemberVO();
 
-				MemberVO mv = new MemberVO();
+			mv.setId(ev.getEmployeeId());
+			mv.setPassword(pw);
+			mv.setMemberNo(ev.getMemberno());
 
-				mv.setId(ev.getEmployeeId());
-				mv.setPassword(pw);
-				mv.setMemberNo(ev.getMemberno());
-
-				memberDAO.updateMember(mv);
-
-			}
+			memberDAO.updateMember(mv);
 
 		}
-
-		return cnt;
 
 	}
 
