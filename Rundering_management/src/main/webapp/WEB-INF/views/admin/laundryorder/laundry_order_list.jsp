@@ -49,7 +49,7 @@
 					</div>
 				</div>
 				<div class="form-group row m-0">
-					<label for="orderperiod" class="col-sm-2 col-form-label">주문일</label>
+					<label for="orderperiod" class="col-sm-2 col-form-label">수거요청일</label>
 					<div class="col-sm-4">
 						<div class="input-group">
 							<div class="input-group-prepend">
@@ -74,6 +74,7 @@
 					<div class="card-tools">
 						<div class="input-group input-group-sm" style="width: 300px;margin-top: auto;">
 							<select class="form-control col-md-4" name="searchType" id="searchType">
+									<option>지점명</option>
 									<option>주문자명</option>
 									<option>배송연락처</option>
 								</select> <input class="form-control" type="text" name="keyword" placeholder="검색어를 입력하세요." value=""> <span class="input-group-append">
