@@ -19,7 +19,6 @@ public class AdminLaundryController {
 	
 	@RequestMapping("/list")
 	public String laundryOrderList(AdminLaundryOrderListCriteria cri,Model model) throws Exception {
-		if(cri.getPickupRequestDate() != null) System.out.println(cri.getPickupRequestDate());
 		Map<String, Object> dataMap = laundryOrderService.getAdminlaundryOrderList(cri);
 		model.addAllAttributes(dataMap);
 		return "admin/laundryorder/laundry_order_list";

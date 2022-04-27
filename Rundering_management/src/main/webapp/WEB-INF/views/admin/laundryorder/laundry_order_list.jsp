@@ -27,11 +27,9 @@
 					<div class="col-sm-4 pl-4">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text"> <i
-									class="far fa-calendar-alt"></i>
-								</span>
+								<span class="input-group-text"> <i class="far fa-calendar-alt"></i></span>
 							</div>
-							<input type="text" id="dates" class="form-control" name="pickupRequestDate">
+							<input type="text" id="dates" class="form-control" name="pickupRequestDate" value="${cri.pickupRequestDate }">
 						</div>
 					</div>
 				</div>
@@ -121,13 +119,23 @@
 		      timePicker24Hour: true,
 		      timePickerSeconds: true,
 		      singleDatePicker: false,
+		      autoUpdateInput: false,
 		      locale :{ 
 		        format: 'YYYY-MM-DD',
 		        separator: '~',
 		        applyLabel: "적용",
-		        cancelLabel: "닫기"
+		        cancelLabel: "적용취소"
 		      },
 		    });
+		  $('input[name="pickupRequestDate"]').on('apply.daterangepicker', function(ev, picker) {
+		      $(this).val(picker.startDate.format('YYYY-MM-DD') + '~' + picker.endDate.format('YYYY-MM-DD'));
+		      list_go('1');
+		  });
+
+		  $('input[name="pickupRequestDate"]').on('cancel.daterangepicker', function(ev, picker) {
+		      $(this).val('');
+		      list_go('1');
+		  });
 	</script>
 
 </body>

@@ -53,6 +53,7 @@
 			orderStatusArr.push($(this).val());
 		});
 		jobForm.find("[name='orderStatus']").val(orderStatusArr);
+		jobForm.find("[name='pickupRequestDate']").val($('input[name="pickupRequestDate"]').val());
 		/* jobForm.find("[name='searchType']").val($('select[name="searchType"]').val()); */
 		/* jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val()); */
 	
