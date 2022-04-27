@@ -43,6 +43,7 @@
 			<div class="card m-0 card-secondary card-outline">
 			<div class="card-header">
 					<h3 class="card-title" style="font-size: 1.75rem;">세탁 주문</h3>
+					<span class="text-muted" style="display: inline-block;margin-top: 6px;padding-left: 15px;">검색결과 <fmt:formatNumber type="number" maxFractionDigits="3" value="${pageMaker.totalCount }" />개</span>
 					<div class="card-tools">
 						<div class="input-group input-group-sm" style="width: 300px;margin-top: auto;">
 							<select class="form-control col-md-4" name="searchType" id="searchType">
