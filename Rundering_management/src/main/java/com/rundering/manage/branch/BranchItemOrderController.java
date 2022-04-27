@@ -113,7 +113,6 @@ public class BranchItemOrderController {
 			e.printStackTrace();
 		}
 		return dataMap;
-		
 	}
 	
 	@RequestMapping("/modify")

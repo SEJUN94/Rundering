@@ -29,18 +29,12 @@
 .clicks {
 	width: 10%;
 }
-
-#body {
-	padding-left: 1%;
-	padding-right: 1%;
-}
 </style>
 </head>
 <body>
-	<div id="body">
 		<div class="row">
-			<div class="col-12">
-				<div class="card card-secondary card-outline">
+			<div class="col-12 ml-2 mr-2">
+				<div class="card card-primary card-outline">
 					<div class="card-header">
 						<h3 class="card-title">공지사항</h3>
 						<div class="card-tools">
@@ -101,7 +95,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
 </body>
 

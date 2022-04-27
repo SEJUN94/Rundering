@@ -25,6 +25,8 @@ public interface NoticeService {
 
 	// 삭제
 	void remove(int noticeno) throws SQLException;
+
+	Map<String, Object> getNoticeReplyList(String replyno, Criteria cri) throws Exception;
 	
 
 }

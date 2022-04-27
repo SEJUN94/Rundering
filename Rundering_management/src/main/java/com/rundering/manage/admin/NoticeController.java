@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -38,7 +39,6 @@ public class NoticeController {
 		String url = "admin/notice/notice_list";
 		Map<String, Object> dataMap = null;
 		try {
-			System.out.println("cri : " + cri.toString());
 			dataMap = noticeService.getNoticeList(cri);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,6 +55,22 @@ public class NoticeController {
 		String url = "/admin/notice/notice_regist";
 		
 		return url;
+	}
+	
+	@RequestMapping(value = "/noticereplylist",method = RequestMethod.GET ,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	private Map<String, Object> replyList(String replyno,Criteria cri,@RequestParam(defaultValue = "1")String page){
+		Map<String, Object> dataMap=null;
+		int pageInt = Integer.parseInt(page);
+		cri.setPerPageNum(5);
+		cri.setPage(pageInt);
+		try {
+			dataMap = noticeService.getNoticeReplyList(replyno,cri);
+				// TODO Auto-generated catch block
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dataMap;
 	}
 	
 	@RequestMapping("/regist")

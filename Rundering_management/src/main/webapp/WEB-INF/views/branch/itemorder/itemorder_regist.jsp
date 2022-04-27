@@ -155,7 +155,6 @@ function order_go(){
 </li>   
 </ul>
 </nav>
-
 </script>
 
 <script type="text/x-handlebars-template" id="getOrder-tempalet" >
@@ -183,7 +182,6 @@ let page= 1;
 
 window.onload=function(){
 	orderGoodsList("<%=request.getContextPath()%>/branch/itemorder/orderGoodsList?page="+page);
-   
 }   
 
 function page_go(url){
@@ -193,8 +191,6 @@ function page_go(url){
 	}
 	orderGoodsList(url);
 } 
-
-
 function numberChange(number){
 	page=number;
 }

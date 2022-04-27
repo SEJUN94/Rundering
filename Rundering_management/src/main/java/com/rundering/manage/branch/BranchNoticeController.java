@@ -44,7 +44,7 @@ public class BranchNoticeController {
 		
 		if(from.equals("list")) {
 			notice = noticeService.getNotice(noticeno);
-			url="redirect:/admin/notice/detail.do?noticeno="+noticeno;
+			url="redirect:/branch/notice/detail.do?noticeno="+noticeno;
 		}
 		
 		mnv.addObject("notice",notice);

@@ -1,124 +1,153 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <body>
-    <div class="col-md-12">
-        <div class="card card-primary card-outline">
-            <div class="card-header">
-                <h3 class="card-title">공지사항</h3>
-            </div>
-            <div class="card-body p-0">
-                <div class="mailbox-read-info">
-                    <h5>${ notice.title}</h5>
-                    
-                </div>
-                <div class="mailbox-read-message">
-                    <p>${ notice.content}</p>
+	<div class="col-md-12">
+		<div class="card card-primary card-outline">
+			<div class="card-header">
+				<h3 class="card-title">공지사항</h3>
+			</div>
+			<div class="card-body p-0">
+				<div class="mailbox-read-info">
+					<h5>${ notice.title}</h5>
+
+				</div>
+				<div class="mailbox-read-message">
+					<p>${ notice.content}</p>
 
 
-                </div>
-            </div>
-            <div class="card-footer bg-white">
-                <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
-                    <li>
-                        <span class="mailbox-attachment-icon"><i class="far fa-file-pdf"></i></span>
-                        <div class="mailbox-attachment-info">
-                            <a href="#" class="mailbox-attachment-name"><i class="fas fa-paperclip"></i>
-                                Sep2014-report.pdf</a>
-                            <span class="mailbox-attachment-size clearfix mt-1">
-                                <span>1,245 KB</span>
-                                <a href="#" class="btn btn-default btn-sm float-right"><i
-                                        class="fas fa-cloud-download-alt"></i></a>
-                            </span>
-                        </div>
-                    </li>
-                    
-                </ul>
-            </div>
-            <div class="card-footer">
-                <div class="float-right">
-                 <!--    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">댓글작성 </button> -->
-                    <button type="button" class="btn btn-warning" onclick="modify_go('${notice.noticeno}');">수정</button>
-                    <button type="button" class="btn btn-danger" onclick="remove_go('${notice.noticeno}');">삭제</button>
-                    <button type="button" class="btn btn-primary"  onclick="CloseWindow();">닫기</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-     <!-- Reply content -->
-    <section class="content container-fluid">
-    	<!-- reply component start --> 
+				</div>
+			</div>
+			<div class="card-footer bg-white">
+				<ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+					<li><span class="mailbox-attachment-icon"><i
+							class="far fa-file-pdf"></i></span>
+						<div class="mailbox-attachment-info">
+							<a href="#" class="mailbox-attachment-name"><i
+								class="fas fa-paperclip"></i> Sep2014-report.pdf</a> <span
+								class="mailbox-attachment-size clearfix mt-1"> <span>1,245
+									KB</span> <a href="#" class="btn btn-default btn-sm float-right"><i
+									class="fas fa-cloud-download-alt"></i></a>
+							</span>
+						</div></li>
+
+				</ul>
+			</div>
+			<div class="card-footer">
+				<div class="float-right">
+					<!--    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">댓글작성 </button> -->
+					<button type="button" class="btn btn-warning"
+						onclick="modify_go('${notice.noticeno}');">수정</button>
+					<button type="button" class="btn btn-danger"
+						onclick="remove_go('${notice.noticeno}');">삭제</button>
+					<button type="button" class="btn btn-primary"
+						onclick="CloseWindow();">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Reply content -->
+	<section class="content container-fluid">
+		<!-- reply component start -->
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card card-info">					
-					<div class="card-body">
-						<!-- The time line -->
-						<div class="timeline">
-							<!-- timeline time label -->
+				<div class="card card-info">
+				<div class="card-body" style="padding-top: 0px; padding-bottom: 0px;" >
+						<label for="newReplyText">Reply Text </label> 
+						<button type="button" class="btn btn-sm btn-primary float-right" id="replyAddBtn"
+							onclick="registReply();">댓글 작성</button>
+						
+						<input	class="form-control" type="text" placeholder="REPLY TEXT"
+							id="replyContent"> <br />
+						
+					</div>
+					<div class="card-body" style="padding-top: 0px;">
+
+						<div class="timeline" style="margin: 0px">
 							<div class="time-label" id="repliesDiv">
-								<span class="bg-green">Replies List </span>							
+								<span class="bg-green">Replies List </span>
 							</div>
+						</div>
+						<div id="replyListTag">
+							<div id="replyHandler">
+								<div class="card-footer card-comments">
+									<div class="card-comment">
+										<div class="comment-text" style="margin-left:0px; ">
+											<span class="username"> Maria Gonzales <span
+												class="text-muted float-right">8:03 PM Today</span>
+											</span> It is a long established fact that a reader will be
+											distracted by the readable content of a page when looking at
+											its layout.
+										</div>
+	
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="cardfooter">
 							
 						</div>
+						
+
+
 					</div>
-					<div class="card-footer">
-						<label for="newReplyText">Reply Text</label>
-						<input class="form-control" type="text"	placeholder="REPLY TEXT" id="newReplyText">
-						<br/>
-						<button type="button" class="btn btn-primary" id="replyAddBtn" onclick="replyRegist_go();">ADD REPLY</button>
-					</div>				
-				</div>			
-				
-			</div><!-- end col-md-12 -->
-		</div><!-- end row -->
-    </section>
-    
-    
-    
-   	<!-- modal -->
-    <div class="modal fade" id="modal-lg" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Large Modal</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>One fine body…</p>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-    
-        </div>
-    
-    </div>
+				</div>
+
+			</div>
+			<!-- end col-md-12 -->
+		</div>
+		<!-- end row -->
+	</section>
 
 
- <script>
-	 function modify_go(noticeno){
-		 location.href="modifyForm?noticeno="+noticeno;
-	 }
-	 
-	 function remove_go(noticeno){
-		 location.href="remove?noticeno="+noticeno;
-	 }	
-   
-   <c:if test="${from eq 'modify' }">
-   		alert("수정되었습니다.");
-   </c:if>
-   <c:if test="${from eq 'remove'}">
-   		alert("삭제되었습니다.");
+
+	<!-- modal -->
+	<div class="modal fade" id="modal-modify" style="display: none;"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">수정</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form action="request" id="replyForm">
+							<input type="text" class="form-control" name="replyContent"	id="replyModifyContent" >
+							</input> 
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="modifyBtn" data-replyno onclick="replyModify()">작성</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<%@ include file="./noticeReply.jsp" %>
+
+	<script>
+		function modify_go(noticeno) {
+			location.href = "modifyForm?noticeno=" + noticeno;
+		}
+
+		function remove_go(noticeno) {
+			location.href = "remove?noticeno=" + noticeno;
+		}
+
+		<c:if test="${from eq 'modify' }">
+		alert("수정되었습니다.");
+		</c:if>
+		<c:if test="${from eq 'remove'}">
+		alert("삭제되었습니다.");
 		window.close();
 		window.opener.location.reload();
-   </c:if>
-   </script>
-   
+		</c:if>
+	</script>
+
 </body>
