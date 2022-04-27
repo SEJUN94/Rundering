@@ -142,6 +142,9 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		
 		LaundryOrderVO laundryOrder = laundryOrderDAO.selectLaundryOrderByOrderNo(orderNo);
 		List<LaundryOrderDetailVO> laundryOrderDetailList = laundryOrderDetailDAO.selectlaundryOrderDetailListByOrderNo(orderNo);
+		if(laundryOrder==null) {
+			return null;
+		}
 		
 		if(laundryOrder.getBranchCode() != null) {
 			BranchVO branch = branchDAO.selectBranchByBranchCode(laundryOrder.getBranchCode());
@@ -158,6 +161,18 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		dataMap.put("laundryOrder", laundryOrder);
 		dataMap.put("laundryOrderDetailList", laundryOrderDetailList);
 		return dataMap;
+	}
+	@Override 
+	public String selectGetBranchCode(String branchCode) {
+		String result=null;
+		try {
+			BranchVO branch=branchDAO.selectBranchByBranchCode(branchCode);
+			result= branch.getBranchName();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 }

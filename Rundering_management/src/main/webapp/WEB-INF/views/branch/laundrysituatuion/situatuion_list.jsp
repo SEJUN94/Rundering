@@ -10,6 +10,17 @@
 <c:set var="orderCodeMap" value="${dataMap.orderCodeMap }" />
 <c:set var="detailMap" value="${dataMap.detailMap }"/>
 <body>
+${from }
+
+<c:if test="${ from eq 'notEquals' } ">
+	<script>
+		alert("해당하는 세탁주문이 없습니다");
+			window.close();
+			window.opener.location.reload();
+	</script>
+</c:if>
+
+
 	<div class="row ml-2 mr-2 " id="body">
 
 		<div class="col-12">
@@ -27,13 +38,13 @@
 							</select>
 						</div>
 						<div class="input-group-sm textWidth">
-							<input class="form-control " type="text" name="keyword"
+							<input class="form-control " type="text" name="keyword" id="orderNumberInput"
 								placeholder="주문 번호를 입력하세요" value="">
 						</div>
 						<span class="input-group-append">
 
 							<button class="btn btn-primary" type="button"
-								onclick="list_go(1);" data-card-widget="search">상세보기</button>
+								onclick="orderDetail_go()" data-card-widget="search">상세보기</button>
 						</span>
 					</div>
 				</div>
@@ -230,8 +241,15 @@
 			{{/count}}
 		</ul>	
 	</script>
-		<script>
+<script>
 	let imgList =null;
+	function orderDetail_go(){
+		 let orderNumber=document.querySelector("#orderNumberInput").value;
+ 	 	OpenWindow('<%=request.getContextPath()%>/branch/laundrysituatuion/orderdetail?orderNo='+orderNumber, '세탁주문상세', 600, 750) 
+	}
+	
+	
+	
 	// 이미지 src 속성변경하여 이미지 바꾸깅~~
 	function changeSrc(){
 		let targetText=event.target.innerText-1;

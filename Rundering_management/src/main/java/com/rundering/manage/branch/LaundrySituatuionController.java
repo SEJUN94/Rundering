@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.BranchCriteria;
 import com.rundering.dto.EmployeesVO;
@@ -56,9 +57,23 @@ public class LaundrySituatuionController {
 		return url;
 	}
 	
-	@RequestMapping("/detail")
-	private String situatuonDetail() {
-		String url = "branch/laundrysituatuion/situatuion_modify";
+	@RequestMapping("/orderdetail")
+	private String situatuonDetail(HttpSession session ,String orderNo, Model model) throws Exception{
+		String url = "branch/laundrysituatuion/laundry_order_detail";
+		Map<String, Object> dataMap;
+		String empBranchName = null;
+		
+		dataMap = laundryOrderService.getlaundryOrderByOrderNo(orderNo);
+		if(dataMap==null) {
+			return "branch/laundrysituatuion/window_close";
+		}
+		EmployeesVO emp = (EmployeesVO)session.getAttribute("loginEmployee");
+		LaundryOrderVO laundryOrder=(LaundryOrderVO) dataMap.get("laundryOrder");
+		empBranchName  =  laundryOrderService.selectGetBranchCode(emp.getBranchCode());
+		if(!laundryOrder.getBranchCode().equals(empBranchName)) {
+			return "branch/laundrysituatuion/window_close";
+		}
+		model.addAllAttributes(dataMap);
 		return url; 
 	}
 	@RequestMapping(value =  "/getimgs",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
