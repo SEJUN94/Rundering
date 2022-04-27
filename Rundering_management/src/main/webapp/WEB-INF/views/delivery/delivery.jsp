@@ -30,45 +30,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/deliverydetail.do'">
+					<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/deliverydetail'">
 						<td>1</td>
 						<td>중구 계룡로 820</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>중구 계룡로 853</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>중구 동서대로1340번길 46</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td>중구 계룡로 853 502호</td>
-					</tr>
-					<tr>
-						<td>5</td>
-						<td>중구 동서대로1340번길 46 205호</td>
-					</tr>
-					<tr>
-						<td>6</td>
-						<td>중구 동서대로1340번길 46</td>
-					</tr>
-					<tr>
-						<td>7</td>
-						<td>중구 계룡로 853 1층 빨간대문</td>
-					</tr>
-					<tr>
-						<td>8</td>
-						<td>중구 동서대로1340번길 46</td>
-					</tr>
-					<tr>
-						<td>9</td>
-						<td>중구 계룡로 853</td>
-					</tr>
-					<tr>
-						<td>10</td>
-						<td>중구 동서대로1340번길 46 3층</td>
 					</tr>
 				</tbody>
 			</table>
