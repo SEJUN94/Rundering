@@ -21,7 +21,7 @@
 				<thead>
 					<tr>
 						<th style="width: 20%">지점장</th>
-						<th style="width: 20%" onclick="nada();">지점</th>
+						<th style="width: 20%">지점</th>
 						<th>주문량</th>
 					</tr>
 				</thead>
