@@ -128,6 +128,8 @@ public class OrderTaskScheduler {
 					
 				}else if (areaList.size() == 1) { //타지역 1곳에 할당
 					
+					int totalExcessCapacity = branchDAO.selectExcessCapacityOfTodayLaundryByArea(areaList.get(0));
+					
 					List<BranchVO> branchListOfOtherArea = branchDAO.selectBranchListByArea(areaList.get(0));
 					int totalRemainingOrderQuantity = remainingOrderQuantity;
 					totalProcessableOrderQuantity = 0;
@@ -137,10 +139,10 @@ public class OrderTaskScheduler {
 					BranchVO mostThroughputBranch = null;
 					LaundryOrderVO orderVO = new LaundryOrderVO();
 					for (BranchVO branchVO : branchListOfOtherArea) {
-						// 지점 주문할당할 개수 = 다른지역의 남은주문수 * (해당지점의 세탁가능수량 / 지역내모든지점의 세탁가능수량 * 100) / 100
-						int quantity = (int) (totalRemainingOrderQuantity * ((double) branchVO.getBranchLndrpcrymslmcoqy() / totalProcessableOrderQuantity * 100) / 100);
+						// 지점 주문할당할 개수 = 다른지역의 남은주문수 * (해당지점의 남은세탁가능수량 / 지역내모든지점의 남은세탁가능수량 * 100) / 100
+						int quantity = (int) (totalRemainingOrderQuantity * ((double) branchDAO.selectExcessCapacityOfTodayLaundryByBranchCode(branchVO.getBranchCode()) / totalExcessCapacity * 100) / 100);
 						logger.info(comCodeVO.getComCodeNm() + " 지역의 초과주문수 : " + totalRemainingOrderQuantity);
-						logger.info(branchVO.getBranchName() + "의 세탁가능량 : " + branchVO.getBranchLndrpcrymslmcoqy() + ", "	+ branchVO.getBranchName() + "의 할당 퍼센트"+ ((double) branchVO.getBranchLndrpcrymslmcoqy() / totalProcessableOrderQuantity * 100));
+						logger.info(branchVO.getBranchName() + "의 세탁가능량 : " + branchDAO.selectExcessCapacityOfTodayLaundryByBranchCode(branchVO.getBranchCode()) + ", "	+ branchVO.getBranchName() + "의 할당 퍼센트"+ ((double) branchDAO.selectExcessCapacityOfTodayLaundryByBranchCode(branchVO.getBranchCode()) / totalExcessCapacity * 100));
 						logger.info(branchVO.getBranchName() + "에 할당될 "+comCodeVO.getComCodeNm() + " 지역의 주문수" + quantity);
 						if (mostThroughputBranch == null || (mostThroughputBranch.getBranchLndrpcrymslmcoqy() < branchVO.getBranchLndrpcrymslmcoqy())) {
 							mostThroughputBranch = branchVO;

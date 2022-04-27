@@ -63,7 +63,83 @@
 			and order_status = '10'		
 		</if>
 	</sql>
-
+	
+	<sql id="searchOrderStatus">
+		<if test="orderStatus!=null and orderStatus.contains('01')">
+			and order_status = '01'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.startsWith('02')">
+			and order_status = '02'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.contains(',02')">
+			or order_status = '02'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.startsWith('03')">
+			and order_status = '03'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.contains(',03')">
+			or order_status = '03'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.startsWith('04')">
+			and order_status = '04'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.contains(',04')">
+			or order_status = '04'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.startsWith('05')">
+			and order_status = '05'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.contains(',05')">
+			or order_status = '05'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.startsWith('06')">
+			and order_status = '06'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.contains(',06')">
+			or order_status = '06'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.startsWith('07')">
+			and order_status = '07'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.contains(',07')">
+			or order_status = '07'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.startsWith('08')">
+			and order_status = '08'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.contains(',08')">
+			or order_status = '08'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.startsWith('09')">
+			and order_status = '09'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.contains(',09')">
+			or order_status = '09'		
+		</if>
+		<if test="orderStatus!=null and orderStatus == '10'.toString()">
+			and order_status = '10'		
+		</if>
+		<if test="orderStatus!=null and orderStatus.contains(',10')">
+			or order_status = '10'		
+		</if>
+	</sql>
+	
+	<sql id="searchAdminLaundryOrderList">
+		<if test="pickupRequestDate!=null and !pickupRequestDate.equals('')">
+			AND PICKUP_REQUEST_DATE  BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') 
+                                     AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+		</if>
+		<if test="branchCode!=null and !branchCode.equals('') and !branchCode.equals('notAssigned')">
+			AND BRANCH_CODE = #{branchCode}
+		</if>
+		<if test="branchCode!=null and branchCode.equals('notAssigned')">
+			AND BRANCH_CODE IS NULL
+		</if>
+		<if test="area!=null and !area.equals('')">
+			AND AREA = #{area}
+		</if>
+	</sql>
+	
 
 	<select id="selectCount" resultType="int">
 		select count(*)
@@ -92,6 +168,8 @@
 		select *
 		  from TB_LAUNDRY_ORDER
 		 where ORDER_NO is not null
+		 <include refid="searchOrderStatus"/>
+		 <include refid="searchAdminLaundryOrderList"/>
 		 order by PICKUP_REQUEST_DATE DESC
 	</select>
 	
@@ -100,7 +178,8 @@
 		count(*)
 		  from TB_LAUNDRY_ORDER
 		 where ORDER_NO is not null
-		 order by ORDER_DATE DESC
+		 <include refid="searchOrderStatus"/>
+		 <include refid="searchAdminLaundryOrderList"/>
 	</select>
 	
 	<update id="updateLaundryOrderStatusByOrderNo" parameterType="laundryOrder" >

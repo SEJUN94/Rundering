@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.AdminLaundryOrderListCriteria;
 import com.rundering.command.BranchCriteria;
-import com.rundering.command.Criteria;
 import com.rundering.dto.LaundryOrderVO;
 
 public class LaundryOrderDAOImpl implements LaundryOrderDAO{
@@ -31,7 +31,7 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		return count;
 	}
 	@Override
-	public int selectCount(Criteria cri) throws Exception{
+	public int selectCount(AdminLaundryOrderListCriteria cri) throws Exception{
 		int count = session.selectOne("LaundryOrder-Mapper.selectAdminLaundryOrderListCount",cri);
 		return count;
 	}
@@ -43,7 +43,7 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 	}
 
 	@Override
-	public List<LaundryOrderVO> selectAdminLaundryOrderList(Criteria cri) throws Exception {
+	public List<LaundryOrderVO> selectAdminLaundryOrderList(AdminLaundryOrderListCriteria cri) throws Exception {
 		int offset=cri.getStartRowNum();
 		int limit=cri.getPerPageNum();		
 		RowBounds rowBounds=new RowBounds(offset,limit);

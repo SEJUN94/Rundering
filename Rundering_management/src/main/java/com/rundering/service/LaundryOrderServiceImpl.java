@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.AdminLaundryOrderListCriteria;
 import com.rundering.command.BranchCriteria;
 import com.rundering.command.BranchPageMaker;
-import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
 import com.rundering.dao.AttachDAO;
 import com.rundering.dao.BranchDAO;
@@ -101,7 +101,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		return attachDAO.selectAttachVOByFileNo(attchNo);
 	}
 	@Override
-	public Map<String, Object> getAdminlaundryOrderList(Criteria cri) throws Exception {
+	public Map<String, Object> getAdminlaundryOrderList(AdminLaundryOrderListCriteria cri) throws Exception {
 		ComCodeUtil comCodeUtil =new ComCodeUtil();
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		Map<String,String> orderCodeMap = new HashMap<String, String>();

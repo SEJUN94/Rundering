@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.rundering.command.Criteria;
+import com.rundering.command.AdminLaundryOrderListCriteria;
 import com.rundering.service.LaundryOrderService;
 
 @Controller
@@ -18,7 +18,7 @@ public class AdminLaundryController {
 	LaundryOrderService laundryOrderService;
 	
 	@RequestMapping("/list")
-	public String laundryOrderList(Criteria cri,Model model) throws Exception {
+	public String laundryOrderList(AdminLaundryOrderListCriteria cri,Model model) throws Exception {
 		Map<String, Object> dataMap = laundryOrderService.getAdminlaundryOrderList(cri);
 		model.addAllAttributes(dataMap);
 		return "admin/laundryorder/laundry_order_list";
