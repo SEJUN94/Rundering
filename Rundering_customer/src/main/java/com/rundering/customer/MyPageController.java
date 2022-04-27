@@ -265,8 +265,6 @@ public class MyPageController {
 		HttpSession session = request.getSession();
 		MemberVO mv = (MemberVO) session.getAttribute("loginUser");
 		
-		System.out.println("---------------------널값 방지----------------"+memberAdd.getAddrNo()+"---------------------널값 방지----------------");
-		
 		int addressNo =  Integer.parseInt(memberAdd.getAddrNo());
 		
 		memberAdd.setAddressNo(addressNo);

@@ -111,23 +111,16 @@
 	
 	<select id="getmyorderList" parameterType="str" resultMap="laundryOrderMap">
 		SELECT  
-		ORDER_NO
-		,ORDER_DATE
-		,TOTAL_PRICE
-		,BRANCH_CODE
-		,ORDER_STATUS
-		,PAYMENTNO
-		,ATCH_FILE_NO
+		ORDER_NO,ORDER_DATE,TOTAL_PRICE,BRANCH_CODE,ORDER_STATUS,PAYMENTNO,ATCH_FILE_NO
 		FROM TB_LAUNDRY_ORDER
-		WHERE MEMBERNO = #{memberNo}
-		AND CANCEL_YN = 'N'
+		WHERE MEMBERNO=#{memberNo}
+		AND CANCEL_YN='N'
 	</select>
 	
 	<select id="myOrderListCount" resultType="int" parameterType="str">
-		select
-		count(*)
+		select count(*)
 		FROM TB_LAUNDRY_ORDER
-		WHERE MEMBERNO = #{memberNo}
+		WHERE MEMBERNO=#{memberNo}
 	</select>
 	
 </mapper>
