@@ -17,14 +17,14 @@
     </div>
     <div class="m-3" style="">
         <button type="button" class="btn btn-block btn-outline-info btn-lg" 
-        onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickup.do'"
+        onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickup'"
         style="
         font-size: 2rem;
         padding: 2rem 0;
         margin: 2rem 0;
     "><i class="fa fa-bell"></i> 진행중인 수거 4건</button>
         <button type="button" class="btn btn-block btn-outline-success btn-lg" 
-        onclick="location.href='<%=request.getContextPath()%>/fordelivery/delivery.do'"
+        onclick="location.href='<%=request.getContextPath()%>/fordelivery/delivery'"
         style="
         font-size: 2rem;
         padding: 2rem 0;
