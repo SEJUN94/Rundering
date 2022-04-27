@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="cri" value="${pageMaker.cri }" />
 
@@ -12,52 +13,25 @@
 		<form class="form-horizontal">
 			<div class="card-body">
 				<div class="form-group row m-0">
-					<label for="orderstatus" class="col-sm-2 col-form-label">주문상태</label>
-					<div class="col-sm-10 p-2" style="display: inline-flex;">
-						<div class="form-check ">
-							<input class="form-check-input" type="checkbox"> <label
-								class="form-check-label">수거대기&nbsp;&nbsp;</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox"> <label
-								class="form-check-label">수거중&nbsp;&nbsp;</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox"> <label
-								class="form-check-label">수거완료&nbsp;&nbsp;</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox"> <label
-								class="form-check-label">세탁중&nbsp;&nbsp;</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox"> <label
-								class="form-check-label">세탁완료&nbsp;&nbsp;</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox"> <label
-								class="form-check-label">배송중&nbsp;&nbsp;</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox"> <label
-								class="form-check-label">배송완료&nbsp;&nbsp;</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox"> <label
-								class="form-check-label">취소&nbsp;&nbsp;</label>
-						</div>
+					<label for="orderstatus" class="col-sm-1 col-form-label">주문상태</label>
+					<div class="col-sm-11 p-2 pl-4" style="display: inline-flex;">
+						<c:forEach items="${orderCodeMap }" var="orderCode" >
+							<div class="form-check ">
+								<input class="form-check-input" type="checkbox" name="orderStatus" id="${orderCode.key}" onclick="list_go('1');" value="${orderCode.key}" <c:if test = "${fn:contains(cri.orderStatus, orderCode.key)}">checked</c:if>><label class="form-check-label" for="${orderCode.key}">${orderCode.value}&nbsp;&nbsp;</label>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 				<div class="form-group row m-0">
-					<label for="orderperiod" class="col-sm-2 col-form-label">수거요청일</label>
-					<div class="col-sm-4">
+					<label for="orderperiod" class="col-sm-1 col-form-label pr-0">수거요청일</label>
+					<div class="col-sm-4 pl-4">
 						<div class="input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"> <i
 									class="far fa-calendar-alt"></i>
 								</span>
 							</div>
-							<input type="text" id="dates" class="form-control">
+							<input type="text" id="dates" class="form-control" name="pickupRequestDate">
 						</div>
 					</div>
 				</div>
@@ -100,6 +74,13 @@
 							</tr>   
 						</thead>    
 						<tbody>
+								<c:if test="${empty laundryOrderList }" >
+									<tr>
+										<td colspan="7">
+											<strong>해당하는 주문내역이 없습니다.</strong>
+										</td>
+									</tr>
+								</c:if>			
 							<c:forEach items="${laundryOrderList }" var="laundryOrder" >
 								<tr onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do?orderNo=${laundryOrder.orderNo }', '주문 상세', 'width=800, height=900');"
 									style="cursor: pointer;">
@@ -121,7 +102,7 @@
 
 
 					<div class="card-footer">
-						<%@ include file="/WEB-INF/views/common/pagination.jsp" %>
+						<%@ include file="/WEB-INF/views/admin/laundryorder/laundry_order_pagination.jsp" %>
 					</div>
 
 				</div>
