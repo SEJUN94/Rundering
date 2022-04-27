@@ -1,12 +1,16 @@
 package com.rundering.customer;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -54,21 +58,56 @@ public class FAQController {
 		return url;
 	}
 	
-	@RequestMapping("/faq")
-	private String faq() {
-		String url = "question/frequently_questions";
-		return url;
-	}
-	
-	@RequestMapping("/detail")
-	private String detail() {
+	@RequestMapping(value = "/detail")
+	private ModelAndView faqDetail(int faqno, @RequestParam(defaultValue = "") String from,
+			HttpServletRequest request, ModelAndView mnv, HttpSession session) throws SQLException {
+
 		String url = "question/question_detail";
-		return url;
+
+		FAQVO faq = faqService.getFAQModify(faqno);
+		
+		mnv.addObject("faq", faq);
+		mnv.setViewName(url);
+
+		return mnv;
 	}
 	
-	@RequestMapping("/modify")
-	private String modify() {
+	@RequestMapping("/modifyForm")
+	public ModelAndView modifyForm(int faqno, ModelAndView mnv) throws Exception {
+
 		String url = "question/question_modify";
+
+		FAQVO faq = faqService.getFAQModify(faqno);
+	
+		mnv.addObject("faq", faq);
+		
+		mnv.setViewName(url);
+
+		return mnv;
+	}
+
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modifyPost(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+
+		String url = "redirect:/question/detail";
+		
+		faqService.modify(faq);
+
+		rttr.addAttribute("faqno", faq.getFaqno());
+		rttr.addFlashAttribute("from", "modify");
+
+		return url;
+	}
+
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public String remove(int faqno, RedirectAttributes rttr) throws Exception {
+		String url = "redirect:/question/detail";
+
+		faqService.remove(faqno);
+
+		rttr.addFlashAttribute("from", "remove");
+		rttr.addAttribute("faqno", faqno);
+
 		return url;
 	}
 }

@@ -92,7 +92,7 @@
 		select *
 		  from TB_LAUNDRY_ORDER
 		 where ORDER_NO is not null
-		 order by ORDER_DATE DESC
+		 order by PICKUP_REQUEST_DATE DESC
 	</select>
 	
 	<select id="selectAdminLaundryOrderListCount" resultType="int">

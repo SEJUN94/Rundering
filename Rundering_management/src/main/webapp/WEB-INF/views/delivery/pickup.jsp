@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
-
 <body>
 	<div class="card card-outline card-outline-tabs card-info">
-
 		<div class="card-header p-0 border-bottom-0"
 			style="font-size: 1.4rem;">
 			<ul class="nav nav-tabs justify-content-center"
@@ -22,7 +19,6 @@
 						수거 목록</a></li>
 			</ul>
 		</div>
-
 		<div class="card-body p-0">
 			<table class="table table-striped" style="font-size: 1.2rem;">
 				<thead>

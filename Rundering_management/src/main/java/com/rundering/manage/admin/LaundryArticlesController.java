@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,18 +50,16 @@ public class LaundryArticlesController {
 	}
 
 	@RequestMapping(value = "/ordergoods/regist", method = RequestMethod.POST)
-	public String regist(LaundryArticlesVO laundryArticles, RedirectAttributes rttr) throws Exception {
+	public String regist(LaundryArticlesVO laundryArticles,AttachVO attach, String picture, RedirectAttributes rttr) throws Exception {
 		String url = "redirect:/admin/ordergoods/list";
- 
-		AttachVO attach = new AttachVO();
-		String atchFileNo = laundryArticles.getAtchFileNo();
+		
 		String fileName = laundryArticles.getPicture();
+		
 		File file = new File(picturePath + fileName);
 		String orginalFileName = MakeFileName.parseFileNameFromUUID(fileName, "\\$\\$");
 		long fileSize = file.length() / 1024;
 		String type = fileName.substring(fileName.lastIndexOf('.') + 1);
 		attach.setFileContType(type);
-		attach.setAtchFileNo(atchFileNo);
 		attach.setFileNm(orginalFileName);
 		attach.setSaveFileNm(fileName);
 		attach.setFileSize(fileSize);
@@ -73,14 +72,11 @@ public class LaundryArticlesController {
 	}
 
 	@RequestMapping("/ordergoods/detail")
-	public ModelAndView detail(String articlesCode, String from, AttachVO attach, ModelAndView mnv)
-			throws SQLException {
+	public ModelAndView detail(String articlesCode, ModelAndView mnv) throws SQLException {
 		String url = "admin/ordergoods/ordergoods_detail";
 		
-		LaundryArticlesVO laundryArticles = new LaundryArticlesVO();
-		laundryArticles.setPicture(attach.getFileNm());
-
-		laundryArticlesService.getLaundryArticles(articlesCode, attach);
+		LaundryArticlesVO laundryArticles = laundryArticlesService.getLaundryArticles(articlesCode);
+		
 		mnv.addObject("laundryArticles", laundryArticles);
 		mnv.setViewName(url);
 
@@ -88,14 +84,13 @@ public class LaundryArticlesController {
 	}
 
 	@RequestMapping("/ordergoods/modifyForm")
-	public ModelAndView ModifyForm(String articlesCode, AttachVO attach, ModelAndView mnv) throws SQLException {
+	public ModelAndView ModifyForm(String articlesCode ,AttachVO attach, ModelAndView mnv) throws SQLException {
 		String url = "admin/ordergoods/ordergoods_modify";
 
-		Map<String, Object> laundryArticles = laundryArticlesService.getLaundryArticles(articlesCode, attach);
+		LaundryArticlesVO laundryArticles = laundryArticlesService.getLaundryArticles(articlesCode);
 
-		// String picture = MakeFileName.parseFileNameFromUUID(orderGoods.getPicture(),
-		// "\\$\\$");
-		// orderGoods.setPicture(picture);
+//		String picture = MakeFileName.parseFileNameFromUUID(laundryArticles.getPicture(),"\\$\\$");
+//		laundryArticles.setPicture(picture);
 
 		mnv.addObject("laundryArticles", laundryArticles);
 		mnv.setViewName(url);
@@ -103,27 +98,26 @@ public class LaundryArticlesController {
 		return mnv;
 	}
 
-//	@RequestMapping(value="/ordergoods/modify", method=RequestMethod.POST)
-//	public String modifyPost(LaundryArticlesVO orderGoods,HttpServletRequest request, RedirectAttributes rttr) throws Exception{
-//			
-//		String url = "redirect:/admin/ordergoods/detail";
-//		
-//		// 신규 파일 변경 및 기존 파일 삭제 
-//		String oldPicture =orderGoodsService.getOrderGoods(orderGoods.getArticlesCode()).getPicture();
-//		if(orderGoods.getUploadPicture()!=null &&!orderGoods.getUploadPicture().isEmpty()){ 
-//			Map<String, String> fileName = savePicture(oldPicture, orderGoods.getPictureFile());
-//			orderGoods.setPicture(fileName); 
-//		}else { 
-//			orderGoods.setPicture(oldPicture);
-//		}
-//		
-//		orderGoodsService.modify(orderGoods);
-//		
-//		rttr.addFlashAttribute("from","modify");
-//		rttr.addAttribute("articlesCode",orderGoods.getArticlesCode());
-//
-//		return url; 
-//	}
+	@RequestMapping(value="/ordergoods/modify", method=RequestMethod.POST)
+	public String modifyPost(LaundryArticlesVO orderGoods,HttpServletRequest request, RedirectAttributes rttr) throws Exception{
+		String url = "redirect:/admin/ordergoods/detail";
+		
+		// 신규 파일 변경 및 기존 파일 삭제 
+		String oldPicture =laundryArticlesService.getLaundryArticles(orderGoods.getArticlesCode()).getPicture();
+		if(orderGoods.getUploadPicture()!=null &&!orderGoods.getUploadPicture().isEmpty()){ 
+			String fileName = savePicture(oldPicture, orderGoods.getPictureFile());
+			orderGoods.setPicture(fileName); 
+		}else { 
+			orderGoods.setPicture(oldPicture);
+		}
+		
+		laundryArticlesService.modify(orderGoods);
+		
+		rttr.addFlashAttribute("from","modify");
+		rttr.addAttribute("articlesCode",orderGoods.getArticlesCode());
+
+		return url; 
+	}
 
 	@RequestMapping(value = "/ordergoods/remove", method = RequestMethod.POST)
 	public String remove(String articlesCode, RedirectAttributes rttr) throws Exception {
@@ -135,19 +129,16 @@ public class LaundryArticlesController {
 		return url;
 	}
 
-	private Map<String, String> savePicture(String oldPicture, MultipartFile multi) throws Exception {
+	private String savePicture(String oldPicture, MultipartFile multi) throws Exception {
 		String fileName = null;
-		String fileOrginalName = null;
-		Map<String, String> dataMap = new HashMap<String, String>();
+
 		/* 파일유무확인 */
 		if (!(multi == null || multi.isEmpty() || multi.getSize() > 1024 * 1024 * 5)) {
+
 			/* 파일저장폴더설정 */
 			String uploadPath = picturePath;
 			fileName = MakeFileName.toUUIDFileName(multi.getOriginalFilename(), "$$");
-			fileOrginalName = multi.getOriginalFilename();
 			File storeFile = new File(uploadPath, fileName);
-			dataMap.put("fileName", fileName);
-			dataMap.put("fileOrginalName", fileOrginalName);
 
 			storeFile.mkdirs();
 
@@ -161,6 +152,6 @@ public class LaundryArticlesController {
 				}
 			}
 		}
-		return dataMap;
+		return fileName;
 	}
 }

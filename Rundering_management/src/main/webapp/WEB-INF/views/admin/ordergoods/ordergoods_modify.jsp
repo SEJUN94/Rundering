@@ -23,14 +23,14 @@
 								name="pictureFile" style="display: none" />
 							<div class="input-group col-md-12">
 								<div class="col-md-12" style="text-align: center;">
-									<div class="goodsPicture" data-id="${orderGoods.articlesCode }"
+									<div class="goodsPicture" data-id="${laundryArticles.atchFileNo }"
 										id="pictureView"
 										style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto; margin-bottom: 5px;"></div>
 									<div class="input-group input-group-sm">
 										<label for="inputFile"
 											class=" btn btn-warning btn-sm btn-flat input-group-addon">사진변경</label>
 										<input id="inputFileName" class="form-control" type="text"
-											name="tempPicture" disabled value="${orderGoods.picture }" /> <input
+											name="tempPicture" disabled value="${laundryArticles.picture }" /> <input
 											id="picture" class="form-control" type="hidden"
 											name="uploadPicture" />
 									</div>
@@ -43,7 +43,7 @@
 							</label>
 							<div class="col-sm-8 input-group-sm">
 								<input class="form-control" name="articlesName" type="text"
-									id="articlesName" value="${orderGoods.articlesName }">
+									id="articlesName" value="${laundryArticles.articlesName }">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -52,7 +52,7 @@
 							</label>
 							<div class="col-sm-8 input-group-sm">
 								<input class="form-control" name="articlesCode" type="text"
-									id="articlesCode" value="${orderGoods.articlesCode }">
+									id="articlesCode" value="${laundryArticles.articlesCode }">
 							</div>
 						</div>
 
@@ -63,16 +63,16 @@
 							</label>
 							<div class="col-sm-8 input-group-sm">
 								<select id="clcode" name="clcode" class="form-control">
-									<option value="${orderGoods.clcode }"
-										${orderGoods.clcode eq 'B' ? 'selected':'' }>가루세제</option>
-									<option value="${orderGoods.clcode }"
-										${orderGoods.clcode eq 'C' ? 'selected':'' }>엑체세제</option>
-									<option value="${orderGoods.clcode }"
-										${orderGoods.clcode eq 'D' ? 'selected':'' }>섬유유연제</option>
-									<option value="${orderGoods.clcode }"
-										${orderGoods.clcode eq 'E' ? 'selected':'' }>세탁비누</option>
-									<option value="${orderGoods.clcode }"
-										${orderGoods.clcode eq 'F' ? 'selected':'' }>세탁보조용품</option>
+									<option value="${laundryArticles.clcode }"
+										${laundryArticles.clcode eq 'B' ? 'selected':'' }>가루세제</option>
+									<option value="${laundryArticles.clcode }"
+										${laundryArticles.clcode eq 'C' ? 'selected':'' }>엑체세제</option>
+									<option value="${laundryArticles.clcode }"
+										${laundryArticles.clcode eq 'D' ? 'selected':'' }>섬유유연제</option>
+									<option value="${laundryArticles.clcode }"
+										${laundryArticles.clcode eq 'E' ? 'selected':'' }>세탁비누</option>
+									<option value="${laundryArticles.clcode }"
+										${laundryArticles.clcode eq 'F' ? 'selected':'' }>세탁보조용품</option>
 								</select>
 							</div>
 						</div>
@@ -83,7 +83,7 @@
 							</label>
 							<div class="col-sm-8 input-group-sm">
 								<input class="form-control" name="price" type="text" id="price"
-									value="${orderGoods.price }">
+									value="${laundryArticles.price }">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -97,18 +97,18 @@
 							<div class="col-sm-3 input-group-sm">
 								<select onchange="list_go(1);" id="perPageNum" name="perPageNum"
 									class="form-control">
-									<option value="${orderGoods.each }"
-										${orderGoods.each eq 'n' ? 'selected':'' }>개</option>
-									<option value="${orderGoods.each }"
-										${orderGoods.each eq 'h' ? 'selected':'' }>매</option>
-									<option value="${orderGoods.each }"
-										${orderGoods.each eq 'g' ? 'selected':'' }>g</option>
-									<option value="${orderGoods.each }"
-										${orderGoods.each eq 'kg' ? 'selected':'' }>kg</option>
-									<option value="${orderGoods.each }"
-										${orderGoods.each eq 'ml' ? 'selected':'' }>ml</option>
-									<option value="${orderGoods.each }"
-										${orderGoods.each eq 'l' ? 'selected':'' }>L</option>
+									<option value="${laundryArticles.each }"
+										${laundryArticles.each eq 'n' ? 'selected':'' }>개</option>
+									<option value="${laundryArticles.each }"
+										${laundryArticles.each eq 'h' ? 'selected':'' }>매</option>
+									<option value="${laundryArticles.each }"
+										${laundryArticles.each eq 'g' ? 'selected':'' }>g</option>
+									<option value="${laundryArticles.each }"
+										${laundryArticles.each eq 'kg' ? 'selected':'' }>kg</option>
+									<option value="${laundryArticles.each }"
+										${laundryArticles.each eq 'ml' ? 'selected':'' }>ml</option>
+									<option value="${laundryArticles.each }"
+										${laundryArticles.each eq 'l' ? 'selected':'' }>L</option>
 								</select>
 							</div>
 						</div>
@@ -118,7 +118,7 @@
 							</label>
 							<div class="col-sm-8 input-group-sm">
 								<input class="form-control" name="note" type="text" id="note"
-									value="${orderGoods.note }">
+									value="${laundryArticles.note }">
 							</div>
 						</div>
 
@@ -140,15 +140,15 @@
 	</section>
 	<form role="form">
 		<input type="hidden" name="articlesCode"
-			value="${orderGoods.articlesCode }" />
+			value="${laundryArticles.articlesCode }" />
 	</form>
 	
 	<script>
-		//window.addEventListener('load', OrderGoodsPictureThumb)
-		window.onload=function OrderGoodsPictureThumb(){
+		window.addEventListener('load', OrderGoodsPictureThumb)
+		function OrderGoodsPictureThumb(){
 			 for(var target of document.querySelectorAll('.goodsPicture')){	
-				 var articlesCode = target.getAttribute('data-id');
-				 target.style.backgroundImage="url('<%=request.getContextPath() %>/admin/ordergoods/getPicture?articlesCode="+articlesCode+"')";
+				 var atchFileNo = target.getAttribute('data-id');
+				 target.style.backgroundImage="url('<%=request.getContextPath() %>/admin/ordergoods/getPicture?atchFileNo="+atchFileNo+"')";
 				 target.style.backgroundPosition="center";
 				 target.style.backgroundRepeat="no-repeat";
 				 target.style.backgroundSize="cover";

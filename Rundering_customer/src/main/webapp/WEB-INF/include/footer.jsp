@@ -15,9 +15,9 @@
       </ul>
   
       <div class="btn-group">
-        <a href="javascript:void(0)" class="btn btn--black">찾아오시는 길</a> <a
-          href="javascript:void(0)" class="btn btn--black">신규입점제의</a> <a
-          href="javascript:void(0)" class="btn btn--black">사이트 맵</a>
+        <a href="javascript:void(0)" class="btn btn--black">신규입점제의</a> 
+        <a href="http://<%=request.getServerName()%>:<%=request.getServerPort() %>/runderingmanage/common/loginform" class="btn btn--black">사원 로그인</a> 
+        <a href="javascript:void(window.open('http://<%=request.getServerName()%>:<%=request.getServerPort() %>/runderingmanage/fordelivery/login', 'Rundering delivery','width=420, height=860'))" class="btn btn--black">배송사원 로그인</a>
       </div>
   
       <div class="info">

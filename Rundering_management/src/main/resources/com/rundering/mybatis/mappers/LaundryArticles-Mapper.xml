@@ -15,20 +15,32 @@
 		<result column="NOTE" property="note"/>
 		<result column="ATCH_FILE_NO" property="atchFileNo"/>
 	</resultMap>
+<sql id="search">
+	<if test="clcode == 'B'.toString()">
+		AND CLCODE LIKE 'B'
+	</if>
+	<if test="clcode == 'C'.toString()">
+		AND CLCODE LIKE 'C'
+	</if>
+	<if test="clcode == 'D'.toString()">
+		AND CLCODE LIKE 'D'
+	</if>
+	<if test="clcode == 'E'.toString()">
+		AND CLCODE LIKE 'E'
+	</if>
+	<if test="clcode == 'F'.toString()">
+		AND CLCODE LIKE 'F'
+	</if>
+</sql>
 
-	<select id="laundryArticlesList" resultMap="laundryArticlesMap" parameterType="str">
-		select *
-		  from TB_LAUNDRY_ARTICLES
-		 where DELETE_YN='N'
-	</select>
-	
 	<select id="NotALaundryArticlesList" resultMap="laundryArticlesMap" parameterType="str">
 		select *
 		  from TB_LAUNDRY_ARTICLES
 		 where DELETE_YN='N'
 		   and CLCODE !='A'
+		 <include refid="search"/>
+		 order by ARTICLES_CODE ASC
 	</select>
-	
 	
 	<select id="selectSearchLaundryArticlesListCount" resultType="int">
 		select
@@ -36,14 +48,16 @@
 		from
 		TB_LAUNDRY_ARTICLES
 		where ARTICLES_CODE is not null  	
+		<include refid="search"/>  
 		  and DELETE_YN='N'
-		order by REGIST_DATE desc
+		  and CLCODE !='A'
+		order by ARTICLES_CODE ASC
 	</select>
 	
 	<select id="selectLaundryArticlesByArticlesCode"  resultMap="laundryArticlesMap">
 		select * 
-		from TB_LAUNDRY_ARTICLES
-		where ARTICLES_CODE=#{articlesCode}
+		  from TB_LAUNDRY_ARTICLES
+		 where ARTICLES_CODE=#{articlesCode}
 	</select>
 	
 	<update id="insertLaundryArticles" parameterType="laundryArticles">

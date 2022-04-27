@@ -41,5 +41,20 @@ public class FAQDAOImpl implements FAQDAO {
 	public void insertFAQ(FAQVO FAQ) throws SQLException {
 		session.update("FAQ-mapper.insertFAQ", FAQ);
 	}
+	
+	@Override
+	public FAQVO selectFAQByFaqno(int faqno) throws SQLException {
+		return session.selectOne("FAQ-mapper.selectFAQByFaqno", faqno);
+	}
+	
+	@Override
+	public void updateFAQ(FAQVO FAQ) throws SQLException {
+		session.update("FAQ-mapper.updateFAQ", FAQ);
+	}
+	
+	@Override
+	public void deleteFAQ(int faqno) throws SQLException {
+		session.update("FAQ-mapper.deleteFAQ", faqno);
+	}
 
 }

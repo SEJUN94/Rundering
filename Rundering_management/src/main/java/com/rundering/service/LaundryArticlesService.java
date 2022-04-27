@@ -11,7 +11,7 @@ import com.rundering.dto.LaundryArticlesVO;
 public interface LaundryArticlesService {
 	public Map<String, Object> getLaundryArticles(Criteria cri) throws SQLException;
 	// 상세보기
-	public Map<String, Object> getLaundryArticles(String articlesCode, AttachVO attach)throws SQLException;	
+	public LaundryArticlesVO getLaundryArticles(String articlesCode)throws SQLException;	
 		
 	// 등록
 	public void regist(LaundryArticlesVO laundryArticles,AttachVO attach)throws Exception;
