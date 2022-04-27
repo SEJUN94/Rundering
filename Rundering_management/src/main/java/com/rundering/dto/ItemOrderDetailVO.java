@@ -2,6 +2,7 @@ package com.rundering.dto;
 
 public class ItemOrderDetailVO {
 	private String ordercode;       //발주코드
+	private String articlesName;
 	private String articlesCode;    //세탁물품코드
 	private int seq; 				//순번
 	private int orderCount;         //발주개수
@@ -69,6 +70,16 @@ public class ItemOrderDetailVO {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+
+	public String getArticlesName() {
+		return articlesName;
+	}
+
+
+	public void setArticlesName(String articlesName) {
+		this.articlesName = articlesName;
 	}
 	
 	
