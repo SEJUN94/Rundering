@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <body>
 	<div class="card card-outline card-outline-tabs card-success">
@@ -22,31 +23,58 @@
 			</ul>
 		</div>
 		<div class="card-body p-0">
-			<table class="table table-striped" style="font-size: 1.2rem;">
-				<thead>
-					<tr>
-						<th style="width: 10px"></th>
-						<th>배송 주소지</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/deliverydetail'">
-						<td>1</td>
-						<td>중구 계룡로 820</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="tab-content" id="custom-tabs-four-tabContent">
+				<div class="tab-pane fade active show" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
+					<table class="table table-striped" style="font-size: 1.2rem;">
+						<thead>
+							<tr>
+								<th>주문번호</th>
+								<th>배송 주소지</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:if test="${empty deliveryList }">
+								<tr>
+									<td colspan="2" style="text-align:center;"><strong>배송할 세탁물이 없습니다.</strong></td>
+								</tr>
+							</c:if>
+							<c:forEach items="${deliveryList }" var="deliveryList">
+								<c:if test="${deliveryList.orderStatus eq '06' }">
+									<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/deliverydetail?orderNo=${deliveryList.orderNo }'">
+											<td>${deliveryList.orderNo }</td>
+											<td>${deliveryList.add1 } ${deliveryList.add2 }</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				<div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+					<table class="table table-striped" style="font-size: 1.2rem;">
+						<thead>
+							<tr>
+								<th>주문번호</th>
+								<th>배송 주소지</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:if test="${empty deliveryList }">
+								<tr>
+									<td colspan="2" style="text-align:center;"><strong>배송완료된 세탁물이 없습니다.</strong></td>
+								</tr>
+							</c:if>
+							<c:forEach items="${deliveryList }" var="deliveryList">
+								<c:if test="${deliveryList.orderStatus eq '07' }">
+									<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/deliverydetail?orderNo=${deliveryList.orderNo }'">
+											<td>${deliveryList.orderNo }</td>
+											<td>${deliveryList.add1 } ${deliveryList.add2 }</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
-		<div class="card-footer clearfix">
-			<ul class="pagination m-0 justify-content-center">
-				<li class="page-item"><a class="page-link" href="#">«</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">»</a></li>
-			</ul>
-		</div>
-
 	</div>
-
 </body>

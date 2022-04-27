@@ -4,9 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.rundering.command.Criteria;
-import com.rundering.command.PageMaker;
 import com.rundering.dao.DeliveryDAO;
+import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 
 public class DeliveryServiceImpl implements DeliveryService{
@@ -18,22 +17,25 @@ public class DeliveryServiceImpl implements DeliveryService{
 	}
 	
 	@Override
-	public Map<String, Object> getDeliveryList(Criteria cri) throws Exception {
+	public List<LaundryOrderVO> getDeliveryList(String orderStatus) throws Exception {
+		
+		List<LaundryOrderVO> deliveryList = deliveryDAO.selectDeliveryList(orderStatus);
+		
+		return deliveryList;
+	}
+
+	@Override
+	public Map<String, Object> getDeliveryByOrderNo(String orderNo) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
-		List<LaundryOrderVO> deliveryList = deliveryDAO.selectDeliveryList(cri);
+		LaundryOrderVO delivery = deliveryDAO.selectDeliveryByOrderNo(orderNo);
+		List<LaundryOrderDetailVO> orderList = deliveryDAO.selectOrderListByOrderNo(orderNo);
 		
-		// 전체 board 개수
-		int totalCount = deliveryDAO.selectDeliveryCriteriaTotalCount(cri);
-		// PageMaker 생성.
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(totalCount);
-
-		dataMap.put("deliveryList", deliveryList);
-		dataMap.put("pageMaker", pageMaker);
+		dataMap.put("delivery", delivery);
+		dataMap.put("orderList", orderList);
 		
 		return dataMap;
+		
 	}
-	
+
 }

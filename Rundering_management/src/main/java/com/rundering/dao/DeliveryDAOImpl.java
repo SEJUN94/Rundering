@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.command.Criteria;
+import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 
 public class DeliveryDAOImpl implements DeliveryDAO{
@@ -17,22 +18,28 @@ public class DeliveryDAOImpl implements DeliveryDAO{
 	}
 
 	@Override
-	public List<LaundryOrderVO> selectDeliveryList(Criteria cri) throws Exception {
-		
-		int offset=cri.getStartRowNum();
-		int limit=cri.getPerPageNum();		
-		RowBounds rowBounds=new RowBounds(offset,limit);		
-		
-		List<LaundryOrderVO> collect = session.selectList("Delivery-Mapper.selectDeliveryList",cri, rowBounds);
+	public List<LaundryOrderVO> selectDeliveryList(String orderStatus) throws Exception {
+
+		List<LaundryOrderVO> collect = session.selectList("Delivery-Mapper.selectDeliveryList", orderStatus);
 		
 		return collect;
 	}
 
 	@Override
-	public int selectDeliveryCriteriaTotalCount(Criteria cri) throws Exception {
+	public LaundryOrderVO selectDeliveryByOrderNo(String orderNo) throws Exception {
 		
-		int count = session.selectOne("Delivery-Mapper.selectDeliveryListCount", cri);
+		LaundryOrderVO delivery = session.selectOne("Delivery-Mapper.selectDeliveryByorderNo", orderNo);
 		
-		return count;
+		return delivery;
 	}
+
+	@Override
+	public List<LaundryOrderDetailVO> selectOrderListByOrderNo(String orderNo) throws Exception {
+		List<LaundryOrderDetailVO> orderList = session.selectList("Delivery-Mapper.selectItemsListByOrderNo", orderNo);
+		return orderList;
+	}
+
+	
+	
+
 }
