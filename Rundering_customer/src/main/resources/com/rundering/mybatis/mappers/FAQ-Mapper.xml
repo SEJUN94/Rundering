@@ -114,8 +114,9 @@
 	<!-- 자주묻는질문 리스트보기 -->
 	<select id="selectFrequentlyList" resultMap="faqMap">
 		select
-		    question as 문의내용,
-		    answer as 답변
+			faqno
+		    question,
+		    answer
 		  from tb_faq
 		 where faqyn = 'Y'
 		 order by faqno asc;

@@ -53,7 +53,14 @@
 		<div class="row">
 			<div style="margin-top: 100;">
 				<c:forEach items="${frequentlyList }" var="faq">
-					<input type="radio" name="accordion" id="answer${faq. }"
+					<input type="radio" name="accordion" id="answer${faq. faqno}">
+					<label for="answer${faq.faqno}">
+						${faq.question }
+						<i class="fas fa angle-down"></i>
+					</label>
+					<div>
+						<p style=""text-align: left;">${faq.fcontent }</div>
+					</div>
 				</c:forEach>
 			</div>
 			
