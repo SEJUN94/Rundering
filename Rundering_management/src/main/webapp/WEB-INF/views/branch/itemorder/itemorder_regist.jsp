@@ -2,21 +2,31 @@
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <body>
 	<div>
 		<div class="row ml-2 mr-2">
 			<div class="col-6">
-				<div class="card card-primary card-outline col-12" style="height: 765px;display: block; overflow: auto;">
-					<div class="card-header">
-						<h3 class="card-title">물품리스트</h3>
-						<div class="card-tools"></div>
+				<div class="card card-primary card-outline col-12" style="height: 805px;display: block; overflow: auto;">
+					<div class="card-header ">
+						
+							<h3 class="card-title">물품리스트</h3>
+								<div class="float-right ">
+									<div class="input-group-sm selectWidth">
+										<select class="form-control" name="searchType" id="searchType"
+											onchange="list_go('1')">
+											<option value="">분류검색 예정 건회 작업끝나면 시작</option>
+										</select>
+									</div>
+								</div>
+						
 					</div>
 					<div class="card-body p-0" >
 						<table class="table table-hover ">
 							<thead id="listBody">
 								<tr>
 									<th class="width20" style="text-align: center">물품명</th>
-									<th class="width15" style="text-align: center">사진</th>
+									<th class="width15" style="text-align: center">분류</th>
 									<th class="width5" style="text-align: center">금액</th>
 									<th class="width10" style="text-align: center;">담기</th>
 								</tr>
@@ -31,9 +41,17 @@
 	
 			</div>
 			<div class="col-6">
-				<div class="card card-primary card-outline col-12" style="height: 670px;display: block;overflow: auto;">
-					<div class="card-header">
+				<div class="card card-primary card-outline col-12" style="height: 805px;display: block;overflow: auto;">
+					<div class="card-header" style="padding-bottom: 2px; ">
 						<h3 class="card-title">발주신청</h3>
+							<div class="float-right">
+							<strong>합계 총금액</strong> 
+							
+							<input  style="width: 100px" class="input-sm  " id="totalPrice" name="content" type="text" disabled="disabled">
+							<button class="btn btn-sm btn-primary " style="margin-right: 10px;margin-left: -4px" onclick="seeTotalPrice()">보기</button>
+							<button type="button" class="btn btn-sm btn-primary" onclick="order_go()">발주</button>
+							
+						</div>
 	
 					</div>
 					<div class="card-body p-0" >
@@ -41,16 +59,12 @@
 						<table class="table table-hover " >
 							<thead>
 								<tr style="text-align: center;">
-									<th class="width30">물품명</th>
-	
-									<th class="width20">수량</th>
-	
+									<th class="width25">물품명</th>
+									<th class="width25">수량</th>
 									<th class="width25">총금액</th>
 									<th class="width15" >취소</th>
 								</tr>
 							</thead>
-							
-							
 								 <tbody id="tbody">
 
 								</tbody>
@@ -60,25 +74,18 @@
 					</div>
 					
 				</div>
-				<div class="card">
-	
-					<div class="card-body">
-						<strong>합계 총금액</strong> 
-						<button class="btn btn-primary float-right" style="margin-left: 10px" onclick="seeTotalPrice()">보기</button>
-						<input  style="width: 100px" class="form-control float-right" id="totalPrice" name="content" type="text" disabled="disabled">
-						
-					</div>
-				</div>
-				<div class="float-right">
-					<button type="button" class="btn btn-primary" onclick="order_go()">발주</button>
-					<button type="button" class="btn btn-primary">리셋</button>
-				</div>
+				<img alt="" src="" onmouseover="" onmouseout="">
 	
 			</div>
 		</div>
 	</div>
 
 <script>
+function laundryImage(){
+	
+}
+
+
 function order_go(){	
 	let count = document.querySelectorAll(".count")
 	if(count.length==0){
@@ -112,8 +119,13 @@ function order_go(){
 <tbody id="removeBody">
 {{#laundryArticlesList}}
 		<tr>
-			<td style="text-align: left;" class="{{articlesCode}}" data-code="{{articlesCode}}" >{{articlesName}}</td>
-			<td style="text-align: center;">사진</td>
+			<td style="text-align: left;" class="{{articlesCode}} visibleImg" data-code="{{articlesCode}}" onclick="imgclick()"  >
+			<img alt="" src="" onclick="imgclicknone()" class="articlesImg" data-fileno="{{atchFileNo}}" style="position: absolute;z-index:2; display:none;" width="300" height="300">
+			{{articlesName}} (단위)
+		</td>
+			<td style="text-align: center;">분류
+			
+			</td>
 			<td style="text-align: center;">{{price}}</td>
 			<td style="text-align: center; padding-top: 8px"><button type="button"	class="btn btn-primary btn-sm" onclick="getOrder()" >담기</button></td>
 		</tr>
@@ -162,9 +174,12 @@ function order_go(){
 <tr class="{{code}} count">
 	<input type="hidden" name="code" value="{{code}}">
 	<input type="hidden" name="price" class="inputPrice" value="">
-	<td   >{{name}}</td>
+	<td>
+		{{name}}
+	</td>
 	<td  style="text-align:center; padding-left:0px;padding-right:0px;"> 
-		<input type="text" name="quantity" class="quantity" value="0" class="form-control" onkeyup="inputNumber()" style="width: 70px; height: 30px; text-align:right; display:inline">
+		<input type="text" name="quantity" class="quantity" value="0" class="form-control" onkeyup="inputNumber()" style="width: 60px; height: 30px; text-align:right; display:inline">
+		단위
 	</td>
 	<td  style="text-align:right" class="price" data-price="{{price}}"></td> 
 	<td  style="text-align:center;">
@@ -182,7 +197,52 @@ let page= 1;
 
 window.onload=function(){
 	orderGoodsList("<%=request.getContextPath()%>/branch/itemorder/orderGoodsList?page="+page);
+	
+	
 }   
+
+// 이미지불러오기
+function getImage(){
+	let imgs = document.querySelectorAll(".articlesImg");
+	for(img of imgs){
+		let fileNo =img.dataset.fileno
+		imgAjax(fileNo,img)
+		console.log(img)
+	}
+}
+function imgAjax(atchFileNo,img){
+	 $.ajax({
+	        url:"<%=request.getContextPath()%>/branch/laundrysituatuion/getimgs",
+	        type:"post",
+	        data: {
+	        	atchFileNo:atchFileNo
+	        },
+	        dataType:"json",
+	        success:function(data){
+	        	img.src="data:image/jpg;base64,"+data[0];
+	        },
+	        error:function(error){
+			//alert('댓글이 등록을 실패했습니다.');
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	    })
+}
+function imgclick(){
+	let imgTag=event.target.querySelectorAll(".articlesImg")[0]
+	if(imgTag.style.display=="none"){
+		imgTag.style.display='block'
+		return;
+	}
+	imgTag.style.display='none';
+}
+function imgclicknone(){
+	let imgTag=event.target.style.display='none';
+	console.log(imgTag)
+}
+
+
+
+
 
 function page_go(url){
 	if(url==null||url.trim()==""){
@@ -253,13 +313,16 @@ function orderGoodsList(pageInfo){
 			}
 			$("#cardfooter").append(pagehtml)
 			$("#listBody").after(html)
+			
+			getImage();
 		},
 		error : function(error) {
 			AjaxErrorSecurityRedirectHandler(error.status);
 		}
 	});
 }
-//여기까지 물품리스트 뽑고 페이징처
+//여기까지 물품리스트 뽑고 페이징처리
+
 
 
 // 담기
@@ -317,7 +380,8 @@ function inputNumber(){
 	event.target.value=inputValue.replace(regex,'');
 	
 	if( event.target.value.trim==""||event.target.value==null){
-		event.target.value=0;
+		event.target.value=1;
+		console.log(seeTotalPrice());
 		return;
 	}
 	
@@ -329,7 +393,9 @@ function inputNumber(){
     		let priceInt=parseInt(price);
     		event.target.parentNode.parentNode.querySelector(".price").innerText=priceInt*eventInt;
     		event.target.parentNode.parentNode.querySelector(".inputPrice").value=priceInt*eventInt;
+    		 console.log(seeTotalPrice());
     		return;
+    		
     	}
     	event.target.value= event.target.value.substr(i+1)
     	
@@ -339,7 +405,7 @@ function inputNumber(){
 		event.target.parentNode.parentNode.querySelector(".price").innerText=priceInt*eventInt;
 		event.target.parentNode.parentNode.querySelector(".inputPrice").value=priceInt*eventInt;
     	
-    	
+		console.log(seeTotalPrice());
     }
     
 }

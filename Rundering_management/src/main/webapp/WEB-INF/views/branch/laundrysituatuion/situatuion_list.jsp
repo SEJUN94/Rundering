@@ -19,34 +19,12 @@ ${from }
 			window.opener.location.reload();
 	</script>
 </c:if>
-
-
 	<div class="row ml-2 mr-2 " id="body">
 
 		<div class="col-12">
 			<div class="card-header" style="padding: 10px;">
 				<div class=" float-right">
-					<div class="input-group input-group-sm float-right ">
-						<div class="input-group-sm selectWidth">
-							<select class="form-control" name="searchType" id="searchType"
-								onchange="list_go('1')">
-								<option value="">전체</option>
-								<c:forEach items="${orderCodeMap }" var="orderCode">
-									<option value="${orderCode.key }"
-										${cri.searchType eq orderCode.key ? 'selected':'' }>${orderCode.value }</option>
-								</c:forEach>
-							</select>
-						</div>
-						<div class="input-group-sm textWidth">
-							<input class="form-control " type="text" name="keyword" id="orderNumberInput"
-								placeholder="주문 번호를 입력하세요" value="">
-						</div>
-						<span class="input-group-append">
-
-							<button class="btn btn-primary" type="button"
-								onclick="orderDetail_go()" data-card-widget="search">상세보기</button>
-						</span>
-					</div>
+					
 				</div>
 			</div>
 
@@ -56,6 +34,16 @@ ${from }
 						<h3 class="card-title">세탁 현황 관리</h3>
 						<div class="card-tools">
 							<div class="input-group input-group-sm">
+								<div class="input-group-sm textWidth">
+									<input class="form-control " type="text" name="keyword" id="orderNumberInput"
+										placeholder="주문 번호를 입력하세요" value="">
+								</div>
+								<span class="input-group-append">
+									<button class="btn btn-primary" type="button"
+										onclick="orderDetail_go()" data-card-widget="search">상세보기</button>
+								</span>
+							
+								
 								<div class="input-group-sm selectWidth">
 									<select class="form-control" name="orderStatus" id="searchType">
 
@@ -81,7 +69,16 @@ ${from }
 							<tr>
 								<th class="width10" style="text-align: center;">주문번호</th>
 								<th class="width50" style="text-align: center;">세탁 물품</th>
-								<th class="width10" style="text-align: center;">세탁물 상태</th>
+								<th class="width10" style="text-align: center;"><div class="input-group-sm " style="width: 100px">
+									<select class="form-control" name="searchType" id="searchType"
+										onchange="list_go('1')">
+										<option value="">세탁물 상태</option>
+										<c:forEach items="${orderCodeMap }" var="orderCode">
+											<option value="${orderCode.key }"
+												${cri.searchType eq orderCode.key ? 'selected':'' }>${orderCode.value }</option>
+										</c:forEach>
+									</select>
+								</div></th>
 								<th class="width10" style="text-align: center;">배송요청일</th>
 								<th class="width5" style="text-align: center;"
 									onclick="selectAll()">전체선택</th>
@@ -127,7 +124,7 @@ ${from }
 
 			<div class="row">
 				<div class="col-12 col-sm-5">
-					<div class="card card-tabs" style="height: 300px">
+					<div class="card card-tabs" style="height: 340px">
 						<div class="card-header p-0 border-bottom-0">
 							<div class="float-left"
 								style="margin-top: 10px; margin-left: 10px">이미지</div>
@@ -140,7 +137,7 @@ ${from }
 					</div>
 				</div>
 
-				<div class="col-12 col-sm-7" id="reply" style="height: 300px; overflow: auto;">
+				<div class="col-12 col-sm-7" id="reply" style="height: 340px; overflow: auto;">
 					<div class="card " style="padding-left:0px;padding-right: 0px;">
 						<div class="card-header">
 							<h3 class="card-title">요청사항</h3>
@@ -297,7 +294,7 @@ ${from }
 	</script>
 
 
-		<script>
+	<script>
  window.onload=function(){ 
     let texts= document.querySelectorAll(".textCut");
     
