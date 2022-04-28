@@ -13,15 +13,25 @@
 
 <body>
  
-	<div class="row ml-3 mr-3">
+	<div class="card card-secondary card-outline ml-3 mr-3">
 		<div class="col-12 p-0">
 			<div class="card m-0">
 				<div class="card-header">
 					<h3 class="card-title" style="font-size: 1.75rem;">세탁 품목</h3>
 					<div class="card-tools">
-						<div class="input-group input-group-sm" style="width: 300px;">
-							<select class="form-control col-md-4" name="searchType"
-									id="searchType">
+						<div class="input-group input-group-sm" style="width: 400px;  margin-top:5px;">
+							
+							<!-- classification -->
+							<select class="form-control col-md-3" name="laundryItemsCode"
+								id="laundryItemsCode" onchange="list_go(1);">
+								<option value="01" ${cri.laundryItemsCode eq '01' ? 'selected' : '' }>전체품목</option>
+								<option value="BE" ${cri.laundryItemsCode eq 'BE' ? 'selected' : '' }>침구</option>
+								<option value="CL" ${cri.laundryItemsCode eq 'CL' ? 'selected' : '' }>의류</option>
+								<option value="SH" ${cri.laundryItemsCode eq 'SH' ? 'selected' : '' }>신발</option>
+							</select>
+						
+							<!-- search bar -->
+							<select class="form-control col-md-4" name="searchType" id="searchType">
 									<option value="tc" ${cri.searchType eq 'tc' ? 'selected':'' }>전체</option>
 									<option value="t" ${cri.searchType eq 't' ? 'selected':'' }>품목번호</option>
 									<option value="c" ${cri.searchType eq 'c' ? 'selected':'' }>품목명</option>
@@ -40,7 +50,7 @@
 				<form role="form" class="form-horizontal" action="regist"
 						method="post" name="registForm">
 					<table
-						class="table table-hover text-nowrap card-secondary card-outline">
+						class="table table-hover text-nowrap card-outline">
 						<thead>
 							<tr>
 							    <th style="width:150px;">분류</th>
@@ -74,8 +84,7 @@
 					</table>
 				</form>
 					<div class="card-footer" >
-						
-						<%@ include file="/WEB-INF/views/common/pagination.jsp" %>
+						<%@ include file="/WEB-INF/views/admin/ordergoods/pagination.jsp" %>
 							<div class="float-right mb-3 mr-2">
 							<button type="button" class="btn btn-primary"
 							onclick="window.open('<%=request.getContextPath()%>/admin/laundryitems/regist','세탁품목등록', 'width=600, height=600')">

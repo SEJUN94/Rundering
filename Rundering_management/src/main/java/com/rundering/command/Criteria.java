@@ -8,6 +8,7 @@ public class Criteria {
 	private String keyword="";
 	
 	private String clcode="";
+	private String laundryItemsCode ="";
 	
 	private int startRowNum=0;
 	
@@ -62,6 +63,12 @@ public class Criteria {
 	}
 	public void setClcode(String clcode) {
 		this.clcode = clcode;
+	}
+	public String getLaundryItemsCode() {
+		return laundryItemsCode;
+	}
+	public void setLaundryItemsCode(String laundryItemsCode) {
+		this.laundryItemsCode = laundryItemsCode;
 	}
 	
 	
