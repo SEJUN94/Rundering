@@ -1,36 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELlgnored="false"%>
+	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="frequentlyList" value="${dataMap.frequentlyList }" />
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
 
 <head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${contextPath}/resources/css/board.css">
-	<link rel="stylesheet" href="${contextPath}/resources/css/faq.css">	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		$('div.question).hide();
-		$("div.fcontent").click(function(){
-			$(this).next().slideToggle(1000);
-		});
-	</script>
-	
-	<style>
-		.question:hover{
-			cursor: pointer;
-		}
-		.fcontent{
-			display: none;
-		}
-	</style>
+<style>
+.content-header{
+	padding : 10px 25px;
+	padding-bottom: 1px;
+}
+</style>
 </head>
-
 <body>
 
 	<section class="content-header">
@@ -48,25 +29,46 @@
 			</div>
 		</div>
 	</section>
-
-	<section class="content">
-		<div class="row">
-			<div style="margin-top: 100;">
-				<c:forEach items="${frequentlyList }" var="faq">
-					<input type="radio" name="accordion" id="answer${faq. faqno}">
-					<label for="answer${faq.faqno}">
-						${faq.question }
-						<i class="fas fa angle-down"></i>
-					</label>
-					<div>
-						<p style=""text-align: left;">${faq.fcontent }</div>
+	
+	<div class="card-body">
+		<div class="col-12" id="accordion">
+			<c:forEach items="${frequentlyList }" var="faq">
+					<div class="card card-default card-outline">
+						<a class="d-block w-100 collapsed" data-toggle="collapse"
+							href="#abc${faq.faqno }" aria-expanded="false">
+							<div class="card-header">
+								<div class="row">
+									<div class="col-sm-8">
+										<h4 class="card-title w-100" style="color: black;">${faq.question }
+										</h4>
+									</div>
+								</div>
+							</div>
+						</a>
+						<div id="abc${faq.faqno }" class="collapse"
+							data-parent="#accordion" style="">
+							<div class="card-body">
+								${faq.answer } <br>
+								<%-- <div class="row">
+									<div class="col-sm-10"></div>
+									<div class="col-sm-2">
+										<button type="button" id="modifyBtn" class="btn btn-light"
+											style="padding: 0.25rem 0.5rem; font-size: .875rem; line-height: 1.5;"
+											onclick="modify_go('${faq.faqno}');">수정</button>
+										<button type="button" id="removeBtn" class="btn btn-danger"
+											style="padding: 0.25rem 0.5rem; font-size: .875rem; line-height: 1.5;"
+											onclick="remove_go('${faq.faqno}');">삭제</button>
+									</div>
+								</div> --%>
+							</div>
+						</div>
 					</div>
-				</c:forEach>
-			</div>
-			
-			ㅏ 2
+			</c:forEach>
 		</div>
+	</div>
 
+	<section class="content-footer">
+		<!-- 추가문의 -->
 		<div class="row">
 			<div class="col-12 mt-3 text-center">
 				<p class="lead">

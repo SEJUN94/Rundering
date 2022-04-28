@@ -17,4 +17,12 @@ public interface FAQService {
 	// 답글
 	void reply(FAQVO faq) throws SQLException;
 	
+	/* 아코디언 */
+	public Map<String, Object> getFAQFrequentlyList(Criteria cri) throws SQLException;
+	
+	// 아코디언 수정
+	void modify(FAQVO faq) throws SQLException;
+	
+	// 아코디언 삭제
+	void remove(int faqno) throws SQLException;
 }

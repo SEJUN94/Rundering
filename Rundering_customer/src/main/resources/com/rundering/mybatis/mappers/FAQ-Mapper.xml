@@ -114,12 +114,13 @@
 	<!-- 자주묻는질문 리스트보기 -->
 	<select id="selectFrequentlyList" resultMap="faqMap">
 		select
-			faqno
+			faqno,
 		    question,
-		    answer
-		  from tb_faq
-		 where faqyn = 'Y'
-		 order by faqno asc;
+		    answer,
+		    faqyn
+		 from tb_faq
+			where faqyn = 'Y'
+			order by faqno asc		 
 	</select>
 
 </mapper>
