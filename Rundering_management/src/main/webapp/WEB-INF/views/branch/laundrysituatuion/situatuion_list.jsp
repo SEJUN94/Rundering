@@ -72,7 +72,7 @@ ${from }
 								<th class="width10" style="text-align: center;"><div class="input-group-sm " style="width: 100px">
 									<select class="form-control" name="searchType" id="searchType"
 										onchange="list_go('1')">
-										<option value="">세탁물 상태</option>
+										<option value="">세탁 상태</option>
 										<c:forEach items="${orderCodeMap }" var="orderCode">
 											<option value="${orderCode.key }"
 												${cri.searchType eq orderCode.key ? 'selected':'' }>${orderCode.value }</option>
@@ -124,7 +124,7 @@ ${from }
 
 			<div class="row">
 				<div class="col-12 col-sm-5">
-					<div class="card card-tabs" style="height: 340px">
+					<div class="card card-tabs" style="height: 350px">
 						<div class="card-header p-0 border-bottom-0">
 							<div class="float-left"
 								style="margin-top: 10px; margin-left: 10px">이미지</div>
@@ -137,29 +137,24 @@ ${from }
 					</div>
 				</div>
 
-				<div class="col-12 col-sm-7" id="reply" style="height: 340px; overflow: auto;">
-					<div class="card " style="padding-left:0px;padding-right: 0px;">
-						<div class="card-header">
-							<h3 class="card-title">요청사항</h3>
-							<div class="float-right">
-							<span class="time" style="padding:0px"><span id="requestDate"></span>
-							<i class="fas fa-clock"></i> </span>
-								<button type="button" class="btn btn-sm btn-primary"	data-toggle="modal" data-target="#modal-lg" style="width: 50px">
-								답변
-								</button>
-							</div>
-						</div>
-					</div>
+				<div class="col-12 col-sm-7" id="reply" style="height: 350px; overflow: auto;">
 					<section class="content">
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-md-12">
-									<div class="timeline" style="margin:0px">
+									<div class="timeline" style="margin:0px;height: 10px;margin-bottom: 30px;">
 											<div style="margin-right:0px">
+											
 												<i class="fas fa-user bg-yellow"></i>
+												
 												<div class="timeline-item" style="margin-right:0px;">
-													
+													<span class="time" style="padding:0px"><span id="requestDate"></span><i class="fas fa-clock"></i>
+														<button type="button" class="btn btn-sm btn-primary"	data-toggle="modal" data-target="#modal-lg" style="width: 50px">
+													답변
+													</button>
+													</span>
 													<p id="requestText"></p>
+													
 												</div>
 						  				 </div>
 									</div>

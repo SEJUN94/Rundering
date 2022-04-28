@@ -74,16 +74,13 @@
 					</div>
 					
 				</div>
-				<img alt="" src="" onmouseover="" onmouseout="">
 	
 			</div>
 		</div>
 	</div>
 
 <script>
-function laundryImage(){
-	
-}
+
 
 
 function order_go(){	
