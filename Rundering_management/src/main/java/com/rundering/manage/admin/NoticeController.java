@@ -46,13 +46,6 @@ public class NoticeController {
 			e.printStackTrace();
 		}
 		
-		  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-          Calendar cal = Calendar.getInstance();
-          cal.add(Calendar.DAY_OF_MONTH, -1); //1일간 보이도록 하기위해서.
-          String nowday = format.format(cal.getTime());
-          
-        mnv.addObject("nowday",nowday);
-		
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
 		return mnv;
