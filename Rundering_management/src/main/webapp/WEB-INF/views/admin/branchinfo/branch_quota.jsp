@@ -147,7 +147,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>2022-04-28</td>
+							<td></td>
 							<td>500</td>
 							<td>198</td>
 							<td>39.8(%)</td>
@@ -193,6 +193,37 @@
 			</div>
 		</div>
 	</div>
+	
+<script>
+var t = document.getElementById('date');
+t.value= new Date().toISOString().slice(0, 10)
+var date=String(t.value);
+document.querySelectorAll('table')[1].querySelectorAll('td')[0].innerText=date
+t.addEventListener('change', function(){
+	date=String(t.value);
+	var year = date.substring(0,4)
+	var month = date.substring(5,7)
+	var day = date.substring(8,10)
+	
+	var today=year+'-'+month+'-'+day;
+	var min1=year+'-'+month+'-'+(day-1);
+	var min2=year+'-'+month+'-'+(day-2);
+	var min3=year+'-'+month+'-'+(day-3);
+	var min4=year+'-'+month+'-'+(day-4);
+	var min5=year+'-'+month+'-'+(day-5);
+	var min6=year+'-'+month+'-'+(day-6);
+	
+	document.querySelectorAll('table')[1].querySelectorAll('td')[0].innerText=today;
+	document.querySelectorAll('table')[1].querySelectorAll('td')[4].innerText=min1;
+	document.querySelectorAll('table')[1].querySelectorAll('td')[8].innerText=min2;
+	document.querySelectorAll('table')[1].querySelectorAll('td')[12].innerText=min3;
+	document.querySelectorAll('table')[1].querySelectorAll('td')[16].innerText=min4;
+	document.querySelectorAll('table')[1].querySelectorAll('td')[20].innerText=min5;
+	document.querySelectorAll('table')[1].querySelectorAll('td')[24].innerText=min6;
+	
+});
+</script>
+	
 <script>
 var CHARTEX = $('#canvas');
 var barChartExample = new Chart(CHARTEX , {
@@ -233,23 +264,6 @@ var barChartExample = new Chart(CHARTEX , {
     }
 });
 </script>
-
-<script>
-var realDate = new Date();
-var today = new Date().toLocaleDateString();
-var yesterday = new Date(realDate.setDate(realDate.getDate() - 1)).toLocaleDateString();
-
-document.querySelectorAll('table')[1].querySelectorAll('td')[0].innerText=today;
-document.querySelectorAll('table')[1].querySelectorAll('td')[4].innerText=yesterday;
-
-
-var t = document.getElementById('date');
-t.addEventListener('change', function(){
-	var today=String(t.value);
-	alert(t.value)
-});
-</script>
-
 </body>
 
 
