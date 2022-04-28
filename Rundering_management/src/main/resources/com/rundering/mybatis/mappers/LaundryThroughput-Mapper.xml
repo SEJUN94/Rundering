@@ -31,6 +31,16 @@
 	
 	</resultMap>
 	
+<sql id="search">
+	<if test="searchType == 'c'.toString()">
+		AND B.BRANCH_NAME LIKE '%'||#{keyword}||'%'
+	</if>
+
+	<if test="searchType == 't'.toString()">
+		AND D.NAME LIKE '%'||#{keyword}||'%' 
+	</if>
+</sql>
+
 	<select id="laundryQuotaList" resultMap="laundryThroughputMap">
 		SELECT 
 			A.THROUGHPUT_NO,
@@ -41,10 +51,24 @@
 			A.LDATE,
 			A.BRANCH_CODE,
 			ROUND(A.TOTAL_THROUGHPUT/A.LAUNDRY_QUOTA*100) as quotaPercent,
-			B.BRANCH_NAME as branchName
+			B.BRANCH_NAME as branchName,
+            D.NAME AS name
+		  from TB_LAUNDRY_THROUGHPUT A, TB_BRANCH B, TB_EMPLOYEES C, TB_MEMBER D, TB_COM_CODE E
+		 where A.BRANCH_CODE=B.BRANCH_CODE
+           AND C.POSITION = E.COM_CODE
+           AND E.COM_CODE_NM='지점장'
+           AND B.BRANCH_CODE=C.BRANCH_CODE
+           AND C.MEMBERNO=D.MEMBERNO
+           <!-- 		   and TO_CHAR(A.LDATE,'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD') -->
+           <include refid="search" />
+		 order by A.LDATE desc
+	</select>
+	
+	<select id="laundryQuotaListCount" resultType="int">
+		SELECT 
+			count(*)
 		  from TB_LAUNDRY_THROUGHPUT A, TB_BRANCH B
 		 where A.BRANCH_CODE=B.BRANCH_CODE
-		   and TO_CHAR(A.LDATE,'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD')
 		 order by A.LDATE desc
 	</select>
 	

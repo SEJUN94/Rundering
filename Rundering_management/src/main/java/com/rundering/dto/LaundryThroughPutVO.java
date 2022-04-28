@@ -12,6 +12,7 @@ public class LaundryThroughPutVO {
 	private String branchCode;     	//지점코드
 	private String quotaPercent;			//  할당세탁량/총세탁처리량=?%
 	private String branchName;				//지점명
+	private String name;
 	
 	public LaundryThroughPutVO() {
 		super();
@@ -72,4 +73,11 @@ public class LaundryThroughPutVO {
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 }

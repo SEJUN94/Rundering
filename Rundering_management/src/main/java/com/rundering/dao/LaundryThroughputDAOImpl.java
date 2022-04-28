@@ -2,8 +2,10 @@ package com.rundering.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.AppCriteria;
 import com.rundering.command.BranchInfoDetailCommand;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.LaundryThroughPutVO;
@@ -17,11 +19,26 @@ public class LaundryThroughputDAOImpl implements LaundryThroughputDAO{
 	}
 	
 	@Override
-	public List<LaundryThroughPutVO> throughputList() throws Exception {
+	public List<LaundryThroughPutVO> throughputList(AppCriteria cri) throws Exception {
+		int offset=cri.getStartRowNum();
+		int limit=cri.getPerPageNum();		
+		RowBounds rowBounds=new RowBounds(offset,limit);	
 		
-		List<LaundryThroughPutVO> throughputList = session.selectList("LaundryThroughput-Mapper.laundryQuotaList");
+		List<LaundryThroughPutVO> throughputList = session.selectList("LaundryThroughput-Mapper.laundryQuotaList", cri, rowBounds);
 		
 		return throughputList;
+	}
+	
+	@Override
+	public List<LaundryThroughPutVO> throughputList() throws Exception {
+		List<LaundryThroughPutVO> throughputList = session.selectList("LaundryThroughput-Mapper.laundryQuotaList");
+		return throughputList;
+	}
+
+	@Override
+	public int throughputListCount(AppCriteria cri) throws Exception {
+		int count = session.selectOne("LaundryThroughput-Mapper.laundryQuotaListCount", cri);
+		return count;
 	}
 
 	@Override
@@ -37,5 +54,4 @@ public class LaundryThroughputDAOImpl implements LaundryThroughputDAO{
 		
 		return branchList;
 	}
-	
 }
