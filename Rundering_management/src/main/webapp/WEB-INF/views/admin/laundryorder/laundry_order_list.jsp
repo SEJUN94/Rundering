@@ -6,6 +6,8 @@
 
 <c:set var="cri" value="${pageMaker.cri }" />
 
+
+
 <body>
 
 	<!-- 상세검색 카드 -->
@@ -67,6 +69,15 @@
 			<div class="card-header">
 					<h3 class="card-title" style="font-size: 1.75rem;">세탁 주문</h3>
 					<span class="text-muted" style="display: inline-block;margin-top: 6px;padding-left: 15px;">검색결과 <fmt:formatNumber type="number" maxFractionDigits="3" value="${pageMaker.totalCount }" />개</span>
+					<button type="button" class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#modal-lg" onclick="directAssignment();">선택주문 지점할당</button>
+					<div class="card-tools">
+						<div class="input-group input-group-sm" style="width: 200px;margin-top: auto;">
+							<input class="form-control" type="text" name="orderNo" placeholder="주문번호 입력" value="${cri.orderNo }"> <span class="input-group-append">
+									<button class="btn btn-primary" type="button" onclick="list_go(1);" data-card-widget="search">
+										<i class="fa fa-fw fa-search"></i>
+									</button>
+						</div>
+					</div>
 				</div>
 
 				<div class="card-body table-responsive p-0 mt-0">
@@ -74,6 +85,7 @@
 						class="table table-hover text-nowrap" style="text-align: center;">
 						<thead>
 							<tr>
+								<th class="pr-0"><input type="checkbox" onclick="selectAll(this);" name="selectAllOrderNo" value="true"></th>
 								<th style="width: 230px;">주문일시</th>
 								<th>주문번호</th>
 								<th>수거요청일</th>
@@ -93,6 +105,7 @@
 							<c:forEach items="${laundryOrderList }" var="laundryOrder" >
 								<tr onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do?orderNo=${laundryOrder.orderNo }', '주문 상세', 'width=800, height=900');"
 									style="cursor: pointer;">
+									<td class="pr-0"><input type="checkbox" name="selectOrderNo" value="${laundryOrder.orderNo }"></td>
 									<td><fmt:formatDate value="${laundryOrder.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 									<td>${laundryOrder.orderNo }</td>
 									<td><fmt:formatDate value="${laundryOrder.pickupRequestDate }" pattern="yyyy-MM-dd"/></td>
@@ -112,6 +125,255 @@
 
 					<div class="card-footer">
 						<%@ include file="/WEB-INF/views/admin/laundryorder/laundry_order_pagination.jsp" %>
+					</div>
+					
+					<div class="modal fade" id="modal-lg" style="display: none;"
+						aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">담당지점 직접할당</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="card">
+												<div class="card-header">
+													<h3 class="card-title">선택한 주문</h3>
+													<span class="text-muted float-right"> 10개</span>
+												</div>
+
+												<div class="card-body table-responsive p-0" style="max-height: 480px;">
+													<table class="table table-sm table-head-fixed selectOrderList">
+														<thead>
+															<tr>
+																<th>Task</th>
+																<th style="width: 40px">Label</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Update software</td>
+																<td><span class="badge bg-danger">55%</span></td>
+															</tr>
+															<tr>
+																<td>Clean database</td>
+																<td><span class="badge bg-warning">70%</span></td>
+															</tr>
+															<tr>
+																<td>Cron job running</td>
+																<td><span class="badge bg-primary">30%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															
+														</tbody>
+													</table>
+												</div>
+
+											</div>
+
+										</div>
+
+										<div class="col-md-6">
+
+
+											<div class="card">
+												<div class="card-header">
+													<h3 class="card-title">지점목록</h3>
+												</div>
+
+												<div class="card-body table-responsive p-0" style="max-height: 480px;">
+													<table class="table table-striped table-head-fixed">
+														<thead>
+															<tr>
+																<th>Task</th>
+																<th>Progress</th>
+																<th style="width: 40px">Label</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Update software</td>
+																<td>
+																	<div class="progress progress-xs">
+																		<div class="progress-bar progress-bar-danger"
+																			style="width: 55%"></div>
+																	</div>
+																</td>
+																<td><span class="badge bg-danger">55%</span></td>
+															</tr>
+															<tr>
+																<td>Clean database</td>
+																<td>
+																	<div class="progress progress-xs">
+																		<div class="progress-bar bg-warning"
+																			style="width: 70%"></div>
+																	</div>
+																</td>
+																<td><span class="badge bg-warning">70%</span></td>
+															</tr>
+															<tr>
+																<td>Cron job running</td>
+																<td>
+																	<div
+																		class="progress progress-xs progress-striped active">
+																		<div class="progress-bar bg-primary"
+																			style="width: 30%"></div>
+																	</div>
+																</td>
+																<td><span class="badge bg-primary">30%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td>
+																	<div
+																		class="progress progress-xs progress-striped active">
+																		<div class="progress-bar bg-success"
+																			style="width: 90%"></div>
+																	</div>
+																</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td>
+																	<div
+																		class="progress progress-xs progress-striped active">
+																		<div class="progress-bar bg-success"
+																			style="width: 90%"></div>
+																	</div>
+																</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td>
+																	<div
+																		class="progress progress-xs progress-striped active">
+																		<div class="progress-bar bg-success"
+																			style="width: 90%"></div>
+																	</div>
+																</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td>
+																	<div
+																		class="progress progress-xs progress-striped active">
+																		<div class="progress-bar bg-success"
+																			style="width: 90%"></div>
+																	</div>
+																</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td>
+																	<div
+																		class="progress progress-xs progress-striped active">
+																		<div class="progress-bar bg-success"
+																			style="width: 90%"></div>
+																	</div>
+																</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td>
+																	<div
+																		class="progress progress-xs progress-striped active">
+																		<div class="progress-bar bg-success"
+																			style="width: 90%"></div>
+																	</div>
+																</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td>
+																	<div
+																		class="progress progress-xs progress-striped active">
+																		<div class="progress-bar bg-success"
+																			style="width: 90%"></div>
+																	</div>
+																</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+															<tr>
+																<td>Fix and squish bugs</td>
+																<td>
+																	<div
+																		class="progress progress-xs progress-striped active">
+																		<div class="progress-bar bg-success"
+																			style="width: 90%"></div>
+																	</div>
+																</td>
+																<td><span class="badge bg-success">90%</span></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+
+											</div>
+
+										</div>
+
+									</div>
+
+
+
+								</div>
+								<div class="modal-footer justify-content-between">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">닫기</button>
+									<button type="button" class="btn btn-primary">할당</button>
+								</div>
+							</div>
+						</div>
 					</div>
 
 				</div>
@@ -147,6 +409,112 @@
 		      $(this).val('');
 		      list_go('1');
 		  });
+	</script>
+	
+	<script>
+	//체크박스 전체선택
+	function selectAll(selectAll)  {
+		  const checkboxes  = document.querySelectorAll('input[name="selectOrderNo"]');
+		  checkboxes.forEach((checkbox) => {
+		    checkbox.checked = selectAll.checked
+		  })
+		}
+	
+      //체크박스 전체선택 자동해제
+      $(document).ready(function() {
+    		$("input[name=selectOrderNo]").click(function() {
+    			var total = $("input[name=selectOrderNo]").length;
+    			var checked = $("input[name=selectOrderNo]:checked").length;
+
+    			if(total != checked) $("input[name=selectAllOrderNo]").prop("checked", false);
+    			else $("input[name=selectAllOrderNo]").prop("checked", true); 
+    		});
+    	});
+      
+	//체크박스 선택시 tr에 걸린 상세정보 클릭되는 이벤트 버블링 막기
+     function init() {
+	  const checkboxes  = document.querySelectorAll('input[name="selectOrderNo"]');
+	  checkboxes.forEach((checkbox) => {
+		  checkbox.addEventListener('click', (event) => {
+                  event.stopPropagation();
+              })
+           })
+      }
+      init();
+      
+	</script>
+	
+	<script>
+	function directAssignment(){
+		const selectAllOrderNo = document.querySelector('input[name="selectAllOrderNo"]');
+		
+			let orderStatusArr = [];
+			let selectOrderNoArr = [];
+			
+		if(selectAllOrderNo.checked){
+			$('input[name="orderStatus"]:checked').each(function(i){
+				orderStatusArr.push($(this).val());
+			});
+			
+			
+		}else{
+			$('input[name="selectOrderNo"]:checked').each(function(i){
+				selectOrderNoArr.push($(this).val());
+			});
+		}
+		
+			 $.ajax({
+				url: "<%=request.getContextPath()%>/admin/laundryorder/confirmAssignment",
+				type:'POST',
+				data: JSON.stringify ({
+					"orderStatus": orderStatusArr,
+					"pickupRequestDate": $('div.input-group>input[name="pickupRequestDate"]').val(),
+					"branchCode": $('select[name="branchCode"]').val(),
+					"area": $('select[name="area"]').val(),
+					"orderNo": $('div.input-group>input[name="orderNo"]').val(),
+					"selectOrderNo": selectOrderNoArr
+				}),
+				contentType:'application/json',
+				dataType: "json",
+				success:function(data){
+					/* //저장된 파일명 input태그만들어 저장
+					const hiddenInput = document.querySelector(".hiddenInput");
+					hiddenInput.append(createHiddenInputNode(data));
+					
+					console.log(data+"사진이 업로드 되었습니다.");
+					inputFileName.value = picture.files[0].name;
+					
+					spinner.style.display = 'none'; */
+				},
+				error:function(error){
+				/* 	//alert("현재 사진 업로드가 불가합니다. \n관리자에게 연락바랍니다.");
+					AjaxErrorSecurityRedirectHandler(error.status); */
+				}
+			});
+	<%-- 		 $.ajax({
+				url: "<%=request.getContextPath()%>/admin/laundryorder/confirmAssignment",
+				data:formData,
+				type:'POST',
+				processData:false,
+				contentType:false,
+				success:function(data){
+					/* //저장된 파일명 input태그만들어 저장
+					const hiddenInput = document.querySelector(".hiddenInput");
+					hiddenInput.append(createHiddenInputNode(data));
+					
+					console.log(data+"사진이 업로드 되었습니다.");
+					inputFileName.value = picture.files[0].name;
+					
+					spinner.style.display = 'none'; */
+				},
+				error:function(error){
+				/* 	//alert("현재 사진 업로드가 불가합니다. \n관리자에게 연락바랍니다.");
+					AjaxErrorSecurityRedirectHandler(error.status); */
+				}
+			}); --%>
+		
+	}
+	
 	</script>
 
 </body>

@@ -138,6 +138,9 @@
 		<if test="area!=null and !area.equals('')">
 			AND AREA = #{area}
 		</if>
+		<if test="orderNo!=null and !orderNo.equals('')">
+			AND ORDER_NO like '%'||#{orderNo}||'%'
+		</if>
 	</sql>
 	
 

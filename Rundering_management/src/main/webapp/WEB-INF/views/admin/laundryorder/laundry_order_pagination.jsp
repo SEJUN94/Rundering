@@ -39,6 +39,8 @@
 	<input type='hidden' name="pickupRequestDate" value="" />
 	<input type='hidden' name="branchCode" value="" />
 	<input type='hidden' name="area" value="" />
+	<input type='hidden' name="orderNo" value="" />
+	<input type='hidden' name="selectOrderNo" value="" />
 </form>
 
 <script>
@@ -56,6 +58,7 @@
 		jobForm.find("[name='pickupRequestDate']").val($('div.input-group>input[name="pickupRequestDate"]').val());
 		jobForm.find("[name='branchCode']").val($('select[name="branchCode"]').val());
 		jobForm.find("[name='area']").val($('select[name="area"]').val());
+		jobForm.find("[name='orderNo']").val($('div.input-group>input[name="orderNo"]').val());
 		/* jobForm.find("[name='searchType']").val($('select[name="searchType"]').val()); */
 		/* jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val()); */
 	
