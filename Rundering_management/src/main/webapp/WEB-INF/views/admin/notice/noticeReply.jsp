@@ -13,7 +13,7 @@
 			</span>
 				{{replyContent}}
 				<button class="btn btn-sm btn-danger float-right" data-replynoseq="{{replynoSeq}}" style="display:{{VisibleByLoginCheck memberno}};" onclick="replyRemove()">삭제</button>				
-				<button class="btn btn-sm btn-warning float-right" data-toggle="modal" data-target="#modal-modify" data-replynoseq="{{replynoSeq}}" style="display:{{VisibleByLoginCheck memberno}};" onclick="replyModifyModal()" >수정</button>
+				<button class="btn btn-sm btn-warning float-right" data-replycontent="{{replyContent}}" data-toggle="modal" data-target="#modal-modify" data-replynoseq="{{replynoSeq}}" style="display:{{VisibleByLoginCheck memberno}};" onclick="replyModifyModal()" >수정</button>
 				
 			</div>
 		</div>
@@ -210,7 +210,7 @@ function replyModify(){
 	let replyContent= document.querySelector("#replyModifyContent").value;
 	
 	$.ajax({
-        url:"<%=request.getContextPath()%>/branch/reply/modify",
+        url:"<%=request.getContextPath()%>/admin/reply/modify",
         type:"post",
         data:{
         	page:page,
