@@ -44,9 +44,8 @@
 		</div>
 		<div class="col-12 card">
 			<div class="row">
-				<div class="col-12 float-right">
-					<div class="input-group input-group-sm float-right"
-						style="width: 400px; padding-top: 3px">
+				<div class="col-12 float-right" style="padding:5px;">
+					<div class="input-group input-group-sm float-right" style="width: 400px; padding-top: 3px">
 
 						<!-- sort -->
 						<select class="form-control col-md-3" name="customerSort"

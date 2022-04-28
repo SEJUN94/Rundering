@@ -19,7 +19,18 @@
 				<div class="card-header">
 					<h3 class="card-title" style="font-size: 1.75rem;">세탁 품목</h3>
 					<div class="card-tools">
-						<div class="input-group input-group-sm" style="width: 300px;">
+						<div class="input-group input-group-sm" style="width: 400px; margin-top:5px;">
+						
+						<!-- classification -->
+							<select class="form-control col-md-3" name="laundryItemsCode"
+								id="laundryItemsCode" onchange="list_go(1);">
+								<option value="01" ${cri.laundryItemsCode eq '01' ? 'selected' : '' }>전체품목</option>
+								<option value="BE" ${cri.laundryItemsCode eq 'BE' ? 'selected' : '' }>침구</option>
+								<option value="CL" ${cri.laundryItemsCode eq 'CL' ? 'selected' : '' }>의류</option>
+								<option value="SH" ${cri.laundryItemsCode eq 'SH' ? 'selected' : '' }>신발</option>
+							</select>
+						
+							<!-- search bar -->
 							<select class="form-control col-md-4" name="searchType"
 									id="searchType">
 									<option value="tc" ${cri.searchType eq 'tc' ? 'selected':'' }>전체</option>
@@ -69,7 +80,7 @@
 					</table>
 				</form>
 					<div class="card-footer" >	
-						<%@ include file="/WEB-INF/views/common/pagination.jsp" %>
+						<%@ include file="/WEB-INF/views/admin/ordergoods/pagination.jsp" %>
 						
 					</div>
 				</div>

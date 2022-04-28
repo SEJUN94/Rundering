@@ -16,6 +16,20 @@
 		<result column="LAUNDRY_CATEGORY" property="laundryCategory" />
 	</resultMap>
 	
+	<sql id="searchSort">	
+		<if test="laundryItemsCode == '01'.toString()">
+		</if>
+		<if test="laundryItemsCode == 'BE'.toString()">
+			AND LAUNDRY_CATEGORY like 'BE'		
+		</if>
+		<if test="laundryItemsCode == 'CL'.toString()">
+			AND LAUNDRY_CATEGORY like 'CL'		
+		</if>
+		<if test="laundryItemsCode == 'SH'.toString()">
+			AND LAUNDRY_CATEGORY like 'SH'		
+		</if>
+	</sql>	
+	
 	<sql id="search">
 		<if test="searchType == 't'.toString()">
 			AND B.LAUNDRY_ITEMS_CODE like '%'||#{keyword}||'%'			
@@ -42,6 +56,7 @@
 		WHERE A.EMPLOYEE_ID = B.CHARGER
 		AND B.LAUNDRY_ITEMS_CODE is not null
 		AND B.DELETE_YN='N'
+		<include refid="searchSort" />
 		<include refid="search" />
 		order by B.regist_date desc
 	
@@ -66,6 +81,7 @@
 		from
 		TB_LAUNDRY_ITEMS
 		where LAUNDRY_ITEMS_CODE is not null
+		<include refid="searchSort" />
 		<if test="searchType == 't'.toString()">
 			AND LAUNDRY_ITEMS_CODE like '%'||#{keyword}||'%'			
 		</if>
