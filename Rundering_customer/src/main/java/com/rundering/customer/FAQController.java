@@ -27,7 +27,7 @@ public class FAQController {
 
 	//아코디언
 	@RequestMapping("/faq")
-	private ModelAndView frequentlyList(Criteria cri, ModelAndView mnv) throws Exception {
+	private ModelAndView frequentlyList(Criteria cri, HttpServletRequest request, ModelAndView mnv) throws Exception {
 		String url = "question/frequently_questions";
 		
 		Map<String, Object> dataMap = faqService.getFAQFrequentlyList(cri);

@@ -49,4 +49,26 @@ public class FAQServiceImpl implements FAQService {
 	public void reply(FAQVO faq) throws SQLException {
 		faqDAO.replyFAQ(faq);
 	}
+	
+	/* 아코디언 */	
+	@Override
+	public Map<String, Object> getFAQFrequentlyList(Criteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+
+		List<FAQVO> frequentlyList = faqDAO.selectFrequentlyList(cri);
+
+		dataMap.put("frequentlyList", frequentlyList);
+
+		return dataMap;
+	}
+	
+	@Override
+	public void modify(FAQVO faq) throws SQLException {
+		faqDAO.updateFrequently(faq);
+	}
+
+	@Override
+	public void remove(int faqno) throws SQLException {
+		faqDAO.deleteFrequently(faqno);
+	}
 }

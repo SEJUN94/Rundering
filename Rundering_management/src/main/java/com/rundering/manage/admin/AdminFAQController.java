@@ -24,7 +24,19 @@ public class AdminFAQController {
 
 	@Autowired
 	FAQService faqService;
-
+	
+	//아코디언
+	@RequestMapping("/faq")
+	private ModelAndView frequentlyList(Criteria cri, HttpServletRequest request, ModelAndView mnv) throws Exception {
+		String url = "admin/question/frequently_questions";
+		
+		Map<String, Object> dataMap = faqService.getFAQFrequentlyList(cri);
+		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+		
 	// 리스트
 	@RequestMapping(value = "/list")
 	private ModelAndView faqList(Criteria cri, ModelAndView mnv) throws Exception {
@@ -76,6 +88,31 @@ public class AdminFAQController {
 
 		rttr.addAttribute("faqno", faq.getFaqno());
 		rttr.addFlashAttribute("from", "reply");
+
+		return url;
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modify(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+
+		String url = "redirect:admin/question/faq";
+
+		faqService.modify(faq);
+
+		rttr.addAttribute("faqno", faq.getFaqno());
+		rttr.addFlashAttribute("from", "modify");
+
+		return url;
+	}
+	
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public String remove(int faqno, RedirectAttributes rttr) throws Exception {
+		String url = "redirect:/admin/question/faq";
+
+		faqService.remove(faqno);
+
+		rttr.addFlashAttribute("from", "remove");
+		rttr.addAttribute("faqno", faqno);
 
 		return url;
 	}

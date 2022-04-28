@@ -57,12 +57,15 @@ public class FAQDAOImpl implements FAQDAO {
 		session.update("FAQ-mapper.deleteFAQ", faqno);
 	}
 	
-	/* 아코디언 */
-	
+	/* 아코디언 */	
 	@Override
 	public List<FAQVO> selectFrequentlyList(Criteria cri) throws SQLException {
+		
+		int offset = cri.getStartRowNum();
+		int limit = cri.getPerPageNum();
+		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		List<FAQVO> frequentlyList = session.selectList("FAQ-mapper.selectFrequentlyList", cri);
+		List<FAQVO> frequentlyList = session.selectList("FAQ-mapper.selectFrequentlyList", cri, rowBounds);
 		return frequentlyList;
 	}
 

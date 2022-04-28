@@ -17,4 +17,11 @@ public interface FAQDAO {
 	FAQVO selectFAQByFaqno(int faqno) throws SQLException;
 	
 	void replyFAQ(FAQVO FAQ) throws SQLException;
+	
+	/* 아코디언 */
+	List<FAQVO> selectFrequentlyList(Criteria cri) throws SQLException;
+	
+	void updateFrequently(FAQVO FAQ) throws SQLException;
+	
+	void deleteFrequently(int faqno) throws SQLException;
 }

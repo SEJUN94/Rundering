@@ -87,7 +87,44 @@
 			answer=#{answer}
 		where faqno=#{faqno}
 	</update>
-
+	
+	<!-- 자주묻는질문 리스트보기 -->
+	<select id="selectFrequentlyList" resultMap="faqMap">
+		select
+			faqno,
+		    question,
+		    answer,
+		    faqyn
+		 from tb_faq
+			where faqyn = 'Y'
+			order by faqno asc		 
+	</select>
+	<!-- 자주묻는질문 입력 -->
+	<select id="insertFrequently" resultType="faq">
+		insert into tb_faq(
+			faqno,
+			question,
+			answer,
+			faqyn
+			) values (
+				faqno_seq.nextval,
+				#{question},
+				#{answer},
+				'Y')
+	</select>
+	
+	<update id="updateFrequently" parameterType="faq">
+		update tb_faq
+		set
+			question=#{question}, fcontent=#{fcontent}
+		where faqno=#{faqno}
+	</update>
+	
+	<update id="deleteFrequently" parameterType="int">
+		delete
+		from tb_faq
+		where faqno=#{faqno}
+	</update>
 
 
 </mapper>
