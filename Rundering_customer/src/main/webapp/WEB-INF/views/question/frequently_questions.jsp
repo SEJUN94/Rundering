@@ -64,7 +64,7 @@
 				</c:forEach>
 			</div>
 			
-			
+			ㅏ 2
 		</div>
 
 		<div class="row">
