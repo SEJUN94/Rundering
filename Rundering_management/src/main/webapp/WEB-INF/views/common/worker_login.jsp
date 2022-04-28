@@ -20,13 +20,14 @@
         -ms-transform: translate(-50%, -50%);        
         transform: translate(-50%, -50%);
     }    
+    
 </style>
 </head>
 <body>
-<img class="bg" src="imgfile/rundering_bg.jpg" alt="rundering_bg">
+<img class="bg" src="<%=request.getContextPath() %>/resources/image/LoginBackground.jpg" alt="rundering_bg" style="opacity: 0.6;">
 <div class="login-box">
     <div class="login-logo">
-        <div><img class="logo" src="imgfile/RunderingLogo.png" alt="Rundering"></div>
+        <div><img class="logo" src="<%=request.getContextPath() %>/resources/image/RunderingLogo.png" alt="Rundering" style="width: 80%;"></div>
         <!-- <b>사원</b> 로그인 -->
     </div>
     
