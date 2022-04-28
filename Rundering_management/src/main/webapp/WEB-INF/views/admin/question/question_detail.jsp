@@ -85,11 +85,8 @@
 					<!--end card-body  -->					
 					<div class="card-footer">
 						<div class="float-right">
-							<button type="button" class="btn btn-danger" id="removeBtn"
-								onclick="remove_go('${faq.faqno}');">삭제</button>
-							&nbsp;&nbsp;
-							<button type="button" class="btn btn-warning" id="modifyBtn"
-								onclick="modify_go('${faq.faqno}');">수정</button>
+							<button type="button" class="btn btn-warning" id="replyBtn"
+								onclick="reply_go('${faq.faqno}');">답글</button>
 							&nbsp;&nbsp;
 							<button type="button" class="btn btn-primary" id="cancelBtn"
 								onclick="CloseWindow();">닫기</button>
@@ -105,19 +102,11 @@
 	</section>
 	<!-- /.content -->
 	<script>
-		function modify_go(faqno) {
-			location.href = "modifyForm?faqno=" + faqno;
+		function reply_go(faqno) {
+			location.href = "replyForm?faqno=" + faqno;
 		}
-		function remove_go(faqno) {
-			location.href = "remove?faqno=" + faqno;
-		}
-		<c:if test="${from eq 'modify' }">
-		alert("수정되었습니다.");
-		</c:if>
-		<c:if test="${from eq 'remove'}">
-		alert("삭제되었습니다.");
-		window.close();
-		window.opener.location.reload();
+		<c:if test="${from eq 'reply' }">
+		alert("등록되었습니다.");
 		</c:if>
 	</script>
 </body>

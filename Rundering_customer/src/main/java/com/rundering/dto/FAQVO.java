@@ -1,6 +1,6 @@
 package com.rundering.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class FAQVO {
 	private int faqno; // 질문번호
@@ -11,9 +11,26 @@ public class FAQVO {
 	private Date modifyDate; // 수정일
 	private String writer; // 작성자
 	private String secretyn; // 비밀글여부
-	private String answer_writer; // 답글작성자(본사)
 	private String faqyn; // FAQ여부
-	private String fcontent; // 질문애용
+	private String fcontent; // 질문내용
+	private String orderno; //주문번호
+	private String atchfileno; //통합첨부파일번호
+
+	public String getAtchfileno() {
+		return atchfileno;
+	}
+
+	public void setAtchfileno(String atchfileno) {
+		this.atchfileno = atchfileno;
+	}
+
+	public String getOrderno() {
+		return orderno;
+	}
+
+	public void setOrderno(String orderno) {
+		this.orderno = orderno;
+	}
 
 	public int getFaqno() {
 		return faqno;
@@ -79,14 +96,6 @@ public class FAQVO {
 		this.secretyn = secretyn;
 	}
 
-	public String getAnswer_writer() {
-		return answer_writer;
-	}
-
-	public void setAnswer_writer(String answer_writer) {
-		this.answer_writer = answer_writer;
-	}
-
 	public String getFaqyn() {
 		return faqyn;
 	}
@@ -101,14 +110,6 @@ public class FAQVO {
 
 	public void setFcontent(String fcontent) {
 		this.fcontent = fcontent;
-	}
-
-	@Override
-	public String toString() {
-		return "FAQVO [faqno=" + faqno + ", setbukdoorclcode=" + setbukdoorclcode + ", question=" + question
-				+ ", answer=" + answer + ", registDate=" + registDate + ", modifyDate=" + modifyDate + ", writer="
-				+ writer + ", secretyn=" + secretyn + ", answer_writer=" + answer_writer + ", faqyn=" + faqyn
-				+ ", fcontent=" + fcontent + "]";
 	}
 
 }

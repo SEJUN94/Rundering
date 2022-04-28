@@ -16,15 +16,27 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.Criteria;
 import com.rundering.dto.FAQVO;
-import com.rundering.service.FAQService; 
+import com.rundering.service.FAQService;
 
 @Controller
 @RequestMapping("/question")
 public class FAQController {
-	
+
 	@Autowired
 	FAQService faqService;
 
+	//아코디언
+	@RequestMapping("/faq")
+	private ModelAndView frequentlyList(Criteria cri, ModelAndView mnv) throws Exception {
+		String url = "question/frequently_questions";
+		
+		Map<String, Object> dataMap = faqService.getFAQFrequentlyList(cri);
+		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
 	// 리스트
 	@RequestMapping(value = "/list")
 	private ModelAndView faqList(Criteria cri, ModelAndView mnv) throws Exception {
@@ -36,7 +48,7 @@ public class FAQController {
 
 		return mnv;
 	}
-	
+
 	@RequestMapping("/registForm")
 	private String faqRegistForm() {
 
@@ -44,43 +56,44 @@ public class FAQController {
 
 		return url;
 	}
-	
+
 	@RequestMapping(value = "/regist")
-	public String faqRegist(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr)
-			throws Exception {
+	public String faqRegist(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
 		String url = "redirect:/question/list";
 
 		faqService.regist(faq);
-		
+
 		rttr.addFlashAttribute("from", "regist");
 
 		return url;
 	}
-	
+
 	@RequestMapping(value = "/detail")
-	private ModelAndView faqDetail(int faqno, @RequestParam(defaultValue = "") String from,
-			HttpServletRequest request, ModelAndView mnv, HttpSession session) throws SQLException {
+	private ModelAndView faqDetail(int faqno, @RequestParam(defaultValue = "") String from, HttpServletRequest request,
+			ModelAndView mnv, HttpSession session) throws SQLException {
 
 		String url = "question/question_detail";
 
-		FAQVO faq = faqService.getFAQModify(faqno);
-		
+		FAQVO faq = null;
+
+		faq = faqService.getFAQModify(faqno);
+
 		mnv.addObject("faq", faq);
 		mnv.setViewName(url);
 
 		return mnv;
 	}
-	
+
 	@RequestMapping("/modifyForm")
 	public ModelAndView modifyForm(int faqno, ModelAndView mnv) throws Exception {
 
 		String url = "question/question_modify";
 
 		FAQVO faq = faqService.getFAQModify(faqno);
-	
+
 		mnv.addObject("faq", faq);
-		
+
 		mnv.setViewName(url);
 
 		return mnv;
@@ -90,7 +103,7 @@ public class FAQController {
 	public String modifyPost(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
 		String url = "redirect:/question/detail";
-		
+
 		faqService.modify(faq);
 
 		rttr.addAttribute("faqno", faq.getFaqno());

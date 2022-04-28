@@ -39,6 +39,9 @@
 	<bean id="suggestDAO" class="com.rundering.dao.SuggestDAOImpl"
 		p:session-ref="sqlSession"
 	/>
+	<bean id="faqDAO" class="com.rundering.dao.FAQDAOImpl"
+		p:session-ref="sqlSession"
+	/>
 	<bean id="employeesDAO" class="com.rundering.dao.EmployeesDAOImpl"
 		p:session-ref="sqlSession"
 	/>
@@ -78,7 +81,6 @@
 	 <bean id="laundryThroughputDAO" class="com.rundering.dao.LaundryThroughputDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
-	 
 	
 	
 	<!-- Service Layer -->
@@ -101,6 +103,9 @@
 	/>
 	<bean id="suggestService" class="com.rundering.service.SuggestServiceImpl"
 		p:suggestDAO-ref="suggestDAO"
+	/>	
+	<bean id="faqService" class="com.rundering.service.FAQServiceImpl"
+		p:faqDAO-ref="faqDAO"
 	/>	
 	<bean id="memberService" class="com.rundering.service.MemberServiceImpl"
 		p:memberDAO-ref="memberDAO"
@@ -157,6 +162,7 @@
 	<bean id="laundryThroughputService" class="com.rundering.service.LaundryThroughputServiceImpl"
 		p:laundryThroughputDAO-ref="laundryThroughputDAO"
 	/>
+	
 	
 	
 	

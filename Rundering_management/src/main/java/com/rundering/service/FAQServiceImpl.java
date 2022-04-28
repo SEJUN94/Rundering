@@ -40,37 +40,13 @@ public class FAQServiceImpl implements FAQService {
 	}
 	
 	@Override
-	public FAQVO getFAQModify(int faqno) throws SQLException {
+	public FAQVO getFAQReply(int faqno) throws SQLException {
 		FAQVO faq = faqDAO.selectFAQByFaqno(faqno);
 		return faq;
 	}
 	
 	@Override
-	public void regist(FAQVO faq) throws SQLException {
-		faqDAO.insertFAQ(faq);
+	public void reply(FAQVO faq) throws SQLException {
+		faqDAO.replyFAQ(faq);
 	}
-	
-	@Override
-	public void modify(FAQVO faq) throws SQLException {
-		faqDAO.updateFAQ(faq);
-	}
-	
-	@Override
-	public void remove(int faqno) throws SQLException {
-		faqDAO.deleteFAQ(faqno);
-	}
-
-	/* 아코디언 */
-	
-	@Override
-	public Map<String, Object> getFAQFrequentlyList(Criteria cri) throws SQLException {
-		Map<String, Object> dataMap = new HashMap<String, Object>();
-
-		List<FAQVO> frequentlyList = faqDAO.selectSearchFAQList(cri);
-
-		dataMap.put("frequentlyList", frequentlyList);
-
-		return dataMap;
-	}
-
 }

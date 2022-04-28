@@ -42,7 +42,7 @@
 					</div>
 					<!--end card-header  -->
 					<div class="card-body pad">
-						<form action="modify" method="post" role="modifyForm">
+						<form action="<%=request.getContextPath()%>/question/modify" method="post" role="modifyForm" name="modifyForm">
 							<input type="hidden" name="faqno" value="${faq.faqno }" />
 							<div class="form-group">
 								<label for="question">제 목</label> <input type="text" id="question"
@@ -64,11 +64,27 @@
 											<option value="ET">기타 문의</option>
 										</select>
 									</div>
-									<div class="col">
+									<%-- <div class="col">
 										<label for="registDate">등록일 <input type="text"
 											id="registDate" readonly name="registDate"
 											class="form-control" value="<fmt:formatDate
 												value="${faq.registDate }" pattern="yyyy-MM-dd" />"></label>
+									</div> --%>
+									<div class="col">
+										<label for="registDate">등록일 <input type="text"
+											id="registDate" readonly name="registDate"
+											class="form-control" value="${faq.registDate }"></label>
+									</div>
+									<div class="col">
+										<label for="secretyn">공개여부</label>
+										<div class="form-group">
+											<div style="margin-left: 10px; margin-top: 10px; font-size: large;">
+												<input type="radio" name="secretyn" id="secretyn" value="Y" />
+												공개 &nbsp;&nbsp;
+												<input type="radio" name="secretyn" id="secretyn" value="N" />
+												비공개
+											</div>
+										</div>
 									</div>
 								</div>								
 								<label for="fcontent">내 용</label>
@@ -107,7 +123,13 @@
 	}
 	
 	function modifyPOST_go(){
-		 $("form[role='modifyForm']").submit();
+		 $("form[role='modifyForm']")
+		 var form = document.modifyForm;
+		 if (form.secretyn.value == "") {
+				alert("공개여부를 선택하세요.");
+				return;
+			}
+			form.submit();
 	 }
 	</script>
 

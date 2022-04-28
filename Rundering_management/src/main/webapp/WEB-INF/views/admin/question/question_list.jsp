@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
@@ -116,7 +117,8 @@ th, td {
 											   </c:choose></td>
 							<td class="title">${faq.question }</td>
 							<td class="writer">${faq.writer }</td>
-							<td class="date">${faq.registDate }</td>
+							<td class="date"><fmt:formatDate value="${faq.registDate }"
+									pattern="yyyy-MM-dd" /></td>
 							<td class="yn"><c:choose>
 									<c:when test="${faq.secretyn == 'Y'}">
 										<i class="fas fa-lock fa-fw" style="color: var(- -fa-navy);"></i>
@@ -132,12 +134,6 @@ th, td {
 						</tr>
 					</c:forEach>
 				</table>
-				<div class="float-right mt-3 mr-3 mb-3">
-
-					<button class="btn btn-primary" type="button" id="registBtn"
-						onclick="location.href='<%=request.getContextPath()%>/question/registForm'">
-						문의하기</button>
-				</div>
 			</div>
 		</div>
 

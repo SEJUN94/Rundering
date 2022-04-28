@@ -61,6 +61,7 @@
 				alert("제목은 필수입니다.");
 				return;
 			}
+			alert("요청 등록이 성공했습니다.");
 			form.submit();
 		}
 	</script>
