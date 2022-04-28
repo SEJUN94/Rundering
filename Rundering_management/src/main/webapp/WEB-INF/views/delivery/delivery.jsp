@@ -4,7 +4,6 @@
 
 <body>
 	<div class="card card-outline card-outline-tabs card-success">
-
 		<div class="card-header p-0 border-bottom-0"
 			style="font-size: 1.4rem;">
 			<ul class="nav nav-tabs justify-content-center"

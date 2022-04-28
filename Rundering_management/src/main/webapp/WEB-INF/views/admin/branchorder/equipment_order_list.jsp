@@ -22,7 +22,7 @@
 						<thead>
 							<tr>
 								<th>발주번호</th>
-								<th>지점번호</th>
+								<th>지점명</th>
 								<th>요청일</th>
 								<th>처리상태</th>
 							</tr>

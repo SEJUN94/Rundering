@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.AppCriteria;
+import com.rundering.command.AppPageMaker;
 import com.rundering.command.BranchInfoDetailCommand;
+import com.rundering.command.PageMaker;
 import com.rundering.dao.LaundryThroughputDAO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.LaundryThroughPutVO;
@@ -18,11 +21,23 @@ public class LaundryThroughputServiceImpl implements LaundryThroughputService{
 	}
 	
 	@Override
-	public List<LaundryThroughPutVO> getThroughputList() throws Exception {
+	public Map<String, Object> getThroughputList(AppCriteria cri) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
-		List<LaundryThroughPutVO> throughputList = laundryThroughputDAO.throughputList();
+		List<LaundryThroughPutVO> throughputList = laundryThroughputDAO.throughputList(cri);
 		
-		return throughputList;
+		// 전체 board 개수
+		int totalCount = laundryThroughputDAO.throughputListCount(cri);
+		// PageMaker 생성.
+		AppPageMaker pageMaker = new AppPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+
+		dataMap.put("throughputList", throughputList);
+		dataMap.put("pageMaker", pageMaker);
+
+		return dataMap;
+		
 	}
 
 	@Override

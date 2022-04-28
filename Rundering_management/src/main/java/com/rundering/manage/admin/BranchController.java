@@ -1,6 +1,5 @@
 package com.rundering.manage.admin;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -11,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rundering.command.AppCriteria;
 import com.rundering.command.BranchInfoDetailCommand;
-import com.rundering.dto.LaundryThroughPutVO;
 import com.rundering.service.LaundryThroughputService;
 
 @Controller
@@ -47,13 +46,13 @@ public class BranchController {
 		return "admin/branchinfo/branch_amount";
 	}
 	
-	@RequestMapping("/quota")
-	public ModelAndView branchQuota(ModelAndView mnv) throws Exception{
+	@RequestMapping("/main")
+	public ModelAndView branchQuota(AppCriteria cri, ModelAndView mnv) throws Exception{
 		String url="/admin/branchinfo/branch_quota";
 		
-		List<LaundryThroughPutVO> throughputList = laundryThroughputService.getThroughputList();
+		Map<String, Object> dataMap = laundryThroughputService.getThroughputList(cri);
 		
-		mnv.addObject("throughputList", throughputList);
+		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
 		
 		return mnv;
