@@ -85,11 +85,20 @@
 										<td>${notice.noticeno }</td>
 										<td id="Title"
 											style="text-align: left; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-											${notice.title }</td>
+											${notice.title }
+													
+												<%-- <c:forEach items="${noticeList}" var="notice" varStatus="status">
+													<td><c:out value='${notice.registDate}'/></td>
+												</c:forEach>   --%>
+												<c:if test="${notice.registDate>=nowday }">
+												&nbsp;&nbsp;<span class="badge bg-red">new</span>
+												</c:if>
+											
+										</td>
 										<td data-target="notice-employeeId">${notice.employeeId}</td>
 										<td><fmt:formatDate value="${notice.registDate }"
 												pattern="yyyy-MM-dd" /></td>
-										<td><span class="badge bg-red">${notice.views }</span></td>
+										<td>${notice.views }</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -109,6 +118,10 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	
+
 
 </body>
 

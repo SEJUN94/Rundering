@@ -2,6 +2,8 @@ package com.rundering.manage.admin;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -43,6 +45,13 @@ public class NoticeController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+          Calendar cal = Calendar.getInstance();
+          cal.add(Calendar.DAY_OF_MONTH, -1); //1일간 보이도록 하기위해서.
+          String nowday = format.format(cal.getTime());
+          
+        mnv.addObject("nowday",nowday);
 		
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);

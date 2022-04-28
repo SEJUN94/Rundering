@@ -119,6 +119,9 @@
 		window.close();
 		window.opener.location.reload();
    </c:if>
-   </script>
+</script>
+
+
+   
    
 </body>

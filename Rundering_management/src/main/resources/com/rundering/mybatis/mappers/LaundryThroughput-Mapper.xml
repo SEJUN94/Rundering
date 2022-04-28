@@ -44,7 +44,7 @@
 			B.BRANCH_NAME as branchName
 		  from TB_LAUNDRY_THROUGHPUT A, TB_BRANCH B
 		 where A.BRANCH_CODE=B.BRANCH_CODE
-		   and TO_CHAR(A.LDATE,'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD')
+<!-- 		   and TO_CHAR(A.LDATE,'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD') -->
 		 order by A.LDATE desc
 	</select>
 	
