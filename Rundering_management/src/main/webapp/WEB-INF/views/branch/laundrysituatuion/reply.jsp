@@ -98,6 +98,7 @@ function registReply(){
         },
         success:function(data){
         	$("#replyContent").val("");
+        	$('#modal-lg').modal('hide');
         	replyList(replyno,memberNo);
         	alert("답변 등록.");
             
@@ -137,8 +138,9 @@ function replyModify(){
         },
         success:function(data){
         	$("#replyModifyContent").val("");
+        	$('#modal-modify').modal('hide');
         	replyList(replyno,memberNo);
-        	alert("답변 등록.");
+        	alert("수정 등록.");
             
         },
         error:function(error){

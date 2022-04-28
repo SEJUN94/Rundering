@@ -22,11 +22,6 @@ ${from }
 	<div class="row ml-2 mr-2 " id="body">
 
 		<div class="col-12">
-			<div class="card-header" style="padding: 10px;">
-				<div class=" float-right">
-					
-				</div>
-			</div>
 
 			<div class="card card-primary card-outline">
 				<form action="modify" method="post" id="form">
@@ -84,8 +79,14 @@ ${from }
 									onclick="selectAll()">전체선택</th>
 							</tr>
 						</thead>
-
+						
 						<tbody>
+						<c:if test="${empty laundryOrderList }">
+							<tr>
+								<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+							</tr>
+						</c:if>
+						
 							<c:forEach items="${laundryOrderList }" var="laundryOrder">
 								
 								<tr class="mouseHover">
@@ -118,7 +119,11 @@ ${from }
 				</form>
 
 				<div class="card-footer">
-					<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+					<c:if test="${!empty laundryOrderList }">
+							<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+					</c:if>
+					
+					
 				</div>
 			</div>
 
@@ -137,23 +142,23 @@ ${from }
 					</div>
 				</div>
 
-				<div class="col-12 col-sm-7" id="reply" style="height: 350px; overflow: auto;">
+				<div class="col-12 col-sm-7 card" id="reply" style="height: 350px; overflow: auto; ">
 					<section class="content">
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-md-12">
-									<div class="timeline" style="margin:0px;height: 10px;margin-bottom: 30px;">
+									<div class="timeline" style="margin:0px;height: 10px;margin-bottom: 30px; margin-top: 8px">
 											<div style="margin-right:0px">
 											
-												<i class="fas fa-user bg-yellow"></i>
+												<i class="fas fa-user bg-yellow " ></i>
 												
 												<div class="timeline-item" style="margin-right:0px;">
-													<span class="time" style="padding:0px"><span id="requestDate"></span><i class="fas fa-clock"></i>
-														<button type="button" class="btn btn-sm btn-primary"	data-toggle="modal" data-target="#modal-lg" style="width: 50px">
+													<span class="time" style="padding:0px"><i class="fas fa-clock requestDisplay" style="visibility:hidden;"></i><span id="requestDate"></span>
+														<button type="button" class="btn btn-sm btn-primary requestDisplay" data-toggle="modal" data-target="#modal-lg" style="visibility:hidden;">
 													답변
 													</button>
 													</span>
-													<p id="requestText"></p>
+													<p id="requestText">요청사항 </p>
 													
 												</div>
 						  				 </div>
@@ -173,7 +178,7 @@ ${from }
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">답변</h4>
+						<h4 class="modal-title">작성</h4>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">×</span>
@@ -218,6 +223,32 @@ ${from }
 			</div>
 		</div>
 		</div>
+		<c:if test="${empty laundryOrderList }">
+			<form id="jobForm">	
+				<input type='hidden' name="page" value="" />
+				<input type='hidden' name="searchType" value="" />
+				<input type='hidden' name="customerSort" value="" />
+				<input type='hidden' name="keyword" value="" />
+			</form>
+		
+							<script>
+								function list_go(page,url){
+									if(!url) url="list";
+									
+									var jobForm=$('#jobForm');
+									
+									jobForm.find("[name='page']").val(page);
+									jobForm.find("[name='searchType']").val($('select[name="searchType"]').val());
+									jobForm.find("[name='customerSort']").val($('select[name="customerSort"]').val());
+									jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val());
+								
+									jobForm.attr({
+										action:url,
+										method:'get'
+									}).submit();
+								}
+							</script>
+					</c:if>
 		
 		<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 		<%@include file="./reply.jsp" %>
@@ -306,6 +337,11 @@ ${from }
     for(let i of mouseHover){
         i.addEventListener("click",function(){
             let textDetail =event.target.parentElement.querySelectorAll(".textDetail")[0].dataset.text;
+            let see= document.querySelectorAll(".requestDisplay");
+            for(let i of see){
+            	i.style.visibility="visible";
+            	console.log(i)
+            }
             if(textDetail==null||textDetail.trim()==""){
             	document.querySelector("#requestText").innerText="요청사항이없습니다";
             }else{

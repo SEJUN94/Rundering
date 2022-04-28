@@ -42,7 +42,7 @@
 			</div>
 			<div class="col-6">
 				<div class="card card-primary card-outline col-12" style="height: 805px;display: block;overflow: auto;">
-					<div class="card-header" style="padding-bottom: 2px; ">
+					<div class="card-header">
 						<h3 class="card-title">발주신청</h3>
 							<div class="float-right">
 							<strong>합계 총금액</strong> 
@@ -118,7 +118,7 @@ function order_go(){
 		<tr>
 			<td style="text-align: left;" class="{{articlesCode}} visibleImg" data-code="{{articlesCode}}" onclick="imgclick()"  >
 			<img alt="" src="" onclick="imgclicknone()" class="articlesImg" data-fileno="{{atchFileNo}}" style="position: absolute;z-index:2; display:none;" width="300" height="300">
-			{{articlesName}} (단위)
+			{{articlesName}} 
 		</td>
 			<td style="text-align: center;">분류
 			
