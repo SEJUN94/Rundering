@@ -8,7 +8,7 @@
 	<div class="card-footer card-comments">
 		<div class="card-comment">
 			<div class="comment-text" style="margin-left:0px; ">
-				<span class="username"> 사원번호 : {{employeeId}} , 지점이름 : {{branchName}}  <span
+				<span class="username"> 사원번호 : {{employeeId}} &nbsp;&nbsp; {{branchName}}  <span
 				class="text-muted float-right">작성일:{{prettifyDate registDate}}</span>
 			</span>
 				{{replyContent}}
