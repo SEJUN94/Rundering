@@ -3,7 +3,7 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.rundering.command.Criteria;
+import com.rundering.command.MyOrderCriteria;
 import com.rundering.dto.LaundryOrderVO;
 
 public interface LaundryOrderDAO {
@@ -18,9 +18,9 @@ public interface LaundryOrderDAO {
 	public LaundryOrderVO selectLaundryOrderByOrderNo(String orderNo) throws SQLException;
 	
 	// 마이페이지 - 내 주문내역 가져오기
-	public List<LaundryOrderVO> getMyOrderList(Criteria cri) throws Exception;
+	public List<LaundryOrderVO> getMyOrderList(MyOrderCriteria cri) throws Exception;
 	
 	// 마이페이지 - 주문내역 전체 개수 체크
-	public int myOrderList(Criteria cri) throws SQLException;
+	public int myOrderList(MyOrderCriteria cri) throws SQLException;
 	
 }

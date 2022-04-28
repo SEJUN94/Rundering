@@ -3,10 +3,9 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script	src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
@@ -53,7 +52,7 @@
 						<tbody>
 							<tr style="border: none;">
 								<td style="width: 25%" align="center">배송상태 : ${list.orderStatus}</td>
-								<td style="width: 25%" align="center">주문일자 : ${list.orderDate}</td>
+								<td style="width: 25%" align="center">주문일자 : <fmt:formatDate value="${list.orderDate}" pattern="yyyy-MM-dd"/></td>
 								<td style="width: 25%"></td>
 								<td rowspan="3"
 									style="width: 25%; border-left: 1px solid rgba(0, 0, 0, .125); text-align: center; vertical-align: middle;">
@@ -63,68 +62,21 @@
 							</tr>
 							<tr style="border: none;">
 								<td rowspan="2" align="center" style="border-right: 1px solid rgba(0, 0, 0, .125);">이미지 : ${list.atchFileNo}</td>
-								<td align="left;">상품명 : ${list.paymentNo}</td>
-								<td></td>
+								<td colspan="2" align="left;">상품명 : ${list.paymentNo}</td>
 							</tr>
 							<tr style="border: none;">
 								<td align="left;">지점명 : ${list.branchCode }</td>
-								<td style="text-align: right;">가격 : ${list.totalPrice}</td>
+								<td style="text-align: right;">결제금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${list.totalPrice}" />원</td>
 							</tr>
 						</tbody>
 					</table>
 				</c:forEach>
-				<table class="table m-0">
-					<tbody>
-						<tr style="border: none;">
-							<td style="width: 25%" align="center">배송상태</td>
-							<td style="width: 25%" align="center">주문일자</td>
-							<td style="width: 25%"></td>
-							<td rowspan="3" style="width: 25%; border-left: 1px solid rgba(0, 0, 0, .125); text-align: center; vertical-align: middle;">
-								<button class="btn btn-primary btn-m col-10" onclick="" style="">배송조회</button>
-								<button class="btn btn-danger btn-m col-10" onclick="">주문ㆍ배송취소</button>
-							</td>
-						</tr>
-						<tr style="border: none;">
-							<td rowspan="2" align="center" style="border-right: 1px solid rgba(0, 0, 0, .125);">이미지</td>
-							<td align="left;">이름</td>
-							<td></td>
-						</tr>
-						<tr style="border: none;">
-							<td align="left;">지점명</td>
-							<td style="text-align: right;">가격</td>
-						</tr>
-					</tbody>
-				</table>
-				<table class="table m-0">
-					<tbody>
-						<tr style="border: none;">
-							<td style="width: 25%" align="center">배송상태</td>
-							<td style="width: 25%" align="center">주문일자</td>
-							<td style="width: 25%"></td>
-							<td rowspan="3" style="width: 25%; border-left: 1px solid rgba(0, 0, 0, .125); text-align: center; vertical-align: middle;">
-								<button class="btn btn-primary btn-m col-10" onclick="" style="">배송조회</button>
-								<button class="btn btn-danger btn-m col-10" onclick="">주문ㆍ배송취소
-								</button>
-							</td>
-						</tr>
-						<tr style="border: none;">
-							<td rowspan="2" align="center"
-								style="border-right: 1px solid rgba(0, 0, 0, .125);">이미지</td>
-							<td align="left;">이름</td>
-							<td></td>
-						</tr>
-						<tr style="border: none;">
-							<td align="left;">지점명</td>
-							<td style="text-align: right;">가격</td>
-						</tr>
-					</tbody>
-				</table>
 			</div>
 		</div>
 
 		<div class="card-footer clearfix">
 			<!--페이징 처리할 공간 -->
-			<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+			<%@ include file="/WEB-INF/views/mypage/pagination.jsp"%>
 		</div>
 	</div>
 

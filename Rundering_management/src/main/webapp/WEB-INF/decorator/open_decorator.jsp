@@ -23,6 +23,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/summernote/summernote.min.css"> 
   <!-- Pretendard  -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/font/pretendard/pretendard-subset.css" />
+  <!--파비콘-->
+  <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/image/Favicon.ico" />
+  <link rel="icon" href="<%=request.getContextPath() %>/resources/image/Favicon.svg" />
 
   <style type="text/css">
 	body {

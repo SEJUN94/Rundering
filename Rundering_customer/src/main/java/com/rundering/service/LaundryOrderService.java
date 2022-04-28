@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import com.rundering.command.Criteria;
+import com.rundering.command.MyOrderCriteria;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 
@@ -20,5 +20,5 @@ public interface LaundryOrderService {
 	LaundryOrderVO getLaundryOrder(String orderNo) throws SQLException;
 	
 	// 마이페이지 - 내 주문내역 가져오기
-	public Map<String, Object> getMyOrderList(Criteria cri) throws Exception;
+	public Map<String, Object> getMyOrderList(MyOrderCriteria cri) throws Exception;
 }

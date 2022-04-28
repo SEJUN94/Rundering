@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.Criteria;
 import com.rundering.command.MemberAddCommand;
+import com.rundering.command.MyOrderCriteria;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
@@ -135,13 +136,6 @@ public class MyPageController {
 	return entity;
 	}
 	
-	//주문내역
-	@RequestMapping("/orderhistory")
-	private String orderhistory() {
-		String url = "mypage/order_history";
-		return url;
-	}
-
 	
 	//문의내역
 	@RequestMapping("/myinquiry/list")
@@ -341,7 +335,7 @@ public class MyPageController {
 	
 	/* ***********************************  여기서 부터 주문 내역  *********************************** */
 	@RequestMapping("/myorder/histroy/main")
-	public ModelAndView myorder(HttpServletRequest request, ModelAndView mnv,Criteria cri) throws Exception {
+	public ModelAndView myorder(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {
 		String url = "/mypage/order_history";
 		
 		HttpSession session = request.getSession();
@@ -350,6 +344,7 @@ public class MyPageController {
 		
 		// 세션을 통해 고객번호 받아오기!
 		laundryOrder.setMemberNo(loginUser.getMemberNo());
+		cri.setMemberNo(loginUser.getMemberNo());
 		
 		Map<String, Object> dataMap = laundryOrderService.getMyOrderList(cri);
 		
