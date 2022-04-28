@@ -85,11 +85,19 @@
 										<td>${notice.noticeno }</td>
 										<td id="Title"
 											style="text-align: left; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-											${notice.title }</td>
+											${notice.title }
+											<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
+											<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
+											<fmt:parseNumber value="${notice.registDate.time / (1000*60*60*24)}" integerOnly="true" var="chgDttm" /><!-- 게시글 작성날짜를 숫자로 -->
+											<c:if test="${today - chgDttm le 3}"><!-- 3일동안은 new 표시 -->
+												&nbsp;&nbsp;<span class="badge bg-red">new</span>
+											</c:if>
+											
+										</td>
 										<td data-target="notice-employeeId">${notice.employeeId}</td>
 										<td><fmt:formatDate value="${notice.registDate }"
 												pattern="yyyy-MM-dd" /></td>
-										<td><span class="badge bg-red">${notice.views }</span></td>
+										<td>${notice.views }</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -109,6 +117,10 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	
+
 
 </body>
 
