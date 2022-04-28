@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.rundering.command.Criteria;
+import com.rundering.command.MyOrderCriteria;
+import com.rundering.command.MyOrderPageMaker;
 import com.rundering.command.PageMaker;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
@@ -129,7 +130,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	
 	// 마이페이지 - 내 주문내역 가져오기
 	@Override
-	public Map<String, Object> getMyOrderList(Criteria cri) throws Exception {
+	public Map<String, Object> getMyOrderList(MyOrderCriteria cri) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
 		List<LaundryOrderVO> myOrderList = laundryOrderDAO.getMyOrderList(cri);
@@ -143,7 +144,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		// 전체 list 개수
 		int totalCount = laundryOrderDAO.myOrderList(cri);
 		// PageMaker 생성.
-		PageMaker pageMaker = new PageMaker();
+		MyOrderPageMaker pageMaker = new MyOrderPageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
 		

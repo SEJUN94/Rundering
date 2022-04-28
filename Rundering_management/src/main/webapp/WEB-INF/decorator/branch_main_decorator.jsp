@@ -28,6 +28,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- Pretendard  -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath() %>/resources/css/font/pretendard/pretendard-subset.css" />
+
+<!--파비콘-->
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/image/Favicon.ico" />
+<link rel="icon" href="<%=request.getContextPath() %>/resources/image/Favicon.svg" />	
+
 <!-- common.js -->
 <script src="<%=request.getContextPath() %>/resources/js/common.js"></script>
 <style type="text/css">

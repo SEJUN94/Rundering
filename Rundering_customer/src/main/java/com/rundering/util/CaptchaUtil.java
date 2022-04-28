@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.rundering.captcha.SetTextProducer;
 
-import java.util.HashMap;
-
 import nl.captcha.Captcha;
 import nl.captcha.audio.AudioCaptcha;
 import nl.captcha.backgrounds.GradiatedBackgroundProducer;

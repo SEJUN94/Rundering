@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
-import com.rundering.command.Criteria;
+import com.rundering.command.MyOrderCriteria;
 import com.rundering.dto.LaundryOrderVO;
 
 public class LaundryOrderDAOImpl implements LaundryOrderDAO{
@@ -37,7 +37,7 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 	
 	// 마이페이지 - 내 주문내역 가져오기
 	@Override
-	public List<LaundryOrderVO> getMyOrderList(Criteria cri) throws Exception {
+	public List<LaundryOrderVO> getMyOrderList(MyOrderCriteria cri) throws Exception {
 		
 		//페이징 처리를 위한 것들
 		int offset = cri.getStartRowNum();
@@ -51,7 +51,7 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 	
 	// 마이페이지 - 주문내역 전체 개수 체크
 	@Override
-	public int myOrderList(Criteria cri) throws SQLException {
+	public int myOrderList(MyOrderCriteria cri) throws SQLException {
 		int count = session.selectOne("LaundryOrder-Mapper.myOrderListCount", cri);
 		return count;
 	}

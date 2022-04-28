@@ -20,7 +20,7 @@
 						<ul class="smul">
 							<li class="smli"><a href="<%=request.getContextPath()%>/mypage">회원정보수정</a></li>
 							<li class="smli"><a href="<%=request.getContextPath()%>/mypage/myaddress">내 주소 관리</a></li>
-							<li class="smli"><a href="<%=request.getContextPath()%>/mypage/orderhistory">주문내역</a></li>
+							<li class="smli"><a href="<%=request.getContextPath()%>/mypage/myorder/histroy/main">주문내역</a></li>
 							<li class="smli"><a href="<%=request.getContextPath()%>/mypage/myinquiry/list">문의내역</a></li>
 							<li class="smli"><a href="<%=request.getContextPath()%>/mypage/secedeform">회원탈퇴</a></li>
 						</ul>

@@ -22,8 +22,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- summernote -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/summernote/summernote.min.css">  
   <!--파비콘-->
-  <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/images/Favicon8.ico" />
-  <link rel="icon" href="<%=request.getContextPath() %>/resources/images/Favicon8.png" />  
+  <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/images/Favicon.ico" />
+  <link rel="icon" href="<%=request.getContextPath() %>/resources/images/Favicon.svg" />  
   <!--브라우저 스타일 초기화-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" />  
   <!--Google Material Icons-->
