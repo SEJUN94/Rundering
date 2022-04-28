@@ -27,27 +27,26 @@ public class AdminLaundryRESTController {
 	
 	//할당 정보확인
 	@RequestMapping(value = "/confirmAssignment", method = RequestMethod.POST, consumes="application/json;")
-	public ResponseEntity<List<Map<String,String>>> confirmAssignment(@RequestBody AdminLaundryOrderListCriteria cri,Model model) throws Exception {
+	public ResponseEntity<Map<String,Object>> confirmAssignment(@RequestBody AdminLaundryOrderListCriteria cri,Model model) throws Exception {
 		if(cri.getArea()  !=null          ) System.out.println(cri.getArea());
 		if(cri.getBranchCode()   !=null    ) System.out.println(cri.getBranchCode());
 		if(cri.getPickupRequestDate() !=null) System.out.println(cri.getPickupRequestDate());
 		if(cri.getOrderNo()     !=null     ) System.out.println(cri.getOrderNo());
 		if(cri.getListSelectOrderNo()   !=null ) System.out.println(cri.getListSelectOrderNo());
 		if(cri.getListOrderStatus()   !=null  ) System.out.println(cri.getListOrderStatus());
-		ResponseEntity<List<Map<String,String>>> result = null;
+		if(cri.getSelectAllOrderNo()   !=null  ) System.out.println(cri.getSelectAllOrderNo());
+		ResponseEntity<Map<String,Object>> result = null;
 		Map<String, Object> dataMap = new HashMap<>();
 		
-//		try {
-//			dataMap = laundryOrderService.getAdminlaundryOrderList(cri);
-//			model.addAllAttributes(dataMap);
-//			
-//				dataMap.put("randomNum", 00);
-//				result = new ResponseEntity<Map<String, Object>>(dataMap,HttpStatus.OK);
-//		} catch (Exception e) {
-//			result = new ResponseEntity<Map<String, Object>>(HttpStatus.INTERNAL_SERVER_ERROR);
-//			e.printStackTrace();
-//		}
-//		
+		try {
+			dataMap = laundryOrderService.getConfirmOrderAssignmentInfo(cri);
+			
+				result = new ResponseEntity<Map<String, Object>>(dataMap,HttpStatus.OK);
+		} catch (Exception e) {
+			result = new ResponseEntity<Map<String, Object>>(HttpStatus.INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
+		}
+		
 		return result;
 	}
 	

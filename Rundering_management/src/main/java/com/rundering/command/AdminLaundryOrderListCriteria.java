@@ -12,6 +12,7 @@ public class AdminLaundryOrderListCriteria extends Criteria{
 	private String orderNo;
 	private String selectOrderNo;
 	private List<String> listSelectOrderNo;
+	private String selectAllOrderNo;
 	
 	private String startDate;
 	private String endDate;
@@ -85,6 +86,13 @@ public class AdminLaundryOrderListCriteria extends Criteria{
 	public void setListSelectOrderNo(List<String> listSelectOrderNo) {
 		this.listSelectOrderNo = listSelectOrderNo;
 	}
+	public String getSelectAllOrderNo() {
+		return selectAllOrderNo;
+	}
+	public void setSelectAllOrderNo(String selectAllOrderNo) {
+		this.selectAllOrderNo = selectAllOrderNo;
+	}
+	
 	
 	
 	

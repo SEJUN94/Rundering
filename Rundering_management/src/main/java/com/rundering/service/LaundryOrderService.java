@@ -18,6 +18,8 @@ public interface LaundryOrderService {
 	
 	Map<String, Object> getAdminlaundryOrderList(AdminLaundryOrderListCriteria cri) throws Exception;
 	
+	Map<String, Object> getConfirmOrderAssignmentInfo(AdminLaundryOrderListCriteria cri) throws Exception;
+	
 	Map<String, Object> getlaundryOrderByOrderNo(String orderNo) throws Exception;
 
 	String selectGetBranchCode(String branchCode);

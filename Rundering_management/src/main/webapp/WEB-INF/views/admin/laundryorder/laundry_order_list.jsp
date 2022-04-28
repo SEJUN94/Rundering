@@ -144,71 +144,20 @@
 											<div class="card">
 												<div class="card-header">
 													<h3 class="card-title">선택한 주문</h3>
-													<span class="text-muted float-right"> 10개</span>
+													<span class="text-muted float-right selectOrderCounts"></span>
 												</div>
 
 												<div class="card-body table-responsive p-0" style="max-height: 480px;">
 													<table class="table table-sm table-head-fixed selectOrderList">
 														<thead>
 															<tr>
-																<th>Task</th>
-																<th style="width: 40px">Label</th>
+																<th>주문번호</th>
+																<th>지역</th>
+																<th>주문상태</th>
 															</tr>
 														</thead>
 														<tbody>
-															<tr>
-																<td>Update software</td>
-																<td><span class="badge bg-danger">55%</span></td>
-															</tr>
-															<tr>
-																<td>Clean database</td>
-																<td><span class="badge bg-warning">70%</span></td>
-															</tr>
-															<tr>
-																<td>Cron job running</td>
-																<td><span class="badge bg-primary">30%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															
+
 														</tbody>
 													</table>
 												</div>
@@ -472,48 +421,39 @@
 					"branchCode": $('select[name="branchCode"]').val(),
 					"area": $('select[name="area"]').val(),
 					"orderNo": $('div.input-group>input[name="orderNo"]').val(),
-					"listSelectOrderNo": selectOrderNoArr
+					"listSelectOrderNo": selectOrderNoArr,
+					"selectAllOrderNo": (selectAllOrderNo.checked)
 				}),
 				contentType:'application/json',
 				dataType: "json",
 				success:function(data){
-					/* //저장된 파일명 input태그만들어 저장
-					const hiddenInput = document.querySelector(".hiddenInput");
-					hiddenInput.append(createHiddenInputNode(data));
-					
-					console.log(data+"사진이 업로드 되었습니다.");
-					inputFileName.value = picture.files[0].name;
-					
-					spinner.style.display = 'none'; */
+					 if(data.laundryOrderList.length==0){
+						 $(".selectOrderList>tbody").append("<tr><td colspan='3'>선택된 주문정보가 없습니다.</td></tr>");
+					 }else{
+						 $(data.laundryOrderList).each(function(i) {
+							 
+							 let orderAdd = "<tr>"+
+							 "<td>"+data.laundryOrderList[i].orderNo+"</td>"+
+							 "<td>"+data.areaCodeMap[data.laundryOrderList[i].area]+"</td>"+
+							 "<td>"+data.orderCodeMap[data.laundryOrderList[i].orderStatus]+"</td>"+
+							 "</tr>";
+							$(".selectOrderList>tbody").append(orderAdd);
+						 })
+						$(".selectOrderCounts").text(data.totalCount+'개');
+					 }
+
 				},
 				error:function(error){
-				/* 	//alert("현재 사진 업로드가 불가합니다. \n관리자에게 연락바랍니다.");
-					AjaxErrorSecurityRedirectHandler(error.status); */
+				alert("현재 세탁주문 지점할당이 불가합니다. \n관리자에게 연락바랍니다.");
+					/* AjaxErrorSecurityRedirectHandler(error.status); */
 				}
 			});
-	<%-- 		 $.ajax({
-				url: "<%=request.getContextPath()%>/admin/laundryorder/confirmAssignment",
-				data:formData,
-				type:'POST',
-				processData:false,
-				contentType:false,
-				success:function(data){
-					/* //저장된 파일명 input태그만들어 저장
-					const hiddenInput = document.querySelector(".hiddenInput");
-					hiddenInput.append(createHiddenInputNode(data));
-					
-					console.log(data+"사진이 업로드 되었습니다.");
-					inputFileName.value = picture.files[0].name;
-					
-					spinner.style.display = 'none'; */
-				},
-				error:function(error){
-				/* 	//alert("현재 사진 업로드가 불가합니다. \n관리자에게 연락바랍니다.");
-					AjaxErrorSecurityRedirectHandler(error.status); */
-				}
-			}); --%>
-		
 	}
+	//모달창 닫힐 때마다 데이터 지우기
+	$('#modal-lg').on('hidden.bs.modal', function (e) {
+		$(".selectOrderList>tbody").empty();
+		$(".selectOrderCounts").empty();
+	})
 	
 	</script>
 

@@ -1,5 +1,6 @@
 package com.rundering.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -173,6 +174,43 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	@Override
+	public Map<String, Object> getConfirmOrderAssignmentInfo(AdminLaundryOrderListCriteria cri) throws Exception {
+		ComCodeUtil comCodeUtil =new ComCodeUtil();
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		Map<String,String> orderCodeMap = new HashMap<String, String>();
+		Map<String,String> areaCodeMap = new HashMap<String, String>();
+		Map<String,String> branchNameMap = new HashMap<String, String>();
+		comCodeUtil.getUpperCodeMap("ORDER_STATUS", orderCodeMap, comCodeDAO);
+		comCodeUtil.getCodeMap("AREA", areaCodeMap, comCodeDAO);
+		
+		List<BranchVO> branchList = branchDAO.selectBranchList();
+		for (BranchVO branchVO : branchList) {
+			branchNameMap.put(branchVO.getBranchCode(), branchVO.getBranchName());
+		}
+		
+		List<LaundryOrderVO> laundryOrderList = new ArrayList<LaundryOrderVO>();
+		
+		if(cri.getSelectAllOrderNo()!=null && cri.getSelectAllOrderNo().equals("true")) {
+			laundryOrderList = laundryOrderDAO.selectAllLaundryOrderList(cri);
+			
+		}else {
+			for (String orderNo : cri.getListSelectOrderNo()) {
+				LaundryOrderVO orderVO = laundryOrderDAO.selectLaundryOrderByOrderNo(orderNo);
+				laundryOrderList.add(orderVO);
+			}
+		}
+		
+		
+		int totalCount = laundryOrderList.size();
+		
+		dataMap.put("laundryOrderList", laundryOrderList);
+		dataMap.put("orderCodeMap",orderCodeMap);
+		dataMap.put("areaCodeMap",areaCodeMap);
+		dataMap.put("branchNameMap",branchNameMap);
+		dataMap.put("totalCount",totalCount);
+		return dataMap;
 	}
 	
 }
