@@ -19,8 +19,8 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 
 	//사원등록
 	@Override
-	public int employeeRegist(EmployeesVO ev) throws Exception {
-		return session.update("Employees-Mapper.employeeRegist",ev);
+	public void employeeRegist(EmployeesVO ev) throws Exception {
+		session.update("Employees-Mapper.employeeRegist",ev);
 	}
 	
 	//고유번호를 이용한 사원 조회

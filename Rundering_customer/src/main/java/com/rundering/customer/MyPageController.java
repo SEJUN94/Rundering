@@ -18,9 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.Criteria;
 import com.rundering.command.MemberAddCommand;
+import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.service.FAQService;
+import com.rundering.service.LaundryOrderService;
 import com.rundering.service.MemberAddressService;
 import com.rundering.service.MemberService;
 import com.rundering.util.UserSha256;
@@ -35,6 +37,9 @@ public class MyPageController {
 	
 	@Resource(name="memberAddressService")
 	private MemberAddressService memberAddressService;
+	
+	@Autowired
+	private LaundryOrderService laundryOrderService; 
 	
 	@Autowired
 	FAQService faqService;
@@ -228,24 +233,140 @@ public class MyPageController {
 	
 	// 내 주소 디테일
 	@RequestMapping("/myaddress/detail")
+	@ResponseBody
 	public ResponseEntity<MemberAddressVO> addrDetail(String addressNo){
 		
 		ResponseEntity<MemberAddressVO> entity = null;
+		
 		
 		try {
 		
 			MemberAddressVO mv = memberAddressService.getMemberAddress(addressNo);
 			
+			String addrNo = mv.getAddressNo()+"";
+			
+			mv.setAddrNo(addrNo);
+			
 			if (mv != null) {
 				entity = new ResponseEntity<MemberAddressVO>(mv, HttpStatus.OK);
-			} else {
-				System.out.println("실행 안됨!!!");
-			}
+			} 
 		} catch (SQLException e) {
 			entity = new ResponseEntity<MemberAddressVO>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return entity;
 	}
+	
+	// 내 주소 기본 주소지로 변경 및 수정
+	@RequestMapping("/myaddress/defaultmodify")
+	@ResponseBody
+	public ResponseEntity<String> modifyDefaultAdd(HttpServletRequest request, MemberAddressVO memberAdd){
+		ResponseEntity<String> rs = null;
+		
+		HttpSession session = request.getSession();
+		MemberVO mv = (MemberVO) session.getAttribute("loginUser");
+		
+		int addressNo =  Integer.parseInt(memberAdd.getAddrNo());
+		
+		memberAdd.setAddressNo(addressNo);
+		memberAdd.setMemberNo(mv.getMemberNo());
+		try {
+			memberAddressService.modifyDefaultAddress(memberAdd);
+			rs = new ResponseEntity<String>("OK", HttpStatus.OK);
+		} catch (Exception e) {
+			rs = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return rs;
+	}
+		
+	// 내 주소지 수정
+	@RequestMapping("/myaddress/modify")
+	@ResponseBody
+	public ResponseEntity<String> modifyAdd(MemberAddressVO memberAdd){
+		ResponseEntity<String> rs = null;
+		
+		int addressNo =  Integer.parseInt(memberAdd.getAddrNo());
+		
+		memberAdd.setAddressNo(addressNo);
+		memberAdd.setAddressNo(addressNo);
+		
+		try {
+			memberAddressService.modifyAddress(memberAdd);
+			rs = new ResponseEntity<String>("OK", HttpStatus.OK);
+		} catch (Exception e) {
+			rs = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return rs;
+	}
+	
+	// 내 주소지 기본 주소지로 변경 및 등록
+	@RequestMapping("/myaddress/defaultregist")
+	@ResponseBody
+	public ResponseEntity<String> defaultAddressRegist(HttpServletRequest request,MemberAddressVO memberAdd){
+		ResponseEntity<String> rs = null;
+		
+		HttpSession session = request.getSession();
+		MemberVO mv = (MemberVO) session.getAttribute("loginUser");
+		
+		memberAdd.setMemberNo(mv.getMemberNo());
+		
+		try {
+			memberAddressService.defaultAddressRegist(memberAdd);
+			rs = new ResponseEntity<String>("OK", HttpStatus.OK);
+		} catch (Exception e) {
+			rs = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return rs;
+	}
+	
+	// 내 주소지 추가 등록
+	@RequestMapping("/myaddress/regist")
+	@ResponseBody
+	public ResponseEntity<String> addAddressRegist(HttpServletRequest request,MemberAddressVO memberAdd){
+		ResponseEntity<String> rs = null;
+		
+		HttpSession session = request.getSession();
+		MemberVO mv = (MemberVO) session.getAttribute("loginUser");
+		
+		memberAdd.setMemberNo(mv.getMemberNo());
+		
+		try {
+			memberAddressService.addAddressRegist(memberAdd);
+			rs = new ResponseEntity<String>("OK", HttpStatus.OK);
+		} catch (Exception e) {
+			rs = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return rs;
+	}
+	
+	
+	/* ***********************************  여기서 부터 주문 내역  *********************************** */
+	@RequestMapping("/myorder/histroy/main")
+	public ModelAndView myorder(HttpServletRequest request, ModelAndView mnv,Criteria cri) throws Exception {
+		String url = "/mypage/order_history";
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		LaundryOrderVO laundryOrder = new LaundryOrderVO();
+		
+		// 세션을 통해 고객번호 받아오기!
+		laundryOrder.setMemberNo(loginUser.getMemberNo());
+		
+		Map<String, Object> dataMap = laundryOrderService.getMyOrderList(cri);
+		
+		
+		mnv.addObject("dataMap",dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

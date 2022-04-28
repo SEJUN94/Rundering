@@ -9,11 +9,25 @@
 <!-- 주소api -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<div class="card card-secondary">
-	<div class="card-header">
-		<h3 class="card-title ">회원수정</h3>
-	</div>
-</div>
+	<div style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1>회원정보 수정</h1>
+					</div>
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item active">회원정보 수정</li>
+							<li class="breadcrumb-item"><a href="#">마이페이지</a></li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		<hr style="border: 1px solid rgb(170, 167, 167);">
+		</section>
+
+	
 <form class="form-horizontal" method="post">
 <div class="card-body marginfont text-center">
 	<div class="form-group">
@@ -23,7 +37,7 @@
 			</label>
 			<div class="col-10">
 				<div class="col-12 row">
-					<div class="form-group col-4">
+					<div class="form-group col-8">
 						<input type="text" class="form-control" name="name" id="name" value="${loginUser.getName() }" disabled style="border:none;background-color:transparent;" readonly>
 					</div>
 				</div>
@@ -35,7 +49,7 @@
 			<label for="password" class="col-2">비밀번호 </label>
 			<div class="col-10" id="divPassword">
 				<div class="col-12 row">
-					<div class="form-group col-4">
+					<div class="form-group col-8">
 						<input type="password" class="form-control" id="password" name="password" placeholder="변경 버튼을 통해 수정이 가능합니다.">
 						<span class="sp"></span> 
 					</div>
@@ -53,7 +67,7 @@
 			</label>
 			<div class="col-10" id="divCall">
 				<div class="col-12 row">
-					<div class="form-group col-4">
+					<div class="form-group col-8">
 						<input type="text" class="form-control"  id="phone" name="phone" value="${loginUser.getPhone() }">
 					</div>
 				</div>
@@ -67,7 +81,7 @@
 			</label>
 			<div class="col-10" id="divEmail">
 				<div class="col-12 row">
-					<div class="form-group col-4">
+					<div class="form-group col-8">
 						<input type="email" class="form-control " id="email" name="email" value="${loginUser.getEmail() }" >
 						<span class="sp1"></span> 
 						<span id="rst1"></span>
@@ -79,15 +93,15 @@
 	<div class="form-group">
 		<div class="row ">
 			<label for="call" class="col-2">
-				<p>기본 주소지</p>
+				<p>주소지</p>
 			</label>
 			<div class="col-10">
 				<div class="col-12 row">
-					<div class="form-group col-4">
+					<div class="form-group col-8">
 						<input type="text" class="form-control" name="add1" id="add1" value="${memberAddress.getAdd1() }" readonly>
 					</div>
 					<span class="form-group col-2">
-						<button class="btn float-right" id="modalBtn" style="border-color: gray;" onclick="findAdd();">주소검색</button>
+						<button class="btn float-right" id="modalBtn" style="border-color: gray;" onclick="findAdd();">검색</button>
 					</span>
 				</div>
 			</div>
@@ -100,7 +114,7 @@
 			</label>
 			<div class="col-10">
 				<div class="col-12 row">
-					<div class="form-group col-4">
+					<div class="form-group col-8">
 						<input type="text" class="form-control" name="add2" id="add2" value="${memberAddress.getAdd2() }">
 					</div>
 				</div>
@@ -113,7 +127,7 @@
 			</label>
 			<div class="col-10">
 				<div class="col-12 row">
-					<div class="form-group col-4">
+					<div class="form-group col-8">
 						<input type="hidden" class="form-control" name="zip" id="zip" value="${memberAddress.getZip() }" readonly>
 						<input type="hidden" class="form-control" name="id" id="id" value="${loginUser.getId() }" readonly>
 						<input type="hidden" class="form-control" name="memberNo" id="memberNo" value="${loginUser.getMemberNo() }" readonly>
@@ -127,6 +141,7 @@
 	</div>
 </div>
 </form>
+	</div>
 
 <script>
 	function modify(){

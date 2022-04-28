@@ -7,10 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.Criteria;
+import com.rundering.command.PageMaker;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
-import com.rundering.dao.MemberAddressDAO;
 import com.rundering.dao.PaymentDAO;
 import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.LaundryItemsVO;
@@ -123,5 +124,36 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	@Override
 	public LaundryOrderVO getLaundryOrder(String orderNo) throws SQLException {
 		return laundryOrderDAO.selectLaundryOrderByOrderNo(orderNo);
+	}
+	
+	
+	// 마이페이지 - 내 주문내역 가져오기
+	@Override
+	public Map<String, Object> getMyOrderList(Criteria cri) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		List<LaundryOrderVO> myOrderList = laundryOrderDAO.getMyOrderList(cri);
+//		myOrderList.branch
+//		List<BranchVO> orderBranchNameList = 
+//				
+//		List<ComCodeVO> orderComCodeNameList =
+//		
+//		List<AttachVO> AttachList = 
+		
+		// 전체 list 개수
+		int totalCount = laundryOrderDAO.myOrderList(cri);
+		// PageMaker 생성.
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		
+		dataMap.put("myOrderList",myOrderList);
+		dataMap.put("pageMaker", pageMaker);
+//		dataMap.put("orderBranchNameList", orderBranchNameList);
+//		dataMap.put("orderComCodeNameList", orderComCodeNameList);
+//		dataMap.put("AttachList", AttachList);
+		
+		
+		return dataMap;
 	}
 }

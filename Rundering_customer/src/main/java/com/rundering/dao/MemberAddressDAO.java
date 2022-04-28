@@ -24,5 +24,17 @@ public interface MemberAddressDAO {
 	
 	//기본 주소지 수정
 	public void updateDefaultAddress(MemberAddressVO memberAdd) throws Exception;
-
+	
+	//주소지 추가 등록
+	public void addrRegist(MemberAddressVO memberAdd) throws Exception;
+	
+	//기본 주소지 초기화
+	public void updateDefaultReset(String memberNo) throws Exception;
+	
+	// 기본 주소지로 변경 및 수정 
+	public void modifyDefaultAddr(MemberAddressVO memberAdd) throws Exception;
+	
+	// 주소지 수정
+	public void modifyAddr(MemberAddressVO memberAdd) throws Exception;
+	
 }

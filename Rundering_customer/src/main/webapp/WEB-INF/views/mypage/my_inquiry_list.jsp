@@ -46,21 +46,24 @@ th, td {
 </head>
 
 <body>
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1>문의내역</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item active">문의내역</li>
-						<li class="breadcrumb-item"><a href="#">마이페이지</a></li>
-					</ol>
+	<div style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1>문의내역</h1>
+					</div>
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item active">문의내역</li>
+							<li class="breadcrumb-item"><a href="#">마이페이지</a></li>
+						</ol>
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		<hr style="border: 1px solid rgb(170, 167, 167);">
+		</section>
+
 
 	<div class="col-12">
 		<div class="card">
@@ -96,4 +99,5 @@ th, td {
 			<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 		</div>
 	</div>
+</div>
 </body>

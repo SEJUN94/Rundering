@@ -52,7 +52,6 @@ public class MemberAddressServiceImpl implements MemberAddressService {
 			
 		}
 		
-		
 		memberAddressDAO.addRegist(memberAdd);
 		
 	}
