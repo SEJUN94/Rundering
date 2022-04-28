@@ -1,23 +1,21 @@
 package com.rundering.command;
 
+import java.util.List;
+
 public class AdminLaundryOrderListCriteria extends Criteria{
 	
 	private String orderStatus;
+	private List<String> listOrderStatus;
 	private String pickupRequestDate;
 	private String branchCode;
 	private String area;
 	private String orderNo;
 	private String selectOrderNo;
+	private List<String> listSelectOrderNo;
 	
 	private String startDate;
 	private String endDate;
 	
-	public String getOrderStatus() {
-		return orderStatus;
-	}
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
-	}
 	public String getPickupRequestDate() {
 		return pickupRequestDate;
 	}
@@ -63,11 +61,29 @@ public class AdminLaundryOrderListCriteria extends Criteria{
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	public List<String> getListOrderStatus() {
+		return listOrderStatus;
+	}
+	public void setListOrderStatus(List<String> listOrderStatus) {
+		this.listOrderStatus = listOrderStatus;
+	}
 	public String getSelectOrderNo() {
 		return selectOrderNo;
 	}
 	public void setSelectOrderNo(String selectOrderNo) {
 		this.selectOrderNo = selectOrderNo;
+	}
+	public List<String> getListSelectOrderNo() {
+		return listSelectOrderNo;
+	}
+	public void setListSelectOrderNo(List<String> listSelectOrderNo) {
+		this.listSelectOrderNo = listSelectOrderNo;
 	}
 	
 	

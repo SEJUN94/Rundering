@@ -467,12 +467,12 @@
 				url: "<%=request.getContextPath()%>/admin/laundryorder/confirmAssignment",
 				type:'POST',
 				data: JSON.stringify ({
-					"orderStatus": orderStatusArr,
+					"listOrderStatus": orderStatusArr,
 					"pickupRequestDate": $('div.input-group>input[name="pickupRequestDate"]').val(),
 					"branchCode": $('select[name="branchCode"]').val(),
 					"area": $('select[name="area"]').val(),
 					"orderNo": $('div.input-group>input[name="orderNo"]').val(),
-					"selectOrderNo": selectOrderNoArr
+					"listSelectOrderNo": selectOrderNoArr
 				}),
 				contentType:'application/json',
 				dataType: "json",
