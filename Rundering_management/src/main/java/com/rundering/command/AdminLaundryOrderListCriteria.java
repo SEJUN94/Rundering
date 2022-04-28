@@ -6,6 +6,8 @@ public class AdminLaundryOrderListCriteria extends Criteria{
 	private String pickupRequestDate;
 	private String branchCode;
 	private String area;
+	private String orderNo;
+	private String selectOrderNo;
 	
 	private String startDate;
 	private String endDate;
@@ -55,6 +57,20 @@ public class AdminLaundryOrderListCriteria extends Criteria{
 	public void setArea(String area) {
 		this.area = area;
 	}
+	public String getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+	public String getSelectOrderNo() {
+		return selectOrderNo;
+	}
+	public void setSelectOrderNo(String selectOrderNo) {
+		this.selectOrderNo = selectOrderNo;
+	}
+	
+	
 	
 	
 	

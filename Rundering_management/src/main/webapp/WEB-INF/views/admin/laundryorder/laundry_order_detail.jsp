@@ -5,7 +5,8 @@
 
 <title>세탁주문 상세</title>
 <body>
-	<div class="col-6">
+<div class="row" style="width: 100%">
+	<div class="col-6 pl-3">
 		<h3 class="m-3">세탁주문 상세</h3>
 		<div class="p-3 m-0 card-secondary card-outline">
 			<div class="row">
@@ -110,4 +111,41 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="col-6">
+			<div class="card mt-1">
+					<h4 class="m-3">주문관련문의</h4>
+				<div class="card-body table-responsive p-0 card-secondary card-outline" style="height: 300px;">
+					<table class="table table-head-fixed text-nowrap">
+						<thead>
+							<tr>
+								<th>문의제목</th>
+								<th>날짜</th>
+								<th>답변여부</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>John Doe</td>
+								<td>11-7-2014</td>
+								<td>183</td>
+							</tr>
+							<tr>
+								<td>John Doe</td>
+								<td>11-7-2014</td>
+								<td>183</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="card">
+					<h4 class="m-3">담당지점</h4>
+				<div class="card-body p-0 card-secondary card-outline" style="height: 400px;">
+					지점정보 출력해야함
+				</div>
+			</div>
+		</div>
+		</div>
 </body>
