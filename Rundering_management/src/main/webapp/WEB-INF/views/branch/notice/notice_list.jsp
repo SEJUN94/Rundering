@@ -90,7 +90,7 @@
 										<td data-target="notice-employeeId">${notice.employeeId}</td>
 										<td><fmt:formatDate value="${notice.registDate }"
 												pattern="yyyy-MM-dd" /></td>
-										<td><span class="badge bg-red">${notice.views }</span></td>
+										<td>${notice.views }</td>
 									</tr>
 								</c:forEach>
 							</tbody>
