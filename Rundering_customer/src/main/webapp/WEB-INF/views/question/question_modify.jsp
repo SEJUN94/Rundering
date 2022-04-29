@@ -79,9 +79,9 @@
 										<label for="secretyn">공개여부</label>
 										<div class="form-group">
 											<div style="margin-left: 10px; margin-top: 10px; font-size: large;">
-												<input type="radio" name="secretyn" id="secretyn" value="Y" />
-												공개 &nbsp;&nbsp;
 												<input type="radio" name="secretyn" id="secretyn" value="N" />
+												공개 &nbsp;&nbsp;
+												<input type="radio" name="secretyn" id="secretyn" value="Y" />
 												비공개
 											</div>
 										</div>
@@ -89,8 +89,6 @@
 								</div>								
 								<label for="fcontent">내 용</label>
 								<div class="form-group">
-									<label for="fcontent" style="margin-left: 10px; font-size: large;">▼▽▼문의할
-										내용을 수정하세요▼▽▼</label>
 									<textarea style="border: none; height: 100px; resize: none;"
 										class="textarea" rows="25" cols="50" id="fcontent" name="fcontent">${fn:escapeXml(faq.fcontent)}</textarea>
 								</div>

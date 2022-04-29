@@ -32,7 +32,7 @@
 	<section class="content container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-md-10" style="max-width: 960px;">
-				<div class="card card-outline card-info">
+				<div class="card card-secondary card-outline ">
 					<div class="card-header">
 						<h3 class="card-title p-1">상세보기</h3>
 					</div>

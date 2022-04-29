@@ -16,6 +16,9 @@ public interface AsRequestService {
 
 	// 확인미확인
 	AsRequestVO getCheck(int asno) throws SQLException;
+	
+	// 조치오나료
+	AsRequestVO getOk(int asno) throws SQLException;
 
 	// 수정화면 상세
 	AsRequestVO getAsRequestModify(int asno) throws SQLException;

@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.rundering.command.Criteria;
+import com.rundering.command.AcoCriteria;
+import com.rundering.command.FAQCriteria;
 import com.rundering.dto.FAQVO;
 import com.rundering.service.FAQService;
 
@@ -27,7 +28,7 @@ public class AdminFAQController {
 	
 	//아코디언
 	@RequestMapping("/faq")
-	private ModelAndView frequentlyList(Criteria cri, HttpServletRequest request, ModelAndView mnv) throws Exception {
+	private ModelAndView frequentlyList(AcoCriteria cri, HttpServletRequest request, ModelAndView mnv) throws Exception {
 		String url = "admin/question/frequently_questions";
 		
 		Map<String, Object> dataMap = faqService.getFAQFrequentlyList(cri);
@@ -39,7 +40,7 @@ public class AdminFAQController {
 		
 	// 리스트
 	@RequestMapping(value = "/list")
-	private ModelAndView faqList(Criteria cri, ModelAndView mnv) throws Exception {
+	private ModelAndView faqList(FAQCriteria cri, ModelAndView mnv) throws Exception {
 		String url = "admin/question/question_list";
 
 		Map<String, Object> dataMap = faqService.getFAQList(cri);

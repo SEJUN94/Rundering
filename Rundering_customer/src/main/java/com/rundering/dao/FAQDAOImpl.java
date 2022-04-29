@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
-import com.rundering.command.Criteria;
+import com.rundering.command.MyOrderCriteria;
 import com.rundering.dto.FAQVO;
 
 public class FAQDAOImpl implements FAQDAO {
@@ -17,7 +17,7 @@ public class FAQDAOImpl implements FAQDAO {
 	}
 
 	@Override
-	public List<FAQVO> selectSearchFAQList(Criteria cri) throws SQLException {
+	public List<FAQVO> selectSearchFAQList(MyOrderCriteria cri) throws SQLException {
 
 		int offset = cri.getStartRowNum();
 		int limit = cri.getPerPageNum();
@@ -28,7 +28,7 @@ public class FAQDAOImpl implements FAQDAO {
 	}
 
 	@Override
-	public int selectSearchFAQListCount(Criteria cri) throws SQLException {
+	public int selectSearchFAQListCount(MyOrderCriteria cri) throws SQLException {
 		return session.selectOne("FAQ-mapper.selectSearchFAQListCount", cri);
 	}
 
@@ -59,7 +59,7 @@ public class FAQDAOImpl implements FAQDAO {
 	
 	/* 아코디언 */	
 	@Override
-	public List<FAQVO> selectFrequentlyList(Criteria cri) throws SQLException {
+	public List<FAQVO> selectFrequentlyList(MyOrderCriteria cri) throws SQLException {
 		
 		int offset = cri.getStartRowNum();
 		int limit = cri.getPerPageNum();
@@ -67,6 +67,11 @@ public class FAQDAOImpl implements FAQDAO {
 
 		List<FAQVO> frequentlyList = session.selectList("FAQ-mapper.selectFrequentlyList", cri, rowBounds);
 		return frequentlyList;
+	}
+
+	@Override
+	public int selectFrequentlyListCount(MyOrderCriteria cri) throws SQLException {
+		return session.selectOne("FAQ-mapper.selectFrequentlyListCount", cri);
 	}
 
 }

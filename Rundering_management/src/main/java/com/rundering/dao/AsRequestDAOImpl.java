@@ -49,6 +49,11 @@ public class AsRequestDAOImpl implements AsRequestDAO {
 	}
 
 	@Override
+	public void okAsRequest(int asno) throws SQLException {
+		session.update("AsRequest-mapper.okAsRequest", asno);
+	}
+
+	@Override
 	public int selectAsRequestSequenceNextValue() throws SQLException {
 		return session.selectOne("AsRequest-mapper.selectAsRequestSequenceNextValue");
 	}

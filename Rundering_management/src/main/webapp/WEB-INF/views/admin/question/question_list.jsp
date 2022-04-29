@@ -75,7 +75,6 @@ th, td {
 							<option value="tc" ${cri.searchType eq 'tc' ? 'selected':'' }>전체</option>
 							<option value="t" ${cri.searchType eq 't' ? 'selected':'' }>제목</option>
 							<option value="c" ${cri.searchType eq 'c' ? 'selected':'' }>내용</option>
-							<%-- <option value="w" ${cri.searchType eq 'w' ? 'selected':'' }>질문자</option> --%>
 						</select> <input class="form-control" type="text" name="keyword"
 							placeholder="검색어를 입력하세요." value="" /> <span
 							class="input-group-append">
@@ -107,7 +106,7 @@ th, td {
 						</tr>
 					</c:if>
 					<c:forEach items="${faqList }" var="faq">
-						<tr
+						<tr style='cursor: pointer;'
 							onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',900,700);">
 							<td class="no">${faq.faqno }</td>
 							<td class="category"><c:choose>

@@ -3,13 +3,13 @@ package com.rundering.service;
 import java.sql.SQLException;
 import java.util.Map;
 
-import com.rundering.command.Criteria;
+import com.rundering.command.MyOrderCriteria;
 import com.rundering.dto.FAQVO;
 
 public interface FAQService {
 	
 	// 목록조회
-	public Map<String, Object> getFAQList(Criteria cri) throws SQLException;
+	public Map<String, Object> getFAQList(MyOrderCriteria cri) throws SQLException;
 
 	// 등록
 	void regist(FAQVO faq) throws SQLException;
@@ -24,5 +24,5 @@ public interface FAQService {
 	void remove(int faqno) throws SQLException;
 	
 	/* 아코디언 */
-	public Map<String, Object> getFAQFrequentlyList(Criteria cri) throws SQLException;
+	public Map<String, Object> getFAQFrequentlyList(MyOrderCriteria cri) throws SQLException;
 }

@@ -26,7 +26,7 @@
 		</div>
 	</section>
 
-	<div class="card card-primary card-outline">
+	<div class="card card-secondary card-outline">
 		<form role="form" action="regist" method="post" name="registForm">
 			<div class="card-body">
 				<div class="form-group">
@@ -52,9 +52,9 @@
 								<label for="writer"
 									style="margin-left: 10px; margin-top: 10px; font-size: large;">요청자</label>
 								<input type="hidden" name="writer" id="writer"
-									class="form-control" value="${loginUser.memberNo }" >
-								<input type="text" readonly
-									class="form-control" value="${loginUser.name }">
+									class="form-control" value="${loginUser.memberNo }"> <input
+									type="text" readonly class="form-control"
+									value="${loginUser.name }">
 							</div>
 						</div>
 						<div class="col">
@@ -63,10 +63,9 @@
 									style="margin-left: 10px; margin-top: 10px; font-size: large;">공개여부</label>
 								<div class="form-group">
 									<div style="margin-left: 10px; margin-top: 10px; font-size: large;">
-										<input type="radio" name="secretyn" id="secretyn" value="Y" />
-										공개 &nbsp;&nbsp;
-										<input type="radio" name="secretyn" id="secretyn" value="N" />
-										비공개
+										<input type="radio" name="secretyn" id="secretyn" value="N" />공개
+										&nbsp;&nbsp;
+										<input type="radio" name="secretyn" id="secretyn" value="Y" /> 비공개
 									</div>
 								</div>
 							</div>
@@ -74,10 +73,37 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="fcontent" style="margin-left: 10px; font-size: large;">▼▽▼문의할
-						내용을 입력하세요▼▽▼</label>
+					<label for="fcontent" style="margin-left: 10px; font-size: large;">내용</label>
 					<textarea style="border: none; height: 100px; resize: none;"
 						class="textarea" rows="10" cols="20" id="fcontent" name="fcontent"></textarea>
+				</div>
+				<div class="card">
+					<div class="card-header">
+						<div class="row">
+							<button class="btn btn-xs btn-secondary" onclick="addFile_go();"
+								type="button" id="addFileBtn">
+								<i class="fas fa-images"></i> Add File
+							</button>
+							&nbsp;&nbsp;
+							<div class="card-footer fileInput p-0">
+								<div class="inputRow" data-no="0">
+									<label for="inputFile" data-no="0"
+										class="btn btn-secondary btn-sm input-group-addon"
+										onclick="justPressed(this)">파일선택</label> <input
+										id="inputFileName" type="text" name="tempPicture" data-no="0"
+										disabled />
+									<button onclick="remove_go(0);"
+										style="border: 0; outline: 0; padding: 6px; padding-bottom: 5px; margin-left: 2px;"
+										class="badge bg-red" type="button">X</button>
+								</div>
+							</div>
+							<div class="overlay" style="display: none;">
+								<i class="fas fa-2x fa-spinner fa-spin"></i>
+							</div>
+						</div>
+					</div>
+
+
 				</div>
 			</div>
 		</form>
@@ -86,7 +112,8 @@
 	<div class="card-footer">
 		<div class="float-right">
 			<button onclick="history.go(-1)" class="btn btn-warning">뒤로가기</button>
-			<button onclick="regist_go()" type="submit" id="registBtn" class="btn btn-primary">요청하기</button>
+			<button onclick="regist_go()" type="submit" id="registBtn"
+				class="btn btn-primary">요청하기</button>
 		</div>
 	</div>
 

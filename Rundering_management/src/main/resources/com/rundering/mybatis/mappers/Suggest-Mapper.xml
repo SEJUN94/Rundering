@@ -72,9 +72,13 @@
 	<select id="selectSearchSuggestListCount" resultType="int">
 		select
 		count(*) 
-		from TB_SUGGEST_BOARD b
-		where b.sno is not null
-		<!-- <include refid="search" /> -->
+		from tb_employees a, TB_SUGGEST_BOARD b, tb_member c, tb_branch d
+		where a.employee_id = b.writer
+		  and a.memberno = c.memberno
+		  and b.branch_name = d.branch_code
+		  and b.sno is not null
+		  and b.deleteyn='N'
+		<include refid="search" />
 		order by b.regist_date desc
 	</select>
 	

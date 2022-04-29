@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.rundering.command.Criteria;
-import com.rundering.command.PageMaker;
+import com.rundering.command.AcoCriteria;
+import com.rundering.command.AcoPageMaker;
+import com.rundering.command.FAQCriteria;
+import com.rundering.command.FAQPageMaker;
 import com.rundering.dao.FAQDAO;
 import com.rundering.dto.FAQVO;
 
@@ -19,7 +21,7 @@ public class FAQServiceImpl implements FAQService {
 	}
 
 	@Override
-	public Map<String, Object> getFAQList(Criteria cri) throws SQLException {
+	public Map<String, Object> getFAQList(FAQCriteria cri) throws SQLException {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 
 		// 현재 page 번호에 맞게 리스트를 가져오기
@@ -29,7 +31,7 @@ public class FAQServiceImpl implements FAQService {
 		int totalCount = faqDAO.selectSearchFAQListCount(cri);
 
 		// PageMaker 생성.
-		PageMaker pageMaker = new PageMaker();
+		FAQPageMaker pageMaker = new FAQPageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
 
@@ -52,15 +54,26 @@ public class FAQServiceImpl implements FAQService {
 	
 	/* 아코디언 */	
 	@Override
-	public Map<String, Object> getFAQFrequentlyList(Criteria cri) throws SQLException {
+	public Map<String, Object> getFAQFrequentlyList(AcoCriteria cri) throws SQLException {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-
+		
+		// 현재 page 번호에 맞게 리스트를 가져오기
 		List<FAQVO> frequentlyList = faqDAO.selectFrequentlyList(cri);
+		
+		// 전체 board 개수
+		int totalCount = faqDAO.selectFrequentlyListCount(cri);
+		
+		// PageMaker 생성.
+		AcoPageMaker pageMaker = new AcoPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
 
 		dataMap.put("frequentlyList", frequentlyList);
+		dataMap.put("pageMaker", pageMaker);
 
 		return dataMap;
 	}
+
 	
 	@Override
 	public void modify(FAQVO faq) throws SQLException {
