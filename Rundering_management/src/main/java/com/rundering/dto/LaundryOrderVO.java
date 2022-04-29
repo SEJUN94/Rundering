@@ -27,6 +27,7 @@ public class LaundryOrderVO {
 	private String add2;				//상세주소
 	private String atchFileNo;			//통합첨부파일번호
 	private int replyNo;				//댓글번호
+	private String pickupDate1;			//Date 타입 변환
 	
 	public LaundryOrderVO() {
 		super();
@@ -169,6 +170,13 @@ public class LaundryOrderVO {
 	}
 	public void setReplyNo(int replyNo) {
 		this.replyNo = replyNo;
+	}
+	public String getPickupDate1() {
+		return pickupDate1;
+	}
+
+	public void setPickupDate1(String pickupDate1) {
+		this.pickupDate1 = pickupDate1;
 	}
 
 	@Override
