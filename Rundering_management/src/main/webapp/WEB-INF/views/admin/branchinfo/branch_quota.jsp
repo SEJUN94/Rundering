@@ -15,6 +15,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <title>주문량</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <body>
 	<section class="content-header">
 		<div class="container-fluid">
@@ -195,33 +196,7 @@
 	</div>
 	
 <script>
-var t = document.getElementById('date');
-t.value= new Date().toISOString().slice(0, 10)
-var date=String(t.value);
-document.querySelectorAll('table')[1].querySelectorAll('td')[0].innerText=date
-t.addEventListener('change', function(){
-	date=String(t.value);
-	var year = date.substring(0,4)
-	var month = date.substring(5,7)
-	var day = date.substring(8,10)
-	
-	var today=year+'-'+month+'-'+day;
-	var min1=year+'-'+month+'-'+(day-1);
-	var min2=year+'-'+month+'-'+(day-2);
-	var min3=year+'-'+month+'-'+(day-3);
-	var min4=year+'-'+month+'-'+(day-4);
-	var min5=year+'-'+month+'-'+(day-5);
-	var min6=year+'-'+month+'-'+(day-6);
-	
-	document.querySelectorAll('table')[1].querySelectorAll('td')[0].innerText=today;
-	document.querySelectorAll('table')[1].querySelectorAll('td')[4].innerText=min1;
-	document.querySelectorAll('table')[1].querySelectorAll('td')[8].innerText=min2;
-	document.querySelectorAll('table')[1].querySelectorAll('td')[12].innerText=min3;
-	document.querySelectorAll('table')[1].querySelectorAll('td')[16].innerText=min4;
-	document.querySelectorAll('table')[1].querySelectorAll('td')[20].innerText=min5;
-	document.querySelectorAll('table')[1].querySelectorAll('td')[24].innerText=min6;
-	
-});
+alert(moment.format());
 </script>
 	
 <script>
