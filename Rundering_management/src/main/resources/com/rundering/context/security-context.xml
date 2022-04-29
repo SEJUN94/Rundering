@@ -35,6 +35,7 @@
 		<intercept-url pattern="/admin/index" access="isAuthenticated()"/>
 		<intercept-url pattern="/branch/index" access="isAuthenticated()"/>
 		
+		
 		<form-login login-page="/common/loginform.do?error=1"
 					login-processing-url="/common/login"
 					username-parameter="id"
