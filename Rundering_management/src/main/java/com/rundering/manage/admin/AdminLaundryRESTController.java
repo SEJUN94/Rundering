@@ -1,5 +1,6 @@
 package com.rundering.manage.admin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rundering.command.AdminLaundryOrderListCriteria;
+import com.rundering.dao.BranchDAO;
+import com.rundering.dto.BranchVO;
 import com.rundering.dto.PaymentVO;
 import com.rundering.service.LaundryOrderService;
 
@@ -40,6 +43,7 @@ public class AdminLaundryRESTController {
 		
 		try {
 			dataMap = laundryOrderService.getConfirmOrderAssignmentInfo(cri);
+			
 			
 				result = new ResponseEntity<Map<String, Object>>(dataMap,HttpStatus.OK);
 		} catch (Exception e) {

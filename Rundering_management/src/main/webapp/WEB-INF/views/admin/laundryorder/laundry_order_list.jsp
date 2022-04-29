@@ -105,7 +105,7 @@
 							<c:forEach items="${laundryOrderList }" var="laundryOrder" >
 								<tr onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do?orderNo=${laundryOrder.orderNo }', '주문 상세', 'width=800, height=900');"
 									style="cursor: pointer;">
-									<td class="pr-0"><input type="checkbox" name="selectOrderNo" value="${laundryOrder.orderNo }"></td>
+									<td class="pr-0"><input type="checkbox" name="selectOrderNo" value="${laundryOrder.orderNo }" onclick="checkSelectAll()"></td>
 									<td><fmt:formatDate value="${laundryOrder.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 									<td>${laundryOrder.orderNo }</td>
 									<td><fmt:formatDate value="${laundryOrder.pickupRequestDate }" pattern="yyyy-MM-dd"/></td>
@@ -175,134 +175,28 @@
 												</div>
 
 												<div class="card-body table-responsive p-0" style="max-height: 480px;">
-													<table class="table table-striped table-head-fixed">
+													<table class="table table-striped table-head-fixed branchList">
 														<thead>
 															<tr>
-																<th>Task</th>
-																<th>Progress</th>
-																<th style="width: 40px">Label</th>
+																<th>지점명</th>
+																<th>할당량</th>
+																<th>할당률</th>
+																<th style="width: 30px;"></th>
 															</tr>
 														</thead>
 														<tbody>
 															<tr>
 																<td>Update software</td>
+																<td></td>
 																<td>
 																	<div class="progress progress-xs">
 																		<div class="progress-bar progress-bar-danger"
 																			style="width: 55%"></div>
 																	</div>
 																</td>
-																<td><span class="badge bg-danger">55%</span></td>
+																	<td class="p-2"><span class="badge bg-primary">30%</span></td>
 															</tr>
-															<tr>
-																<td>Clean database</td>
-																<td>
-																	<div class="progress progress-xs">
-																		<div class="progress-bar bg-warning"
-																			style="width: 70%"></div>
-																	</div>
-																</td>
-																<td><span class="badge bg-warning">70%</span></td>
-															</tr>
-															<tr>
-																<td>Cron job running</td>
-																<td>
-																	<div
-																		class="progress progress-xs progress-striped active">
-																		<div class="progress-bar bg-primary"
-																			style="width: 30%"></div>
-																	</div>
-																</td>
-																<td><span class="badge bg-primary">30%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td>
-																	<div
-																		class="progress progress-xs progress-striped active">
-																		<div class="progress-bar bg-success"
-																			style="width: 90%"></div>
-																	</div>
-																</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td>
-																	<div
-																		class="progress progress-xs progress-striped active">
-																		<div class="progress-bar bg-success"
-																			style="width: 90%"></div>
-																	</div>
-																</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td>
-																	<div
-																		class="progress progress-xs progress-striped active">
-																		<div class="progress-bar bg-success"
-																			style="width: 90%"></div>
-																	</div>
-																</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td>
-																	<div
-																		class="progress progress-xs progress-striped active">
-																		<div class="progress-bar bg-success"
-																			style="width: 90%"></div>
-																	</div>
-																</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td>
-																	<div
-																		class="progress progress-xs progress-striped active">
-																		<div class="progress-bar bg-success"
-																			style="width: 90%"></div>
-																	</div>
-																</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td>
-																	<div
-																		class="progress progress-xs progress-striped active">
-																		<div class="progress-bar bg-success"
-																			style="width: 90%"></div>
-																	</div>
-																</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td>
-																	<div
-																		class="progress progress-xs progress-striped active">
-																		<div class="progress-bar bg-success"
-																			style="width: 90%"></div>
-																	</div>
-																</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
-															<tr>
-																<td>Fix and squish bugs</td>
-																<td>
-																	<div
-																		class="progress progress-xs progress-striped active">
-																		<div class="progress-bar bg-success"
-																			style="width: 90%"></div>
-																	</div>
-																</td>
-																<td><span class="badge bg-success">90%</span></td>
-															</tr>
+														
 														</tbody>
 													</table>
 												</div>
@@ -369,16 +263,24 @@
 		  })
 		}
 	
-      //체크박스 전체선택 자동해제
-      $(document).ready(function() {
-    		$("input[name=selectOrderNo]").click(function() {
-    			var total = $("input[name=selectOrderNo]").length;
-    			var checked = $("input[name=selectOrderNo]:checked").length;
-
-    			if(total != checked) $("input[name=selectAllOrderNo]").prop("checked", false);
-    			else $("input[name=selectAllOrderNo]").prop("checked", true); 
-    		});
-    	});
+    //체크박스 전체선택 자동 선택,해제
+	function checkSelectAll()  {
+		  // 전체 체크박스
+		  const checkboxes = document.querySelectorAll('td>input[name=selectOrderNo]');
+		  // 선택된 체크박스
+		  const checked = document.querySelectorAll('td>input[name=selectOrderNo]:checked');
+		  // select all 체크박스
+		  const selectAll = document.querySelector('th>input[name=selectAllOrderNo]');
+		  
+		  console.log(checkboxes.length);
+		  console.log(checked.length);
+		  
+		  if(checkboxes.length === checked.length)  {
+		    selectAll.checked = true;
+		  }else {
+		    selectAll.checked = false;
+		  }
+		}
       
 	//체크박스 선택시 tr에 걸린 상세정보 클릭되는 이벤트 버블링 막기
      function init() {
@@ -407,7 +309,7 @@
 			
 			
 		}else{
-			$('input[name="selectOrderNo"]:checked').each(function(i){
+			$('td>input[name="selectOrderNo"]:checked').each(function(i){
 				selectOrderNoArr.push($(this).val());
 			});
 		}
@@ -440,7 +342,25 @@
 							$(".selectOrderList>tbody").append(orderAdd);
 						 })
 						$(".selectOrderCounts").text(data.totalCount+'개');
+						 
 					 }
+					 
+					 $(data.laundryOrderList).each(function(i) {
+						 if(data.branchList[i].branchCode == '000000'){
+							 return;
+						 }
+							/*  console.log(data.branchList[i].branchCode);
+							 
+							 let branchAdd = "<tr>"+
+							 "<td>"+data.branchList[i].branchName+"</td>"+
+							 "<td>"+data.branchList[i].branchName+"</td>"+
+							 "<td><div class='progress progress-xs'><div class='progress-bar progress-bar-danger' style='width: '"++"%></div></div></td>"+
+							 "<td class='p-2'><span class='badge bg-primary'>"+data.orderCodeMap[data.laundryOrderList[i].orderStatus]+"%</span></td>"+
+							 "</tr>"; */
+							 
+							$(".branchList>tbody").append(branchAdd);
+						 
+					 })
 
 				},
 				error:function(error){

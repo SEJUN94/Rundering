@@ -182,6 +182,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		Map<String,String> orderCodeMap = new HashMap<String, String>();
 		Map<String,String> areaCodeMap = new HashMap<String, String>();
 		Map<String,String> branchNameMap = new HashMap<String, String>();
+		List<BranchVO> excessCapacityList = new ArrayList<BranchVO>();
 		comCodeUtil.getUpperCodeMap("ORDER_STATUS", orderCodeMap, comCodeDAO);
 		comCodeUtil.getCodeMap("AREA", areaCodeMap, comCodeDAO);
 		
@@ -193,6 +194,9 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		List<LaundryOrderVO> laundryOrderList = new ArrayList<LaundryOrderVO>();
 		
 		if(cri.getSelectAllOrderNo()!=null && cri.getSelectAllOrderNo().equals("true")) {
+			String orderStatus = cri.getListOrderStatus().toString();
+			orderStatus = orderStatus.replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
+			cri.setOrderStatus(orderStatus);
 			laundryOrderList = laundryOrderDAO.selectAllLaundryOrderList(cri);
 			
 		}else {
@@ -202,6 +206,15 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 			}
 		}
 		
+		for (BranchVO branchVO : branchList) {
+			if(branchVO.getBranchCode().equals("000000")) continue;
+			BranchVO branch = new BranchVO();
+			branch.setBranchCode(branchVO.getBranchCode());
+			branch.setBranchLndrpcrymslmcoqy(branchDAO.selectExcessCapacityOfTodayLaundryByBranchCode(branchVO.getBranchCode()));
+			excessCapacityList.add(branch);
+		}
+		dataMap.put("branchList", branchList);
+		dataMap.put("excessCapacityList", excessCapacityList);
 		
 		int totalCount = laundryOrderList.size();
 		
