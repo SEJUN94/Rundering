@@ -3,8 +3,6 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 
 
 <body>
@@ -47,11 +45,55 @@
 					</thead>
 					<tbody>
 							<tr>
-								<td class="list" id="memno" name="memno" style="vertical-align: middle" ></td>
-								<td style="vertical-align: middle" ></td>
-								<td style="vertical-align: middle">	</td>
-								<td style="vertical-align: middle"><button type="submit" class="btn btn-danger btn-sm"></button></td>
+								<td class="list" id="memno" name="memno" style="vertical-align: middle" >백관우</td>
+								<td style="vertical-align: middle" >01033215542</td>
+								<td style="vertical-align: middle">bgwbgw100@gmail.com</td>
+								<td style="vertical-align: middle;padding-bottom: 6px;padding-top: 6px;">
+								<button type="submit" class="btn btn-outline-danger btn-sm">신청승인</button>
+								<button type="submit" class="btn btn-outline-danger btn-sm">심사승인</button>
+								<button type="submit" class="btn btn-outline-danger btn-sm">수의계약</button>
+								<button type="submit" class="btn btn-outline-danger btn-sm">지점등록</button></td>
 							</tr>
+							<tr>
+								<td class="list" id="memno" name="memno" style="vertical-align: middle" >백관우</td>
+								<td style="vertical-align: middle" >01033215542</td>
+								<td style="vertical-align: middle">bgwbgw100@gmail.com</td>
+								<td style="vertical-align: middle;padding-bottom: 6px;padding-top: 6px;">
+								<button type="submit" class="btn btn-outline-danger btn-sm">신청승인</button>
+								<button type="submit" class="btn btn-outline-danger btn-sm">심사승인</button>
+								<button type="submit" class="btn btn-outline-danger btn-sm">수의계약</button>
+								<button type="submit" class="btn btn-outline-danger btn-sm">지점등록</button></td>
+							</tr>
+							<tr>
+								<td class="list" id="memno" name="memno" style="vertical-align: middle" >백관우</td>
+								<td style="vertical-align: middle" >01033215542</td>
+								<td style="vertical-align: middle">bgwbgw100@gmail.com</td>
+								<td style="vertical-align: middle;padding-bottom: 6px;padding-top: 6px;">
+								<button type="submit" class="btn btn-outline-danger btn-sm">신청승인</button>
+								
+							</tr>
+							<tr>
+								<td class="list" id="memno" name="memno" style="vertical-align: middle" >백관우</td>
+								<td style="vertical-align: middle" >01033215542</td>
+								<td style="vertical-align: middle">bgwbgw100@gmail.com</td>
+								<td style="vertical-align: middle;padding-bottom: 6px;padding-top: 6px;">
+								<button type="submit" class="btn btn-outline-danger btn-sm">신청승인</button>
+								<button type="submit" class="btn btn-outline-danger btn-sm">심사승인</button>
+								<button type="submit" class="btn btn-outline-danger btn-sm">수의계약</button>
+								<button type="submit" class="btn btn-outline-danger btn-sm">지점등록</button></td>
+							</tr>
+							<tr>
+								<td class="list" id="memno" name="memno" style="vertical-align: middle" >백관우</td>
+								<td style="vertical-align: middle" >01033215542</td>
+								<td style="vertical-align: middle">bgwbgw100@gmail.com</td>
+								<td style="vertical-align: middle;padding-bottom: 6px;padding-top: 6px;">
+								<button type="submit" class="btn btn-outline-success btn-sm">신청승인</button>
+								<button type="submit" class="btn btn-outline-success btn-sm">심사승인</button>
+								<button type="submit" class="btn btn-outline-success btn-sm">수의계약</button>
+								<button type="submit" class="btn btn-outline-danger btn-sm">지점등록</button></td>
+							</tr>
+					
+							
 					</tbody>
 				</table>
 			</div>
@@ -62,8 +104,9 @@
 	</div>
 </div>
 
+
 <div class="row ml-3 mr-3">
-	<div class="col-12">
+	<div class="col-8">
 		<div class="card card-default">
 
 			<div class="card-header">
@@ -73,86 +116,121 @@
 			</div>
 
 			<form class="form-horizontal" method="post">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-md-3">
-							<div class="form-group">
+				<div class="card-body row">
+						<div class="col-md-12 row">
+							<div class="form-group col-4">
 								<label>지점이름</label>
 								<input type="text" class="form-control"	id="adress" name="adress" value=""  />
 							</div>
 							
-							<div class="form-group">
-								<label>우편번호</label> 
+							<div class="form-group col-4">
+								<label>지점 전화번호</label> 
 								<input type="text" class="form-control"	id="adress" name="adress" value=""  />
 							</div>
-							
-							<div class="form-group">
-								<label>상위지역코드</label> 
+							<div class="form-group col-2">
+								<label>상위지역 </label> 
+								<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  />
+							</div>
+							<div class="form-group col-2">
+								<label>하위지역 </label> 
 								<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  />
 							</div>
 							
-						
-							
-							
 						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<label>지점 전화번호</label> 
-								<input type="text" class="form-control"	id="phone" name="phone" value="" readonly />
+						<div class="col-md-12 row">
+							<div class="form-group col-4">
+								<label>우편번호</label> 
+								<span class="input-group-append">
+									<input type="text" class="form-control col-7"	id="phone" name="phone" value=""  />
+								
+									<button class ="btn btn-sm btn-primary col-5">우편검색</button>
+								</span>
 							</div>
-							<div class="form-group">
+							<div class="form-group col-4">
 								<label>주소</label> 
 								<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  />
 							</div>
-							<div class="form-group">
-								<label>세탁기</label> 
-								<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  />
-							</div>
-							
-							
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<label>세탁가능수량</label> 
-								<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  />
-							</div>
-							<div class="form-group">
-								<label>상세주소</label> 
-								<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  />
-							</div>
-							<div class="form-group">
-								<label>건조기</label> 
-								<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  />
-							</div>
-						
-						</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>에어컨</label> 
-									<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  />
-							
-							</div>
-							<div class="form-group">
-								<label>지역분류</label> 
+							<div class="form-group col-4">
+								<label>상세주소 </label> 
 								<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  />
 							</div>
 						</div>
-						
-						
 					</div>
-					<input type="hidden" id="memNo" name="memNo" value="" >
-					<input type="hidden" id="jd" name="jd" value="" >
-							<div class="form-group" style="">
-								<div class="float-right col-2" style="margin-right: 0;">
-									<button type="submit" class="btn col-12 btn-primary"
-										onclick="regist()">등록</button>
-								</div>
-							</div>
-				</div>
 			</form>
+		</div>
+		<div class="card card-body">
+			<div class="col-md-12 row">
+				<div class="form-group col-4">
+					<label>세탁가능수량</label> 
+					<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value="" readonly="readonly" />
+				</div>
+				<div class="form-group col-2">
+					<label>세탁기</label> 
+					<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  readonly="readonly" />
+				</div>
+				<div class="form-group col-2">
+					<label>건조기</label> 
+					<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value="" readonly="readonly"  />
+				</div>
+				<div class="form-group col-2">
+						<label>에어컨</label> 
+						<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  readonly="readonly" />
+				</div>
+					<div class="form-group col-2">
+							<button type="submit" class="btn btn-md btn-primary" onclick="regist()" style="position: absolute; right: 0px; bottom: 0px;">등록</button>
+					</div>
+		
+			</div>
+		</div>
+	</div>
+	<div class="col-4">
+		<div class="card card-body">
+			<div class="col-md-12 ">
+				<div class="form-group col-12">
+					<div>
+						<label>임대차계약서</label>
+					</div> 
+					<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
+					<i class="fas fa-file"></i>
+					&nbsp; 임대차계약서 다운로드</button>
+					<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
+					임대차계약서 보기</button>
+				</div>
+				<div class="form-group col-12">
+					<div>
+						<label>심사계약서</label>
+					</div> 
+					<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
+					<i class="fas fa-file"></i>
+					&nbsp; 심사계약서 다운로드</button>
+					<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
+					심사계약서 보기</button>
+				</div>
+				<div class="form-group col-12">
+					<div>
+						<label>수의계약서</label>
+					</div> 
+					<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
+					<i class="fas fa-file"></i>
+					&nbsp; 수의계약서 다운로드</button>
+					<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
+					수의계약서 보기</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+
+<div class="row ml-3 mr-3">
+	<div class="col-8">
+		
+	</div>
+</div>
+
+			
+				
+
+
 </body>
 
 

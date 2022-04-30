@@ -91,7 +91,7 @@ th, td {
 									</tr>
 								</c:if>
 								<c:forEach items="${suggestList }" var="suggest">
-									<tr
+									<tr style='font-size: 0.85em; cursor: pointer;'
 										onclick="OpenWindow('detail?from=list&sno=${suggest.sno }','상세보기',900,700);">
 										<td class="no">${suggest.sno }</td>
 										<td class="boardtitle">${suggest.title }</td>
