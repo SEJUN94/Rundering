@@ -40,8 +40,8 @@ public class DeliveryDAOImpl implements DeliveryDAO {
 	// 배송 완료 리스트
 	@Override
 	public List<LaundryOrderVO> selectDeliveryComList(LaundryOrderVO laundryOrder) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<LaundryOrderVO> collect = session.selectList("Delivery-Mapper.selectDeliveryComList", laundryOrder);
+		return collect;
 	}
 
 	// 수거완료(상태 변경)

@@ -19,7 +19,7 @@ public interface DeliveryDAO {
 	List<LaundryOrderVO> selectDeliveryComList(LaundryOrderVO laundryOrder) throws Exception;
 	//배송 완료ㆍ취소(상태변경)
  
-	//배송 상세
+	//수거ㆍ배송 상세
 	LaundryOrderVO selectOrderByOrderNo(String orderNo)throws Exception;
 	List<LaundryOrderDetailVO> selectOrdertDetailList(String orderNo) throws Exception;
 	

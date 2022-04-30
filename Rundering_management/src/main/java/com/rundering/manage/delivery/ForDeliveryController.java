@@ -1,5 +1,6 @@
 package com.rundering.manage.delivery;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -68,7 +70,7 @@ public class ForDeliveryController {
 	@RequestMapping("/pickupdetail")
 	public ModelAndView pickUpDetail(ModelAndView mnv, String orderNo,String orderStatus) throws Exception {
 		String url = null;
-		if (orderStatus.equals("01")) {
+		if (orderStatus.equals("02")) {
 			url = "/delivery/pickUp_detail";
 		} else if (orderStatus.equals("03")) {
 			url = "/delivery/pickUpCom_detail";
@@ -124,36 +126,57 @@ public class ForDeliveryController {
 		laundryOrder.setBranchCode(emp.getBranchCode());
 		laundryOrder.setPickupEmployeeId(emp.getEmployeeId());
 		
-		Map<String, Object> deliveryList = deliveryService.getDeliveryList(laundryOrder);
+		Map<String, Object> dataMap = deliveryService.getDeliveryList(laundryOrder);
 
-		mnv.addObject("deliveryList", deliveryList);
+		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
 
 		return mnv;
 	}
+	//배송 상세조회
+	@RequestMapping(value="/deliverydetail")
+	public ModelAndView deliveryDetail(String orderNo,String orderStatus, ModelAndView mnv) throws Exception{
+		String url=null;
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		if(orderStatus.equals("07")) {
+			url="/delivery/delivery_detail";
+		}else if((orderStatus.equals("08"))||(orderStatus.equals("09"))){
+			url="/delivery/deliveryCom_detail";
+		}
+		dataMap = deliveryService.getOrderDetailByOrderNo(orderNo);
+
+		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	
+	
 	
 	// 배송 상세조회
-	@RequestMapping(value="/deliverydetail",method = RequestMethod.POST,produces ="application/json;charset=utf-8")
-	@ResponseBody
-	public ResponseEntity<Map<String, Object>> deliverydetail(String orderNo, ModelAndView mnv, String orderStatus) throws Exception {
-		Map<String, Object> dataMap = null;
-		ResponseEntity<Map<String, Object>> ok = null;
-		
-		String url = null;
-		if (orderStatus.equals("06")||orderStatus.equals("07")) {
-			url = "/delivery/delivery_detail";
-			dataMap = deliveryService.getOrderDetailByOrderNo(orderNo);
-			dataMap.put("list", "OK");
-			ok = new ResponseEntity<Map<String, Object>>(dataMap,HttpStatus.OK);
-		} else if ((orderStatus.equals("08"))||(orderStatus.equals("09"))) {
-			url = "/delivery/deliveryCom_detail";
-			ok = new ResponseEntity<Map<String, Object>>(dataMap, HttpStatus.OK);
-			dataMap = deliveryService.getOrderDetailByOrderNo(orderNo);
-			dataMap.put("COM", "COM");
-			
-		}
-
-
-		return ok;
-	}
+//	@RequestMapping(value="/deliverydetail",method = RequestMethod.POST,produces ="application/json;charset=utf-8")
+//	@ResponseBody
+//	public ResponseEntity<Map<String, Object>> deliverydetail(String orderNo, ModelAndView mnv, String orderStatus) throws Exception {
+//		Map<String, Object> dataMap = null;
+//		ResponseEntity<Map<String, Object>> ok = null;
+//		
+//		String url = null;
+//		if (orderStatus.equals("06")||orderStatus.equals("07")) {
+//			url = "/delivery/delivery_detail";
+//			dataMap = deliveryService.getOrderDetailByOrderNo(orderNo);
+//			dataMap.put("list", "OK");
+//			ok = new ResponseEntity<Map<String, Object>>(dataMap,HttpStatus.OK);
+//		} else if ((orderStatus.equals("08"))||(orderStatus.equals("09"))) {
+//			url = "/delivery/deliveryCom_detail";
+//			ok = new ResponseEntity<Map<String, Object>>(dataMap, HttpStatus.OK);
+//			dataMap = deliveryService.getOrderDetailByOrderNo(orderNo);
+//			dataMap.put("COM", "COM");
+//			
+//		}
+//
+//
+//		return ok;
+//	}
 }

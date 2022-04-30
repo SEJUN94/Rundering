@@ -32,13 +32,13 @@
 								id="exampleInputFile"> <label class="custom-file-label"
 								for="exampleInputFile">사진을 첨부해주세요.</label>
 						</div>
-						<div class="info-box bg-light" onclick="delivery_complete('08','${delivery.orderNo }');">
+						<div class="info-box bg-light" style="display:block;" id="jassi" onclick="sam_raimi()">
 							<div class="info-box-content">
 								<span class="info-box-text text-center text-muted"
 									style="font-size: 2rem;" onclick="">배송완료</span>
 							</div>
 						</div>
-						<div class="info-box bg-light" style="display:none;" onclick="delivery_complete('09','${delivery.orderNo }');">
+						<div class="info-box bg-light" style="display:none;" id="jason" onclick="delivery_complete('09','${delivery.orderNo }');">
 							<div class="info-box-content">
 								<span class="info-box-text text-center text-muted"
 									style="font-size: 2rem;" onclick="">배송지연완료</span>
@@ -49,7 +49,10 @@
 				<div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
 					<div class="text-muted">
 						<p class="text-lg p-2">
-							배송 요청일 <b class="d-block"><fmt:formatDate value="${delivery.deliveryRequestDate }" pattern="yyyy-MM-dd" /></b>
+							주문번호 <b class="d-block">${delivery.orderNo }</b>
+						</p>
+						<p class="text-lg p-2">
+							배송 요청일 <b class="d-block"><fmt:formatDate value="${delivery.deliveryRequestDate }" pattern="yyyy-MM-dd" /><fmt:formatDate value="${delivery.deliveryRequestDate }"  var="dr_strange" pattern="yyyyMMdd" /></b>
 						</p>
 						<p class="text-lg p-2">
 							주소지 <b class="d-block">${delivery.add1 }</b> <b class="d-block">${delivery.add2 }</b>
@@ -70,6 +73,32 @@
 	
 	
 <script>
+let 아가모토의눈 = new Date();
+아가모토의눈 = 아가모토의눈.getFullYear()*10000 + 아가모토의눈.getMonth()*100 + 아가모토의눈.getDate();
+let 닥터스트레인지 = Number('${dr_strange}');
+function sam_raimi(){
+	alert(닥터스트레인지 <= 아가모토의눈);
+	alert(닥터스트레인지 > 아가모토의눈);
+}
+
+
+function newAddr(abcdefu) {
+	
+	
+	
+	
+	const jassi= document.querySelector('#jassi');	
+	const jason= document.querySelector('#jason');	
+	if('${dr_strange}' < 아가모토의눈){
+		jassi.style.display = 'block';
+		jason.style.display = 'none';
+	}else{
+		jassi.style.display = 'none';
+		jason.style.display = 'block';
+	}
+}
+
+
 	function delivery_complete(orderStatus,orderNo){
 		Swal.fire({
             title: '배송완료 하시겠습니까?',
@@ -95,7 +124,7 @@
 							icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
 							title: '배송 완료 처리 되었습니다.',
 						});
-						setTimeout(function(){location.href='<%=request.getContextPath()%>/fordelivery/pickup';},1000);
+						setTimeout(function(){location.href='<%=request.getContextPath()%>/fordelivery/delivery';},1000);
 					} else {
 						Swal.fire({
 							icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.

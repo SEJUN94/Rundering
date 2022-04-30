@@ -42,7 +42,7 @@
 								</tr>
 							</c:if>
 							<c:forEach items="${pickupList }" var="pickupList">
-								<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickupdetail?orderNo=${pickupList.orderNo }&orderStatus=01'">
+								<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickupdetail?orderNo=${pickupList.orderNo }&orderStatus=02'">
 									<td>${pickupList.orderNo }</td>
 									<td>${pickupList.add1 }${pickupList.add2 }</td>
 								</tr>
@@ -51,7 +51,7 @@
 					</table>
 				</div>
 				<div class="tab-pane fade" id="custom-tabs-four-profile"
-					role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+						role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
 					<table class="table table-striped" style="font-size: 1.2rem;">
 						<thead>
 							<tr>
@@ -73,10 +73,23 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					<div onclick=""
+						class="info-box bg-light" style="position: fixed;
+							bottom: 0;">
+						<div class="info-box-content">
+							<span class="info-box-text text-center text-muted"
+								style="font-size: 2rem;" onclick="">취 소</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
+<script>
+	function complete_all(){
+		alert('오늘 가기전까지는 한 화이팅~! 凸 -.-凸 ')
+	}
+</script>
 
 

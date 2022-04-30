@@ -17,7 +17,7 @@
 			<h3 class="card-title p-1" style="font-size: 1.4rem;">배송 상세정보</h3>
 			<div class="card-tools">
 				<button type="button" class="btn btn-tool p-3"
-					title="Remove" style="">
+					title="Remove" style="" onclick="history.go(-1);">
 					<i class="fas fa-times" style="font-size: 1.7rem;"></i>
 				</button>
 			</div>
@@ -25,23 +25,11 @@
 		
 		<div class="card-body">
 			<div class="row">
-				<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
-					<div class="col-12 col-sm-4">
-						<div class="custom-file" style="padding: 1.5rem;">
-							<input type="file" class="custom-file-input"
-								id="exampleInputFile"> <label class="custom-file-label"
-								for="exampleInputFile">사진을 첨부해주세요.</label>
-						</div>
-						<div class="info-box bg-light" onclick="delivery_complete('06','${delivery.orderNo }');">
-							<div class="info-box-content">
-								<span class="info-box-text text-center text-muted"
-									style="font-size: 2rem;" onclick="">취 소</span>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
 					<div class="text-muted">
+						<p class="text-lg p-2">
+							주문번호 <b class="d-block">${delivery.orderNo }</b>
+						</p>
 						<p class="text-lg p-2">
 							배송 요청일 <b class="d-block"><fmt:formatDate value="${delivery.deliveryRequestDate }" pattern="yyyy-MM-dd" /></b>
 						</p>
@@ -56,6 +44,21 @@
 						</p>
 					</div>
 				</div>
+				<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+					<div class="col-12 col-sm-4">
+						<div class="custom-file" style="padding: 1.5rem;">
+							<input type="file" class="custom-file-input"
+								id="exampleInputFile"> <label class="custom-file-label"
+								for="exampleInputFile">사진을 첨부해주세요.</label>
+						</div>
+						<div class="info-box bg-light" onclick="deliveryCom_cancel('07','${delivery.orderNo }');">
+							<div class="info-box-content">
+								<span class="info-box-text text-center text-muted"
+									style="font-size: 2rem;" onclick="">취 소</span>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -64,7 +67,7 @@
 	
 	
 <script>
-	function deliveryCom_complete(orderStatus,orderNo){
+	function deliveryCom_cancel(orderStatus,orderNo){
 		Swal.fire({
             title: '취소하시겠습니까?',
             icon : 'warning' ,
@@ -87,9 +90,9 @@
 					if(ok.toUpperCase() == "OK"){
 						Swal.fire({
 							icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
-							title: '배송 완료 처리 되었습니다.',
+							title: '취소 처리 되었습니다.',
 						});
-						setTimeout(function(){location.href='<%=request.getContextPath()%>/fordelivery/pickup';},1000);
+						setTimeout(function(){location.href='<%=request.getContextPath()%>/fordelivery/delivery';},1000);
 					} else {
 						Swal.fire({
 							icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.

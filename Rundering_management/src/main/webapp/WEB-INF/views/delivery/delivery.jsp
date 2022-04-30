@@ -40,8 +40,8 @@
 								</tr>
 							</c:if>
 							<c:forEach items="${deliveryList }" var="deliveryList">
-								<c:if test="${deliveryList.orderStatus eq '06' or deliveryList.orderStatus eq '07'}">
-									<tr onclick="detail_go('${deliveryList.orderNo}','${deliveryList.orderStatus}')">
+								<c:if test="${deliveryList.orderStatus eq '07'}">
+									<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/deliverydetail?orderNo=${deliveryList.orderNo }&orderStatus=${deliveryList.orderStatus }'">
 											<td>${deliveryList.orderNo }</td>
 											<td>${deliveryList.add1 } ${deliveryList.add2 }</td>
 									</tr>
@@ -64,11 +64,11 @@
 									<td colspan="2" style="text-align:center;"><strong>배송완료된 세탁물이 없습니다.</strong></td>
 								</tr>
 							</c:if>
-							<c:forEach items="${deliveryCompleteList }" var="deliveryList">
-								<c:if test="${deliveryList.orderStatus == '08' || deliveryList.orderStatus == '09' }">
-									<tr onclick="detail_go('${deliveryList.orderNo}','${deliveryList.orderStatus}')">
-											<td>${deliveryList.orderNo }</td>
-											<td>${deliveryList.add1 } ${deliveryList.add2 }</td>
+							<c:forEach items="${deliveryCompleteList }" var="deliveryCompleteList">
+								<c:if test="${deliveryCompleteList.orderStatus == '08' || deliveryCompleteList.orderStatus == '09' }">
+									<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/deliverydetail?orderNo=${deliveryCompleteList.orderNo }&orderStatus=${deliveryCompleteList.orderStatus }'">
+										<td>${deliveryCompleteList.orderNo }</td>
+										<td>${deliveryCompleteList.add1 } ${deliveryCompleteList.add2 }</td>
 									</tr>
 								</c:if>
 							</c:forEach>
@@ -79,39 +79,3 @@
 		</div>
 	</div>
 </body>
-
-<script>
-	function detail_go(orderNo,orderStatus){
-		$.ajax({
-			url : '<%=request.getContextPath()%>/fordelivery/deliverydetail',
-			data : {
-				'orderNo' : orderNo,
-				'orderStatus' : orderStatus
-			},
-			type : 'post',
-			success : function(dataMap) {
-				if(dataMap.list == 'OK'){
-					Swal.fire({
-						icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
-						title: '배송 완료 처리 되었습니다.',
-					});
-					location.href='<%=request.getContextPath()%>/fordelivery/delivery/delivery';
-				} else if(dataMap.COM == 'COM') {
-					Swal.fire({
-						icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
-						title: '배송 완료 처리 되었습니다.',
-					});
-					location.href='<%=request.getContextPath()%>/fordelivery/delivery/delivery';
-				} else {
-					Swal.fire({
-						icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
-						title: '시스템 오류로 반려 할 수 없습니다.'
-					});
-				}
-			},
-			error : function(error) {
-				AjaxErrorSecurityRedirectHandler(error.status);
-			}
-		});
-	}
-</script>

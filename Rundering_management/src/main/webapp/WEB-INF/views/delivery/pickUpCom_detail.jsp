@@ -28,22 +28,11 @@
 		
 		<div class="card-body">
 			<div class="row">
-				<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
-					<div class="col-12 col-sm-4">
-						<div class="custom-file mb-5">
-							<img height="100px;" width="70px;" src="<%=request.getContextPath() %>/resources/image/증명사진샘플.jpg">
-						</div>
-						<div class="info-box bg-light mt-5">
-							<div class="info-box-content">
-								<span class="info-box-text text-center text-muted"
-									style="font-size: 2rem;" onclick="pickup_cancel('01');">취 소</span>
-							</div>
-							<input type="hidden" id="orderNo" name="orderNo" value="${pickup.orderNo }">
-						</div>
-					</div>
-				</div>
 				<div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
 					<div class="text-muted">
+						<p class="text-lg p-2">
+							주문번호 <b class="d-block">${pickup.orderNo }</b>
+						</p>
 						<p class="text-lg p-2">
 							수거 요청일 <b class="d-block"><fmt:formatDate value="${pickup.pickupRequestDate }" pattern="yyyy-MM-dd" /></b>
 						</p>
@@ -58,10 +47,24 @@
 						</p>
 					</div>
 				</div>
+				<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+					<div class="col-12 col-sm-4">
+						<div class="custom-file mb-5">
+							<img height="100px;" width="70px;" src="<%=request.getContextPath() %>/resources/image/증명사진샘플.jpg">
+						</div>
+						<div class="info-box bg-light mt-5">
+							<div class="info-box-content">
+								<span class="info-box-text text-center text-muted"
+									style="font-size: 2rem;" onclick="pickup_cancel('02');">취 소</span>
+							</div>
+							<input type="hidden" id="orderNo" name="orderNo" value="${pickup.orderNo }">
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-<!-- 알림 sweetalert2 -->
+	<!-- 알림 sweetalert2 -->
 <script	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 <script>
 	function pickup_cancel(orderStatus){

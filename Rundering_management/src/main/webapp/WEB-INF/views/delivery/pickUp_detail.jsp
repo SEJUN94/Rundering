@@ -30,6 +30,26 @@
 		<div class="card-body">
 			<div class="row">
 				<form method="post"  enctype="multipart/form-data" id="fileform">
+					<div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
+						<div class="text-muted">
+							<p class="text-lg p-2">
+								주문번호 <b class="d-block">${pickup.orderNo }</b>
+							</p>
+							<p class="text-lg p-2">
+								수거 요청일 <b class="d-block"><fmt:formatDate
+										value="${pickup.pickupRequestDate }" pattern="yyyy-MM-dd" /></b>
+							</p>
+							<p class="text-lg p-2">
+								주소지 <b class="d-block">${pickup.add1 }</b> <b class="d-block">${pickup.add2 }</b>
+							</p>
+							<p class="text-lg p-2">
+								배송 세탁물
+								<c:forEach items="${pickupList }" var="list">
+									<b class="d-block">${list.itemsName } ${list.quantity }개</b>
+								</c:forEach>
+							</p>
+						</div>
+					</div>
 					<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
 						<div class="col-12 col-sm-4">
 							<div class="custom-file" style="padding: 1.5rem;">
@@ -45,23 +65,6 @@
 										style="font-size: 2rem;" onclick="">수거완료</span>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-						<div class="text-muted">
-							<p class="text-lg p-2">
-								수거 요청일 <b class="d-block"><fmt:formatDate
-										value="${pickup.pickupRequestDate }" pattern="yyyy-MM-dd" /></b>
-							</p>
-							<p class="text-lg p-2">
-								주소지 <b class="d-block">${pickup.add1 }</b> <b class="d-block">${pickup.add2 }</b>
-							</p>
-							<p class="text-lg p-2">
-								배송 세탁물
-								<c:forEach items="${pickupList }" var="list">
-									<b class="d-block">${list.itemsName } ${list.quantity }개</b>
-								</c:forEach>
-							</p>
 						</div>
 					</div>
 				</form>
