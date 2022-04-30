@@ -52,7 +52,8 @@
 								<button type="submit" class="btn btn-outline-danger btn-sm">신청승인</button>
 								<button type="submit" class="btn btn-outline-danger btn-sm">심사승인</button>
 								<button type="submit" class="btn btn-outline-danger btn-sm">수의계약</button>
-								<button type="submit" class="btn btn-outline-danger btn-sm">지점등록</button></td>
+								<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_enrollment()">지점등록</button>
+								</td>
 							</tr>
 							<tr>
 								<td class="list" id="memno" name="memno" style="vertical-align: middle" >백관우</td>
@@ -103,118 +104,36 @@
 		</div>
 	</div>
 </div>
-
-
-<div class="row ml-3 mr-3">
-	<div class="col-8">
-		<div class="card card-default">
-
-			<div class="card-header">
-				<h3 class="card-title">
-					<b>지점 등록</b>
-				</h3>
-			</div>
-
-			<form class="form-horizontal" method="post">
-				<div class="card-body row">
-						<div class="col-md-12 row">
-							<div class="form-group col-4">
-								<label>지점이름</label>
-								<input type="text" class="form-control"	id="adress" name="adress" value=""  />
-							</div>
-							
-							<div class="form-group col-4">
-								<label>지점 전화번호</label> 
-								<input type="text" class="form-control"	id="adress" name="adress" value=""  />
-							</div>
-							<div class="form-group col-2">
-								<label>상위지역 </label> 
-								<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  />
-							</div>
-							<div class="form-group col-2">
-								<label>하위지역 </label> 
-								<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  />
-							</div>
-							
-						</div>
-						<div class="col-md-12 row">
-							<div class="form-group col-4">
-								<label>우편번호</label> 
-								<span class="input-group-append">
-									<input type="text" class="form-control col-7"	id="phone" name="phone" value=""  />
-								
-									<button class ="btn btn-sm btn-primary col-5">우편검색</button>
-								</span>
-							</div>
-							<div class="form-group col-4">
-								<label>주소</label> 
-								<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  />
-							</div>
-							<div class="form-group col-4">
-								<label>상세주소 </label> 
-								<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  />
-							</div>
-						</div>
-					</div>
-			</form>
-		</div>
-		<div class="card card-body">
-			<div class="col-md-12 row">
-				<div class="form-group col-4">
-					<label>세탁가능수량</label> 
-					<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value="" readonly="readonly" />
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+<div id="handleTag">
+	<%@ include file="./enrollment_js.jsp" %>
+	<div class="row ml-3 mr-3" id="removeTag">
+		<div class="col-8">
+			<div class="card card-default">
+				<div class="card-header">
+					<h3 class="card-title">
+						<b>반려 내용</b>
+					</h3>
 				</div>
-				<div class="form-group col-2">
-					<label>세탁기</label> 
-					<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  readonly="readonly" />
+				<div class="card-body" id="content" style="height: 250px">
+				
 				</div>
-				<div class="form-group col-2">
-					<label>건조기</label> 
-					<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value="" readonly="readonly"  />
-				</div>
-				<div class="form-group col-2">
-						<label>에어컨</label> 
-						<input type="text" class="form-control"	id="detailAdress" name="detailAdress" value=""  readonly="readonly" />
-				</div>
-					<div class="form-group col-2">
-							<button type="submit" class="btn btn-md btn-primary" onclick="regist()" style="position: absolute; right: 0px; bottom: 0px;">등록</button>
-					</div>
-		
 			</div>
 		</div>
-	</div>
-	<div class="col-4">
-		<div class="card card-body">
-			<div class="col-md-12 ">
-				<div class="form-group col-12">
-					<div>
-						<label>임대차계약서</label>
-					</div> 
-					<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
-					<i class="fas fa-file"></i>
-					&nbsp; 임대차계약서 다운로드</button>
-					<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
-					임대차계약서 보기</button>
-				</div>
-				<div class="form-group col-12">
-					<div>
-						<label>심사계약서</label>
-					</div> 
-					<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
-					<i class="fas fa-file"></i>
-					&nbsp; 심사계약서 다운로드</button>
-					<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
-					심사계약서 보기</button>
-				</div>
-				<div class="form-group col-12">
-					<div>
-						<label>수의계약서</label>
-					</div> 
-					<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
-					<i class="fas fa-file"></i>
-					&nbsp; 수의계약서 다운로드</button>
-					<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
-					수의계약서 보기</button>
+		<div class="col-4">
+			<div class="card card-body">
+				<div class="col-md-12 ">
+					<div class="form-group col-12">
+						<div>
+							<label>임대차계약서</label>
+						</div> 
+						<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
+						<i class="fas fa-file"></i>
+						&nbsp; 임대차계약서 다운로드</button>
+						<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
+						임대차계약서 보기</button>
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -228,7 +147,30 @@
 </div>
 
 			
-				
+	<script>
+	window.onload=function(){
+		 $('#content').summernote({
+		      height: 200,          // 기본 높이값
+
+		      minHeight: 250,      // 최소 높이값(null은 제한 없음)
+
+		      maxHeight: null,      // 최대 높이값(null은 제한 없음)
+
+		      focus: true,          // 페이지가 열릴때 포커스를 지정함
+
+		      lang: 'ko-KR',         // 한국어 지정(기본값은 en-US)
+		      toolbar: [
+		         
+		      ],
+		    
+
+		      placeholder: '최대 2048자'
+
+		    });
+		summernote_go($('div[id="content"]'),'<%=request.getContextPath()%>');	
+	
+	} 
+	</script>	
 
 
 </body>
