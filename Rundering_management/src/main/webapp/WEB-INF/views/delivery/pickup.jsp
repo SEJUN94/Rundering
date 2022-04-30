@@ -5,7 +5,6 @@
 <c:set value="${dataMap.pickupCompleteList }" var="pickupCompleteList"></c:set>
 
 
-<!DOCTYPE html>
 <body>
 	<div class="card card-outline card-outline-tabs card-info">
 		<div class="card-header p-0 border-bottom-0"
@@ -76,15 +75,20 @@
 					<div onclick="complete_all();"
 						class="info-box bg-light" style="position: fixed;
 							bottom: 0;">
-						<div class="info-box-content">
+						<div class="info-box-content" onclick="complete_all()">
 							<span class="info-box-text text-center text-muted"
-								style="font-size: 2rem;" onclick="">지점 전달 완료</span>
+								style="font-size: 2rem;">지점 전달 완료</span>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+<!-- 알림 sweetalert2 -->
+<script	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+		
+	
 <script>
 	function complete_all(){
 		Swal.fire({

@@ -105,7 +105,10 @@ public class ForDeliveryController {
 		ResponseEntity<String> ok = null;
 		
 		HttpSession session = request.getSession();
-		session.getAttribute("loginEmployee");
+		EmployeesVO ev = (EmployeesVO) session.getAttribute("loginEmployee");
+		
+		laundryOrder.setBranchCode(ev.getBranchCode());
+		
 		
 		try {
 			deliveryService.updateToBranch(laundryOrder);
