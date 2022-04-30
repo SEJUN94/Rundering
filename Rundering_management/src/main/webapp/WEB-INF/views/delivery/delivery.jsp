@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set value="${dataMap.deliveryList }" var="deliveryList"></c:set>
+<c:set value="${dataMap.deliveryCompleteList }" var="deliveryCompleteList"></c:set>
+
 
 <body>
 	<div class="card card-outline card-outline-tabs card-success">
@@ -37,8 +40,8 @@
 								</tr>
 							</c:if>
 							<c:forEach items="${deliveryList }" var="deliveryList">
-								<c:if test="${deliveryList.orderStatus eq '06' }">
-									<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/deliverydetail?orderNo=${deliveryList.orderNo }'">
+								<c:if test="${deliveryList.orderStatus eq '07'}">
+									<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/deliverydetail?orderNo=${deliveryList.orderNo }&orderStatus=${deliveryList.orderStatus }'">
 											<td>${deliveryList.orderNo }</td>
 											<td>${deliveryList.add1 } ${deliveryList.add2 }</td>
 									</tr>
@@ -56,16 +59,16 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:if test="${empty deliveryList }">
+							<c:if test="${empty deliveryCompleteList }">
 								<tr>
 									<td colspan="2" style="text-align:center;"><strong>배송완료된 세탁물이 없습니다.</strong></td>
 								</tr>
 							</c:if>
-							<c:forEach items="${deliveryList }" var="deliveryList">
-								<c:if test="${deliveryList.orderStatus eq '07' }">
-									<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/deliverydetail?orderNo=${deliveryList.orderNo }'">
-											<td>${deliveryList.orderNo }</td>
-											<td>${deliveryList.add1 } ${deliveryList.add2 }</td>
+							<c:forEach items="${deliveryCompleteList }" var="deliveryCompleteList">
+								<c:if test="${deliveryCompleteList.orderStatus == '08' || deliveryCompleteList.orderStatus == '09' }">
+									<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/deliverydetail?orderNo=${deliveryCompleteList.orderNo }&orderStatus=${deliveryCompleteList.orderStatus }'">
+										<td>${deliveryCompleteList.orderNo }</td>
+										<td>${deliveryCompleteList.add1 } ${deliveryCompleteList.add2 }</td>
 									</tr>
 								</c:if>
 							</c:forEach>

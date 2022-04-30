@@ -2,6 +2,7 @@ package com.rundering.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +27,12 @@ public class FileUtil {
 				String fileName = MakeFileName.toUUIDFileName(multiFile.getOriginalFilename(), "$$");
 				File target = new File(savePath, fileName);
 				target.mkdirs();
+				try {
+					multiFile.transferTo(target);
+				} catch (IllegalStateException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				fileMap.put("orginalName", multiFile.getOriginalFilename());
 				fileMap.put("fileName", fileName);
 		}

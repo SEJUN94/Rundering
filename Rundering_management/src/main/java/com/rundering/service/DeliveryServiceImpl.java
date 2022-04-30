@@ -16,26 +16,55 @@ public class DeliveryServiceImpl implements DeliveryService{
 		this.deliveryDAO = deliveryDAO;
 	}
 	
+	// 수거 리스트 가져오기
 	@Override
-	public List<LaundryOrderVO> getDeliveryList(String orderStatus) throws Exception {
-		
-		List<LaundryOrderVO> deliveryList = deliveryDAO.selectDeliveryList(orderStatus);
-		
-		return deliveryList;
-	}
- 
-	@Override
-	public Map<String, Object> getDeliveryByOrderNo(String orderNo) throws Exception {
+	public Map<String, Object> getPickupWaitList(LaundryOrderVO laundryOrder) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
-		LaundryOrderVO delivery = deliveryDAO.selectDeliveryByOrderNo(orderNo);
-		List<LaundryOrderDetailVO> orderList = deliveryDAO.selectOrderListByOrderNo(orderNo);
+		List<LaundryOrderVO> pickupList = deliveryDAO.selectPickupWait(laundryOrder);
+		List<LaundryOrderVO> pickupCompleteList = deliveryDAO.selectPickupCompleteList(laundryOrder);
 		
-		dataMap.put("delivery", delivery);
-		dataMap.put("orderList", orderList);
+		dataMap.put("pickupList", pickupList);
+		dataMap.put("pickupCompleteList", pickupCompleteList);
 		
 		return dataMap;
+	}
+	//수거완료(상태 변경)
+	@Override
+	public void updatePickUpCom(LaundryOrderVO laundryOrder) throws Exception {
+		deliveryDAO.updatePickUpCom(laundryOrder);
 		
 	}
-
+	
+	
+	//배송 리스트
+	@Override
+	public Map<String, Object> getDeliveryList(LaundryOrderVO laundryOrder) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		List<LaundryOrderVO> deliveryList = deliveryDAO.selectDeliveryList(laundryOrder);
+		List<LaundryOrderVO> deliveryCompleteList = deliveryDAO.selectDeliveryComList(laundryOrder);
+		
+		dataMap.put("deliveryList",deliveryList);
+		dataMap.put("deliveryCompleteList",deliveryCompleteList);
+		
+		return dataMap;
+	}
+	//배송 완료ㆍ취소(상태버튼)
+	
+	
+	
+	// 수거ㆍ배송 상세
+	@Override
+	public Map<String, Object> getOrderDetailByOrderNo(String orderNo) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		LaundryOrderVO detail = deliveryDAO.selectOrderByOrderNo(orderNo);
+		List<LaundryOrderDetailVO> detailList = deliveryDAO.selectOrdertDetailList(orderNo);
+		
+		dataMap.put("detail", detail);
+		dataMap.put("detailList", detailList);
+		
+		return dataMap;
+	}
 }
