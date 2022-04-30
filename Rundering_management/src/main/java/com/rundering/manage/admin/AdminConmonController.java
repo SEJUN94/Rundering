@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +23,14 @@ public class AdminConmonController {
 	private MenuService menuService;
 	
 	@RequestMapping("/admin/index")
-	public String index(@RequestParam(defaultValue = "B000000") String menuCode, Model model) throws Exception {
+	public String index(@RequestParam(defaultValue = "B000000") String menuCode, Model model,HttpServletRequest request) throws Exception {
 		String url = "branch/branch_index";
+		
+		
+		HttpSession session = request.getSession();
+		session.getAttribute("loginMember");
+		session.getAttribute("loginEmployee");
+		
 		Map<String, List<MenuVO>> dataMap = menuService.getAdminMenuList();
 		List<String> key = new ArrayList<String>(); 
 		for (String keyValue : dataMap.keySet()) {

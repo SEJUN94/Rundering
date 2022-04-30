@@ -35,9 +35,9 @@
             </div>
             <div class="card-body">
 
-                <form action="" method="post">
+                <form action="<%=request.getContextPath() %>/common/login" method="post">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="아이디">
+                        <input type="text" class="form-control" id="id" name="id"  placeholder="아이디">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="비밀번호">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -55,7 +55,7 @@
 
                 </form>
                 <div class="social-auth-links text-center mt-2 mb-3">
-                    <a href="main.do" class="btn btn-block btn-info">로그인</a>
+                    <button type="submit">로그인</button>>
 
                 </div>
 
