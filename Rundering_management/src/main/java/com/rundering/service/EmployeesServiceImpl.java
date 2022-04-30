@@ -84,4 +84,9 @@ public class EmployeesServiceImpl implements EmployeesService {
 		return ev;
 	}
 
+	@Override
+	public String getBranchName(String memberno) throws Exception {
+		return null;
+	}
+
 }
