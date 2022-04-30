@@ -225,5 +225,24 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		dataMap.put("totalCount",totalCount);
 		return dataMap;
 	}
+	@Override
+	public Map<String, Object> assignmentOrder(AdminLaundryOrderListCriteria cri) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		int countOrder = 0;
+		LaundryOrderVO order = new LaundryOrderVO();
+		for (String orderNo : cri.getListSelectOrderNo()) {
+			order.setOrderNo(orderNo);
+			order.setBranchCode(cri.getBranchCode());
+			laundryOrderDAO.updateLaundryOrderbranchCode(order);
+			System.out.println(orderNo+" : "+cri.getBranchCode()+"에 할당");
+			countOrder++;
+		}
+		String branchName = branchDAO.selectBranchByBranchCode(cri.getBranchCode()).getBranchName();
+		
+		dataMap.put("countOrder", countOrder);
+		dataMap.put("branchName", branchName);
+		return dataMap;
+	}
 	
 }

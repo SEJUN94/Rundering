@@ -341,7 +341,9 @@
 					 if(data.laundryOrderList.length==0){
 						 $(".selectOrderList>tbody").append("<tr><td colspan='3'>선택된 주문정보가 없습니다.</td></tr>");
 					 }else{
+						 let alertYN = false;
 						 $(data.laundryOrderList).each(function(i) {
+							 if(data.laundryOrderList[i].branchCode != null) alertYN = true;
 							 assignSelectOrderNoArr.push(data.laundryOrderList[i].orderNo);
 							 let orderAdd = "<tr>"+
 							 "<td>"+data.laundryOrderList[i].orderNo+"</td>"+
@@ -351,7 +353,7 @@
 							$(".selectOrderList>tbody").append(orderAdd);
 						 })
 						$(".selectOrderCounts").text(data.totalCount+'개');
-						 
+						 if(alertYN) alert('이미 담당지점이 할당된 주문건이 있습니다.\n정확히 검토 후 할당 바랍니다.');
 					 }
 					 $(data.branchList).each(function(i) {
 						 if(data.branchList[i].branchCode == '000000'){
@@ -405,14 +407,12 @@
 	</script>
 	
 	<script>
+	//모달창에서 할당버튼 클릭시 지점할당
 	function directAssignment(){
 		if(!$('input[name=branchradio]:checked').val()){
 			alert('주문을 할당할 지점을 선택해주세요.');
 			return;
 		}
-		
-	console.log($('input[name=branchradio]:checked').val());
-	console.log(assignSelectOrderNoArr);
 	 $.ajax({
 			url: "<%=request.getContextPath()%>/admin/laundryorder/assignmentOrder",
 			type:'POST',
@@ -423,7 +423,9 @@
 			contentType:'application/json',
 			dataType: "json",
 			success:function(data){
-				console.log(data);
+				alert(data.countOrder+'개의 주문이 '+data.branchName+'에 할당되었습니다.');
+				$('#modal-lg').modal('hide');
+				window.location.reload();
 			},
 			error:function(error){
 				alert("현재 세탁주문 지점할당이 불가합니다. \n관리자에게 연락바랍니다.");
