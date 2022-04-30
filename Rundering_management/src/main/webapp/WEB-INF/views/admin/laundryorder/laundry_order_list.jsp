@@ -69,7 +69,7 @@
 			<div class="card-header">
 					<h3 class="card-title" style="font-size: 1.75rem;">세탁 주문</h3>
 					<span class="text-muted" style="display: inline-block;margin-top: 6px;padding-left: 15px;">검색결과 <fmt:formatNumber type="number" maxFractionDigits="3" value="${pageMaker.totalCount }" />개</span>
-					<button type="button" class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#modal-lg" onclick="directAssignment();">선택주문 지점할당</button>
+					<button type="button" class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#modal-lg">선택주문 지점할당</button>
 					<div class="card-tools">
 						<div class="input-group input-group-sm" style="width: 200px;margin-top: auto;">
 							<input class="form-control" type="text" name="orderNo" placeholder="주문번호 입력" value="${cri.orderNo }"> <span class="input-group-append">
@@ -105,7 +105,7 @@
 							<c:forEach items="${laundryOrderList }" var="laundryOrder" >
 								<tr onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do?orderNo=${laundryOrder.orderNo }', '주문 상세', 'width=800, height=900');"
 									style="cursor: pointer;">
-									<td class="pr-0"><input type="checkbox" name="selectOrderNo" value="${laundryOrder.orderNo }" onclick="checkSelectAll()"></td>
+									<td class="pr-0"><input type="checkbox" name="selectOrderNo" value="${laundryOrder.orderNo }" onclick="checkSelectAll();"></td>
 									<td><fmt:formatDate value="${laundryOrder.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 									<td>${laundryOrder.orderNo }</td>
 									<td><fmt:formatDate value="${laundryOrder.pickupRequestDate }" pattern="yyyy-MM-dd"/></td>
@@ -175,27 +175,15 @@
 												</div>
 
 												<div class="card-body table-responsive p-0" style="max-height: 480px;">
-													<table class="table table-striped table-head-fixed branchList">
+													<table class="table table-head-fixed branchList">
 														<thead>
 															<tr>
 																<th>지점명</th>
 																<th>할당량</th>
-																<th>할당률</th>
-																<th style="width: 30px;"></th>
+																<th colspan="2" style="text-align: center;">할당률</th>
 															</tr>
 														</thead>
 														<tbody>
-															<tr>
-																<td>Update software</td>
-																<td></td>
-																<td>
-																	<div class="progress progress-xs">
-																		<div class="progress-bar progress-bar-danger"
-																			style="width: 55%"></div>
-																	</div>
-																</td>
-																	<td class="p-2"><span class="badge bg-primary">30%</span></td>
-															</tr>
 														
 														</tbody>
 													</table>
@@ -213,7 +201,7 @@
 								<div class="modal-footer justify-content-between">
 									<button type="button" class="btn btn-default"
 										data-dismiss="modal">닫기</button>
-									<button type="button" class="btn btn-primary">할당</button>
+									<button type="button" class="btn btn-primary" onclick="directAssignment()">할당</button>
 								</div>
 							</div>
 						</div>
@@ -296,7 +284,31 @@
 	</script>
 	
 	<script>
-	function directAssignment(){
+	let assignSelectOrderNoArr = [];
+	
+	//선택한 주문 있는지 확인 후 모달창 띄울지말지
+	$('#modal-lg').on('show.bs.modal', function (e) {
+		const selectAllOrderNo = document.querySelector('input[name="selectAllOrderNo"]');
+		
+		let selectOrderNoArr = [];
+		
+		$('td>input[name="selectOrderNo"]:checked').each(function(i){
+			selectOrderNoArr.push($(this).val());
+		});
+	if(!selectAllOrderNo.checked && selectOrderNoArr.length == 0){
+		e.preventDefault();
+		alert('주문을 선택해주세요.');
+		$(".selectOrderList>tbody").empty();
+		$(".selectOrderCounts").empty();
+		$(".branchList>tbody").empty();
+	}else{
+		confirmDirectAssignment();
+	}
+		});
+
+
+	
+	function confirmDirectAssignment(){
 		const selectAllOrderNo = document.querySelector('input[name="selectAllOrderNo"]');
 		
 			let orderStatusArr = [];
@@ -306,14 +318,11 @@
 			$('input[name="orderStatus"]:checked').each(function(i){
 				orderStatusArr.push($(this).val());
 			});
-			
-			
 		}else{
 			$('td>input[name="selectOrderNo"]:checked').each(function(i){
 				selectOrderNoArr.push($(this).val());
 			});
 		}
-		
 			 $.ajax({
 				url: "<%=request.getContextPath()%>/admin/laundryorder/confirmAssignment",
 				type:'POST',
@@ -333,7 +342,7 @@
 						 $(".selectOrderList>tbody").append("<tr><td colspan='3'>선택된 주문정보가 없습니다.</td></tr>");
 					 }else{
 						 $(data.laundryOrderList).each(function(i) {
-							 
+							 assignSelectOrderNoArr.push(data.laundryOrderList[i].orderNo);
 							 let orderAdd = "<tr>"+
 							 "<td>"+data.laundryOrderList[i].orderNo+"</td>"+
 							 "<td>"+data.areaCodeMap[data.laundryOrderList[i].area]+"</td>"+
@@ -344,19 +353,25 @@
 						$(".selectOrderCounts").text(data.totalCount+'개');
 						 
 					 }
-					 
-					 $(data.laundryOrderList).each(function(i) {
+					 $(data.branchList).each(function(i) {
 						 if(data.branchList[i].branchCode == '000000'){
 							 return;
 						 }
-							/*  console.log(data.branchList[i].branchCode);
-							 
-							 let branchAdd = "<tr>"+
+						 //해당지점 현재 처리중인 주문량 / 지점의 세탁가능수량 * 100)
+						  let excessCapacity = data.excessCapacityList.filter(branch => branch.branchCode == data.branchList[i].branchCode);
+						  let processingRate = (data.branchList[i].branchLndrpcrymslmcoqy - excessCapacity[0].branchLndrpcrymslmcoqy)  / data.branchList[i].branchLndrpcrymslmcoqy * 100
+						  let bgColor =  "bg-primary";
+						  if(processingRate >= 90){  
+							  bgColor = "bg-danger";
+						  }else if(processingRate >= 70){
+							  bgColor = "bg-warning";
+						  }
+							 let branchAdd = "<tr style='cursor: pointer;' onclick='selectbranch(this);'>"+
 							 "<td>"+data.branchList[i].branchName+"</td>"+
-							 "<td>"+data.branchList[i].branchName+"</td>"+
-							 "<td><div class='progress progress-xs'><div class='progress-bar progress-bar-danger' style='width: '"++"%></div></div></td>"+
-							 "<td class='p-2'><span class='badge bg-primary'>"+data.orderCodeMap[data.laundryOrderList[i].orderStatus]+"%</span></td>"+
-							 "</tr>"; */
+							 "<td>"+(data.branchList[i].branchLndrpcrymslmcoqy - excessCapacity[0].branchLndrpcrymslmcoqy)+'/'+data.branchList[i].branchLndrpcrymslmcoqy+"</td>"+
+							 "<td style='width: 90px;padding-top: 21px;'><div class='progress progress-xs'><div class='progress-bar "+bgColor+"' style='width: "+processingRate+"%'></div></div></td>"+
+							 "<td style='width: 30px;padding-left: 0px;padding-right: 10px;text-align: center;'><span class='badge "+bgColor+"'>"+processingRate+"%</span><input type='radio' value='"+data.branchList[i].branchCode+"' name='branchradio'  style= 'display: none'/></td>"+
+							 "</tr>"; 
 							 
 							$(".branchList>tbody").append(branchAdd);
 						 
@@ -373,8 +388,49 @@
 	$('#modal-lg').on('hidden.bs.modal', function (e) {
 		$(".selectOrderList>tbody").empty();
 		$(".selectOrderCounts").empty();
+		$(".branchList>tbody").empty();
 	})
+	//지점 tr클릭시 숨겨진 라디오버튼 체크
+	function selectbranch(tr){
+		tr.lastChild.lastChild.checked = true;
+		tr.style.backgroundColor = 'lightblue';
+		
+		$('td>input[name="branchradio"]').each(function(i){
+			if(!$(this).is(':checked')){
+			this.parentNode.parentNode.style.backgroundColor = '#FFF';
+			}
+		});
+	}
 	
+	</script>
+	
+	<script>
+	function directAssignment(){
+		if(!$('input[name=branchradio]:checked').val()){
+			alert('주문을 할당할 지점을 선택해주세요.');
+			return;
+		}
+		
+	console.log($('input[name=branchradio]:checked').val());
+	console.log(assignSelectOrderNoArr);
+	 $.ajax({
+			url: "<%=request.getContextPath()%>/admin/laundryorder/assignmentOrder",
+			type:'POST',
+			data: JSON.stringify ({
+				"branchCode": $('input[name=branchradio]:checked').val(),
+				"listSelectOrderNo": assignSelectOrderNoArr,
+			}),
+			contentType:'application/json',
+			dataType: "json",
+			success:function(data){
+				console.log(data);
+			},
+			error:function(error){
+				alert("현재 세탁주문 지점할당이 불가합니다. \n관리자에게 연락바랍니다.");
+			}
+		});
+	
+	}
 	</script>
 
 </body>
