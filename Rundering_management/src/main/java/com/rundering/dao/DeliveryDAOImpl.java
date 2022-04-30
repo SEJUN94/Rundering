@@ -62,5 +62,12 @@ public class DeliveryDAOImpl implements DeliveryDAO {
 	public List<LaundryOrderDetailVO> selectOrdertDetailList(String orderNo) throws Exception {
 		return session.selectList("Delivery-Mapper.selectOrdertDetailList", orderNo);
 	}
+	
+	// 지점 도착 일괄 처리(수거 완료 후)
+	@Override
+	public void updateToBranch(LaundryOrderVO laundryOrder) throws Exception {
+		session.update("Delivery-Mapper.updateToBranch", laundryOrder);
+		
+	}
 
 }

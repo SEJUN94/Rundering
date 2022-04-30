@@ -16,4 +16,7 @@ public interface DeliveryService {
 	//수거ㆍ배송 상세
 	Map<String, Object> getOrderDetailByOrderNo(String orderNo) throws Exception;
 	
+	// 지점 도착 일괄 처리(수거 완료 후)
+	void updateToBranch(LaundryOrderVO laundryOrder)throws Exception;
+	
 }

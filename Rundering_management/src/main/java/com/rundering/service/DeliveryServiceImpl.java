@@ -67,4 +67,10 @@ public class DeliveryServiceImpl implements DeliveryService{
 		
 		return dataMap;
 	}
+	
+	// 지점 도착 일괄 처리(수거 완료 후)
+	@Override
+	public void updateToBranch(LaundryOrderVO laundryOrder) throws Exception {
+		deliveryDAO.updateToBranch(laundryOrder);
+	}
 }

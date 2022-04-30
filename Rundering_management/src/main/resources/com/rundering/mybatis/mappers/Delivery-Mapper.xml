@@ -84,10 +84,7 @@
 		<if test="orderStatus == '03'.toString() ">
 			SET PICKUP_DATE = sysdate
 		</if>
-		<if test="orderStatus == '08'.toString() ">
-			SET DELIVERY_DATE = SYSDATE
-		</if>
-		<if test="orderStatus == '09'.toString() ">
+		<if test="orderStatus == '08'.toString() or orderStatus == '09'.toString()">
 			SET DELIVERY_DATE = SYSDATE
 		</if>
 		<if test="orderStatus == '07'.toString() ">
@@ -95,6 +92,23 @@
 		</if>
 		,ORDER_STATUS = #{orderStatus}
 		WHERE ORDER_NO = #{orderNo}
+		<if test="orderStatus == '02'.toString() or orderStatus == '03'.toString()">
+<!-- 		AND PICKUP_EMPLOYEE_ID #{deliveryEmployeeId} -->
+		</if>
+		<if test="orderStatus == '08'.toString() or orderStatus == '09'.toString() or orderStatus == '07'.toString()">
+<!--        AND DELIVERY_EMPLOYEE_ID = #{deliveryEmployeeId} -->
+		</if>
+	</update>
+	
+	<update id="updateToBranch" parameterType="str">
+		UPDATE TB_LAUNDRY_ORDER
+		SET 
+		BRANCH_ARRIVAL_DATE = SYSDATE
+		,ORDER_STATUS = '04'
+		where branch_code = #{branchCode}
+		AND ORDER_STATUS = '03'
+<!-- 		AND DELIVERY_EMPLOYEE_ID = #{deliveryEmployeeId} -->
+		
 	</update>
 
 
