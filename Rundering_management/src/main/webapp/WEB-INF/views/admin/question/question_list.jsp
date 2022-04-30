@@ -107,7 +107,7 @@ th, td {
 						</tr>
 					</c:if>
 					<c:forEach items="${faqList }" var="faq">
-						<tr
+						<tr style='font-size: 0.85em; cursor: pointer;'
 							onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',900,700);">
 							<td class="no">${faq.faqno }</td>
 							<td class="category"><c:choose>
