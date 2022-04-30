@@ -5,6 +5,5 @@
 <script>
 		alert("해당하는 세탁주문이 없습니다");
 			window.close();
-			window.opener.location.reload();
 	</script>
 </body>
