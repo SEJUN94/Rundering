@@ -152,9 +152,11 @@
         	if($('#removeTag')!=null){
         		$('#removeTag').remove();	
         	}
-			
         	$('#handleTag').append(html);
 			
+        	
+        	
+        	summernote_go($('div[id="content"]'),'<%=request.getContextPath()%>');	
 		}
 	
 	</script>
