@@ -95,6 +95,15 @@ public class User implements UserDetails {
 		}
 		return employees;
 	}
+	public String getBranchName(String branchCode) {
+		String branchName = "";
+		try {
+			branchName = employeeService.getBranchName(branchCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return branchName;
+	}
 
 }
 
