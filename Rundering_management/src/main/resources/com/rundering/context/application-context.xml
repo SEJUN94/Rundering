@@ -114,6 +114,7 @@
 		p:employeesDAO-ref="employeesDAO" 
 		p:memberDAO-ref="memberDAO" 
 		p:comCodeDAO-ref="comCodeDAO"
+		p:branchDAO-ref="branchDAO"
 	/>
 	<bean id="noticeService" class="com.rundering.service.NoticeServiceImpl" 
 		p:noticeDAO-ref="noticeDAO"

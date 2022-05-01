@@ -24,42 +24,41 @@ import com.rundering.service.LaundryOrderService;
 @RestController
 @RequestMapping("/admin/laundryorder")
 public class AdminLaundryRESTController {
-	
+
 	@Autowired
 	LaundryOrderService laundryOrderService;
-	
-	//할당 정보확인
-	@RequestMapping(value = "/confirmAssignment", method = RequestMethod.POST, consumes="application/json;")
-	public ResponseEntity<Map<String,Object>> confirmAssignment(@RequestBody AdminLaundryOrderListCriteria cri,Model model) throws Exception {
-		ResponseEntity<Map<String,Object>> result = null;
+
+	// 할당 정보확인
+	@RequestMapping(value = "/confirmAssignment", method = RequestMethod.POST, consumes = "application/json;")
+	public ResponseEntity<Map<String, Object>> confirmAssignment(@RequestBody AdminLaundryOrderListCriteria cri,
+			Model model) throws Exception {
+		ResponseEntity<Map<String, Object>> result = null;
 		Map<String, Object> dataMap = new HashMap<>();
 		try {
 			dataMap = laundryOrderService.getConfirmOrderAssignmentInfo(cri);
-			result = new ResponseEntity<Map<String, Object>>(dataMap,HttpStatus.OK);
+			result = new ResponseEntity<Map<String, Object>>(dataMap, HttpStatus.OK);
 		} catch (Exception e) {
 			result = new ResponseEntity<Map<String, Object>>(HttpStatus.INTERNAL_SERVER_ERROR);
 			e.printStackTrace();
 		}
 		return result;
 	}
-	//할당 정보확인
-	@RequestMapping(value = "/assignmentOrder", method = RequestMethod.POST, consumes="application/json;")
-	public ResponseEntity<Map<String,Object>> assignmentOrder(@RequestBody AdminLaundryOrderListCriteria cri,Model model) throws Exception {
-		
-		if(cri.getBranchCode()   !=null    ) System.out.println(cri.getBranchCode());
-		if(cri.getListSelectOrderNo()   !=null ) System.out.println(cri.getListSelectOrderNo());
-		
-		ResponseEntity<Map<String,Object>> result = null;
+
+	// 지점에 주문 할당
+	@RequestMapping(value = "/assignmentOrder", method = RequestMethod.POST, consumes = "application/json;")
+	public ResponseEntity<Map<String, Object>> assignmentOrder(@RequestBody AdminLaundryOrderListCriteria cri,
+			Model model) throws Exception {
+
+		ResponseEntity<Map<String, Object>> result = null;
 		Map<String, Object> dataMap = new HashMap<>();
-		/*
-		 * try { dataMap = laundryOrderService.getConfirmOrderAssignmentInfo(cri);
-		 * result = new ResponseEntity<Map<String, Object>>(dataMap,HttpStatus.OK); }
-		 * catch (Exception e) { result = new ResponseEntity<Map<String,
-		 * Object>>(HttpStatus.INTERNAL_SERVER_ERROR); e.printStackTrace(); }
-		 */
+		
+		try {
+			dataMap = laundryOrderService.assignmentOrder(cri);
+			result = new ResponseEntity<Map<String, Object>>(dataMap, HttpStatus.OK);
+		} catch (Exception e) {
+			result = new ResponseEntity<Map<String, Object>>(HttpStatus.INTERNAL_SERVER_ERROR); e.printStackTrace(); }
+		 
 		return result;
 	}
-	
 
-		
 }
