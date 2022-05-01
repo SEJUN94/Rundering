@@ -32,8 +32,7 @@
 								<td colspan="4" style="text-align:center;"><strong>발주내역이 존재하지 않습니다.</strong></td>
 							</c:if>
 							<c:forEach items="${itemOrderList }" var="itemOrder">
-								<tr
-									onclick="window.open('<%=request.getContextPath()%>/admin/branchorder/detail?ordercode=${itemOrder.ordercode }', '발주 상세', 'width=700, height=900');"
+								<tr	onclick="window.open('<%=request.getContextPath()%>/admin/branchorder/detail?ordercode=${itemOrder.ordercode }', '발주 상세', 'width=700, height=900');"
 									style="cursor: pointer;">
 									<td>${itemOrder.ordercode }</td>
 									<td>${itemOrder.branchCode }</td>
