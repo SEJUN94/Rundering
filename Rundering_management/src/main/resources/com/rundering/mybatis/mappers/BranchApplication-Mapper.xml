@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BranchApplication-Mapper">
+
+	<resultMap type="branchapplication" id="branchapplicationmap">
+		<result column="APPLICATION_NO" 				property="applicationNo" />
+		<result column="APPLICATION_DATE" 				property="applicationDate" />
+		<result column="APPLICATE_NAME" 				property="applicateName" />
+		<result column="PHONE"							property="phone" />
+		<result column="EMAIL" 							property="email" />
+		<result column="LEASECONTRACT_FILE"				property="leasecontractFile" />
+		<result column="APPROVALRETURN_YN" 				property="approvalreturnYn" />
+		<result column="APPROVALRETURN_CONTENTS" property="approvalreturnContents" />
+		<result column="EXAMINATION_YN" 			property="examinationYn" />
+		<result column="EXAMINATION_DETAILS" 		property="examinationDetails" />
+		<result column="PRIVATECONTRACT_FILE" 		property="privatecontractFile" />
+		<result column="CHARGER" 					property="charger" />
+		<result column="PROGRESS_STATUS_CODE" 		property="progressStatusCode" />
+	</resultMap>
+	<select id="selectBranchApplication">
+		select *
+		  from tb_branch_application
+	</select>
+	<select id="selectBranchApplicationCount">
+		select count(*)
+		  from tb_branch_application
+	</select>
+	
+	<select id="selectBranchApplicationByapplicationNo">
+		select *
+		  from tb_branch_application
+		 where application_no=#{applicationNo} 
+	</select>
+	<update id="updateApprovalreturnContentsByBranchApplicationVO" parameterType="branchapplication">
+		update tb_branch_application
+		   set APPROVALRETURN_CONTENTS=#{approvalreturnContents},
+		       APPROVALRETURN_YN='N'
+		 where APPLICATION_NO=#{applicationNo}
+	</update>
+	<update id="updateApprovalreturnYByBranchApplicationVO" parameterType="branchapplication">
+		update tb_branch_application
+		   set APPROVALRETURN_YN='Y'
+		 where APPLICATION_NO=#{applicationNo}
+	</update>
+	
+	
+	
+		
+
+</mapper>

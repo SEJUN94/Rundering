@@ -32,8 +32,8 @@
 		<typeAlias type="com.rundering.dto.LaundryThroughPutVO" alias="laundryThroughput" />
 		<typeAlias type="com.rundering.dto.ReplyVO" alias="reply"/>
 		<typeAlias type="com.rundering.dto.BranchVO" alias="branch"/>
+		<typeAlias type="com.rundering.dto.BranchApplicationVO" alias="branchapplication"/>
 
-		
 	</typeAliases>
 	
 	
