@@ -57,7 +57,7 @@
 	</aside>
 
 
-	<div style="width: 60%; display: flex; flex-direction: column;">
+	<div style="width: 67%; display: flex; flex-direction: column;">
 
 		<section class="content-header">
 			<div class="container-fluid">
@@ -88,18 +88,19 @@
 									onchange="newAddr(this);" onclick="dfdetail(${defaultMemberAddress.addressNo});" name="addressNo"
 									id="${defaultMemberAddress.addressNo}" > <label
 									for="${defaultMemberAddress.addressNo}"
-									style="font-weight: 500;">기본 주소지</label>
+									style="font-weight: 600;">기본 주소지</label>
 							</div>
 
 							<c:if test="${!empty memberAddressList }">
 								<c:forEach items="${memberAddressList }" var="memberAddress" varStatus="status">
 									<c:if test="${memberAddress.defaultYn eq 'N' }">
-										<div class="icheck-primary pt-1 pb-3 pl-1"
+										<div class="icheck-primary pt-1 pb-2 pl-1"
 											style="width: 100%; border-bottom: 1px solid rgba(0, 0, 0, .125);">
 											<input type="radio" value="${memberAddress.addressNo}" onclick="detail(${memberAddress.addressNo});"
-												onchange="newAddr(this);" name="addressNo"
+												onchange="newAddr(this);" name="addressNo" class="토레타"
 												id="${memberAddress.addressNo}"> <label
 												for="${memberAddress.addressNo}" style="font-weight: 500;">주소${status.count }</label>
+												<button class="btn btn-danger btn-sm float-right" onclick="remove(${memberAddress.addressNo})">삭제</button>
 										</div>
 									</c:if>
 								</c:forEach>
@@ -188,14 +189,62 @@
 	</div>
 
 	<!-- 알림 sweetalert2 -->
-	<script
-		src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 
 	<!-- 주소api -->
-	<script
-		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script>
+
+	let check = document.querySelector('.토레타');
+	function remove(no){
+		$(check).prop("checked", true);
+
+		detail(no);
+		
+		event.preventDefault(); // 이벤트를 막아 페이지 리로드를 방지	
+		
+		Swal.fire({
+            title: '주소지를 삭제하시겠습니까?',
+            icon : 'warning' ,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '승인',
+            cancelButtonText: '취소',
+            reverseButtons: true, // 버튼 순서 거꾸로
+            
+          }).then((result) => {
+              if (result.isConfirmed) {
+			$.ajax({
+				url : '<%=request.getContextPath()%>/mypage/myaddress/remove',
+				data : {
+					'addressNo' : no
+				},
+				type : 'post',
+				success : function(response){
+                    if(response.toUpperCase() == "OK"){
+                    	Swal.fire('삭제완료!', '주소가 삭제되었습니다.', 'success' )
+                       
+                    	setTimeout(function(){location.href = "<%=request.getContextPath()%>/mypage/myaddress";},1000);
+                       
+                       } else {
+                          Swal.fire('삭제를 실패했습니다.', 'error' )
+                       }
+                    },
+				error : function(error) {
+					//alert("시스템장애로 가입이 불가합니다.");
+					AjaxErrorSecurityRedirectHandler(error.status);
+				}
+			});
+              }
+          })	
+	}
+            
+</script>
+
 <script>
 	
 	let zip = document.querySelector('#zip');

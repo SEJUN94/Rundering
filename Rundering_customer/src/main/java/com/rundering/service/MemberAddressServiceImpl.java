@@ -262,6 +262,13 @@ public class MemberAddressServiceImpl implements MemberAddressService{
 		memberAddressDAO.modifyAddr(memberAdd);
 		
 	}
+	
+	// 주소지 삭제(기본주소지 제외)
+	@Override
+	public void removeByAddressNo(String memberNo) throws Exception {
+		memberAddressDAO.removeByAddressNo(memberNo);
+		
+	}
 
 	
 	

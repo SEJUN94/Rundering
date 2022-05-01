@@ -75,6 +75,13 @@ public class MemberAddressDAOImpl implements MemberAddressDAO{
 	public void modifyAddr(MemberAddressVO memberAdd) throws Exception {
 		session.update("MemberAddress-Mapper.modifyAddr",memberAdd);
 	}
+
+	// 주소지 삭제(기본주소지 제외)
+	@Override
+	public void removeByAddressNo(String memberNo) throws Exception {
+		session.update("MemberAddress-Mapper.removeByAddressNo",memberNo);
+		
+	}
 	
 	
 }
