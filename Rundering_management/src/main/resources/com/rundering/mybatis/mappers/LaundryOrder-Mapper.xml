@@ -214,5 +214,21 @@
 	</update>
 	
 	
+	<update id="updateLaundryOrderPickupEmployeeId" parameterType="laundryOrder" >
+		UPDATE TB_LAUNDRY_ORDER
+		   SET PICKUP_EMPLOYEE_ID=#{pickupEmployeeId}
+		 WHERE ORDER_NO=#{orderNo} 
+	</update>
+	
+	<select id="selectLaundryOrderListPickUpRequestDateTodayByBranchCode"  resultMap="laundryOrderMap" parameterType="str">
+		SELECT *
+		  FROM TB_LAUNDRY_ORDER
+		 WHERE BRANCH_CODE = #{branchCode}
+		  AND ORDER_STATUS = '01'
+          AND PICKUP_REQUEST_DATE = TO_CHAR(SYSDATE, 'YYYY/MM/DD')
+         ORDER BY ORDER_DATE
+	</select>
+	
+	
 
 </mapper>
