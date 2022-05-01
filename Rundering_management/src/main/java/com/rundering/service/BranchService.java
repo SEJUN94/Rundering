@@ -11,5 +11,7 @@ public interface BranchService {
 	
 	// 로그인시 해당 사원의 지점코드를 통한 지점 정보 가져오기
 	public BranchVO getBranchByCode(String branchCode) throws Exception;
+	
+	
 		
 }
