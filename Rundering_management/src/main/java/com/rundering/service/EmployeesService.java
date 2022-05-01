@@ -20,6 +20,7 @@ public interface EmployeesService {
 	//고유번호를 이용한 사원 조회
     public EmployeesVO getEmployeeByNo(String memberno) throws Exception;
     
-    public String getBranchName(String memberno) throws Exception;
+    //지점코드로 지점명 가져오기
+    public String getBranchName(String branchCode) throws Exception;
     
 }

@@ -2,6 +2,7 @@ package com.rundering.service;
 
 import java.util.List;
 
+import com.rundering.dao.BranchDAO;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.EmployeesDAO;
 import com.rundering.dao.MemberDAO;
@@ -17,6 +18,8 @@ public class EmployeesServiceImpl implements EmployeesService {
 	MemberDAO memberDAO;
 
 	ComCodeDAO comCodeDAO;
+	
+	BranchDAO branchDAO;
 
 	public void setEmployeesDAO(EmployeesDAO employeesDAO) {
 		this.employeesDAO = employeesDAO;
@@ -28,6 +31,10 @@ public class EmployeesServiceImpl implements EmployeesService {
 
 	public void setComCodeDAO(ComCodeDAO comCodeDAO) {
 		this.comCodeDAO = comCodeDAO;
+	}
+	
+	public void setBranchDAO(BranchDAO branchDAO) {
+		this.branchDAO = branchDAO;
 	}
 
 	@Override
@@ -85,8 +92,8 @@ public class EmployeesServiceImpl implements EmployeesService {
 	}
 
 	@Override
-	public String getBranchName(String memberno) throws Exception {
-		return null;
+	public String getBranchName(String branchCode) throws Exception {
+		return branchDAO.getBranchByCode(branchCode).getBranchName();
 	}
 
 }
