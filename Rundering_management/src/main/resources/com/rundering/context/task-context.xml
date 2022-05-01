@@ -25,5 +25,11 @@
 				   cron="0 0 23 * * *"/>
 				  <!--  cron="*/5 * * * * *"/> -->
 	</scheduled-tasks> 
+	<scheduled-tasks scheduler="assignLaundryOrderScheduler">
+		<scheduled ref="orderTask"
+				   method="assignDeliveryEmployee"
+				   cron="0 0 23 * * *"/>
+				  <!--  cron="*/5 * * * * *"/> -->
+	</scheduled-tasks> 
 	
 </beans:beans>

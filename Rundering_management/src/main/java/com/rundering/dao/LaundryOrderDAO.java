@@ -27,9 +27,13 @@ public interface LaundryOrderDAO {
 	public List<LaundryOrderVO> selectLaundryOrderListNotAssignedToBranchByArea(String area) throws Exception;
 	//지점할당된 오늘이 수거요청일인 주문 목록 - By branchCode
 	public List<LaundryOrderVO> selectLaundryOrderListPickUpRequestDateTodayByBranchCode(String branchCode) throws Exception;
+	//세탁완료된 주문 목록 - By branchCode
+	public List<LaundryOrderVO> selectCompletedLaundryOrderListByBranchCode(String branchCode) throws Exception;
 	//지점할당
 	public void updateLaundryOrderbranchCode(LaundryOrderVO laundryOrder) throws Exception;
 	//수거 기사 할당
 	public void updateLaundryOrderPickupEmployeeId(LaundryOrderVO laundryOrder) throws Exception;
+	//배송 기사 할당
+	public void updateLaundryOrderDeliveryEmployeeId(LaundryOrderVO laundryOrder) throws Exception;
 	
 }

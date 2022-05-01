@@ -263,7 +263,7 @@ public class OrderTaskScheduler {
 		return AffordableArea;
 	}
 	
-	// 배송기사 배정
+	// 수거기사 배정
 	public void assignPickupEmployee() throws Exception {
 		List<ComCodeVO> areaCodeList = comCodeDAO.selectComCodeByComCodeGrp("AREA");
 
@@ -310,6 +310,58 @@ public class OrderTaskScheduler {
 					}
 					logger.info(branchVO.getBranchName() + "의 " + deliveryDepartmentEmployees.get(0).getEmployeeId()+ " 사원에게 "+(numberOfOrder - cnt)+"개 추가 할당됨");
 				}
+			}
+		}
+	}
+	
+	// 배송기사 배정
+	public void assignDeliveryEmployee() throws Exception {
+		List<ComCodeVO> areaCodeList = comCodeDAO.selectComCodeByComCodeGrp("AREA");
+
+		for (ComCodeVO comCodeVO : areaCodeList) {
+			List<BranchVO> branchListByArea = branchDAO.selectBranchListByArea(comCodeVO.getComCode());
+			for (BranchVO branchVO : branchListByArea) {
+				List<LaundryOrderVO> orderListByBranchCode = laundryOrderDAO.selectCompletedLaundryOrderListByBranchCode(branchVO.getBranchCode());
+				List<EmployeesVO> deliveryDepartmentEmployees = employeesDAO.selectDeliveryDepartmentEmployeesByBranchCode(branchVO.getBranchCode());
+				
+				if (orderListByBranchCode.size() == 0)
+					continue;
+				if (deliveryDepartmentEmployees.size() == 0) {
+					logger.info(branchVO.getBranchName() + "의 배송사원이 없습니다.");
+					continue;
+				}
+				
+				int numberOfEmployees = deliveryDepartmentEmployees.size();
+				int numberOfOrder = orderListByBranchCode.size();
+				
+				int cnt = 0;
+				
+				int quantity = (int) ((double) numberOfOrder / numberOfEmployees);
+				for (EmployeesVO employeesVO : deliveryDepartmentEmployees) {
+					LaundryOrderVO orderVO = new LaundryOrderVO();
+					for (int i = cnt + 0; i < cnt + quantity; i++) {
+						orderVO = orderListByBranchCode.get(i);
+						orderVO.setDeliveryEmployeeId(employeesVO.getEmployeeId());
+						laundryOrderDAO.updateLaundryOrderDeliveryEmployeeId(orderVO);
+						orderVO.setOrderStatus("07");
+						laundryOrderDAO.updateLaundryOrderStatusByOrderNo(orderVO);
+						
+					}
+					cnt += quantity;
+					logger.info(branchVO.getBranchName() + "의 " + employeesVO.getEmployeeId()+ " 사원에게 전체 배송건 "+numberOfOrder+"개 중 "+quantity+"개 할당됨");
+				}
+				if((numberOfOrder - cnt) > 0) {
+					LaundryOrderVO orderVO = new LaundryOrderVO();
+					for (int i = cnt + 0; i < cnt + (numberOfOrder - cnt); i++) {
+						orderVO = orderListByBranchCode.get(i);
+						orderVO.setDeliveryEmployeeId(deliveryDepartmentEmployees.get(0).getEmployeeId());
+						laundryOrderDAO.updateLaundryOrderDeliveryEmployeeId(orderVO);
+						orderVO.setOrderStatus("07");
+						laundryOrderDAO.updateLaundryOrderStatusByOrderNo(orderVO);
+					}
+					logger.info(branchVO.getBranchName() + "의 " + deliveryDepartmentEmployees.get(0).getEmployeeId()+ " 사원에게 "+(numberOfOrder - cnt)+"개 추가 할당됨");
+				}
+				
 			}
 		}
 	}

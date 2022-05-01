@@ -220,12 +220,26 @@
 		 WHERE ORDER_NO=#{orderNo} 
 	</update>
 	
+	<update id="updateLaundryOrderDeliveryEmployeeId" parameterType="laundryOrder" >
+		UPDATE TB_LAUNDRY_ORDER
+		   SET DELIVERY_EMPLOYEE_ID=#{deliveryEmployeeId}
+		 WHERE ORDER_NO=#{orderNo} 
+	</update>
+	
 	<select id="selectLaundryOrderListPickUpRequestDateTodayByBranchCode"  resultMap="laundryOrderMap" parameterType="str">
 		SELECT *
 		  FROM TB_LAUNDRY_ORDER
 		 WHERE BRANCH_CODE = #{branchCode}
 		  AND ORDER_STATUS = '01'
           AND PICKUP_REQUEST_DATE = TO_CHAR(SYSDATE, 'YYYY/MM/DD')
+         ORDER BY ORDER_DATE
+	</select>
+	
+	<select id="selectCompletedLaundryOrderListByBranchCode"  resultMap="laundryOrderMap" parameterType="str">
+		SELECT *
+		  FROM TB_LAUNDRY_ORDER
+		 WHERE BRANCH_CODE = #{branchCode}
+		  AND ORDER_STATUS = '06'
          ORDER BY ORDER_DATE
 	</select>
 	
