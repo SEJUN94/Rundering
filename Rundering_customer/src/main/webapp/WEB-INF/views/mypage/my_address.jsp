@@ -17,41 +17,48 @@
 
 <style>
 	#peter {
-		width: 150px;
+		width: 250px;
 		list-style-type:none;
 		margin:0;
 		padding:0;
 		border:solid 1px black;
 	}
-	li a{
-		display:block;
+	aside ul li a{
 		color:#000000;
 		padding:10px;
+		font-size:1.2em;
 	}
 	li h1{
-		border-bottom:solid 1px black;
 	}
 </style>
+
 </head>
+
+
 <body>
 <div class="row" style="margin-left:10%;">
-	<aside style="width:20%; padding-top:70px;">
-			<ul id="peter">
-				<li><h1>마이페이지</h1></li>
-				<li>회원 정보 수정</li>
-				<li>주소 관리</li>
-				<li>주문 내역
+	<aside style="padding-top:70px;">
+			<ul id="peter" style="">
+				<li style="margin-top:15px; padding-bottom:15px;border-bottom:solid 1px black;">
+					<h1 style="font-size:1.5em;text-align:center;">마이페이지</h1>
+				</li>
+				<li style="margin-top:30px; margin-bottom:15px; margin-left:30px;"><a>회원 정보 수정</a></li>
+				<li style="margin-top:15px; margin-bottom:15px; margin-left:30px;"><a>주소 관리</a></li>
+				<li style="margin-top:15px; margin-bottom:15px; margin-left:30px;"><a>주문 내역</a>
 					<ul>
-						<li>진행중인 세탁물</li>
-						<li>배송 완료된 세탁</li>
-						<li>결제 내역</li>
-						<li>취소 내역</li>
+						<li style="margin-top:5px; margin-bottom:5px;padding-left:15px;"><a>진행중인 세탁물</a></li>
+						<li style="margin-top:5px; margin-bottom:5px;padding-left:15px;"><a>배송 완료된 세탁</a></li>
+						<li style="margin-top:5px; margin-bottom:5px;padding-left:15px;"><a>결제 내역</a></li>
+						<li style="margin-top:5px; margin-bottom:5px;padding-left:15px;"><a>취소 내역</a></li>
 					</ul>
 				</li>
-				<li>회원 탈퇴</li>
+				<li style="margin-top:15px; margin-bottom:30px; margin-left:30px;"><a>회원 탈퇴</a></li>
 			</ul>
 	</aside>
-	<section style="width: 60%; display: flex; flex-direction: column;">
+
+
+	<div style="width: 60%; display: flex; flex-direction: column;">
+
 		<section class="content-header">
 			<div class="container-fluid">
 				<div class="row mb-2">
@@ -67,8 +74,6 @@
 				</div>
 			</div>
 			<hr style="border: 1px solid rgb(170, 167, 167);">
-		</section>
-
 		<form role="form" class="form-horizontal form" method="post">
 
 			<div class="card-body col-6" style="margin: auto; margin-top: 10px;">
@@ -178,8 +183,10 @@
 
 
 		</form>
-	</section>
+				</section>
 </div>
+	</div>
+
 	<!-- 알림 sweetalert2 -->
 	<script
 		src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
@@ -638,3 +645,4 @@
 </script>
 
 </body>
+
