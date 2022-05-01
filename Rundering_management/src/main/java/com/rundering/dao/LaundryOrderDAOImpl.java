@@ -65,6 +65,11 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		session.update("LaundryOrder-Mapper.updateLaundryOrderbranchCode", laundryOrder);
 	}
 
+	@Override
+	public List<LaundryOrderVO> selectAllLaundryOrderList(AdminLaundryOrderListCriteria cri) throws Exception {
+		return session.selectList("LaundryOrder-Mapper.selectAdminLaundryOrderList",cri);
+	}
+
 
 
 	

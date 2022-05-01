@@ -1,5 +1,6 @@
 package com.rundering.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -173,6 +174,75 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	@Override
+	public Map<String, Object> getConfirmOrderAssignmentInfo(AdminLaundryOrderListCriteria cri) throws Exception {
+		ComCodeUtil comCodeUtil =new ComCodeUtil();
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		Map<String,String> orderCodeMap = new HashMap<String, String>();
+		Map<String,String> areaCodeMap = new HashMap<String, String>();
+		Map<String,String> branchNameMap = new HashMap<String, String>();
+		List<BranchVO> excessCapacityList = new ArrayList<BranchVO>();
+		comCodeUtil.getUpperCodeMap("ORDER_STATUS", orderCodeMap, comCodeDAO);
+		comCodeUtil.getCodeMap("AREA", areaCodeMap, comCodeDAO);
+		
+		List<BranchVO> branchList = branchDAO.selectBranchList();
+		for (BranchVO branchVO : branchList) {
+			branchNameMap.put(branchVO.getBranchCode(), branchVO.getBranchName());
+		}
+		
+		List<LaundryOrderVO> laundryOrderList = new ArrayList<LaundryOrderVO>();
+		
+		if(cri.getSelectAllOrderNo()!=null && cri.getSelectAllOrderNo().equals("true")) {
+			String orderStatus = cri.getListOrderStatus().toString();
+			orderStatus = orderStatus.replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
+			cri.setOrderStatus(orderStatus);
+			laundryOrderList = laundryOrderDAO.selectAllLaundryOrderList(cri);
+			
+		}else {
+			for (String orderNo : cri.getListSelectOrderNo()) {
+				LaundryOrderVO orderVO = laundryOrderDAO.selectLaundryOrderByOrderNo(orderNo);
+				laundryOrderList.add(orderVO);
+			}
+		}
+		
+		for (BranchVO branchVO : branchList) {
+			if(branchVO.getBranchCode().equals("000000")) continue;
+			BranchVO branch = new BranchVO();
+			branch.setBranchCode(branchVO.getBranchCode());
+			branch.setBranchLndrpcrymslmcoqy(branchDAO.selectExcessCapacityOfTodayLaundryByBranchCode(branchVO.getBranchCode()));
+			excessCapacityList.add(branch);
+		}
+		dataMap.put("branchList", branchList);
+		dataMap.put("excessCapacityList", excessCapacityList);
+		
+		int totalCount = laundryOrderList.size();
+		
+		dataMap.put("laundryOrderList", laundryOrderList);
+		dataMap.put("orderCodeMap",orderCodeMap);
+		dataMap.put("areaCodeMap",areaCodeMap);
+		dataMap.put("branchNameMap",branchNameMap);
+		dataMap.put("totalCount",totalCount);
+		return dataMap;
+	}
+	@Override
+	public Map<String, Object> assignmentOrder(AdminLaundryOrderListCriteria cri) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		int countOrder = 0;
+		LaundryOrderVO order = new LaundryOrderVO();
+		for (String orderNo : cri.getListSelectOrderNo()) {
+			order.setOrderNo(orderNo);
+			order.setBranchCode(cri.getBranchCode());
+			laundryOrderDAO.updateLaundryOrderbranchCode(order);
+			System.out.println(orderNo+" : "+cri.getBranchCode()+"에 할당");
+			countOrder++;
+		}
+		String branchName = branchDAO.selectBranchByBranchCode(cri.getBranchCode()).getBranchName();
+		
+		dataMap.put("countOrder", countOrder);
+		dataMap.put("branchName", branchName);
+		return dataMap;
 	}
 	
 }

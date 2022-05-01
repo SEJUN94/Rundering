@@ -14,6 +14,8 @@ public interface LaundryOrderDAO {
 	public List<LaundryOrderVO> selectLaundryOrderList(BranchCriteria cri) throws Exception;
 	//본사 - 세탁주문목록
 	public List<LaundryOrderVO> selectAdminLaundryOrderList(AdminLaundryOrderListCriteria cri) throws Exception;
+	//본사 - 세탁주문목록 - 페이징처리없이 모두 가져오기
+	public List<LaundryOrderVO> selectAllLaundryOrderList(AdminLaundryOrderListCriteria cri) throws Exception;
 
 	public int selectCount(BranchCriteria cri) throws Exception;
 	public int selectCount(AdminLaundryOrderListCriteria cri) throws Exception;

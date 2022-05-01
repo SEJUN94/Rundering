@@ -16,18 +16,18 @@
 </head>
 <body>
 	
-	<section class="content-header" style="margin-bottom: 0px; padding-bottom: 0px">
-	<div class="container-fluid">
-		<div class="row mb-2">
-			<div class="col-sm-6">
-				<h1>지점 신청</h1>
-			</div>
-		</div>
-	</div>
-	<hr>
-</section>
-	
 	<div style="width: 70%;margin: auto;">
+		<section class="content-header"
+			style="margin-bottom: 0px; padding-bottom: 0px">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1>지점 신청</h1>
+					</div>
+				</div>
+			</div>
+			<hr>
+		</section>
 		<div class="card" >
 			<div class="card-body" style="height: 500px; padding: 10px">
 				<div class="pp">

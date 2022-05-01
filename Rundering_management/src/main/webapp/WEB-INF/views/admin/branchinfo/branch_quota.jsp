@@ -15,6 +15,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <title>주문량</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <body>
 	<section class="content-header">
 		<div class="container-fluid">
@@ -147,7 +148,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>2022-04-28</td>
+							<td></td>
 							<td>500</td>
 							<td>198</td>
 							<td>39.8(%)</td>
@@ -193,6 +194,11 @@
 			</div>
 		</div>
 	</div>
+	
+<script>
+alert(moment.format());
+</script>
+	
 <script>
 var CHARTEX = $('#canvas');
 var barChartExample = new Chart(CHARTEX , {
@@ -233,23 +239,6 @@ var barChartExample = new Chart(CHARTEX , {
     }
 });
 </script>
-
-<script>
-var realDate = new Date();
-var today = new Date().toLocaleDateString();
-var yesterday = new Date(realDate.setDate(realDate.getDate() - 1)).toLocaleDateString();
-
-document.querySelectorAll('table')[1].querySelectorAll('td')[0].innerText=today;
-document.querySelectorAll('table')[1].querySelectorAll('td')[4].innerText=yesterday;
-
-
-var t = document.getElementById('date');
-t.addEventListener('change', function(){
-	var today=String(t.value);
-	alert(t.value)
-});
-</script>
-
 </body>
 
 

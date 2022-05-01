@@ -171,8 +171,8 @@
 		select *
 		  from TB_LAUNDRY_ORDER
 		 where ORDER_NO is not null
-		 <include refid="searchOrderStatus"/>
 		 <include refid="searchAdminLaundryOrderList"/>
+		 <include refid="searchOrderStatus"/>
 		 order by PICKUP_REQUEST_DATE DESC
 	</select>
 	
@@ -181,8 +181,8 @@
 		count(*)
 		  from TB_LAUNDRY_ORDER
 		 where ORDER_NO is not null
-		 <include refid="searchOrderStatus"/>
 		 <include refid="searchAdminLaundryOrderList"/>
+		 <include refid="searchOrderStatus"/>
 	</select>
 	
 	<update id="updateLaundryOrderStatusByOrderNo" parameterType="laundryOrder" >
