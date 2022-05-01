@@ -15,13 +15,43 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/bootstrap/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
 
+<style>
+	#peter {
+		width: 150px;
+		list-style-type:none;
+		margin:0;
+		padding:0;
+		border:solid 1px black;
+	}
+	li a{
+		display:block;
+		color:#000000;
+		padding:10px;
+	}
+	li h1{
+		border-bottom:solid 1px black;
+	}
+</style>
 </head>
-
-
 <body>
-
-	<div style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
-
+<div class="row" style="margin-left:10%;">
+	<aside style="width:20%; padding-top:70px;">
+			<ul id="peter">
+				<li><h1>마이페이지</h1></li>
+				<li>회원 정보 수정</li>
+				<li>주소 관리</li>
+				<li>주문 내역
+					<ul>
+						<li>진행중인 세탁물</li>
+						<li>배송 완료된 세탁</li>
+						<li>결제 내역</li>
+						<li>취소 내역</li>
+					</ul>
+				</li>
+				<li>회원 탈퇴</li>
+			</ul>
+	</aside>
+	<section style="width: 60%; display: flex; flex-direction: column;">
 		<section class="content-header">
 			<div class="container-fluid">
 				<div class="row mb-2">
@@ -148,8 +178,8 @@
 
 
 		</form>
-	</div>
-
+	</section>
+</div>
 	<!-- 알림 sweetalert2 -->
 	<script
 		src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
