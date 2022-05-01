@@ -11,12 +11,6 @@
 		<div class="p-3 m-0 card-secondary card-outline">
 			<div class="row">
 				<div class="col-12">
-					<h5>
-						주문일: <span class="float-right"> <fmt:formatDate value="${laundryOrder.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
-					</h5>
-					<h5>
-						주문번호: <span class="float-right"> ${laundryOrder.orderNo }</span>
-					</h5> 
 					<h5><c:if test="${!empty laundryOrder.branchCode }">
 							${laundryOrder.branchCode }
 						</c:if> 
@@ -27,6 +21,12 @@
 						<span class="badge bg-secondary">${orderCodeMap[laundryOrder.orderStatus]}</span>
 						</span>
 					</h5>
+					<p class="m-0">
+						주문번호: <span class="float-right"> ${laundryOrder.orderNo }</span>
+					</p>
+					<p class="m-0">
+						주문일: <span class="float-right"> <fmt:formatDate value="${laundryOrder.orderDate }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+					</p>
 				</div>
 			</div>
 			<div class="card-body p-0">
@@ -114,6 +114,44 @@
 	
 	<div class="col-6">
 			<div class="card mt-1">
+					<h4 class="m-3">담당지점 정보</h4>
+				<div class="card-body p-0 card-secondary card-outline" style="height: 400px;">
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<td>지점명</td>
+								<td>${branchDetail.branchName }</td>
+							</tr>
+
+							<tr>
+								<td>지점 주소</td>
+								<td>${branchDetail.add1 } ${branchDetail.add2 }</td>
+							</tr>
+
+							<tr>
+								<td>지점 연락처</td>
+								<td>${branchDetail.branchContact }</td>
+							</tr>
+
+							<tr>
+								<td>지점장명</td>
+								<td>${branchDetail.name }</td>
+							</tr>
+
+							<tr>
+								<td>지점장 연락처</td>
+								<td>${branchDetail.phone }</td>
+							</tr>
+
+							<tr>
+								<td>지점장 이메일</td>
+								<td>${branchDetail.email }</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="card">
 					<h4 class="m-3">주문관련문의</h4>
 				<div class="card-body table-responsive p-0 card-secondary card-outline" style="height: 300px;">
 					<table class="table table-head-fixed text-nowrap">
@@ -140,12 +178,7 @@
 					</table>
 				</div>
 			</div>
-			<div class="card">
-					<h4 class="m-3">담당지점</h4>
-				<div class="card-body p-0 card-secondary card-outline" style="height: 400px;">
-					지점정보 출력해야함
-				</div>
-			</div>
+			
 		</div>
 		</div>
 </body>
