@@ -28,7 +28,6 @@
 			</div>
 			<hr>
 		</section>
-		<div class="card" >
 			<div class="card-body" style="height: 500px; padding: 10px">
 				<div class="pp">
 					개인정보 수집 이용에 관한 사항(필수)<br>
@@ -58,23 +57,22 @@
 								<label for="phone" class="col-mb-5"> <span style="color: red; font-weight: bold;">*</span>연락처</label> <span class="sp"></span>
 							</div>
 							<div class="input-group mb-3 form-group">
-								<input type="text" class="col-lg-9 form-control" id="phone" name="phone" pattern="010[0-9]{8}" placeholder="'-'없이  번호만 기재해주세요">
+								<input placeholder="'-'없이  번호만 기재해주세요" pattern="010[0-9]{8}" name="phone" id="phone" class="col-lg-7 form-control" type="text">
 								<div class="input-group-append">
 									<button type="button" onclick="phone_verification();" class="btn btn-secondary" style="background-color:#82BBD8;border: 1px solid #82BBD8">인증</button>
 								</div>
 							</div>
+							
 							<div class="form-group verificationCode" style="display: none;">
 								<span style="color: red; font-weight: bold;">*</span>
 								<label for="addr">인증번호</label>
 								<div class="input-group" style="padding-top: 10px;">
-									<input type="text" class="form-control col-4" id="Code" placeholder="인증번호">
-									<button type="button" onclick="verificationCodeCheck()" style="margin-left: 10px;" class="btn btn-outline-primary btn-block col-2">인증하기</button>
+									<input type="text" class="form-control col-7" id="Code" placeholder="인증번호"><div class="input-group-append">
+									<button type="button" onclick="phone_verification();" class="btn btn-secondary" style="background-color:#82BBD8;border: 1px solid #82BBD8">인증</button>
+								</div>
 									<div id="timeLimit" style="position: absolute;padding: 9px;margin-left: 140px;color: gray;font-size: 0.9rem; z-index: 10"></div>
 								</div>
 							</div>
-							
-						
-							
 						</div>
 						<div class="col-6" style="padding-right: 10%;">
 						
@@ -105,40 +103,38 @@
 							<div class="overlay" style="display: none;">
 							  <i class="fas fa-2x fa-spinner fa-spin"></i>
 							</div>
+							<div style=" margin-top: 45px">
+								<button class="btn btn-md btn-secondary col-9" style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8">신청하기</button>
+							</div>
 						</div>
 					</div>	
-						<div style="text-align: center; margin-top: 25px">
-							<button class="btn btn-md btn-secondary btn-block col-2"  style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8">신청</button>
-						</div>
 			</div>
 		</div>
-	
-	</div>	
 <!-- 알림 sweetalert2 -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-		
-<script>
-	const certify_ajax = function (phoneNumber){
-		const v_ajax = new XMLHttpRequest();
-	    v_ajax.open("POST","<%=request.getContextPath() %>/order/certifyPhoneNum",true);
-	    v_ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-	    v_ajax.send('phoneNumber=' + encodeURIComponent(phoneNumber));
-	    v_ajax.onreadystatechange = function(){
-	    	 if (v_ajax.readyState === XMLHttpRequest.DONE) {
-		     	if (v_ajax.status === 200) {
-		        	const response = JSON.parse(v_ajax.responseText);
-		            responseCode = Number(response.randomNum);
-		            Toast.fire({
-		     			icon: 'success',
-		     		    title: '인증번호가 발송되었습니다.'
-		     		});
-		        } else {
-	            }
-		     }
-	    }
-	};
 	
+<script>
+   const certify_ajax = function (phoneNumber){
+      const v_ajax = new XMLHttpRequest();
+       v_ajax.open("POST","<%=request.getContextPath() %>/order/certifyPhoneNum",true);
+       v_ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+       v_ajax.send('phoneNumber=' + encodeURIComponent(phoneNumber));
+       v_ajax.onreadystatechange = function(){
+           if (v_ajax.readyState === XMLHttpRequest.DONE) {
+              if (v_ajax.status === 200) {
+                 const response = JSON.parse(v_ajax.responseText);
+                  responseCode = Number(response.randomNum);
+                  Toast.fire({
+                    icon: 'success',
+                     title: '인증번호가 발송되었습니다.'
+                 });
+              } else {
+               }
+           }
+       }
+   };
 </script>
+
 		
 <script>
 let isRunning = false;
@@ -216,6 +212,7 @@ const Toast = Swal.mixin({
 	     		      icon: 'success',
 	     		      title: '인증되었습니다.'
 	     		});
+	  			setTimeout(function(){document.querySelector('.verificationCode').style.display = 'none';  },1000);
 	  			
 	  			form_phone_show();
 	  		}else{
