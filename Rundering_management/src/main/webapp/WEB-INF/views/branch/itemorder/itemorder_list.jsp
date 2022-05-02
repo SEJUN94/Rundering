@@ -17,7 +17,6 @@
 		window.opener.location.reload();
 	</script>
 </c:if>
-	<div id="body">
 		<div class="row ml-2 mr-2">
 			<div class="col-12">
 				<div class="card card-primary card-outline">
@@ -72,7 +71,25 @@
 							<td style="text-align: center;">${itemOrder.ordercode }</td>
 							<td style="text-align: right;">${totalPrice[itemOrder.ordercode] }원</td>
 							<td style="text-align: center;"><fmt:formatDate value="${itemOrder.registDate }" pattern="yyyy-MM-dd"/></td>			
-							<td style="text-align: center;">${comCode[itemOrder.itemOrderStatus] }<td>		
+							<td style="text-align: center;">
+								<%-- ${comCode[itemOrder.itemOrderStatus] } --%>
+								<c:if test="${itemOrder.itemOrderStatus eq '01'}">
+										<td><span class="badge badge-warning">승인대기</span></td>
+									</c:if>
+									<c:if test="${itemOrder.itemOrderStatus eq '02'}">
+										<td><span class="badge badge-success">발주대기</span></td>
+									</c:if>
+									<c:if test="${itemOrder.itemOrderStatus eq '03'}">
+										<td><span class="badge badge-warning">미수령</span></td>
+									</c:if>
+									<c:if test="${itemOrder.itemOrderStatus eq '04'}">
+										<td><span class="badge badge-success">수령</span></td>
+									</c:if>
+									<c:if test="${itemOrder.itemOrderStatus eq '05'}">
+										<td><span class="badge badge-danger">반려</span></td>
+									</c:if>	
+							<td>	
+								
 						</tr>
 					</c:forEach>
 								
@@ -86,5 +103,4 @@
 
 			</div>
 		</div>
-	</div>
 </body>

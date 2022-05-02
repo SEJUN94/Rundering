@@ -26,10 +26,12 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		String memberno = loginMember.getMemberNo();
 		
 		EmployeesVO loginEmployee = user.getEmployeesVO(memberno);
+		String branchName = user.getBranchName(loginEmployee.getBranchCode());
  		
 		HttpSession session = request.getSession();		
 		session.setAttribute("loginMember", loginMember);
 		session.setAttribute("loginEmployee", loginEmployee);
+		session.setAttribute("branchName", branchName);
 		session.setMaxInactiveInterval(60*30);
 		
 		super.onAuthenticationSuccess(request, response, authentication);

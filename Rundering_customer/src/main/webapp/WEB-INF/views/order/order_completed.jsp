@@ -39,7 +39,7 @@
 
             </div>
 	        <div class="mt-4" style="text-align: center;">
-	            <div class="btn btn-outline-primary btn-lg btn-flat mr-2" onclick="location.href = '<%=request.getContextPath()%>/mypage/orderhistory';">
+	            <div class="btn btn-outline-primary btn-lg btn-flat mr-2" onclick="location.href = '<%=request.getContextPath()%>/mypage/myorder/histroy/main';">
 	                주문내역
 	            </div>
 	            <div class="btn btn-outline-secondary btn-lg btn-flat" onclick="location.href = '<%=request.getContextPath()%>/customercenter/faq';">

@@ -9,14 +9,27 @@
 		p:branchDAO-ref="branchDAO"
 		p:laundryOrderDAO-ref="laundryOrderDAO"
 		p:comCodeDAO-ref="comCodeDAO"
+		p:employeesDAO-ref="employeesDAO"
 	/>
 	<scheduler id="assignLaundryOrderScheduler"/>
 	 
 	<scheduled-tasks scheduler="assignLaundryOrderScheduler">
 		<scheduled ref="orderTask"
 				   method="assignLaundryOrderToBranch"
-				   cron="* * 22 * * *"/>
+				   cron="0 0 22 * * *"/>
 				   <!-- cron="*/5 * * * * *"/> -->
+	</scheduled-tasks> 
+	<scheduled-tasks scheduler="assignLaundryOrderScheduler">
+		<scheduled ref="orderTask"
+				   method="assignPickupEmployee"
+				   cron="0 0 23 * * *"/>
+				  <!--  cron="*/5 * * * * *"/> -->
+	</scheduled-tasks> 
+	<scheduled-tasks scheduler="assignLaundryOrderScheduler">
+		<scheduled ref="orderTask"
+				   method="assignDeliveryEmployee"
+				   cron="0 0 23 * * *"/>
+				  <!--  cron="*/5 * * * * *"/> -->
 	</scheduled-tasks> 
 	
 </beans:beans>
