@@ -18,5 +18,11 @@ public class BranchApplicationDAOImpl implements BranchApplicationDAO {
 		
 	}
 	
+	// 지점 신청 확인 들어가기전 본인인증
+	@Override
+	public BranchApplicationVO selectSelfAuthentification(BranchApplicationVO bv) throws Exception {
+		return session.selectOne("BranchApplication-Mapper.selectSelfAuthentification", bv);
+	}
+	
 
 }

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rundering.dto.BranchApplicationVO;
 import com.rundering.service.BranchApplicationService;
@@ -45,9 +46,40 @@ public class BranchApplicationController {
 	public void myBranchRequest() {
 		
 	}
-	//인증 후 지점 신청 확인
+	
+	// 인증 들어기전 본인인증
 	@RequestMapping("/self_authentification")
 	public void selfAuthentification() {}
+
+	
+	
+	//인증 후 지점 신청 확인
+	@RequestMapping("/self_authentification/comfirm")
+	@ResponseBody
+	public ResponseEntity<String> selfAuthentificationCom(BranchApplicationVO bv) throws Exception{
+		
+		ResponseEntity<String> entity = null;
+		
+	    try{
+	    	bv = branchApplicationService.getSelfAuthentification(bv);
+	    	
+	    	
+	    	if (bv.getPhone() == null || bv.getPhone().isEmpty()) {
+
+	    		entity = new ResponseEntity<String>("NO", HttpStatus.OK);
+
+			} else {
+				entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+				
+			}
+	    	
+	    }catch(Exception e){
+	    	entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	      
+	    return entity;
+	}
+
 	
 	@RequestMapping("/storeApplication")
 	public void selectStoreApplication() {}

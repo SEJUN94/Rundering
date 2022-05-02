@@ -40,5 +40,12 @@
 			)
 	</update>
 	
+	<select id="selectSelfAuthentification" resultMap="branchApplicationMap" parameterType="branchApplication">
+		select  *
+		from TB_BRANCH_APPLICATION
+		WHERE APPLICATE_NAME = #{applicateName}
+		AND PHONE = #{phone}
+	</select>
+	
 
 </mapper>

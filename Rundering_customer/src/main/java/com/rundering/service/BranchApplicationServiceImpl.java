@@ -4,9 +4,9 @@ import com.rundering.dao.BranchApplicationDAO;
 import com.rundering.dto.BranchApplicationVO;
 
 public class BranchApplicationServiceImpl implements BranchApplicationService {
-	
-	private  BranchApplicationDAO branchApplicationDAO;
-	
+
+	private BranchApplicationDAO branchApplicationDAO;
+
 	public void setBranchApplicationDAO(BranchApplicationDAO branchApplicationDAO) {
 		this.branchApplicationDAO = branchApplicationDAO;
 	}
@@ -15,8 +15,15 @@ public class BranchApplicationServiceImpl implements BranchApplicationService {
 	@Override
 	public void branchApplicate(BranchApplicationVO bv) throws Exception {
 		branchApplicationDAO.branchApplicate(bv);
-		
+
 	}
+	
+	
+	// 지점 신청 확인 들어가기전 본인인증
+		@Override
+		public BranchApplicationVO getSelfAuthentification(BranchApplicationVO bv) throws Exception {
+			return branchApplicationDAO.selectSelfAuthentification(bv);
+		}
 	
 
 }
