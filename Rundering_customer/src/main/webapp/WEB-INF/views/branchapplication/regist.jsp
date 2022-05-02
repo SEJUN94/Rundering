@@ -145,8 +145,6 @@
 	<!-- 알림 sweetalert2 -->
 	<script
 		src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-
-
 <script>
 
 var dataNum = 1;
