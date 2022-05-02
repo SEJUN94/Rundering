@@ -217,8 +217,6 @@ var dataNum = 1;
 				return;
 			}
 		}
-		payment_go();
-		
 	}
 	
 </script> 
