@@ -33,5 +33,25 @@
 		  from tb_laundry_fixtures
 		 where branch_code=#{branchCode} 
 	</select> 
+	
+	<insert id="insertFixturesByFixtrues" parameterType="laundryFixtures">
+			insert into TB_LAUNDRY_FIXTURES
+			(
+			fixtures_code,
+			branch_code,
+			articles_code,
+			fixtures_name
+			)
+			VALUES
+			(
+			#{fixturesCode},
+			#{branchCode},
+			#{articlesCode},
+			#{fixturesName}
+			)
+			
+			
+			
+	</insert>
 
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.dto.LaundryFixturesVO;
 
 public class LaundryFixturesDAOImpl implements LaundryFixturesDAO {
@@ -23,6 +24,10 @@ public class LaundryFixturesDAOImpl implements LaundryFixturesDAO {
 	@Override
 	public List<LaundryFixturesVO> selectFixturesListByBranchCode(String branchCode) throws Exception{
 		return  session.selectList("LaundryFixtures-Mapper.selectFixturesListByBranchCode", branchCode);
+	}
+	@Override
+	public void insertFixturesByFixtrues(LaundryFixturesVO laundryFixtures) throws Exception {
+		session.insert("LaundryFixtures-Mapper.insertFixturesByFixtrues", laundryFixtures);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.rundering.manage.admin;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,10 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.Criteria;
+import com.rundering.command.EnrollmentRegistCommand;
 import com.rundering.dto.BranchApplicationVO;
+import com.rundering.dto.BranchVO;
 import com.rundering.dto.EmployeesVO;
+import com.rundering.dto.LaundryFixturesVO;
+import com.rundering.dto.MemberVO;
 import com.rundering.service.BranchApplicationService;
-import com.rundering.service.BranchService;
 
 @RequestMapping("/admin/branchapplication")
 @Controller
@@ -108,10 +112,21 @@ public class BranchApplication {
 		}
 		return url;
 	}
-	@RequestMapping("enrollmentRegist")
-	public String enrollmentRegist() {
+	@RequestMapping(value = "enrollmentRegist",method = RequestMethod.POST)
+	public String enrollmentRegist(EnrollmentRegistCommand enrollmentRegistCommand,String applicationNo) throws Exception{
 		String url="redirect:/admin/branchapplication/contract";
-
+		String area=enrollmentRegistCommand.getArea();
+		String branchCode= branchApplicationService.selectBranchCode(area);
+		
+		enrollmentRegistCommand.setBranchCode(branchCode);
+		MemberVO member = enrollmentRegistCommand.getMemberVO();
+	    BranchVO branch=enrollmentRegistCommand.getBranchVO();
+	    List<LaundryFixturesVO> laundryFixturesList= enrollmentRegistCommand.getLaundryFixturesVOList();
+	   
+	    branchApplicationService.enrollmentRegist(member, branch, laundryFixturesList, applicationNo);
+	    
+		
+		
 		return url;
 	}
 	

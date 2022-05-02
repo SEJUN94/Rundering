@@ -57,6 +57,10 @@ public class BranchApplicationDAOImpl implements BranchApplicationDAO{
 	public void updateProgressStatusCode08ByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception{
 		session.update("BranchApplication-Mapper.updateProgressStatusCode08ByBranchApplicationVO",branchApplication);
 	}
+	@Override
+	public void updateProgressStatusCode10ByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception{
+		session.update("BranchApplication-Mapper.updateProgressStatusCode10ByBranchApplicationVO",branchApplication);
+	}
 	
 	
 }

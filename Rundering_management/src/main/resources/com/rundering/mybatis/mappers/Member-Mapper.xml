@@ -170,4 +170,11 @@
 		WHERE ID = #{id}
 	</update>
 	
+	<insert id="insertBranchMemberByMemberVO" parameterType="member">
+		INSERT INTO
+		TB_MEMBER(MEMBERNO,PASSWORD,NAME,PHONE,EMAIL)
+		VALUES
+		(MEMBERNO_SEQ.NEXTVAL,'03',#{name},#{phone},#{email})
+	</insert>
+	 
 </mapper>

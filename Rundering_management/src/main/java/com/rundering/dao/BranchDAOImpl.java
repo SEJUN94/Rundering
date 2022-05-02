@@ -46,5 +46,13 @@ public class BranchDAOImpl implements BranchDAO {
 	public int selectExcessCapacityOfTodayLaundryByBranchCode(String branchCode) throws Exception {
 		return session.selectOne("Branch-Mapper.selectExcessCapacityOfTodayLaundryByBranchCode",branchCode);
 	}
+	@Override
+	public String selectBranchCodeByArea(String area) throws Exception{
+		return session.selectOne("Branch-Mapper.selectBranchCodeByArea", area);
+	}
+	@Override
+	public void insertBranch(BranchVO branch) throws Exception{
+		session.insert("Branch-Mapper.insertBranch", branch);
+	}
 
 }
