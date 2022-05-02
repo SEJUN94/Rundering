@@ -360,7 +360,7 @@ const Toast = Swal.mixin({
           });
         isRunning = false;
       }
-  }, 1000);
+  }, 1000); 
        isRunning = true;
 }
   
