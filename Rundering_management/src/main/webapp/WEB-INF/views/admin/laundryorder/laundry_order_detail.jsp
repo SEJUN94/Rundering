@@ -115,36 +115,36 @@
 	<div class="col-6">
 			<div class="card mt-1">
 					<h4 class="m-3">담당지점 정보</h4>
-				<div class="card-body p-0 card-secondary card-outline" style="height: 400px;">
+				<div class="card-body p-0 card-secondary card-outline">
 					<table class="table table-bordered">
 						<tbody>
 							<tr>
-								<td>지점명</td>
+								<td style="background-color: #f7f5f5; width: 145px;">지점명</td>
 								<td>${branchDetail.branchName }</td>
 							</tr>
 
 							<tr>
-								<td>지점 주소</td>
+								<td style="background-color: #f7f5f5; width: 145px;">지점 주소</td>
 								<td>${branchDetail.add1 } ${branchDetail.add2 }</td>
 							</tr>
 
 							<tr>
-								<td>지점 연락처</td>
+								<td style="background-color: #f7f5f5; width: 145px;">지점 연락처</td>
 								<td>${branchDetail.branchContact }</td>
 							</tr>
 
 							<tr>
-								<td>지점장명</td>
+								<td style="background-color: #f7f5f5; width: 145px;">지점장명</td>
 								<td>${branchDetail.name }</td>
 							</tr>
 
 							<tr>
-								<td>지점장 연락처</td>
+								<td style="background-color: #f7f5f5; width: 145px;">지점장 연락처</td>
 								<td>${branchDetail.phone }</td>
 							</tr>
 
 							<tr>
-								<td>지점장 이메일</td>
+								<td style="background-color: #f7f5f5; width: 145px;">지점장 이메일</td>
 								<td>${branchDetail.email }</td>
 							</tr>
 						</tbody>
