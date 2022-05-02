@@ -152,10 +152,11 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		if(laundryOrder==null) {
 			return null;
 		}
-		
-		BranchInfoDetailCommand branchDetail = laundryThroughputDAO.selectBranchDetail(laundryOrder.getBranchCode());
+		BranchInfoDetailCommand branchDetail = null;;
 		
 		if(laundryOrder.getBranchCode() != null) {
+			branchDetail = laundryThroughputDAO.selectBranchDetail(laundryOrder.getBranchCode());
+			
 			BranchVO branch = branchDAO.selectBranchByBranchCode(laundryOrder.getBranchCode());
 			laundryOrder.setBranchCode(branch.getBranchName());
 		}

@@ -24,7 +24,7 @@
         </section>
 
 
-        <div class="card-body mt-5 pt-5">
+        <div class="card-body mt-4 pt-5">
             <div class="row">
                 <div class="col-4" style="text-align: end;">
                     <i class="far fa-check-circle pr-3 pt-3" style="font-size: 5rem;"></i>
@@ -35,6 +35,11 @@
                     <p class="text-muted mt-2"><b>주문번호 : </b> ${registeredLaundryOrder.orderNo} </p>
                     <p class="text-muted"><b>주문일시 : </b> <fmt:formatDate value="${registeredLaundryOrder.orderDate}" pattern="yyyy-MM-dd HH:mm:ss"/></p>
                     <p class="text-muted"><b>결제금액 : </b> <fmt:formatNumber type="number" maxFractionDigits="3" value="${registeredLaundryOrder.totalPrice}" />원</p>
+                    
+                    <p class="text-muted mt-2"><b>수거예정일자 : </b> <fmt:formatDate value="${registeredLaundryOrder.pickupRequestDate}" pattern="yyyy-MM-dd"/></p>
+                    <p class="text-muted"><b>배송예정일자 : </b> <fmt:formatDate value="${registeredLaundryOrder.deliveryRequestDate}" pattern="yyyy-MM-dd"/></p>
+                    <p style="font-weight: 600;">수거사원이 수거일 자정부터 오전7시 사이에 도착할 예정입니다.</p>
+                    <p style="font-weight: 600;">잠들기 전 세탁물을 문 앞에 내어주세요.</p>
                 </div>
 
             </div>

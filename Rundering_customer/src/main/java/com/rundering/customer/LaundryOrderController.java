@@ -1,5 +1,6 @@
 package com.rundering.customer;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +28,8 @@ import com.rundering.service.LaundryItemsService;
 import com.rundering.service.LaundryOrderService;
 import com.rundering.service.MemberAddressService;
 import com.rundering.util.FormatUtil;
+import com.rundering.util.SensSms;
+import com.rundering.util.PhoneResDTO.SendSmsResponse;
 
 @Controller
 @RequestMapping("/order")
@@ -37,6 +43,8 @@ public class LaundryOrderController {
 	private MemberAddressService memberAddressService;
 	@Resource(name = "attachService")
 	private AttachService attachService;
+	@Resource(name = "sensSms")
+	private SensSms sensSms;
 	
 	@Resource(name = "laundryorderpicturePath")
 	private String picturePath;
@@ -131,7 +139,28 @@ public class LaundryOrderController {
  		String orderNo = laundryOrderService.orderReceive(laundryOrder, laundryOrderDetailVOList);
  		
  		LaundryOrderVO registeredLaundryOrder = laundryOrderService.getLaundryOrder(orderNo);
+ 		
+ 		SimpleDateFormat dateHourFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+ 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+ 		
+
+ 		StringBuilder sb = new StringBuilder();
+ 		sb.append("[Rundering]\n고객님의 세탁주문이 정상접수되었습니다.");
+ 		sb.append("\n▷주문번호: ");
+ 		sb.append(registeredLaundryOrder.getOrderNo());
+ 		
+ 		String smsStr = sb.toString();
 		
+ 		//문자발송 부분 완료됨 일단 주석~
+// 		try {
+//			SendSmsResponse sendSmsResponse = sensSms.sendSMS(registeredLaundryOrder.getContactNumber().trim(), smsStr);
+//			if(sendSmsResponse.getStatusCode().equals("202") || sendSmsResponse.getStatusCode().equals("200")) {
+//				System.out.println(sendSmsResponse);
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+ 		
  		mnv.addObject("registeredLaundryOrder", registeredLaundryOrder);
 		mnv.setViewName(url);
 		return mnv;
