@@ -7,11 +7,6 @@
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="branchApplicationList" value="${dataMap.branchApplicationList }" />
 <body>
-<c:if test="${from eq 'notemp' }">
-	<script>
-		alert('담당직원이 아닙니다');
-	</script>
-</c:if>
 
 <section class="content-header">
 	<div class="container-fluid">
@@ -127,6 +122,8 @@
 		</div>
 	</div>
 </div>
+
+
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <div id="handleTag">
 	
@@ -139,9 +136,9 @@
 <%@ include file="./examine_js.jsp" %>
 <%@ include file="./voluntary_js.jsp" %>
 			
-	<script>
+<script>
 	
-	</script>	
+</script>	
 
 
 </body>

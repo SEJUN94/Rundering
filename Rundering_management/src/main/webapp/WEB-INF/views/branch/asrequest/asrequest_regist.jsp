@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:if test="">
+</c:if>
+
 
 <head>
 <link rel="stylesheet"
@@ -62,24 +65,9 @@
 									style="margin-left: 10px; font-size: large;">호수<select
 									class="form-control" name="fixturesCode" id="fixturesCode"
 									style=" width: 200px; margin-top: 6px;">
-									<c:choose>
-										<c:when test="${loginEmployee.branchCode == '060101'}">
-											<option value="A06010101">세탁기1호기</option>
-											<option value="A06010201">세탁기2호기</option>
-											<option value="A06010102">건조기1호기</option>
-											<option value="A06010202">건조기2호기</option>
-											<option value="A06010103">에어컨1호기</option>
-											<option value="A06010203">에어컨2호기</option>
-										</c:when>
-										<c:when test="${loginEmployee.branchCode == '060201'}">
-											<option value="A06020101">세탁기1호기</option>
-											<option value="A06020201">세탁기2호기</option>
-											<option value="A06020102">건조기1호기</option>
-											<option value="A06020202">건조기2호기</option>
-											<option value="A06020103">에어컨1호기</option>
-											<option value="A06020203">에어컨2호기</option>
-										</c:when>
-									</c:choose>
+										<c:forEach items="${fixturesList }" var="fixtures">
+											<option value="${fixtures.fixturesCode }">${fixtures.fixturesName }</option>
+										</c:forEach>
 								</select></label> 
 							</div>
 							<div class=" col">

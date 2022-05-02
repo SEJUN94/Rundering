@@ -108,6 +108,12 @@ public class BranchApplication {
 		}
 		return url;
 	}
+	@RequestMapping("enrollmentRegist")
+	public String enrollmentRegist() {
+		String url="redirect:/admin/branchapplication/contract";
+
+		return url;
+	}
 	
 	
 	
