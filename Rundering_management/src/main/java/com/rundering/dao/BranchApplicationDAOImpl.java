@@ -23,10 +23,6 @@ public class BranchApplicationDAOImpl implements BranchApplicationDAO{
 		
 		return session.selectList("BranchApplication-Mapper.selectBranchApplication",cri,rowBounds);
 	}
-	@Override
-	public BranchApplicationVO selectBranchApplicationByapplicationNo() throws Exception {
-		return session.selectOne("BranchApplication-Mapper.selectBranchApplication");
-	}
 
 	@Override
 	public int selectBranchApplicationCount(Criteria cri) throws Exception {
@@ -37,14 +33,29 @@ public class BranchApplicationDAOImpl implements BranchApplicationDAO{
 	@Override
 	public void updateApprovalreturnContentsByBranchApplicationVO(BranchApplicationVO branchApplication)
 			throws Exception {
-		 session.selectOne("BranchApplication-Mapper.updateApprovalreturnContentsByBranchApplicationVO");
+		 session.selectOne("BranchApplication-Mapper.updateApprovalreturnContentsByBranchApplicationVO",branchApplication);
 		
 	}
 
 	@Override
 	public void updateApprovalreturnYByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception {
-		 session.selectOne("BranchApplication-Mapper.updateApprovalreturnYByBranchApplicationVO");
+		 session.selectOne("BranchApplication-Mapper.updateApprovalreturnYByBranchApplicationVO",branchApplication);
 		
+	}
+
+	@Override
+	public BranchApplicationVO selectBranchApplicationByapplicationNo(String applicationNo) throws Exception {
+		return session.selectOne("BranchApplication-Mapper.selectBranchApplicationByapplicationNo",applicationNo);
+	}
+
+	@Override
+	public void updateExaminationByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception {
+		session.update("BranchApplication-Mapper.updateExaminationByBranchApplicationVO", branchApplication);
+		
+	}
+	@Override
+	public void updateProgressStatusCode08ByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception{
+		session.update("BranchApplication-Mapper.updateProgressStatusCode08ByBranchApplicationVO",branchApplication);
 	}
 	
 	
