@@ -84,6 +84,9 @@
 	 <bean id="branchApplicationDAO" class="com.rundering.dao.BranchApplicationDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
+	 <bean id="NotificationDAO" class="com.rundering.dao.NotificationDAOImpl"
+	 	p:session-ref="sqlSession"
+	 />
 
 	<!-- Service Layer -->
 	<bean id="asRequestService" class="com.rundering.service.AsRequestServiceImpl"
