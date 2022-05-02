@@ -23,4 +23,7 @@ public interface DeliveryDAO {
 	LaundryOrderVO selectOrderByOrderNo(String orderNo)throws Exception;
 	List<LaundryOrderDetailVO> selectOrdertDetailList(String orderNo) throws Exception;
 	
+	// 지점 도착 일괄 처리(수거 완료 후)
+	void updateToBranch(LaundryOrderVO laundryOrder)throws Exception;
+	
 }

@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -98,6 +97,28 @@ public class ForDeliveryController {
 		
 		return ok;
 		
+	}
+	
+	// 지점 도착 일괄 처리(수거 완료 후)
+	@RequestMapping("/arrive/tobranch")
+	public ResponseEntity<String> arriveTobranch(LaundryOrderVO laundryOrder, HttpServletRequest request)throws Exception {
+		ResponseEntity<String> ok = null;
+		
+		HttpSession session = request.getSession();
+		EmployeesVO ev = (EmployeesVO) session.getAttribute("loginEmployee");
+		
+		laundryOrder.setBranchCode(ev.getBranchCode());
+		
+		
+		try {
+			deliveryService.updateToBranch(laundryOrder);
+			
+			ok = new ResponseEntity<String>("OK", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return ok;
 	}
 	
 	

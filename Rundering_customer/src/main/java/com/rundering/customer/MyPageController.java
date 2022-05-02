@@ -250,6 +250,24 @@ public class MyPageController {
 		return entity;
 	}
 	
+	// 추가 등록된 주소 삭제(기본주소를 제외한 주소 삭제)
+	@RequestMapping("/myaddress/remove")
+	@ResponseBody
+	public ResponseEntity<String> remove(String addressNo){
+		
+		ResponseEntity<String> entity = null;
+		
+		try {
+			memberAddressService.removeByAddressNo(addressNo);
+			
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+			
+		} catch (Exception e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return entity;
+	}
+	
 	// 내 주소 기본 주소지로 변경 및 수정
 	@RequestMapping("/myaddress/defaultmodify")
 	@ResponseBody
