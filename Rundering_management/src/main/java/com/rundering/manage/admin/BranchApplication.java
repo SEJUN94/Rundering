@@ -2,12 +2,21 @@ package com.rundering.manage.admin;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.Criteria;
+import com.rundering.dto.BranchApplicationVO;
+import com.rundering.dto.EmployeesVO;
 import com.rundering.service.BranchApplicationService;
 import com.rundering.service.BranchService;
 
@@ -20,6 +29,7 @@ public class BranchApplication {
 	
 	@RequestMapping("/contract")
 	public ModelAndView branchContract(ModelAndView mnv,Criteria cri) {
+		cri.setPerPageNum(5);
 		Map<String, Object> dataMap=null;
 		try {
 			dataMap=branchApplicationService.selectBranchApplicationList(cri);
@@ -31,4 +41,75 @@ public class BranchApplication {
 		mnv.setViewName("/admin/branchapplication/contract_evaluation");
 		return mnv;
 	}
+	@RequestMapping(value = "/applicationData" ,method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public ResponseEntity<BranchApplicationVO> applicationData(String applicationNo){
+		BranchApplicationVO branchApplication = null;
+		ResponseEntity<BranchApplicationVO> resp = null;
+		try {
+			branchApplication = branchApplicationService.selectBranchApplication(applicationNo);
+			resp =new ResponseEntity<BranchApplicationVO>(branchApplication, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resp;
+	}
+	@RequestMapping(value=  "/approvalreturnContentsRegist",method = RequestMethod.POST)
+	public String approvalreturnContentsRegist(BranchApplicationVO brnachApplication,HttpSession session) {
+		String url="redirect:/admin/branchapplication/contract";
+		EmployeesVO emp= (EmployeesVO)session.getAttribute("loginEmployee");
+		brnachApplication.setCharger(emp.getEmployeeId());
+		try {
+			branchApplicationService.updateRejectContent(brnachApplication);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return url;
+	}
+	@RequestMapping(value=  "/requestOK",method = RequestMethod.POST)
+	public String requestOK(BranchApplicationVO brnachApplication,HttpSession session) {
+		String url="redirect:/admin/branchapplication/contract";
+		EmployeesVO emp= (EmployeesVO)session.getAttribute("loginEmployee");
+		brnachApplication.setCharger(emp.getEmployeeId());
+		try {
+			branchApplicationService.updateApproval(brnachApplication);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return url;
+	}
+	@RequestMapping(value=  "/examineRegist",method = RequestMethod.POST)
+	public String examineRegist(BranchApplicationVO branchApplication,HttpSession session, RedirectAttributes attr) {
+		String url="redirect:/admin/branchapplication/contract";
+		EmployeesVO emp= (EmployeesVO)session.getAttribute("loginEmployee");
+		
+		try {
+			branchApplicationService.updateExamination(branchApplication,emp);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return url;
+	}
+	@RequestMapping("boluntaryOK")
+	public String boluntaryOK(BranchApplicationVO branchApplication) {
+		String url="redirect:/admin/branchapplication/contract";
+		try {
+			branchApplicationService.updateVoluntaryCheck(branchApplication);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return url;
+	}
+	
+	
+	
+	
 }
