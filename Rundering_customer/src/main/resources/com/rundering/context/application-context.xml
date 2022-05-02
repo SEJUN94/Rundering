@@ -20,6 +20,9 @@
 	<bean id="memberDAO" class="com.rundering.dao.MemberDAOImpl"
 		p:session-ref="sqlSession"
 	/>
+	<bean id="branchApplicationDAO" class="com.rundering.dao.BranchApplicationDAOImpl"
+		p:session-ref="sqlSession"
+	/>
 	<bean id="laundryOrderDAO" class="com.rundering.dao.LaundryOrderDAOImpl"
 		p:session-ref="sqlSession"
 	/>
@@ -54,6 +57,9 @@
 	/>
 	<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl"
 		p:memberAddressDAO-ref="memberAddressDAO"
+	/>
+	<bean id="branchApplicationService" class="com.rundering.service.BranchApplicationServiceImpl"
+		p:branchApplicationDAO-ref="branchApplicationDAO"
 	/>
 	<bean id="laundryOrderService" class="com.rundering.service.LaundryOrderServiceImpl"
 		p:laundryOrderDAO-ref="laundryOrderDAO"
