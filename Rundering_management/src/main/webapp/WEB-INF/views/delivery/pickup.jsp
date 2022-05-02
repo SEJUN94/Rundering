@@ -113,7 +113,7 @@ console.log(a)
 				  
 				  check==false
 				  if(upperCaseA > upperCaseB) return 1;
-				  if(upperCaseA < upperCaseB) return -1;
+				  if(upperCaseA < upperCaseB) return -1; 
 				  if(upperCaseA === upperCaseB) return 0;
 				  console.log(check)
 			});
