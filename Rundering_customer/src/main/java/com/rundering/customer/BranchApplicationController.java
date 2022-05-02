@@ -15,7 +15,10 @@ public class BranchApplicationController {
 	public void myBranchRequest() {
 		
 	}
+	//인증 후 지점 신청 확인
+	@RequestMapping("/self_authentification")
+	public void selfAuthentification() {}
 	
-	
-	
+	@RequestMapping("/storeApplication")
+	public void selectStoreApplication() {}
 }

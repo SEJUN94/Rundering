@@ -33,4 +33,7 @@ public interface MemberAddressService {
 	
 	// 주소지 수정
 	public void modifyAddress(MemberAddressVO memberAdd) throws Exception;
+	
+	// 주소지 삭제(기본주소지 제외)
+	public void removeByAddressNo(String memberNo) throws Exception;
 }

@@ -74,22 +74,19 @@
 	
 <script>
 let 아가모토의눈 = new Date();
-아가모토의눈 = 아가모토의눈.getFullYear()*10000 + 아가모토의눈.getMonth()*100 + 아가모토의눈.getDate();
+아가모토의눈 = 아가모토의눈.getFullYear()*10000 + (아가모토의눈.getMonth()+1)*100 + 아가모토의눈.getDate();
 let 닥터스트레인지 = Number('${dr_strange}');
+
 function sam_raimi(){
-	alert(닥터스트레인지 <= 아가모토의눈);
-	alert(닥터스트레인지 > 아가모토의눈);
+	alert(아가모토의눈);
 }
 
 
-function newAddr(abcdefu) {
-	
-	
-	
-	
+window.addEventListener('load', 도르마무)
+function 도르마무() {
 	const jassi= document.querySelector('#jassi');	
 	const jason= document.querySelector('#jason');	
-	if('${dr_strange}' < 아가모토의눈){
+	if(아가모토의눈 <= 닥터스트레인지){
 		jassi.style.display = 'block';
 		jason.style.display = 'none';
 	}else{

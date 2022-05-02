@@ -138,6 +138,12 @@
 			WHERE ADDRESS_NO = #{addressNo}
  	</update>
  	
+ 	<update id="removeByAddressNo" parameterType="str">
+ 		DELETE FROM TB_MEMBER_ADDRESS
+		WHERE
+		ADDRESS_NO = #{addressNo}
+ 	</update>
+ 	
  	
 	
 
