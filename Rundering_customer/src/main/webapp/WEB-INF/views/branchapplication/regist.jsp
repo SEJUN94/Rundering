@@ -29,7 +29,7 @@
 			<hr>
 		</section>
 			<div class="card-body" style="height: 500px; padding: 10px">
-				<div class="pp">
+				<div class="pp"> 
 					개인정보 수집 이용에 관한 사항(필수)<br>
 					회사는 개설 상담을 위해 아래와 같은 개인정보를 수집하고 있습니다.<br>
 					1. 수집항목 : (필수) 이름, 연락처, 개설희망지역, 개설희망시기, 투자가능비용, 빨래방 이용경험, 건물소유/임대<br>
