@@ -24,7 +24,9 @@ public class BranchApplicationVO {
 		super();
 	}
 	
-	
+
+
+
 	public int getApplicationNo() {
 		return applicationNo;
 	}
