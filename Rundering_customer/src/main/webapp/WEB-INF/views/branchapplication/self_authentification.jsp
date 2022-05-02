@@ -66,7 +66,7 @@
 				</div>
 				<div style="padding-left: 25%; margin-top: 20px;" class="col-12">
 					<button style="width: 330px; background-color: #82BBD8; border: 1px solid #82BBD8" class="btn btn-primary" type="button"
-						onclick="location.href='<%=request.getContextPath() %>/branchapplication/my_branch_request'">
+						onclick="next()">
 						<strong>지점 신청 확인</strong>
 					</button>
 				</div>
@@ -75,6 +75,40 @@
 	</div>
 	<!-- 알림 sweetalert2 -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script>
+	function next(){
+		$.ajax({
+			url : '<%=request.getContextPath()%>/branchapplication/self_authentification',
+			data : {
+				'applicateName' : $('#name').val(),
+				'phone' : $('#phone').val(),
+			},
+			type : 'post',
+			success : function(mnv) {
+				if(mnv.dataMap.OK.toUpperCase() == "OK"){
+					Swal.fire({
+						icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title: '지점 등록 신청이 완료되었습니다.',
+					});
+					setTimeout(function(){location.href='<%=request.getContextPath() %>/branchapplication/my_branch_request';},1000);
+				} else if(mnv.dataMap.OK.toUpperCase() == "NO") {
+					Swal.fire({
+						icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title: '일치하는 정보가 없습니다.'
+					});
+				}
+			},
+			error : function(error) {
+				AjaxErrorSecurityRedirectHandler(error.status);
+			}
+		});
+	}
+	
+</script>
+
+
+
 <script>
    const certify_ajax = function (phoneNumber){
       const v_ajax = new XMLHttpRequest();
@@ -217,7 +251,7 @@ const Toast = Swal.mixin({
 	    }
 	    return formatNum;
 	}
->>>>>>> refs/heads/main
+
 
 </script>
 </body>

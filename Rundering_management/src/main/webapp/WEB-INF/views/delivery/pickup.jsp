@@ -27,11 +27,11 @@
 			<div class="tab-content" id="custom-tabs-four-tabContent">
 				<div class="tab-pane fade active show" id="custom-tabs-four-home"
 					role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
-					<table class="table table-striped" style="font-size: 1.2rem;">
+					<table class="table table-striped" style="font-size: 1.2rem;" id="inventory">
 						<thead>
 							<tr>
 								<th>주문번호</th>
-								<th>배송 주소지</th>
+								<th id="deliveryAddr" style="cursor:pointer;">배송 주소지</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -43,7 +43,7 @@
 							<c:forEach items="${pickupList }" var="pickupList">
 								<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickupdetail?orderNo=${pickupList.orderNo }&orderStatus=02'">
 									<td>${pickupList.orderNo }</td>
-									<td>${pickupList.add1 }${pickupList.add2 }</td>
+									<td class="addr">${pickupList.add1 }${pickupList.add2 }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -84,10 +84,56 @@
 			</div>
 		</div>
 	</div>
+<script>	
+var a =document.querySelectorAll('tr').value;
+console.log(a)
+
+</script>
+
 
 <!-- 알림 sweetalert2 -->
 <script	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+<script>
+	var data = [];
+	var addr = document.querySelectorAll('tr .addr');
+	var deliveryAddr = document.getElementById('deliveryAddr');
+	var check=true;
+	
+	deliveryAddr.addEventListener('click', function(e){
+		for(var i=0; addr.length>i; i++){
+			var a = addr[i].innerHTML;
+			
+			data.push(a)
+		}
 		
+		if(check==true){
+			data.sort(function(a, b) {
+				  const upperCaseA = a.toUpperCase();
+				  const upperCaseB = b.toUpperCase();
+				  
+				  check==false
+				  if(upperCaseA > upperCaseB) return 1;
+				  if(upperCaseA < upperCaseB) return -1;
+				  if(upperCaseA === upperCaseB) return 0;
+				  console.log(check)
+			});
+		}else{
+			data.sort(function(a, b) {
+				  const upperCaseA = a.toUpperCase();
+				  const upperCaseB = b.toUpperCase();
+				  
+				  check==true
+				  
+				  
+				  if(upperCaseA < upperCaseB) return 1;
+				  if(upperCaseA > upperCaseB) return -1;
+				  if(upperCaseA === upperCaseB) return 0;
+				  console.log(check)
+			});
+		}
+	})
+	
+</script>
 	
 <script>
 	function complete_all(){

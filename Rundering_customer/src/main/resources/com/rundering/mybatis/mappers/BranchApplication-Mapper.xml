@@ -18,7 +18,13 @@
 	<result column="CHARGER" property="charger"/>
 	<result column="PROGRESS_STATUS_CODE" property="progressStatusCode"/>
 </resultMap>
-
+	
+	<select id="selectSelfAuthentification" parameterType="branchApplication" resultMap="branchApplicationMap">
+		select  *
+		from TB_BRANCH_APPLICATION
+		WHERE APPLICATE_NAME = #{applicateName}
+		PHONE = #{phone}
+	</select>
 
 	<update id="insertBranchApplication" parameterType="branchApplication">
 		INSERT INTO  TB_BRANCH_APPLICATION(

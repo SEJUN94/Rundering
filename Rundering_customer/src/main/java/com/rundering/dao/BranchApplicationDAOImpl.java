@@ -15,7 +15,13 @@ public class BranchApplicationDAOImpl implements BranchApplicationDAO {
 	@Override
 	public void branchApplicate(BranchApplicationVO bv) throws Exception {
 		session.update("BranchApplication-Mapper.insertBranchApplication",bv);
+	}
+
+	@Override
+	public BranchApplicationVO selectSelfAuthentification(BranchApplicationVO bv) throws Exception {
+		bv = session.selectOne("BranchApplication-Mapper.selectSelfAuthentification", bv);
 		
+		return bv;
 	}
 	
 
