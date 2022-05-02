@@ -60,6 +60,13 @@
 		FROM TB_EMPLOYEES
 		WHERE MEMBERNO = #{memberno}
 	</select>
+	
+		<select id="selectDeliveryDepartmentEmployeesByBranchCode" resultMap="employeesMap" parameterType="str">
+		select *
+		  from tb_employees
+		 where BRANCH_CODE = #{branchCode} 
+		  and DEPARTMENT = 'DE'
+	</select>
 
 
 </mapper>

@@ -70,6 +70,26 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		return session.selectList("LaundryOrder-Mapper.selectAdminLaundryOrderList",cri);
 	}
 
+	@Override
+	public List<LaundryOrderVO> selectLaundryOrderListPickUpRequestDateTodayByBranchCode(String branchCode) throws Exception {
+		return session.selectList("LaundryOrder-Mapper.selectLaundryOrderListPickUpRequestDateTodayByBranchCode",branchCode);
+	}
+
+	@Override
+	public void updateLaundryOrderPickupEmployeeId(LaundryOrderVO laundryOrder) throws Exception {
+		session.update("LaundryOrder-Mapper.updateLaundryOrderPickupEmployeeId", laundryOrder);
+	}
+
+	@Override
+	public void updateLaundryOrderDeliveryEmployeeId(LaundryOrderVO laundryOrder) throws Exception {
+		session.update("LaundryOrder-Mapper.updateLaundryOrderDeliveryEmployeeId", laundryOrder);
+	}
+
+	@Override
+	public List<LaundryOrderVO> selectCompletedLaundryOrderListByBranchCode(String branchCode) throws Exception {
+		return session.selectList("LaundryOrder-Mapper.selectCompletedLaundryOrderListByBranchCode",branchCode);
+	}
+
 
 
 	

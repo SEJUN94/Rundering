@@ -45,8 +45,4 @@
 		 where APPLICATION_NO=#{applicationNo}
 	</update>
 	
-	
-	
-		
-
 </mapper>

@@ -11,6 +11,10 @@ public class BranchApplicationController {
 	public void branchApplication() {
 		
 	}
+	@RequestMapping("/my_branch_request")
+	public void myBranchRequest() {
+		
+	}
 	
 	
 	

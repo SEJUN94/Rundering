@@ -19,6 +19,7 @@ public class BranchApplicationVO {
 	private String progressStatusCode;		 //진행상태코드
 	
 	
+	
 	public BranchApplicationVO() {
 		super();
 	}

@@ -1,5 +1,8 @@
 package com.rundering.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.dto.EmployeesVO;
@@ -30,6 +33,13 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 		EmployeesVO ev = session.selectOne("Employees-Mapper.getEmployeeByNo", memberno);
 		
 		return ev;
+	}
+	
+	 //지점에 속한 배송사원 목록 가져오기 - by branchCode
+	@Override
+	public List<EmployeesVO> selectDeliveryDepartmentEmployeesByBranchCode(String branchCode) {
+		List<EmployeesVO> deliveryDepartmentEmployees = session.selectList("Employees-Mapper.selectDeliveryDepartmentEmployeesByBranchCode",branchCode);
+		return deliveryDepartmentEmployees;
 	}
 	
  

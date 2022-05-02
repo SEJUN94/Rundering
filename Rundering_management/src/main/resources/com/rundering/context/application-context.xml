@@ -79,10 +79,12 @@
 		p:session-ref="sqlSession" 
 	 />
 	 <bean id="laundryThroughputDAO" class="com.rundering.dao.LaundryThroughputDAOImpl"
+	 	p:session-ref="sqlSession"	
+	 />
+	 <bean id="branchApplicationDAO" class="com.rundering.dao.BranchApplicationDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
-	
-	
+
 	<!-- Service Layer -->
 	<bean id="asRequestService" class="com.rundering.service.AsRequestServiceImpl"
 		p:asRequestDAO-ref="asRequestDAO"
@@ -163,8 +165,8 @@
 	<bean id="laundryThroughputService" class="com.rundering.service.LaundryThroughputServiceImpl"
 		p:laundryThroughputDAO-ref="laundryThroughputDAO"
 	/>
-	
-	
-	
+	<bean id="branchApplicationService" class="com.rundering.service.BranchApplicationServiceImpl"
+		p:branchApplicationDAO-ref="branchApplicationDAO"
+	 />
 	
 </beans>

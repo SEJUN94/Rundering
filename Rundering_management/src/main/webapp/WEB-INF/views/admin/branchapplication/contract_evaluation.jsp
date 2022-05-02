@@ -3,10 +3,11 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-
+<c:set var="pageMaker" value="${dataMap.pageMaker }" />
+<c:set var="cri" value="${dataMap.pageMaker.cri }" />
+<c:set var="branchApplicationList" value="${dataMap.branchApplicationList }" />
 <body>
-
+${branchApplicationList }
 <section class="content-header">
 	<div class="container-fluid">
 		<div class="row mb-2">
@@ -44,56 +45,39 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:if test="${empty branchApplicationList }">
+						<tr>
+							<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+						</tr>
+					</c:if>
+						<c:forEach items="${branchApplicationList }" var="branchApplication">
+					
 							<tr>
 								<td class="list" id="memno" name="memno" style="vertical-align: middle" >백관우</td>
 								<td style="vertical-align: middle" >01033215542</td>
 								<td style="vertical-align: middle">bgwbgw100@gmail.com</td>
 								<td style="vertical-align: middle;padding-bottom: 6px;padding-top: 6px;">
-								<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_request()">신청승인</button>
-								<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_examine()">심사승인</button>
-								<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_voluntary()">수의계약</button>
-								<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_enrollment()">지점등록</button>
+								<c:if test="${branchApplication.progress_status_code eq '01'} ">
+									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_request()">신청승인</button>
+								</c:if>
+								<c:if test="${branchApplication.progress_status_code eq '02'} ">
+									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_request()">신청승인</button>
+									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_examine()">심사승인</button>
+								</c:if>
+								<c:if test="${branchApplication.progress_status_code eq '03'} ">
+									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_request()">신청승인</button>
+									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_examine()">심사승인</button>
+									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_voluntary()">수의계약</button>
+								</c:if>
+								<c:if test="${branchApplication.progress_status_code eq '04' }">
+									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_request()">신청승인</button>
+									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_examine()">심사승인</button>
+									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_voluntary()">수의계약</button>
+									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_enrollment()">지점등록</button>
+								</c:if>
 								</td>
 							</tr>
-							<tr>
-								<td class="list" id="memno" name="memno" style="vertical-align: middle" >백관우</td>
-								<td style="vertical-align: middle" >01033215542</td>
-								<td style="vertical-align: middle">bgwbgw100@gmail.com</td>
-								<td style="vertical-align: middle;padding-bottom: 6px;padding-top: 6px;">
-								<button type="submit" class="btn btn-outline-danger btn-sm">신청승인</button>
-								<button type="submit" class="btn btn-outline-danger btn-sm">심사승인</button>
-								<button type="submit" class="btn btn-outline-danger btn-sm">수의계약</button>
-								<button type="submit" class="btn btn-outline-danger btn-sm">지점등록</button></td>
-							</tr>
-							<tr>
-								<td class="list" id="memno" name="memno" style="vertical-align: middle" >백관우</td>
-								<td style="vertical-align: middle" >01033215542</td>
-								<td style="vertical-align: middle">bgwbgw100@gmail.com</td>
-								<td style="vertical-align: middle;padding-bottom: 6px;padding-top: 6px;">
-								<button type="submit" class="btn btn-outline-danger btn-sm">신청승인</button>
-								
-							</tr>
-							<tr>
-								<td class="list" id="memno" name="memno" style="vertical-align: middle" >백관우</td>
-								<td style="vertical-align: middle" >01033215542</td>
-								<td style="vertical-align: middle">bgwbgw100@gmail.com</td>
-								<td style="vertical-align: middle;padding-bottom: 6px;padding-top: 6px;">
-								<button type="submit" class="btn btn-outline-danger btn-sm">신청승인</button>
-								<button type="submit" class="btn btn-outline-danger btn-sm">심사승인</button>
-								<button type="submit" class="btn btn-outline-danger btn-sm">수의계약</button>
-								<button type="submit" class="btn btn-outline-danger btn-sm">지점등록</button></td>
-							</tr>
-							<tr>
-								<td class="list" id="memno" name="memno" style="vertical-align: middle" >백관우</td>
-								<td style="vertical-align: middle" >01033215542</td>
-								<td style="vertical-align: middle">bgwbgw100@gmail.com</td>
-								<td style="vertical-align: middle;padding-bottom: 6px;padding-top: 6px;">
-								<button type="submit" class="btn btn-outline-success btn-sm">신청승인</button>
-								<button type="submit" class="btn btn-outline-success btn-sm">심사승인</button>
-								<button type="submit" class="btn btn-outline-success btn-sm">수의계약</button>
-								<button type="submit" class="btn btn-outline-danger btn-sm">지점등록</button></td>
-							</tr>
-					
+						</c:forEach>
 							
 					</tbody>
 				</table>
@@ -110,11 +94,7 @@
 	
 </div>
 
-<div class="row ml-3 mr-3">
-	<div class="col-8">
-		
-	</div>
-</div>
+
 <%@ include file="./request_js.jsp" %>
 <%@ include file="./enrollment_js.jsp" %>
 <%@ include file="./examine_js.jsp" %>
