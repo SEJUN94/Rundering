@@ -1,15 +1,12 @@
 package com.rundering.manage.admin;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jsp.util.MakeFileName;
 import com.rundering.dto.AttachVO;
-import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.service.AttachService;
 import com.rundering.service.LaundryArticlesService;
 import com.rundering.util.FileUtil;

@@ -92,7 +92,7 @@
             if(req.toUpperCase() == "OK"){
                Swal.fire({
                   icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
-                  title: '지점 등록 신청이 완료되었습니다.',
+                  title: '본인 확인이 완료 되었습니다.',
                });
                setTimeout(function(){location.href='<%=request.getContextPath() %>/branchapplication/my_branch_request';},1000);
             } else if(req.toUpperCase() == "NO") {

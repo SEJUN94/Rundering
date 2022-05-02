@@ -4,7 +4,9 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	
+	<bean id="filePath" class="java.lang.String">
+		<constructor-arg value="${branchApplication.upload}" />      
+	</bean>
 	<!-- board.file -->
 	<bean id="boardPath" class="java.lang.String">
 		<constructor-arg value="${board.upload}" />      
