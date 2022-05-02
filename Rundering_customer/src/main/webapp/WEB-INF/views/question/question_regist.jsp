@@ -74,8 +74,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="fcontent" style="margin-left: 10px; font-size: large;">▼▽▼문의할
-						내용을 입력하세요▼▽▼</label>
+					<label for="fcontent" style="margin-left: 10px; font-size: large;">내용</label>
 					<textarea style="border: none; height: 100px; resize: none;"
 						class="textarea" rows="10" cols="20" id="fcontent" name="fcontent"></textarea>
 				</div>

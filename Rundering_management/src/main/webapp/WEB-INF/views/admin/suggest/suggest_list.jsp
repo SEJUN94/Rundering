@@ -94,7 +94,7 @@ th, td {
 									<tr style='font-size: 0.85em; cursor: pointer;'
 										onclick="OpenWindow('detail?from=list&sno=${suggest.sno }','상세보기',900,700);">
 										<td class="no">${suggest.sno }</td>
-										<td class="boardtitle">${suggest.title }</td>
+										<td class="boardtitle" style="text-align: inherit;">${suggest.title }</td>
 										<td class="writer">${suggest.writer }</td>
 										<td class="branchName">${suggest.branchName }</td>
 										<td class="date"><fmt:formatDate
