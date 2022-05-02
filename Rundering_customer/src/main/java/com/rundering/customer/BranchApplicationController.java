@@ -39,6 +39,7 @@ public class BranchApplicationController {
 			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 			
+		
 		return entity;
 	}
 	
@@ -47,7 +48,6 @@ public class BranchApplicationController {
 		
 	}
 	
-	// 인증 들어기전 본인인증
 	@RequestMapping("/self_authentification")
 	public void selfAuthentification() {}
 

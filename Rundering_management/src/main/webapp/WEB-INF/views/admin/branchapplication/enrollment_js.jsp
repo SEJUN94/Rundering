@@ -115,16 +115,7 @@
 						<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
 						임대차계약서 보기</button>
 					</div>
-					<div class="form-group col-12">
-						<div>
-							<label>심사계약서</label>
-						</div> 
-						<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
-						<i class="fas fa-file"></i>
-						&nbsp; 심사계약서 다운로드</button>
-						<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
-						심사계약서 보기</button>
-					</div>
+					
 					<div class="form-group col-12">
 						<div>
 							<label>수의계약서</label>

@@ -1,11 +1,17 @@
 package com.rundering.scheduler;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.client.RestClientException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.EmployeesDAO;
@@ -14,6 +20,7 @@ import com.rundering.dto.BranchVO;
 import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.util.SensSms;
 
 public class OrderTaskScheduler {
 
@@ -38,6 +45,11 @@ public class OrderTaskScheduler {
 	private EmployeesDAO employeesDAO;
 	public void setEmployeesDAO(EmployeesDAO employeesDAO) {
 		this.employeesDAO = employeesDAO;
+	}
+	
+	private SensSms sensSms;
+	public void setSensSms(SensSms sensSms) {
+		this.sensSms = sensSms;
 	}
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderTaskScheduler.class);
@@ -345,6 +357,12 @@ public class OrderTaskScheduler {
 						laundryOrderDAO.updateLaundryOrderDeliveryEmployeeId(orderVO);
 						orderVO.setOrderStatus("07");
 						laundryOrderDAO.updateLaundryOrderStatusByOrderNo(orderVO);
+						//문자발송 주석처리
+//						try {
+//							sensSms.sendSMS(orderVO.getContactNumber().trim(), "[Rundering]\n고객님의 세탁이 완료되어 내일 오전 7시 전에 도착할 예정입니다.");
+//						} catch (Exception e) {
+//							logger.warn("주문번호 "+orderVO.getOrderNo()+" 배송안내 문자 발송실패");
+//						}
 						
 					}
 					cnt += quantity;
