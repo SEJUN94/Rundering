@@ -33,6 +33,8 @@
 			} else {
 				location.hash = "#" + menuCode;
 			}
+			
+			getNotification();
 		} 
 		
 	
@@ -45,6 +47,13 @@
 			goPage('<%= request.getContextPath() %>${menu.menuUrl}','${menu.menuCode}');
 			
 		} 
+	</script>
+	
+	<script>
+	//알림 가져오기
+	function getNotification(){
+		
+	}
 	</script>
 	
 	

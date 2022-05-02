@@ -95,6 +95,8 @@
 			A.BRANCH_CONTACT as branchContact,
 			A.TOPAREA as topareaCode,
 			A.AREA as area,
+			A.ADD1 as add1,
+            A.ADD2 as add2,
 			C.NAME as name,
 			C.PHONE as phone,
 			C.EMAIL as email,
@@ -102,6 +104,7 @@
 		  from TB_BRANCH A, TB_EMPLOYEES B, TB_MEMBER C, TB_COM_CODE D
 		 WHERE B.POSITION = D.COM_CODE
            AND D.COM_CODE_NM='지점장'
+           and C.ID=B.EMPLOYEE_ID
 		   AND A.BRANCH_CODE = #{branchCode}
            AND A.BRANCH_CODE=B.BRANCH_CODE
            AND B.MEMBERNO=C.MEMBERNO
