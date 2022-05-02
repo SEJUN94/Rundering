@@ -155,7 +155,7 @@ console.log(a)
 				type : 'post',
 				success : function(ok) {
 					if(ok.toUpperCase() == "OK"){
-						Swal.fire({
+						Swal.fire({ 
 							icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
 							title: '취소 처리 되었습니다.',
 						});
