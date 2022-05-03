@@ -98,6 +98,7 @@
 	<bean id="laundryArticlesService" class="com.rundering.service.LaundryArticlesServiceImpl"
 		p:laundryArticlesDAO-ref="laundryArticlesDAO"
 		p:attachDAO-ref="attachDAO"
+		p:comCodeDAO-ref="comCodeDAO"
 	/>	
 	<bean id="laundryFixturesService" class="com.rundering.service.LaundryFixturesServiceImpl"
 		p:laundryFixturesDAO-ref="laundryFixturesDAO"
@@ -160,8 +161,8 @@
 	/>
 	<!--이메일 발송 서비스  -->
 	<bean id="mailSendService" class="com.rundering.service.MailSendService"
-	  p:mailSender-ref="mailSender"
-	  p:memberDAO-ref="memberDAO" 
+		p:mailSender-ref="mailSender"
+		p:memberDAO-ref="memberDAO" 
 	/>  
 	<bean id="adminItemOrderService" class="com.rundering.service.AdminItemOrderServiceImpl"
 		p:adminItemOrderDAO-ref="adminItemOrderDAO"

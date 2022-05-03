@@ -8,14 +8,17 @@ import java.util.Map;
 import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
 import com.rundering.dao.AttachDAO;
+import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.LaundryArticlesDAO;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryArticlesVO;
+import com.rundering.util.ComCodeUtil;
 
 public class LaundryArticlesServiceImpl implements LaundryArticlesService {
 
 	private LaundryArticlesDAO laundryArticlesDAO;
 	private AttachDAO attachDAO;
+	private ComCodeDAO comCodeDAO;
 
 	public void setLaundryArticlesDAO(LaundryArticlesDAO laundryArticlesDAO) {
 		this.laundryArticlesDAO = laundryArticlesDAO;
@@ -23,15 +26,32 @@ public class LaundryArticlesServiceImpl implements LaundryArticlesService {
 	public void setAttachDAO(AttachDAO attachDAO) {
 		this.attachDAO = attachDAO;
 	}
+	
+	public void setComCodeDAO(ComCodeDAO comCodeDAO) {
+		this.comCodeDAO = comCodeDAO;
+	}
+	
 
 	@Override
 	public Map<String, Object> getLaundryArticles(Criteria cri) throws SQLException {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-
+		ComCodeUtil comCodeUtil = new ComCodeUtil();
+		cri.setPerPageNum(5);
+		try {
+			comCodeUtil.getCodeListMap("EACH", dataMap, comCodeDAO);
+			comCodeUtil.getCodeListMap("CLCODE", dataMap, comCodeDAO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		List<LaundryArticlesVO> laundryArticlesList = laundryArticlesDAO.NotALaundryArticlesList(cri);
-
 		// 전체 board 개수
 		int totalCount = laundryArticlesDAO.selectLaundryArticlesCriteriaTotalCount(cri);
+
+		
+		
 		// PageMaker 생성.
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);

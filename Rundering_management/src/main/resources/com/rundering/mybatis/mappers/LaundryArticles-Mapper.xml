@@ -58,6 +58,7 @@
 		select * 
 		  from TB_LAUNDRY_ARTICLES
 		 where ARTICLES_CODE=#{articlesCode}
+		   and  DELETE_YN='N'
 	</select>
 	
 	<select id="selectLandryArticlesStock" resultMap="laundryArticlesMap">
