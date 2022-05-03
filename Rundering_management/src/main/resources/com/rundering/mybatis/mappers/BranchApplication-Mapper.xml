@@ -62,6 +62,11 @@
 		   set PROGRESS_STATUS_CODE='08'	
 		 where APPLICATION_NO=#{applicationNo}
 	</update>
+	<update id="updateProgressStatusCode10ByBranchApplicationVO" parameterType="branchapplication">
+		update tb_branch_application
+		   set PROGRESS_STATUS_CODE='10'	
+		 where APPLICATION_NO=#{applicationNo}
+	</update>
 	
 	
 	

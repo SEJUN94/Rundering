@@ -41,7 +41,7 @@
 					</div>
 					<!--end card-header  -->
 					<div class="card-body pad">
-						<form action="modify" method="post" role="modifyForm">
+						<form action="modify" method="post" role="modifyForm" name="modifyForm">
 							<input type="hidden" name="asno" value="${asRequest.asno }" />
 							<div class="form-group">
 								<label for="title">제 목</label> <input type="text" id="title"
@@ -80,24 +80,9 @@
 											<label for="fixturesName">고장물품<select
 												class="form-control" name="fixturesCode" id="fixturesCode"
 												style=" width: 195px;">
-											<c:choose>
-												<c:when test="${loginEmployee.branchCode == '060101'}">
-													<option value="A06010101">세탁기1호기</option>
-													<option value="A06010201">세탁기2호기</option>
-													<option value="A06010102">건조기1호기</option>
-													<option value="A06010202">건조기2호기</option>
-													<option value="A06010103">에어컨1호기</option>
-													<option value="A06010203">에어컨2호기</option>
-												</c:when>
-												<c:when test="${loginEmployee.branchCode == '060201'}">
-													<option value="A06020101">세탁기1호기</option>
-													<option value="A06020201">세탁기2호기</option>
-													<option value="A06020102">건조기1호기</option>
-													<option value="A06020202">건조기2호기</option>
-													<option value="A06020103">에어컨1호기</option>
-													<option value="A06020203">에어컨2호기</option>
-												</c:when>
-											</c:choose>
+												<c:forEach items="${fixturesList }" var="fixtures">
+													<option value="${fixtures.fixturesCode }">${fixtures.fixturesName }</option>
+												</c:forEach>
 											</select></label>
 										</div>
 										<div class="col">
@@ -141,6 +126,11 @@
    	}
 	
 	 function modifyPOST_go(){
+		 var modifyForm = document.modifyForm;
+		 if (modifyForm.requestDate.value == ""){
+			 alert("고장난 날짜를 적용하세요.");
+			return;
+		 }
 		 $("form[role='modifyForm']").submit();
 	 }
    </script>

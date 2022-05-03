@@ -170,4 +170,23 @@
 		WHERE ID = #{id}
 	</update>
 	
+	<select id="selectMemberNoSeq" resultType="str">
+		select MEMBERNO_SEQ.NEXTVAL
+		  from dual
+	</select>
+	
+	<insert id="insertBranchMemberByMemberVO" parameterType="member">
+		INSERT INTO
+		TB_MEMBER(MEMBERNO,PASSWORD,NAME,PHONE,EMAIL)
+		VALUES
+		(#{memberNo},'03',#{name},#{phone},#{email})
+	</insert>
+	
+	<select id="selectMemberByPhone" parameterType="str" resultMap="memberMap">
+		select *
+		  from tb_member
+		 where phone=#{phone}
+	
+	</select>
+	 
 </mapper>

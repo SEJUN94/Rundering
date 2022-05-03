@@ -84,6 +84,9 @@
 	 <bean id="branchApplicationDAO" class="com.rundering.dao.BranchApplicationDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
+	 <bean id="LaundryGoodsStockDAO" class="com.rundering.dao.LaundryGoodsStockDAOImpl"
+	 	p:session-ref="sqlSession"
+	 />
 
 	<!-- Service Layer -->
 	<bean id="asRequestService" class="com.rundering.service.AsRequestServiceImpl"
@@ -168,6 +171,13 @@
 	/>
 	<bean id="branchApplicationService" class="com.rundering.service.BranchApplicationServiceImpl"
 		p:branchApplicationDAO-ref="branchApplicationDAO"
+		p:branchDAO-ref="branchDAO"
+		p:memberDAO-ref="memberDAO"
+		p:laundryFixturesDAO-ref="laundryFixturesDAO"
+		p:laundryArticlesDAO-ref="laundryArticlesDAO"
+		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
+		p:employeesDAO-ref="employeesDAO"
+		p:mailSendService-ref="mailSendService"
 	 />
 	
 </beans>

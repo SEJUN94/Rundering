@@ -21,5 +21,10 @@ public class ComCodeUtil {
 		}
 		return codeMap;
 	}
+	public Map<String, Object> getCodeListMap(String comCodeGrp,Map<String, Object> codeMap,ComCodeDAO comCodeDAO) throws Exception {
+		List<ComCodeVO> itemOrderComCode = comCodeDAO.selectComCodeByComCodeGrp(comCodeGrp);
+		codeMap.put(comCodeGrp+"List",itemOrderComCode);
+		return codeMap;
+	}
 	
 }

@@ -3,6 +3,7 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:set var="faqorderno" value="${faq.orderno }" />
 <c:set var="faqanswer" value="${faq.answer }" />
 
 <head>
@@ -39,9 +40,26 @@
 					<!--end card-header  -->
 					<div class="card-body pad col-12">
 						<div class="form-group">
-							<label for="question">제 목</label> <input type="text" id="question"
-								readonly name='question' class="form-control"
-								value="${faq.question }">
+							<div class="row">
+								<div class="col">
+									<label for="question"> 제 목</label> <input type="text" id="question"
+										readonly name='question' class="form-control"
+										value="${faq.question }">
+								</div>
+								<div class="col">
+									<c:choose>
+										<c:when test="${not empty faqorderno }">
+											<label for="orderno">주문번호</label>
+											<input type="text" id="orderno"
+												readonly name='orderno' class="form-control"
+												value="${faq.orderno }" onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do?orderNo=${faq.orderno }', '주문 상세', 'width=800, height=900');"
+									style="cursor: pointer;">								
+										</c:when> 
+										<c:when test="${empty faqorderno }">						
+										</c:when>							
+									</c:choose>
+								</div>							
+							</div>
 						</div>
 						<div class="form-group ">
 							<div class="row">

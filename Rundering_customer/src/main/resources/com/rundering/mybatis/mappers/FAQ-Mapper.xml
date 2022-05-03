@@ -64,12 +64,13 @@
 		count(*)
 		from tb_faq a
 		where a.faqno is not null
-		<!-- <include refid="search" /> -->
+		  and a.faqyn = 'N'
+		<include refid="search" />
 		order by a.regist_date desc
 	</select>
 
 	<select id="selectFAQByFaqno" parameterType="int" resultMap="faqMap">
-		select a.faqno, a.setbukdoorclcode, a.question, a.fcontent, a.regist_date, b.name as writer, a.answer
+		select a.faqno, a.setbukdoorclcode, a.question, a.fcontent, a.orderno, a.regist_date, b.name as writer, a.answer
 		from tb_faq a, tb_member b
 		where faqno=#{faqno}
 			and a.writer = b.memberno
@@ -88,6 +89,7 @@
 			question,
 			fcontent,
 			writer,
+			orderno,
 			secretyn
 			) values (
 				faqno_seq.nextval,
@@ -95,7 +97,17 @@
 				#{question},
 				#{fcontent},
 				#{writer},
+				#{orderno},
 				#{secretyn})
+	</select>
+	
+	<select id="selectOrderno" resultMap="faqMap">
+		select
+		    b.order_no as orderno
+		    from tb_member a, tb_laundry_order b
+		    where a.memberno = #{memberNo}
+		      and a.memberno = b.memberno
+		      order by b.order_date desc
 	</select>
 
 	<update id="updateFAQ" parameterType="faq">
@@ -111,6 +123,13 @@
 		where faqno=#{faqno}
 	</update>
 	
+	<!-- 자주묻는질문 검색 -->	
+	<sql id="frequently">
+		<if test="searchType == 't'.toString()">
+			and question like '%'||#{keyword}||'%'
+		</if>
+	</sql>
+	
 	<!-- 자주묻는질문 리스트보기 -->
 	<select id="selectFrequentlyList" resultMap="faqMap">
 		select
@@ -120,7 +139,18 @@
 		    faqyn
 		 from tb_faq
 			where faqyn = 'Y'
+			<include refid="frequently" />
 			order by faqno asc		 
+	</select>
+	
+	<select id="selectFrequentlyListCount" resultType="int">
+		select
+		count(*)
+		from tb_faq
+		where faqno is not null
+		  and faqyn = 'Y'
+		<include refid="frequently" />
+		order by regist_date desc
 	</select>
 
 </mapper>

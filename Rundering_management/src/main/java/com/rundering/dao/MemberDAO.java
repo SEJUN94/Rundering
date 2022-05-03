@@ -51,5 +51,11 @@ public interface MemberDAO {
 	
 	// 새로운 비밀번호로 변경
 	public void modifyPwById(MemberVO mv) throws Exception;
+
+	void insertBranchMemberByMemberVO(MemberVO member) throws Exception;
+	
+	public String selectMemberNoSeq() throws Exception;
+
+	MemberVO selectMemberByPhone(String phone) throws Exception;
 	
 }

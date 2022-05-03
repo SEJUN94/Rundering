@@ -1,6 +1,7 @@
 package com.rundering.manage.branch;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.rundering.command.Criteria;
 import com.rundering.dto.AsRequestVO;
 import com.rundering.dto.EmployeesVO;
+import com.rundering.dto.LaundryFixturesVO;
 import com.rundering.service.AsRequestService;
 import com.rundering.service.LaundryFixturesService;
 
@@ -42,8 +45,18 @@ public class BranchAsRequestController {
 	}
 
 	@RequestMapping("/registForm")
-	private String asRequestRegistForm() {
-
+	private String asRequestRegistForm(HttpSession session,Model model) {
+		EmployeesVO emp =(EmployeesVO)session.getAttribute("loginEmployee");
+		List<LaundryFixturesVO> fixturesList = null; 
+		try {
+			fixturesList = laundryFixturesService.selectBranchFixturesList(emp.getBranchCode());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("fixturesList", fixturesList);
+		
 		String url = "branch/asrequest/asrequest_regist";
 
 		return url;
@@ -65,12 +78,23 @@ public class BranchAsRequestController {
 	}
 	
 	@RequestMapping("/modifyForm")
-	public ModelAndView modifyForm(int asno, ModelAndView mnv) throws Exception {
-
+	public ModelAndView modifyForm(int asno, ModelAndView mnv,HttpSession session) throws Exception {
+		
+		EmployeesVO emp =(EmployeesVO)session.getAttribute("loginEmployee");
+		List<LaundryFixturesVO> fixturesList = null; 
+		try {
+			fixturesList = laundryFixturesService.selectBranchFixturesList(emp.getBranchCode());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 		String url = "branch/asrequest/asrequest_modify";
 
 		AsRequestVO asRequest = asRequestService.getAsRequestModify(asno);
-	
+		mnv.addObject("fixturesList", fixturesList);
 		mnv.addObject("asRequest", asRequest);
 		
 		mnv.setViewName(url);

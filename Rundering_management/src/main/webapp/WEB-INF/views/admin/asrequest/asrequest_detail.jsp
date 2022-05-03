@@ -89,10 +89,10 @@
 						<div class="float-right">
 							<%-- <button type="button" class="btn btn-danger" id="removeBtn"
 								onclick="remove_go('${asRequest.asno}');">삭제</button>
-							&nbsp;&nbsp;
-							<button type="button" class="btn btn-warning" id="cancelBtn"
-								onclick="modify_go('${asRequest.asno}');">수정</button>
 							&nbsp;&nbsp; --%>
+							<button type="button" class="btn btn-warning" id="okBtn"
+								onclick="ok_go('${asRequest.asno}');">조치완료</button>
+							&nbsp;&nbsp;
 							<button type="button" class="btn btn-primary" id="cancelBtn"
 								onclick="CloseWindow();">닫 기</button>
 						</div>
@@ -106,22 +106,15 @@
 		<!-- end row -->
 	</section>
 	<!-- /.content -->
-	<!-- <script>
-		function modify_go(asno) {
-			location.href = "modifyForm?asno=" + asno;
+	<script>
+		function ok_go(asno) {
+			location.href = "ok?asno=" + asno;
 		}
 
-		function remove_go(asno) {
-			location.href = "remove?asno=" + asno;
-		}
-
-		<c:if test="${from eq 'modify' }">
-		alert("수정되었습니다.");
-		</c:if>
-		<c:if test="${from eq 'remove'}">
-		alert("삭제되었습니다.");
+		<c:if test="${from eq 'ok' }">
+		alert("완료되었습니다.");
 		window.close();
 		window.opener.location.reload();
 		</c:if>
-	</script> -->
+	</script>
 </body>

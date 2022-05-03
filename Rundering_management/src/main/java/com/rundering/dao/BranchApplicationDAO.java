@@ -21,4 +21,6 @@ public interface BranchApplicationDAO {
 	public void updateExaminationByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception;
 
 	void updateProgressStatusCode08ByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception;
+
+	void updateProgressStatusCode10ByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception;
 }

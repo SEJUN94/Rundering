@@ -57,6 +57,14 @@ public class AsRequestServiceImpl implements AsRequestService {
 	}
 
 	@Override
+	public AsRequestVO getOk(int asno) throws SQLException {
+		asRequestDAO.okAsRequest(asno);
+		
+		AsRequestVO asRequest = asRequestDAO.selectAsRequestByAsno(asno);
+		return asRequest;
+	}
+
+	@Override
 	public AsRequestVO getAsRequestModify(int asno) throws SQLException {
 		AsRequestVO asRequest = asRequestDAO.selectAsRequestByAsno(asno);
 		return asRequest;

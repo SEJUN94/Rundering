@@ -1,5 +1,7 @@
 package com.rundering.manage.admin;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,10 +17,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.Criteria;
+import com.rundering.command.EnrollmentRegistCommand;
+import com.rundering.dao.ComCodeDAO;
 import com.rundering.dto.BranchApplicationVO;
+import com.rundering.dto.BranchVO;
 import com.rundering.dto.EmployeesVO;
+import com.rundering.dto.LaundryFixturesVO;
+import com.rundering.dto.MemberVO;
 import com.rundering.service.BranchApplicationService;
-import com.rundering.service.BranchService;
+import com.rundering.util.ComCodeUtil;
 
 @RequestMapping("/admin/branchapplication")
 @Controller
@@ -26,6 +33,8 @@ public class BranchApplication {
 
 	@Autowired
 	BranchApplicationService branchApplicationService;
+	@Autowired
+	ComCodeDAO comCodeDAO;
 	
 	@RequestMapping("/contract")
 	public ModelAndView branchContract(ModelAndView mnv,Criteria cri) {
@@ -55,6 +64,59 @@ public class BranchApplication {
 		}
 		return resp;
 	}
+	
+	@RequestMapping(value = "/applicationAreaData" ,method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> applicationAreaData(String applicationNo){
+		BranchApplicationVO branchApplication = null;
+		ResponseEntity<Map<String, Object>> resp = null;
+		ComCodeUtil comCodeUtil = new ComCodeUtil();
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		Map<String,Object > areaCode =new HashMap<String, Object>();
+		Map<String,Object > topAreaCode =new HashMap<String, Object>();
+		
+		try {
+			branchApplication = branchApplicationService.selectBranchApplication(applicationNo);
+			comCodeUtil.getCodeListMap("AREA",areaCode , comCodeDAO);
+			comCodeUtil.getCodeListMap("TOPAREA",topAreaCode , comCodeDAO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dataMap.put("branchApplication", branchApplication);
+		dataMap.put("areaCode",areaCode);
+		dataMap.put("topAreaCode",topAreaCode);
+		
+		
+		resp =new ResponseEntity<Map<String, Object>>(dataMap, HttpStatus.OK);
+		
+		return resp;
+	}
+	
+	
+	@RequestMapping(value = "/applicationAreaComplateData" ,method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> applicationAreaComplateData(String applicationNo){
+		BranchApplicationVO branchApplication = null;
+		ResponseEntity<Map<String, Object>> resp = null;
+		BranchVO branch = null;
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		try {
+			branchApplication = branchApplicationService.selectBranchApplication(applicationNo);
+			branch =branchApplicationService.selectBranch(branchApplication.getPhone());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dataMap.put("branchApplication", branchApplication);
+		dataMap.put("branch",branch);
+		
+		resp =new ResponseEntity<Map<String, Object>>(dataMap, HttpStatus.OK);
+		return resp;
+	}
+	
+	
 	@RequestMapping(value=  "/approvalreturnContentsRegist",method = RequestMethod.POST)
 	public String approvalreturnContentsRegist(BranchApplicationVO brnachApplication,HttpSession session) {
 		String url="redirect:/admin/branchapplication/contract";
@@ -106,6 +168,24 @@ public class BranchApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return url;
+	}
+	@RequestMapping(value = "enrollmentRegist",method = RequestMethod.POST)
+	public String enrollmentRegist(EnrollmentRegistCommand enrollmentRegistCommand,String applicationNo) throws Exception{
+		String url="redirect:/admin/branchapplication/contract";
+		String area=enrollmentRegistCommand.getArea();
+		String branchCode= branchApplicationService.selectBranchCode(area);
+		
+		
+		enrollmentRegistCommand.setBranchCode(branchCode);
+		MemberVO member = enrollmentRegistCommand.getMemberVO();
+	    BranchVO branch=enrollmentRegistCommand.getBranchVO();
+	    List<LaundryFixturesVO> laundryFixturesList= enrollmentRegistCommand.getLaundryFixturesVOList();
+	    branchApplicationService.enrollmentRegist(member, branch, laundryFixturesList, applicationNo);
+	    
+	    
+		
+		
 		return url;
 	}
 	

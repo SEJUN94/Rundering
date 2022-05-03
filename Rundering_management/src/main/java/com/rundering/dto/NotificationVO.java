@@ -10,7 +10,7 @@ public class NotificationVO {
 	private String ntcnclickhourUrl; //알림클릭시URL
 	private Date occrrncdehour;   	 //발생일시
 	private Date cnfirmdehour;  	 //확인일시
-	private String fowonNo;          //알림받은사원
+	private String employeeId;          //알림받은사원
 
 	
 	public NotificationVO() {
@@ -60,11 +60,11 @@ public class NotificationVO {
 	public void setCnfirmdehour(Date cnfirmdehour) {
 		this.cnfirmdehour = cnfirmdehour;
 	}
-	public String getFowonNo() {
-		return fowonNo;
+	public String getEmployeeId() {
+		return employeeId;
 	}
-	public void setFowonNo(String fowonNo) {
-		this.fowonNo = fowonNo;
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
 	}
 	
 }

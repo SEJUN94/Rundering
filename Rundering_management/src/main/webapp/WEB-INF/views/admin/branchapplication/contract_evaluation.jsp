@@ -7,12 +7,7 @@
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="branchApplicationList" value="${dataMap.branchApplicationList }" />
 <body>
-<c:if test="${from eq 'notemp' }">
-	<script>
-		alert('담당직원이 아닙니다');
-	</script>
-</c:if>
-
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <section class="content-header">
 	<div class="container-fluid">
 		<div class="row mb-2">
@@ -111,7 +106,7 @@
 										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_request(true,'${branchApplication.applicationNo}')">신청승인</button>
 										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_examine(true,'${branchApplication.applicationNo}')">심사승인</button>
 										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_voluntary(true,'${branchApplication.applicationNo}')">수의계약확인</button>
-										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_enrollment(true,'${branchApplication.applicationNo}')">지점등록</button>
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_request_complate('${branchApplication.applicationNo}')">지점등록</button>
 									</c:if>
 									
 								</td>
@@ -127,6 +122,8 @@
 		</div>
 	</div>
 </div>
+
+
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <div id="handleTag">
 	
@@ -138,10 +135,11 @@
 <%@ include file="./enrollment_js.jsp" %>
 <%@ include file="./examine_js.jsp" %>
 <%@ include file="./voluntary_js.jsp" %>
+<%@ include file="./branchRequestComplate.jsp" %>
 			
-	<script>
+<script>
 	
-	</script>	
+</script>	
 
 
 </body>
