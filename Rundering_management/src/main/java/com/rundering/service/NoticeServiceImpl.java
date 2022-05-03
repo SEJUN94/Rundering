@@ -11,11 +11,13 @@ import com.rundering.command.PageMaker;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dao.EmployeesDAO;
 import com.rundering.dao.NoticeDAO;
+import com.rundering.dao.NotificationDAO;
 import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.dto.NoticeVO;
+import com.rundering.dto.NotificationVO;
 import com.rundering.dto.ReplyVO;
 
 
@@ -36,6 +38,10 @@ public class NoticeServiceImpl implements NoticeService{
 	private BranchDAO branchDAO;
 	public void setBranchDAO(BranchDAO branchDAO) {
 		this.branchDAO = branchDAO;
+	}
+	private NotificationDAO notificationDAO;
+	public void setNotificationDAO(NotificationDAO notificationDAO) {
+		this.notificationDAO = notificationDAO;
 	}
 
 	@Override
@@ -75,13 +81,36 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public void regist(NoticeVO notice) throws SQLException {
+	public void regist(NoticeVO notice) throws Exception {
 		  	int replyno = noticeDAO.selectNoticeSequenceNextValue();
 			int noticeno = noticeDAO.selectNoticeSequenceNextValue();
 			notice.setReplyNo(replyno);
 			notice.setNoticeno(noticeno);
 			noticeDAO.insertNotice(notice);
+			
+			//모든 지점의 사원에게 공지 알림 - 배송사원 제외
+			List<BranchVO> branchList = branchDAO.selectBranchList();
+			for (BranchVO branchVO : branchList) {
+				if (branchVO.getBranchCode().equals("000000"))
+					continue;
+				List<EmployeesVO> employeesList = employeesDAO.selectEmployeesByBranchCode(branchVO.getBranchCode());
+				NotificationVO notificationVO = new NotificationVO();
+				for (EmployeesVO employeesVO : employeesList) {
+					if (employeesVO.getDepartment().equals("DE"))
+						continue;
+					int sequence = notificationDAO.selectNotificationSequenceNextValue();
+					notificationVO.setNtcnId(String.valueOf(sequence));
+					notificationVO.setEmployeeId(employeesVO.getEmployeeId());
+					notificationVO.setNtcnknd("NT"); // 알림종류 공통코드 - 공지사항
+					notificationVO.setNtcncn("새 공지사항 - " + notice.getTitle());
+					notificationVO.setNtcnclickhourUrl("javascript:goPage('/runderingmanage/branch/notice/list','B040000');");
+					notificationDAO.insertNotification(notificationVO);
+				}
+
+			}
 	}
+	
+	
 	@Override
 	public void modify(NoticeVO notice) throws SQLException {
 			noticeDAO.updateNotice(notice);

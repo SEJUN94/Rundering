@@ -126,6 +126,7 @@
 		p:replyDAO-ref="replyDAO"
 		p:branchDAO-ref="branchDAO"
 		p:employeesDAO-ref="employeesDAO"
+		p:notificationDAO-ref="NotificationDAO"
 	/>
 	<bean id="itemOrderService" class="com.rundering.service.ItemOrderServiceImpl"
 		p:itemOrderDAO-ref="itemOrderDAO"
