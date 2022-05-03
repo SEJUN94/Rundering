@@ -12,7 +12,7 @@
 
 <body>
 
-	<div style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
+	<div style="width: 60%; display: flex; flex-direction: column; margin: auto;max-width: 758px;">
 
 		<section class="content-header">
 			<div class="container-fluid">

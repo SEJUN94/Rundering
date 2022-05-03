@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.rundering.command.AdminLaundryOrderListCriteria;
 import com.rundering.command.BranchCriteria;
+import com.rundering.command.BranchInfoDetailCommand;
 import com.rundering.command.BranchPageMaker;
 import com.rundering.command.PageMaker;
 import com.rundering.dao.AttachDAO;
@@ -15,6 +16,7 @@ import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
+import com.rundering.dao.LaundryThroughputDAO;
 import com.rundering.dao.MemberDAO;
 import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.AttachVO;
@@ -58,6 +60,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	private AttachDAO attachDAO;
 	public void setAttachDAO(AttachDAO attachDAO) {
 		this.attachDAO = attachDAO;
+	}
+	private LaundryThroughputDAO laundryThroughputDAO;
+	public void setLaundryThroughputDAO(LaundryThroughputDAO laundryThroughputDAO) {
+		this.laundryThroughputDAO = laundryThroughputDAO;
 	}
 	@Override
 	public Map<String,Object> laundryOrderList(BranchCriteria cri) throws Exception{
@@ -146,8 +152,11 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		if(laundryOrder==null) {
 			return null;
 		}
+		BranchInfoDetailCommand branchDetail = null;;
 		
 		if(laundryOrder.getBranchCode() != null) {
+			branchDetail = laundryThroughputDAO.selectBranchDetail(laundryOrder.getBranchCode());
+			
 			BranchVO branch = branchDAO.selectBranchByBranchCode(laundryOrder.getBranchCode());
 			laundryOrder.setBranchCode(branch.getBranchName());
 		}
@@ -161,6 +170,9 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		dataMap.put("branchNameMap",branchNameMap);
 		dataMap.put("laundryOrder", laundryOrder);
 		dataMap.put("laundryOrderDetailList", laundryOrderDetailList);
+		dataMap.put("branchDetail", branchDetail);
+		
+		
 		return dataMap;
 	}
 	@Override 

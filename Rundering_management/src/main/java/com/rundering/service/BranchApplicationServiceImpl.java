@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JacksonInject.Value;
 import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
 import com.rundering.dao.BranchApplicationDAO;
 import com.rundering.dto.BranchApplicationVO;
+import com.rundering.dto.EmployeesVO;
 
 public class BranchApplicationServiceImpl implements BranchApplicationService{
 
@@ -36,12 +38,27 @@ public class BranchApplicationServiceImpl implements BranchApplicationService{
 		return dataMap;
 	}
 	@Override
+	public BranchApplicationVO selectBranchApplication(String applicationNo) throws Exception{
+		return branchApplicationDAO.selectBranchApplicationByapplicationNo(applicationNo);
+	}
+	 
+	@Override
 	public void updateRejectContent(BranchApplicationVO branchApplication) throws Exception{
 		branchApplicationDAO.updateApprovalreturnContentsByBranchApplicationVO(branchApplication);
 	}
 	@Override
 	public void updateApproval(BranchApplicationVO branchApplication) throws Exception{
 		branchApplicationDAO.updateApprovalreturnYByBranchApplicationVO(branchApplication);
+	}
+
+	@Override
+	public void updateExamination(BranchApplicationVO branchApplication,EmployeesVO emp) throws Exception {
+		branchApplicationDAO.updateExaminationByBranchApplicationVO(branchApplication);
+		
+	}
+	@Override
+	public void updateVoluntaryCheck(BranchApplicationVO branchApplication) throws Exception{
+		branchApplicationDAO.updateProgressStatusCode08ByBranchApplicationVO(branchApplication);
 	}
 
 }
