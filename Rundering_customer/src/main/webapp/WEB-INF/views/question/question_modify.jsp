@@ -5,6 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<c:set var="orderList" value="${dataMap.orderList }" />
+
 <head>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/bootstrap/plugins/summernote/summernote.min.css">
@@ -64,12 +66,6 @@
 											<option value="ET">기타 문의</option>
 										</select>
 									</div>
-									<%-- <div class="col">
-										<label for="registDate">등록일 <input type="text"
-											id="registDate" readonly name="registDate"
-											class="form-control" value="<fmt:formatDate
-												value="${faq.registDate }" pattern="yyyy-MM-dd" />"></label>
-									</div> --%>
 									<div class="col">
 										<label for="registDate">등록일 <input type="text"
 											id="registDate" readonly name="registDate"

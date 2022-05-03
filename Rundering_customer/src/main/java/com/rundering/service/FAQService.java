@@ -17,6 +17,9 @@ public interface FAQService {
 	// 수정화면 상세
 	FAQVO getFAQModify(int faqno) throws SQLException;
 	
+	// 주문번호
+	public Map<String, Object> getOrderList(MyOrderCriteria cri) throws SQLException;
+	
 	// 수정
 	void modify(FAQVO faq) throws SQLException;
 	

@@ -70,7 +70,7 @@
 	</select>
 
 	<select id="selectFAQByFaqno" parameterType="int" resultMap="faqMap">
-		select a.faqno, a.setbukdoorclcode, a.question, a.fcontent, a.regist_date, b.name as writer, a.answer
+		select a.faqno, a.setbukdoorclcode, a.question, a.fcontent, a.orderno, a.regist_date, b.name as writer, a.answer
 		from tb_faq a, tb_member b
 		where faqno=#{faqno}
 			and a.writer = b.memberno
@@ -89,6 +89,7 @@
 			question,
 			fcontent,
 			writer,
+			orderno,
 			secretyn
 			) values (
 				faqno_seq.nextval,
@@ -96,7 +97,17 @@
 				#{question},
 				#{fcontent},
 				#{writer},
+				#{orderno},
 				#{secretyn})
+	</select>
+	
+	<select id="selectOrderno" resultMap="faqMap">
+		select
+		    b.order_no as orderno
+		    from tb_member a, tb_laundry_order b
+		    where a.memberno = #{memberNo}
+		      and a.memberno = b.memberno
+		      order by b.order_date desc
 	</select>
 
 	<update id="updateFAQ" parameterType="faq">

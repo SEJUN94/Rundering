@@ -57,6 +57,18 @@ public class FAQDAOImpl implements FAQDAO {
 		session.update("FAQ-mapper.deleteFAQ", faqno);
 	}
 	
+	/* 주문번호 */
+	@Override
+	public List<FAQVO> selectOrderno(MyOrderCriteria cri) throws SQLException {
+
+		int offset = cri.getStartRowNum();
+		int limit = cri.getPerPageNum();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+
+		List<FAQVO> orderList = session.selectList("FAQ-mapper.selectOrderno", cri, rowBounds);
+		return orderList;
+	}
+	
 	/* 아코디언 */	
 	@Override
 	public List<FAQVO> selectFrequentlyList(MyOrderCriteria cri) throws SQLException {

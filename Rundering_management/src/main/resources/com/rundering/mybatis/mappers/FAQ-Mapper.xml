@@ -70,7 +70,7 @@
 	</select>
 
 	<select id="selectFAQByFaqno" parameterType="int" resultMap="faqMap">
-		select a.faqno, a.setbukdoorclcode, a.question, a.fcontent, a.regist_date, b.name as writer, a.answer
+		select a.faqno, a.setbukdoorclcode, a.question, a.fcontent, a.orderno, a.regist_date, b.name as writer, a.answer
 		from tb_faq a, tb_member b
 		where faqno=#{faqno}
 			and a.writer = b.memberno

@@ -23,6 +23,9 @@ public interface FAQDAO {
 	
 	void deleteFAQ(int faqno) throws SQLException;
 	
+	/* 주문번호 */
+	List<FAQVO> selectOrderno(MyOrderCriteria cri) throws SQLException;
+	
 	/* 아코디언 */
 	List<FAQVO> selectFrequentlyList(MyOrderCriteria cri) throws SQLException;
 	

@@ -59,6 +59,18 @@ public class FAQServiceImpl implements FAQService {
 	public void remove(int faqno) throws SQLException {
 		faqDAO.deleteFAQ(faqno);
 	}
+	
+	/* 주문번호 */
+	@Override
+	public Map<String, Object> getOrderList(MyOrderCriteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+
+		List<FAQVO> orderList = faqDAO.selectOrderno(cri);
+
+		dataMap.put("orderList", orderList);
+
+		return dataMap;
+	}
 
 	/* 아코디언 */	
 	@Override

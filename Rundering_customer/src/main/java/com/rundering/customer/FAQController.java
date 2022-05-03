@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.MyOrderCriteria;
 import com.rundering.dto.FAQVO;
+import com.rundering.dto.MemberVO;
 import com.rundering.service.FAQService;
 
 @Controller
@@ -50,8 +52,17 @@ public class FAQController {
 	}
 
 	@RequestMapping("/registForm")
-	private String faqRegistForm() {
-
+	private String faqRegistForm(MyOrderCriteria cri, Model model, HttpSession session) {
+		
+		MemberVO member =(MemberVO)session.getAttribute("loginUser");
+		cri.setMemberNo(member.getMemberNo());
+		try {
+			Map<String, Object> dataMap = faqService.getOrderList(cri);
+			model.addAttribute("dataMap", dataMap);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		String url = "question/question_regist";
 
 		return url;
@@ -86,7 +97,7 @@ public class FAQController {
 	}
 
 	@RequestMapping("/modifyForm")
-	public ModelAndView modifyForm(int faqno, ModelAndView mnv) throws Exception {
+	public ModelAndView modifyForm(MyOrderCriteria cri, Model model, HttpSession session, int faqno, ModelAndView mnv) throws Exception {
 
 		String url = "question/question_modify";
 

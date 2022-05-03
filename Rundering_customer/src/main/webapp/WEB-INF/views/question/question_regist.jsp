@@ -3,6 +3,8 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:set var="orderList" value="${dataMap.orderList }" />
+
 <head>
 
 <style >
@@ -39,10 +41,8 @@
 		<form role="form" action="regist" method="post" name="registForm">
 			<div class="card-body">
 				<div class="form-group">
-					<label for="question"
-						style="margin-left: 10px; margin-top: 10px; font-size: large;">제목</label>
-					<input type="text" name="question" id="question"
-						class="form-control" placeholder="제목을 입력하세요">
+					<label for="question" style="margin-left: 10px; margin-top: 10px; font-size: large;">제목</label>
+					<input type="text" name="question" id="question" class="form-control" placeholder="제목을 입력하세요">
 				</div>
 				<div class="form-group">
 					<div class="row">
@@ -111,8 +111,25 @@
 							</div>
 						</div>
 					</div>
-
-
+				</div>
+				<div class="card">
+					<div class="row">
+						<div class="col-2">
+							<div class="orderno">
+								<label for="orderno" style=" margin-left: 20px; margin-top: 10px; margin-bottom: 10px; font-size: large;">고객주문정보</label>
+							</div>
+						</div>
+						<div class="col-4">
+							<c:if test="${!empty orderList }">
+								<select id="orderno" name="orderno"
+									class="form-control" style=" margin-top: 3px;">
+									<c:forEach var="order" items="${orderList }" varStatus="i">
+										<option value="${order.orderno }">${order.orderno }</option>
+									</c:forEach>	
+								</select>
+							</c:if>
+						</div>
+					</div>
 				</div>
 			</div>
 		</form>
