@@ -21,19 +21,25 @@
 							<input type="text" name="title" id="title" class="form-control"
 							placeholder="제목을 입력하세요">
 					</div>
-					<div class="form-group">
-						<label for="writer" style="margin-left: 10px; font-size: large;">작성자</label>
-						<input type="text" id="writer" readonly name="writer"
-							class="form-control" value="${loginEmployee.employeeId }">
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label for="writer" style="margin-left: 10px; font-size: large;">작성자</label>
+								<input type="text" id="writer" readonly name="writer"
+									class="form-control" value="${loginEmployee.employeeId }">
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label for="branchName"
+									style="margin-left: 10px; font-size: large;">소속지점</label> <input
+									type="text" id="branchName" readonly name="branchName"
+									class="form-control" value="${loginEmployee.branchCode }">
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
-						<label for="branchName"
-							style="margin-left: 10px; font-size: large;">소속지점</label> <input
-							type="text" id="branchName" readonly name="branchName"
-							class="form-control" value="${loginEmployee.branchCode }">
-					</div>
-					<div class="form-group">
-						<label for="content" style="margin-left: 10px; font-size: large;">▼▽▼건의할 내용을 입력하세요▼▽▼</label>
+						<label for="content" style="margin-left: 10px; font-size: large;">내용</label>
 						<textarea style="border: none; height: 100px; resize: none;"
 							class="textarea" rows="10" cols="20" id="content" name="content"></textarea>
 					</div>

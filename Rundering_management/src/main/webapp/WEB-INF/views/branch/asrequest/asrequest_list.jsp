@@ -90,10 +90,10 @@ th, td {
 									</tr>
 								</c:if>
 								<c:forEach items="${asRequestList }" var="asRequest">
-									<tr
+									<tr style='cursor: pointer;'
 										onclick="OpenWindow('detail?from=list&asno=${asRequest.asno }','상세보기',900,700);">
 										<td class="no">${asRequest.asno }</td>
-										<td class="boardtitle">${asRequest.title }</td>
+										<td class="boardtitle" style="text-align: inherit;">${asRequest.title }</td>
 										<td class="object">${asRequest.objectname }</td>
 										<td class="writer">${asRequest.employeeId }</td>
 										<td class="branchName">${asRequest.branchCode }</td>

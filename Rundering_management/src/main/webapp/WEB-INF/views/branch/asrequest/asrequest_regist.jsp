@@ -26,16 +26,21 @@
 						<input type="text" name="title" id="title" class="form-control"
 							placeholder="ㅇ호 물품명 고장">
 					</div>
-					<div class="form-group">
-						<label for="employeeId" style="margin-left: 10px; font-size: large;">요청자</label>
-						<input type="text" id="employeeId" readonly name="employeeId"
-							class="form-control" value="${loginEmployee.employeeId }">
-					</div>
-					<div class="form-group">
-						<label for="branchCode"
-							style="margin-left: 10px; font-size: large;">소속지점</label> <input
-							type="text" id="branchCode" readonly name="branchCode"
-							class="form-control" value="${loginEmployee.branchCode }">
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label for="employeeId" style="margin-left: 10px; font-size: large;">요청자</label>
+								<input type="text" id="employeeId" readonly name="employeeId"
+									class="form-control" value="${loginEmployee.employeeId }">
+							</div>
+							</div>
+							<div class="col">
+							<div class="form-group">
+								<label for="branchCode"	style="margin-left: 10px; font-size: large;">소속지점</label>
+								<input type="text" id="branchCode" readonly name="branchCode"
+									class="form-control" value="${loginEmployee.branchCode }">
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
 						<div class="row">
@@ -79,11 +84,12 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="ascontent" style="margin-left: 10px; font-size: large;">▼▽▼고장내용 작성▼▽▼</label>
+						<label for="ascontent" style="margin-left: 10px; font-size: large;">내용</label>
 						<textarea style="border: none; height: 100px; resize: none;"
 							class="textarea" rows="10" cols="20" id="ascontent" name="ascontent"></textarea>
 					</div>
 				</div>
+				
 			</form>
 			<div class="card-footer">
 				<div class="float-right">
@@ -105,6 +111,10 @@
 			var form = document.registForm;
 			if (form.title.value == "") {
 				alert("제목은 필수입니다.");
+				return;
+			}
+			if (form.requestDate.value == "") {
+				alert("고장난 날짜를 적용하세요.");
 				return;
 			}
 			alert("요청 등록이 성공했습니다.");

@@ -41,7 +41,7 @@
 					</div>
 					<!--end card-header  -->
 					<div class="card-body pad">
-						<form action="modify" method="post" role="modifyForm">
+						<form action="modify" method="post" role="modifyForm" name="modifyForm">
 							<input type="hidden" name="asno" value="${asRequest.asno }" />
 							<div class="form-group">
 								<label for="title">제 목</label> <input type="text" id="title"
@@ -126,6 +126,11 @@
    	}
 	
 	 function modifyPOST_go(){
+		 var modifyForm = document.modifyForm;
+		 if (modifyForm.requestDate.value == ""){
+			 alert("고장난 날짜를 적용하세요.");
+			return;
+		 }
 		 $("form[role='modifyForm']").submit();
 	 }
    </script>
