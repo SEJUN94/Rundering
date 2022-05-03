@@ -157,12 +157,11 @@
 					<h3 class="card-title" style="padding-top: 6px;">
 						<b>이미지</b>
 					</h3>
-						<div class="card-tools">
-						<input type="file"class="btn fas fa-faile">
-						
-							<button class="btn btn-xs btn-secondary" type=? onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
-						<i class="fas fa-file"></i>
-						&nbsp; 이미지 추가</button>
+						<div class="card-tools fileInput p-0">
+							<div class="inputRow" data-no="0">
+								<label for="inputFile" data-no="0" class="btn btn-secondary btn-sm input-group-addon" onclick="justPressed(this)">파일선택</label>
+								<input id="inputFileName" type="file" name="tempPicture" data-no="0" disabled="">
+							</div>
 						</div>
 				</div>
 					<div class="card-body" style="height: 260px;">
@@ -174,7 +173,7 @@
 
 	</div>
 	
-	
+
 	
 	
 	<c:if test="${from eq 'regist' }">
