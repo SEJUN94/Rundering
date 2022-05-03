@@ -17,6 +17,8 @@ public interface AsRequestDAO {
 	/* void increaseViewCount(int asno) throws SQLException; */
 
 	void checkAsRequest(int asno) throws SQLException;
+	
+	void okAsRequest(int asno) throws SQLException;
 
 	int selectAsRequestSequenceNextValue() throws SQLException;
 

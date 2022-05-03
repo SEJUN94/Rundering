@@ -106,7 +106,7 @@ th, td {
 						</tr>
 					</c:if>
 					<c:forEach items="${faqList }" var="faq">
-						<tr
+						<tr style='cursor: pointer;'
 							onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',900,700);">
 							<td class="no">${faq.faqno }</td>
 							<td class="category"><c:choose>
@@ -114,16 +114,16 @@ th, td {
 												<c:when test="${faq.setbukdoorclcode == 'US'}">이용문의</c:when>
 												<c:when test="${faq.setbukdoorclcode == 'ET'}">기타문의</c:when>
 											   </c:choose></td>
-							<td class="title">${faq.question }</td>
+							<td class="title" style="text-align: inherit;">${faq.question }</td>
 							<td class="writer">${faq.writer }</td>
 							<td class="date">${faq.registDate }</td>
 							<td class="yn"><c:choose>
-									<c:when test="${faq.secretyn == 'Y'}">
-										<i class="fas fa-lock fa-fw" style="color: var(- -fa-navy);"></i>
-									</c:when>
-									<c:when test="${faq.secretyn == 'N'}">
-									</c:when>
-								</c:choose></td>
+												<c:when test="${faq.secretyn eq 'Y'}">
+													<i class="fas fa-lock fa-fw" style="color: var(- -fa-navy);"></i>
+												</c:when>
+												<c:when test="${faq.secretyn eq 'N'}">
+												</c:when>
+											</c:choose></td>
 							<td class="answer"><c:choose>
 									<c:when test="${!empty faq.answer}">
 										답변완료

@@ -5,6 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<c:set var="orderList" value="${dataMap.orderList }" />
+
 <head>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/bootstrap/plugins/summernote/summernote.min.css">
@@ -64,12 +66,6 @@
 											<option value="ET">기타 문의</option>
 										</select>
 									</div>
-									<%-- <div class="col">
-										<label for="registDate">등록일 <input type="text"
-											id="registDate" readonly name="registDate"
-											class="form-control" value="<fmt:formatDate
-												value="${faq.registDate }" pattern="yyyy-MM-dd" />"></label>
-									</div> --%>
 									<div class="col">
 										<label for="registDate">등록일 <input type="text"
 											id="registDate" readonly name="registDate"
@@ -79,9 +75,9 @@
 										<label for="secretyn">공개여부</label>
 										<div class="form-group">
 											<div style="margin-left: 10px; margin-top: 10px; font-size: large;">
-												<input type="radio" name="secretyn" id="secretyn" value="Y" />
-												공개 &nbsp;&nbsp;
 												<input type="radio" name="secretyn" id="secretyn" value="N" />
+												공개 &nbsp;&nbsp;
+												<input type="radio" name="secretyn" id="secretyn" value="Y" />
 												비공개
 											</div>
 										</div>
@@ -89,8 +85,6 @@
 								</div>								
 								<label for="fcontent">내 용</label>
 								<div class="form-group">
-									<label for="fcontent" style="margin-left: 10px; font-size: large;">▼▽▼문의할
-										내용을 수정하세요▼▽▼</label>
 									<textarea style="border: none; height: 100px; resize: none;"
 										class="textarea" rows="25" cols="50" id="fcontent" name="fcontent">${fn:escapeXml(faq.fcontent)}</textarea>
 								</div>

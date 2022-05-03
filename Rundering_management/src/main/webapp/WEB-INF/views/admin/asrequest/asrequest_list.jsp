@@ -56,12 +56,13 @@ th, td {
 							<div class="input-group input-group-sm" style="width: 300px;">
 								<select class="form-control col-md-4" name="searchType"
 									id="searchType">
-									<option value="tcwb"
-										${cri.searchType eq 'tcwb' ? 'selected':'' }>전체</option>
+									<option value="tcwbk"
+										${cri.searchType eq 'tcwbk' ? 'selected':'' }>전체</option>
 									<option value="t" ${cri.searchType eq 't' ? 'selected':'' }>제목</option>
 									<option value="c" ${cri.searchType eq 'c' ? 'selected':'' }>내용</option>
 									<option value="w" ${cri.searchType eq 'w' ? 'selected':'' }>담당자</option>
 									<option value="b" ${cri.searchType eq 'b' ? 'selected':'' }>지점</option>
+									<option value="k" ${cri.searchType eq 'k' ? 'selected':'' }>확인여부</option>
 								</select> <input class="form-control" type="text" name="keyword"
 									placeholder="검색어를 입력하세요." value="" /> <span
 									class="input-group-append">
@@ -91,7 +92,7 @@ th, td {
 									</tr>
 								</c:if>
 								<c:forEach items="${asRequestList }" var="asRequest">
-									<tr
+									<tr style='cursor: pointer;'
 										onclick="OpenWindow('detail?from=list&asno=${asRequest.asno }','상세보기',900,700);">
 										<td class="no">${asRequest.asno }</td>
 										<td class="boardtitle">${asRequest.title }</td>

@@ -91,7 +91,7 @@ th, td {
 									</tr>
 								</c:if>
 								<c:forEach items="${suggestList }" var="suggest">
-									<tr style='font-size: 0.85em; cursor: pointer;'
+									<tr style='cursor: pointer;'
 										onclick="OpenWindow('detail?from=list&sno=${suggest.sno }','상세보기',900,700);">
 										<td class="no">${suggest.sno }</td>
 										<td class="boardtitle">${suggest.title }</td>
@@ -106,7 +106,6 @@ th, td {
 							</table>
 
 							<div class="float-right mt-3 mr-3 mb-3">
-
 								<%-- <button class="btn btn-primary" type="button" id="registBtn"
 									onclick="location.href='<%=request.getContextPath()%>/branch/suggest/registForm'">
 									작성하기</button> --%>

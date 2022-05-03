@@ -9,8 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.Criteria;
 import com.rundering.dto.AsRequestVO;
@@ -63,5 +65,17 @@ public class AdminAsRequestController {
 		mnv.setViewName(url);
 
 		return mnv;
+	}
+	
+	@RequestMapping(value = "/ok", method = RequestMethod.GET)
+	public String remove(int asno, RedirectAttributes rttr) throws Exception {
+		String url = "redirect:/admin/asrequest/detail";
+
+		asRequestService.getOk(asno);
+
+		rttr.addFlashAttribute("from", "ok");
+		rttr.addAttribute("asno", asno);
+
+		return url;
 	}
 }

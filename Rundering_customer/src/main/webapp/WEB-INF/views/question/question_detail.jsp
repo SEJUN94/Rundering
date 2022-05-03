@@ -3,6 +3,7 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:set var="faqorderno" value="${faq.orderno }" />
 <c:set var="faqanswer" value="${faq.answer }" />
 
 <head>
@@ -32,38 +33,56 @@
 	<section class="content container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-md-10" style="max-width: 960px;">
-				<div class="card card-outline card-info">
+				<div class="card card-secondary card-outline ">
 					<div class="card-header">
 						<h3 class="card-title p-1">상세보기</h3>
 					</div>
 					<!--end card-header  -->
 					<div class="card-body pad col-12">
 						<div class="form-group">
-							<label for="question">제 목</label> <input type="text" id="question"
-								readonly name='question' class="form-control"
-								value="${faq.question }">
+							<div class="row">
+								<div class="col">
+									<label for="question">제 목</label> <input type="text" id="question"
+										readonly name='question' class="form-control"
+										value="${faq.question }">
+								</div>
+								<div class="col">
+									<c:choose>
+										<c:when test="${not empty faqorderno }">
+											<label for="orderno">주문번호</label>
+											<input type="text" id="orderno"
+												readonly name='orderno' class="form-control"
+												value="${faq.orderno }">								
+										</c:when> 
+										<c:when test="${empty faqorderno }">						
+										</c:when>							
+									</c:choose>
+								</div>							
+							</div>
 						</div>
 						<div class="form-group ">
 							<div class="row">
 								<div class="col">
-									<label for="writer">요청자 <input type="text" id="writer"
+									<label for="writer">요청자</label><input type="text" id="writer"
 										readonly name="writer" class="form-control"
-										value="${faq.writer }"></label>
+										value="${faq.writer }">
 								</div>
 								<div class="col">
-									<label for="setbukdoorclcode">카테고리 <input type="text"
+									<label for="setbukdoorclcode">카테고리</label>
+										<input type="text"
 										id="setbukdoorclcode" readonly name="setbukdoorclcode"
 										class="form-control"
 										value="<c:choose>
 												<c:when test="${faq.setbukdoorclcode == 'OR'}">주문문의</c:when>
 												<c:when test="${faq.setbukdoorclcode == 'US'}">이용문의</c:when>
 												<c:when test="${faq.setbukdoorclcode == 'ET'}">기타문의</c:when>
-											   </c:choose>"></label>
+											   </c:choose>">
 								</div>
 								<div class="col">
-									<label for="registDate">등록일 <input type="text"
+									<label for="registDate">등록일</label>
+									<input type="text"
 										id="registDate" readonly name="registDate"
-										class="form-control" value="${faq.registDate }"></label>
+										class="form-control" value="${faq.registDate }">
 								</div>
 							</div>
 						</div>
