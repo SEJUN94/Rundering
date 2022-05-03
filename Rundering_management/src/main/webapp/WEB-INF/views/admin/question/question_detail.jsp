@@ -52,7 +52,8 @@
 											<label for="orderno">주문번호</label>
 											<input type="text" id="orderno"
 												readonly name='orderno' class="form-control"
-												value="${faq.orderno }">								
+												value="${faq.orderno }" onclick="window.open('<%=request.getContextPath()%>/admin/laundryorder/detail.do?orderNo=${faq.orderno }', '주문 상세', 'width=800, height=900');"
+									style="cursor: pointer;">								
 										</c:when> 
 										<c:when test="${empty faqorderno }">						
 										</c:when>							
