@@ -27,7 +27,7 @@
 		VALUES (#{ntcnId},#{ntcnknd},#{ntcncn},#{ntcnclickhourUrl},#{employeeId})
 	</update>
 	
-	<select id="selectNotificationListByEmployeeId" resultType="int">
+	<select id="selectNotificationListByEmployeeId" parameterType="str" resultMap="notificationMap">
 		SELECT * FROM TB_NOTIFICATION
 		WHERE CNFIRMAT = 'N'
 		 AND EMPLOYEE_ID = #{employeeId}

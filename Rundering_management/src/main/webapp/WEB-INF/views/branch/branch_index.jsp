@@ -34,9 +34,9 @@
 			} else {
 				location.hash = "#" + menuCode;
 			}
+			
+			getNotification();
 		} 
-		
-	
 		
 	</script>
 	
@@ -46,6 +46,15 @@
 			goPage('<%= request.getContextPath() %>${menu.menuUrl}','${menu.menuCode}');
 			
 		} 
+	</script>
+	
+	<script>
+	//알림 가져오기
+	function getNotification(){
+		$.getJSON("<%=request.getContextPath() %>/notification", function(dataMap){
+			console.log(dataMap);
+		});
+	}
 	</script>
 	
 	

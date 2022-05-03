@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
@@ -15,7 +14,6 @@ import com.rundering.dao.NotificationDAO;
 import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.EmployeesVO;
-import com.rundering.dto.MemberVO;
 import com.rundering.dto.NoticeVO;
 import com.rundering.dto.NotificationVO;
 import com.rundering.dto.ReplyVO;

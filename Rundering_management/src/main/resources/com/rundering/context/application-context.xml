@@ -173,5 +173,9 @@
 	<bean id="branchApplicationService" class="com.rundering.service.BranchApplicationServiceImpl"
 		p:branchApplicationDAO-ref="branchApplicationDAO"
 	 />
+	<bean id="notificationService" class="com.rundering.service.NotificationServiceImpl"
+		p:notificationDAO-ref="NotificationDAO"
+		p:comCodeDAO-ref="comCodeDAO"
+	 />
 	
 </beans>
