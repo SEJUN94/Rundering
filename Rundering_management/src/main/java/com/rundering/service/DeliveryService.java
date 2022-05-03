@@ -1,5 +1,6 @@
 package com.rundering.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.rundering.dto.LaundryOrderVO;
@@ -19,4 +20,7 @@ public interface DeliveryService {
 	// 지점 도착 일괄 처리(수거 완료 후)
 	void updateToBranch(LaundryOrderVO laundryOrder)throws Exception;
 	
+ 	List<LaundryOrderVO> sortAddressAsc(LaundryOrderVO laundryOrder) throws Exception;
+	
+ 	List<LaundryOrderVO> sortAddressDesc(LaundryOrderVO laundryOrder) throws Exception;
 }

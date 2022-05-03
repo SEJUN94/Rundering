@@ -48,7 +48,6 @@ public class DeliveryDAOImpl implements DeliveryDAO {
 	@Override
 	public void updatePickUpCom(LaundryOrderVO laundryOrder) throws Exception {
 		session.selectList("Delivery-Mapper.updatePickUpCom", laundryOrder);
-
 	}
 
 	// 배송 상세 order
@@ -67,7 +66,19 @@ public class DeliveryDAOImpl implements DeliveryDAO {
 	@Override
 	public void updateToBranch(LaundryOrderVO laundryOrder) throws Exception {
 		session.update("Delivery-Mapper.updateToBranch", laundryOrder);
-		
 	}
+
+	@Override
+	public List<LaundryOrderVO> sortAddressAsc(LaundryOrderVO laundryOrder) throws Exception {
+		return session.selectList("Delivery-Mapper.sortAddressAsc", laundryOrder);
+	}
+	
+	@Override
+	public List<LaundryOrderVO> sortAddressDesc(LaundryOrderVO laundryOrder) throws Exception {
+		return session.selectList("Delivery-Mapper.sortAddressDesc", laundryOrder);
+	}
+	
+	
+	
 
 }

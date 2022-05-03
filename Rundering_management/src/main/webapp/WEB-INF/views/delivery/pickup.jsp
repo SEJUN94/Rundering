@@ -31,7 +31,7 @@
 						<thead>
 							<tr>
 								<th>주문번호</th>
-								<th id="deliveryAddr" style="cursor:pointer;">배송 주소지</th>
+								<th style="cursor:pointer;" onclick="sortAddr('${pickupList[0].branchCode}');">배송 주소지</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -42,8 +42,8 @@
 							</c:if>
 							<c:forEach items="${pickupList }" var="pickupList">
 								<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickupdetail?orderNo=${pickupList.orderNo }&orderStatus=02'">
-									<td>${pickupList.orderNo }</td>
-									<td class="addr">${pickupList.add1 }${pickupList.add2 }</td>
+									<td class="aa">${pickupList.orderNo }</td>
+									<td class="bb">${pickupList.add1 }${pickupList.add2 }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -55,7 +55,7 @@
 						<thead>
 							<tr>
 								<th>주문번호</th>
-								<th>배송 주소지</th>
+								<th style="cursor:pointer;" onclick="sortAddr1('${pickupList[0].branchCode}');">배송 주소지</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -66,8 +66,8 @@
 							</c:if>
 							<c:forEach items="${pickupCompleteList }" var="list">
 								<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickupdetail?orderNo=${list.orderNo }&orderStatus=03'">
-									<td id="orderNo" name="">${list.orderNo }</td>
-									<td>${list.add1 }${list.add2 }</td>
+									<td id="orderNo" class="aa">${list.orderNo }</td>
+									<td class="bb">${list.add1 }${list.add2 }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -84,57 +84,76 @@
 			</div>
 		</div>
 	</div>
-<script>	
-var a =document.querySelectorAll('tr').value;
-console.log(a)
+<script>
+var sortValue = "0";
+var aa = document.querySelector('.aa');
+var bb = document.querySelector('.bb');
+
+function sortAddr(branchCode){
+	$.ajax({
+		url : '<%=request.getContextPath()%>/fordelivery/sortAddress',
+		data : {
+			orderStatus : '02',
+			branchCode : branchCode,
+			sortValue : sortValue
+		},
+		type : 'post',
+		success : function(haha) {
+			for(var i=0; i<haha.length; i++){
+				var aaClass = haha[i].orderNo
+				var bbClass = haha[i].add1 + haha[i].add2
+				
+				document.querySelectorAll('tr .aa')[i].innerHTML = aaClass;
+				document.querySelectorAll('tr .bb')[i].innerHTML = bbClass;
+			}
+			if(sortValue=="0"){
+				sortValue = "1";
+			}else if(sortValue=="1"){
+				sortValue = "0";
+			}
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
+
+
+function sortAddr1(branchCode){
+	$.ajax({
+		url : '<%=request.getContextPath()%>/fordelivery/sortAddress',
+		data : {
+			orderStatus : '03',
+			branchCode : branchCode,
+			sortValue : sortValue
+		},
+		type : 'post',
+		success : function(haha) {
+			for(var i=0; i<haha.length; i++){
+				var aaClass = haha[i].orderNo
+				var bbClass = haha[i].add1 + haha[i].add2
+				
+				document.querySelectorAll('tr .aa')[i].innerHTML = aaClass;
+				document.querySelectorAll('tr .bb')[i].innerHTML = bbClass;
+			}
+			if(sortValue=="0"){
+				sortValue = "1";
+			}else if(sortValue=="1"){
+				sortValue = "0";
+			}
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
+
 
 </script>
 
 
 <!-- 알림 sweetalert2 -->
 <script	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-<script>
-	var data = [];
-	var addr = document.querySelectorAll('tr .addr');
-	var deliveryAddr = document.getElementById('deliveryAddr');
-	var check=true;
-	
-	deliveryAddr.addEventListener('click', function(e){
-		for(var i=0; addr.length>i; i++){
-			var a = addr[i].innerHTML;
-			
-			data.push(a)
-		}
-		
-		if(check==true){
-			data.sort(function(a, b) {
-				  const upperCaseA = a.toUpperCase();
-				  const upperCaseB = b.toUpperCase();
-				  
-				  check==false
-				  if(upperCaseA > upperCaseB) return 1;
-				  if(upperCaseA < upperCaseB) return -1; 
-				  if(upperCaseA === upperCaseB) return 0;
-				  console.log(check)
-			});
-		}else{
-			data.sort(function(a, b) {
-				  const upperCaseA = a.toUpperCase();
-				  const upperCaseB = b.toUpperCase();
-				  
-				  check==true
-				  
-				  
-				  if(upperCaseA < upperCaseB) return 1;
-				  if(upperCaseA > upperCaseB) return -1;
-				  if(upperCaseA === upperCaseB) return 0;
-				  console.log(check)
-			});
-		}
-	})
-	
-</script>
-	
 <script>
 	function complete_all(){
 		Swal.fire({

@@ -26,4 +26,9 @@ public interface DeliveryDAO {
 	// 지점 도착 일괄 처리(수거 완료 후)
 	void updateToBranch(LaundryOrderVO laundryOrder)throws Exception;
 	
+	//정렬처리
+	List<LaundryOrderVO> sortAddressAsc(LaundryOrderVO laundryOrder)throws Exception;
+	
+	List<LaundryOrderVO> sortAddressDesc(LaundryOrderVO laundryOrder)throws Exception;
+	
 }

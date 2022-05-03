@@ -130,6 +130,24 @@
 <!-- 		and DELIVERY_REQUEST_DATE = SYSDATE
 		and DELIVERY_EMPLOYEE_ID = #{deliveryEmployeeId} -->
 	</select>
+	
+	
+	<!-- 주소 오름차순  -->
+	<select id="sortAddressAsc" resultMap="laundryOrderMap"  parameterType="laundryOrder">
+		SELECT *
+			FROM TB_LAUNDRY_ORDER
+			WHERE BRANCH_CODE = #{branchCode}
+			AND ORDER_STATUS = #{orderStatus}
+			ORDER BY ADD1 ASC
+	</select>
+	<!-- 주소 내림차순  -->
+	<select id="sortAddressDesc" resultMap="laundryOrderMap"  parameterType="laundryOrder">
+		SELECT *
+			FROM TB_LAUNDRY_ORDER
+			WHERE BRANCH_CODE = #{branchCode}
+			AND ORDER_STATUS = #{orderStatus}
+			ORDER BY ADD1 DESC
+	</select>
 
 
 </mapper>

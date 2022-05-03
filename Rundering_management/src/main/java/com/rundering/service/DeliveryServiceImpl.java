@@ -73,4 +73,18 @@ public class DeliveryServiceImpl implements DeliveryService{
 	public void updateToBranch(LaundryOrderVO laundryOrder) throws Exception {
 		deliveryDAO.updateToBranch(laundryOrder);
 	}
+	
+	// 주소별 오름차순 정렬
+	@Override
+	public List<LaundryOrderVO> sortAddressAsc(LaundryOrderVO laundryOrder) throws Exception {
+		List<LaundryOrderVO> lo = deliveryDAO.sortAddressAsc(laundryOrder);
+		return lo;
+	}
+	
+	// 주소별 내림  정렬
+	@Override
+	public List<LaundryOrderVO> sortAddressDesc(LaundryOrderVO laundryOrder) throws Exception {
+		List<LaundryOrderVO> lo = deliveryDAO.sortAddressDesc(laundryOrder);
+		return lo;
+	}
 }

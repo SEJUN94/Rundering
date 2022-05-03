@@ -1,6 +1,7 @@
 package com.rundering.manage.delivery;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -171,6 +172,22 @@ public class ForDeliveryController {
 		mnv.setViewName(url);
 		
 		return mnv;
+	}
+	
+	//주소 정렬
+	@RequestMapping("/sortAddress")
+	public ResponseEntity<List<LaundryOrderVO>> sortAddress(String sortValue, LaundryOrderVO laundryOrder) throws Exception{
+		ResponseEntity<List<LaundryOrderVO>> entity = null;
+		List<LaundryOrderVO> sort = null;
+		
+		if(sortValue.equals("0")) {
+			sort = deliveryService.sortAddressAsc(laundryOrder);
+		}else if(sortValue.equals("1")) {
+			sort = deliveryService.sortAddressDesc(laundryOrder);
+		}
+		entity = new ResponseEntity<List<LaundryOrderVO>>(sort,HttpStatus.OK);
+		
+		return entity;
 	}
 	
 	

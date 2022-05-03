@@ -30,7 +30,7 @@
 						<thead>
 							<tr>
 								<th>주문번호</th>
-								<th>배송 주소지</th>
+								<th style="cursor:pointer;" onclick="sortAddr('${deliveryList[0].branchCode}');">배송 주소지</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -42,8 +42,8 @@
 							<c:forEach items="${deliveryList }" var="deliveryList">
 								<c:if test="${deliveryList.orderStatus eq '07'}">
 									<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/deliverydetail?orderNo=${deliveryList.orderNo }&orderStatus=${deliveryList.orderStatus }'">
-											<td>${deliveryList.orderNo }</td>
-											<td>${deliveryList.add1 } ${deliveryList.add2 }</td>
+											<td class="aa">${deliveryList.orderNo }</td>
+											<td class="bb">${deliveryList.add1 } ${deliveryList.add2 }</td>
 									</tr>
 								</c:if>
 							</c:forEach>
@@ -55,7 +55,7 @@
 						<thead>
 							<tr>
 								<th>주문번호</th>
-								<th>배송 주소지</th>
+								<th style="cursor:pointer;" onclick="sortAddr('${deliveryList[0].branchCode}');">배송 주소지</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -67,8 +67,8 @@
 							<c:forEach items="${deliveryCompleteList }" var="deliveryCompleteList">
 								<c:if test="${deliveryCompleteList.orderStatus == '08' || deliveryCompleteList.orderStatus == '09' }">
 									<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/deliverydetail?orderNo=${deliveryCompleteList.orderNo }&orderStatus=${deliveryCompleteList.orderStatus }'">
-										<td>${deliveryCompleteList.orderNo }</td>
-										<td>${deliveryCompleteList.add1 } ${deliveryCompleteList.add2 }</td>
+										<td class="aa">${deliveryCompleteList.orderNo }</td>
+										<td class="bb">${deliveryCompleteList.add1 } ${deliveryCompleteList.add2 }</td>
 									</tr>
 								</c:if>
 							</c:forEach>
@@ -78,4 +78,45 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+var sortValue = "0";
+var aa = document.querySelector('.aa');
+var bb = document.querySelector('.bb');
+
+function sortAddr(branchCode){
+	$.ajax({
+		url : '<%=request.getContextPath()%>/fordelivery/sortAddress',
+		data : {
+			orderStatus : '07',
+			branchCode : branchCode,
+			sortValue : sortValue
+		},
+		type : 'post',
+		success : function(haha) {
+			for(var i=0; i<haha.length; i++){
+				var aaClass = haha[i].orderNo
+				var bbClass = haha[i].add1 + haha[i].add2
+				
+				document.querySelectorAll('tr .aa')[i].innerHTML = aaClass;
+				document.querySelectorAll('tr .bb')[i].innerHTML = bbClass;
+			}
+			if(sortValue=="0"){
+				sortValue = "1";
+			}else if(sortValue=="1"){
+				sortValue = "0";
+			}
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
+
+</script>
+	
+	
+	
+	
+	
 </body>
