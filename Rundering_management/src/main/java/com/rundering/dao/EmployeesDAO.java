@@ -2,12 +2,22 @@ package com.rundering.dao;
 
 import java.util.List;
 
+import com.rundering.command.CustomerListCriteria;
+import com.rundering.command.EmployeesListCriteria;
 import com.rundering.dto.EmployeesVO;
 
 public interface EmployeesDAO {
-
-
+	
 	public EmployeesVO selectEmployeeByMno(String MemberNo) throws Exception;
+
+	//사원리스트 조회
+	public List<EmployeesVO> selectEmployeeList(EmployeesListCriteria cri) throws Exception;
+	
+	// 일반 리스트 전체 개수
+	int selectEmployeeListCount() throws Exception;
+
+	// 검색 결과의 전체 리스트 개수
+	int selectEmployeeListCount(EmployeesListCriteria cri) throws Exception;
 
 	//사원등록
     public void employeeRegist(EmployeesVO ev) throws Exception;

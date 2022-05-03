@@ -335,7 +335,6 @@ const Toast = Swal.mixin({
    }
 
 </script>
-	=======
 
 	<script>
 let isRunning = false;

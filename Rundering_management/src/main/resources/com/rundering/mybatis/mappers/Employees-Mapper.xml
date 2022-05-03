@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Employees-Mapper">
+
 <resultMap type="employees" id="employeesMap">
-	
 		<result column="EMPLOYEE_ID" property="employeeId" />
 		<result column="BRANCH_CODE" property="branchCode" />
 		<result column="JOINING_COMPANY_DATE" property="joiningCompanyDate" />
@@ -67,6 +67,71 @@
 		 where BRANCH_CODE = #{branchCode} 
 		  and DEPARTMENT = 'DE'
 	</select>
+
+	<sql id="searchSort">	
+		<if test="employeeSort == '0'.toString()">
+		</if>
+		<if test="employeeSort == '000000'.toString()">
+			AND BRANCH_CODE like '000000'		
+		</if>
+		<if test="employeeSort == '060402'.toString()">
+			AND BRANCH_CODE like '060402'		
+		</if>
+		<if test="employeeSort == '060101'.toString()">
+			AND BRANCH_CODE like '060101'		
+		</if>
+		<if test="employeeSort == '060201'.toString()">
+			AND BRANCH_CODE like '060201'		
+		</if>
+		<if test="employeeSort == '060301'.toString()">
+			AND BRANCH_CODE like '060301'		
+		</if>
+		<if test="employeeSort == '060401'.toString()">
+			AND BRANCH_CODE like '060401'		
+		</if>
+		<if test="employeeSort == '060501'.toString()">
+			AND BRANCH_CODE like '060501'		
+		</if>
+	</sql>	
+	
+	<sql id="search">	
+		<if test="searchType == 't'.toString()">
+			AND memberNo like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'c'.toString()">
+			AND name like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'tc'.toString()">
+			AND (
+			memberNo like '%'||#{keyword}||'%'
+			or
+			name like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>	
+	
+	
+	<select id="selectSearchEmployeeList" resultMap="employeesMap">
+		SELECT
+		* 
+		FROM TB_MEMBER A, TB_EMPLOYEES B
+		WHERE A.MEMBERNO IS NOT NULL
+        AND A.MEMBERNO = B.MEMBERNO
+		AND A.EMPLOYEE_ID_YN = 'Y'
+	</select>
+	
+	<select id="selectEmployeeListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_EMPLOYEES
+	</select>
+	
+	<select id="selectSearchEmployeeListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_EMPLOYEES
+		<include refid="searchSort" />
+		<include refid="search" />
+	</select>
+	
 
 
 </mapper>

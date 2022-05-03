@@ -217,7 +217,6 @@ const Toast = Swal.mixin({
 	    }
 	    return formatNum;
 	}
->>>>>>> refs/heads/main
 
 </script>
 </body>
