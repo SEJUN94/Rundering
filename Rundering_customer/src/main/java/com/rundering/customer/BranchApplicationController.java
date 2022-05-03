@@ -43,7 +43,7 @@ public class BranchApplicationController {
 	public void myBranchRequest() {
 		
 	}
-	
+	 
 	//인증 후 지점 신청 확인
 	@RequestMapping("/self_authentification")
 	public ModelAndView selfAuthentification(BranchApplicationVO bv, ModelAndView mnv) throws Exception{

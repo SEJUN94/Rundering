@@ -1,6 +1,5 @@
 package com.rundering.command;
 
-import com.rundering.dto.MemberVO;
 
 public class CustomerListCriteria {
 	

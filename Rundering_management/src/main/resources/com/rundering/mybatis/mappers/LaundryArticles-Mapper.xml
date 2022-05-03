@@ -60,6 +60,13 @@
 		 where ARTICLES_CODE=#{articlesCode}
 	</select>
 	
+	<select id="selectLandryArticlesStock" resultMap="laundryArticlesMap">
+		select * 
+		  from TB_LAUNDRY_ARTICLES
+		 where CLCODE !='A'
+	</select>
+	
+	
 	<update id="insertLaundryArticles" parameterType="laundryArticles">
 		insert 
 		into 

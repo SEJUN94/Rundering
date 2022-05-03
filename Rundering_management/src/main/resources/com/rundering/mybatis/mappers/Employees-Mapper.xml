@@ -22,6 +22,12 @@
 		  from tb_employees
 		 where memberno=#{memberno} 
 	</select>
+	<select id="selectEmployeeByMemberNo" resultMap="employeesMap" parameterType="str">
+		select *
+		  from tb_employees
+		 where memberno=#{memberno} 
+	</select>
+	
 	
 	<select id="selectEmployeeByMno" resultMap="employeesMap" parameterType="str">
 		select 
@@ -61,12 +67,29 @@
 		WHERE MEMBERNO = #{memberno}
 	</select>
 	
-		<select id="selectDeliveryDepartmentEmployeesByBranchCode" resultMap="employeesMap" parameterType="str">
+	<select id="selectDeliveryDepartmentEmployeesByBranchCode" resultMap="employeesMap" parameterType="str">
 		select *
 		  from tb_employees
 		 where BRANCH_CODE = #{branchCode} 
 		  and DEPARTMENT = 'DE'
 	</select>
+	<insert id="employeeBranchRegist" parameterType="employees" >
+		INSERT INTO
+		TB_EMPLOYEES(
+		EMPLOYEE_ID
+		,BRANCH_CODE
+		,DEPARTMENT
+		,POSITION
+		,MEMBERNO
+		) VALUES(
+		'03' ||'22'||LPAD(EMPLOYEE_ID_SEQ.NEXTVAL, 3, 0)
+		,#{branchCode}
+		,'OF'
+		,'03'
+		,#{memberno}
+		)
+	</insert>
+	
 
 
 </mapper>

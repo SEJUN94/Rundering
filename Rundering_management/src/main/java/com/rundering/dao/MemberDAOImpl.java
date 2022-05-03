@@ -138,5 +138,20 @@ public class MemberDAOImpl implements MemberDAO {
 	public void modifyPwById(MemberVO mv) throws Exception {
 		session.selectOne("Member-Mapper.modifyPwById",mv);
 	}
+	@Override
+	public void insertBranchMemberByMemberVO(MemberVO member) throws Exception{
+		session.insert("Member-Mapper.insertBranchMemberByMemberVO", member);
+	}
+
+	@Override
+	public String selectMemberNoSeq() throws Exception {
+		return session.selectOne("Member-Mapper.selectMemberNoSeq");
+	}
+	@Override
+	public MemberVO selectMemberByPhone(String phone) throws Exception {
+					
+		return session.selectOne("Member-Mapper.selectMemberByPhone",phone);
+		 
+	}
 
 }

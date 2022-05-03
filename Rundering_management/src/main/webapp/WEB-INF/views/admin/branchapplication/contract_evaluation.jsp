@@ -7,7 +7,7 @@
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="branchApplicationList" value="${dataMap.branchApplicationList }" />
 <body>
-${branchApplicationList }
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <section class="content-header">
 	<div class="container-fluid">
 		<div class="row mb-2">
@@ -51,30 +51,64 @@ ${branchApplicationList }
 						</tr>
 					</c:if>
 						<c:forEach items="${branchApplicationList }" var="branchApplication">
-					
 							<tr>
-								<td class="list" id="memno" name="memno" style="vertical-align: middle" >백관우</td>
-								<td style="vertical-align: middle" >01033215542</td>
-								<td style="vertical-align: middle">bgwbgw100@gmail.com</td>
-								<td style="vertical-align: middle;padding-bottom: 6px;padding-top: 6px;">
-								<c:if test="${branchApplication.progress_status_code eq '01'} ">
-									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_request()">신청승인</button>
-								</c:if>
-								<c:if test="${branchApplication.progress_status_code eq '02'} ">
-									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_request()">신청승인</button>
-									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_examine()">심사승인</button>
-								</c:if>
-								<c:if test="${branchApplication.progress_status_code eq '03'} ">
-									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_request()">신청승인</button>
-									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_examine()">심사승인</button>
-									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_voluntary()">수의계약</button>
-								</c:if>
-								<c:if test="${branchApplication.progress_status_code eq '04' }">
-									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_request()">신청승인</button>
-									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_examine()">심사승인</button>
-									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_voluntary()">수의계약</button>
-									<button type="submit" class="btn btn-outline-danger btn-sm" onclick="branch_enrollment()">지점등록</button>
-								</c:if>
+								<td class="list"  style="vertical-align: middle" >${branchApplication.applicateName }</td>
+								<td style="vertical-align: middle" >${branchApplication.phone }</td>
+								<td style="vertical-align: middle">${branchApplication.email }</td>
+								<td style="vertical-align: middle;padding-bottom: 6px;padding-top: 6px; text-align: left;">
+									<c:if test="${branchApplication.progressStatusCode eq '01'}"  var="1">
+										<button type="button" class="btn btn-outline-danger btn-sm" onclick="branch_request(false,'${branchApplication.applicationNo}')">신청승인</button>
+									</c:if>
+									
+									<c:if test="${branchApplication.progressStatusCode eq '02'}" var="2">
+										<button type="button" class="btn btn-outline-danger btn-sm" onclick="branch_request(true,'${branchApplication.applicationNo}')">신청반려</button>
+									</c:if>
+	
+									<c:if test="${branchApplication.progressStatusCode eq '03'}" var="3">
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_request(true,'${branchApplication.applicationNo}')">신청승인</button>
+									</c:if>
+	
+									<c:if test="${branchApplication.progressStatusCode eq '04'}" var="4">
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_request(true,'${branchApplication.applicationNo}')">신청승인</button>
+										<button type="button" class="btn btn-outline-danger btn-sm" onclick="branch_examine(false,'${branchApplication.applicationNo}')">심사승인</button>
+									</c:if>
+									
+									<c:if test="${branchApplication.progressStatusCode eq '05'}" var="5">
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_request(true,'${branchApplication.applicationNo}')">신청승인</button>
+										<button type="button" class="btn btn-outline-danger btn-sm" onclick="branch_examine(true,'${branchApplication.applicationNo}')">심사반려</button>
+									</c:if>
+									
+									<c:if test="${branchApplication.progressStatusCode eq '06' }" var="6">
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_request(true,'${branchApplication.applicationNo}')">신청승인</button>
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_examine(true,'${branchApplication.applicationNo}')">심사승인</button>
+									</c:if>
+									
+									<c:if test="${branchApplication.progressStatusCode eq '07' }" var="7">
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_request(true,'${branchApplication.applicationNo}')">신청승인</button>
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_examine(true,'${branchApplication.applicationNo}')">심사승인</button>
+										<button type="button" class="btn btn-outline-danger btn-sm" onclick="branch_voluntary(false,'${branchApplication.applicationNo}')">수의계약신청</button>
+									</c:if>
+								
+									
+									<c:if test="${branchApplication.progressStatusCode eq '08' }" var="9">
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_request(true,'${branchApplication.applicationNo}')">신청승인</button>
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_examine(true,'${branchApplication.applicationNo}')">심사승인</button>
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_voluntary(true,'${branchApplication.applicationNo}')">수의계약확인</button>
+									</c:if>
+									<c:if test="${branchApplication.progressStatusCode eq '09' }" var="09">
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_request(true,'${branchApplication.applicationNo}')">신청승인</button>
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_examine(true,'${branchApplication.applicationNo}')">심사승인</button>
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_voluntary(true,'${branchApplication.applicationNo}')">수의계약확인</button>
+										<button type="button" class="btn btn-outline-danger btn-sm" onclick="branch_enrollment(false,'${branchApplication.applicationNo}')">지점등록</button>
+									</c:if>
+									
+									<c:if test="${branchApplication.progressStatusCode eq '10' }" var="10">
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_request(true,'${branchApplication.applicationNo}')">신청승인</button>
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_examine(true,'${branchApplication.applicationNo}')">심사승인</button>
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_voluntary(true,'${branchApplication.applicationNo}')">수의계약확인</button>
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_request_complate('${branchApplication.applicationNo}')">지점등록</button>
+									</c:if>
+									
 								</td>
 							</tr>
 						</c:forEach>
@@ -83,11 +117,13 @@ ${branchApplicationList }
 				</table>
 			</div>
 			<div class="card-footer">
-				<%@ include file="/WEB-INF/views/admin/employee/pagination.jsp"%>
+				<%@ include file="./pagination.jsp"%>
 			</div>
 		</div>
 	</div>
 </div>
+
+
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <div id="handleTag">
 	
@@ -99,10 +135,11 @@ ${branchApplicationList }
 <%@ include file="./enrollment_js.jsp" %>
 <%@ include file="./examine_js.jsp" %>
 <%@ include file="./voluntary_js.jsp" %>
+<%@ include file="./branchRequestComplate.jsp" %>
 			
-	<script>
+<script>
 	
-	</script>	
+</script>	
 
 
 </body>

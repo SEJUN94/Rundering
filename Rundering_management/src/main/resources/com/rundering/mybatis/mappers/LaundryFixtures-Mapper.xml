@@ -4,7 +4,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="LaundryFixtures-mapper">
+<mapper namespace="LaundryFixtures-Mapper">
 
 	<!-- 언더바컬럼재정의 -->
 	<resultMap type="laundryFixtures" id="laundryFixturesMap">
@@ -27,5 +27,31 @@
             AND B.BRANCH_NAME =  #{branchCode}
             AND A.FIXTURES_NAME = #{fixturesName}
 	</select>
+	
+		<select id="selectFixturesListByBranchCode" parameterType="str" resultMap="laundryFixturesMap">
+		select *
+		  from tb_laundry_fixtures
+		 where branch_code=#{branchCode} 
+	</select> 
+	
+	<insert id="insertFixturesByFixtrues" parameterType="laundryFixtures">
+			insert into TB_LAUNDRY_FIXTURES
+			(
+			fixtures_code,
+			branch_code,
+			articles_code,
+			fixtures_name
+			)
+			VALUES
+			(
+			#{fixturesCode},
+			#{branchCode},
+			#{articlesCode},
+			#{fixturesName}
+			)
+			
+			
+			
+	</insert>
 
 </mapper>

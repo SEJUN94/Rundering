@@ -41,6 +41,17 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 		List<EmployeesVO> deliveryDepartmentEmployees = session.selectList("Employees-Mapper.selectDeliveryDepartmentEmployeesByBranchCode",branchCode);
 		return deliveryDepartmentEmployees;
 	}
+	@Override
+	public void employeeBranchRegist(EmployeesVO employee) throws Exception {
+		session.insert("Employees-Mapper.employeeBranchRegist", employee);
+		
+	}
+	@Override
+	public EmployeesVO selectEmployeeByMemberNo(String memberNo) throws Exception {
+		return session.selectOne("Employees-Mapper.selectEmployeeByMemberNo", memberNo);
+		
+		 
+	}
 	
  
 	

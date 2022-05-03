@@ -65,6 +65,10 @@ public class LaundryArticlesDAOImpl implements LaundryArticlesDAO{
 		
 		return laundryArticlesList;
 	}
+	@Override
+	public List<LaundryArticlesVO> selectLandryArticlesStock() throws Exception {
+		return session.selectList("LaundryArticles-Mapper.NotALaundryArticlesList");
+	}
 
 	
 	

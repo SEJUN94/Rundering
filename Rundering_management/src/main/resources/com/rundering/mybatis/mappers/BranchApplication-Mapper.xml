@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="BranchApplication-Mapper">
 
-	<resultMap type="branchapplication" id="branchapplicationmap">
+	<resultMap type="branchapplication" id="branchapplicationMap">
 		<result column="APPLICATION_NO" 				property="applicationNo" />
 		<result column="APPLICATION_DATE" 				property="applicationDate" />
 		<result column="APPLICATE_NAME" 				property="applicateName" />
@@ -19,30 +19,57 @@
 		<result column="CHARGER" 					property="charger" />
 		<result column="PROGRESS_STATUS_CODE" 		property="progressStatusCode" />
 	</resultMap>
-	<select id="selectBranchApplication">
+	<select id="selectBranchApplication" resultMap="branchapplicationMap">
 		select *
 		  from tb_branch_application
 	</select>
-	<select id="selectBranchApplicationCount">
+	<select id="selectBranchApplicationCount" resultType="int">
 		select count(*)
 		  from tb_branch_application
 	</select>
 	
-	<select id="selectBranchApplicationByapplicationNo">
+	<select id="selectBranchApplicationByapplicationNo" parameterType="str" resultMap="branchapplicationMap">
 		select *
 		  from tb_branch_application
-		 where application_no=#{applicationNo} 
+		 where APPLICATION_NO=#{applicationNo} 
 	</select>
+	
 	<update id="updateApprovalreturnContentsByBranchApplicationVO" parameterType="branchapplication">
 		update tb_branch_application
 		   set APPROVALRETURN_CONTENTS=#{approvalreturnContents},
-		       APPROVALRETURN_YN='N'
+		       APPROVALRETURN_YN='N',
+		       PROGRESS_STATUS_CODE='02'
 		 where APPLICATION_NO=#{applicationNo}
+		   
 	</update>
 	<update id="updateApprovalreturnYByBranchApplicationVO" parameterType="branchapplication">
 		update tb_branch_application
-		   set APPROVALRETURN_YN='Y'
+		   set APPROVALRETURN_YN='Y',
+		   	   PROGRESS_STATUS_CODE='03'	
 		 where APPLICATION_NO=#{applicationNo}
 	</update>
 	
+	<update id="updateExaminationByBranchApplicationVO" parameterType="branchapplication">
+		update tb_branch_application
+		   set EXAMINATION_YN=#{examinationYn},
+		   	   EXAMINATION_DETAILS=#{examinationDetails},
+		   	   PROGRESS_STATUS_CODE=#{progressStatusCode}	
+		 where APPLICATION_NO=#{applicationNo}
+	</update>
+	
+	<update id="updateProgressStatusCode08ByBranchApplicationVO" parameterType="branchapplication">
+		update tb_branch_application
+		   set PROGRESS_STATUS_CODE='08'	
+		 where APPLICATION_NO=#{applicationNo}
+	</update>
+	<update id="updateProgressStatusCode10ByBranchApplicationVO" parameterType="branchapplication">
+		update tb_branch_application
+		   set PROGRESS_STATUS_CODE='10'	
+		 where APPLICATION_NO=#{applicationNo}
+	</update>
+	
+	
+	
+		
+
 </mapper>

@@ -37,7 +37,11 @@
 		<if test="searchType == 'b'.toString()">
 			and d.branch_name like '%'||#{keyword}||'%'
 		</if>
-		<if test="searchType == 'tcwb'.toString()">
+		<if test="searchType == 'k'.toString()">
+			and b.checkyn like '%'||#{keyword}||'%'
+		</if>
+		
+		<if test="searchType == 'tcwbk'.toString()">
 			and (
 			b.title like '%'||#{keyword}||'%'
 			or
@@ -46,6 +50,8 @@
 			c.name like '%'||#{keyword}||'%'
 			or
 			d.branch_name like '%'||#{keyword}||'%'			
+			or
+			b.checkyn like '%'||#{keyword}||'%'			
 			)			
 		</if>
 	</sql>
@@ -78,9 +84,15 @@
 	<select id="selectSearchAsRequestListCount" resultType="int">
 		select
 		count(*) 
-		from tb_as b
-		where b.asno is not null
-		<!-- <include refid="search" /> -->
+		from tb_employees a, tb_as b, tb_member c, tb_branch d, tb_laundry_articles e, tb_laundry_fixtures f
+		    where a.employee_id = b.employee_id
+		      and a.memberno = c.memberno
+		      and b.branch_code = d.branch_code
+		      and b.fixtures_code = f.fixtures_code
+		      and b.articles_code = e.articles_code
+		      and b.deleteyn='N'
+			  and b.asno is not null
+		<include refid="search" />
 		order by b.regist_date desc
 	</select>
 	
@@ -109,6 +121,13 @@
 			checkyn = '확인'
 			where asno=#{asno}
 			and checkyn = '미확인'
+	</update>
+	
+	<update id="okAsRequest" parameterType="asRequest">
+		update tb_as
+			set
+			checkyn = '조치완료'
+			where asno=#{asno}
 	</update>
 	
 	<!-- 글번호 -->

@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:if test="">
+</c:if>
+
 
 <head>
 <link rel="stylesheet"
@@ -23,16 +26,21 @@
 						<input type="text" name="title" id="title" class="form-control"
 							placeholder="ㅇ호 물품명 고장">
 					</div>
-					<div class="form-group">
-						<label for="employeeId" style="margin-left: 10px; font-size: large;">요청자</label>
-						<input type="text" id="employeeId" readonly name="employeeId"
-							class="form-control" value="${loginEmployee.employeeId }">
-					</div>
-					<div class="form-group">
-						<label for="branchCode"
-							style="margin-left: 10px; font-size: large;">소속지점</label> <input
-							type="text" id="branchCode" readonly name="branchCode"
-							class="form-control" value="${loginEmployee.branchCode }">
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label for="employeeId" style="margin-left: 10px; font-size: large;">요청자</label>
+								<input type="text" id="employeeId" readonly name="employeeId"
+									class="form-control" value="${loginEmployee.employeeId }">
+							</div>
+							</div>
+							<div class="col">
+							<div class="form-group">
+								<label for="branchCode"	style="margin-left: 10px; font-size: large;">소속지점</label>
+								<input type="text" id="branchCode" readonly name="branchCode"
+									class="form-control" value="${loginEmployee.branchCode }">
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
 						<div class="row">
@@ -62,24 +70,9 @@
 									style="margin-left: 10px; font-size: large;">호수<select
 									class="form-control" name="fixturesCode" id="fixturesCode"
 									style=" width: 200px; margin-top: 6px;">
-									<c:choose>
-										<c:when test="${loginEmployee.branchCode == '060101'}">
-											<option value="A06010101">세탁기1호기</option>
-											<option value="A06010201">세탁기2호기</option>
-											<option value="A06010102">건조기1호기</option>
-											<option value="A06010202">건조기2호기</option>
-											<option value="A06010103">에어컨1호기</option>
-											<option value="A06010203">에어컨2호기</option>
-										</c:when>
-										<c:when test="${loginEmployee.branchCode == '060201'}">
-											<option value="A06020101">세탁기1호기</option>
-											<option value="A06020201">세탁기2호기</option>
-											<option value="A06020102">건조기1호기</option>
-											<option value="A06020202">건조기2호기</option>
-											<option value="A06020103">에어컨1호기</option>
-											<option value="A06020203">에어컨2호기</option>
-										</c:when>
-									</c:choose>
+										<c:forEach items="${fixturesList }" var="fixtures">
+											<option value="${fixtures.fixturesCode }">${fixtures.fixturesName }</option>
+										</c:forEach>
 								</select></label> 
 							</div>
 							<div class=" col">
@@ -91,11 +84,12 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="ascontent" style="margin-left: 10px; font-size: large;">▼▽▼고장내용 작성▼▽▼</label>
+						<label for="ascontent" style="margin-left: 10px; font-size: large;">내용</label>
 						<textarea style="border: none; height: 100px; resize: none;"
 							class="textarea" rows="10" cols="20" id="ascontent" name="ascontent"></textarea>
 					</div>
 				</div>
+				
 			</form>
 			<div class="card-footer">
 				<div class="float-right">
@@ -117,6 +111,10 @@
 			var form = document.registForm;
 			if (form.title.value == "") {
 				alert("제목은 필수입니다.");
+				return;
+			}
+			if (form.requestDate.value == "") {
+				alert("고장난 날짜를 적용하세요.");
 				return;
 			}
 			alert("요청 등록이 성공했습니다.");

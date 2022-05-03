@@ -8,7 +8,7 @@ import com.rundering.dto.BranchApplicationVO;
 public interface BranchApplicationDAO {
 	
 	
-	public BranchApplicationVO selectBranchApplicationByapplicationNo() throws Exception;
+	public BranchApplicationVO selectBranchApplicationByapplicationNo(String applicationNo ) throws Exception;
 
 	List<BranchApplicationVO> selectBranchApplication(Criteria cri) throws Exception;
 	
@@ -17,4 +17,10 @@ public interface BranchApplicationDAO {
 	public void updateApprovalreturnContentsByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception;
 	
 	public void updateApprovalreturnYByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception;
+
+	public void updateExaminationByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception;
+
+	void updateProgressStatusCode08ByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception;
+
+	void updateProgressStatusCode10ByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception;
 }

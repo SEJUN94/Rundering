@@ -112,9 +112,16 @@ public class PhoneResDTO {
 			this.statusName = statusName;
 			this.requestId = requestId;
 			this.requestTime = requestTime;
+		}
+		@Override
+		public String toString() {
+			return "SendSmsResponse [statusCode=" + statusCode + ", statusName=" + statusName + ", requestId="
+					+ requestId + ", requestTime=" + requestTime + "]";
 		} 
 		
 	}
+	
+	
 
 	
 }
