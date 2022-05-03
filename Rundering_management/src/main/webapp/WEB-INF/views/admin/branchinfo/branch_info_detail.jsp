@@ -26,11 +26,6 @@
 						class="form-control" id="exampleInputEmail1" placeholder="이메일"
 						value="${branchDetail.email }" name="email" disabled>
 				</div>
-				<div class="form-group">
-					<label for="exampleInputAddress">주소</label> <input type="text"
-						class="form-control" id="exampleInputAddress" placeholder="주소"
-						value="${branchDetail.addr }" name="addr" disabled>
-				</div>
 			<br><hr>
 			<table>
 				<thead>

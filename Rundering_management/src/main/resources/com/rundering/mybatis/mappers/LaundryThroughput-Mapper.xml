@@ -106,4 +106,21 @@
            AND A.BRANCH_CODE=B.BRANCH_CODE
            AND B.MEMBERNO=C.MEMBERNO
 	</select>
+	
+<!-- 	표 리스트 출력(지점별) -->
+	<select id="branchQuotaTable" resultMap="laundryThroughputMap" parameterType="str">
+		select *
+		  from TB_LAUNDRY_THROUGHPUT
+		 where BRANCH_CODE=#{branchCode}
+		 order by LDATE desc
+	</select>
+	
+<!-- 	//표 리스트 출력(일자별) -->
+	<select id="changeDateBranchQuotaTable" resultMap="laundryThroughputMap" parameterType="str">
+		select *
+		  from TB_LAUNDRY_THROUGHPUT
+		 where LDATE=#{date} 
+		 order by LDATE desc
+	</select>
+	
 </mapper>
