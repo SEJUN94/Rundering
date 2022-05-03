@@ -242,6 +242,7 @@
          },
          error : function(error) {
             AjaxErrorSecurityRedirectHandler(error.status);
+            
          }
       });
       
