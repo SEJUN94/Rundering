@@ -6,19 +6,7 @@
 
 
 <style>
-/* p{
-        text-align: center;
-        margin-top: 5px;
-        margin-right: 5px;
-    } */
-.register-box {
-	margin: auto;
-}
-
-.form-control2 {
-	margin-top: 5px;
-	height: 30px;
-}
+.register-box {margin: auto;}
 </style>
 
 <!-- 주소api -->
@@ -59,12 +47,11 @@
 				<label for="pw1" class="col-mb-3"> <span style="color: red; font-weight: bold;">*</span>비밀번호</label>
 			</div>
 			<div class="input-group mb-3 form-group">
-				<input style="border:none; "type="password" id="pw1" class="col-lg-4 form-control pass" placeholder="패스워드 입력" name="password"> 
+				<input type="password" id="pw1" class="col-lg-4 form-control pass" placeholder="패스워드 입력" name="password"> 
 				<span class="sp"></span>
 			</div>
-				<hr >
 			<div class="input-group mb-3 form-group">
-				<input style="border:none;" type="password" id="pw2" class="col-lg-4 form-control pass" placeholder="패스워드 재입력"> 
+				<input type="password" id="pw2" class="col-lg-4 form-control pass" placeholder="패스워드 재입력"> 
 				<span class="sp"></span>
 			</div>
 			<div>
