@@ -16,6 +16,9 @@
 	console.log(history.pushState);
 	
 		function goPage(url,menuCode){
+			
+			getNotification();
+			
 			document.querySelector('iframe[name="ifr"]').src=url;
 			
 
@@ -35,7 +38,7 @@
 				location.hash = "#" + menuCode;
 			}
 			
-			getNotification();
+			
 		} 
 		
 	</script>
@@ -52,9 +55,69 @@
 	//알림 가져오기
 	function getNotification(){
 		$.getJSON("<%=request.getContextPath() %>/notification", function(dataMap){
-			console.log(dataMap);
+			displayItems(dataMap.notificationList, dataMap.notificationTypeMap);
 		});
 	}
+	
+	// Update the list with the given items
+	function displayItems(items,namemap) {
+	  const container = document.querySelector('.notificationli');
+	  
+	  console.log(items.length);
+		if(!items.length){
+			 container.innerHTML = `
+				 <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false"> 
+					<i class="far fa-bell"></i> 
+				</a>
+					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+						<span class="dropdown-item dropdown-header"></span>
+			 <div class="dropdown-divider"></div>
+					<div class="d-flex justify-content-center text-muted pb-1">
+						<span>
+							알림 내역이 없습니다.
+						</span>
+					</div>`;
+		} else{		
+	  
+		  let firsthtml = `<a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false"> 
+								<i class="far fa-bell"></i> 
+								<span class="badge badge-warning navbar-badge">${'${items.length}'}</span>
+							</a>
+								<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+									<span class="dropdown-item dropdown-header">읽지 않은 알림 ${'${items.length}'}개</span>`;
+									
+		  let lasthtml = `<div class="dropdown-divider"></div>
+							<a href="#" class="dropdown-item dropdown-footer">모두 읽음 처리</a>
+						  </div>`;
+		  container.innerHTML = firsthtml + items.map(item => createHTMLString(item,namemap)).join('') + lasthtml;
+		}
+	}	
+	
+	// Create HTML list item from the given data item
+	function createHTMLString(item,namemap) {
+		let iconClass =  "";
+		if(item.ntcnknd == 'NT'){
+			iconClass = "fas fa-bullhorn mr-2";
+		}else if(item.ntcnknd == 'SG'){
+			iconClass = "fas fa-comment-dots mr-2";
+		}else if(item.ntcnknd == 'BA'){
+			iconClass = "fas fa-building mr-2";
+		}else if(item.ntcnknd == 'AS'){
+			iconClass = "fas fa-tools mr-2";
+		}else if(item.ntcnknd == 'PC'){
+			iconClass = "fas fa-tasks mr-2";
+		}
+		  
+	  return `
+	 	<div class="dropdown-divider"></div>
+		<a href="${'${item.ntcnclickhourUrl}'}" class="dropdown-item">
+			<i class="${'${iconClass}'}"></i>
+			 새 ${'${namemap[item.ntcnknd]}'} <span class="float-right text-muted text-sm">${'${item.occrrncdehour}'}</span>
+		</a>
+	    `;
+	}
+
+
 	</script>
 	
 	
