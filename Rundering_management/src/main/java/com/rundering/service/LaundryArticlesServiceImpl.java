@@ -86,12 +86,12 @@ public class LaundryArticlesServiceImpl implements LaundryArticlesService {
 			int articlesNumber= Integer.parseInt(articlesCode);
 			articlesNumber++;
 			if(articlesNumber<10) {
-				articlesCode ="0"+articlesNumber;
+				articlesCode =laundryArticles.getClcode()+"0"+articlesNumber;
 			}else {
-				articlesCode=""+articlesNumber;
+				articlesCode=laundryArticles.getClcode()+""+articlesNumber;
 			}
 		}else {
-			articlesCode="01";
+			articlesCode=laundryArticles.getClcode()+"01";
 		}
 		laundryArticles.setAtchFileNo(strSeq);
 		

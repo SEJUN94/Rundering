@@ -10,11 +10,15 @@ import javax.servlet.http.HttpSession;
 import com.rundering.command.BranchCriteria;
 import com.rundering.command.BranchPageMaker;
 import com.rundering.dao.ComCodeDAO;
+import com.rundering.dao.ItemInsertDAO;
 import com.rundering.dao.ItemOrderDAO;
+import com.rundering.dao.LaundryGoodsStockDAO;
 import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.EmployeesVO;
+import com.rundering.dto.ItemInsertVO;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
+import com.rundering.dto.LaundryGoodsStockVO;
 
 public class ItemOrderServiceImpl implements ItemOrderService {
 		
@@ -22,12 +26,24 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 	
 	ComCodeDAO comCodeDAO;
 	
+	ItemInsertDAO itemInsertDAO;
+	
+	LaundryGoodsStockDAO laundryGoodsStockDAO;
+	
+	
 	public void setItemOrderDAO(ItemOrderDAO itemOrderDAO) {
 		this.itemOrderDAO = itemOrderDAO;
 	}
 	public void setComCodeDAO(ComCodeDAO comCodeDAO) {
 		this.comCodeDAO = comCodeDAO;
 	}
+	public void setLaundryGoodsStockDAO(LaundryGoodsStockDAO laundryGoodsStockDAO) {
+		this.laundryGoodsStockDAO = laundryGoodsStockDAO;
+	}
+	public void setItemInsertDAO(ItemInsertDAO itemInsertDAO) {
+		this.itemInsertDAO = itemInsertDAO;
+	}
+	
 	
 	@Override
 	public void insertItemOrder(ItemOrderVO itemOrder,List<ItemOrderDetailVO> itemOrderDetailList) throws Exception {
@@ -43,10 +59,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 			i++;
 			}
 		} catch (Exception e) {
-			itemOrderDAO.itemOrderDetailRemove(seq);
-			itemOrderDAO.itemOrderRemove(seq);
 			e.printStackTrace();
-			throw e;
 		}
 	}
 	@Override
@@ -118,7 +131,32 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 	}
 	@Override
 	public void updateState(ItemOrderVO itemOrder) throws Exception{
+		
+		List<ItemOrderDetailVO> itemOrderDetailList= itemOrderDAO.selectItemOrderDetailByOrdercode(itemOrder.getOrdercode());
+		String branchCode=itemOrderDAO.selectItemOrderBranchCodeByOrdercode(itemOrder.getOrdercode());
 		itemOrderDAO.updateItemOrderStatusByOrderCode(itemOrder);
+		
+		for (ItemOrderDetailVO itemOrderDetail : itemOrderDetailList) {
+			System.out.println(itemOrderDetail.getArticlesCode());
+			ItemInsertVO itemInsert = new ItemInsertVO();
+			LaundryGoodsStockVO laundryGoodsStock = new LaundryGoodsStockVO();
+			itemInsert.setArticlesCode(itemOrderDetail.getArticlesCode());
+			itemInsert.setBranchCode(branchCode);
+			itemInsert.setItemCount(itemOrderDetail.getSeq());
+			itemInsert.setOrderNo(itemOrderDetail.getOrdercode());
+			itemInsertDAO.insertItemIsert(itemInsert);
+			
+			laundryGoodsStock.setArticlesCode(itemOrderDetail.getArticlesCode());
+			laundryGoodsStock.setBranchCode(branchCode);
+			laundryGoodsStock.setSupplyCount(itemOrderDetail.getSeq());
+			laundryGoodsStockDAO.updateLaundryGoodsStockCountByVO(laundryGoodsStock);
+			
+		}
+		
+		
+		
+		
+		
 	}
 	@Override
 	public void deleteItemorder(String ordercode) throws Exception{

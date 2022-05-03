@@ -16,5 +16,10 @@ public class LaundryGoodsStockDAOImpl implements LaundryGoodsStockDAO{
 		session.insert("LaundryGoodsStock-Mapper.insertLaundryGoodsStock",laundryGoodsStock);
 	}
 
+	@Override
+	public void updateLaundryGoodsStockCountByVO(LaundryGoodsStockVO laundryGoodsStock) throws Exception {
+		session.update("LaundryGoodsStock-Mapper.updateLaundryGoodsStockCountByVO", laundryGoodsStock);
+	}
+
 
 }
