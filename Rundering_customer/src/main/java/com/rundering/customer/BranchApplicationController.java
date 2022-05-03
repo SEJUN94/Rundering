@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jsp.util.MakeFileName;
 import com.rundering.command.LaundryOrderReceiveCommand;
@@ -103,10 +104,38 @@ public class BranchApplicationController {
 	}
 	
 	@RequestMapping("/my_branch_request")
-	public void myBranchRequest() {
+	public ModelAndView myBranchRequest(ModelAndView mnv, BranchApplicationVO bv) throws Exception{
+		String url="branchapplication/my_branch_request";
 		
+		bv = branchApplicationService.getSelfAuthentification(bv);
+		
+		mnv.addObject("bv", bv);
+		mnv.setViewName(url);
+		
+		return mnv;
 	}
 	
+	// 지점신청(심사 신청)
+	@RequestMapping("/updateJudge")
+	public ResponseEntity<String> updateJudge(BranchApplicationVO bv) throws Exception{
+		ResponseEntity<String> entity = null;
+		
+		System.out.println(bv.getApplicationNo());
+		
+		try{
+	    	branchApplicationService.updateJudge(bv);
+	    	
+    		entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+
+	    }catch(Exception e){
+	    	entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+		
+		
+		return entity;
+	}
+		
+		
 	@RequestMapping("/self_authentification")
 	public void selfAuthentification() {}
 
@@ -116,7 +145,6 @@ public class BranchApplicationController {
 	@RequestMapping("/self_authentification/comfirm")
 	@ResponseBody
 	public ResponseEntity<String> selfAuthentificationCom(BranchApplicationVO bv) throws Exception{
-		
 		ResponseEntity<String> entity = null;
 		
 	    try{
@@ -135,7 +163,6 @@ public class BranchApplicationController {
 	    }catch(Exception e){
 	    	entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
-	      
 	    return entity;
 	}
 

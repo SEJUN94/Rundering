@@ -94,7 +94,7 @@
                   icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
                   title: '본인 확인이 완료 되었습니다.',
                });
-               setTimeout(function(){location.href='<%=request.getContextPath() %>/branchapplication/my_branch_request';},1000);
+               setTimeout(function(){location.href='<%=request.getContextPath() %>/branchapplication/my_branch_request?applicateName='+nm+'&phone='+ph},1000);
             } else if(req.toUpperCase() == "NO") {
                Swal.fire({
                   icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.

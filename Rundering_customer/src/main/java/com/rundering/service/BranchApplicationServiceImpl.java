@@ -20,10 +20,17 @@ public class BranchApplicationServiceImpl implements BranchApplicationService {
 	
 	
 	// 지점 신청 확인 들어가기전 본인인증
-		@Override
-		public BranchApplicationVO getSelfAuthentification(BranchApplicationVO bv) throws Exception {
-			return branchApplicationDAO.selectSelfAuthentification(bv);
-		}
+	@Override
+	public BranchApplicationVO getSelfAuthentification(BranchApplicationVO bv) throws Exception {
+		return branchApplicationDAO.selectSelfAuthentification(bv);
+	}
+	
+	//지점 신청 심사내역
+	@Override
+	public void updateJudge(BranchApplicationVO bv) throws Exception {
+		branchApplicationDAO.updateJudge(bv);
+		
+	}
 	
 
 }

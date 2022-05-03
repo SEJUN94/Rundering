@@ -47,5 +47,20 @@
 		AND PHONE = #{phone}
 	</select>
 	
-
+	<update id="updateJudge" parameterType="branchApplication">
+		UPDATE TB_BRANCH_APPLICATION
+		<if test="progressStatusCode == '03'.toString() ">
+			set PROGRESS_STATUS_CODE = '04'
+		</if>
+		<if test="progressStatusCode == '06'.toString() ">
+			set PROGRESS_STATUS_CODE = '07'
+		</if>
+		<if test="progressStatusCode == '08'.toString() ">
+			set PROGRESS_STATUS_CODE = '09'
+		</if>
+		where APPLICATION_NO = #{applicationNo}
+		and PROGRESS_STATUS_CODE = #{progressStatusCode}
+	</update>
+	
+	
 </mapper>

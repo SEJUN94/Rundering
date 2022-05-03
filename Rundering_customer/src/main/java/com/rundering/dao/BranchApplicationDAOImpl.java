@@ -23,6 +23,13 @@ public class BranchApplicationDAOImpl implements BranchApplicationDAO {
 	public BranchApplicationVO selectSelfAuthentification(BranchApplicationVO bv) throws Exception {
 		return session.selectOne("BranchApplication-Mapper.selectSelfAuthentification", bv);
 	}
+
+	//지점 신청 심사내역 
+	@Override
+	public void updateJudge(BranchApplicationVO bv) throws Exception {
+		session.update("BranchApplication-Mapper.updateJudge", bv);
+		
+	}
 	
 
 }
