@@ -7,7 +7,7 @@
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="branchApplicationList" value="${dataMap.branchApplicationList }" />
 <body>
-
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <section class="content-header">
 	<div class="container-fluid">
 		<div class="row mb-2">

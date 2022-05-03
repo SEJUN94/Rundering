@@ -20,5 +20,6 @@ public interface LaundryArticlesDAO {
 	void deleteLaundryArticles(String articlesCode) throws SQLException;
 	
 	List<LaundryArticlesVO>	NotALaundryArticlesList(Criteria cri) throws SQLException;
+	List<LaundryArticlesVO> selectLandryArticlesStock() throws Exception;
 	
 }

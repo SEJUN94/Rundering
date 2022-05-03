@@ -143,4 +143,9 @@ public class MemberDAOImpl implements MemberDAO {
 		session.insert("Member-Mapper.insertBranchMemberByMemberVO", member);
 	}
 
+	@Override
+	public String selectMemberNoSeq() throws Exception {
+		return session.selectOne("Member-Mapper.selectMemberNoSeq");
+	}
+
 }

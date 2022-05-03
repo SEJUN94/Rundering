@@ -4,18 +4,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.annotation.JacksonInject.Value;
 import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
 import com.rundering.dao.BranchApplicationDAO;
 import com.rundering.dao.BranchDAO;
+import com.rundering.dao.EmployeesDAO;
+import com.rundering.dao.LaundryArticlesDAO;
 import com.rundering.dao.LaundryFixturesDAO;
+import com.rundering.dao.LaundryGoodsStockDAO;
 import com.rundering.dao.MemberDAO;
 import com.rundering.dto.BranchApplicationVO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.EmployeesVO;
+import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.dto.LaundryFixturesVO;
+import com.rundering.dto.LaundryGoodsStockVO;
 import com.rundering.dto.MemberVO;
+import com.rundering.util.UserSha256;
 
 public class BranchApplicationServiceImpl implements BranchApplicationService{
 
@@ -23,6 +31,11 @@ public class BranchApplicationServiceImpl implements BranchApplicationService{
 	BranchDAO branchDAO;
 	MemberDAO memberDAO;
 	LaundryFixturesDAO laundryFixturesDAO;
+	LaundryArticlesDAO laundryArticlesDAO;
+	LaundryGoodsStockDAO laundryGoodsStockDAO;
+	EmployeesDAO employeesDAO;
+	
+	MailSendService mailSendService; 
 	
 	public void setBranchApplicationDAO(BranchApplicationDAO branchApplicationDAO) {
 		this.branchApplicationDAO = branchApplicationDAO;
@@ -36,6 +49,20 @@ public class BranchApplicationServiceImpl implements BranchApplicationService{
 	public void setLaundryFixturesDAO(LaundryFixturesDAO laundryFixturesDAO) {
 		this.laundryFixturesDAO = laundryFixturesDAO;
 	}
+	public void setLaundryArticlesDAO(LaundryArticlesDAO laundryArticlesDAO) {
+		this.laundryArticlesDAO = laundryArticlesDAO;
+	}
+	public void setLaundryGoodsStockDAO(LaundryGoodsStockDAO laundryGoodsStockDAO) {
+		this.laundryGoodsStockDAO = laundryGoodsStockDAO;
+	}
+	public void setEmployeesDAO(EmployeesDAO employeesDAO) {
+		this.employeesDAO = employeesDAO;
+	}
+	public void setMailSendService(MailSendService mailSendService) {
+		this.mailSendService = mailSendService;
+	}
+	
+	
 	
 	@Override
 	public Map<String, Object> selectBranchApplicationList(Criteria cri) throws Exception {
@@ -94,21 +121,54 @@ public class BranchApplicationServiceImpl implements BranchApplicationService{
 	}
 	@Override
 	public void enrollmentRegist(MemberVO member,BranchVO branch,List<LaundryFixturesVO> laundryFixturesVOList,String applicationNo) {
+		List<LaundryArticlesVO> laundryArticlesList=null;
+		EmployeesVO emp= new EmployeesVO();
+		String memberNo = null;
+				
+		String branchCode = branch.getBranchCode();
 		try {
+			memberNo=memberDAO.selectMemberNoSeq();
+			member.setMemberNo(memberNo);
 			memberDAO.insertBranchMemberByMemberVO(member);
-	
 			branchDAO.insertBranch(branch);
+			laundryArticlesList=laundryArticlesDAO.selectLandryArticlesStock();
 			for (LaundryFixturesVO laundryFixtures : laundryFixturesVOList) {
 				laundryFixturesDAO.insertFixturesByFixtrues(laundryFixtures);
 			}
 			BranchApplicationVO branchApplication = new BranchApplicationVO();
 			branchApplication.setApplicationNo(Integer.parseInt(applicationNo));
 			branchApplicationDAO.updateProgressStatusCode10ByBranchApplicationVO(branchApplication);
+			
+			LaundryGoodsStockVO laundryGoodsStock = new LaundryGoodsStockVO();
+			for (LaundryArticlesVO laundryArticles : laundryArticlesList) {
+				laundryGoodsStock.setArticlesCode(laundryArticles.getArticlesCode());
+				laundryGoodsStock.setBranchCode(branchCode);
+				laundryGoodsStockDAO.insertLaundryGoodsStock(laundryGoodsStock);
+			}
+			emp.setMemberno(memberNo);
+			emp.setBranchCode(branchCode);
+			
+			employeesDAO.employeeBranchRegist(emp);
+			
+			emp= employeesDAO.selectEmployeeByMno(memberNo);
+			
+			member.setId(emp.getEmployeeId());
+			String pwd = UserSha256.encrypt(emp.getEmployeeId());
+			member.setPassword(pwd);
+			member.setMemberNo(emp.getMemberno());
+			memberDAO.updateMember(member);
+			
+			mailSendService.sendIdPwMail(emp.getMemberno());
+			
+			
+			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
+	
+	
 
+	
+	
 }

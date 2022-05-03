@@ -4,10 +4,10 @@
 <script type="text/x-handlebars-template" id="enrollemnt" >
 <form action="enrollmentRegist" method="post" id="enrollmentRegistForm">	
 	<div class="row ml-3 mr-3" id="removeTag">
-		<input type="hidden" name="name" value='{{applicateName}}'>
-		<input type="hidden" name="phone" value="{{phone}}">
-		<input type="hidden" name="email" value="{{email}}">
-		<input type="hidden" name="applicationNo" vlaeu="{{applicationNo}}">
+		<input type="hidden" name="name" value='{{application.applicateName}}'>
+		<input type="hidden" name="phone" value="{{application.phone}}">
+		<input type="hidden" name="email" value="{{application.email}}">
+		<input type="hidden" name="applicationNo" value="{{application.applicationNo}}">
 		<div class="col-8">
 			<div class="card card-default">
 				<div class="card-header">
@@ -15,40 +15,49 @@
 						<b>지점 등록</b>
 					</h3>
 				</div>
-	
 					<div class="card-body row">
 							<div class="col-md-12 row">
 								<div class="form-group col-4">
 									<label>지점이름</label>
 									<input type="text" class="form-control"	id="branchName" name="branchName" value=""  />
 								</div>
-								
-								<div class="form-group col-4">
-									<label>지점 전화번호</label> 
+								<div class="form-group col-3">
+									<label>지점전화번호</label> 
 									<input type="text" class="form-control"	id="branchContact" name="branchContact" value=""  />
 								</div>
 								<div class="form-group col-2">
 									<label>상위지역 </label> 
-									<input type="text" class="form-control"	id="toparea" name="toparea" value=""  />
+									<select class="form-control" name="toparea" id="toparea">
+										{{#each topAreaList}}	
+											<option value="{{this.comCode}}">{{this.comCodeNm}}</option>
+										{{/each}}											
+										</select>	
+
 								</div>
-								<div class="form-group col-2">
+								<div class="form-group col-3">
 									<label>하위지역 </label> 
-									<input type="text" class="form-control"	id="area" name="area" value=""  />
+										
+										<select class="form-control" name="area" id="area">
+										{{#each areaList}}	
+											<option value="{{this.comCode}}">{{this.comCodeNm}}</option>
+										{{/each}}											
+										</select>	
+									
+									
 								</div>
-								
 							</div>
 							<div class="col-md-12 row">
 								<div class="form-group col-4">
 									<label>우편번호</label> 
 									<span class="input-group-append">
-										<input type="text" class="form-control col-7"	id="zip" name="zip" value=""  />
+										<input type="text" class="form-control col-7"	id="zip" name="zip" value=""  readonly />
 									
-										<button type="button" class ="btn btn-sm btn-primary col-5">우편검색</button>
+										<button type="button" class ="btn btn-sm btn-primary col-5" onclick="findAdd()">우편검색</button>
 									</span>
 								</div>
 								<div class="form-group col-4">
 									<label>주소</label> 
-									<input type="text" class="form-control"	id="add1" name="add1" value=""  />
+									<input type="text" class="form-control"	id="add1" name="add1" value="" readonly  />
 								</div>
 								<div class="form-group col-4">
 									<label>상세주소 </label> 
@@ -139,23 +148,30 @@
 	</div>
 </form>
 	</script>
-	
+
 	<script type="text/javascript">
 		function branch_enrollment(flag,applicationNo){
 			 $.ajax({
-			        url:"<%=request.getContextPath()%>/admin/branchapplication/applicationData",
+			        url:"<%=request.getContextPath()%>/admin/branchapplication/applicationAreaData",
 			        type:"get",
 			        data: {
 			        	applicationNo:applicationNo
 			        },
 			        dataType:"json",
-			        success:function(application){
+			        success:function(data){
 			        	let source = $("#enrollemnt").html(); 
 			        	let template = Handlebars.compile(source);
-			        	
-			        	let html = template(application);
-			        	
-			        	
+			        	let application=data.branchApplication;
+			       		 
+			        	let areaList=data.areaCode.AREAList;
+			        	//application.set
+			        	let handleData={
+			        		application:application,
+			        		areaList:areaList,
+			        		topAreaList:data.topAreaCode.TOPAREAList
+			        	}
+			        	console.log(handleData)
+			        	let html = template(handleData);
 			        	
 			        	if($('#removeTag')!=null){
 			        		$('#removeTag').remove();	
@@ -210,21 +226,43 @@
 			}
 			
 			if(document.querySelector("#zip").value.trim()==""){
-				alert("지점이름을 입력하세요")
+				alert("우편번호 필수")
 				return;
 			}
 			if(document.querySelector("#add1").value.trim()==""){
-				alert("지점이름을 입력하세요")
+				alert("주소 필수")
 				return;
 			}
 			if(document.querySelector("#add2").value.trim()==""){
-				alert("지점이름을 입력하세요")
+				alert("상세주소필수")
 				return;
 			}
 			let enrollmentForm = document.querySelector("#enrollmentRegistForm");
 			enrollmentForm.submit();
 			
 		}
-	
+		function findAdd() {
+			event.preventDefault(); // 이벤트를 막아 페이지 리로드를 방지
+			new daum.Postcode({
+				oncomplete : function(data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+					var addr = ''; // 주소 변수
+					
+					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+						addr = data.roadAddress;
+					} else { // 사용자가 지번 주소를 선택했을 경우(J)
+						addr = data.jibunAddress;
+					}
+					
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					document.getElementById('zip').value = data.zonecode;
+					document.getElementById("add1").value = addr;
+					// 커서를 상세주소 필드로 이동한다.
+					document.getElementById("add2").focus();
+				}
+			}).open();
+		}
+		</script>
 	</script>
 	
