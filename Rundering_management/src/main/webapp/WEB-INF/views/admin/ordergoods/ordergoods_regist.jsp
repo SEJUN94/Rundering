@@ -148,7 +148,7 @@
 	
 		//이미지 파일 용량 체크
 	   if(picture.files[0].size>1024*1024*5){
-	      alert("사진 용량은 1MB 이하만 가능합니다.");
+	      alert("사진 용량은 5MB 이하만 가능합니다.");
 	      picture.value="";
 	      return;
 	   };

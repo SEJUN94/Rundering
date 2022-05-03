@@ -66,6 +66,18 @@
 		  from TB_LAUNDRY_ARTICLES
 		 where CLCODE !='A'
 	</select>
+	<select id="selectLaundryArticles" resultType="str"  parameterType="str">
+	select SUBSTR(ARTICLES_CODE,2)
+	  from (
+		select ARTICLES_CODE
+		  from TB_LAUNDRY_ARTICLES
+		 where CLCODE =#{clcode}
+		order by ARTICLES_CODE  desc 
+		)
+	where <![CDATA[
+					ROWNUM  <= 1
+			 	]]>
+	</select>
 	
 	
 	<update id="insertLaundryArticles" parameterType="laundryArticles">

@@ -99,6 +99,8 @@
 		p:laundryArticlesDAO-ref="laundryArticlesDAO"
 		p:attachDAO-ref="attachDAO"
 		p:comCodeDAO-ref="comCodeDAO"
+		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
+		p:branchDAO-ref="branchDAO"
 	/>	
 	<bean id="laundryFixturesService" class="com.rundering.service.LaundryFixturesServiceImpl"
 		p:laundryFixturesDAO-ref="laundryFixturesDAO"

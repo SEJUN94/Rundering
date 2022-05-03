@@ -50,10 +50,9 @@ public class LaundryArticlesController {
 	}
 
 	@RequestMapping(value = "/ordergoods/regist", method = RequestMethod.POST)
-	public String regist(LaundryArticlesVO laundryArticles,AttachVO attach, String picture, RedirectAttributes rttr) throws Exception {
+	public String regist(LaundryArticlesVO laundryArticles,AttachVO attach, String fileName, RedirectAttributes rttr) throws Exception {
 		String url = "redirect:/admin/ordergoods/list";
 		
-		String fileName = laundryArticles.getPicture();
 		
 		File file = new File(picturePath + fileName);
 		String orginalFileName = MakeFileName.parseFileNameFromUUID(fileName, "\\$\\$");

@@ -95,15 +95,18 @@
 		</div>
 	</div>
 <div class="row ml-3 mr-3" id="removeTag">
+	
+		
 		<div class="col-6" >
+		<form action="regist" method="post">
+		<input type="hidden" name="fileName" id="inputFileName">
 			<div class="card card-default">
 				<div class="card-header">
 					<h3 class="card-title" style="padding-top: 6px;">
 						<b>물품 등록</b>
 					</h3>
 						<div class="card-tools">
-							<button type="button" class="btn btn-primary btn-sm float-right"
-								onclick="">
+							<button type="submit" class="btn btn-primary btn-sm float-right">
 								 저장
 							</button>
 						</div>
@@ -112,7 +115,7 @@
 							<div class="col-md-12 row">
 								<div class="form-group col-12">
 									<label>물품명</label>
-									<input type="text" class="form-control" id="branchName" name="branchName" value="" >
+									<input type="text" class="form-control" id="branchName" name="articlesName" value="" >
 								</div>
 								
 							</div>
@@ -127,12 +130,12 @@
 								</div>
 								<div class="form-group col-4">
 										<label>물품가격</label> 
-										<input type="text" class="form-control quantity" style="text-align: end;" id="branchLndrpcrymslmcoqy" name="branchLndrpcrymslmcoqy" value="" >
+										<input type="text" class="form-control quantity" style="text-align: end;" id="price" name="price" value="0" >
 								</div>
 								<div class="form-group col-3">
 									<label>단위</label> 
-										<select class="form-control "> 
-											<c:forEach items="${EACHList}" var="EACH">
+										<select class="form-control " name="each"> 
+											<c:forEach items="${EACHList}" var="EACH" >
 												<option value="${EACH.comCode} ">${EACH.comCodeNm} </option>
 											</c:forEach>
 										</select>
@@ -142,13 +145,14 @@
 							<div class="col-md-12 row">
 								<div class="form-group col-12">
 									<label>비고</label> 
-									<input type="text" class="form-control" id="add1" name="add1" value="" >
+									<input type="text" class="form-control" id="note" name="note" value="" >
 								</div>
 								
 							</div>
 						</div>
 		
 			</div>
+				</form>
 		</div>
 
 		<div class="col-6">
@@ -159,12 +163,13 @@
 					</h3>
 						<div class="card-tools fileInput p-0">
 							<div class="inputRow" data-no="0">
-								<label for="inputFile" data-no="0" class="btn btn-secondary btn-sm input-group-addon" onclick="justPressed(this)">파일선택</label>
-								<input id="inputFileName" type="file" name="tempPicture" data-no="0" disabled="">
+								<form id="fileForm" enctype="multipart/form-data">
+									<input id="inputFile" type="file" name="multi" onchange="upload_go()">
+								</form>
 							</div>
 						</div>
 				</div>
-					<div class="card-body" style="height: 260px;">
+					<div class="card-body" style="height: 260px;" id="pictureView">
 				
 				</div>
 			</div>
@@ -173,14 +178,63 @@
 
 	</div>
 	
+	
+	<script >
+		let uploadCheck=false;
+		function upload_go() {
+			uploadCheck=false;
+			let file= document.querySelector("#inputFile");
+			
+			 let fileFormat = file.value.substr(file.value.lastIndexOf(".")+1).toUpperCase();
+				if(!(fileFormat=="JPG" || fileFormat=="JPEG"||fileFormat=="PNG")){
+			   		alert("이미지는 jpg/jpeg/png 형식만 허용");
+			   		file.value="";      
+			   		return;
+			   		} 
+			
+				//이미지 파일 용량 체크
+			   if(file.files[0].size>1024*1024*5){
+			      alert("사진 용량은 5MB 이하만 가능합니다.");
+			      file.value="";
+			      return;
+			   };
+			   if (file.files && file.files[0]) {
+					let reader = new FileReader();
+					reader.onload = function (e) {
+						 $('div#pictureView').css({'background-image':'url('+e.target.result+')',
+			                 'background-position':'center',
+			                 'background-size':'cover',
+			                 'background-repeat':'no-repeat'
+			                 });
+					}
+					reader.readAsDataURL(file.files[0]);
+				}
+			
+			   let form =document.querySelector("#fileForm");
+				let formData = new FormData(form);
+			
+			$.ajax({
+				  url:"<%=request.getContextPath()%>/admin/ordergoods/picture",
+			      data:formData,
+			      type:'post',
+			      dataType:"json",
+			      processData:false,
+			      contentType:false,
+			      success:function(data){
+			    	  uploadCheck=true;
+			    	  document.querySelector("#inputFileName").value=""+data.fileName;
+			    	  
+					  console.log(data)
+			      },
+			      error:function(error){
+			    	  AjaxErrorSecurityRedirectHandler(error.status);		
+			      }
+			 });
+		}
+	
+	</script>
+
 
 	
 	
-	<c:if test="${from eq 'regist' }">
-		<script>
-			alert("등록되었습니다.");
-			window.close();
-			window.opener.location.reload();
-		</script>
-	</c:if>
 </body>
