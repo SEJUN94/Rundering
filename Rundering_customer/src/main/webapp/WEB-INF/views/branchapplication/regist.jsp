@@ -42,28 +42,19 @@
 				<div class="row">
 					<div class=" col-6" style="padding-left: 10%;">
 						<div style="margin-top: 16px">
-							<label for="email" class="col-mb-3"> <span
-								style="color: red; font-weight: bold;">*</span>이름
-							</label>
+							<label for="email" class="col-mb-3"> <span style="color: red; font-weight: bold;">*</span>이름</label>
 						</div>
 						<div class="input-group mb-3 form-group">
-							<input type="text" class="col-lg-9 form-control" id="name"
-								name="name" placeholder="이름">
+							<input type="text" class="col-lg-9 form-control" id="name" name="name" placeholder="이름">
 						</div>
 
 						<div style="margin-top: 16px">
-							<label for="phone" class="col-mb-5"> <span
-								style="color: red; font-weight: bold;">*</span>연락처
-							</label> <span class="sp"></span>
+							<label for="phone" class="col-mb-5"> <span style="color: red; font-weight: bold;">*</span>연락처</label> <span class="sp"></span>
 						</div>
 						<div class="input-group mb-3 form-group">
-							<input placeholder="'-'없이  번호만 기재해주세요" pattern="010[0-9]{8}"
-								name="phone" id="phone" class="col-lg-7 form-control"
-								type="text">
+							<input placeholder="'-'없이  번호만 기재해주세요" pattern="010[0-9]{8}" name="phone" id="phone" class="col-lg-7 form-control" type="text">
 							<div class="input-group-append">
-								<button type="button" onclick="phone_verification();"
-									class="btn btn-secondary"
-									style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
+								<button type="button" onclick="phone_verification();" class="btn btn-secondary" style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
 							</div>
 						</div>
 
@@ -74,25 +65,20 @@
 								<input type="text" class="form-control col-7" id="Code"
 									placeholder="인증번호">
 								<div class="input-group-append">
-									<button type="button" onclick="phone_verification();"
-										class="btn btn-secondary"
-										style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
+									<button type="button" onclick="phone_verification();" class="btn btn-secondary" style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
 								</div>
-								<div id="timeLimit"
-									style="position: absolute; padding: 9px; margin-left: 140px; color: gray; font-size: 0.9rem; z-index: 10"></div>
+								<div id="timeLimit" style="position: absolute; padding: 9px; margin-left: 140px; color: gray; font-size: 0.9rem; z-index: 10"></div>
 							</div>
 						</div>
 					</div>
 					<div class="col-6" style="padding-right: 10%;">
 
 						<div style="margin-top: 16px">
-							<label for="email" class="col-mb-3"> <span
-								style="color: red; font-weight: bold;">*</span>Email
+							<label for="email" class="col-mb-3"> <span style="color: red; font-weight: bold;">*</span>Email
 							</label>
 						</div>
 						<div class="input-group mb-3 form-group">
-							<input type="email" class="col-lg-9 form-control" id="email"
-								name="email" placeholder="Email">
+							<input type="email" class="col-lg-9 form-control" id="email" name="email" placeholder="Email">
 
 						</div>
 
@@ -136,7 +122,7 @@
 
 	</div>
 	
-	
+	<div class="hiddenInput"></div>
 	<form role="imageForm" method="post" enctype="multipart/form-data">
 		<input id="inputFile" name="pictureFile" type="file" class="form-controll" accept="hwp, pdf, PDF" style="display: none;" />
 	</form>
@@ -145,8 +131,63 @@
 	<!-- 알림 sweetalert2 -->
 	<script
 		src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-<script>
 
+
+<!-- 파일다운로드 -->
+<script>
+const dataSetting = function(){
+	   let dataArr = [];
+	   let dataObj = {};
+	   
+	   for(let i = 0; i < checkMark.length; i++){
+	      if(checkMark[i].checked){
+	         dataObj = {"unityatchmnflno" : uniflno.value,
+	                  "ano" : checkMark[i].value}
+	         dataArr.push(dataObj);   
+	      }      
+	   }
+	   
+	   return dataArr;
+	};
+
+	const sendDownloadFile = function(dataArr){
+	   let data = dataSetting(dataArr);
+	   let downUrl = "restDownload";
+	   if(data.length > 1){
+	      downUrl = "zipDownload"; 
+	   }
+	   
+	   const xhr = new XMLHttpRequest();
+	   xhr.onreadystatechange = function(){
+	       if (this.readyState == 4 && this.status == 200){
+	         
+	          let filename = "";
+	          let disposition = xhr.getResponseHeader('Content-Disposition');
+	            if (disposition && disposition.indexOf('attachment') !== -1) {
+	                let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+	                let matches = filenameRegex.exec(disposition);
+	                if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+	            }
+	         
+	           let a = document.createElement("a");
+	           let url = URL.createObjectURL(this.response)
+	           a.href = url;
+	           a.download = filename;
+	           document.body.appendChild(a);
+	           a.click();
+	           window.URL.revokeObjectURL(url);
+	       }
+	   }
+	   xhr.open('POST', downUrl);
+	   xhr.setRequestHeader('Content-type','application/json');
+	   xhr.responseType = 'blob'; 
+	   xhr.send(JSON.stringify(data));
+	   
+	}
+
+</script>
+
+<script>
 var dataNum = 1;
 
 	function addFile_go(){
@@ -290,11 +331,14 @@ $('input[name="pictureFile"]').change(function(){
 		contentType:false,
 		success:function(data){
 			
+			//저장된 파일명 input태그만들어 저장
+			const hiddenInput = document.querySelector(".hiddenInput");
+			hiddenInput.append(createHiddenInputNode(data));
+			
 			console.log(data+"임대계약서가 첨부 되었습니다.");
 			inputFileName.value = picture.files[0].name;
 			
 			spinner.style.display = 'none';
-			console.log(spinner)
 		},
 		error:function(error){
 			//alert("현재 사진 업로드가 불가합니다. \n관리자에게 연락바랍니다.");
@@ -302,11 +346,7 @@ $('input[name="pictureFile"]').change(function(){
 		}
 	});
 
-
 });
-
-
-	
 </script>
 
 
