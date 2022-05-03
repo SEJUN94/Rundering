@@ -131,7 +131,6 @@ public class BranchApplicationController {
 	    	entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
 		
-		
 		return entity;
 	}
 		
