@@ -181,5 +181,12 @@
 		VALUES
 		(#{memberNo},'03',#{name},#{phone},#{email})
 	</insert>
+	
+	<select id="selectMemberByPhone" parameterType="str" resultMap="memberMap">
+		select *
+		  from tb_member
+		 where phone=#{phone}
+	
+	</select>
 	 
 </mapper>

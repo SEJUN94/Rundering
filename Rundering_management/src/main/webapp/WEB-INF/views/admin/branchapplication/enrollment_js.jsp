@@ -2,13 +2,15 @@
     pageEncoding="UTF-8"%>
 			
 <script type="text/x-handlebars-template" id="enrollemnt" >
-<form action="enrollmentRegist" method="post" id="enrollmentRegistForm">	
+	
 	<div class="row ml-3 mr-3" id="removeTag">
+
+		<div class="col-8">
+		<form action="enrollmentRegist" method="post" id="enrollmentRegistForm">
 		<input type="hidden" name="name" value='{{application.applicateName}}'>
 		<input type="hidden" name="phone" value="{{application.phone}}">
 		<input type="hidden" name="email" value="{{application.email}}">
 		<input type="hidden" name="applicationNo" value="{{application.applicationNo}}">
-		<div class="col-8">
 			<div class="card card-default">
 				<div class="card-header">
 					<h3 class="card-title">
@@ -109,10 +111,11 @@
 								</span>
 							</span>
 					</div>
+					{{#if btnSee}}
 						<div class="form-group col-2">
 								<button type="button" class="btn btn-md btn-primary"  style="position: absolute; right: 0px; bottom: 0px;" onclick="enrollmentRegist()">등록</button>
 						</div>
-			
+					{{/if}}
 				</div>
 			</div>
 		</div>
@@ -143,15 +146,20 @@
 					</div>
 				</div>
 			</div>
+		</form>		
 		</div>
 
 	</div>
-</form>
+
 	</script>
 
 	<script type="text/javascript">
 		function branch_enrollment(flag,applicationNo){
-			 $.ajax({
+			let btnSee=true;
+			if(flag==true){
+				btnSee=false;
+			} 
+			$.ajax({
 			        url:"<%=request.getContextPath()%>/admin/branchapplication/applicationAreaData",
 			        type:"get",
 			        data: {
@@ -168,7 +176,8 @@
 			        	let handleData={
 			        		application:application,
 			        		areaList:areaList,
-			        		topAreaList:data.topAreaCode.TOPAREAList
+			        		topAreaList:data.topAreaCode.TOPAREAList,
+			        		btnSee:btnSee
 			        	}
 			        	console.log(handleData)
 			        	let html = template(handleData);
@@ -264,5 +273,4 @@
 			}).open();
 		}
 		</script>
-	</script>
 	

@@ -94,6 +94,29 @@ public class BranchApplication {
 	}
 	
 	
+	@RequestMapping(value = "/applicationAreaComplateData" ,method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> applicationAreaComplateData(String applicationNo){
+		BranchApplicationVO branchApplication = null;
+		ResponseEntity<Map<String, Object>> resp = null;
+		BranchVO branch = null;
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		try {
+			branchApplication = branchApplicationService.selectBranchApplication(applicationNo);
+			branch =branchApplicationService.selectBranch(branchApplication.getPhone());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dataMap.put("branchApplication", branchApplication);
+		dataMap.put("branch",branch);
+		
+		resp =new ResponseEntity<Map<String, Object>>(dataMap, HttpStatus.OK);
+		return resp;
+	}
+	
+	
 	@RequestMapping(value=  "/approvalreturnContentsRegist",method = RequestMethod.POST)
 	public String approvalreturnContentsRegist(BranchApplicationVO brnachApplication,HttpSession session) {
 		String url="redirect:/admin/branchapplication/contract";

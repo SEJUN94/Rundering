@@ -147,5 +147,11 @@ public class MemberDAOImpl implements MemberDAO {
 	public String selectMemberNoSeq() throws Exception {
 		return session.selectOne("Member-Mapper.selectMemberNoSeq");
 	}
+	@Override
+	public MemberVO selectMemberByPhone(String phone) throws Exception {
+					
+		return session.selectOne("Member-Mapper.selectMemberByPhone",phone);
+		 
+	}
 
 }

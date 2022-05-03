@@ -22,6 +22,12 @@
 		  from tb_employees
 		 where memberno=#{memberno} 
 	</select>
+	<select id="selectEmployeeByMemberNo" resultMap="employeesMap" parameterType="str">
+		select *
+		  from tb_employees
+		 where memberno=#{memberno} 
+	</select>
+	
 	
 	<select id="selectEmployeeByMno" resultMap="employeesMap" parameterType="str">
 		select 

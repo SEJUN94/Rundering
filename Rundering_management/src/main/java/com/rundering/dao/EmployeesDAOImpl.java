@@ -46,6 +46,12 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 		session.insert("Employees-Mapper.employeeBranchRegist", employee);
 		
 	}
+	@Override
+	public EmployeesVO selectEmployeeByMemberNo(String memberNo) throws Exception {
+		return session.selectOne("Employees-Mapper.selectEmployeeByMemberNo", memberNo);
+		
+		 
+	}
 	
  
 	

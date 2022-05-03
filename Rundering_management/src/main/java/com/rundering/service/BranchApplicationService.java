@@ -30,5 +30,7 @@ public interface BranchApplicationService {
 
 	void enrollmentRegist(MemberVO member, BranchVO branch, List<LaundryFixturesVO> laundryFixturesVOList,
 			String applicationNo);
+
+	BranchVO selectBranch(String phone) throws Exception;
 	
 } 

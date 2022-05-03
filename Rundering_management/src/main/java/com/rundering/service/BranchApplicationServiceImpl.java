@@ -86,6 +86,14 @@ public class BranchApplicationServiceImpl implements BranchApplicationService{
 	public BranchApplicationVO selectBranchApplication(String applicationNo) throws Exception{
 		return branchApplicationDAO.selectBranchApplicationByapplicationNo(applicationNo);
 	}
+	
+	@Override
+	public BranchVO selectBranch(String phone) throws Exception{
+		MemberVO member = memberDAO.selectMemberByPhone(phone);
+		EmployeesVO emp = employeesDAO.selectEmployeeByMemberNo(member.getMemberNo());
+		
+		return branchDAO.selectBranchByBranchCode(emp.getBranchCode());
+	}
 	 
 	@Override
 	public void updateRejectContent(BranchApplicationVO branchApplication) throws Exception{

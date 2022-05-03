@@ -55,5 +55,7 @@ public interface MemberDAO {
 	void insertBranchMemberByMemberVO(MemberVO member) throws Exception;
 	
 	public String selectMemberNoSeq() throws Exception;
+
+	MemberVO selectMemberByPhone(String phone) throws Exception;
 	
 }

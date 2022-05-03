@@ -106,7 +106,7 @@
 										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_request(true,'${branchApplication.applicationNo}')">신청승인</button>
 										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_examine(true,'${branchApplication.applicationNo}')">심사승인</button>
 										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_voluntary(true,'${branchApplication.applicationNo}')">수의계약확인</button>
-										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_enrollment(true,'${branchApplication.applicationNo}')">지점등록</button>
+										<button type="button" class="btn btn-outline-success btn-sm" onclick="branch_request_complate('${branchApplication.applicationNo}')">지점등록</button>
 									</c:if>
 									
 								</td>
@@ -135,6 +135,7 @@
 <%@ include file="./enrollment_js.jsp" %>
 <%@ include file="./examine_js.jsp" %>
 <%@ include file="./voluntary_js.jsp" %>
+<%@ include file="./branchRequestComplate.jsp" %>
 			
 <script>
 	
