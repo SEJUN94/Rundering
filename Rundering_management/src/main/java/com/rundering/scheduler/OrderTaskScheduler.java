@@ -1,25 +1,21 @@
 package com.rundering.scheduler;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.client.RestClientException;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.EmployeesDAO;
 import com.rundering.dao.LaundryOrderDAO;
+import com.rundering.dao.NotificationDAO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.dto.NotificationVO;
 import com.rundering.util.SensSms;
 
 public class OrderTaskScheduler {
@@ -51,6 +47,13 @@ public class OrderTaskScheduler {
 	public void setSensSms(SensSms sensSms) {
 		this.sensSms = sensSms;
 	}
+	
+	private NotificationDAO notificationDAO;
+	public void setNotificationDAO(NotificationDAO notificationDAO) {
+		this.notificationDAO = notificationDAO;
+	}
+	
+	
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderTaskScheduler.class);
 
@@ -226,7 +229,27 @@ public class OrderTaskScheduler {
 					
 			}
 		}
-
+		
+		int remainAllAreaOrder = 0;
+		for (ComCodeVO comCodeVO : areaCodeList) {
+			List<LaundryOrderVO> orderListByArea = laundryOrderDAO.selectLaundryOrderListNotAssignedToBranchByArea(comCodeVO.getComCode());
+			remainAllAreaOrder += orderListByArea.size();
+		}
+		
+		//본사 직원들에게 알림
+		BranchVO branchVO = branchDAO.selectBranchByBranchCode("000000");
+		List<EmployeesVO> employeesList = employeesDAO.selectEmployeesByBranchCode(branchVO.getBranchCode());
+		NotificationVO notificationVO = new NotificationVO();
+			for (EmployeesVO employeesVO : employeesList) {
+				int sequence = notificationDAO.selectNotificationSequenceNextValue();
+				notificationVO.setNtcnId(String.valueOf(sequence));
+				notificationVO.setEmployeeId(employeesVO.getEmployeeId());
+				notificationVO.setNtcnknd("PC"); // 알림종류 공통코드 - 할당완료
+				notificationVO.setNtcncn("세탁주문 지점할당,미할당주문 "+remainAllAreaOrder+"건");
+				notificationVO.setNtcnclickhourUrl("'/runderingmanage/admin/laundryorder/list','A010100'");
+				notificationDAO.insertNotification(notificationVO);
+			}
+		
 	}
 
 	private List<String> getAffordableArea(String area, int remainQuantity) throws Exception {
