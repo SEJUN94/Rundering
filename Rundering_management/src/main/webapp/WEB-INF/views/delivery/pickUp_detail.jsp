@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set value="${dataMap.detail }" var="pickup"></c:set>
@@ -29,7 +28,7 @@
 
 		<div class="card-body">
 			<div class="row">
-				<form method="post"  enctype="multipart/form-data" id="fileform">
+				<form method="post" action="regist" enctype="multipart/form-data" id="fileform">
 					<div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
 						<div class="text-muted">
 							<p class="text-lg p-2">
@@ -38,6 +37,9 @@
 							<p class="text-lg p-2">
 								수거 요청일 <b class="d-block"><fmt:formatDate
 										value="${pickup.pickupRequestDate }" pattern="yyyy-MM-dd" /></b>
+							</p>
+							<p class="text-lg p-2">
+								연락처 <b class="d-block">${pickup.phone }</b>
 							</p>
 							<p class="text-lg p-2">
 								주소지 <b class="d-block">${pickup.add1 }</b> <b class="d-block">${pickup.add2 }</b>
@@ -54,9 +56,10 @@
 						<div class="col-12 col-sm-4">
 							<div class="custom-file" style="padding: 1.5rem;">
 								<input type="file" class="custom-file-input"
-									id="exampleInputFile" name="multi" onchange="fileUpload()"> <label
-									class="custom-file-label" for="exampleInputFile">사진을
+									id="orginalName" name="multi" onchange="fileUpload()"> <label
+									class="custom-file-label" for="orginalName" id="lab">사진을
 									첨부해주세요.</label>
+									<input type="hidden" id="picture" name="picture" value="">
 							</div>
 							<div class="info-box bg-light" onclick="pickup_complete('03');">
 								<input type="hidden" id="orderNo" name="orderNo" value="${pickup.orderNo}">
@@ -80,6 +83,8 @@
 	<script>
 	let orderNo1 = document.querySelector("#orderNo");
 	var orderNo = orderNo1.value;
+	var picture = document.querySelector("#picture").value;
+	var lab = document.querySelector("#lab");
 	
 	function pickup_complete(orderStatus){
 		Swal.fire({
@@ -94,28 +99,26 @@
           }).then((result) => {
             if (result.isConfirmed) {			
 			$.ajax({
-				url : '<%=request.getContextPath()%>/fordelivery/updatePickUpCom',
+				url : '<%=request.getContextPath()%>/fordelivery/regist',
 				data : {
 					'orderStatus' : orderStatus,
-					'orderNo' : orderNo
+					'orderNo' : orderNo,
+					'picture' : picture
 				},
 				type : 'post',
 				success : function(ok) {
-					if(ok.toUpperCase() == "OK"){
-						Swal.fire({
-							icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
-							title: '수거 완료 처리 되었습니다.',
-						});
-						setTimeout(function(){location.href='<%=request.getContextPath()%>/fordelivery/pickup';},1000);
-					} else {
-						Swal.fire({
-							icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
-							title: '시스템 오류로 반려 할 수 없습니다.'
-						});
-					}
+					Swal.fire({
+						icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title: '수거 완료 처리 되었습니다.',
+					});
+					setTimeout(function(){location.href='<%=request.getContextPath()%>/fordelivery/pickup';},1000);
+		
 				},
 				error : function(error) {
-					AjaxErrorSecurityRedirectHandler(error.status);
+					Swal.fire({
+						icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title: '수거사진을 첨부해주세요.',
+					});
 				}
 			});
 			
@@ -130,20 +133,21 @@
 		console.log(formData);
 		
 		$.ajax({
-			  url:"<%=request.getContextPath()%>/fordelivery/pictureupload",
-						data : formData,
-						type : 'post',
-						dataType : "json",
-						processData : false,
-						contentType : false,
-						success : function(data) {
-							alert(data.fileName)
-						},
-						error : function(error) {
-							AjaxErrorSecurityRedirectHandler(error.status);
-						}
-					});
-
+			url:"<%=request.getContextPath()%>/fordelivery/pictureupload",
+				data : formData,
+				type : 'post',
+				dataType : "json",
+				processData : false,
+				contentType : false,
+				success : function(data) {
+					picture = data.fileName;
+					lab.innerHTML = data.orginalName;
+				},
+				error : function(error) {
+					AjaxErrorSecurityRedirectHandler(error.status);
+				}
+			});
+			
 		}
 	</script>
 </body>

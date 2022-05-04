@@ -42,5 +42,17 @@ public class AttachDAOImpl implements AttachDAO{
 		session.delete("Attach-Mapper.deleteAttchFileRemoveByFileNo", fileNo);
 	}
 	
+	// 파일번호의 시퀸스를 구하기위해 받아오는 DAO
+	@Override
+	public int getAttachNoSeq(String atchFileNo) throws Exception {
+		return session.selectOne("Attach-Mapper.getAttachNoSeq", atchFileNo);
+	}
+	// 수거 및 배송 취소시 업로드된 이미지 삭제
+	@Override
+	public void deleteDeliveryPicture(AttachVO attach) throws Exception {
+		session.selectOne("Attach-Mapper.deleteDeliveryPicture", attach);
+		
+	}
+	
 
 }

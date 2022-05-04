@@ -4,13 +4,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.dao.AttachDAO;
 import com.rundering.dao.DeliveryDAO;
+import com.rundering.dao.MemberDAO;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 
 public class DeliveryServiceImpl implements DeliveryService{
 
 	private DeliveryDAO deliveryDAO;
+	private AttachDAO attachDAO;
+	private MemberDAO memberDAO;
+	
+	public void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
+	}
+	
+	public void setAttachDAO(AttachDAO attachDAO) {
+		this.attachDAO = attachDAO;
+	}
 	
 	public void setLaundryOrderDAO(DeliveryDAO deliveryDAO) {
 		this.deliveryDAO = deliveryDAO;
@@ -29,10 +42,23 @@ public class DeliveryServiceImpl implements DeliveryService{
 		
 		return dataMap;
 	}
-	//수거완료(상태 변경)
+	//배송 수거 완료(상태 변경)
 	@Override
 	public void updatePickUpCom(LaundryOrderVO laundryOrder) throws Exception {
 		deliveryDAO.updatePickUpCom(laundryOrder);
+		
+		// Attach_File_No 가져오기
+		String an = deliveryDAO.getAttachFileNo(laundryOrder.getOrderNo());
+		AttachVO av = new AttachVO();
+		av.setAtchFileNo(an);
+		
+		if(laundryOrder.getOrderStatus().equals("02")) {
+			av.setBizType("수거완료사진");
+			attachDAO.deleteDeliveryPicture(av);
+		}else if(laundryOrder.getOrderStatus().equals("07")) {
+			av.setBizType("배송완료사진");
+			attachDAO.deleteDeliveryPicture(av);
+		}
 		
 	}
 	
@@ -50,8 +76,8 @@ public class DeliveryServiceImpl implements DeliveryService{
 		
 		return dataMap;
 	}
-	//배송 완료ㆍ취소(상태버튼)
 	
+	//배송 완료ㆍ취소(상태버튼)
 	
 	
 	// 수거ㆍ배송 상세
@@ -59,7 +85,14 @@ public class DeliveryServiceImpl implements DeliveryService{
 	public Map<String, Object> getOrderDetailByOrderNo(String orderNo) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
+		
+		
+		
 		LaundryOrderVO detail = deliveryDAO.selectOrderByOrderNo(orderNo);
+		// 고객 연락처 가져오기
+		String phone = memberDAO.getPhoneNum(detail.getMemberNo());
+		detail.setPhone(phone);
+		
 		List<LaundryOrderDetailVO> detailList = deliveryDAO.selectOrdertDetailList(orderNo);
 		
 		dataMap.put("detail", detail);
@@ -86,5 +119,41 @@ public class DeliveryServiceImpl implements DeliveryService{
 	public List<LaundryOrderVO> sortAddressDesc(LaundryOrderVO laundryOrder) throws Exception {
 		List<LaundryOrderVO> lo = deliveryDAO.sortAddressDesc(laundryOrder);
 		return lo;
+	}
+	
+	
+	// 수거 및 배송 완료사진 업로드 및 상태변경 
+	@Override
+	public void regist(LaundryOrderVO laundryOrder,AttachVO attach) throws Exception {
+		//업무구분
+		String bizType = null;
+		if(laundryOrder.getOrderStatus().equals("03")) {
+			bizType = "수거완료사진";
+		}else if(laundryOrder.getOrderStatus().equals("08") || laundryOrder.getOrderStatus().equals("09")) {
+			bizType = "배송완료사진";
+		}
+		
+		
+		String attachNo = deliveryDAO.getAttachFileNo(laundryOrder.getOrderNo());
+	
+		laundryOrder.setAtchFileNo(attachNo);
+		
+		
+		attach.setBizType(bizType);
+		
+		// 파일 시퀀스
+		int seq = attachDAO.getAttachNoSeq(laundryOrder.getAtchFileNo());
+		
+		if(seq == 0) {
+			seq = 1;
+		}else if(seq > 0) {
+			seq += 1;
+		}
+		
+		attach.setAtchFileSeq(seq);
+		
+		attach.setAtchFileNo(laundryOrder.getAtchFileNo());
+		attachDAO.insertAttach(attach);
+		deliveryDAO.updatePickUpCom(laundryOrder);
 	}
 }

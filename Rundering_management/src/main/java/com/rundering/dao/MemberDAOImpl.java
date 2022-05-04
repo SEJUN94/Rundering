@@ -153,5 +153,11 @@ public class MemberDAOImpl implements MemberDAO {
 		return session.selectOne("Member-Mapper.selectMemberByPhone",phone);
 		 
 	}
+	
+	//주문 고객의 연락처 가져오기
+	@Override
+	public String getPhoneNum(String memberNo) throws Exception {
+		return session.selectOne("Member-Mapper.getPhoneNum",memberNo);
+	}
 
 }

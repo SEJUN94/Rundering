@@ -78,6 +78,12 @@ public class DeliveryDAOImpl implements DeliveryDAO {
 		return session.selectList("Delivery-Mapper.sortAddressDesc", laundryOrder);
 	}
 	
+	//주문번호에 할당된 파일번호 불러오기
+	@Override
+	public String getAttachFileNo(String orderNo) throws Exception {
+		return session.selectOne("Delivery-Mapper.getAttachFileNo",orderNo);
+	}
+	
 	
 	
 

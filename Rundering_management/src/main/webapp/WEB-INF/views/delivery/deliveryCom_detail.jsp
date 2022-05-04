@@ -34,6 +34,9 @@
 							배송 요청일 <b class="d-block"><fmt:formatDate value="${delivery.deliveryRequestDate }" pattern="yyyy-MM-dd" /></b>
 						</p>
 						<p class="text-lg p-2">
+							연락처 <b class="d-block">${delivery.phone }</b>
+						</p>
+						<p class="text-lg p-2">
 							주소지 <b class="d-block">${delivery.add1 }</b> <b class="d-block">${delivery.add2 }</b>
 						</p>
 						<p class="text-lg p-2">

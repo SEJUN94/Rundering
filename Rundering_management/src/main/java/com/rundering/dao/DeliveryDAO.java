@@ -28,7 +28,10 @@ public interface DeliveryDAO {
 	
 	//정렬처리
 	List<LaundryOrderVO> sortAddressAsc(LaundryOrderVO laundryOrder)throws Exception;
-	
 	List<LaundryOrderVO> sortAddressDesc(LaundryOrderVO laundryOrder)throws Exception;
+	
+	//주문번호에 할당된 파일번호 불러오기
+	String getAttachFileNo(String orderNo) throws Exception;
+	
 	
 }

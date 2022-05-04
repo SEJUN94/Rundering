@@ -76,6 +76,13 @@
 		where ORDER_NO=#{orderNo}
 	</select>
 	
+	<select id="getAttachFileNo" parameterType="str" resultType="str">
+		SELECT ATCH_FILE_NO
+		FROM TB_LAUNDRY_ORDER
+		WHERE ORDER_NO = #{orderNo}
+	</select>
+	
+	
 	<update id="updatePickUpCom" parameterType="laundryOrder">
 		UPDATE TB_LAUNDRY_ORDER
 		<if test="orderStatus == '02'.toString() ">
@@ -148,6 +155,6 @@
 			AND ORDER_STATUS = #{orderStatus}
 			ORDER BY ADD1 DESC
 	</select>
-
+	
 
 </mapper>

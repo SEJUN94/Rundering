@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <c:set value="${dataMap.pickupList }" var="pickupList"></c:set>
 <c:set value="${dataMap.pickupCompleteList }" var="pickupCompleteList"></c:set>
 
@@ -40,10 +42,10 @@
 									<td colspan="2" style="text-align: center;"><strong>수거할 세탁물이 없습니다</strong></td>
 								</tr>
 							</c:if>
-							<c:forEach items="${pickupList }" var="pickupList">
-								<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickupdetail?orderNo=${pickupList.orderNo }&orderStatus=02'">
-									<td class="aa">${pickupList.orderNo }</td>
-									<td class="bb">${pickupList.add1 }${pickupList.add2 }</td>
+							<c:forEach items="${pickupList }" var="pList">
+								<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickupdetail?orderNo=${pList.orderNo }&orderStatus=02'">
+									<td class="aa">${pList.orderNo }</td>
+									<td class="bb">${pList.add1 }${pList.add2 }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -72,14 +74,16 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					<div onclick="complete_all();"
-						class="info-box bg-light" style="position: fixed;
-							bottom: 0;">
-						<div class="info-box-content" onclick="complete_all()">
-							<span class="info-box-text text-center text-muted"
-								style="font-size: 2rem;">지점 전달 완료</span>
+					<c:if test="${fn:length(pickupList) == 0}">
+						<div onclick="complete_all();"
+							class="info-box bg-light" style="position: fixed;
+								bottom: 0;">
+							<div class="info-box-content" onclick="complete_all()">
+								<span class="info-box-text text-center text-muted"
+									style="font-size: 2rem;">지점 전달 완료</span>
+							</div>
 						</div>
-					</div>
+					</c:if>
 				</div>
 			</div>
 		</div>
