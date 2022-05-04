@@ -93,7 +93,7 @@
 	 <bean id="LaundryGoodsStockDAO" class="com.rundering.dao.LaundryGoodsStockDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
-	 <bean id="NotificationDAO" class="com.rundering.dao.NotificationDAOImpl"
+	 <bean id="notificationDAO" class="com.rundering.dao.NotificationDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
 
@@ -102,7 +102,7 @@
 		p:asRequestDAO-ref="asRequestDAO"
 		p:branchDAO-ref="branchDAO"
 		p:employeesDAO-ref="employeesDAO"
-		p:notificationDAO-ref="NotificationDAO"
+		p:notificationDAO-ref="notificationDAO"
 		p:laundryFixturesDAO-ref="laundryFixturesDAO"
 	/>	
 	<bean id="menuService" class="com.rundering.service.MenuServiceImpl"
@@ -123,7 +123,7 @@
 		p:suggestDAO-ref="suggestDAO"
 		p:branchDAO-ref="branchDAO"
 		p:employeesDAO-ref="employeesDAO"
-		p:notificationDAO-ref="NotificationDAO"
+		p:notificationDAO-ref="notificationDAO"
 	/>	
 	<bean id="faqService" class="com.rundering.service.FAQServiceImpl"
 		p:faqDAO-ref="faqDAO"
@@ -142,7 +142,7 @@
 		p:replyDAO-ref="replyDAO"
 		p:branchDAO-ref="branchDAO"
 		p:employeesDAO-ref="employeesDAO"
-		p:notificationDAO-ref="NotificationDAO"
+		p:notificationDAO-ref="notificationDAO"
 	/>
 	<bean id="itemOrderService" class="com.rundering.service.ItemOrderServiceImpl"
 		p:itemOrderDAO-ref="itemOrderDAO"
@@ -199,7 +199,7 @@
 		p:mailSendService-ref="mailSendService"
 	 />
 	<bean id="notificationService" class="com.rundering.service.NotificationServiceImpl"
-		p:notificationDAO-ref="NotificationDAO"
+		p:notificationDAO-ref="notificationDAO"
 		p:comCodeDAO-ref="comCodeDAO"
 	 />
 	
