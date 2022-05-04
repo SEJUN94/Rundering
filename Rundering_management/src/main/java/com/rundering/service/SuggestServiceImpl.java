@@ -7,7 +7,13 @@ import java.util.Map;
 
 import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
+import com.rundering.dao.BranchDAO;
+import com.rundering.dao.EmployeesDAO;
+import com.rundering.dao.NotificationDAO;
 import com.rundering.dao.SuggestDAO;
+import com.rundering.dto.BranchVO;
+import com.rundering.dto.EmployeesVO;
+import com.rundering.dto.NotificationVO;
 import com.rundering.dto.SuggestVO;
 
 public class SuggestServiceImpl implements SuggestService {
@@ -16,6 +22,18 @@ public class SuggestServiceImpl implements SuggestService {
 
 	public void setSuggestDAO(SuggestDAO suggestDAO) {
 		this.suggestDAO = suggestDAO;
+	}
+	private BranchDAO branchDAO;
+	public void setBranchDAO(BranchDAO branchDAO) {
+		this.branchDAO = branchDAO;
+	}
+	private EmployeesDAO employeesDAO;
+	public void setEmployeesDAO(EmployeesDAO employeesDAO) {
+		this.employeesDAO = employeesDAO;
+	}
+	private NotificationDAO notificationDAO;
+	public void setNotificationDAO(NotificationDAO notificationDAO) {
+		this.notificationDAO = notificationDAO;
 	}
 
 	@Override
@@ -63,8 +81,21 @@ public class SuggestServiceImpl implements SuggestService {
 	}
 
 	@Override
-	public void regist(SuggestVO suggest) throws SQLException {
+	public void regist(SuggestVO suggest) throws Exception {
 		suggestDAO.insertSuggest(suggest);
+		//본사 직원들에게 알림
+		BranchVO branchVO = branchDAO.selectBranchByBranchCode("000000");
+		List<EmployeesVO> employeesList = employeesDAO.selectEmployeesByBranchCode(branchVO.getBranchCode());
+		NotificationVO notificationVO = new NotificationVO();
+			for (EmployeesVO employeesVO : employeesList) {
+				int sequence = notificationDAO.selectNotificationSequenceNextValue();
+				notificationVO.setNtcnId(String.valueOf(sequence));
+				notificationVO.setEmployeeId(employeesVO.getEmployeeId());
+				notificationVO.setNtcnknd("SG"); // 알림종류 공통코드 - 건의사항
+				notificationVO.setNtcncn(branchDAO.getBranchByCode(suggest.getBranchName()).getBranchName());
+				notificationVO.setNtcnclickhourUrl("'/runderingmanage/admin/suggest/list','A050200'");
+				notificationDAO.insertNotification(notificationVO);
+			}
 	}
 
 	@Override
