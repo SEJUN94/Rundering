@@ -6,10 +6,13 @@ import java.util.Map;
 
 import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
+import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.MemberDAO;
 import com.rundering.dao.ReplyDAO;
+import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.dto.ReplyVO;
+import com.rundering.util.SensSms;
 
 public class ReplyServiceImpl implements ReplyService {
 	ReplyDAO replyDAO;
@@ -20,6 +23,14 @@ public class ReplyServiceImpl implements ReplyService {
 	MemberDAO memberDAO;
 	public void setMemberDAO(MemberDAO memberDAO) {
 		this.memberDAO = memberDAO;
+	}
+	private SensSms sensSms;
+	public void setSensSms(SensSms sensSms) {
+		this.sensSms = sensSms;
+	}
+	private LaundryOrderDAO laundryOrderDAO;
+	public void setLaundryOrderDAO(LaundryOrderDAO laundryOrderDAO) {
+		this.laundryOrderDAO = laundryOrderDAO;
 	}
 	
 	@Override
@@ -37,6 +48,15 @@ public class ReplyServiceImpl implements ReplyService {
 		int count =replyDAO.selectReplyCheckByReplyno(reply.getReplyno());
 		reply.setCount(count);
 		replyDAO.insertReplyByReplyVO(reply);
+		
+		LaundryOrderVO orderVO = laundryOrderDAO.selectLaundryOrderByReplyNo(reply.getReplyno());
+		
+		try {
+		sensSms.sendSMS(orderVO.getContactNumber().trim(), "[Rundering]\n지점의 연락사항이 있습니다.\n주문내역에서 확인해주세요.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
