@@ -3,6 +3,7 @@ package com.rundering.dao;
 import java.util.List;
 
 import com.rundering.command.CustomerListCriteria;
+import com.rundering.command.EmployeesCommand;
 import com.rundering.command.EmployeesListCriteria;
 import com.rundering.dto.EmployeesVO;
 
@@ -11,7 +12,7 @@ public interface EmployeesDAO {
 	public EmployeesVO selectEmployeeByMno(String MemberNo) throws Exception;
 
 	//사원리스트 조회
-	public List<EmployeesVO> selectEmployeeList(EmployeesListCriteria cri) throws Exception;
+	public List<EmployeesCommand> selectEmployeeList(EmployeesListCriteria cri) throws Exception;
 	
 	// 일반 리스트 전체 개수
 	int selectEmployeeListCount() throws Exception;

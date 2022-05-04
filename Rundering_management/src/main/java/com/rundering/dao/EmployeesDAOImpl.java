@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.command.CustomerListCriteria;
+import com.rundering.command.EmployeesCommand;
 import com.rundering.command.EmployeesListCriteria;
 import com.rundering.dto.EmployeesVO;
 
@@ -47,14 +48,14 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 	
 	//사원리스트 조회
 	@Override
-	public List<EmployeesVO> selectEmployeeList(EmployeesListCriteria cri) throws Exception {
+	public List<EmployeesCommand> selectEmployeeList(EmployeesListCriteria cri) throws Exception {
 		int offset = cri.getStartRowNum();
 		int limit = cri.getPerPageNum();
 		RowBounds rowBounds = new RowBounds(offset,limit);
 		
-		List<EmployeesVO> emplyeesList = session.selectList("Employees-Mapper.selectSearchEmployeeList",cri,rowBounds);
+		List<EmployeesCommand> employeesList = session.selectList("Employees-Mapper.selectSearchEmployeeList",cri,rowBounds);
 				
-		return emplyeesList;
+		return employeesList;
 	}
 	
 	//일반 리스트 전체 개수
@@ -70,6 +71,7 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 		int totalCount = session.selectOne("Employees-Mapper.selectSearchEmployeeListCount",cri);
 		return totalCount;
 	}
+	
 	
  
 	

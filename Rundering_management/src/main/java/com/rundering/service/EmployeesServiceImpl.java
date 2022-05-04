@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.rundering.command.Criteria;
 import com.rundering.command.CustomerListPageMaker;
+import com.rundering.command.EmployeesCommand;
 import com.rundering.command.EmployeesListCriteria;
 import com.rundering.command.EmployeesListPageMaker;
 import com.rundering.dao.BranchDAO;
@@ -105,14 +106,13 @@ public class EmployeesServiceImpl implements EmployeesService {
 	//사원리스트 조회
 	@Override
 	public Map<String, Object> getEmployeeList(EmployeesListCriteria cri) throws Exception {
-		EmployeesListCriteria searchCri = (EmployeesListCriteria)cri;
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
 		EmployeesListPageMaker pageMaker = new EmployeesListPageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(employeesDAO.selectEmployeeListCount(searchCri));
+		pageMaker.setTotalCount(employeesDAO.selectEmployeeListCount(cri));
 		
-		List<EmployeesVO> employeesList = employeesDAO.selectEmployeeList(searchCri);
+		List<EmployeesCommand> employeesList = employeesDAO.selectEmployeeList(cri);
 		
 		dataMap.put("employeesList", employeesList);
 		dataMap.put("pageMaker", pageMaker);

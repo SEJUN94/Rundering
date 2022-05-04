@@ -3,10 +3,10 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
-<c:set var="memberList" value="${dataMap.memberList }" />
 <c:set var="employeesList" value="${dataMap.employeesList }" />
 
 <head>
@@ -51,7 +51,7 @@
 						<!-- sort -->
 						<select class="form-control col-md-3" name="employeeSort"
 							id="employeeSort" onchange="list_go(1);">
-							<option value="0" ${cri.employeeSort eq '0' ? 'selected' : '' }>전체지점</option>
+							<option value="" ${cri.employeeSort eq '' ? 'selected' : '' }>전체지점</option>
 							<option value="000000" ${cri.employeeSort eq '000000' ? 'selected' : '' }>본사</option>
 							<option value="060402" ${cri.employeeSort eq '060402' ? 'selected' : '' }>관평점</option>
 							<option value="060101" ${cri.employeeSort eq '060101' ? 'selected' : '' }>가양점</option>
@@ -95,31 +95,28 @@
 					<tbody>
 						<c:if test="${empty employeesList }">
 							<tr>
-								<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+								<td colspan="7"><strong>해당 내용이 없습니다.</strong></td>
 							</tr>
 						</c:if>
-						<c:if test="${!empty employeesList }">
-							<c:forEach items="${employeesList }" var="employee">
-								<tr style='font-size: 0.85em;'>
-									<td>${employee.employeeId }</td>
-									<td>${employee.branchCode }</td>
-									<td>${employee.department}</td>
-									<td>${employee.position }</td>
-									<td><fmt:formatDate value="${employee.joiningCompanyDate }" pattern="yyyy-MM-dd" /></td>
-									<td>${member.name }</td>
-									<td>${member.phone }</td>
-								</tr>
-							</c:forEach>
-						</c:if>
+						<c:forEach items="${employeesList }" var="employee">
+							<tr style='font-size: 0.85em;'>
+								<td>${employee.employeeId }</td>
+								<td>${employee.branchCode }</td>
+								<td>${employee.department}</td>
+								<td>${employee.position }</td>
+								<td><fmt:formatDate value="${employee.joiningCompanyDate }" pattern="yyyy-MM-dd" /></td>
+								<td>${employee.name }</td>
+								<td>${employee.phone }</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
 	<div class="card-footer">
-		<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+		<%@ include file="/WEB-INF/views/admin/employee/pagination.jsp"%>
 	</div>
-	
 	
 <script>
 

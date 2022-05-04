@@ -2,20 +2,20 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
 <mapper namespace="Employees-Mapper">
 
 <resultMap type="employees" id="employeesMap">
-		<result column="EMPLOYEE_ID" property="employeeId" />
-		<result column="BRANCH_CODE" property="branchCode" />
-		<result column="JOINING_COMPANY_DATE" property="joiningCompanyDate" />
-		<result column="DEPARTMENT" property="department" />
-		<result column="POSITION" property="position" />
-		<result column="REGIST_DATE" property="registDate" />
-		<result column="MODIFY_DATE" property="modifyDate" />
-		<result column="DELETE_YN" property="deleteYn" />
-		<result column="MEMBERNO" property="memberno" />
-	
-	</resultMap>
+	<result column="EMPLOYEE_ID" property="employeeId" />
+	<result column="BRANCH_CODE" property="branchCode" />
+	<result column="JOINING_COMPANY_DATE" property="joiningCompanyDate" />
+	<result column="DEPARTMENT" property="department" />
+	<result column="POSITION" property="position" />
+	<result column="REGIST_DATE" property="registDate" />
+	<result column="MODIFY_DATE" property="modifyDate" />
+	<result column="DELETE_YN" property="deleteYn" />
+	<result column="MEMBERNO" property="memberno" />
+</resultMap>
 	
 	<select id="selectEmployeeById" resultMap="employeesMap" parameterType="str">
 		select *
@@ -72,64 +72,68 @@
 		<if test="employeeSort == '0'.toString()">
 		</if>
 		<if test="employeeSort == '000000'.toString()">
-			AND BRANCH_CODE like '000000'		
+			AND A.BRANCH_CODE like '000000'		
 		</if>
 		<if test="employeeSort == '060402'.toString()">
-			AND BRANCH_CODE like '060402'		
+			AND A.BRANCH_CODE like '060402'		
 		</if>
 		<if test="employeeSort == '060101'.toString()">
-			AND BRANCH_CODE like '060101'		
+			AND A.BRANCH_CODE like '060101'		
 		</if>
 		<if test="employeeSort == '060201'.toString()">
-			AND BRANCH_CODE like '060201'		
+			AND A.BRANCH_CODE like '060201'		
 		</if>
 		<if test="employeeSort == '060301'.toString()">
-			AND BRANCH_CODE like '060301'		
+			AND A.BRANCH_CODE like '060301'		
 		</if>
 		<if test="employeeSort == '060401'.toString()">
-			AND BRANCH_CODE like '060401'		
+			AND A.BRANCH_CODE like '060401'		
 		</if>
 		<if test="employeeSort == '060501'.toString()">
-			AND BRANCH_CODE like '060501'		
+			AND A.BRANCH_CODE like '060501'		
 		</if>
 	</sql>	
 	
 	<sql id="search">	
 		<if test="searchType == 't'.toString()">
-			AND memberNo like '%'||#{keyword}||'%'			
+			AND B.name like '%'||#{keyword}||'%'			
 		</if>
 		<if test="searchType == 'c'.toString()">
-			AND name like '%'||#{keyword}||'%'			
+			AND B.phone like '%'||#{keyword}||'%'			
 		</if>
 		<if test="searchType == 'tc'.toString()">
 			AND (
-			memberNo like '%'||#{keyword}||'%'
+			B.name like '%'||#{keyword}||'%'
 			or
-			name like '%'||#{keyword}||'%'						
+			B.phone like '%'||#{keyword}||'%'						
 			)			
 		</if>
 	</sql>	
 	
 	
-	<select id="selectSearchEmployeeList" resultMap="employeesMap">
-		SELECT
-		* 
-		FROM TB_MEMBER A, TB_EMPLOYEES B
-		WHERE A.MEMBERNO IS NOT NULL
-        AND A.MEMBERNO = B.MEMBERNO
-		AND A.EMPLOYEE_ID_YN = 'Y'
-	</select>
-	
-	<select id="selectEmployeeListCount" resultType="int">
-		SELECT COUNT(*)
-		FROM TB_EMPLOYEES
+	<select id="selectSearchEmployeeList" resultType="com.rundering.command.EmployeesCommand" parameterType="str">
+		select A.EMPLOYEE_ID as employeeId,
+		    A.BRANCH_CODE as branchCode,
+		    A.DEPARTMENT as department,
+		    A.POSITION as position,
+		    A.JOINING_COMPANY_DATE as joiningCompanyDate,
+		    B.NAME,
+		    B.PHONE
+		  from tb_employees A, tb_member B
+		 WHERE A.MEMBERNO IS NOT NULL
+		 <include refid="searchSort" />
+		 <include refid="search"/>
+		   AND A.MEMBERNO = B.MEMBERNO
+		   AND B.EMPLOYEE_ID_YN = 'Y'
 	</select>
 	
 	<select id="selectSearchEmployeeListCount" resultType="int">
 		SELECT COUNT(*)
-		FROM TB_EMPLOYEES
+		FROM TB_EMPLOYEES A, TB_MEMBER B
+		WHERE A.MEMBERNO IS NOT NULL
+		  and A.MEMBERNO=B.MEMBERNO
 		<include refid="searchSort" />
-		<include refid="search" />
+		<include refid="search"/>
 	</select>
 	
 

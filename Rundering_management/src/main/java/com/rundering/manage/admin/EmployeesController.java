@@ -20,7 +20,7 @@ public class EmployeesController {
 	@Autowired
 	EmployeesService employeesService;
 
-	@RequestMapping("/list")
+	@RequestMapping("/main")
 	public ModelAndView employeesList(EmployeesListCriteria cri, ModelAndView mnv) {
 		String url = "admin/employee/employees_list";
 		Map<String, Object> dataMap = null;
