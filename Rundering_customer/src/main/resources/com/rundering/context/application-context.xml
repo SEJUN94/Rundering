@@ -49,6 +49,16 @@
 	<bean id="faqDAO" class="com.rundering.dao.FAQDAOImpl" 
 		p:session-ref="sqlSession"
 	/>
+	<bean id="employeesDAO" class="com.rundering.dao.EmployeesDAOImpl"
+		p:session-ref="sqlSession"
+	/>
+	<bean id="branchDAO" class="com.rundering.dao.BranchDAOImpl"
+		p:session-ref="sqlSession"	
+	/>
+	 <bean id="NotificationDAO" class="com.rundering.dao.NotificationDAOImpl"
+	 	p:session-ref="sqlSession"
+	 />
+	
 	
 		
 	
@@ -62,6 +72,9 @@
 	/>
 	<bean id="branchApplicationService" class="com.rundering.service.BranchApplicationServiceImpl"
 		p:branchApplicationDAO-ref="branchApplicationDAO"
+		p:branchDAO-ref="branchDAO"
+		p:employeesDAO-ref="employeesDAO"
+		p:notificationDAO-ref="NotificationDAO"
 	/>
 	<bean id="laundryOrderService" class="com.rundering.service.LaundryOrderServiceImpl"
 		p:laundryOrderDAO-ref="laundryOrderDAO"
