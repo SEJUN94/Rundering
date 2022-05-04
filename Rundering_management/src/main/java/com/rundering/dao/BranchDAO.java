@@ -6,8 +6,11 @@ import com.rundering.dto.BranchVO;
 
 public interface BranchDAO {
 	
-	// 전체 지점정보 가져오기
+	// 전체 지점정보 가져오기 (삭제된 지점 포함)
 	public List<BranchVO> selectBranchList() throws Exception;
+	
+	// 현재 영업중인 지점정보 가져오기
+	public List<BranchVO> selectAvailableBranchList() throws Exception;
 	
 	//지점조회 - by branchCode
 	public BranchVO selectBranchByBranchCode(String branchCode) throws Exception;

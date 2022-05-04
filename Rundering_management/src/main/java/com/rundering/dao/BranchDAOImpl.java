@@ -55,4 +55,10 @@ public class BranchDAOImpl implements BranchDAO {
 		session.insert("Branch-Mapper.insertBranch", branch);
 	}
 
+	@Override
+	public List<BranchVO> selectAvailableBranchList() throws Exception {
+		List<BranchVO> branchList = session.selectList("Branch-Mapper.selectAvailableBranchList");
+		return branchList;
+	}
+
 }
