@@ -15,5 +15,7 @@ public interface NotificationDAO {
 	public List<NotificationVO> selectNotificationListByEmployeeId(String employeeId) throws Exception;
 	//알림 읽음 update
 	public void updateCheckedNotification(String ntcnId) throws Exception;
+	//모든 알림 읽음 update
+	public void updateCheckedAllNotification(String employeeId) throws Exception;
 	
 }

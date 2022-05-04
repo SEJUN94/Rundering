@@ -36,4 +36,14 @@ public class NotificationServiceImpl implements NotificationService{
 		return dataMap;
 	}
 
+	@Override
+	public void checkNotification(String ntcnId) throws Exception {
+		notificationDAO.updateCheckedNotification(ntcnId);
+	}
+
+	@Override
+	public void checkAllNotification(String employeeId) throws Exception {
+		notificationDAO.updateCheckedAllNotification(employeeId);
+	}
+
 }

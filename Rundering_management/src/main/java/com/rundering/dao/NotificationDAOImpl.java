@@ -31,5 +31,10 @@ public class NotificationDAOImpl implements NotificationDAO{
 		session.update("Notification-Mapper.updateCheckedNotification", ntcnId);
 	}
 
+	@Override
+	public void updateCheckedAllNotification(String employeeId) throws Exception {
+		session.update("Notification-Mapper.updateCheckedAllNotification", employeeId);
+	}
+
 
 }

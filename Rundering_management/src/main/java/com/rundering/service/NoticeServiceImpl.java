@@ -100,8 +100,8 @@ public class NoticeServiceImpl implements NoticeService{
 					notificationVO.setNtcnId(String.valueOf(sequence));
 					notificationVO.setEmployeeId(employeesVO.getEmployeeId());
 					notificationVO.setNtcnknd("NT"); // 알림종류 공통코드 - 공지사항
-					notificationVO.setNtcncn("새 공지사항 - " + notice.getTitle());
-					notificationVO.setNtcnclickhourUrl("javascript:goPage('/runderingmanage/branch/notice/list','B040000');");
+					notificationVO.setNtcncn(notice.getTitle());
+					notificationVO.setNtcnclickhourUrl("'/runderingmanage/branch/notice/list','B040000'");
 					notificationDAO.insertNotification(notificationVO);
 				}
 

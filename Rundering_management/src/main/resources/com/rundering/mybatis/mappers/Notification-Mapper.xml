@@ -39,6 +39,14 @@
 		  	  CNFIRMDEHOUR = SYSDATE
 		 WHERE NTCNID=#{ntcnId} 
 	</update>
+	
+	<update id="updateCheckedAllNotification" parameterType="str">
+		UPDATE TB_NOTIFICATION
+		  SET CNFIRMAT = 'Y',
+		  	  CNFIRMDEHOUR = SYSDATE
+		 WHERE EMPLOYEE_ID = #{employeeId}
+		  AND CNFIRMAT = 'N'
+	</update>
 
 
 </mapper>
