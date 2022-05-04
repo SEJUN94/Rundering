@@ -71,6 +71,18 @@
 		 where branch_code=#{branchCode}
 		   and articles_code=#{articlesCode} 
 	</update>
+	<update id="updateLaundryGoodsStockAutoOrderPointByVO" parameterType="laundrygoodsstock">
+		update tb_laundry_goods_stock
+		   set auto_order_point=#{autoOrderPoint}
+		 where branch_code=#{branchCode}
+		   and articles_code=#{articlesCode} 
+	</update>
+	<update id="updateLaundryGoodsStockAutoOrderCountByVO" parameterType="laundrygoodsstock">
+		update tb_laundry_goods_stock
+		   set auto_order_count=#{autoOrderCount}
+		 where branch_code=#{branchCode}
+		   and articles_code=#{articlesCode} 
+	</update>
 	
 	
 	

@@ -119,5 +119,15 @@ public class ItemServiceImpl implements ItemService {
 	public void useAutoYn(LaundryGoodsStockVO laundryGoodsStock)  throws Exception{
 		LaundryGoodsStockDAO.updateLaundryGoodsStockAutoOrderByVO(laundryGoodsStock);
 	}
+	@Override
+	public void updatePoint(LaundryGoodsStockVO laundryGoodsStock) throws Exception {
+		LaundryGoodsStockDAO.updateLaundryGoodsStockAutoOrderPointByVO(laundryGoodsStock);
+		
+	}
+	@Override
+	public void updateCount(LaundryGoodsStockVO laundryGoodsStock) throws Exception {
+		LaundryGoodsStockDAO.updateLaundryGoodsStockAutoOrderCountByVO(laundryGoodsStock);
+		
+	}
 	
 }

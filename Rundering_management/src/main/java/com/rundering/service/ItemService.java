@@ -19,4 +19,8 @@ public interface ItemService {
 	List<ItemVO> select3MItemByItem(ItemVO item) throws Exception;
 
 	void useAutoYn(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
+	
+	void updatePoint(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
+	void updateCount(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
+	
 };
