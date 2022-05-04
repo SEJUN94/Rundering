@@ -35,8 +35,8 @@
 					수집, 이용에 대한 동의를 거부할 권리가 있습니다. 그러나 동의를 거부하실 경우 상담이 불가합니다.
 				</div>
 				<div class="">
-					<label> &nbsp;<input type="checkbox" name="" value="1"
-						id=""> <span class="">&nbsp;개인정보 수집 및 이용에 동의합니다.</span>
+					<label> &nbsp;<input type="checkbox" name="" 
+						id="check"> <span class="">&nbsp;개인정보 수집 및 이용에 동의합니다.</span>
 					</label>
 				</div>
 				<div class="row">
@@ -65,7 +65,7 @@
 								<input type="text" class="form-control col-7" id="Code"
 									placeholder="인증번호">
 								<div class="input-group-append">
-									<button type="button" onclick="phone_verification();" class="btn btn-secondary" style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
+									<button type="button" onclick="verificationCodeCheck();" class="btn btn-secondary" style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
 								</div>
 								<div id="timeLimit" style="position: absolute; padding: 9px; margin-left: 140px; color: gray; font-size: 0.9rem; z-index: 10"></div>
 							</div>
@@ -79,15 +79,13 @@
 						</div>
 						<div class="input-group mb-3 form-group">
 							<input type="email" class="col-lg-9 form-control" id="email" name="email" placeholder="Email">
-
 						</div>
 
 
 						<div class="card-header"
 							style="border-bottom: 0px; padding-left: 0px; padding-bottom: 5px; padding-top: 3px;">
 							<span style="margin-top: 0px"> <label for="email"
-								class="col-mb-3"> <span
-									style="color: red; font-weight: bold;">*</span>임대차 계약서 첨부
+								class="col-mb-3"> <span style="color: red; font-weight: bold;">*</span>임대차 계약서 첨부
 							</label>
 							</span>
 							<h5 style="display: inline;"></h5>
@@ -119,7 +117,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 	
 	<div class="hiddenInput"></div>
@@ -250,7 +247,7 @@ var dataNum = 1;
 		for(let file of files){
 			console.log(file.name + " : "+ file.value);
 			if(file.value == ""){
-				alert("사진 파일을 선택하세요.");
+				alert("첨부 파일을 선택하세요.");
 				file.focus();
 				file.click();
 				return;
@@ -356,49 +353,56 @@ $('input[name="pictureFile"]').change(function(){
 var name = document.getElementById("name");
 var phone= document.getElementById('phone');
 var email = document.getElementById('email');
+var check = document.getElementById('check');
 	
 	function regist(){
-		
-		Swal.fire({
-            title: '지점 등록 신청 하시겠습니까?',
-            icon : 'warning' ,
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '승인',
-            cancelButtonText: '취소',
-            reverseButtons: true, // 버튼 순서 거꾸로
-          }).then((result) => {
-            if (result.isConfirmed) {	
-            	regist_go()
-				$.ajax({
-					url : '<%=request.getContextPath()%>/branchapplication/registform',
-					data : {
-						'applicateName' : name,
-						'phone' : phone,
-						'email' : email
-					},
-					type : 'post',
-					success : function(ok) {
-						if(ok.toUpperCase() == "OK"){
-							Swal.fire({
-								icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
-								title: '지점 등록 신청이 완료되었습니다.',
-							});
-							setTimeout(function(){location.href='<%=request.getContextPath()%>/branchapplication/regist';},1000);
-						} else {
-							Swal.fire({
-								icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
-								title: '시스템 오류로 반려 할 수 없습니다.'
-							});
+		if(check.checked) {
+			Swal.fire({
+	            title: '지점 등록 신청 하시겠습니까?',
+	            icon : 'warning' ,
+	            showCancelButton: true,
+	            confirmButtonColor: '#3085d6',
+	            cancelButtonColor: '#d33',
+	            confirmButtonText: '승인',
+	            cancelButtonText: '취소',
+	            reverseButtons: true, // 버튼 순서 거꾸로
+	          }).then((result) => {
+	            if (result.isConfirmed) {	
+	            	regist_go()
+					$.ajax({
+						url : '<%=request.getContextPath()%>/branchapplication/registform',
+						data : {
+							'applicateName' : name,
+							'phone' : phone,
+							'email' : email
+						},
+						type : 'post',
+						success : function(ok) {
+							if(ok.toUpperCase() == "OK"){
+								Swal.fire({
+									icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+									title: '지점 등록 신청이 완료되었습니다.',
+								});
+								setTimeout(function(){location.href='<%=request.getContextPath()%>/branchapplication/regist';},1000);
+							} else {
+								Swal.fire({
+									icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+									title: '시스템 오류로 반려 할 수 없습니다.'
+								});
+							}
+						},
+						error : function(error) {
+							AjaxErrorSecurityRedirectHandler(error.status);
 						}
-					},
-					error : function(error) {
-						AjaxErrorSecurityRedirectHandler(error.status);
-					}
-				});
-			}
-		})
+					});
+				}
+			})
+		}else{
+			Swal.fire({
+				icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title: '개인정보 수집 및 이용에 동의하세요',
+			});
+		}
 	}
 </script>
 

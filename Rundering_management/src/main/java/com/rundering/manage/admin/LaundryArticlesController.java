@@ -2,7 +2,6 @@ package com.rundering.manage.admin;
 
 import java.io.File;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
