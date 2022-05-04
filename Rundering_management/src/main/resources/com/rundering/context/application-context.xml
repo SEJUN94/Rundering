@@ -87,6 +87,9 @@
 	 <bean id="LaundryGoodsStockDAO" class="com.rundering.dao.LaundryGoodsStockDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
+	 <bean id="NotificationDAO" class="com.rundering.dao.NotificationDAOImpl"
+	 	p:session-ref="sqlSession"
+	 />
 
 	<!-- Service Layer -->
 	<bean id="asRequestService" class="com.rundering.service.AsRequestServiceImpl"
@@ -126,6 +129,7 @@
 		p:replyDAO-ref="replyDAO"
 		p:branchDAO-ref="branchDAO"
 		p:employeesDAO-ref="employeesDAO"
+		p:notificationDAO-ref="NotificationDAO"
 	/>
 	<bean id="itemOrderService" class="com.rundering.service.ItemOrderServiceImpl"
 		p:itemOrderDAO-ref="itemOrderDAO"
@@ -178,6 +182,10 @@
 		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
 		p:employeesDAO-ref="employeesDAO"
 		p:mailSendService-ref="mailSendService"
+	 />
+	<bean id="notificationService" class="com.rundering.service.NotificationServiceImpl"
+		p:notificationDAO-ref="NotificationDAO"
+		p:comCodeDAO-ref="comCodeDAO"
 	 />
 	
 </beans>

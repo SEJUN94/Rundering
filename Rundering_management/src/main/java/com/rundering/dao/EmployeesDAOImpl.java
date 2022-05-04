@@ -49,8 +49,11 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 	@Override
 	public EmployeesVO selectEmployeeByMemberNo(String memberNo) throws Exception {
 		return session.selectOne("Employees-Mapper.selectEmployeeByMemberNo", memberNo);
-		
+	}
 		 
+	public List<EmployeesVO> selectEmployeesByBranchCode(String branchCode) {
+		List<EmployeesVO> employees = session.selectList("Employees-Mapper.selectEmployeesByBranchCode",branchCode);
+		return employees;
 	}
 	
  

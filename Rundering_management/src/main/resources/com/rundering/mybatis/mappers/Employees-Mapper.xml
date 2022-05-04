@@ -72,6 +72,14 @@
 		  from tb_employees
 		 where BRANCH_CODE = #{branchCode} 
 		  and DEPARTMENT = 'DE'
+		  AND DELETE_YN = 'N'
+	</select>
+	
+	<select id="selectEmployeesByBranchCode" resultMap="employeesMap" parameterType="str">
+		select *
+		  from tb_employees
+		 where BRANCH_CODE = #{branchCode} 
+		  AND DELETE_YN = 'N'
 	</select>
 	<insert id="employeeBranchRegist" parameterType="employees" >
 		INSERT INTO
