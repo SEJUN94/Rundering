@@ -97,6 +97,7 @@ public class LaundryArticlesController {
 		return mnv;
 	}
 
+	
 	@RequestMapping(value="/ordergoods/modify", method=RequestMethod.POST)
 	public String modifyPost(LaundryArticlesVO orderGoods,HttpServletRequest request, RedirectAttributes rttr) throws Exception{
 		String url = "redirect:/admin/ordergoods/detail";

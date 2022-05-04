@@ -1,6 +1,8 @@
 package com.rundering.manage.delivery;
 
+import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.service.DeliveryService;
 import com.rundering.util.FileUtil;
+import com.rundering.util.MakeFileName;
 
 @Controller
 @RequestMapping("/fordelivery")
@@ -28,9 +33,8 @@ public class ForDeliveryController {
 
 	@Autowired
 	private DeliveryService deliveryService;
-	@Resource(name = "picturePath")
-	private String picturePath;
-	
+	@Resource(name = "deliveryPath")
+	private String deliveryPath;
 
 	@RequestMapping("/login")
 	public String login() {
@@ -41,6 +45,54 @@ public class ForDeliveryController {
 	@RequestMapping("/main")
 	public String main() throws Exception {
 		String url = "/delivery/main";
+
+		return url;
+	}
+
+	@RequestMapping(value ="pictureupload",method = RequestMethod.POST,produces ="application/json;charset=utf-8")
+	@ResponseBody
+	public ResponseEntity<Map<String, String>> pictureUpload(MultipartFile multi){
+		
+		Map<String, String> fileMap = null;
+		FileUtil fileUtil = new FileUtil();
+		fileMap= fileUtil.saveFile(multi, deliveryPath);
+		ResponseEntity<Map<String, String>> resp = new ResponseEntity<Map<String,String>>(fileMap, HttpStatus.OK);
+//		{
+//			fileName:  ,
+//			originame : 
+//		}
+//		var Filenam
+//		success : function(result){
+//			Filenam = result.fileName
+//		}
+		return resp;
+		
+	}
+	
+	@RequestMapping(value = "/regist", method = RequestMethod.POST)
+	public String regist(LaundryOrderVO laundryOrder,AttachVO attach, RedirectAttributes rttr) throws Exception {
+		String url = null;
+		
+		if(laundryOrder.getOrderStatus().equals("03")) {
+			url = "redirect:/fordelivery/pickup";
+		}else if(laundryOrder.getOrderStatus().equals("08") || laundryOrder.getOrderStatus().equals("09")) {
+			url = "redirect:/fordelivery/delivery";
+		}
+		
+		String fileName = laundryOrder.getPicture();
+		
+		File file = new File(deliveryPath + fileName);
+		String orginalFileName = MakeFileName.parseFileNameFromUUID(fileName, "\\$\\$");
+		long fileSize = file.length() / 1024;
+		String type = fileName.substring(fileName.lastIndexOf('.') + 1);
+		attach.setFileContType(type);
+		attach.setFileNm(orginalFileName);
+		attach.setSaveFileNm(fileName);
+		attach.setFileSize(fileSize);
+		attach.setFilePath(deliveryPath);
+
+		deliveryService.regist(laundryOrder, attach);
+		rttr.addFlashAttribute("from", "regist");
 
 		return url;
 	}
@@ -63,6 +115,13 @@ public class ForDeliveryController {
 		mnv.setViewName(url);
 
 		return mnv;
+	}
+	
+	@RequestMapping("/pickupdetailform")
+	public String pickUpDetailForm() {
+		String url="";
+				
+		return url;
 	}
 	
 	// 수거 상세정보
@@ -120,22 +179,7 @@ public class ForDeliveryController {
 		
 		return ok;
 	}
-	
-	
 
-	@RequestMapping(value ="pictureupload",method = RequestMethod.POST,produces ="application/json;charset=utf-8")
-	@ResponseBody
-	public ResponseEntity<Map<String, String>> pictureUpload(MultipartFile multi){
-		
-		Map<String, String> fileMap = null;
-		FileUtil fileUtil = new FileUtil();
-		fileMap= fileUtil.saveFile(multi, picturePath);
-		ResponseEntity<Map<String, String>> resp = new ResponseEntity<Map<String,String>>(fileMap, HttpStatus.OK);
-		return resp;
-		
-	}
-	
-	
 	// 배송 리스트
 	@RequestMapping("/delivery")
 	public ModelAndView deliveryList( HttpServletRequest request, LaundryOrderVO laundryOrder, ModelAndView mnv) throws Exception {
@@ -171,6 +215,22 @@ public class ForDeliveryController {
 		mnv.setViewName(url);
 		
 		return mnv;
+	}
+	
+	//주소 정렬
+	@RequestMapping("/sortAddress")
+	public ResponseEntity<List<LaundryOrderVO>> sortAddress(String sortValue, LaundryOrderVO laundryOrder) throws Exception{
+		ResponseEntity<List<LaundryOrderVO>> entity = null;
+		List<LaundryOrderVO> sort = null;
+		
+		if(sortValue.equals("0")) {
+			sort = deliveryService.sortAddressAsc(laundryOrder);
+		}else if(sortValue.equals("1")) {
+			sort = deliveryService.sortAddressDesc(laundryOrder);
+		}
+		entity = new ResponseEntity<List<LaundryOrderVO>>(sort,HttpStatus.OK);
+		
+		return entity;
 	}
 	
 	

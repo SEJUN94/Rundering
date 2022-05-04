@@ -45,7 +45,7 @@
 		from TB_BRANCH_APPLICATION
 		WHERE APPLICATE_NAME = #{applicateName}
 		AND PHONE = #{phone}
-	</select>
+	</select> 
 	
 	<update id="updateJudge" parameterType="branchApplication">
 		UPDATE TB_BRANCH_APPLICATION

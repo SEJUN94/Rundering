@@ -33,7 +33,7 @@
 			</div>
 		</div>
 	</section>
-	<div class="row ml-3 mr-3 p-0" style="height:425.55px;">
+	<div class="row ml-3 mr-3 p-0">
 		<div class="card col-12 p-0">
 			<div class="card-header">
 				<div class="input-group input-group-sm float-right" style="width: 300px;">
@@ -50,7 +50,7 @@
 						</button>
 					</span>
 				</div>
-				<input type="date" class="float-right mr-3" onchange="" id="date">
+				<input type="date" class="float-right mr-3" onchange='changeDate(this)' id="todayDate">
 			</div>
 			<div class="card-body p-0">
 				<table class="table table-striped projects"
@@ -72,7 +72,7 @@
 						</c:if>
 						<c:forEach items="${throughputList }" var="throughput">
 							<tr
-								onclick="window.open('<%=request.getContextPath()%>/admin/branchinfo/infodetail?branchCode=${throughput.branchCode } ','지점상세', 'width=800, height=800')"
+								onclick="branchTable('${throughput.branchCode }');"
 								style="cursor: pointer;">
 								<td>${throughput.name }</td>
 								<td>${throughput.branchName }</td>
@@ -103,7 +103,7 @@
 									</c:if> <small> ${throughput.quotaPercent }%</small></td>
 								<td>
 									<button class="btn btn-warning btn-sm"
-										onclick="">세탁상세</button>
+										onclick="window.open('<%=request.getContextPath()%>/admin/branchinfo/infodetail?branchCode=${throughput.branchCode } ','지점상세', 'width=800, height=800')">세탁상세</button>
 								</td>
 							</tr>
 						</c:forEach>
@@ -147,48 +147,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td></td>
-							<td>500</td>
-							<td>198</td>
-							<td>39.8(%)</td>
-						</tr>
-						<tr>
-							<td>2022-04-28</td>
-							<td>500</td>
-							<td>198</td>
-							<td>39.8(%)</td>
-						</tr>
-						<tr>
-							<td>2022-04-28</td>
-							<td>500</td>
-							<td>198</td>
-							<td>39.8(%)</td>
-						</tr>
-						<tr>
-							<td>2022-04-28</td>
-							<td>500</td>
-							<td>198</td>
-							<td>39.8(%)</td>
-						</tr>
-						<tr>
-							<td>2022-04-28</td>
-							<td>500</td>
-							<td>198</td>
-							<td>39.8(%)</td>
-						</tr>
-						<tr>
-							<td>2022-04-28</td>
-							<td>500</td>
-							<td>198</td>
-							<td>39.8(%)</td>
-						</tr>
-						<tr>
-							<td>2022-04-28</td>
-							<td>500</td>
-							<td>198</td>
-							<td>39.8(%)</td>
-						</tr>
+						<c:forEach begin="1" end="7">
+							<tr>
+								<td class="week">d</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
@@ -196,9 +162,54 @@
 	</div>
 	
 <script>
-alert(moment.format());
+var todayDate = document.getElementById('todayDate')
+todayDate.value = new Date().toISOString().substring(0, 10);
+	function branchTable(branchCode){
+		$.ajax({
+			url : '<%=request.getContextPath()%>/admin/branchinfo/branchdata',
+			data : {
+				'branchCode' : branchCode
+			},
+			type : 'post',
+			success : function(ok) {
+				for(var i=0; i<7; i++){
+					var timeValue = ok[i].date;
+					var dateObj=new Date(timeValue);
+					var realDate =dateObj.getFullYear() + "-" + ((dateObj.getMonth() + 1) > 9 ? (dateObj.getMonth() + 1).toString() : "0" + (dateObj.getMonth() + 1)) + "-" + (dateObj.getDate() > 9 ? dateObj.getDate().toString() : "0" + dateObj.getDate().toString());
+					document.querySelectorAll('tr .week')[i].innerHTML = realDate;
+				}
+			},
+			error : function(error) {
+				AjaxErrorSecurityRedirectHandler(error.status);
+			}
+		});
+	}
 </script>
-	
+<script>
+
+function changeDate(cDate){
+	console.log(cDate.value);
+	$.ajax({
+		url : '<%=request.getContextPath()%>/admin/branchinfo/datedata',
+		data : {
+			'date' : cDate.value
+		},
+		type : 'post',
+		success : function(ok) {
+			for(var i=0; i<7; i++){
+				var timeValue = todayDate.value;
+				var dateObj = new Date(timeValue);
+				var realDate =dateObj.getFullYear() + "-" + ((dateObj.getMonth() + 1) > 9 ? (dateObj.getMonth() + 1).toString() : "0" + (dateObj.getMonth() + 1)) + "-" + (dateObj.getDate() > 9 ? dateObj.getDate().toString() : "0" + dateObj.getDate().toString());
+				document.querySelectorAll('tr .week')[i].innerHTML = realDate;
+			}
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
+
+</script>
 <script>
 var CHARTEX = $('#canvas');
 var barChartExample = new Chart(CHARTEX , {

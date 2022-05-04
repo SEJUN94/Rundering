@@ -96,6 +96,12 @@
 		FROM TB_MEMBER
 		WHERE MEMBERNO = #{MEMBERNO}
 	</update>
+	
+	<select id="getPhoneNum" parameterType="str" resultType="str">
+		select phone 
+        from TB_MEMBER
+        where MEMBERNO = #{memberNo}
+	</select>
 		
 	<select id="selectMemberList" resultType="member">
 		select 

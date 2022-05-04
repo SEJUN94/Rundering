@@ -37,6 +37,9 @@
 							수거 요청일 <b class="d-block"><fmt:formatDate value="${pickup.pickupRequestDate }" pattern="yyyy-MM-dd" /></b>
 						</p>
 						<p class="text-lg p-2">
+							연락처 <b class="d-block">${pickup.phone }</b>
+						</p>
+						<p class="text-lg p-2">
 							주소지 <b class="d-block">${pickup.add1 }</b> <b class="d-block">${pickup.add2 }</b>
 						</p>
 						<p class="text-lg p-2">
@@ -49,8 +52,10 @@
 				</div>
 				<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
 					<div class="col-12 col-sm-4">
-						<div class="custom-file mb-5">
-							<img height="100px;" width="70px;" src="<%=request.getContextPath() %>/resources/image/증명사진샘플.jpg">
+						<div class="row pl-3">
+							<div style="border: 1px solid black; height: 100px; width: 100px; margin-right:20px;" id="pictureView" class="goodsPicture"></div>
+							<div style="border: 1px solid black; height: 100px; width: 100px; margin-right:20px;" id="pictureView" class="goodsPicture"></div>
+							<div style="border: 1px solid black; height: 100px; width: 100px; margin-right:20px;" id="pictureView" class="goodsPicture"></div>
 						</div>
 						<div class="info-box bg-light mt-5">
 							<div class="info-box-content">

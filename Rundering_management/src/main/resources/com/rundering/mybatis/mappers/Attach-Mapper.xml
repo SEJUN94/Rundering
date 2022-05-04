@@ -95,5 +95,20 @@
 		 WHERE
 	    ATCH_FILE_NO = #{atchFileNo}
 	</delete>
+	
+	
+	<select id="getAttachNoSeq" parameterType="str" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_ATTACH_FILE
+		WHERE ATCH_FILE_NO = #{atchFileNo}
+	</select>
+	
+	<update id="deleteDeliveryPicture" parameterType="attach">
+		DELETE 
+      FROM TB_ATTACH_FILE
+      WHERE BIZ_TYPE = #{bizType}
+      and ATCH_FILE_NO = #{atchFileNo}
+	</update>
+	
   
 </mapper>

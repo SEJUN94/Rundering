@@ -37,7 +37,7 @@
 		<div class="bg-right"></div>
 		<div class="inner">
 
-			<div class="inner__left">
+			<div class="inner__left" style="margin-left: 20px">
 				<h2>공지사항</h2>
 				<div class="swiper-container">
 					<div class="swiper-wrapper">
@@ -76,16 +76,16 @@
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide">
-					<img src="<%=request.getContextPath()%>/resources/images/img1.jpg"
-						alt="사진1" /> <a href="javascript:void(0)" class="btn">자세히 보기</a>
+					<img src="<%=request.getContextPath()%>/resources/images/img01.jpg" width="500px;" height="500px;"
+						style="display:block; margin:auto;" alt="사진1" /> <a href="javascript:void(0)" class="btn">자세히 보기</a>
 				</div>
 				<div class="swiper-slide">
-					<img src="<%=request.getContextPath()%>/resources/images/img2.jpg"
-						alt="" /> <a href="javascript:void(0)" class="btn">자세히 보기</a>
+					<img src="<%=request.getContextPath()%>/resources/images/img02.jpg" width="500px;" height="500px;"
+						style="display:block; margin:auto;" alt="" /> <a href="javascript:void(0)" class="btn">자세히 보기</a>
 				</div>
 				<div class="swiper-slide">
-					<img src="<%=request.getContextPath()%>/resources/images/img3.jpg"
-						alt="사진3" /> <a href="javascript:void(0)" class="btn">자세히 보기</a>
+					<img src="<%=request.getContextPath()%>/resources/images/img03.jpg" width="500px;" height="500px;"
+						style="display:block; margin:auto;" alt="사진3" /> <a href="javascript:void(0)" class="btn">자세히 보기</a>
 				</div>
 			</div>
 		</div>

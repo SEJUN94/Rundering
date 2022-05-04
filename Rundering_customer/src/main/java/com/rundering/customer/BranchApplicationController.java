@@ -40,7 +40,7 @@ public class BranchApplicationController {
 	@RequestMapping("/regist")
 	public void branchApplication() {}
 	
-
+ 
 	private Map<String, String> savePicture(MultipartFile multi) throws Exception {
 		String fileName = null;
 		String fileOrginalName = null;

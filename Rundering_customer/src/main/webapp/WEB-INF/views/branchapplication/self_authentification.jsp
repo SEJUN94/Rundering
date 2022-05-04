@@ -235,7 +235,7 @@ const Toast = Swal.mixin({
            }else{
                formatNum = num.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
            }
-       }else if(num.length==8){
+       }else if(num.length==8){ 
            formatNum = num.replace(/(\d{4})(\d{4})/, '$1-$2');
        }else{
            if(num.indexOf('02')==0){

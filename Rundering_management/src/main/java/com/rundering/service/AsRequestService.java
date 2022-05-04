@@ -24,7 +24,7 @@ public interface AsRequestService {
 	AsRequestVO getAsRequestModify(int asno) throws SQLException;
 
 	// 등록
-	void regist(AsRequestVO asrequest) throws SQLException;
+	void regist(AsRequestVO asrequest) throws Exception;
 	
 	//물품리스트 중복제거
 	void getItemList(AsRequestVO asrequest) throws SQLException;

@@ -373,13 +373,6 @@ public class MyPageController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping("/order_detail")
+	public void orderDetail() {}
 }

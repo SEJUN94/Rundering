@@ -59,4 +59,17 @@ public class LaundryThroughputServiceImpl implements LaundryThroughputService{
 		
 		return branchDetail;
 	}
+
+	@Override
+	public List<LaundryThroughPutVO> branchQuotaTable(String branchCode) throws Exception {
+		List<LaundryThroughPutVO> branchTableList = laundryThroughputDAO.branchQuotaTable(branchCode);
+		return branchTableList;
+	}
+
+	@Override
+	public List<LaundryThroughPutVO> branchTableDate(String date) throws Exception {
+		List<LaundryThroughPutVO> branchTableList = laundryThroughputDAO.branchTableDate(date);
+		
+		return branchTableList;
+	}
 }

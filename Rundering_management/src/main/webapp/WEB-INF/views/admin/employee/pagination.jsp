@@ -37,6 +37,7 @@
 	<input type='hidden' name="page" value="" />
 	<input type='hidden' name="searchType" value="" />
 	<input type='hidden' name="keyword" value="" />
+	<input type='hidden' name="employeeSort" value="" />
 </form>
 
 <script>
@@ -47,6 +48,7 @@
 		
 		jobForm.find("[name='page']").val(page);
 		jobForm.find("[name='searchType']").val($('select[name="searchType"]').val());
+		jobForm.find("[name='employeeSort']").val($('select[name="employeeSort"]').val());
 		jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val());
 	
 		jobForm.attr({

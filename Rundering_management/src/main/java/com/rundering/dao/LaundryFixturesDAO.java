@@ -13,4 +13,6 @@ public interface LaundryFixturesDAO {
 	List<LaundryFixturesVO> selectFixturesListByBranchCode(String branchCode) throws Exception;
 
 	void insertFixturesByFixtrues(LaundryFixturesVO laundryFixtures) throws Exception;
+	
+	LaundryFixturesVO selectLaundryFixtureByFixturesCode(String fixturesCode) throws Exception;
 }
