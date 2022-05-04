@@ -12,6 +12,7 @@ import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.ItemInsertDAO;
 import com.rundering.dao.LaundryGoodsStockDAO;
 import com.rundering.dto.ItemVO;
+import com.rundering.dto.LaundryGoodsStockVO;
 import com.rundering.util.ComCodeUtil;
 
 public class ItemServiceImpl implements ItemService {
@@ -112,6 +113,11 @@ public class ItemServiceImpl implements ItemService {
 		
 		
 		return itemList;
+	}
+	
+	@Override
+	public void useAutoYn(LaundryGoodsStockVO laundryGoodsStock)  throws Exception{
+		LaundryGoodsStockDAO.updateLaundryGoodsStockAutoOrderByVO(laundryGoodsStock);
 	}
 	
 }

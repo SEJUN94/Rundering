@@ -13,6 +13,7 @@ public class ItemVO {
 	private int number2;
 	private int sum;
 	private String day; 
+	private String autoOrderYn;
 	
 	
 	public int getNumber2() {
@@ -86,6 +87,12 @@ public class ItemVO {
 	}
 	public void setDay(String day) {
 		this.day = day;
+	}
+	public String getAutoOrderYn() {
+		return autoOrderYn;
+	}
+	public void setAutoOrderYn(String autoOrderYn) {
+		this.autoOrderYn = autoOrderYn;
 	}
 	
 	

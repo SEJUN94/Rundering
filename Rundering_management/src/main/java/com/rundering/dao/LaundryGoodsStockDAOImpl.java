@@ -35,5 +35,10 @@ public class LaundryGoodsStockDAOImpl implements LaundryGoodsStockDAO{
 		return session.selectOne("LaundryGoodsStock-Mapper.selectItemCountByBranchCode",cri );
 	}
 
+	@Override
+	public void updateLaundryGoodsStockAutoOrderByVO(LaundryGoodsStockVO laundryGoodsStock) throws Exception {
+		 session.update("LaundryGoodsStock-Mapper.updateLaundryGoodsStockAutoOrderByVO", laundryGoodsStock);
+	}
+
 
 }

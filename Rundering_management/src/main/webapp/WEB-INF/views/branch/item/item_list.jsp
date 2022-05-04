@@ -56,6 +56,7 @@
                                 <th style="text-align: center;">물품량</th>
                                 <th style="text-align: center;">자동 발주 개수</th>
                                 <th style="text-align: center;">자동 발주 최소량</th>
+                                <th style="text-align: center;">자동발주 사용여부</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,7 +68,6 @@
                                         <c:forEach items="${clcodeList }" var="clcode">
                                         	<c:if test="${item.clcode eq clcode.comCode}">${clcode.comCodeNm }</c:if>   	 
                                         </c:forEach>
-                                        
                                         </td>
                                         <td style="text-align: right;">${item.supplyCount }(${item.each})</td>
                                         <td style="text-align: right;padding-top: 10px;padding-bottom: 5px;">
@@ -82,9 +82,28 @@
                                                 <button class="btn btn-sm btn-warning">수정</button>
                                             </span>
                                         </td>
+                                        <c:if test="${item.autoOrderYn eq 'Y'}">
+                                      	  	
+                                      	  	<td style="text-align: center;">
+                                      	  		<form action="autouse" method="post">
+                                      	  			<input type="hidden" value="N" name="autoOrderYn">
+                                      	  			<input type="hidden" value="${item.articlesCode }" name="articlesCode">
+                                      	  			 <button class="btn btn-sm btn-warning">미사용</button>
+                                      	  		</form> 
+                                      	  	 </td>
+                                       		
+                                        </c:if>
+                                          <c:if test="${item.autoOrderYn eq 'N'}">
+                                      	  	<td style="text-align: center;"> 
+                                      	  		<form action="autouse" method="post">
+                                      	  			<input type="hidden" value="Y" name="autoOrderYn">
+                                      	  			<input type="hidden" value="${item.articlesCode }" name="articlesCode">
+                                      	  			<button class="btn btn-sm btn-primary">사용</button>
+                                      	  		</form>
+                                      	  	</td>
+                                        </c:if>
                                     </tr>
                                    </c:forEach> 
-                                
                         </tbody>
                     </table>
                 </div>
@@ -109,7 +128,7 @@
                     </div>
                 </div>
          </div>
-         <div class="card-body">
+         <div class="card-body " id="chartDiv">
     		<canvas id="canvas"></canvas>     
          </div>
     </div>
@@ -130,6 +149,11 @@
 <script>
 let articlesCode= null;
 
+function autoModify(){
+	
+}
+
+
 function tdClick(code){
 	articlesCode=code;
 	chartGo();
@@ -138,9 +162,12 @@ function tdClick(code){
 	
 
 function chartGo(){
-	if( document.querySelectorAll(".chartjs-hidden-iframe")[0]!=null){
-		document.querySelectorAll(".chartjs-hidden-iframe")[0].remove()
-	}
+	let chartDiv = document.querySelector("#chartDiv");
+	document.querySelector("#canvas").remove();
+	chartDiv.innerHTML=""
+	chartDiv.innerHTML="<canvas id='canvas'></canvas>"
+	
+
 	let itemInsertDate= document.querySelector("#itemInsertDate").value;
 	$.ajax({
 		url : '<%=request.getContextPath()%>/branch/item/chart',
@@ -167,42 +194,7 @@ function chartGo(){
 			let sum5=data[4].sum;
 			let sum6=data[5].sum;
 			let sum7=data[6].sum;
-			/* if(itemInsertDate=='1'){
-				a+="일"
-				b+="일"
-				c+="일"
-				d+="일"
-				e+="일"
-				f+="일"
-				g+="일"
-			}
-			if(itemInsertDate=='30'){
-				a+="월"
-				b+="월"
-				c+="월"
-				d+="월"
-				e+="월"
-				f+="월"
-				g+="월"
-			}
-			if(itemInsertDate=='90'){
-				a+="월"
-				b+="월"
-				c+="월"
-				d+="월"
-				e+="월"
-				f+="월"
-				g+="월"
-			}
-			if(itemInsertDate=='365'){
-				a+="년"
-				b+="년"
-				c+="년"
-				d+="년"
-				e+="년"
-				f+="년"
-				g+="년"
-			} */
+			
 			
 			
 			chartCanvas(g,f,e,d,c,b,a,sum7,sum6,sum5,sum4,sum3,sum2,sum1)

@@ -6,6 +6,7 @@ public class LaundryGoodsStockVO {
 	private int supplyCount;  		//용품개수
 	private int	autoOrderPoint;
 	private int	autoOrderCount;
+	private String autoOrderYn;
 	
 	public LaundryGoodsStockVO() {
 		super();
@@ -48,6 +49,16 @@ public class LaundryGoodsStockVO {
 
 	public void setAutoOrderCount(int autoOrderCount) {
 		this.autoOrderCount = autoOrderCount;
+	}
+
+
+	public String getAutoOrderYn() {
+		return autoOrderYn;
+	}
+
+
+	public void setAutoOrderYn(String autoOrderYn) {
+		this.autoOrderYn = autoOrderYn;
 	}
 	
 

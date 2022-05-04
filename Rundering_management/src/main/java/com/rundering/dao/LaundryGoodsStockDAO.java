@@ -11,5 +11,7 @@ public interface LaundryGoodsStockDAO {
 	public void updateLaundryGoodsStockCountByVO(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 	public List<ItemVO> selectItemListByBranchCode(BranchCriteria cri) throws Exception;
 	public int selectItemCountByBranchCode(BranchCriteria cri) throws Exception;
+	public void updateLaundryGoodsStockAutoOrderByVO(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
+	
 }
  

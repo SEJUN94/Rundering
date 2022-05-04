@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rundering.command.BranchCriteria;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.ItemVO;
+import com.rundering.dto.LaundryGoodsStockVO;
 import com.rundering.service.ItemService;
 
 @Controller
@@ -39,6 +40,17 @@ public class BranchItemController {
 		model.addAttribute("dataMap", dataMap);
 		return url;
 	}
+	@RequestMapping(value="autouse",method = RequestMethod.POST)
+	private String autouse(LaundryGoodsStockVO laundryGoodsStock,HttpSession session) throws Exception{
+		String url = "redirect:/branch/item/list";
+		EmployeesVO emp=(EmployeesVO) session.getAttribute("loginEmployee");
+		laundryGoodsStock.setBranchCode(emp.getBranchCode());
+		itemService.useAutoYn(laundryGoodsStock);
+		
+		
+		return url;
+	}
+	
 	@RequestMapping(value="chart",method =RequestMethod.GET,produces = "application/json;charset=utf-8")
 	@ResponseBody
 	private ResponseEntity<List<ItemVO>> chart(int chartDay,String articlesCode,HttpSession session){

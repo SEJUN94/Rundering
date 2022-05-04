@@ -17,6 +17,7 @@
 		<result column="SUPPLY_COUNT"  property="supplyCount"/>
 		<result column="AUTO_ORDER_POINT" property="autoOrderPoint"/>
 		<result column="AUTO_ORDER_COUNT" property="autoOrderCount" />
+		<result column="AUTO_ORDER_YN" property="autoOrderYn"/>
 	</resultMap>
 	
 	
@@ -27,7 +28,8 @@
 		       A.EACH AS EACH,
 		       B.SUPPLY_COUNT AS SUPPLY_COUNT,
 		       B.AUTO_ORDER_POINT AS AUTO_ORDER_POINT,
-		       B.AUTO_ORDER_COUNT AS AUTO_ORDER_COUNT
+		       B.AUTO_ORDER_COUNT AS AUTO_ORDER_COUNT,
+		       B.AUTO_ORDER_YN AS AUTO_ORDER_YN
 		  from tb_laundry_articles A,TB_LAUNDRY_GOODS_STOCK B
 		 WHERE A.ARTICLES_CODE =B.ARTICLES_CODE
 		   AND B.BRANCH_CODE = #{branchCode}
@@ -63,6 +65,14 @@
 		 where branch_code=#{branchCode}
 		   and articles_code=#{articlesCode} 
 	</update>
+	<update id="updateLaundryGoodsStockAutoOrderByVO" parameterType="laundrygoodsstock">
+		update tb_laundry_goods_stock
+		   set auto_order_yn=#{autoOrderYn}
+		 where branch_code=#{branchCode}
+		   and articles_code=#{articlesCode} 
+	</update>
+	
+	
 	
 	
 </mapper>

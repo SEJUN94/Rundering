@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.rundering.command.BranchCriteria;
 import com.rundering.dto.ItemVO;
+import com.rundering.dto.LaundryGoodsStockVO;
 
 public interface ItemService {
 
@@ -16,4 +17,6 @@ public interface ItemService {
 	List<ItemVO> selectYYItemByItem(ItemVO item) throws Exception;
 
 	List<ItemVO> select3MItemByItem(ItemVO item) throws Exception;
+
+	void useAutoYn(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 };
