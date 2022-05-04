@@ -184,6 +184,8 @@
 	<bean id="replySerivce"  class="com.rundering.service.ReplyServiceImpl" 
 		p:replyDAO-ref="replyDAO"
 		p:memberDAO-ref="memberDAO"
+		p:sensSms-ref="sensSms"
+		p:laundryOrderDAO-ref="laundryOrderDAO"
 	/>
 	<!--이메일 발송 서비스  -->
 	<bean id="mailSendService" class="com.rundering.service.MailSendService"
