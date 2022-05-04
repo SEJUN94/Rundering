@@ -94,6 +94,10 @@
 	<!-- Service Layer -->
 	<bean id="asRequestService" class="com.rundering.service.AsRequestServiceImpl"
 		p:asRequestDAO-ref="asRequestDAO"
+		p:branchDAO-ref="branchDAO"
+		p:employeesDAO-ref="employeesDAO"
+		p:notificationDAO-ref="NotificationDAO"
+		p:laundryFixturesDAO-ref="laundryFixturesDAO"
 	/>	
 	<bean id="menuService" class="com.rundering.service.MenuServiceImpl"
 		p:menuDAOBean-ref="menuDAO"
