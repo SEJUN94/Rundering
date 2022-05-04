@@ -64,7 +64,7 @@ public class LaundryArticlesRestController {
 		return dataMap;
 	}
 	@RequestMapping(value = "/picture", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-	public ResponseEntity<Map<String, String>> picture(@RequestParam("pictureFile") MultipartFile multi, String oldPicture) throws Exception {
+	public ResponseEntity<Map<String, String>> picture( MultipartFile multi, String oldPicture) throws Exception {
 		ResponseEntity<Map<String, String>> entity = null;
 		Map<String, String> result = null;
 		HttpStatus status = null;

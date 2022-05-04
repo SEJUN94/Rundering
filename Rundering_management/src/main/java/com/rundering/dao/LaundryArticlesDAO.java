@@ -22,4 +22,5 @@ public interface LaundryArticlesDAO {
 	List<LaundryArticlesVO>	NotALaundryArticlesList(Criteria cri) throws SQLException;
 	List<LaundryArticlesVO> selectLandryArticlesStock() throws Exception;
 	
+	String selectLaundryArticles(String articlesCode) throws Exception;
 }

@@ -220,7 +220,7 @@ function imgAjax(atchFileNo,img){
 	        },
 	        error:function(error){
 			//alert('댓글이 등록을 실패했습니다.');
-			AjaxErrorSecurityRedirectHandler(error.status);
+			//AjaxErrorSecurityRedirectHandler(error.status);
 		}
 	    })
 }

@@ -114,7 +114,7 @@ th, td {
 						</div>
 
 
-						<div class="card-footer" style="font-size: 0.9em">
+						<div class="card-footer" >
 							<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 
 						</div>

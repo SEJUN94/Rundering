@@ -96,6 +96,9 @@
 	 <bean id="notificationDAO" class="com.rundering.dao.NotificationDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
+	 <bean id="itemInsertDAO" class="com.rundering.dao.ItemInsertDAOImpl"
+	 	p:session-ref="sqlSession"
+	 />
 
 	<!-- Service Layer -->
 	<bean id="asRequestService" class="com.rundering.service.AsRequestServiceImpl"
@@ -111,6 +114,9 @@
 	<bean id="laundryArticlesService" class="com.rundering.service.LaundryArticlesServiceImpl"
 		p:laundryArticlesDAO-ref="laundryArticlesDAO"
 		p:attachDAO-ref="attachDAO"
+		p:comCodeDAO-ref="comCodeDAO"
+		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
+		p:branchDAO-ref="branchDAO"
 	/>	
 	<bean id="laundryFixturesService" class="com.rundering.service.LaundryFixturesServiceImpl"
 		p:laundryFixturesDAO-ref="laundryFixturesDAO"
@@ -147,6 +153,8 @@
 	<bean id="itemOrderService" class="com.rundering.service.ItemOrderServiceImpl"
 		p:itemOrderDAO-ref="itemOrderDAO"
 		p:comCodeDAO-ref="comCodeDAO"
+		p:itemInsertDAO-ref="itemInsertDAO"
+		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
 	/>
 	<bean id="attachService" class="com.rundering.service.AttachService"
 		p:attachDAO-ref="attachDAO"
@@ -202,5 +210,10 @@
 		p:notificationDAO-ref="notificationDAO"
 		p:comCodeDAO-ref="comCodeDAO"
 	 />
-	
+		 
+	<bean id="itemService" class="com.rundering.service.ItemServiceImpl"
+		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
+		p:comCodeDAO-ref="comCodeDAO"
+		p:itemInsertDAO-ref="itemInsertDAO"
+	/>
 </beans>

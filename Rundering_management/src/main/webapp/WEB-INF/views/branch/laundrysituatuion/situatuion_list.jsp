@@ -354,7 +354,7 @@ ${from }
             let replyNo=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.replyno
             let memberNo=event.target.parentElement.querySelectorAll(".orderno")[0].dataset.memberno
           
-        //    getImages(atchFileNo);
+            getImages(atchFileNo);
             document.querySelector("#requestDate").innerText=orderDate;
            	document.querySelector("#registBtn").dataset.replyno=replyNo
            	document.querySelector("#registBtn").dataset.memberno=memberNo
@@ -371,7 +371,7 @@ ${from }
  }
 </script>
 
-		<script>
+<script>
 	function statusChange(){
 		let form=document.querySelector("#form");
 		let selects =document.querySelectorAll(".select");
