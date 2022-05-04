@@ -187,5 +187,11 @@
 		p:employeesDAO-ref="employeesDAO"
 		p:mailSendService-ref="mailSendService"
 	 />
+	 
+	<bean id="itemService" class="com.rundering.service.ItemServiceImpl"
+		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
+		p:comCodeDAO-ref="comCodeDAO"
+		p:itemInsertDAO-ref="itemInsertDAO"
+	/>
 	
 </beans>

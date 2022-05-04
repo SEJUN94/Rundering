@@ -11,7 +11,6 @@ public class ItemInsertVO {
 	String orderNo;
 	
 	
-	
 	public ItemInsertVO() {
 	}
 	public String getArticlesCode() {

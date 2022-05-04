@@ -10,6 +10,20 @@
 		<result column="BRANCH_CODE"  property="branchCode"/>
 		<result column="ORDER_NO"  property="orderNo"/>
 	</resultMap>
+	
+	<select id="selectDayItemByItem" resultType="item">
+		 SELECT SUM(ITEM_COUNT) as sum,
+		        TO_CHAR(sysdate-#{number},'YYYY-MM-DD')  as day
+	  	   FROM TB_ITEM_INSERT
+	   	  WHERE INSERT_DATE BETWEEN SYSDATE-#{number2}
+	  	                 AND SYSDATE -#{number}
+	        AND BRANCH_CODE=#{branchCode}
+	        and articles_code=#{articlesCode}
+	</select>
+	
+	
+	
+	
 	<insert id="insertItemIsert" parameterType="itemInsert">
 		insert into tb_item_insert
 		(
