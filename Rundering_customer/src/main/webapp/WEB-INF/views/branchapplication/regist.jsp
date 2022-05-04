@@ -288,12 +288,13 @@ $('input[name="pictureFile"]').change(function(){
 
 	<script>
 
-var name = document.getElementById("name");
+var nm = document.getElementById("name");
 var phone= document.getElementById('phone');
 var email = document.getElementById('email');
 var check = document.getElementById('check');
 	
 	function regist(){
+		alert(nm.value)
 		if(check.checked) {
 			Swal.fire({
 	            title: '지점 등록 신청 하시겠습니까?',
@@ -310,7 +311,7 @@ var check = document.getElementById('check');
 					$.ajax({
 						url : '<%=request.getContextPath()%>/branchapplication/registform',
 						data : {
-							'applicateName' : name.value,
+							'applicateName' : nm.value,
 							'phone' : phone.value,
 							'email' : email.value,
 							'fileNm' : fn
@@ -318,21 +319,18 @@ var check = document.getElementById('check');
 						},
 						type : 'post',
 						success : function(ok) {
-							if(ok.toUpperCase() == "OK"){
-								Swal.fire({
-									icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
-									title: '지점 등록 신청이 완료되었습니다.',
-								});
-								setTimeout(function(){location.href='<%=request.getContextPath()%>/branchapplication/regist';},1000);
-							} else {
-								Swal.fire({
-									icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
-									title: '시스템 오류로 반려 할 수 없습니다.'
-								});
-							}
+							Swal.fire({
+								icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+								title: '지점 등록 신청이 완료되었습니다.',
+							});
+							setTimeout(function(){location.href='<%=request.getContextPath()%>/branchapplication/regist';},1000);
 						},
 						error : function(error) {
-							AjaxErrorSecurityRedirectHandler(error.status);
+							//AjaxErrorSecurityRedirectHandler(error.status);
+							Swal.fire({
+								icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+								title: '시스템 오류로 반려 할 수 없습니다.'
+							});
 						}
 					});
 				}
