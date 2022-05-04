@@ -243,6 +243,5 @@
          ORDER BY ORDER_DATE
 	</select>
 	
-	
 
 </mapper>

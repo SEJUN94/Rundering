@@ -8,6 +8,12 @@
 	<bean id="picturePath" class="java.lang.String">
 		<constructor-arg value="${orderGoods.picture.upload}" />      
 	</bean>
+	
+	<!-- orderGoods.picture --> 
+	<bean id="deliveryPath" class="java.lang.String">
+		<constructor-arg value="${delivery.picture.upload}" />      
+	</bean>
+	
 	<!-- board.file -->
 	<bean id="boardPath" class="java.lang.String">
 		<constructor-arg value="${board.upload}" />      
@@ -147,6 +153,8 @@
 	/>
 	<bean id="deliveryService" class="com.rundering.service.DeliveryServiceImpl"
 		p:laundryOrderDAO-ref="deliveryDAO"
+		p:attachDAO-ref="attachDAO"
+		p:memberDAO-ref="memberDAO" 
 	/>
 	<bean id="laundryOrderService" class="com.rundering.service.LaundryOrderServiceImpl" 
 		p:laundryItemsDAO-ref="laundryItemsDAO"

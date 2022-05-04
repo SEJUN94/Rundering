@@ -120,7 +120,7 @@
 			</div>
 		</div>
 
-	</div>
+	</div> 
 	
 	<div class="hiddenInput"></div>
 	<form role="imageForm" method="post" enctype="multipart/form-data">
