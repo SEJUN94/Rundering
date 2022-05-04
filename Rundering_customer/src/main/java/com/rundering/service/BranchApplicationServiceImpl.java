@@ -25,8 +25,8 @@ public class BranchApplicationServiceImpl implements BranchApplicationService {
 		// FILE_NO 변수에 저장해놓기
 		int intNo =  attachDAO.selectFileNo();
 		String atchFileNo = intNo + "";  
-		attach.setFileContType("임대차계약서");
-		bv.setFileNm(atchFileNo);
+		attach.setBizType("임대차계약서");
+		bv.setLeasecontractFile(atchFileNo);
 		attach.setAtchFileNo(atchFileNo);
 		attach.setAtchFileSeq(1);
 		

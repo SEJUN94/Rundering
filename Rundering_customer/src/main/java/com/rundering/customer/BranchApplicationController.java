@@ -33,7 +33,7 @@ public class BranchApplicationController {
 	@Resource(name = "attachService")
 	private AttachService attachService;
 	
-	@Resource(name="branchApplicationService")
+	@Resource(name = "branchApplicationService")
 	private BranchApplicationService branchApplicationService;
 	
 	@RequestMapping("/regist")
@@ -78,7 +78,6 @@ public class BranchApplicationController {
 			result.put("result", "업로드 성공!!");
 		}
 		entity = new ResponseEntity<Map<String, String>>(result, status);
-		
 		
 		return entity;
 	}
