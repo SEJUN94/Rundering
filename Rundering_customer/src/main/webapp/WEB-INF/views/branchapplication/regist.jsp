@@ -188,60 +188,6 @@ const dataSetting = function(){
 <script>
 var dataNum = 1;
 
-	function addFile_go(){
-	   
-	   if($('input[name="tempPicture"]').length >= 5){
-	      alert("사진 첨부는 5개까지만 가능합니다.");
-	      return;
-	   }
-	   
-	   var div = $("<div>").addClass("inputRow").attr("data-no", dataNum);
-	   
-	   div.append("<label for='inputFile' data-no="+dataNum+" class='btn btn-secondary btn-sm input-group-addon' onclick='justPressed(this)''>파일선택</label>")
-	   .append("<input id='inputFileName' type='text' name='tempPicture' data-no="+dataNum+" style='margin-left: 4px;' disabled/>")
-	   .append("<button onclick='remove_go("+dataNum+");' style='border:0; outline:0;padding: 6px;padding-bottom: 5px;margin-left: 6px;' class='badge bg-red' type='button'>X</button>");
-	   
-	   $('.fileInput').append(div);
-	   dataNum++;
-	}
-
-	function remove_go(dataNum){
-		if($('input[name="tempPicture"]').length == 1){
-		      alert("사진 첨부는 필수입니다.");
-		      return;
-		   }
-		deleteUploadFile(dataNum);
-		
-		$('div[data-no="'+dataNum+'"]').remove();
-		
-	}
-	
-	function deleteUploadFile(dataNum){
-		 let deleteFile = findByAttributeValue("data-uploadedno",dataNum,"input");
-		 if(!deleteFile) {
-			 return;
-		 }
-		 let deleteFileName = deleteFile.value;
-		 
-		 deleteFile.remove();
-		 
-		 const v_ajax = new XMLHttpRequest();
-		    v_ajax.open("POST","<%=request.getContextPath()%>/branchapplication/deletePicture",true);
-		    v_ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-		    v_ajax.send('deleteFileName=' + deleteFileName);
-		    v_ajax.onreadystatechange = function(){
-		    	 if (v_ajax.readyState === XMLHttpRequest.DONE) {
-			            if (v_ajax.status === 200) {
-			               //const response = JSON.parse(v_ajax.responseText);
-			               console.log(v_ajax.responseText);
-			               //console.log(data+"사진이 삭제 되었습니다.");
-			            } else {
-			            	//AjaxErrorSecurityRedirectHandler(error.status);
-			            }
-			     }
-		    }
-	}
-	
 	function regist_go(){
 		
 		let files = $('input[name="tempPicture"]');
@@ -301,15 +247,15 @@ $('input[name="pictureFile"]').change(function(){
 		spinner.style.display = 'none';
 		return;
 	}
-	//이미지 확장자 jpg 확인
+	//파일 확장자 pdf 확인
 	if(!(fileFormat == "pdf" || fileFormat == "hwp" || fileFormat == "PDF")){
-		alert("계약서 파일은 pdf/hwp 형식만 가능합니다.");
+		alert("계약서 파일은 pdf 형식만 가능합니다.");
 		spinner.style.display = 'none';
 		return;
 	}
-	// 이미지 파일 용량 체크
+	// 파일 용량 체크
 	if(picture.files[0].size>1024*1024*5){
-		alert("사진 용량은 5MB 이하만 가능합니다.");
+		alert("첨부파일 용량은 5MB 이하만 가능합니다.");
 		spinner.style.display = 'none';
 		return;
 	};
@@ -337,6 +283,8 @@ $('input[name="pictureFile"]').change(function(){
 			inputFileName.value = picture.files[0].name;
 			
 			spinner.style.display = 'none';
+			
+			
 		},
 		error:function(error){
 			//alert("현재 사진 업로드가 불가합니다. \n관리자에게 연락바랍니다.");
@@ -368,14 +316,16 @@ var check = document.getElementById('check');
 	            cancelButtonText: '취소',
 	            reverseButtons: true, // 버튼 순서 거꾸로
 	          }).then((result) => {
-	            if (result.isConfirmed) {	
+	            if (result.isConfirmed) {
 	            	regist_go()
 					$.ajax({
-						url : '<%=request.getContextPath()%>/branchapplication/registform',
+						url : '<%=request.getContextPath()%>/branchapplication/regist',
 						data : {
 							'applicateName' : name,
 							'phone' : phone,
-							'email' : email
+							'email' : email,
+							'fileNm' : $('input[name=saveFileNm]').val()
+							
 						},
 						type : 'post',
 						success : function(ok) {
@@ -407,7 +357,10 @@ var check = document.getElementById('check');
 	}
 </script>
 
-	<script> 
+
+
+<!-- 문자인증 -->
+<script> 
  const certify_ajax = function (phoneNumber){
     const v_ajax = new XMLHttpRequest();
        v_ajax.open("POST","<%=request.getContextPath()%>/order/certifyPhoneNum",true);
@@ -429,10 +382,7 @@ var check = document.getElementById('check');
  };
    
 </script>
-
-
-
-	<script>
+<script>
 let isRunning = false;
 
 const Toast = Swal.mixin({

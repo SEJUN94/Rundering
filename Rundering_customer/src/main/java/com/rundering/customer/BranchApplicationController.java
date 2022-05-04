@@ -16,12 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jsp.util.MakeFileName;
 import com.rundering.command.LaundryOrderReceiveCommand;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.BranchApplicationVO;
+import com.rundering.dto.LaundryOrderVO;
 import com.rundering.service.AttachService;
 import com.rundering.service.BranchApplicationService;
+import com.rundering.util.FileUtil;
 
 @RequestMapping("/branchapplication")
 @Controller
@@ -36,9 +40,6 @@ public class BranchApplicationController {
 	
 	@Resource(name="branchApplicationService")
 	private BranchApplicationService branchApplicationService;
-	
-	@RequestMapping("/regist")
-	public void branchApplication() {}
 	
  
 	private Map<String, String> savePicture(MultipartFile multi) throws Exception {
@@ -63,6 +64,7 @@ public class BranchApplicationController {
 		}
 		return dataMap;
 	}
+	
 	@RequestMapping(value = "/picture", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public ResponseEntity<Map<String, String>> picture(@RequestParam("pictureFile") MultipartFile multi) throws Exception {
 		ResponseEntity<Map<String, String>> entity = null;
@@ -84,24 +86,32 @@ public class BranchApplicationController {
 		return entity;
 	}
 	
-	@RequestMapping("/registform")
-	public ResponseEntity<String> insertBranchApp(@RequestParam(defaultValue = "") String from,LaundryOrderReceiveCommand command,BranchApplicationVO bv) throws Exception {
-		ResponseEntity<String> entity = null;
+
+	@RequestMapping(value = "/regist", method = RequestMethod.POST)
+	public String regist(BranchApplicationVO bv,AttachVO attach, RedirectAttributes rttr) throws Exception {
+		String url = "redirect:/main";
 		
-		try {
-				
-			branchApplicationService.branchApplicate(bv);
-				
-			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
-				
-		} catch (SQLException e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-			
 		
-		return entity;
+		String fileName = bv.getFileNm();
+		
+		File file = new File(filePath + fileName);
+		String orginalFileName = MakeFileName.parseFileNameFromUUID(fileName, "\\$\\$");
+		long fileSize = file.length() / 1024;
+		String type = fileName.substring(fileName.lastIndexOf('.') + 1);
+		attach.setFileContType(type);
+		attach.setFileNm(orginalFileName);
+		attach.setSaveFileNm(fileName);
+		attach.setFileSize(fileSize);
+		attach.setFilePath(filePath);
+		
+		
+		branchApplicationService.branchApplicate(bv);
+		deliveryService.regist(laundryOrder, attach);
+		rttr.addFlashAttribute("from", "regist");
+
+		return url;
 	}
+	
 	
 	@RequestMapping("/my_branch_request")
 	public ModelAndView myBranchRequest(ModelAndView mnv, BranchApplicationVO bv) throws Exception{

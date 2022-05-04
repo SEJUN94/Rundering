@@ -17,13 +17,20 @@ public class BranchApplicationVO {
 	private String privatecontractFile;      //수의계약서 첨부파일번호
 	private String charger;                  //담당자
 	private String progressStatusCode;		 //진행상태코드
-	
+	private String fileNm;					 //파일이름 저장할 변수
 	
 	public BranchApplicationVO() {
 		super();
 	}
 	
 	
+	
+	public String getFileNm() {
+		return fileNm;
+	}
+	public void setFileNm(String fileNm) {
+		this.fileNm = fileNm;
+	}
 	public int getApplicationNo() {
 		return applicationNo;
 	}
