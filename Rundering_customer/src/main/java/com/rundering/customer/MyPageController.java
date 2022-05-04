@@ -139,7 +139,7 @@ public class MyPageController {
 	
 	//문의내역
 	@RequestMapping("/myinquiry/list")
-	private ModelAndView myInquiryList(Criteria cri, ModelAndView mnv) throws Exception {
+	private ModelAndView myInquiryList(MyOrderCriteria cri, ModelAndView mnv) throws Exception {
 		String url = "mypage/my_inquiry_list";
 		
 		Map<String, Object> dataMap = faqService.getFAQList(cri);

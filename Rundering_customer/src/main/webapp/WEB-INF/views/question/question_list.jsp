@@ -163,7 +163,7 @@ th, td {
 	               icon : 'warning' ,
 	               confirmButtonColor: '#3085d6',
 	               confirmButtonText: '확인',
-	               reverseButtons: true, // 버튼 순서 거꾸로
+	               reverseButtons: true,
 	               }).then((result) => {
 	            	   if (result.isConfirmed){
 	            		   location.href="<%=request.getContextPath()%>/login/form";
