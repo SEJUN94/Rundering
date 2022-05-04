@@ -52,10 +52,10 @@
                      <th>상태변경</th>
                   </tr>
                </thead>
-               <tbody>
+               <tbody style="height:245px;">
                   <c:if test="${empty appList  }">
                      <tr>
-                        <td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+                        <td colspan="5" style="vertical-align:middle;"><strong>해당 내용이 없습니다.</strong></td>
                      </tr>
                   </c:if>
                   <c:forEach items="${appList }" var="list">
@@ -138,9 +138,8 @@
                <input type="hidden" id="memNo" name="memNo" value="" >
                <input type="hidden" id="jd" name="jd" value="" >
                      <div class="form-group" style="">
-                        <div class="float-right col-2" style="margin-right: 0;">
-                           <button type="submit" class="btn col-12 btn-primary"
-                              onclick="regist()">등록</button>
+                        <div class="float-right col-2 p-0" style="margin-right: 0;">
+                           <button onclick="regist()" class="btn col-12 btn-primary" type="submit" style="background-color: #82BBD8; border: 1px solid #82BBD8">등록</button>
                         </div>
                      </div>
             </div>
