@@ -135,8 +135,11 @@ th, td {
 				<div class="float-right mt-3 mr-3 mb-3">
 
 					<button class="btn btn-primary" type="button" id="registBtn"
-						onclick="location.href='<%=request.getContextPath()%>/question/registForm'">
+						onclick="loginyn()">
 						문의하기</button>
+					<%-- <button class="btn btn-primary" type="button" id="registBtn"
+						onclick="location.href='<%=request.getContextPath()%>/question/registForm'">
+						문의하기</button> --%>
 				</div>
 			</div>
 		</div>
@@ -145,4 +148,31 @@ th, td {
 			<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 		</div>
 	</div>
+	
+<!-- 	알럽트 js -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+	
+	
+	<script>
+		function loginyn(){
+			let loginUser = "${loginUser}";			
+			if (loginUser == ""){				
+				event.preventDefault();	//submit 이벤트를 막아 페이지 리로드를 방지
+				Swal.fire({
+	               title: '로그인 후 사용가능합니다.',
+	               icon : 'warning' ,
+	               confirmButtonColor: '#3085d6',
+	               confirmButtonText: '확인',
+	               reverseButtons: true, // 버튼 순서 거꾸로
+	               }).then((result) => {
+	            	   if (result.isConfirmed){
+	            		   location.href="<%=request.getContextPath()%>/login/form";
+	            		   }
+	            	   })
+			} else {
+				location.href="<%=request.getContextPath()%>/question/registForm";
+			}
+		}
+	</script>
 </body>
+
