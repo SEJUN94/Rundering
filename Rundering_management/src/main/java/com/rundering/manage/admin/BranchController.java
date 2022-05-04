@@ -1,5 +1,6 @@
 package com.rundering.manage.admin;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.AppCriteria;
 import com.rundering.command.BranchInfoDetailCommand;
+import com.rundering.dto.LaundryThroughPutVO;
 import com.rundering.service.LaundryThroughputService;
 
 @Controller
@@ -71,14 +73,32 @@ public class BranchController {
 		return mnv;
 	}
 	
-	@RequestMapping("/chart")
-	public ResponseEntity<Map<String, Object>> chartjs(String throughputNo)throws Exception{
-		ResponseEntity<Map<String, Object>> entity = null;
+	@RequestMapping("/branchdata")
+	public ResponseEntity<List<LaundryThroughPutVO>> tableAndChart(String branchCode) throws Exception{
+		ResponseEntity<List<LaundryThroughPutVO>> entity = null;
+		LaundryThroughPutVO lv = new LaundryThroughPutVO();
+		lv.setBranchCode(branchCode);
+		try {
+			List<LaundryThroughPutVO> branchTableList = laundryThroughputService.branchQuotaTable(lv.getBranchCode());
+			entity = new ResponseEntity<List<LaundryThroughPutVO>>(branchTableList, HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<List<LaundryThroughPutVO>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		
-		Map<String, Object> dataMap= laundryThroughputService.getLaundryQuatoByThroughputNo(throughputNo);
-		
-		entity = new ResponseEntity<Map<String, Object>>(dataMap ,HttpStatus.CREATED);
-		
+		return entity;
+	}
+	
+	@RequestMapping("/datedata")
+	public ResponseEntity<List<LaundryThroughPutVO>> tableDate(String date) throws Exception{
+		ResponseEntity<List<LaundryThroughPutVO>> entity = null;
+		try {
+			List<LaundryThroughPutVO> branchTableList = laundryThroughputService.branchTableDate(date);
+			entity = new ResponseEntity<List<LaundryThroughPutVO>>(branchTableList, HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<List<LaundryThroughPutVO>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		return entity;
 	}
 }

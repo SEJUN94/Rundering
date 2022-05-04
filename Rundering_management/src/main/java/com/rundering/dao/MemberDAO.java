@@ -58,4 +58,7 @@ public interface MemberDAO {
 
 	MemberVO selectMemberByPhone(String phone) throws Exception;
 	
+	//주문 고객의 연락처 가져오기
+	public String getPhoneNum(String memberNo)throws Exception;
+	
 }

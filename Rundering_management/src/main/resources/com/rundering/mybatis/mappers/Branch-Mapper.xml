@@ -23,6 +23,11 @@
 	<select id="selectBranchList" resultMap="branchMap" >
 		SELECT *
 		FROM TB_BRANCH
+	</select>
+
+	<select id="selectAvailableBranchList" resultMap="branchMap" >
+		SELECT *
+		FROM TB_BRANCH
 		WHERE DELETE_YN = 'N'
 	</select>
 	
@@ -36,6 +41,7 @@
 		SELECT *
 		FROM TB_BRANCH
 		WHERE AREA = #{area}
+		 AND DELETE_YN = 'N'
 	</select>
 	
 	<select id="getBranchByCode" resultMap="branchMap" parameterType="str">
@@ -48,7 +54,8 @@
 		SELECT A.SUMBRANCH_LNDRPCRYMSLMCOQY - B.CNTORDER
 	         FROM (SELECT SUM(BRANCH_LNDRPCRYMSLMCOQY) AS SUMBRANCH_LNDRPCRYMSLMCOQY
 	                FROM TB_BRANCH
-	               WHERE AREA= #{area}) A,
+	               WHERE AREA= #{area}
+	               DELETE_YN = 'N') A,
 	              (SELECT COUNT(*) AS CNTORDER
 	                  FROM TB_LAUNDRY_ORDER
 	                 WHERE BRANCH_CODE LIKE #{area}||'%'

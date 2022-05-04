@@ -21,7 +21,7 @@ public interface SuggestService {
 	SuggestVO getSuggestModify(int sno) throws SQLException;
 
 	// 등록
-	void regist(SuggestVO suggest) throws SQLException;
+	void regist(SuggestVO suggest) throws Exception;
 
 	// 수정
 	void modify(SuggestVO suggest) throws SQLException;

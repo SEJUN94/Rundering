@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <c:set value="${dataMap.pickupList }" var="pickupList"></c:set>
 <c:set value="${dataMap.pickupCompleteList }" var="pickupCompleteList"></c:set>
 
@@ -27,11 +29,11 @@
 			<div class="tab-content" id="custom-tabs-four-tabContent">
 				<div class="tab-pane fade active show" id="custom-tabs-four-home"
 					role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
-					<table class="table table-striped" style="font-size: 1.2rem;">
+					<table class="table table-striped" style="font-size: 1.2rem;" id="inventory">
 						<thead>
 							<tr>
 								<th>주문번호</th>
-								<th>배송 주소지</th>
+								<th style="cursor:pointer;" onclick="sortAddr('${pickupList[0].branchCode}');">배송 주소지</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -40,10 +42,10 @@
 									<td colspan="2" style="text-align: center;"><strong>수거할 세탁물이 없습니다</strong></td>
 								</tr>
 							</c:if>
-							<c:forEach items="${pickupList }" var="pickupList">
-								<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickupdetail?orderNo=${pickupList.orderNo }&orderStatus=02'">
-									<td>${pickupList.orderNo }</td>
-									<td>${pickupList.add1 }${pickupList.add2 }</td>
+							<c:forEach items="${pickupList }" var="pList">
+								<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickupdetail?orderNo=${pList.orderNo }&orderStatus=02'">
+									<td class="aa">${pList.orderNo }</td>
+									<td class="bb">${pList.add1 }${pList.add2 }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -55,7 +57,7 @@
 						<thead>
 							<tr>
 								<th>주문번호</th>
-								<th>배송 주소지</th>
+								<th style="cursor:pointer;" onclick="sortAddr1('${pickupList[0].branchCode}');">배송 주소지</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -66,29 +68,96 @@
 							</c:if>
 							<c:forEach items="${pickupCompleteList }" var="list">
 								<tr onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickupdetail?orderNo=${list.orderNo }&orderStatus=03'">
-									<td id="orderNo" name="">${list.orderNo }</td>
-									<td>${list.add1 }${list.add2 }</td>
+									<td id="orderNo" class="aa">${list.orderNo }</td>
+									<td class="bb">${list.add1 }${list.add2 }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
-					<div onclick="complete_all();"
-						class="info-box bg-light" style="position: fixed;
-							bottom: 0;">
-						<div class="info-box-content" onclick="complete_all()">
-							<span class="info-box-text text-center text-muted"
-								style="font-size: 2rem;">지점 전달 완료</span>
+					<c:if test="${fn:length(pickupList) == 0}">
+						<div onclick="complete_all();"
+							class="info-box bg-light" style="position: fixed;
+								bottom: 0;">
+							<div class="info-box-content" onclick="complete_all()">
+								<span class="info-box-text text-center text-muted"
+									style="font-size: 2rem;">지점 전달 완료</span>
+							</div>
 						</div>
-					</div>
+					</c:if>
 				</div>
 			</div>
 		</div>
 	</div>
+<script>
+var sortValue = "0";
+var aa = document.querySelector('.aa');
+var bb = document.querySelector('.bb');
+
+function sortAddr(branchCode){
+	$.ajax({
+		url : '<%=request.getContextPath()%>/fordelivery/sortAddress',
+		data : {
+			orderStatus : '02',
+			branchCode : branchCode,
+			sortValue : sortValue
+		},
+		type : 'post',
+		success : function(haha) {
+			for(var i=0; i<haha.length; i++){
+				var aaClass = haha[i].orderNo
+				var bbClass = haha[i].add1 + haha[i].add2
+				
+				document.querySelectorAll('tr .aa')[i].innerHTML = aaClass;
+				document.querySelectorAll('tr .bb')[i].innerHTML = bbClass;
+			}
+			if(sortValue=="0"){
+				sortValue = "1";
+			}else if(sortValue=="1"){
+				sortValue = "0";
+			}
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
+
+
+function sortAddr1(branchCode){
+	$.ajax({
+		url : '<%=request.getContextPath()%>/fordelivery/sortAddress',
+		data : {
+			orderStatus : '03',
+			branchCode : branchCode,
+			sortValue : sortValue
+		},
+		type : 'post',
+		success : function(haha) {
+			for(var i=0; i<haha.length; i++){
+				var aaClass = haha[i].orderNo
+				var bbClass = haha[i].add1 + haha[i].add2
+				
+				document.querySelectorAll('tr .aa')[i].innerHTML = aaClass;
+				document.querySelectorAll('tr .bb')[i].innerHTML = bbClass;
+			}
+			if(sortValue=="0"){
+				sortValue = "1";
+			}else if(sortValue=="1"){
+				sortValue = "0";
+			}
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
+
+
+</script>
+
 
 <!-- 알림 sweetalert2 -->
 <script	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-		
-	
 <script>
 	function complete_all(){
 		Swal.fire({
@@ -109,7 +178,7 @@
 				type : 'post',
 				success : function(ok) {
 					if(ok.toUpperCase() == "OK"){
-						Swal.fire({
+						Swal.fire({ 
 							icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
 							title: '취소 처리 되었습니다.',
 						});

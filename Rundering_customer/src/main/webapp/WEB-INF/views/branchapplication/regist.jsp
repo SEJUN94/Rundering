@@ -42,28 +42,19 @@
 				<div class="row">
 					<div class=" col-6" style="padding-left: 10%;">
 						<div style="margin-top: 16px">
-							<label for="email" class="col-mb-3"> <span
-								style="color: red; font-weight: bold;">*</span>이름
-							</label>
+							<label for="email" class="col-mb-3"> <span style="color: red; font-weight: bold;">*</span>이름</label>
 						</div>
 						<div class="input-group mb-3 form-group">
-							<input type="text" class="col-lg-9 form-control" id="name"
-								name="name" placeholder="이름">
+							<input type="text" class="col-lg-9 form-control" id="name" name="name" placeholder="이름">
 						</div>
 
 						<div style="margin-top: 16px">
-							<label for="phone" class="col-mb-5"> <span
-								style="color: red; font-weight: bold;">*</span>연락처
-							</label> <span class="sp"></span>
+							<label for="phone" class="col-mb-5"> <span style="color: red; font-weight: bold;">*</span>연락처</label> <span class="sp"></span>
 						</div>
 						<div class="input-group mb-3 form-group">
-							<input placeholder="'-'없이  번호만 기재해주세요" pattern="010[0-9]{8}"
-								name="phone" id="phone" class="col-lg-7 form-control"
-								type="text">
+							<input placeholder="'-'없이  번호만 기재해주세요" pattern="010[0-9]{8}" name="phone" id="phone" class="col-lg-7 form-control" type="text">
 							<div class="input-group-append">
-								<button type="button" onclick="phone_verification();"
-									class="btn btn-secondary"
-									style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
+								<button type="button" onclick="phone_verification();" class="btn btn-secondary" style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
 							</div>
 						</div>
 
@@ -74,25 +65,20 @@
 								<input type="text" class="form-control col-7" id="Code"
 									placeholder="인증번호">
 								<div class="input-group-append">
-									<button type="button" onclick="phone_verification();"
-										class="btn btn-secondary"
-										style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
+									<button type="button" onclick="phone_verification();" class="btn btn-secondary" style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
 								</div>
-								<div id="timeLimit"
-									style="position: absolute; padding: 9px; margin-left: 140px; color: gray; font-size: 0.9rem; z-index: 10"></div>
+								<div id="timeLimit" style="position: absolute; padding: 9px; margin-left: 140px; color: gray; font-size: 0.9rem; z-index: 10"></div>
 							</div>
 						</div>
 					</div>
 					<div class="col-6" style="padding-right: 10%;">
 
 						<div style="margin-top: 16px">
-							<label for="email" class="col-mb-3"> <span
-								style="color: red; font-weight: bold;">*</span>Email
+							<label for="email" class="col-mb-3"> <span style="color: red; font-weight: bold;">*</span>Email
 							</label>
 						</div>
 						<div class="input-group mb-3 form-group">
-							<input type="email" class="col-lg-9 form-control" id="email"
-								name="email" placeholder="Email">
+							<input type="email" class="col-lg-9 form-control" id="email" name="email" placeholder="Email">
 
 						</div>
 
@@ -118,7 +104,7 @@
 									style="background-color: #82BBD8; border: 1px solid #82BBD8"
 									onclick="justPressed(this)">파일선택</label> <input
 									id="inputFileName" type="text" name="tempPicture" data-no="0"
-									disabled="" style="width: 192px;">
+									readonly style="width: 192px;">
 							</div>
 						</div>
 						<div class="overlay" style="display: none;">
@@ -134,10 +120,237 @@
 			</div>
 		</div>
 
-	</div>
+	</div> 
+	
+	<div class="hiddenInput"></div>
+	<form role="imageForm" method="post" enctype="multipart/form-data">
+		<input id="inputFile" name="pictureFile" type="file" class="form-controll" accept="hwp, pdf, PDF" style="display: none;" />
+	</form>
+	<!-- jQuery -->
+  	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<!-- 알림 sweetalert2 -->
 	<script
 		src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+
+<!-- 파일다운로드 -->
+<script>
+const dataSetting = function(){
+	   let dataArr = [];
+	   let dataObj = {};
+	   
+	   for(let i = 0; i < checkMark.length; i++){
+	      if(checkMark[i].checked){
+	         dataObj = {"unityatchmnflno" : uniflno.value,
+	                  "ano" : checkMark[i].value}
+	         dataArr.push(dataObj);   
+	      }      
+	   }
+	   
+	   return dataArr;
+	};
+
+	const sendDownloadFile = function(dataArr){
+	   let data = dataSetting(dataArr);
+	   let downUrl = "restDownload";
+	   if(data.length > 1){
+	      downUrl = "zipDownload"; 
+	   }
+	   
+	   const xhr = new XMLHttpRequest();
+	   xhr.onreadystatechange = function(){
+	       if (this.readyState == 4 && this.status == 200){
+	         
+	          let filename = "";
+	          let disposition = xhr.getResponseHeader('Content-Disposition');
+	            if (disposition && disposition.indexOf('attachment') !== -1) {
+	                let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+	                let matches = filenameRegex.exec(disposition);
+	                if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+	            }
+	         
+	           let a = document.createElement("a");
+	           let url = URL.createObjectURL(this.response)
+	           a.href = url;
+	           a.download = filename;
+	           document.body.appendChild(a);
+	           a.click();
+	           window.URL.revokeObjectURL(url);
+	       }
+	   }
+	   xhr.open('POST', downUrl);
+	   xhr.setRequestHeader('Content-type','application/json');
+	   xhr.responseType = 'blob'; 
+	   xhr.send(JSON.stringify(data));
+	   
+	}
+
+</script>
+
+<script>
+var dataNum = 1;
+
+	function addFile_go(){
+	   
+	   if($('input[name="tempPicture"]').length >= 5){
+	      alert("사진 첨부는 5개까지만 가능합니다.");
+	      return;
+	   }
+	   
+	   var div = $("<div>").addClass("inputRow").attr("data-no", dataNum);
+	   
+	   div.append("<label for='inputFile' data-no="+dataNum+" class='btn btn-secondary btn-sm input-group-addon' onclick='justPressed(this)''>파일선택</label>")
+	   .append("<input id='inputFileName' type='text' name='tempPicture' data-no="+dataNum+" style='margin-left: 4px;' disabled/>")
+	   .append("<button onclick='remove_go("+dataNum+");' style='border:0; outline:0;padding: 6px;padding-bottom: 5px;margin-left: 6px;' class='badge bg-red' type='button'>X</button>");
+	   
+	   $('.fileInput').append(div);
+	   dataNum++;
+	}
+
+	function remove_go(dataNum){
+		if($('input[name="tempPicture"]').length == 1){
+		      alert("사진 첨부는 필수입니다.");
+		      return;
+		   }
+		deleteUploadFile(dataNum);
+		
+		$('div[data-no="'+dataNum+'"]').remove();
+		
+	}
+	
+	function deleteUploadFile(dataNum){
+		 let deleteFile = findByAttributeValue("data-uploadedno",dataNum,"input");
+		 if(!deleteFile) {
+			 return;
+		 }
+		 let deleteFileName = deleteFile.value;
+		 
+		 deleteFile.remove();
+		 
+		 const v_ajax = new XMLHttpRequest();
+		    v_ajax.open("POST","<%=request.getContextPath()%>/branchapplication/deletePicture",true);
+		    v_ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+		    v_ajax.send('deleteFileName=' + deleteFileName);
+		    v_ajax.onreadystatechange = function(){
+		    	 if (v_ajax.readyState === XMLHttpRequest.DONE) {
+			            if (v_ajax.status === 200) {
+			               //const response = JSON.parse(v_ajax.responseText);
+			               console.log(v_ajax.responseText);
+			               //console.log(data+"사진이 삭제 되었습니다.");
+			            } else {
+			            	//AjaxErrorSecurityRedirectHandler(error.status);
+			            }
+			     }
+		    }
+	}
+	
+	function regist_go(){
+		
+		let files = $('input[name="tempPicture"]');
+		for(let file of files){
+			console.log(file.name + " : "+ file.value);
+			if(file.value == ""){
+				alert("사진 파일을 선택하세요.");
+				file.focus();
+				file.click();
+				return;
+			}
+		}
+	}
+	
+</script> 
+
+
+<script>
+
+function findByAttributeValue(attribute, value, element_type)    {
+	  element_type = element_type || "*";
+	  var All = document.getElementsByTagName(element_type);
+	  for (var i = 0; i < All.length; i++)       {
+	    if (All[i].getAttribute(attribute) == value) { return All[i]; }
+	  }
+	}
+
+let justPressedLabel = 0;
+
+function justPressed(label){
+	justPressedLabel = label.dataset.no;
+	console.log("justPressedLabel : "+justPressedLabel);
+}
+
+
+function createHiddenInputNode(saveFileNm) {
+	let input = document.createElement('input');
+	input.setAttribute('type', 'hidden');
+	input.setAttribute('name', 'saveFileNm');
+	input.setAttribute('value', saveFileNm);
+	input.setAttribute('data-uploadedno', justPressedLabel);
+	return input;
+	}
+
+$('input[name="pictureFile"]').change(function(){
+	
+	let spinner = document.querySelector('.overlay');
+	spinner.style.display = 'flex';
+
+	let imageForm = $('form[role="imageForm"]')[0];
+	let picture = $('form[role="imageForm"]').find('[name="pictureFile"]')[0]; 
+	let inputFileName = findByAttributeValue("data-no",justPressedLabel,"input");
+	
+	let fileFormat = picture.value.substr(picture.value.lastIndexOf(".")+1).toUpperCase();
+	
+	if(picture.value == ""){
+		spinner.style.display = 'none';
+		return;
+	}
+	//이미지 확장자 jpg 확인
+	if(!(fileFormat == "pdf" || fileFormat == "hwp" || fileFormat == "PDF")){
+		alert("계약서 파일은 pdf/hwp 형식만 가능합니다.");
+		spinner.style.display = 'none';
+		return;
+	}
+	// 이미지 파일 용량 체크
+	if(picture.files[0].size>1024*1024*5){
+		alert("사진 용량은 5MB 이하만 가능합니다.");
+		spinner.style.display = 'none';
+		return;
+	};
+	
+	
+	if(findByAttributeValue("data-uploadedno",justPressedLabel,"input")){
+		deleteUploadFile(justPressedLabel);
+	}
+	 
+	let formData = new FormData(imageForm);
+	
+	 $.ajax({
+		url: "<%=request.getContextPath()%>/branchapplication/picture",
+		data:formData,
+		type:'POST',
+		processData:false,
+		contentType:false,
+		success:function(data){
+			
+			//저장된 파일명 input태그만들어 저장
+			const hiddenInput = document.querySelector(".hiddenInput");
+			hiddenInput.append(createHiddenInputNode(data));
+			
+			console.log(data+"임대계약서가 첨부 되었습니다.");
+			inputFileName.value = picture.files[0].name;
+			
+			spinner.style.display = 'none';
+		},
+		error:function(error){
+			//alert("현재 사진 업로드가 불가합니다. \n관리자에게 연락바랍니다.");
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+
+});
+</script>
+
+
+
 
 	<script>
 var name = document.getElementById("name");
@@ -145,9 +358,7 @@ var phone= document.getElementById('phone');
 var email = document.getElementById('email');
 	
 	function regist(){
-		alert(name.value);
-	}
-	function a(){
+		
 		Swal.fire({
             title: '지점 등록 신청 하시겠습니까?',
             icon : 'warning' ,
@@ -158,35 +369,36 @@ var email = document.getElementById('email');
             cancelButtonText: '취소',
             reverseButtons: true, // 버튼 순서 거꾸로
           }).then((result) => {
-            if (result.isConfirmed) {			
-			$.ajax({
-				url : '<%=request.getContextPath()%>/branchapplication/registform',
-				data : {
-					'applicateName' : name,
-					'phone' : phone,
-					'email' : email
-				},
-				type : 'post',
-				success : function(ok) {
-					if(ok.toUpperCase() == "OK"){
-						Swal.fire({
-							icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
-							title: '지점 등록 신청이 완료되었습니다.',
-						});
-						setTimeout(function(){location.href='<%=request.getContextPath()%>/branchapplication/regist';},1000);
-					} else {
-						Swal.fire({
-							icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
-							title: '시스템 오류로 반려 할 수 없습니다.'
-						});
+            if (result.isConfirmed) {	
+            	regist_go()
+				$.ajax({
+					url : '<%=request.getContextPath()%>/branchapplication/registform',
+					data : {
+						'applicateName' : name,
+						'phone' : phone,
+						'email' : email
+					},
+					type : 'post',
+					success : function(ok) {
+						if(ok.toUpperCase() == "OK"){
+							Swal.fire({
+								icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+								title: '지점 등록 신청이 완료되었습니다.',
+							});
+							setTimeout(function(){location.href='<%=request.getContextPath()%>/branchapplication/regist';},1000);
+						} else {
+							Swal.fire({
+								icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+								title: '시스템 오류로 반려 할 수 없습니다.'
+							});
+						}
+					},
+					error : function(error) {
+						AjaxErrorSecurityRedirectHandler(error.status);
 					}
-				},
-				error : function(error) {
-					AjaxErrorSecurityRedirectHandler(error.status);
-				}
-			});
-		}
-	})
+				});
+			}
+		})
 	}
 </script>
 
@@ -335,129 +547,5 @@ const Toast = Swal.mixin({
    }
 
 </script>
-	=======
-
-	<script>
-let isRunning = false;
-
-const Toast = Swal.mixin({
-   toast: true,
-   position: 'center',
-   showConfirmButton: false,
-   timer: 1500,
-   timerProgressBar: false,
-   didOpen: (toast) => {
-     toast.addEventListener('mouseenter', Swal.stopTimer);
-     toast.addEventListener('mouseleave', Swal.resumeTimer);
-   }
- });
-
-
-
-
-  function phone_verification() {
-	  
-      let tel = document.getElementById('phone').value;
-      
-      let regPhone = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
-      
-      if (regPhone.test(tel) !== true) {
-		
-		    Toast.fire({
-		      icon: 'warning',
-		      title: '휴대폰번호를 다시 확인해주세요.'
-		    });
-      }else{
-    	  document.querySelector('.verificationCode').style.display = 'block';  
-    	  certify_ajax(tel);
-    	  const timeLimit = document.getElementById("timeLimit");
-    	  startTimer(180,timeLimit);
-      }
-  }
- 
-  function startTimer(count, display) {
-      
-	  let minutes, seconds;
-      let timer = setInterval(function () {
-      minutes = parseInt(count / 60, 10);
-      seconds = parseInt(count % 60, 10);
-
-      minutes = minutes < 10 ? "0" + minutes : minutes;
-      seconds = seconds < 10 ? "0" + seconds : seconds;
-      display.innerHTML = minutes + ":" + seconds;
-	  
-      // 타이머 끝
-      if (--count < 0) {
-	     clearInterval(timer);
-	     Toast.fire({
-		      icon: 'warning',
-		      title: '인증시간이 초과되었습니다.\n재인증 해주세요.'
-		    });
-	     isRunning = false;
-      }
-  }, 1000);
-       isRunning = true;
-}
-  
-  function verificationCodeCheck() {
-	  let codeInput = document.querySelector('#Code');
-	  
-	  if(isRunning && responseCode !== 0){
-	  		if(codeInput.value == responseCode){
-		     	let phone = document.querySelector('#phone');
-		     	
-		     	phone.setAttribute('value',phone.value);
-		     	console.log('phone.value',phone.value);
-		     	phonchk = true;
-	  			Toast.fire({
-	     		      icon: 'success',
-	     		      title: '인증되었습니다.'
-	     		});
-	  			setTimeout(function(){document.querySelector('.verificationCode').style.display = 'none';  },1000);
-	  			
-	  			form_phone_show();
-	  		}else{
-	  			Toast.fire({
-	  		      icon: 'warning',
-	  		      title: '인증번호가 틀렸습니다.'
-	  		    });
-	  		}
-	  	}
-  }
-  
-  
-  
-  function phoneFomatter(num,type){
-	    let formatNum = '';
-
-	    if(num.length==11){
-	        if(type==0){
-	            formatNum = num.replace(/(\d{3})(\d{4})(\d{4})/, '$1-****-$3');
-	        }else{
-	            formatNum = num.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
-	        }
-	    }else if(num.length==8){
-	        formatNum = num.replace(/(\d{4})(\d{4})/, '$1-$2');
-	    }else{
-	        if(num.indexOf('02')==0){
-	            if(type==0){
-	                formatNum = num.replace(/(\d{2})(\d{4})(\d{4})/, '$1-****-$3');
-	            }else{
-	                formatNum = num.replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3');
-	            }
-	        }else{
-	            if(type==0){
-	                formatNum = num.replace(/(\d{3})(\d{3})(\d{4})/, '$1-***-$3');
-	            }else{
-	                formatNum = num.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
-	            }
-	        }
-	    }
-	    return formatNum;
-	}
-
-</script>
-
-	>>>>>>> refs/heads/main
 
 </body>

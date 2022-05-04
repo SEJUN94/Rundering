@@ -1,7 +1,14 @@
 package com.rundering.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.rundering.command.Criteria;
+import com.rundering.command.CustomerListPageMaker;
+import com.rundering.command.EmployeesCommand;
+import com.rundering.command.EmployeesListCriteria;
+import com.rundering.command.EmployeesListPageMaker;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.EmployeesDAO;
@@ -95,5 +102,24 @@ public class EmployeesServiceImpl implements EmployeesService {
 	public String getBranchName(String branchCode) throws Exception {
 		return branchDAO.getBranchByCode(branchCode).getBranchName();
 	}
+
+	//사원리스트 조회
+	@Override
+	public Map<String, Object> getEmployeeList(EmployeesListCriteria cri) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		EmployeesListPageMaker pageMaker = new EmployeesListPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(employeesDAO.selectEmployeeListCount(cri));
+		
+		List<EmployeesCommand> employeesList = employeesDAO.selectEmployeeList(cri);
+		
+		dataMap.put("employeesList", employeesList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
+	}
+
+
 
 }

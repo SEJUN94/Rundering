@@ -59,11 +59,12 @@
 				<label for="pw1" class="col-mb-3"> <span style="color: red; font-weight: bold;">*</span>비밀번호</label>
 			</div>
 			<div class="input-group mb-3 form-group">
-				<input type="password" id="pw1" class="col-lg-4 form-control pass" placeholder="패스워드 입력" name="password"> 
+				<input style="border:none; "type="password" id="pw1" class="col-lg-4 form-control pass" placeholder="패스워드 입력" name="password"> 
 				<span class="sp"></span>
 			</div>
+				<hr >
 			<div class="input-group mb-3 form-group">
-				<input type="password" id="pw2" class="col-lg-4 form-control pass" placeholder="패스워드 재입력"> 
+				<input style="border:none;" type="password" id="pw2" class="col-lg-4 form-control pass" placeholder="패스워드 재입력"> 
 				<span class="sp"></span>
 			</div>
 			<div>

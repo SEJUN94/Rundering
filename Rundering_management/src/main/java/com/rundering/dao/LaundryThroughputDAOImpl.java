@@ -54,4 +54,17 @@ public class LaundryThroughputDAOImpl implements LaundryThroughputDAO{
 		
 		return branchList;
 	}
+	
+	//표 리스트 출력(지점별)
+	@Override
+	public List<LaundryThroughPutVO> branchQuotaTable(String branchCode) throws Exception {
+		List<LaundryThroughPutVO> branchTableList = session.selectList("LaundryThroughput-Mapper.branchQuotaTable", branchCode);
+		return branchTableList;
+	}
+	//표 리스트 출력(일자별)
+	@Override
+	public List<LaundryThroughPutVO> branchTableDate(String date) throws Exception {
+		List<LaundryThroughPutVO> branchTableList = session.selectList("LaundryThroughput-Mapper.changeDateBranchQuotaTable", date);
+		return branchTableList;
+	}
 }

@@ -17,4 +17,9 @@ public interface LaundryThroughputDAO {
 	
 	public BranchInfoDetailCommand selectBranchDetail(String branchCode) throws Exception;
 	
+	//표 리스트 출력(지점별)
+	public List<LaundryThroughPutVO> branchQuotaTable(String branchCode) throws Exception;
+	//표 리스트 출력(일자별)
+	public List<LaundryThroughPutVO> branchTableDate(String date) throws Exception;
+	
 }

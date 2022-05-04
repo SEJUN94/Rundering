@@ -11,6 +11,7 @@
 		p:comCodeDAO-ref="comCodeDAO"
 		p:employeesDAO-ref="employeesDAO"
 		p:sensSms-ref="sensSms"
+		p:notificationDAO-ref="notificationDAO"
 	/>
 	<scheduler id="assignLaundryOrderScheduler"/>
 	 

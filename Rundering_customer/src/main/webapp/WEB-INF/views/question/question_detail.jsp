@@ -125,7 +125,7 @@
 	<!-- /.content -->
 	<script>
 		function modify_go(faqno) {
-			location.href = "modifyForm?faqno=" + faqno;
+				location.href = "modifyForm?faqno=" + faqno;
 		}
 		function remove_go(faqno) {
 			location.href = "remove?faqno=" + faqno;

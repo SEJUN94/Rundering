@@ -17,6 +17,10 @@
 
 		<!-- Right navbar links -->
 		<ul class="navbar-nav ml-auto">
+		
+			<li class="nav-item dropdown notificationli">
+			</li>
+			
 
 			<li class="nav-item"><a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">${loginMember.getName() }</a></li>
 			<li class="nav-item"><button type="button" class="btn btn-block btn-sm btn-outline-secondary" id="logoutbtn"

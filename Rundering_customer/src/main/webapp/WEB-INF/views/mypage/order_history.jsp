@@ -61,12 +61,12 @@
 								</td>
 							</tr>
 							<tr style="border: none;">
-								<td rowspan="2" align="center" style="border-right: 1px solid rgba(0, 0, 0, .125);">이미지 : ${list.atchFileNo}</td>
-								<td colspan="2" align="left;">상품명 : ${list.paymentNo}</td>
+								<td rowspan="2" align="center" style="border-right:none;border-top: none;"><img alt="${list.atchFileNo}" height="100px;" width="70px;" src="<%=request.getContextPath() %>/resources/images/자산 1.png"> </td>
+								<td colspan="2" align="left;" style="border-top: none;">상품명 : ${list.paymentNo}</td>
 							</tr>
 							<tr style="border: none;">
-								<td align="left;">지점명 : ${list.branchCode }</td>
-								<td style="text-align: right;">결제금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${list.totalPrice}" />원</td>
+								<td align="left;" style="border-left: none;border-top: none;">지점명 : ${list.branchCode }</td>
+								<td style="text-align: right;border-top:none;">결제금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${list.totalPrice}" />원</td>
 							</tr>
 						</tbody>
 					</table>

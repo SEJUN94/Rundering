@@ -76,6 +76,13 @@
 		where ORDER_NO=#{orderNo}
 	</select>
 	
+	<select id="getAttachFileNo" parameterType="str" resultType="str">
+		SELECT ATCH_FILE_NO
+		FROM TB_LAUNDRY_ORDER
+		WHERE ORDER_NO = #{orderNo}
+	</select>
+	
+	
 	<update id="updatePickUpCom" parameterType="laundryOrder">
 		UPDATE TB_LAUNDRY_ORDER
 		<if test="orderStatus == '02'.toString() ">
@@ -130,6 +137,24 @@
 <!-- 		and DELIVERY_REQUEST_DATE = SYSDATE
 		and DELIVERY_EMPLOYEE_ID = #{deliveryEmployeeId} -->
 	</select>
-
+	
+	
+	<!-- 주소 오름차순  -->
+	<select id="sortAddressAsc" resultMap="laundryOrderMap"  parameterType="laundryOrder">
+		SELECT *
+			FROM TB_LAUNDRY_ORDER
+			WHERE BRANCH_CODE = #{branchCode}
+			AND ORDER_STATUS = #{orderStatus}
+			ORDER BY ADD1 ASC
+	</select>
+	<!-- 주소 내림차순  -->
+	<select id="sortAddressDesc" resultMap="laundryOrderMap"  parameterType="laundryOrder">
+		SELECT *
+			FROM TB_LAUNDRY_ORDER
+			WHERE BRANCH_CODE = #{branchCode}
+			AND ORDER_STATUS = #{orderStatus}
+			ORDER BY ADD1 DESC
+	</select>
+	
 
 </mapper>

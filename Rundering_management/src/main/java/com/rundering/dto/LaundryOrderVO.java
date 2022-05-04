@@ -29,10 +29,21 @@ public class LaundryOrderVO {
 	private int replyNo;				//댓글번호
 	private String pickupDate1;			//Date 타입 변환
 	
+	private String phone;				//받아올 고객 연락처
+	private String picture;				//사진이름 받아오는 변수
+	
 	public LaundryOrderVO() {
 		super();
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
 	public String getOrderNo() {
 		return orderNo;
 	}
@@ -177,6 +188,14 @@ public class LaundryOrderVO {
 
 	public void setPickupDate1(String pickupDate1) {
 		this.pickupDate1 = pickupDate1;
+	}
+	
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
 	@Override

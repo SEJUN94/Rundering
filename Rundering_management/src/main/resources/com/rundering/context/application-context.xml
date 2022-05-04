@@ -8,6 +8,12 @@
 	<bean id="picturePath" class="java.lang.String">
 		<constructor-arg value="${orderGoods.picture.upload}" />      
 	</bean>
+	
+	<!-- orderGoods.picture --> 
+	<bean id="deliveryPath" class="java.lang.String">
+		<constructor-arg value="${delivery.picture.upload}" />      
+	</bean>
+	
 	<!-- board.file -->
 	<bean id="boardPath" class="java.lang.String">
 		<constructor-arg value="${board.upload}" />      
@@ -87,6 +93,9 @@
 	 <bean id="LaundryGoodsStockDAO" class="com.rundering.dao.LaundryGoodsStockDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
+	 <bean id="notificationDAO" class="com.rundering.dao.NotificationDAOImpl"
+	 	p:session-ref="sqlSession"
+	 />
 	 <bean id="itemInsertDAO" class="com.rundering.dao.ItemInsertDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
@@ -94,6 +103,10 @@
 	<!-- Service Layer -->
 	<bean id="asRequestService" class="com.rundering.service.AsRequestServiceImpl"
 		p:asRequestDAO-ref="asRequestDAO"
+		p:branchDAO-ref="branchDAO"
+		p:employeesDAO-ref="employeesDAO"
+		p:notificationDAO-ref="notificationDAO"
+		p:laundryFixturesDAO-ref="laundryFixturesDAO"
 	/>	
 	<bean id="menuService" class="com.rundering.service.MenuServiceImpl"
 		p:menuDAOBean-ref="menuDAO"
@@ -114,6 +127,9 @@
 	/>
 	<bean id="suggestService" class="com.rundering.service.SuggestServiceImpl"
 		p:suggestDAO-ref="suggestDAO"
+		p:branchDAO-ref="branchDAO"
+		p:employeesDAO-ref="employeesDAO"
+		p:notificationDAO-ref="notificationDAO"
 	/>	
 	<bean id="faqService" class="com.rundering.service.FAQServiceImpl"
 		p:faqDAO-ref="faqDAO"
@@ -132,6 +148,7 @@
 		p:replyDAO-ref="replyDAO"
 		p:branchDAO-ref="branchDAO"
 		p:employeesDAO-ref="employeesDAO"
+		p:notificationDAO-ref="notificationDAO"
 	/>
 	<bean id="itemOrderService" class="com.rundering.service.ItemOrderServiceImpl"
 		p:itemOrderDAO-ref="itemOrderDAO"
@@ -144,6 +161,8 @@
 	/>
 	<bean id="deliveryService" class="com.rundering.service.DeliveryServiceImpl"
 		p:laundryOrderDAO-ref="deliveryDAO"
+		p:attachDAO-ref="attachDAO"
+		p:memberDAO-ref="memberDAO" 
 	/>
 	<bean id="laundryOrderService" class="com.rundering.service.LaundryOrderServiceImpl" 
 		p:laundryItemsDAO-ref="laundryItemsDAO"
@@ -168,8 +187,8 @@
 	/>
 	<!--이메일 발송 서비스  -->
 	<bean id="mailSendService" class="com.rundering.service.MailSendService"
-		p:mailSender-ref="mailSender"
-		p:memberDAO-ref="memberDAO" 
+	  p:mailSender-ref="mailSender"
+	  p:memberDAO-ref="memberDAO" 
 	/>  
 	<bean id="adminItemOrderService" class="com.rundering.service.AdminItemOrderServiceImpl"
 		p:adminItemOrderDAO-ref="adminItemOrderDAO"
@@ -187,11 +206,14 @@
 		p:employeesDAO-ref="employeesDAO"
 		p:mailSendService-ref="mailSendService"
 	 />
-	 
+	<bean id="notificationService" class="com.rundering.service.NotificationServiceImpl"
+		p:notificationDAO-ref="notificationDAO"
+		p:comCodeDAO-ref="comCodeDAO"
+	 />
+		 
 	<bean id="itemService" class="com.rundering.service.ItemServiceImpl"
 		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
 		p:comCodeDAO-ref="comCodeDAO"
 		p:itemInsertDAO-ref="itemInsertDAO"
 	/>
-	
 </beans>
