@@ -108,7 +108,7 @@
 		
 		let displaytime = displayedAt(item.occrrncdehour);
 		let nttitle = '새 '+namemap[item.ntcnknd]+' - '+item.ntcncn;
-		nttitle = nttitle.length > 20 ? nttitle.substring(0, 18) + '..' : nttitle;
+		nttitle = nttitle.length > 22 ? nttitle.substring(0, 20) + '..' : nttitle;
 		
 		let param = item.ntcnclickhourUrl+",'"+item.ntcnId+"'";
 		
