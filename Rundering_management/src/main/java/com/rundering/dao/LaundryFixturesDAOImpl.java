@@ -30,4 +30,9 @@ public class LaundryFixturesDAOImpl implements LaundryFixturesDAO {
 		session.insert("LaundryFixtures-Mapper.insertFixturesByFixtrues", laundryFixtures);
 	}
 
+	@Override
+	public LaundryFixturesVO selectLaundryFixtureByFixturesCode(String fixturesCode) throws Exception {
+		return  session.selectOne("LaundryFixtures-Mapper.selectLaundryFixtureByFixturesCode", fixturesCode);
+	}
+
 }
