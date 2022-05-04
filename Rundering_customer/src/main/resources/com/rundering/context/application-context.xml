@@ -62,6 +62,7 @@
 	/>
 	<bean id="branchApplicationService" class="com.rundering.service.BranchApplicationServiceImpl"
 		p:branchApplicationDAO-ref="branchApplicationDAO"
+		p:attachDAO-ref="attachDAO"
 	/>
 	<bean id="laundryOrderService" class="com.rundering.service.LaundryOrderServiceImpl"
 		p:laundryOrderDAO-ref="laundryOrderDAO"

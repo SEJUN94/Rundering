@@ -1,7 +1,6 @@
 package com.rundering.customer;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,28 +18,26 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jsp.util.MakeFileName;
-import com.rundering.command.LaundryOrderReceiveCommand;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.BranchApplicationVO;
-import com.rundering.dto.LaundryOrderVO;
 import com.rundering.service.AttachService;
 import com.rundering.service.BranchApplicationService;
-import com.rundering.util.FileUtil;
 
 @RequestMapping("/branchapplication")
 @Controller
 public class BranchApplicationController {
 	
-	@Resource(name = "attachService")
-	private AttachService attachService;
-	
 	@Resource(name = "filePath")
 	private String filePath;
 	
+	@Resource(name = "attachService")
+	private AttachService attachService;
 	
 	@Resource(name="branchApplicationService")
 	private BranchApplicationService branchApplicationService;
 	
+	@RequestMapping("/regist")
+	public void branchApplication() {}
  
 	private Map<String, String> savePicture(MultipartFile multi) throws Exception {
 		String fileName = null;
@@ -74,7 +71,7 @@ public class BranchApplicationController {
 		/* 파일저장확인 */
 		if ((result = savePicture(multi)) == null) {
 			
-			result.put("result", "업로드 실패했습니다.!");
+			result.put("result", "업로드 실패했습니다.");
 			status = HttpStatus.BAD_REQUEST;
 		} else {
 			status = HttpStatus.OK;
@@ -86,11 +83,10 @@ public class BranchApplicationController {
 		return entity;
 	}
 	
-
-	@RequestMapping(value = "/regist", method = RequestMethod.POST)
-	public String regist(BranchApplicationVO bv,AttachVO attach, RedirectAttributes rttr) throws Exception {
-		String url = "redirect:/main";
-		
+	// 지점 신청 및 임대차 계약서 파일 업로드
+	@RequestMapping(value = "/registform", method = RequestMethod.POST)
+	public String registform(BranchApplicationVO bv,AttachVO attach, RedirectAttributes rttr) throws Exception {
+		String url = "redirect:/branchapplication/regist";
 		
 		String fileName = bv.getFileNm();
 		
@@ -104,10 +100,8 @@ public class BranchApplicationController {
 		attach.setFileSize(fileSize);
 		attach.setFilePath(filePath);
 		
-		
-		branchApplicationService.branchApplicate(bv);
-		deliveryService.regist(laundryOrder, attach);
-		rttr.addFlashAttribute("from", "regist");
+		branchApplicationService.branchApplicate(bv, attach);
+		rttr.addFlashAttribute("from", "registform");
 
 		return url;
 	}

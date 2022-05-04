@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.fasterxml.jackson.annotation.JacksonInject.Value;
 import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
 import com.rundering.dao.BranchApplicationDAO;

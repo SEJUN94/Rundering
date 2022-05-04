@@ -120,7 +120,9 @@
 	</div>
 
 	
-	<div class="hiddenInput"></div>
+	<div class="hiddenInput">
+		<input type="hidden" id="uuidNm" name="uuidNm">
+	</div>
 	<form role="imageForm" method="post" enctype="multipart/form-data">
 		<input id="inputFile" name="pictureFile" type="file" class="form-controll" accept="hwp, pdf, PDF" style="display: none;" />
 	</form>
@@ -185,27 +187,10 @@ const dataSetting = function(){
 
 </script>
 
-<script>
-var dataNum = 1;
-
-	function regist_go(){
-		
-		let files = $('input[name="tempPicture"]');
-		for(let file of files){
-			console.log(file.name + " : "+ file.value);
-			if(file.value == ""){
-				alert("첨부 파일을 선택하세요.");
-				file.focus();
-				file.click();
-				return;
-			}
-		}
-	}
-	
-</script> 
-
 
 <script>
+var FileNm = document.getElementById("uuidNm");
+var fn = FileNm.value;
 
 function findByAttributeValue(attribute, value, element_type)    {
 	  element_type = element_type || "*";
@@ -280,7 +265,10 @@ $('input[name="pictureFile"]').change(function(){
 			hiddenInput.append(createHiddenInputNode(data));
 			
 			console.log(data+"임대계약서가 첨부 되었습니다.");
+			alert(data.fileName);
+			alert(data.fileOrginalName);
 			inputFileName.value = picture.files[0].name;
+			fn = data.fileName;
 			
 			spinner.style.display = 'none';
 			
@@ -299,6 +287,7 @@ $('input[name="pictureFile"]').change(function(){
 
 
 	<script>
+
 var name = document.getElementById("name");
 var phone= document.getElementById('phone');
 var email = document.getElementById('email');
@@ -317,14 +306,14 @@ var check = document.getElementById('check');
 	            reverseButtons: true, // 버튼 순서 거꾸로
 	          }).then((result) => {
 	            if (result.isConfirmed) {
-	            	regist_go()
+	            	alert(fn);
 					$.ajax({
-						url : '<%=request.getContextPath()%>/branchapplication/regist',
+						url : '<%=request.getContextPath()%>/branchapplication/registform',
 						data : {
-							'applicateName' : name,
-							'phone' : phone,
-							'email' : email,
-							'fileNm' : $('input[name=saveFileNm]').val()
+							'applicateName' : name.value,
+							'phone' : phone.value,
+							'email' : email.value,
+							'fileNm' : fn
 							
 						},
 						type : 'post',
@@ -460,7 +449,6 @@ const Toast = Swal.mixin({
               });
               setTimeout(function(){document.querySelector('.verificationCode').style.display = 'none';  },1000);
               
-              form_phone_show();
            }else{
               Toast.fire({
                  icon: 'warning',
