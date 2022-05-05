@@ -59,10 +59,13 @@
 				<tr>
 					<td style="background-color:#EBF3FC">임대차계약서</td>
 					<td colspan="2">임대차 계약서 다운로드</td>
-					<td colspan="3" style="overflow:hidden;text-overflow:ellipsis;">
+					<td colspan="3">
+						<c:if test="${bv.progressStatusCode ne '01'}" >
+						${avList[0].fileNm}
+						</c:if> 
+						<c:if test="${bv.progressStatusCode eq '01'}" >
 						<input id="inputFileName" type=text name="tempPicture" data-no="0"
 						readonly style="border:none;" value="${avList[0].fileNm }">
-						<c:if test="${bv.progressStatusCode eq '01'}" >
 						<label for="inputFile" data-no="0"
 									class="btn btn-secondary btn-sm input-group-addon float-right"
 									style="background-color: #82BBD8; border: 1px solid #82BBD8"
@@ -122,7 +125,7 @@
 							<button class="btn btn-sm float-right" style="background-color:#82BBD8;border-color:#82BBD8;color:#ffffff" onclick="updateJudge1()" >신청</button>
 						</c:if>
 						<c:if test="${bv.progressStatusCode eq '07'}">
-							<span class="float-right">처리상태 : <span style="">처리 대기</span></span>
+							<span class="float-right">처리상태 : <span style="">처리 대기</span>&ensp;<button class="btn btn-sm float-right" style="background-color:#82BBD8;border-color:#82BBD8;color:#ffffff" onclick="" >수정</button></span>
 						</c:if>
 						<c:if test="${bv.progressStatusCode eq '08' || bv.progressStatusCode eq '09' || bv.progressStatusCode eq '10'}">
 							<span class="float-right">처리상태 : <span style="color:blue;"> 승인</span></span>
@@ -136,10 +139,20 @@
 					<td colspan="2">수의계약서 양식다운로드</td>
 					<td colspan="3">수의계약서 첨부
 						<c:if test="${bv.progressStatusCode eq '06'}">
-						 <button class="btn btn-sm btn-primary float-right" style="background-color:#82BBD8;border-color:#82BBD8;color:#ffffff">저장</button>
+						 	<input id="inputFileName" type=text name="tempPicture" data-no="0"
+							readonly style="border:none;" value="${avList[0].fileNm }">
+							<label for="inputFile" data-no="0"
+							class="btn btn-secondary btn-sm input-group-addon float-right"
+							style="background-color: #82BBD8; border: 1px solid #82BBD8"
+							onclick="justPressed(this)">파일선택</label>
 						</c:if>
 						<c:if test="${bv.progressStatusCode eq '07'}">
-						<button class="btn btn-sm btn-warning float-right"  style="background-color:#82BBD8;border-color:#82BBD8;color:#ffffff">수정</button>
+							<input id="inputFileName" type=text name="tempPicture" data-no="0"
+							readonly style="border:none;" value="${avList[0].fileNm }">
+							<label for="inputFile" data-no="0"
+							class="btn btn-secondary btn-sm input-group-addon float-right"
+							style="background-color: #82BBD8; border: 1px solid #82BBD8"
+							onclick="justPressed(this)">파일선택</label>
 						</c:if>
 					</td>
 				</tr>
