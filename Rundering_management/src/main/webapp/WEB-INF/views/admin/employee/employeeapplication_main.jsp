@@ -52,19 +52,19 @@
                      <th>상태변경</th>
                   </tr>
                </thead>
-               <tbody>
+               <tbody style="height:245px;">
                   <c:if test="${empty appList  }">
                      <tr>
-                        <td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+                        <td colspan="5" style="vertical-align:middle;"><strong>해당 내용이 없습니다.</strong></td>
                      </tr>
                   </c:if>
                   <c:forEach items="${appList }" var="list">
                      <tr>
-                        <td class="list" id="memno" name="memno" style="vertical-align: middle" value="${list.memberNo}">${list.memberNo}</td>
-                        <td style="vertical-align: middle" onClick="detail('${list.memberNo}')">${list.name }</td>
-                        <td style="vertical-align: middle"><fmt:formatDate
+                        <td class="list" id="memno" name="memno" value="${list.memberNo}">${list.memberNo}</td>
+                        <td onClick="detail('${list.memberNo}')">${list.name }</td>
+                        <td><fmt:formatDate
                               value="${list.registDate }" pattern="yyyy-MM-dd" /></td>
-                        <td style="vertical-align: middle"><button type="submit"
+                        <td><button type="submit"
                               class="btn btn-danger btn-sm" onclick="remove('${list.memberNo}')">반려</button></td>
                      </tr>
                   </c:forEach>
@@ -138,9 +138,8 @@
                <input type="hidden" id="memNo" name="memNo" value="" >
                <input type="hidden" id="jd" name="jd" value="" >
                      <div class="form-group" style="">
-                        <div class="float-right col-2" style="margin-right: 0;">
-                           <button type="submit" class="btn col-12 btn-primary"
-                              onclick="regist()">등록</button>
+                        <div class="float-right col-2 p-0" style="margin-right: 0;">
+                           <button onclick="regist()" class="btn col-12 btn-primary" type="submit" style="background-color: #82BBD8; border: 1px solid #82BBD8">등록</button>
                         </div>
                      </div>
             </div>

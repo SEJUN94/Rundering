@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+
+<c:set var="pickupCount" value="${dataMap.pickupCount }"></c:set>
+<c:set var="deliveryCount" value="${dataMap.deliveryCount }"></c:set>
+
 <!DOCTYPE html>
 <body>
 	<section class="content-header">
@@ -21,12 +26,12 @@
 		<button type="button" class="btn btn-block btn-outline-info btn-lg"
 			onclick="location.href='<%=request.getContextPath()%>/fordelivery/pickup?orderStatus=02'"
 			style="font-size: 2rem; padding: 2rem 0; margin: 2rem 0;">
-			<i class="fa fa-bell"></i> 진행중인 수거 1건
+			<i class="fa fa-bell"></i> 진행중인 수거 ${pickupCount }건
 		</button>
 		<button type="button" class="btn btn-block btn-outline-success btn-lg"
 			onclick="location.href='<%=request.getContextPath()%>/fordelivery/delivery?orderStatus=07'"
 			style="font-size: 2rem; padding: 2rem 0; margin: 2rem 0;">
-			<i class="fa fa-bell"></i> 진행중인 배송 1건
+			<i class="fa fa-bell"></i> 진행중인 배송 ${deliveryCount }건
 		</button>
 	</div>
 

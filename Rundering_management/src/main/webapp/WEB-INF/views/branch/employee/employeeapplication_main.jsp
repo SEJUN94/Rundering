@@ -52,10 +52,10 @@
                      <th>상태변경</th>
                   </tr>
                </thead>
-               <tbody>
+               <tbody style="height:245px;">
                   <c:if test="${empty appList  }">
                      <tr>
-                        <td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+                        <td colspan="5" style="vertical-align:middle;"><strong>해당 내용이 없습니다.</strong></td>
                      </tr>
                   </c:if>
                   <c:forEach items="${appList }" var="list">

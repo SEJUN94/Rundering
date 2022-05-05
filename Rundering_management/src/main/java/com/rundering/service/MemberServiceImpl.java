@@ -8,8 +8,14 @@ import com.rundering.command.AppCriteria;
 import com.rundering.command.AppPageMaker;
 import com.rundering.command.CustomerListCriteria;
 import com.rundering.command.CustomerListPageMaker;
+import com.rundering.dao.BranchDAO;
+import com.rundering.dao.EmployeesDAO;
 import com.rundering.dao.MemberDAO;
+import com.rundering.dao.NotificationDAO;
+import com.rundering.dto.BranchVO;
+import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.MemberVO;
+import com.rundering.dto.NotificationVO;
 
 public class MemberServiceImpl implements MemberService {
 
@@ -17,6 +23,18 @@ public class MemberServiceImpl implements MemberService {
 
 	public void setMemberDAO(MemberDAO memberDAO) {
 		this.memberDAO = memberDAO;
+	}
+	private BranchDAO branchDAO;
+	public void setBranchDAO(BranchDAO branchDAO) {
+		this.branchDAO = branchDAO;
+	}
+	private EmployeesDAO employeesDAO;
+	public void setEmployeesDAO(EmployeesDAO employeesDAO) {
+		this.employeesDAO = employeesDAO;
+	}
+	private NotificationDAO notificationDAO;
+	public void setNotificationDAO(NotificationDAO notificationDAO) {
+		this.notificationDAO = notificationDAO;
 	}
 	
 	@Override
@@ -29,6 +47,21 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void applicationEmployee(MemberVO member) throws Exception {
 		memberDAO.applicationEmployee(member);
+		
+		//본사 직원들에게 알림
+		BranchVO branchVO = branchDAO.selectBranchByBranchCode("000000");
+		List<EmployeesVO> employeesList = employeesDAO.selectEmployeesByBranchCode(branchVO.getBranchCode());
+		NotificationVO notificationVO = new NotificationVO();
+			for (EmployeesVO employeesVO : employeesList) {
+				int sequence = notificationDAO.selectNotificationSequenceNextValue();
+				notificationVO.setNtcnId(String.valueOf(sequence));
+				notificationVO.setEmployeeId(employeesVO.getEmployeeId());
+				notificationVO.setNtcnknd("EA"); // 알림종류 공통코드 - 사원등록신청
+				notificationVO.setNtcncn(member.getName());
+				notificationVO.setNtcnclickhourUrl("'/runderingmanage/admin/employeeapplication/main','A070000'");
+				notificationDAO.insertNotification(notificationVO);
+			}
+		
 	}
 
 	// 등록신청 사원의 고유번호 가져오기

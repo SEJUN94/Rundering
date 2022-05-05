@@ -24,6 +24,8 @@
 		<typeAlias type="com.rundering.dto.ComCodeVO" alias="comCode" />
 		<typeAlias type="com.rundering.dto.ReplyVO" alias="reply" />
 		<typeAlias type="com.rundering.dto.FAQVO" alias="faq" />
+		<typeAlias type="com.rundering.dto.BranchVO" alias="branch"/>
+		<typeAlias type="com.rundering.dto.EmployeesVO" alias="employees" />
 		<typeAlias type="com.rundering.dto.NotificationVO" alias="notification"/>
 		
 	</typeAliases>
