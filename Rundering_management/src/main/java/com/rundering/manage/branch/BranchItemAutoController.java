@@ -42,7 +42,7 @@ public class BranchItemAutoController {
 	}
 	@RequestMapping(value="autouse",method = RequestMethod.POST)
 	private String autouse(LaundryGoodsStockVO laundryGoodsStock,HttpSession session) throws Exception{
-		String url = "redirect:/branch/item/list";
+		String url = "redirect:/branch/itemauto/list";
 		EmployeesVO emp=(EmployeesVO) session.getAttribute("loginEmployee");
 		laundryGoodsStock.setBranchCode(emp.getBranchCode());
 		itemService.useAutoYn(laundryGoodsStock);
