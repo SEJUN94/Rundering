@@ -4,8 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <body>
-	<div class="col-md-12">
-		<div class="card card-primary card-outline">
+	<div class="col-md-12" style="padding:30px;">
+		<div class="card card-secondary card-outline">
 			<div class="card-header">
 				<h3 class="card-title">공지사항</h3>
 			</div>
@@ -22,15 +22,10 @@
 			</div>
 			<div class="card-footer bg-white">
 				<ul class="mailbox-attachments d-flex align-items-stretch clearfix">
-					<li><span class="mailbox-attachment-icon"><i
-							class="far fa-file-pdf"></i></span>
-						<div class="mailbox-attachment-info">
+					<li><div class="mailbox-attachment-info" style="margin: auto; border:1px solid lightgray;">
 							<a href="#" class="mailbox-attachment-name"><i
 								class="fas fa-paperclip"></i> Sep2014-report.pdf</a> <span
-								class="mailbox-attachment-size clearfix mt-1"> <span>1,245
-									KB</span> <a href="#" class="btn btn-default btn-sm float-right"><i
-									class="fas fa-cloud-download-alt"></i></a>
-							</span>
+								class="mailbox-attachment-size clearfix mt-1"> </span>
 						</div></li>
 
 				</ul>
@@ -38,16 +33,16 @@
 			<div class="card-footer">
 				<div class="float-right">
 					<!--    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">댓글작성 </button> -->
-					<button type="button" class="btn btn-warning"
-						onclick="modify_go('${notice.noticeno}');">수정</button>
-					<button type="button" class="btn btn-danger"
-						onclick="remove_go('${notice.noticeno}');">삭제</button>
-					<button type="button" class="btn btn-primary"
-						onclick="CloseWindow();">닫기</button>
+					<button type="button" class="btn btn-warning" onclick="modify_go('${notice.noticeno}');" 
+					style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8">수정</button>
+					<button type="button" class="btn btn-warning" onclick="remove_go('${notice.noticeno}');"
+					style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8">삭제</button>
+					<button type="button" class="btn btn-warning" onclick="CloseWindow();"
+					style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8">닫기</button>
 				</div>
 			</div>
 		</div>
-	</div>
+	
 
 	<!-- Reply content -->
 	<section class="content container-fluid">
@@ -55,23 +50,19 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card card-info">
-				<div class="card-body" style="padding-top: 0px; padding-bottom: 0px;" >
-						<label for="newReplyText">Reply Text </label> 
-						<button type="button" class="btn btn-sm btn-primary float-right" id="replyAddBtn"
-							onclick="registReply();">댓글 작성</button>
+				<div class="card-body" style="padding-top: 10px; padding-bottom: 0px;" >
 						
-						<input	class="form-control" type="text" placeholder="REPLY TEXT"
-							id="replyContent"> <br />
+						<input	class="form-control" type="text" placeholder="댓글을 입력해주세요"
+							id="replyContent" style="display: inline;width: 90%;"> 
+						<button type="button" class="btn btn-sm btn-warning float-right" id="replyAddBtn"
+							onclick="registReply();" style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8; padding: 8px;">댓글 등록</button><br />
 						
 					</div>
-					<div class="card-body" style="padding-top: 0px;">
+					<div class="card-body" style="padding-top: 10px;">
 
-						<div class="timeline" style="margin: 0px">
-							<div class="time-label" id="repliesDiv">
-								<span class="bg-green">Replies List </span>
-							</div>
+						<div class="timeline" style="margin: 5px;">
 						</div>
-						<div id="replyListTag">
+						<div id="replyListTag" style="padding-bottom: 10px;">
 							<div id="replyHandler">
 								<div class="card-footer card-comments">
 									<div class="card-comment">
@@ -101,6 +92,7 @@
 		</div>
 		<!-- end row -->
 	</section>
+	</div>
 
 
 
@@ -119,7 +111,6 @@
 					<div class="modal-body">
 						<form action="request" id="replyForm">
 							<input type="text" class="form-control" name="replyContent"	id="replyModifyContent" >
-							</input> 
 						</form>
 					</div>
 					<div class="modal-footer">

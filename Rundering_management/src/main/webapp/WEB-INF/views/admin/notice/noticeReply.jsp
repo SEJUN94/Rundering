@@ -5,15 +5,15 @@
 <script type="text/x-handlebars-template" id="noticeReplyList" >
 <div id="replyHandler">
 	{{#replyList}}
-	<div class="card-footer card-comments">
+	<div class="card-footer card-comments" style="border-bottom: 1px solid lightgray">
 		<div class="card-comment">
 			<div class="comment-text" style="margin-left:0px; ">
 				<span class="username"> 사원번호 : {{employeeId}} &nbsp;&nbsp; {{branchName}}  <span
 				class="text-muted float-right">작성일:{{prettifyDate registDate}}</span>
 			</span>
 				{{replyContent}}
-				<button class="btn btn-sm btn-danger float-right" data-replynoseq="{{replynoSeq}}" style="display:{{VisibleByLoginCheck memberno}};" onclick="replyRemove()">삭제</button>				
-				<button class="btn btn-sm btn-warning float-right" data-replycontent="{{replyContent}}" data-toggle="modal" data-target="#modal-modify" data-replynoseq="{{replynoSeq}}" style="display:{{VisibleByLoginCheck memberno}};" onclick="replyModifyModal()" >수정</button>
+				<button class="btn btn-sm btn-warning float-right" data-replynoseq="{{replynoSeq}}" style="display:{{VisibleByLoginCheck memberno}}; background-color:#b6c1c6; border: 1px solid white;" onclick="replyRemove()">삭제</button>				
+				<button class="btn btn-sm btn-warning float-right" data-replycontent="{{replyContent}}" data-toggle="modal" data-target="#modal-modify" data-replynoseq="{{replynoSeq}}" style="display:{{VisibleByLoginCheck memberno}}; background-color:#b6c1c6; border: 1px solid white;" onclick="replyModifyModal()" >수정</button>
 				
 			</div>
 		</div>
@@ -182,7 +182,7 @@ function registReply(){
         	page=data;
         	noticeReplyList("<%=request.getContextPath()%>/admin/notice/noticereplylist?replyno=${notice.replyNo}&page="+page);
         	$("#replyContent").val("");
-        	alert("댓글 등록.");
+        	alert("댓글이 등록되었습니다");
         },
         error:function(error){
 			AjaxErrorSecurityRedirectHandler(error.status);
@@ -222,7 +222,7 @@ function replyModify(){
         	$("#replyModifyContent").val("");
         	page=data;
         	noticeReplyList("<%=request.getContextPath()%>/admin/notice/noticereplylist?replyno=${notice.replyNo}&page="+page);
-        	alert("수정.");
+        	alert("수정되었습니다");
             
         },
         error:function(error){
@@ -242,7 +242,7 @@ function replyRemove(){
         	replynoSeq:replynoSeq
         },
         success:function(data){
-        	alert("삭제");
+        	alert("삭제되었습니다");
         	page=data
         	noticeReplyList("<%=request.getContextPath()%>/admin/notice/noticereplylist?replyno=${notice.replyNo}&page="+page);
         },
