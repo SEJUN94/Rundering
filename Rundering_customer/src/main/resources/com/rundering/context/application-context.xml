@@ -22,6 +22,9 @@
 	<bean id="memberDAO" class="com.rundering.dao.MemberDAOImpl"
 		p:session-ref="sqlSession"
 	/>
+	<bean id="branchDAO" class="com.rundering.dao.BranchDAOImpl"
+		p:session-ref="sqlSession"
+	/>
 	<bean id="branchApplicationDAO" class="com.rundering.dao.BranchApplicationDAOImpl"
 		p:session-ref="sqlSession"
 	/>
@@ -51,9 +54,6 @@
 	/>
 	<bean id="employeesDAO" class="com.rundering.dao.EmployeesDAOImpl"
 		p:session-ref="sqlSession"
-	/>
-	<bean id="branchDAO" class="com.rundering.dao.BranchDAOImpl"
-		p:session-ref="sqlSession"	
 	/>
 	 <bean id="notificationDAO" class="com.rundering.dao.NotificationDAOImpl"
 	 	p:session-ref="sqlSession"
