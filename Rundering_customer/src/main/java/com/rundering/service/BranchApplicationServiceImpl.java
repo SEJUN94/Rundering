@@ -38,6 +38,7 @@ public class BranchApplicationServiceImpl implements BranchApplicationService {
 	}
 	private NotificationDAO notificationDAO;
 	public void setNotificationDAO(NotificationDAO notificationDAO) {
+		this.notificationDAO = notificationDAO;
 	}
 
 	// 지점 신청
