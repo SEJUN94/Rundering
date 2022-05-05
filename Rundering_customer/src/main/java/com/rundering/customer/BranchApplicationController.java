@@ -85,7 +85,7 @@ public class BranchApplicationController {
 	
 	// 지점 신청 및 임대차 계약서 파일 업로드
 	@RequestMapping(value = "/registform", method = RequestMethod.POST)
-	public String registform(BranchApplicationVO bv,AttachVO attach, RedirectAttributes rttr) throws Exception {
+	public String registform(BranchApplicationVO bv,AttachVO attach) throws Exception {
 		String url = "redirect:/home";
 		
 		String fileName = bv.getFileNm();
@@ -101,7 +101,6 @@ public class BranchApplicationController {
 		attach.setFilePath(filePath);
 		
 		branchApplicationService.branchApplicate(bv, attach);
-		rttr.addFlashAttribute("from", "registform");
 
 		return url;
 	}

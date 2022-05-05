@@ -341,7 +341,7 @@ var check = document.getElementById('check');
 							
 						},
 						type : 'post',
-						success : function(ok) {
+						success : function() {
 							Swal.fire({
 								icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
 								title: '지점 등록 신청이 완료되었습니다.',

@@ -14,6 +14,8 @@ import com.rundering.dto.BranchVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.NotificationVO;
 
+
+
 public class BranchApplicationServiceImpl implements BranchApplicationService {
 
 	private BranchApplicationDAO branchApplicationDAO;
@@ -60,6 +62,7 @@ public class BranchApplicationServiceImpl implements BranchApplicationService {
 		List<EmployeesVO> employeesList = employeesDAO.selectEmployeesByBranchCode(branchVO.getBranchCode());
 		NotificationVO notificationVO = new NotificationVO();
 			for (EmployeesVO employeesVO : employeesList) {
+			
 				int sequence = notificationDAO.selectNotificationSequenceNextValue();
 				notificationVO.setNtcnId(String.valueOf(sequence));
 				notificationVO.setEmployeeId(employeesVO.getEmployeeId());
