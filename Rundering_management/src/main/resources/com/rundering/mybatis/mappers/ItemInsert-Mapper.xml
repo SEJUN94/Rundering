@@ -24,10 +24,15 @@
 	<select id="selectItemInsertList" resultMap="itemInsertMap">
 		select *
 		  from tb_item_insert
-		 where ORDER BY insert_date ASC 
+		 where branch_code=#{branchCode}
+		 ORDER BY insert_date ASC 
 	</select>
-		
-	
+	<select id="selectItemInsertCount" resultType="int" >
+		select count(*)
+		  from tb_item_insert
+		 where branch_code=#{branchCode}
+		 ORDER BY insert_date ASC 
+	</select>
 	
 	
 	<insert id="insertItemIsert" parameterType="itemInsert">

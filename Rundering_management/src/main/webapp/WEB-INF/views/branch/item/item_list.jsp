@@ -1,3 +1,4 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -23,7 +24,7 @@
 </section>
 
     <div class="card-secondary  ml-3 mr-3 row">
-    	<div class="col-6" style="padding-left: 0px;" id="appenRgist">
+    	<div class="col-6" style="padding-left: 0px;" id="appenRegist">
         
           </div>
     
@@ -126,7 +127,8 @@
 			</div>
 		</div>
       </div>
-    
+    <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <%@ include file="./regist_list.jsp" %>
 <script>
 
 function minusQuantity(){

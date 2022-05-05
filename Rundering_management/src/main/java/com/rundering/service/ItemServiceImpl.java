@@ -10,8 +10,13 @@ import com.rundering.command.BranchCriteria;
 import com.rundering.command.BranchPageMaker;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.ItemInsertDAO;
+import com.rundering.dao.ItemOutDAO;
+import com.rundering.dao.LaundryArticlesDAO;
 import com.rundering.dao.LaundryGoodsStockDAO;
+import com.rundering.dto.ItemInsertVO;
+import com.rundering.dto.ItemOutVO;
 import com.rundering.dto.ItemVO;
+import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.dto.LaundryGoodsStockVO;
 import com.rundering.util.ComCodeUtil;
 
@@ -22,6 +27,8 @@ public class ItemServiceImpl implements ItemService {
 	ComCodeDAO comCodeDAO;
 	
 	ItemInsertDAO itemInsertDAO;
+	LaundryArticlesDAO laundryArticlesDAO;
+	ItemOutDAO itemOutDAO;
 	
 	public void setLaundryGoodsStockDAO(LaundryGoodsStockDAO laundryGoodsStockDAO) {
 		LaundryGoodsStockDAO = laundryGoodsStockDAO;
@@ -33,6 +40,13 @@ public class ItemServiceImpl implements ItemService {
 	public void setItemInsertDAO(ItemInsertDAO itemInsertDAO) {
 		this.itemInsertDAO = itemInsertDAO;
 	}
+	public void setItemOutDAO(ItemOutDAO itemOutDAO) {
+		this.itemOutDAO = itemOutDAO;
+	}
+	public void setLaundryArticlesDAO(LaundryArticlesDAO laundryArticlesDAO) {
+		this.laundryArticlesDAO = laundryArticlesDAO;
+	}
+	
 	
 	@Override
 	public Map<String, Object> selectItemVOList(BranchCriteria cri) throws Exception {
@@ -128,6 +142,43 @@ public class ItemServiceImpl implements ItemService {
 	public void updateCount(LaundryGoodsStockVO laundryGoodsStock) throws Exception {
 		LaundryGoodsStockDAO.updateLaundryGoodsStockAutoOrderCountByVO(laundryGoodsStock);
 		
+	}
+	@Override
+	public Map<String, Object> itemInsertList(BranchCriteria cri,String articlesCode) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<LaundryArticlesVO> laundryArticlesList= laundryArticlesDAO.selectLandryArticlesStock();
+		
+		
+		List<ItemInsertVO> itemInsertList = null;
+		itemInsertList=itemInsertDAO.selectItemInsertList(cri);
+		int count = itemInsertDAO.selectItemInsertCount(cri);
+		BranchPageMaker pageMaker = new BranchPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(count);
+		
+		dataMap.put("laundryArticlesList", laundryArticlesList);
+		dataMap.put("itemInsertList", itemInsertList);
+		dataMap.put("pageMaker", pageMaker);
+		return dataMap;
+	}
+	@Override
+	public Map<String, Object> itemOutList(BranchCriteria cri,String articlesCode) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<LaundryArticlesVO> laundryArticlesList= laundryArticlesDAO.selectLandryArticlesStock();
+		
+		
+		List<ItemOutVO> itemOutList = null;
+		itemOutList=itemOutDAO.selectItemOutList(cri);
+		int count = itemOutDAO.selectItemOutCount(cri);
+		BranchPageMaker pageMaker = new BranchPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(count);
+		
+		dataMap.put("laundryArticlesList", laundryArticlesList);
+		dataMap.put("itemOutList", itemOutList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
 	}
 	
 }

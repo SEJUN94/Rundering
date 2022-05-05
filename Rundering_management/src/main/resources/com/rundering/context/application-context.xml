@@ -99,6 +99,10 @@
 	 <bean id="itemInsertDAO" class="com.rundering.dao.ItemInsertDAOImpl"
 	 	p:session-ref="sqlSession"
 	 />
+	 <bean id="itemOutDAO" class="com.rundering.dao.ItemOutDAOImpl" 
+	 	p:session-ref="sqlSession"
+	 />
+	 
 
 	<!-- Service Layer -->
 	<bean id="asRequestService" class="com.rundering.service.AsRequestServiceImpl"
@@ -215,5 +219,7 @@
 		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
 		p:comCodeDAO-ref="comCodeDAO"
 		p:itemInsertDAO-ref="itemInsertDAO"
+		p:laundryArticlesDAO-ref="laundryArticlesDAO"
+		p:itemOutDAO-ref="itemOutDAO"
 	/>
 </beans>

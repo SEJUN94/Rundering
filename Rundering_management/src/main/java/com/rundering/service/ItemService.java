@@ -11,17 +11,15 @@ public interface ItemService {
 
 
 	Map<String, Object> selectItemVOList(BranchCriteria cri) throws Exception;
-	
 	List<ItemVO> selectDDItemByItem(ItemVO item) throws Exception;
 	List<ItemVO> selectMMItemByItem(ItemVO item) throws Exception;
 	List<ItemVO> selectYYItemByItem(ItemVO item) throws Exception;
-
 	List<ItemVO> select3MItemByItem(ItemVO item) throws Exception;
-
 	void useAutoYn(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 	
 	void updatePoint(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 	void updateCount(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
-	
+	Map<String, Object> itemOutList (BranchCriteria cri,String articlesCode) throws Exception;
+	Map<String, Object> itemInsertList(BranchCriteria cri, String articlesCode) throws Exception;
 	
 };

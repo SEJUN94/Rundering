@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,5 +33,27 @@ public class BranchItemController {
 		model.addAttribute("dataMap", dataMap);
 		return url;
 	}
+	@RequestMapping(value="/insertList",method = RequestMethod.GET)
+	private ResponseEntity<Map<String, Object>> insertList(BranchCriteria cri,HttpSession session,int page) {
+		EmployeesVO emp =(EmployeesVO)session.getAttribute("loginEmployee");
+		cri.setPage(page);
+		cri.setPerPageNum(5);
+		cri.setBranchCode(emp.getBranchCode());
+		ResponseEntity<Map<String, Object>> resp = null;
+		Map<String, Object> dataMap=null;
+		
+		try {
+			 dataMap = itemService.itemInsertList(cri, "");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		resp=  new ResponseEntity<Map<String,Object>>(dataMap,HttpStatus.OK);	
+		
+		return resp;
+	}
+	
+	
 
 }
