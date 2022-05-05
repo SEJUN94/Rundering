@@ -50,7 +50,7 @@
 						</button>
 					</span>
 				</div>
-				<input type="date" class="float-right mr-3" onchange='changeDate(this)' id="todayDate">
+				<input type="date" class="float-right mr-3" onchange='changeDate(this)' id="todayDate" max="2022-05-05">
 			</div>
 			<div class="card-body p-0">
 				<table class="table table-striped projects"
@@ -110,18 +110,13 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="card-footer">
+			<div class="card-footer" style="font-size:0.9em;">
 				<%@ include file="/WEB-INF/views/admin/employee/pagination.jsp" %>
 			</div>
 		</div>
 	</div>
 	<div class="row ml-3 mr-3 p-0" style="height: 280px; width: 98%">
 		<div class="card p-0" style="width: 49%; font-size:0.9em;">
-			<div class="card-header">
-				<div>
-					<h3 class="card-title" style="font-size:0.9em;">차트</h3>
-				</div>
-			</div>
 			<div class="card-body">
 				<div style="width: 100%;">
 					<canvas id="canvas"></canvas>
@@ -131,11 +126,6 @@
 		<div style="width: 1%;"></div>
 
 		<div style="width: 49%; font-size:0.9em;" class="card p-0">
-			<div class="card-header">
-				<div>
-					<h3 class="card-title" style="font-size:0.9em;">표</h3>
-				</div>
-			</div>
 			<div class="card-body" style="height:300px;">
 				<table border="1" class="table table-sm">
 					<thead>
@@ -160,10 +150,22 @@
 			</div>
 		</div>
 	</div>
-	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
+window.addEventListener('load', onloadWeek);
+function onloadWeek(){
+	var now = moment(todayDate.value, "YYYY-MM-DD");
+	for(var i=0; i<7; i++){
+		document.querySelectorAll('tr .week')[i].innerHTML = now.format('YYYY-MM-DD');
+		now.subtract(1, "days").format('YYYY-MM-DD');
+	}
+}
+
 var todayDate = document.getElementById('todayDate')
 todayDate.value = new Date().toISOString().substring(0, 10);
+document.querySelector('#todayDate').setAttribute("max", todayDate.value);
+
+
 	function branchTable(branchCode){
 		$.ajax({
 			url : '<%=request.getContextPath()%>/admin/branchinfo/branchdata',
@@ -172,12 +174,7 @@ todayDate.value = new Date().toISOString().substring(0, 10);
 			},
 			type : 'post',
 			success : function(ok) {
-				for(var i=0; i<7; i++){
-					var timeValue = ok[i].date;
-					var dateObj=new Date(timeValue);
-					var realDate =dateObj.getFullYear() + "-" + ((dateObj.getMonth() + 1) > 9 ? (dateObj.getMonth() + 1).toString() : "0" + (dateObj.getMonth() + 1)) + "-" + (dateObj.getDate() > 9 ? dateObj.getDate().toString() : "0" + dateObj.getDate().toString());
-					document.querySelectorAll('tr .week')[i].innerHTML = realDate;
-				}
+				onloadWeek();
 			},
 			error : function(error) {
 				AjaxErrorSecurityRedirectHandler(error.status);
@@ -188,7 +185,6 @@ todayDate.value = new Date().toISOString().substring(0, 10);
 <script>
 
 function changeDate(cDate){
-	console.log(cDate.value);
 	$.ajax({
 		url : '<%=request.getContextPath()%>/admin/branchinfo/datedata',
 		data : {
@@ -196,12 +192,7 @@ function changeDate(cDate){
 		},
 		type : 'post',
 		success : function(ok) {
-			for(var i=0; i<7; i++){
-				var timeValue = todayDate.value;
-				var dateObj = new Date(timeValue);
-				var realDate =dateObj.getFullYear() + "-" + ((dateObj.getMonth() + 1) > 9 ? (dateObj.getMonth() + 1).toString() : "0" + (dateObj.getMonth() + 1)) + "-" + (dateObj.getDate() > 9 ? dateObj.getDate().toString() : "0" + dateObj.getDate().toString());
-				document.querySelectorAll('tr .week')[i].innerHTML = realDate;
-			}
+			onloadWeek();
 		},
 		error : function(error) {
 			AjaxErrorSecurityRedirectHandler(error.status);

@@ -60,11 +60,11 @@
                   </c:if>
                   <c:forEach items="${appList }" var="list">
                      <tr>
-                        <td class="list" id="memno" name="memno" style="vertical-align: middle" value="${list.memberNo}">${list.memberNo}</td>
-                        <td style="vertical-align: middle" onClick="detail('${list.memberNo}')">${list.name }</td>
-                        <td style="vertical-align: middle"><fmt:formatDate
+                        <td class="list" id="memno" name="memno" value="${list.memberNo}">${list.memberNo}</td>
+                        <td onClick="detail('${list.memberNo}')">${list.name }</td>
+                        <td><fmt:formatDate
                               value="${list.registDate }" pattern="yyyy-MM-dd" /></td>
-                        <td style="vertical-align: middle"><button type="submit"
+                        <td><button type="submit"
                               class="btn btn-danger btn-sm" onclick="remove('${list.memberNo}')">반려</button></td>
                      </tr>
                   </c:forEach>

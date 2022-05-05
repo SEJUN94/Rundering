@@ -43,10 +43,19 @@ public class ForDeliveryController {
 	}
 
 	@RequestMapping("/main")
-	public String main() throws Exception {
+	public ModelAndView main(ModelAndView mnv, String branchCode, HttpServletRequest request) throws Exception {
 		String url = "/delivery/main";
-
-		return url;
+		
+		HttpSession session = request.getSession();
+		EmployeesVO emp = (EmployeesVO) session.getAttribute("loginEmployee");
+		branchCode = emp.getBranchCode();
+		
+		Map<String, Object> dataMap = deliveryService.getOrderCount(branchCode);
+		
+		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
 	}
 
 	@RequestMapping(value ="pictureupload",method = RequestMethod.POST,produces ="application/json;charset=utf-8")

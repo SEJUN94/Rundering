@@ -83,8 +83,16 @@ public class DeliveryDAOImpl implements DeliveryDAO {
 	public String getAttachFileNo(String orderNo) throws Exception {
 		return session.selectOne("Delivery-Mapper.getAttachFileNo",orderNo);
 	}
-	
-	
-	
+
+	@Override
+	public int selectPickupCount(String branchCode) throws Exception {
+		int count = session.selectOne("Delivery-Mapper.selectPickupCount", branchCode);
+		return count;
+	}
+	@Override
+	public int selectDeliveryCount(String branchCode) throws Exception {
+		int count = session.selectOne("Delivery-Mapper.selectDeliveryCount", branchCode);
+		return count;
+	}
 
 }

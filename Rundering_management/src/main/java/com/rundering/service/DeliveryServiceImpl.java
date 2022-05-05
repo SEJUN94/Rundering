@@ -156,4 +156,17 @@ public class DeliveryServiceImpl implements DeliveryService{
 		attachDAO.insertAttach(attach);
 		deliveryDAO.updatePickUpCom(laundryOrder);
 	}
+
+	@Override
+	public Map<String, Object> getOrderCount(String branchCode) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		int pickupCount = deliveryDAO.selectPickupCount(branchCode);
+		int deliveryCount = deliveryDAO.selectDeliveryCount(branchCode);
+		
+		dataMap.put("pickupCount", pickupCount);
+		dataMap.put("deliveryCount", deliveryCount);
+		
+		return dataMap;
+	}
 }

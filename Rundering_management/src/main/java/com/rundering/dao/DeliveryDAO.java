@@ -33,5 +33,9 @@ public interface DeliveryDAO {
 	//주문번호에 할당된 파일번호 불러오기
 	String getAttachFileNo(String orderNo) throws Exception;
 	
+	//수거ㆍ배송중인 갯수
+	int selectPickupCount(String branchCode) throws Exception;
+	int selectDeliveryCount(String branchCode) throws Exception;
+	
 	
 }

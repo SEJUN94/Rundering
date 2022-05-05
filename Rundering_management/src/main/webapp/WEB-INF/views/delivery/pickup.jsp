@@ -74,7 +74,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					<c:if test="${fn:length(pickupList) == 0}">
+					<c:if test="${fn:length(pickupList) == 0 && fn:length(pickupCompleteList) != 0}">
 						<div onclick="complete_all();"
 							class="info-box bg-light" style="position: fixed;
 								bottom: 0;">
