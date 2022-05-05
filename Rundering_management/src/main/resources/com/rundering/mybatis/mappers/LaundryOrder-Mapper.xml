@@ -244,7 +244,7 @@
 	</select>
 	
 	
-	<select id="selectLaundryOrderByReplyNo"  resultMap="laundryOrderMap" parameterType="str">
+	<select id="selectLaundryOrderByReplyNo"  resultMap="laundryOrderMap" parameterType="int">
 		SELECT *
 		  FROM TB_LAUNDRY_ORDER
 		 WHERE REPLYNO = #{replyNo}
