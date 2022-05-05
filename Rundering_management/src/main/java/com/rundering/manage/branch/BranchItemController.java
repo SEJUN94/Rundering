@@ -1,5 +1,6 @@
 package com.rundering.manage.branch;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -11,9 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.BranchCriteria;
 import com.rundering.dto.EmployeesVO;
+import com.rundering.dto.ItemOrderDetailVO;
+import com.rundering.dto.ItemOrderVO;
+import com.rundering.service.ItemOrderService;
 import com.rundering.service.ItemService;
 
 @Controller
@@ -21,6 +26,9 @@ import com.rundering.service.ItemService;
 public class BranchItemController {
 	@Autowired
 	ItemService itemService;
+	@Autowired
+	ItemOrderService itemOrderService;
+	
 	
 	@RequestMapping(value="/list",method = RequestMethod.GET)
 	private String list(BranchCriteria cri, Model model,HttpSession session) throws Exception {
@@ -53,6 +61,33 @@ public class BranchItemController {
 		
 		return resp;
 	}
+	
+	@RequestMapping("/detail")
+	private ModelAndView detail(String ordercode,ModelAndView mnv,HttpSession session) throws Exception{
+		String url= "/branch/itemorder/itemorder_detail";
+		String branchCode = itemOrderService.getBranchCode(ordercode);
+		EmployeesVO employee =(EmployeesVO) session.getAttribute("loginEmployee");
+		Map<String, String> comCodeMap=itemOrderService.comCode();
+		
+		if(employee==null) {
+			url ="/common/loginform";
+			mnv.setViewName(url);
+			return mnv;
+		}
+		
+		if(!branchCode.equals(employee.getBranchCode())){
+			url ="/branch/index";
+			mnv.setViewName(url);
+			return mnv;
+		}
+		ItemOrderVO itemOrder = itemOrderService.getItemOrder(ordercode);
+		List<ItemOrderDetailVO> itemOrderDetailList= itemOrderService.getItemOrdeDetail(ordercode);
+		mnv.addObject("itemOrderDetailList", itemOrderDetailList);
+		mnv.addObject("itemOrder", itemOrder);
+		mnv.addObject("comCodeMap",comCodeMap);
+		mnv.setViewName(url);
+		return mnv;
+	} 
 	
 	
 
