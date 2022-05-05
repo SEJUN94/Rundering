@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Employees-Mapper">
+
+<resultMap type="employees" id="employeesMap">
+	<result column="EMPLOYEE_ID" property="employeeId" />
+	<result column="BRANCH_CODE" property="branchCode" />
+	<result column="JOINING_COMPANY_DATE" property="joiningCompanyDate" />
+	<result column="DEPARTMENT" property="department" />
+	<result column="POSITION" property="position" />
+	<result column="REGIST_DATE" property="registDate" />
+	<result column="MODIFY_DATE" property="modifyDate" />
+	<result column="DELETE_YN" property="deleteYn" />
+	<result column="MEMBERNO" property="memberno" />
+</resultMap>
+	
+	<select id="selectEmployeeById" resultMap="employeesMap" parameterType="str">
+		select *
+		  from tb_employees
+		 where memberno=#{memberno} 
+	</select>
+	<select id="selectEmployeeByMemberNo" resultMap="employeesMap" parameterType="str">
+		select *
+		  from tb_employees
+		 where memberno=#{memberno} 
+	</select>
+	
+	
+	<select id="selectEmployeeByMno" resultMap="employeesMap" parameterType="str">
+		select 
+			A.EMPLOYEE_ID as EMPLOYEE_ID
+			,A.BRANCH_CODE as BRANCH_CODE
+			,A.JOINING_COMPANY_DATE as JOINING_COMPANY_DATE
+			,A.DEPARTMENT as DEPARTMENT
+			,A.POSITION as POSITION
+			,A.REGIST_DATE as REGIST_DATE
+			,A.MODIFY_DATE as MODIFY_DATE
+			,A.DELETE_YN as DELETE_YN
+			,A.MEMBERNO as MEMBERNO
+		  from TB_EMPLOYEES A, TB_MEMBER B
+		 where A.MEMBERNO = B.MEMBERNO
+		   and A.MEMBERNO=#{memberno}
+	</select>
+	
+	<select id="getEmployeeByNo" resultMap="employeesMap" parameterType="str" >
+		SELECT *
+		FROM TB_EMPLOYEES
+		WHERE MEMBERNO = #{memberno}
+	</select>
+	
+	<select id="selectDeliveryDepartmentEmployeesByBranchCode" resultMap="employeesMap" parameterType="str">
+		select *
+		  from tb_employees
+		 where BRANCH_CODE = #{branchCode} 
+		  and DEPARTMENT = 'DE'
+		  AND DELETE_YN = 'N'
+	</select>
+	
+	<select id="selectEmployeesByBranchCode" resultMap="employeesMap" parameterType="str">
+		select *
+		  from tb_employees
+		 where BRANCH_CODE = #{branchCode} 
+		  AND DELETE_YN = 'N'
+	</select>
+	
+
+	<sql id="searchSort">	
+		<if test="employeeSort == '0'.toString()">
+		</if>
+		<if test="employeeSort == '000000'.toString()">
+			AND A.BRANCH_CODE like '000000'		
+		</if>
+		<if test="employeeSort == '060402'.toString()">
+			AND A.BRANCH_CODE like '060402'		
+		</if>
+		<if test="employeeSort == '060101'.toString()">
+			AND A.BRANCH_CODE like '060101'		
+		</if>
+		<if test="employeeSort == '060201'.toString()">
+			AND A.BRANCH_CODE like '060201'		
+		</if>
+		<if test="employeeSort == '060301'.toString()">
+			AND A.BRANCH_CODE like '060301'		
+		</if>
+		<if test="employeeSort == '060401'.toString()">
+			AND A.BRANCH_CODE like '060401'		
+		</if>
+		<if test="employeeSort == '060501'.toString()">
+			AND A.BRANCH_CODE like '060501'		
+		</if>
+	</sql>	
+	
+	<sql id="search">	
+		<if test="searchType == 't'.toString()">
+			AND B.name like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'c'.toString()">
+			AND B.phone like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'tc'.toString()">
+			AND (
+			B.name like '%'||#{keyword}||'%'
+			or
+			B.phone like '%'||#{keyword}||'%'						
+			)			
+		</if>
+	</sql>	
+	
+
+
+</mapper>

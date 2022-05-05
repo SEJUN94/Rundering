@@ -136,6 +136,9 @@
 	/>	
 	<bean id="memberService" class="com.rundering.service.MemberServiceImpl"
 		p:memberDAO-ref="memberDAO"
+		p:branchDAO-ref="branchDAO"
+		p:employeesDAO-ref="employeesDAO"
+		p:notificationDAO-ref="notificationDAO"
 	/>
 	<bean id="employeesService" class="com.rundering.service.EmployeesServiceImpl"
 		p:employeesDAO-ref="employeesDAO" 

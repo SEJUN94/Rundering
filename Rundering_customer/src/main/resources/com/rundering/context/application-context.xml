@@ -95,6 +95,9 @@
 	/>
 	<bean id="faqService" class="com.rundering.service.FAQServiceImpl"
 		p:faqDAO-ref="faqDAO"
+		p:branchDAO-ref="branchDAO"
+		p:employeesDAO-ref="employeesDAO"
+		p:notificationDAO-ref="notificationDAO"
 	/>
 	
 	
