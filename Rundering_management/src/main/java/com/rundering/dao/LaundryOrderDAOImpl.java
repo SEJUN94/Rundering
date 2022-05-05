@@ -90,6 +90,11 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		return session.selectList("LaundryOrder-Mapper.selectCompletedLaundryOrderListByBranchCode",branchCode);
 	}
 
+	@Override
+	public LaundryOrderVO selectLaundryOrderByReplyNo(int replyNo) {
+		return session.selectOne("LaundryOrder-Mapper.selectLaundryOrderByReplyNo",replyNo);
+	}
+
 
 
 	

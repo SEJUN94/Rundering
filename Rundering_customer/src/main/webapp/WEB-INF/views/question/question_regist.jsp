@@ -166,7 +166,7 @@
 			for(let file of files){
 				console.log(file.name + " : "+ file.value);
 			}
-			payment_go();
+			//payment_go();
 			
 			
 			var form = document.registForm;

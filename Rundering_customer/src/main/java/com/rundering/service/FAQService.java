@@ -12,7 +12,7 @@ public interface FAQService {
 	public Map<String, Object> getFAQList(MyOrderCriteria cri) throws SQLException;
 
 	// 등록
-	void regist(FAQVO faq) throws SQLException;
+	void regist(FAQVO faq) throws Exception;
 	
 	// 수정화면 상세
 	FAQVO getFAQModify(int faqno) throws SQLException;

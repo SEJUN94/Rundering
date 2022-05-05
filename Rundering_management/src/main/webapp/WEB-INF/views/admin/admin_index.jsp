@@ -105,10 +105,13 @@
 			iconClass = "fas fa-tools mr-2";
 		}else if(item.ntcnknd == 'PC'){
 			iconClass = "fas fa-tasks mr-2";
+		}else if(item.ntcnknd == 'EA'){
+			iconClass = "fas fa-user mr-2";
+		}else if(item.ntcnknd == 'IQ'){
+			iconClass = "fas fa-question-circle mr-2";
 		}
-		
 		let displaytime = displayedAt(item.occrrncdehour);
-		let nttitle = '새 '+namemap[item.ntcnknd]+' - '+item.ntcncn;
+		let nttitle = namemap[item.ntcnknd]+' - '+item.ntcncn;
 		nttitle = nttitle.length > 22 ? nttitle.substring(0, 20) + '..' : nttitle;
 		
 		let param = item.ntcnclickhourUrl+",'"+item.ntcnId+"'";
