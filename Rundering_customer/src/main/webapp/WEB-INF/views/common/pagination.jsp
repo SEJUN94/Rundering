@@ -6,32 +6,32 @@
 	<ul class="pagination justify-content-center m-0">
 		<li class="page-item">
 			<a class="page-link" href="javascript:list_go(1);">
-				<i class="fas fa-angle-double-left"></i>
+				<i class="fas fa-angle-double-left" style="color:#82BBD8;"></i>
 			</a>
 		</li>
 		<li class="page-item">
 			<a class="page-link" href="javascript:list_go('${pageMaker.prev ? pageMaker.startPage-1 : pageMaker.cri.page}');">
-				<i class="fas fa-angle-left"></i>
+				<i class="fas fa-angle-left" style="color:#82BBD8;"></i>
 			</a>
 		</li>
 		<c:forEach var="pageNum" begin="${pageMaker.startPage }" end="${pageMaker.endPage }" >
-			<li class="page-item ${pageMaker.cri.page == pageNum?'active':''}">
-				<a class="page-link" href="javascript:list_go('${pageNum}');" >${pageNum }</a>
+			<li class="page-item ${pageMaker.cri.page == pageNum?'active':''}" >
+				<a class="page-link" href="javascript:list_go('${pageNum}');"style="${pageMaker.cri.page == pageNum? 'background-color:#82BBD8; border:1px solid #82BBD8':''}
+																					${pageMaker.cri.page != pageNum? 'color:#82BBD8;':''}" >${pageNum }</a>
 			</li>
 		</c:forEach>
 		<li class="page-item">
 			<a class="page-link" href="javascript:list_go('${pageMaker.next ? pageMaker.endPage+1 :pageMaker.cri.page}');">
-				<i class="fas fa-angle-right" ></i>
+				<i class="fas fa-angle-right" style="color:#82BBD8;"></i>
 			</a>
 		</li>
 		<li class="page-item">
 			<a class="page-link" href="javascript:list_go('${pageMaker.realEndPage}');">
-				<i class="fas fa-angle-double-right"></i>
+				<i class="fas fa-angle-double-right" style="color:#82BBD8;"></i>
 			</a>
 		</li>	
 	</ul>
 </nav>
-
 
 <form id="jobForm">	
 	<input type='hidden' name="page" value="" />
