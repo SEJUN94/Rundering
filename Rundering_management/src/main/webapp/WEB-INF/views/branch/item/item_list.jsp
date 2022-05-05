@@ -25,7 +25,7 @@
     <div class="card-secondary  ml-3 mr-3 row">
     	<div class="col-6" style="padding-left: 0px;" id="appenRgist">
         
-           </div>
+          </div>
     
     <div class="col-6" style="padding-right: 0px;">
         <div class="card p-0">

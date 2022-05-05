@@ -25,6 +25,7 @@
 		<typeAlias type="com.rundering.dto.ItemVO" alias="item" />
 		<typeAlias type="com.rundering.dto.ItemOrderVO" alias="itemOrder" />
 		<typeAlias type="com.rundering.dto.ItemInsertVO" alias="itemInsert" />
+		<typeAlias type="com.rundering.dto.ItemOutVO" alias="itemOut" />
 		<typeAlias type="com.rundering.dto.ItemOrderDetailVO" alias="itemOrderDetail" />
 		<typeAlias type="com.rundering.dto.ComCodeVO" alias="comCode" />
 		<typeAlias type="com.rundering.dto.LaundryOrderVO" alias="laundryOrder" />

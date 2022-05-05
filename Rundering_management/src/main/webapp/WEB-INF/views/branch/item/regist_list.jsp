@@ -177,14 +177,14 @@ function registList(pageInfo){
 			let html = template(data);
 			let pagehtml = pageTemplate(pageMaker);
 			
-			$("#replyListTag").innerHTML="";
+			$("#appenRgist").innerHTML="";
 			if($("#replyHandler")!=null){
 				$("#replyHandler").remove()
 			}
 			if(document.querySelector("#pageItem")!=null){
 				document.querySelector("#pageItem").remove()
 			}
-			$("#cardfooter").append(pagehtml)
+			$("#appenRgist").append(pagehtml);
 			$("#replyListTag").append(html)
 		},
 		error : function(error) {

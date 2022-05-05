@@ -23,4 +23,5 @@ public interface ItemService {
 	void updatePoint(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 	void updateCount(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 	
+	
 };

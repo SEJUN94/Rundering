@@ -21,6 +21,12 @@
 	        and articles_code=#{articlesCode}
 	</select>
 	
+	<select id="selectItemInsertList" resultMap="itemInsertMap">
+		select *
+		  from tb_item_insert
+		 where ORDER BY insert_date ASC 
+	</select>
+		
 	
 	
 	
