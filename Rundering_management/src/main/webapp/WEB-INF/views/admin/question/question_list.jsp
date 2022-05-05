@@ -134,10 +134,9 @@ th, td {
                </c:forEach>
             </table>
          </div>
-      </div>
-
-      <div class="card-footer" style="font-size: 0.9em">
-         <%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+		<div class="card-footer" style="font-size: 0.9em">
+		   <%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+		</div>
       </div>
    </div>
 </body>

@@ -38,7 +38,7 @@ public class BranchApplicationServiceImpl implements BranchApplicationService {
 	}
 	private NotificationDAO notificationDAO;
 	public void setNotificationDAO(NotificationDAO notificationDAO) {
-	}
+	} 
 
 	// 지점 신청
 	@Override

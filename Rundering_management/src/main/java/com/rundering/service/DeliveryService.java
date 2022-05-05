@@ -28,4 +28,7 @@ public interface DeliveryService {
  	
  	//파일 업로드
  	public void regist(LaundryOrderVO laundryOrder,AttachVO attach) throws Exception;
+ 	
+ 	//수거ㆍ배송중인 갯수
+ 	Map<String, Object> getOrderCount(String branchCode) throws Exception;
 }
