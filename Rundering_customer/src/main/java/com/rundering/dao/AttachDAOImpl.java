@@ -25,6 +25,8 @@ public class AttachDAOImpl implements AttachDAO{
 	public void insertAttach(AttachVO attach) throws SQLException {
 		session.update("Attach-Mapper.insertAttach",attach);
 	}
+	
+	//파일첨부 번호로 저장된 파일 정보 가져오기
 	@Override
 	public List<AttachVO> selectAttachVOByFileNo(String fileNo)  throws Exception{
 		return session.selectList("Attach-Mapper.selectAttachVOByFileNo", fileNo);
@@ -33,7 +35,5 @@ public class AttachDAOImpl implements AttachDAO{
 	public void deleteAttchFileRemoveByFileNo(String fileNo) throws Exception{
 		session.delete("Attach-Mapper.deleteAttchFileRemoveByFileNo", fileNo);
 	}
-
-	
 
 }

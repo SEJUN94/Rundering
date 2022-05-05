@@ -73,51 +73,47 @@ th, td {
 								</span>
 							</div>
 						</div>
-						<div class="card-body p-0">
-							<table class="table table-hover text-nowrap">
-								<thead>
-									<tr>
-										<th class="no">번호</th>
-										<th class="boardtitle" >제목</th>
-										<th class="object">물품명</th>
-										<th class="writer">요청자</th>
-										<th class="branchName">지점</th>
-										<th class="date">요청날짜</th>
-										<th class="yn">확인여부</th>
-									</tr>
-								</thead>
-								<c:if test="${empty asRequestList }">
-									<tr>
-										<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
-									</tr>
-								</c:if>
-								<c:forEach items="${asRequestList }" var="asRequest">
-									<tr style='cursor: pointer;'
-										onclick="OpenWindow('detail?from=list&asno=${asRequest.asno }','상세보기',900,700);">
-										<td class="no">${asRequest.asno }</td>
-										<td class="boardtitle">${asRequest.title }</td>
-										<td class="object">${asRequest.objectname }</td>
-										<td class="writer">${asRequest.employeeId }</td>
-										<td class="branchName">${asRequest.branchCode }</td>
-										<td class="date"><fmt:formatDate
-												value="${asRequest.registDate }" pattern="yyyy-MM-dd" /></td>
-										<td class="yn">${asRequest.checkyn }</td>
-									</tr>
-								</c:forEach>
-							</table>
-
-							<div class="float-right mt-3 mr-3 mb-3">
-								<%-- <button class="btn btn-primary" type="button" id="registBtn"
+					</div>
+					<div class="card-body p-0">
+						<table class="table table-hover text-nowrap">
+							<thead>
+								<tr>
+									<th class="no">번호</th>
+									<th class="boardtitle">제목</th>
+									<th class="object">물품명</th>
+									<th class="writer">요청자</th>
+									<th class="branchName">지점</th>
+									<th class="date">요청날짜</th>
+									<th class="yn">확인여부</th>
+								</tr>
+							</thead>
+							<c:if test="${empty asRequestList }">
+								<tr>
+									<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+								</tr>
+							</c:if>
+							<c:forEach items="${asRequestList }" var="asRequest">
+								<tr style='cursor: pointer;'
+									onclick="OpenWindow('detail?from=list&asno=${asRequest.asno }','상세보기',900,700);">
+									<td class="no">${asRequest.asno }</td>
+									<td class="boardtitle">${asRequest.title }</td>
+									<td class="object">${asRequest.objectname }</td>
+									<td class="writer">${asRequest.employeeId }</td>
+									<td class="branchName">${asRequest.branchCode }</td>
+									<td class="date"><fmt:formatDate
+											value="${asRequest.registDate }" pattern="yyyy-MM-dd" /></td>
+									<td class="yn">${asRequest.checkyn }</td>
+								</tr>
+							</c:forEach>
+						</table>
+						<div class="float-right mt-3 mr-3 mb-3">
+							<%-- <button class="btn btn-primary" type="button" id="registBtn"
 									onclick="location.href='<%=request.getContextPath()%>/branch/asrequest/registForm'">
 									요청하기</button> --%>
-							</div>
 						</div>
-
-
-						<div class="card-footer" style="font-size: 0.9em">
-							<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
-
-						</div>
+					</div>
+					<div class="card-footer" style="font-size: 0.9em">
+						<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 					</div>
 				</div>
 			</div>

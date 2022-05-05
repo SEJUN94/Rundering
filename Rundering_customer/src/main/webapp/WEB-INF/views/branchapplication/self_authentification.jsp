@@ -55,9 +55,7 @@
                      <input type="text" class="form-control col-7" id="Code"
                         placeholder="인증번호">
                      <div class="input-group-append">
-                        <button type="button" onclick="phone_verification();"
-                           class="btn btn-secondary"
-                           style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
+                        <button type="button" onclick="verificationCodeCheck();" class="btn btn-secondary" style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
                      </div>
                      <div id="timeLimit"
                         style="position: absolute; padding: 9px; margin-left: 200px; color: gray; font-size: 0.9rem; z-index: 10"></div>

@@ -41,13 +41,9 @@
 	<div class="card card-secondary card-outline ml-3 mr-3">
 		<div class="card-header" style="border-bottom: 0px;">
 			<h3 class="card-title" style="font-size: 1.75rem;">사원 조회</h3>
-
-		</div>
-		<div class="col-12 card">
 			<div class="row">
 				<div class="col-12 float-right" style="padding:5px;">
 					<div class="input-group input-group-sm float-right" style="width: 400px; padding-top: 3px">
-
 						<!-- sort -->
 						<select class="form-control col-md-3" name="employeeSort"
 							id="employeeSort" onchange="list_go(1);">
@@ -60,7 +56,7 @@
 							<option value="060401" ${cri.employeeSort eq '060401' ? 'selected' : '' }>봉명점</option>
 							<option value="060501" ${cri.employeeSort eq '060501' ? 'selected' : '' }>대화점</option>
 						</select>
-
+	
 						<!-- search bar -->
 						<select class="form-control col-md-3" name="searchType"
 							id="searchType">
@@ -78,46 +74,42 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="card table-responsive p-0">
-				<table class="table table-hover text-nowrap" style="text-align:center;">
-					<thead>
-						<tr>
-							<th class="employeeId">사원번호</th>
-							<th class="branchCode">지점</th>
-							<th class="department">부서</th>
-							<th class="position">직책</th>
-							<th class="joiningCompanyDate">입사일</th>
-							<th class="name">이름</th>
-							<th class="phone">연락처</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:if test="${empty employeesList }">
-							<tr>
-								<td colspan="7"><strong>해당 내용이 없습니다.</strong></td>
-							</tr>
-						</c:if>
-						<c:forEach items="${employeesList }" var="employee">
-							<tr style='font-size: 0.85em;'>
-								<td>${employee.employeeId }</td>
-								<td>${employee.branchCode }</td>
-								<td>${employee.department}</td>
-								<td>${employee.position }</td>
-								<td><fmt:formatDate value="${employee.joiningCompanyDate }" pattern="yyyy-MM-dd" /></td>
-								<td>${employee.name }</td>
-								<td>${employee.phone }</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
+		</div>
+		<table class="table table-hover text-nowrap" style="text-align:center;">
+			<thead>
+				<tr>
+					<th class="employeeId">사원번호</th>
+					<th class="branchCode">지점</th>
+					<th class="department">부서</th>
+					<th class="position">직책</th>
+					<th class="joiningCompanyDate">입사일</th>
+					<th class="name">이름</th>
+					<th class="phone">연락처</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:if test="${empty employeesList }">
+					<tr>
+						<td colspan="7"><strong>해당 내용이 없습니다.</strong></td>
+					</tr>
+				</c:if>
+				<c:forEach items="${employeesList }" var="employee">
+					<tr style='font-size: 0.85em;'>
+						<td>${employee.employeeId }</td>
+						<td>${employee.branchCode }</td>
+						<td>${employee.department}</td>
+						<td>${employee.position }</td>
+						<td><fmt:formatDate value="${employee.joiningCompanyDate }" pattern="yyyy-MM-dd" /></td>
+						<td>${employee.name }</td>
+						<td>${employee.phone }</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<div class="card-footer">
+			<%@ include file="/WEB-INF/views/admin/employee/pagination.jsp"%>
 		</div>
 	</div>
-	<div class="card-footer">
-		<%@ include file="/WEB-INF/views/admin/employee/pagination.jsp"%>
-	</div>
-	
 <script>
 
 

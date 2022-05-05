@@ -140,6 +140,9 @@
 	/>	
 	<bean id="memberService" class="com.rundering.service.MemberServiceImpl"
 		p:memberDAO-ref="memberDAO"
+		p:branchDAO-ref="branchDAO"
+		p:employeesDAO-ref="employeesDAO"
+		p:notificationDAO-ref="notificationDAO"
 	/>
 	<bean id="employeesService" class="com.rundering.service.EmployeesServiceImpl"
 		p:employeesDAO-ref="employeesDAO" 
@@ -188,6 +191,8 @@
 	<bean id="replySerivce"  class="com.rundering.service.ReplyServiceImpl" 
 		p:replyDAO-ref="replyDAO"
 		p:memberDAO-ref="memberDAO"
+		p:sensSms-ref="sensSms"
+		p:laundryOrderDAO-ref="laundryOrderDAO"
 	/>
 	<!--이메일 발송 서비스  -->
 	<bean id="mailSendService" class="com.rundering.service.MailSendService"

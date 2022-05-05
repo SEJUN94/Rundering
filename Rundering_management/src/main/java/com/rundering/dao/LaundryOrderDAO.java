@@ -35,5 +35,7 @@ public interface LaundryOrderDAO {
 	public void updateLaundryOrderPickupEmployeeId(LaundryOrderVO laundryOrder) throws Exception;
 	//배송 기사 할당
 	public void updateLaundryOrderDeliveryEmployeeId(LaundryOrderVO laundryOrder) throws Exception;
+	//댓글번호로 주문가져오기
+	public LaundryOrderVO selectLaundryOrderByReplyNo(int replyNo);
 	
 }

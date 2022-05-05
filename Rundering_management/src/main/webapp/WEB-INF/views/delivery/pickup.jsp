@@ -74,7 +74,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					<c:if test="${fn:length(pickupList) == 0}">
+					<c:if test="${fn:length(pickupList) == 0 && fn:length(pickupCompleteList) != 0}">
 						<div onclick="complete_all();"
 							class="info-box bg-light" style="position: fixed;
 								bottom: 0;">
@@ -88,6 +88,12 @@
 			</div>
 		</div>
 	</div>
+
+
+
+
+<!-- 알림 sweetalert2 -->
+<script	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 <script>
 var sortValue = "0";
 var aa = document.querySelector('.aa');
@@ -156,8 +162,8 @@ function sortAddr1(branchCode){
 </script>
 
 
-<!-- 알림 sweetalert2 -->
-<script	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+		
+	
 <script>
 	function complete_all(){
 		Swal.fire({
@@ -178,7 +184,7 @@ function sortAddr1(branchCode){
 				type : 'post',
 				success : function(ok) {
 					if(ok.toUpperCase() == "OK"){
-						Swal.fire({ 
+						Swal.fire({
 							icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
 							title: '취소 처리 되었습니다.',
 						});

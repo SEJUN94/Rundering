@@ -11,47 +11,30 @@
 <head>
 
 <style>
-th, td {
+th, .td {
 	text-align: center;
-}
-
-.no {
-	width: 12%;
-}
-
-.boardtitle {
-	width: 20%;
-}
-
-.writer {
-	width: 12%;
-}
-
-.branchName {
-	width: 13%;
-}
-
-.date {
-	width: 20%;
-}
-
-.clicks {
-	width: 11%;
-}
-
-.yn {
-	width: 12%;
 }
 </style>
 </head>
 
 <body>
+	<section class="content-header">
+	   <div class="container-fluid">
+	      <div class="row mb-2">
+	         <div class="col-sm-6">
+	            <h1>건의사항</h1>
+	         </div>
+	      </div>
+	   </div>
+	</section>
 	<div id="body">
-		<div class="row ml-2 mr-2">
+		<div class="row ml-3 mr-3">
 			<div class="col-12">
-				<div class="card card-primary card-outline">
+				<div class="card">
 					<div class="card-header">
-						<h3 class="card-title">건의사항</h3>
+						<h2 style="height: 20px;" class="card-title">
+		                  <b>건의사항 리스트</b>
+		               	</h2>
 						<div class="card-tools">
 							<div class="input-group input-group-sm" style="width: 300px;">
 								<select class="form-control col-md-4" name="searchType"
@@ -66,57 +49,48 @@ th, td {
 									placeholder="검색어를 입력하세요." value="" /> <span
 									class="input-group-append">
 									<button class="btn btn-primary" type="button"
-										onclick="list_go(1);" data-card-widget="search">
+										onclick="list_go(1);" data-card-widget="search" style="background-color: #82BBD8; border: 1px solid #82BBD8">
 										<i class="fa fa-fw fa-search"></i>
 									</button>
 								</span>
 							</div>
 						</div>
-						<div class="card-body p-0">
-							<table class="table table-hover text-nowrap">
-								<thead>
-									<tr>
-										<th class="no" id=>번호</th>
-										<th class="boardtitle">제목</th>
-										<th class="writer">작성자</th>
-										<th class="branchName">지점</th>
-										<th class="date">작성날짜</th>
-										<th class="clicks">조회수</th>
-										<th class="yn">확인여부</th>
-									</tr>
-								</thead>
-								<c:if test="${empty suggestList }">
-									<tr>
-										<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
-									</tr>
-								</c:if>
-								<c:forEach items="${suggestList }" var="suggest">
-									<tr style='cursor: pointer;'
-										onclick="OpenWindow('detail?from=list&sno=${suggest.sno }','상세보기',900,700);">
-										<td class="no">${suggest.sno }</td>
-										<td class="boardtitle">${suggest.title }</td>
-										<td class="writer">${suggest.writer }</td>
-										<td class="branchName">${suggest.branchName }</td>
-										<td class="date"><fmt:formatDate
-												value="${suggest.registDate }" pattern="yyyy-MM-dd" /></td>
-										<td class="clicks"><span class="tag tag-success">${suggest.viewcnt }</span></td>
-										<td class="yn">${suggest.checkyn }</td>
-									</tr>
-								</c:forEach>
-							</table>
-
-							<div class="float-right mt-3 mr-3 mb-3">
-								<%-- <button class="btn btn-primary" type="button" id="registBtn"
-									onclick="location.href='<%=request.getContextPath()%>/branch/suggest/registForm'">
-									작성하기</button> --%>
-							</div>
-						</div>
-
-
-						<div class="card-footer" style="font-size: 0.9em">
-							<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
-
-						</div>
+					</div>
+					<div class="card-body p-0">
+						<table class="table table-hover text-nowrap">
+							<thead>
+								<tr>
+									<th width="5%">번호</th>
+									<th width="27%">제목</th>
+									<th width="10%">작성자</th>
+									<th width="10%">지점</th>
+									<th width="10%">작성날짜</th>
+									<th width="5%">조회수</th>
+									<th width="8%">확인여부</th>
+								</tr>
+							</thead>
+							<c:if test="${empty suggestList }">
+								<tr>
+									<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+								</tr>
+							</c:if>
+							<c:forEach items="${suggestList }" var="suggest">
+								<tr style='cursor: pointer; font-size:0.9em;'
+									onclick="OpenWindow('detail?from=list&sno=${suggest.sno }','상세보기',900,700);">
+									<td class="td">${suggest.sno }</td>
+									<td>${suggest.title }</td>
+									<td class="td">${suggest.writer }</td>
+									<td class="td">${suggest.branchName }</td>
+									<td class="td"><fmt:formatDate
+											value="${suggest.registDate }" pattern="yyyy-MM-dd" /></td>
+									<td class="td"><span class="tag tag-success">${suggest.viewcnt }</span></td>
+									<td class="td">${suggest.checkyn }</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+					<div class="card-footer" style="font-size: 0.9em">
+						<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 					</div>
 				</div>
 			</div>

@@ -10,7 +10,7 @@ public class NotificationVO {
 	private String ntcnclickhourUrl; //알림클릭시URL
 	private Date occrrncdehour;   	 //발생일시
 	private Date cnfirmdehour;  	 //확인일시
-	private String employeeId;          //알림받은사원
+	private String employeeId;       //알림받은사원
 
 	
 	public NotificationVO() {

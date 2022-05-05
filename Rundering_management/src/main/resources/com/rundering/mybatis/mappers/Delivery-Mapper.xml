@@ -156,5 +156,17 @@
 			ORDER BY ADD1 DESC
 	</select>
 	
-
+	<select id="selectPickupCount" resultType="int" parameterType="str">
+		select count(*)
+		  from TB_LAUNDRY_ORDER
+		 WHERE BRANCH_CODE=#{branchCode}
+		   AND ORDER_STATUS='02'
+	</select>
+	
+	<select id="selectDeliveryCount" resultType="int" parameterType="str">
+		select count(*)
+		  from TB_LAUNDRY_ORDER
+		 WHERE BRANCH_CODE=#{branchCode}
+		   AND ORDER_STATUS='07'
+	</select>
 </mapper>

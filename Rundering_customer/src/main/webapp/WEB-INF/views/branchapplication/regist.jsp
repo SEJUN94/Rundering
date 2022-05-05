@@ -35,8 +35,8 @@
 					수집, 이용에 대한 동의를 거부할 권리가 있습니다. 그러나 동의를 거부하실 경우 상담이 불가합니다.
 				</div>
 				<div class="">
-					<label> &nbsp;<input type="checkbox" name="" value="1"
-						id=""> <span class="">&nbsp;개인정보 수집 및 이용에 동의합니다.</span>
+					<label> &nbsp;<input type="checkbox" name="" 
+						id="check"> <span class="">&nbsp;개인정보 수집 및 이용에 동의합니다.</span>
 					</label>
 				</div>
 				<div class="row">
@@ -65,7 +65,7 @@
 								<input type="text" class="form-control col-7" id="Code"
 									placeholder="인증번호">
 								<div class="input-group-append">
-									<button type="button" onclick="phone_verification();" class="btn btn-secondary" style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
+									<button type="button" onclick="verificationCodeCheck();" class="btn btn-secondary" style="background-color: #82BBD8; border: 1px solid #82BBD8">인증</button>
 								</div>
 								<div id="timeLimit" style="position: absolute; padding: 9px; margin-left: 140px; color: gray; font-size: 0.9rem; z-index: 10"></div>
 							</div>
@@ -79,15 +79,13 @@
 						</div>
 						<div class="input-group mb-3 form-group">
 							<input type="email" class="col-lg-9 form-control" id="email" name="email" placeholder="Email">
-
 						</div>
 
 
 						<div class="card-header"
 							style="border-bottom: 0px; padding-left: 0px; padding-bottom: 5px; padding-top: 3px;">
 							<span style="margin-top: 0px"> <label for="email"
-								class="col-mb-3"> <span
-									style="color: red; font-weight: bold;">*</span>임대차 계약서 첨부
+								class="col-mb-3"> <span style="color: red; font-weight: bold;">*</span>임대차 계약서 첨부
 							</label>
 							</span>
 							<h5 style="display: inline;"></h5>
@@ -119,10 +117,12 @@
 				</div>
 			</div>
 		</div>
+	</div>
 
-	</div> 
 	
-	<div class="hiddenInput"></div>
+	<div class="hiddenInput">
+		<input type="hidden" id="uuidNm" name="uuidNm">
+	</div>
 	<form role="imageForm" method="post" enctype="multipart/form-data">
 		<input id="inputFile" name="pictureFile" type="file" class="form-controll" accept="hwp, pdf, PDF" style="display: none;" />
 	</form>
@@ -187,81 +187,11 @@ const dataSetting = function(){
 
 </script>
 
+
 <script>
+var FileNm = document.getElementById("uuidNm");
+var fn = FileNm.value;
 var dataNum = 1;
-
-	function addFile_go(){
-	   
-	   if($('input[name="tempPicture"]').length >= 5){
-	      alert("사진 첨부는 5개까지만 가능합니다.");
-	      return;
-	   }
-	   
-	   var div = $("<div>").addClass("inputRow").attr("data-no", dataNum);
-	   
-	   div.append("<label for='inputFile' data-no="+dataNum+" class='btn btn-secondary btn-sm input-group-addon' onclick='justPressed(this)''>파일선택</label>")
-	   .append("<input id='inputFileName' type='text' name='tempPicture' data-no="+dataNum+" style='margin-left: 4px;' disabled/>")
-	   .append("<button onclick='remove_go("+dataNum+");' style='border:0; outline:0;padding: 6px;padding-bottom: 5px;margin-left: 6px;' class='badge bg-red' type='button'>X</button>");
-	   
-	   $('.fileInput').append(div);
-	   dataNum++;
-	}
-
-	function remove_go(dataNum){
-		if($('input[name="tempPicture"]').length == 1){
-		      alert("사진 첨부는 필수입니다.");
-		      return;
-		   }
-		deleteUploadFile(dataNum);
-		
-		$('div[data-no="'+dataNum+'"]').remove();
-		
-	}
-	
-	function deleteUploadFile(dataNum){
-		 let deleteFile = findByAttributeValue("data-uploadedno",dataNum,"input");
-		 if(!deleteFile) {
-			 return;
-		 }
-		 let deleteFileName = deleteFile.value;
-		 
-		 deleteFile.remove();
-		 
-		 const v_ajax = new XMLHttpRequest();
-		    v_ajax.open("POST","<%=request.getContextPath()%>/branchapplication/deletePicture",true);
-		    v_ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-		    v_ajax.send('deleteFileName=' + deleteFileName);
-		    v_ajax.onreadystatechange = function(){
-		    	 if (v_ajax.readyState === XMLHttpRequest.DONE) {
-			            if (v_ajax.status === 200) {
-			               //const response = JSON.parse(v_ajax.responseText);
-			               console.log(v_ajax.responseText);
-			               //console.log(data+"사진이 삭제 되었습니다.");
-			            } else {
-			            	//AjaxErrorSecurityRedirectHandler(error.status);
-			            }
-			     }
-		    }
-	}
-	
-	function regist_go(){
-		
-		let files = $('input[name="tempPicture"]');
-		for(let file of files){
-			console.log(file.name + " : "+ file.value);
-			if(file.value == ""){
-				alert("사진 파일을 선택하세요.");
-				file.focus();
-				file.click();
-				return;
-			}
-		}
-	}
-	
-</script> 
-
-
-<script>
 
 function findByAttributeValue(attribute, value, element_type)    {
 	  element_type = element_type || "*";
@@ -287,6 +217,32 @@ function createHiddenInputNode(saveFileNm) {
 	input.setAttribute('data-uploadedno', justPressedLabel);
 	return input;
 	}
+	
+function deleteUploadFile(dataNum){
+	 let deleteFile = findByAttributeValue("data-uploadedno",dataNum,"input");
+	 if(!deleteFile) {
+		 return;
+	 }
+	 let deleteFileName = deleteFile.value;
+	 
+	 deleteFile.remove();
+	 
+	 const v_ajax = new XMLHttpRequest();
+	    v_ajax.open("POST","<%=request.getContextPath()%>/order/deletePicture",true);
+	    v_ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+	    v_ajax.send('deleteFileName=' + deleteFileName);
+	    v_ajax.onreadystatechange = function(){
+	    	 if (v_ajax.readyState === XMLHttpRequest.DONE) {
+		            if (v_ajax.status === 200) {
+		               //const response = JSON.parse(v_ajax.responseText);
+		               console.log(v_ajax.responseText);
+		               //console.log(data+"사진이 삭제 되었습니다.");
+		            } else {
+		            	//AjaxErrorSecurityRedirectHandler(error.status);
+		            }
+		     }
+	    }
+}
 
 $('input[name="pictureFile"]').change(function(){
 	
@@ -303,15 +259,15 @@ $('input[name="pictureFile"]').change(function(){
 		spinner.style.display = 'none';
 		return;
 	}
-	//이미지 확장자 jpg 확인
+	//파일 확장자 pdf 확인
 	if(!(fileFormat == "pdf" || fileFormat == "hwp" || fileFormat == "PDF")){
-		alert("계약서 파일은 pdf/hwp 형식만 가능합니다.");
+		alert("계약서 파일은 pdf 형식만 가능합니다.");
 		spinner.style.display = 'none';
 		return;
 	}
-	// 이미지 파일 용량 체크
+	// 파일 용량 체크
 	if(picture.files[0].size>1024*1024*5){
-		alert("사진 용량은 5MB 이하만 가능합니다.");
+		alert("첨부파일 용량은 5MB 이하만 가능합니다.");
 		spinner.style.display = 'none';
 		return;
 	};
@@ -337,8 +293,11 @@ $('input[name="pictureFile"]').change(function(){
 			
 			console.log(data+"임대계약서가 첨부 되었습니다.");
 			inputFileName.value = picture.files[0].name;
+			fn = data.fileName;
 			
 			spinner.style.display = 'none';
+			
+			
 		},
 		error:function(error){
 			//alert("현재 사진 업로드가 불가합니다. \n관리자에게 연락바랍니다.");
@@ -353,56 +312,65 @@ $('input[name="pictureFile"]').change(function(){
 
 
 	<script>
-var name = document.getElementById("name");
+
+var nm = document.getElementById("name");
 var phone= document.getElementById('phone');
 var email = document.getElementById('email');
+var check = document.getElementById('check');
 	
 	function regist(){
-		
-		Swal.fire({
-            title: '지점 등록 신청 하시겠습니까?',
-            icon : 'warning' ,
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '승인',
-            cancelButtonText: '취소',
-            reverseButtons: true, // 버튼 순서 거꾸로
-          }).then((result) => {
-            if (result.isConfirmed) {	
-            	regist_go()
-				$.ajax({
-					url : '<%=request.getContextPath()%>/branchapplication/registform',
-					data : {
-						'applicateName' : name,
-						'phone' : phone,
-						'email' : email
-					},
-					type : 'post',
-					success : function(ok) {
-						if(ok.toUpperCase() == "OK"){
+		if(check.checked) {
+			Swal.fire({
+	            title: '지점 등록 신청 하시겠습니까?',
+	            icon : 'warning' ,
+	            showCancelButton: true,
+	            confirmButtonColor: '#3085d6',
+	            cancelButtonColor: '#d33',
+	            confirmButtonText: '승인',
+	            cancelButtonText: '취소',
+	            reverseButtons: true, // 버튼 순서 거꾸로
+	          }).then((result) => {
+	            if (result.isConfirmed) {
+					$.ajax({
+						url : '<%=request.getContextPath()%>/branchapplication/registform',
+						data : {
+							'applicateName' : nm.value,
+							'phone' : phone.value,
+							'email' : email.value,
+							'fileNm' : fn
+							
+						},
+						type : 'post',
+						success : function() {
 							Swal.fire({
 								icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
 								title: '지점 등록 신청이 완료되었습니다.',
 							});
 							setTimeout(function(){location.href='<%=request.getContextPath()%>/branchapplication/regist';},1000);
-						} else {
+						},
+						error : function(error) {
+							//AjaxErrorSecurityRedirectHandler(error.status);
 							Swal.fire({
 								icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
 								title: '시스템 오류로 반려 할 수 없습니다.'
 							});
 						}
-					},
-					error : function(error) {
-						AjaxErrorSecurityRedirectHandler(error.status);
-					}
-				});
-			}
-		})
+					});
+				}
+			})
+		}else{
+			Swal.fire({
+				icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title: '개인정보 수집 및 이용에 동의하세요',
+			});
+		}
 	}
 </script>
 
-	<script> 
+
+
+<!-- 문자인증 -->
+<script> 
  const certify_ajax = function (phoneNumber){
     const v_ajax = new XMLHttpRequest();
        v_ajax.open("POST","<%=request.getContextPath()%>/order/certifyPhoneNum",true);
@@ -424,10 +392,7 @@ var email = document.getElementById('email');
  };
    
 </script>
-
-
-
-	<script>
+<script>
 let isRunning = false;
 
 const Toast = Swal.mixin({
@@ -505,7 +470,6 @@ const Toast = Swal.mixin({
               });
               setTimeout(function(){document.querySelector('.verificationCode').style.display = 'none';  },1000);
               
-              form_phone_show();
            }else{
               Toast.fire({
                  icon: 'warning',

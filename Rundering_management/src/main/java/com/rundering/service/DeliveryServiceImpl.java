@@ -85,9 +85,6 @@ public class DeliveryServiceImpl implements DeliveryService{
 	public Map<String, Object> getOrderDetailByOrderNo(String orderNo) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
-		
-		
-		
 		LaundryOrderVO detail = deliveryDAO.selectOrderByOrderNo(orderNo);
 		// 고객 연락처 가져오기
 		String phone = memberDAO.getPhoneNum(detail.getMemberNo());
@@ -155,5 +152,18 @@ public class DeliveryServiceImpl implements DeliveryService{
 		attach.setAtchFileNo(laundryOrder.getAtchFileNo());
 		attachDAO.insertAttach(attach);
 		deliveryDAO.updatePickUpCom(laundryOrder);
+	}
+
+	@Override
+	public Map<String, Object> getOrderCount(String branchCode) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		int pickupCount = deliveryDAO.selectPickupCount(branchCode);
+		int deliveryCount = deliveryDAO.selectDeliveryCount(branchCode);
+		
+		dataMap.put("pickupCount", pickupCount);
+		dataMap.put("deliveryCount", deliveryCount);
+		
+		return dataMap;
 	}
 }
