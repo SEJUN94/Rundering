@@ -191,6 +191,7 @@ const dataSetting = function(){
 <script>
 var FileNm = document.getElementById("uuidNm");
 var fn = FileNm.value;
+var dataNum = 1;
 
 function findByAttributeValue(attribute, value, element_type)    {
 	  element_type = element_type || "*";
@@ -216,6 +217,32 @@ function createHiddenInputNode(saveFileNm) {
 	input.setAttribute('data-uploadedno', justPressedLabel);
 	return input;
 	}
+	
+function deleteUploadFile(dataNum){
+	 let deleteFile = findByAttributeValue("data-uploadedno",dataNum,"input");
+	 if(!deleteFile) {
+		 return;
+	 }
+	 let deleteFileName = deleteFile.value;
+	 
+	 deleteFile.remove();
+	 
+	 const v_ajax = new XMLHttpRequest();
+	    v_ajax.open("POST","<%=request.getContextPath()%>/order/deletePicture",true);
+	    v_ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+	    v_ajax.send('deleteFileName=' + deleteFileName);
+	    v_ajax.onreadystatechange = function(){
+	    	 if (v_ajax.readyState === XMLHttpRequest.DONE) {
+		            if (v_ajax.status === 200) {
+		               //const response = JSON.parse(v_ajax.responseText);
+		               console.log(v_ajax.responseText);
+		               //console.log(data+"사진이 삭제 되었습니다.");
+		            } else {
+		            	//AjaxErrorSecurityRedirectHandler(error.status);
+		            }
+		     }
+	    }
+}
 
 $('input[name="pictureFile"]').change(function(){
 	
@@ -265,8 +292,6 @@ $('input[name="pictureFile"]').change(function(){
 			hiddenInput.append(createHiddenInputNode(data));
 			
 			console.log(data+"임대계약서가 첨부 되었습니다.");
-			alert(data.fileName);
-			alert(data.fileOrginalName);
 			inputFileName.value = picture.files[0].name;
 			fn = data.fileName;
 			
@@ -294,7 +319,6 @@ var email = document.getElementById('email');
 var check = document.getElementById('check');
 	
 	function regist(){
-		alert(nm.value)
 		if(check.checked) {
 			Swal.fire({
 	            title: '지점 등록 신청 하시겠습니까?',
@@ -307,7 +331,6 @@ var check = document.getElementById('check');
 	            reverseButtons: true, // 버튼 순서 거꾸로
 	          }).then((result) => {
 	            if (result.isConfirmed) {
-	            	alert(fn);
 					$.ajax({
 						url : '<%=request.getContextPath()%>/branchapplication/registform',
 						data : {

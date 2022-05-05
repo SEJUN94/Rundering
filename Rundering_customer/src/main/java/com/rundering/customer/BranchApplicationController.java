@@ -2,6 +2,7 @@ package com.rundering.customer;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -105,14 +106,41 @@ public class BranchApplicationController {
 		return url;
 	}
 	
+	// 경로에 저장된 파일 삭제
+	@RequestMapping(value = "/deletePicture", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+	public ResponseEntity<String> deletePicture(String deleteFileName) throws Exception {
+		
+		ResponseEntity<String> entity = null;
+		
+		String result = "";
+		HttpStatus status = null;
+		
+		File imageFile = new File(filePath, deleteFileName);
+		if (!deleteFileName.isEmpty() && imageFile.exists()) {
+			imageFile.delete();
+			result = deleteFileName+"파일 삭제 성공";
+			status = HttpStatus.OK;
+		}else {
+			result = "파일이 존재하지 않습니다.";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		entity = new ResponseEntity<String>(result, status);
+		
+		return entity;
+	}	
+	
 	
 	@RequestMapping("/my_branch_request")
-	public ModelAndView myBranchRequest(ModelAndView mnv, BranchApplicationVO bv) throws Exception{
+	public ModelAndView myBranchRequest(ModelAndView mnv, BranchApplicationVO bv,AttachVO attach) throws Exception{
 		String url="branchapplication/my_branch_request";
 		
 		bv = branchApplicationService.getSelfAuthentification(bv);
+		attach.setAtchFileNo(bv.getLeasecontractFile());
+		
+		List<AttachVO> avList =  attachService.getAttachVOList(attach.getAtchFileNo());
 		
 		mnv.addObject("bv", bv);
+		mnv.addObject("avList", avList);
 		mnv.setViewName(url);
 		
 		return mnv;
