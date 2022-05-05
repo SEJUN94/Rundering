@@ -1,8 +1,8 @@
 package com.rundering.customer;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jsp.util.MakeFileName;
-import com.rundering.command.LaundryOrderReceiveCommand;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.BranchApplicationVO;
 import com.rundering.service.AttachService;
 import com.rundering.service.BranchApplicationService;
@@ -27,19 +28,17 @@ import com.rundering.service.BranchApplicationService;
 @Controller
 public class BranchApplicationController {
 	
-	@Resource(name = "attachService")
-	private AttachService attachService;
-	
 	@Resource(name = "filePath")
 	private String filePath;
 	
+	@Resource(name = "attachService")
+	private AttachService attachService;
 	
-	@Resource(name="branchApplicationService")
+	@Resource(name = "branchApplicationService")
 	private BranchApplicationService branchApplicationService;
 	
 	@RequestMapping("/regist")
 	public void branchApplication() {}
-	
  
 	private Map<String, String> savePicture(MultipartFile multi) throws Exception {
 		String fileName = null;
@@ -63,6 +62,7 @@ public class BranchApplicationController {
 		}
 		return dataMap;
 	}
+	
 	@RequestMapping(value = "/picture", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public ResponseEntity<Map<String, String>> picture(@RequestParam("pictureFile") MultipartFile multi) throws Exception {
 		ResponseEntity<Map<String, String>> entity = null;
@@ -72,7 +72,7 @@ public class BranchApplicationController {
 		/* 파일저장확인 */
 		if ((result = savePicture(multi)) == null) {
 			
-			result.put("result", "업로드 실패했습니다.!");
+			result.put("result", "업로드 실패했습니다.");
 			status = HttpStatus.BAD_REQUEST;
 		} else {
 			status = HttpStatus.OK;
@@ -80,36 +80,67 @@ public class BranchApplicationController {
 		}
 		entity = new ResponseEntity<Map<String, String>>(result, status);
 		
-		
 		return entity;
 	}
 	
-	@RequestMapping("/registform")
-	public ResponseEntity<String> insertBranchApp(@RequestParam(defaultValue = "") String from,LaundryOrderReceiveCommand command,BranchApplicationVO bv) throws Exception {
+	// 지점 신청 및 임대차 계약서 파일 업로드
+	@RequestMapping(value = "/registform", method = RequestMethod.POST)
+	public String registform(BranchApplicationVO bv,AttachVO attach, RedirectAttributes rttr) throws Exception {
+		String url = "redirect:/home";
+		
+		String fileName = bv.getFileNm();
+		
+		File file = new File(filePath + fileName);
+		String orginalFileName = MakeFileName.parseFileNameFromUUID(fileName, "\\$\\$");
+		long fileSize = file.length() / 1024;
+		String type = fileName.substring(fileName.lastIndexOf('.') + 1);
+		attach.setFileContType(type);
+		attach.setFileNm(orginalFileName);
+		attach.setSaveFileNm(fileName);
+		attach.setFileSize(fileSize);
+		attach.setFilePath(filePath);
+		
+		branchApplicationService.branchApplicate(bv, attach);
+		rttr.addFlashAttribute("from", "registform");
+
+		return url;
+	}
+	
+	// 경로에 저장된 파일 삭제
+	@RequestMapping(value = "/deletePicture", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+	public ResponseEntity<String> deletePicture(String deleteFileName) throws Exception {
+		
 		ResponseEntity<String> entity = null;
 		
-		try {
-				
-			branchApplicationService.branchApplicate(bv);
-				
-			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
-				
-		} catch (SQLException e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		String result = "";
+		HttpStatus status = null;
+		
+		File imageFile = new File(filePath, deleteFileName);
+		if (!deleteFileName.isEmpty() && imageFile.exists()) {
+			imageFile.delete();
+			result = deleteFileName+"파일 삭제 성공";
+			status = HttpStatus.OK;
+		}else {
+			result = "파일이 존재하지 않습니다.";
+			status = HttpStatus.BAD_REQUEST;
 		}
-			
+		entity = new ResponseEntity<String>(result, status);
 		
 		return entity;
-	}
+	}	
+	
 	
 	@RequestMapping("/my_branch_request")
-	public ModelAndView myBranchRequest(ModelAndView mnv, BranchApplicationVO bv) throws Exception{
+	public ModelAndView myBranchRequest(ModelAndView mnv, BranchApplicationVO bv,AttachVO attach) throws Exception{
 		String url="branchapplication/my_branch_request";
 		
 		bv = branchApplicationService.getSelfAuthentification(bv);
+		attach.setAtchFileNo(bv.getLeasecontractFile());
+		
+		List<AttachVO> avList =  attachService.getAttachVOList(attach.getAtchFileNo());
 		
 		mnv.addObject("bv", bv);
+		mnv.addObject("avList", avList);
 		mnv.setViewName(url);
 		
 		return mnv;

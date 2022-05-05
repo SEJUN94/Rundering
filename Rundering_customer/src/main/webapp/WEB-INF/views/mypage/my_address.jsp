@@ -227,9 +227,7 @@
 				success : function(response){
                     if(response.toUpperCase() == "OK"){
                     	Swal.fire('삭제완료!', '주소가 삭제되었습니다.', 'success' )
-                       
                     	setTimeout(function(){location.href = "<%=request.getContextPath()%>/mypage/myaddress";},1000);
-                       
                        } else {
                           Swal.fire('삭제를 실패했습니다.', 'error' )
                        }
@@ -399,7 +397,7 @@
 		                     success : function(response){
 		                        if(response.toUpperCase() == "OK"){
 		                        	Swal.fire('수정 완료!', '기본 주소지 수정이 완료되었습니다.', 'success' )
-		                           location.href = "<%=request.getContextPath()%>/mypage/myaddress";
+		                        	setTimeout(function(){location.href = "<%=request.getContextPath()%>/mypage/myaddress";},1000);
 		                           } else {
 		                              Swal.fire('수정을 실패했습니다.', 'error' )
 		                           }
@@ -435,7 +433,7 @@
 		                     success : function(response){
 		                        if(response.toUpperCase() == "OK"){
 		                        	Swal.fire('수정 완료!', '주소지 수정이 완료되었습니다.', 'success' )
-		                           location.href = "<%=request.getContextPath()%>/mypage/myaddress";
+		                        	setTimeout(function(){location.href = "<%=request.getContextPath()%>/mypage/myaddress";},1000);
 		                           } else {
 		                              Swal.fire('수정을 실패했습니다.', 'error' )
 		                           }
@@ -474,7 +472,7 @@
 	                     success : function(response){
 	                        if(response.toUpperCase() == "OK"){
 	                        	Swal.fire('수정 완료!', '주소지 수정이 완료되었습니다.', 'success' )
-	                        	location.href = "<%=request.getContextPath()%>/mypage/myaddress";
+	                        	setTimeout(function(){location.href = "<%=request.getContextPath()%>/mypage/myaddress";},1000);
 	                        } else {
 	                           	Swal.fire('주소지 수정을 실패하였습니다.', 'error' )
 	                        }
@@ -510,7 +508,7 @@
 		                     success : function(response){
 		                        if(response.toUpperCase() == "OK"){
 		                        	Swal.fire('수정 완료!', '주소지 수정이 완료되었습니다.', 'success' )
-		                        	location.href = "<%=request.getContextPath()%>/mypage/myaddress";
+		                        	setTimeout(function(){location.href = "<%=request.getContextPath()%>/mypage/myaddress";},1000);
 		                        } else {
 		                           	Swal.fire('주소지 수정을 실패하였습니다.', 'error' )
 		                        }
@@ -537,7 +535,7 @@
 		console.log(ta1)
 		if(${fn:length(memberAddressList)} < 3) {
 			if(topArea1 == "대전"){
-				if(defualt1.value == 'Y'){
+				if(defualt1.checked){
 					Swal.fire({
 			               title: '기본 주소지로 등록 하시겠습니까?',
 			               icon : 'warning' ,
@@ -561,7 +559,7 @@
 			                     success : function(response){
 			                        if(response.toUpperCase() == "OK"){
 			                        	Swal.fire('등록 완료!', '기본 주소지 등록이 완료되었습니다.', 'success' )
-			                           location.href = "<%=request.getContextPath()%>/mypage/myaddress";
+			                        	setTimeout(function(){location.href = "<%=request.getContextPath()%>/mypage/myaddress";},1000);
 			                           } else {
 			                              Swal.fire('등록을 실패했습니다.', 'error' )
 			                           }
@@ -596,7 +594,7 @@
 			                     success : function(response){
 			                        if(response.toUpperCase() == "OK"){
 			                        	Swal.fire('등록 완료!', '주소지 등록이 완료되었습니다.', 'success' )
-			                           location.href = "<%=request.getContextPath()%>/mypage/myaddress";
+			                        	setTimeout(function(){location.href = "<%=request.getContextPath()%>/mypage/myaddress";},1000);
 			                           } else {
 			                              Swal.fire('수정을 실패했습니다.', 'error' )
 			                           }
@@ -610,7 +608,7 @@
 				}
 				
 			}else{
-				if(defualt1.value == 'Y'){
+				if(defualt1.checked){
 				 Swal.fire({
 		               title: '해당 지역은 서비스 지역이 아닙니다. 기본 주소지로 등록 하시겠습니까?',
 		               icon : 'warning' ,
@@ -634,7 +632,7 @@
 		                     success : function(response){
 		                        if(response.toUpperCase() == "OK"){
 		                        	Swal.fire('등록 완료!', '주소지 등록이 완료되었습니다.', 'success' )
-		                        	location.href = "<%=request.getContextPath()%>/mypage/myaddress";
+		                        	setTimeout(function(){location.href = "<%=request.getContextPath()%>/mypage/myaddress";},1000);
 		                        } else {
 		                           	Swal.fire('주소지 등록을 실패하였습니다.', 'error' )
 		                        }
@@ -669,7 +667,7 @@
 			                     success : function(response){
 			                        if(response.toUpperCase() == "OK"){
 			                        	Swal.fire('등록 완료!', '주소지 등록이 완료되었습니다.', 'success' )
-			                        	location.href = "<%=request.getContextPath()%>/mypage/myaddress";
+			                        	setTimeout(function(){location.href = "<%=request.getContextPath()%>/mypage/myaddress";},1000);
 			                        } else {
 			                           	Swal.fire('주소지 등록을 실패하였습니다.', 'error' )
 			                        }

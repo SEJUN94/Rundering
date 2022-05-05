@@ -85,9 +85,6 @@ public class DeliveryServiceImpl implements DeliveryService{
 	public Map<String, Object> getOrderDetailByOrderNo(String orderNo) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
-		
-		
-		
 		LaundryOrderVO detail = deliveryDAO.selectOrderByOrderNo(orderNo);
 		// 고객 연락처 가져오기
 		String phone = memberDAO.getPhoneNum(detail.getMemberNo());

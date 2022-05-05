@@ -75,6 +75,7 @@
 		p:branchDAO-ref="branchDAO"
 		p:employeesDAO-ref="employeesDAO"
 		p:notificationDAO-ref="notificationDAO"
+		p:attachDAO-ref="attachDAO"
 	/>
 	<bean id="laundryOrderService" class="com.rundering.service.LaundryOrderServiceImpl"
 		p:laundryOrderDAO-ref="laundryOrderDAO"

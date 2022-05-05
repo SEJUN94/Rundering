@@ -27,7 +27,7 @@
 			,APPLICATE_NAME
 			,PHONE
 			,EMAIL
-<!-- 			,LEASECONTRACT_FILE -->
+			,LEASECONTRACT_FILE
 			,PROGRESS_STATUS_CODE
 			) VALUES (
 			APPLICATION_NO_SEQ.nextval
@@ -35,7 +35,7 @@
 			,#{applicateName}
 			,#{phone}
 			,#{email}
-<!-- 			,#{leasecontractFile} -->
+			,#{leasecontractFile}
 			,'01'
 			)
 	</update>
