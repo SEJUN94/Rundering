@@ -48,7 +48,7 @@
 				<div class="card-body" style="padding-top: 10px; padding-bottom: 0px;" >
 						
 						<input	class="form-control" type="text" placeholder="댓글을 입력해주세요"
-							id="replyContent" style="display: inline;width: 90%;"> 
+							id="replyContent" style="display: inline;width: 88%;"> 
 						<button type="button" class="btn btn-sm btn-warning float-right" id="replyAddBtn"
 							onclick="registReply();" style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8; padding: 8px;">댓글 등록</button><br />
 						
