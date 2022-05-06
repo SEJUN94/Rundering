@@ -124,7 +124,7 @@
 	<div class="row ml-3 mr-3 p-0" style="height: 280px; width: 98%">
 		<div class="card p-0" style="width: 49%; font-size:0.9em;">
 			<div class="card-body">
-				<div style="width: 100%;">
+				<div style="width: 100%;" id="canvasTag">
 					<canvas id="canvas"></canvas>
 				</div>
 			</div>
@@ -212,6 +212,9 @@ function changeDate(cDate){
 <script>
 //지점번호와 날짜로 날짜기준으로 일주일 전까지의 데이터 가져오기
 function getWeeksBranchThroughput(branchCode){
+		document.querySelector("#canvas").remove;	
+		document.querySelector("#canvasTag").innerHTML='<canvas id="canvas"></canvas>'
+		
 	
 	  const todayDate = document.querySelector('#todayDate');
 	
@@ -224,54 +227,81 @@ function getWeeksBranchThroughput(branchCode){
 		type : 'post',
 		success : function(data) {
 			console.log(data);
-			//onloadWeek(data);
+			a=time(data[0].date)
+			b=time(data[1].date)
+			c=time(data[2].date)
+			d=time(data[3].date)
+			e=time(data[4].date)
+			f=time(data[5].date)
+			g=time(data[6].date)
+			data1=data[0].totalThroughput
+			data2=data[1].totalThroughput
+			data3=data[2].totalThroughput
+			data4=data[3].totalThroughput
+			data5=data[4].totalThroughput
+			data6=data[5].totalThroughput
+			data7=data[6].totalThroughput
+			chart(a,b,c,d,e,f,g,data1,data2,data3,data4,data5,data6,data7)
+			
+			
 		},
 		error : function(error) {
 			AjaxErrorSecurityRedirectHandler(error.status);
 		}
 	});
 }
+function time(timeValue){
+    var dateObj=new Date(timeValue);
+    var year=dateObj.getFullYear();
+    var month=dateObj.getMonth()+1;
+    var date=dateObj.getDate();
+    return year+"/"+month+"/"+date;
+}
 </script>
 
 <script>
-var CHARTEX = $('#canvas');
-var barChartExample = new Chart(CHARTEX , {
-    type: 'bar',
-    data: {
-        labels: [1, 2,3, 4, 5, 6, 7 ],
-        datasets: [{
-                label: "세탁량(%)",
-                data: [15, 60, 56, 60, 6, 45, 1],
-                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }]
-    },
-    options: {
-        responsive: true,
-        legend: {
-            position: 'bottom',
-        },
-        hover: {
-            mode: 'label'
-        },
-        scales: {
-            yAxes: [{
-                    display: true,
-                    ticks: {
-                        beginAtZero: true,
-                        steps: 20,
-                        stepValue: 10,
-                        max: 100
-                    }
-                }]
-        },
-        title: {
-            display: true,
-            text: '일별 세탁량'
-        }
-    }
-});
+function chart(a,b,c,d,e,f,g,data1,data2,data3,data4,data5,data6,data7){
+	var CHARTEX = $('#canvas');
+	var barChartExample = new Chart(CHARTEX , {
+	    type: 'bar',
+	    data: {
+	        labels: [a,b,c,d,e,f,g],
+	        datasets: [{
+	                label: "세탁량(%)",
+	                data: [data1, data2,data3,data4,data5,data6,data7],
+	                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+	                borderColor: 'rgba(54, 162, 235, 1)',
+	                borderWidth: 1
+	            }]
+	    },
+	    options: {
+	        responsive: true,
+	        legend: {
+	            position: 'bottom',
+	        },
+	        hover: {
+	            mode: 'label'
+	        },
+	        scales: {
+	            yAxes: [{
+	                    display: true,
+	                    ticks: {
+	                        beginAtZero: true,
+	                        steps: 20,
+	                        stepValue: 10,
+	                        max: 100
+	                    }
+	                }]
+	        },
+	        title: {
+	            display: true,
+	            text: '일별 세탁량'
+	        }
+	    }
+	});
+}
+
+
 </script>
 </body>
 

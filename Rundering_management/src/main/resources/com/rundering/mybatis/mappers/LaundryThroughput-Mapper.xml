@@ -43,32 +43,38 @@
 
 	<select id="laundryQuotaList" resultMap="laundryThroughputMap">
 		SELECT 
-			A.THROUGHPUT_NO,
-			A.LAUNDRY_QUOTA,
-			A.TOTAL_THROUGHPUT,
-			A.OVERSHOOT,
-			A.AREA,
-			A.LDATE,
-			A.BRANCH_CODE,
-			ROUND(A.TOTAL_THROUGHPUT/A.LAUNDRY_QUOTA*100) as quotaPercent,
-			B.BRANCH_NAME as branchName,
+         A.THROUGHPUT_NO,
+         A.LAUNDRY_QUOTA,
+         A.TOTAL_THROUGHPUT,
+         A.OVERSHOOT,
+         A.AREA,
+         A.LDATE,
+         A.BRANCH_CODE,
+         ROUND(A.TOTAL_THROUGHPUT/A.LAUNDRY_QUOTA*100) as quotaPercent,
+         B.BRANCH_NAME as branchName,
             D.NAME AS name
-		  from TB_LAUNDRY_THROUGHPUT A, TB_BRANCH B, TB_EMPLOYEES C, TB_MEMBER D, TB_COM_CODE E
-		 where A.BRANCH_CODE=B.BRANCH_CODE
+        from TB_LAUNDRY_THROUGHPUT A, TB_BRANCH B, TB_EMPLOYEES C, TB_MEMBER D, TB_COM_CODE E
+       where A.BRANCH_CODE=B.BRANCH_CODE
            AND C.POSITION = E.COM_CODE
            AND E.COM_CODE_NM='지점장'
            AND B.BRANCH_CODE=C.BRANCH_CODE
            AND C.MEMBERNO=D.MEMBERNO
-           AND A.LDATE >= TO_CHAR(SYSDATE-7,'YYYYMMDD')
+           and TO_CHAR(A.LDATE,'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD')
            <include refid="search" />
 		 order by A.LDATE desc
 	</select>
 	
 	<select id="laundryQuotaListCount" resultType="int">
 		SELECT 
-			count(*)
-		  from TB_LAUNDRY_THROUGHPUT A, TB_BRANCH B
-		 where A.BRANCH_CODE=B.BRANCH_CODE
+         COUNT(A.THROUGHPUT_NO)
+        from TB_LAUNDRY_THROUGHPUT A, TB_BRANCH B, TB_EMPLOYEES C, TB_MEMBER D, TB_COM_CODE E
+       where A.BRANCH_CODE=B.BRANCH_CODE
+           AND C.POSITION = E.COM_CODE
+           AND E.COM_CODE_NM='지점장'
+           AND B.BRANCH_CODE=C.BRANCH_CODE
+           AND C.MEMBERNO=D.MEMBERNO
+           and TO_CHAR(A.LDATE,'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD')
+           <include refid="search" />
 		 order by A.LDATE desc
 	</select>
 	
@@ -131,8 +137,10 @@
 		  	SELECT *
 		  FROM TB_LAUNDRY_THROUGHPUT
 		 WHERE BRANCH_CODE=#{branchCode}
-		   AND TO_CHAR(LDATE,'YYYY/MM/DD') BETWEEN to_char(#{date}-6,'YYYY/MM/DD')
-         AND TO_CHAR(#{date},'YYYY/MM/DD')
+		   AND TO_CHAR(LDATE,'YYYY-MM-DD') BETWEEN to_char(#{date}-6,'YYYY-MM-DD')
+         								AND TO_CHAR(#{date},'YYYY-MM-DD')
+         order by LDATE	ASC				
+          
 	</select>
 	
 </mapper>

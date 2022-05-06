@@ -111,7 +111,7 @@ public class BranchController {
 		try {
 			LaundryThroughPutVO throughPutVO = new LaundryThroughPutVO();
 			throughPutVO.setBranchCode(branchCode);
-			SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			Date datetype = formatter.parse(date);
 			throughPutVO.setDate(datetype);
 			List<LaundryThroughPutVO> branchLaundryThroughList = laundryThroughputService.getWeeksBranchThroughput(throughPutVO);
