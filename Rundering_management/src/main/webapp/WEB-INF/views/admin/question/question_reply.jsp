@@ -55,7 +55,7 @@
 									<div class=" col">
 										<label for="setbukdoorclcode">카테고리
 											구분 <input type="text"
-											id="writer" readonly name="writer"
+											id="setbukdoorclcode" readonly name="setbukdoorclcode"
 											class="form-control" value="<c:choose>
 												<c:when test="${faq.setbukdoorclcode == 'OR'}">주문문의</c:when>
 												<c:when test="${faq.setbukdoorclcode == 'US'}">이용문의</c:when>

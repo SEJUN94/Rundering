@@ -137,6 +137,8 @@
 	/>	
 	<bean id="faqService" class="com.rundering.service.FAQServiceImpl"
 		p:faqDAO-ref="faqDAO"
+		p:memberDAO-ref="memberDAO"
+		p:sensSms-ref="sensSms"
 	/>	
 	<bean id="memberService" class="com.rundering.service.MemberServiceImpl"
 		p:memberDAO-ref="memberDAO"
@@ -170,6 +172,7 @@
 		p:laundryOrderDAO-ref="deliveryDAO"
 		p:attachDAO-ref="attachDAO"
 		p:memberDAO-ref="memberDAO" 
+		p:sensSms-ref="sensSms"
 	/>
 	<bean id="laundryOrderService" class="com.rundering.service.LaundryOrderServiceImpl" 
 		p:laundryItemsDAO-ref="laundryItemsDAO"
@@ -214,6 +217,7 @@
 		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
 		p:employeesDAO-ref="employeesDAO"
 		p:mailSendService-ref="mailSendService"
+		p:sensSms-ref="sensSms"
 	 />
 	<bean id="notificationService" class="com.rundering.service.NotificationServiceImpl"
 		p:notificationDAO-ref="notificationDAO"
