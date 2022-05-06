@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.BranchCriteria;
@@ -42,16 +43,38 @@ public class BranchItemController {
 		return url;
 	}
 	@RequestMapping(value="/insertList",method = RequestMethod.GET)
+	@ResponseBody
 	private ResponseEntity<Map<String, Object>> insertList(BranchCriteria cri,HttpSession session,int page) {
 		EmployeesVO emp =(EmployeesVO)session.getAttribute("loginEmployee");
 		cri.setPage(page);
-		cri.setPerPageNum(5);
+		cri.setPerPageNum(4);
 		cri.setBranchCode(emp.getBranchCode());
 		ResponseEntity<Map<String, Object>> resp = null;
 		Map<String, Object> dataMap=null;
 		
 		try {
 			 dataMap = itemService.itemInsertList(cri, "");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		resp=  new ResponseEntity<Map<String,Object>>(dataMap,HttpStatus.OK);	
+		
+		return resp;
+	}
+	@RequestMapping(value="/outlist",method = RequestMethod.GET)
+	@ResponseBody
+	private ResponseEntity<Map<String, Object>> outList(BranchCriteria cri,HttpSession session,int page) {
+		EmployeesVO emp =(EmployeesVO)session.getAttribute("loginEmployee");
+		cri.setPage(page);
+		cri.setPerPageNum(4);
+		cri.setBranchCode(emp.getBranchCode());
+		ResponseEntity<Map<String, Object>> resp = null;
+		Map<String, Object> dataMap=null;
+		
+		try {
+			 dataMap = itemService.itemOutList(cri, "");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

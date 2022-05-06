@@ -28,60 +28,10 @@
         
           </div>
     
-    <div class="col-6" style="padding-right: 0px;">
-        <div class="card p-0">
-                <div class="card-header">
-                   <h2 style="height: 20px;" class="card-title">
-						<b>출고 리스트</b>
-					</h2>
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm" >
-                            <select class="form-control" name="laundryItemsCode"
-                                id="laundryItemsCode" onchange="list_go(1);">
-                                <option value="asd">asdaadas</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body table-responsive p-0 mt-0" style="height: 245px; overflow: auto;" >
-                    <table
-                        class="table table-hover text-nowrap card-outline">
-                        <thead>
-                            <tr>
-                                <th style="text-align: center;">물품이름</th>
-                                <th style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;">
-                                    <div class="input-group input-group-sm" >
-                                        <select class="form-control" style="width: 60px;" name="laundryItemsCode"  id="laundryItemsCode" onchange="list_go(1);">
-                                           	 <c:forEach items="${clcodeList }" var="clcode">
-                                           	 
-                                             	<option value="${clcode.comCode}">${clcode.comCodeNm }</option>
-                                             </c:forEach>
-                                         </select>
-                                     </div>
-                                </th>
-                                <th style="text-align: center;">출고량</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                   <c:forEach items="${itemList }" var="item">
-                                    <tr>
-                                        <td onclick="tdClick('${item.articlesCode}')">${item.articlesName} </td>
-                                        <td>
-                                        <c:forEach items="${clcodeList }" var="clcode">
-                                        	<c:if test="${item.clcode eq clcode.comCode}">${clcode.comCodeNm }</c:if>   	 
-                                        </c:forEach>
-                                        </td>
-                                        <td style="text-align: right;">${item.supplyCount }(${item.each})</td>
-                                    </tr>
-                                   </c:forEach> 
-                        </tbody>
-                    </table>
-                </div>
-              <div class="card-footer" >
-				<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
-			</div>
-            </div>
-            </div>
+    	<div class="col-6" style="padding-right: 0px;" id="appendOut">
+        
+        
+        </div>
     </div>
     	<div class=" ml-3 mr-3 ">
        		 <div class="card  p-0" style="padding-bottom: 10px;margin-bottom: 10px;">
@@ -129,7 +79,13 @@
       </div>
     <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
     <%@ include file="./regist_list.jsp" %>
+    <%@ include file="./out_list.jsp" %>
 <script>
+window.onload=function(){
+	registList("<%=request.getContextPath()%>/branch/item/insertList?page="+page);
+	out_List("<%=request.getContextPath()%>/branch/item/outlist?page="+out_page);
+	
+}   
 
 function minusQuantity(){
 	let input =event.target.parentNode.parentNode.querySelectorAll('.inputValue')[0]

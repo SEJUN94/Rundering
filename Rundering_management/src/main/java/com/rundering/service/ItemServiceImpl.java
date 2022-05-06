@@ -19,6 +19,7 @@ import com.rundering.dto.ItemVO;
 import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.dto.LaundryGoodsStockVO;
 import com.rundering.util.ComCodeUtil;
+import com.sun.mail.imap.protocol.Item;
 
 public class ItemServiceImpl implements ItemService {
 	
@@ -143,6 +144,25 @@ public class ItemServiceImpl implements ItemService {
 		LaundryGoodsStockDAO.updateLaundryGoodsStockAutoOrderCountByVO(laundryGoodsStock);
 		
 	}
+	@Override
+	public void updateSupllyCount(LaundryGoodsStockVO laundryGoodsStock) throws Exception{
+		
+		
+		ItemOutVO itemOut = new ItemOutVO();
+		int supplyCount = LaundryGoodsStockDAO.selectSupplyCountByVO(laundryGoodsStock);
+		if(supplyCount==laundryGoodsStock.getSupplyCount()) {
+			return;
+		}
+		
+		itemOut.setBranchCode(laundryGoodsStock.getBranchCode());
+		itemOut.setArticlesCode(laundryGoodsStock.getArticlesCode());
+		itemOut.setItemcount(supplyCount-laundryGoodsStock.getSupplyCount());
+		itemOutDAO.insertItemOut(itemOut);
+		
+		
+		LaundryGoodsStockDAO.updateLaundryGoodsStockSupplyCountByVO(laundryGoodsStock);
+	}
+	
 	@Override
 	public Map<String, Object> itemInsertList(BranchCriteria cri,String articlesCode) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();

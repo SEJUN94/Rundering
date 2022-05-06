@@ -21,5 +21,6 @@ public interface ItemService {
 	void updateCount(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 	Map<String, Object> itemOutList (BranchCriteria cri,String articlesCode) throws Exception;
 	Map<String, Object> itemInsertList(BranchCriteria cri, String articlesCode) throws Exception;
+	void updateSupllyCount(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 	
 };

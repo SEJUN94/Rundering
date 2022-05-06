@@ -69,7 +69,16 @@
                                         	<c:if test="${item.clcode eq clcode.comCode}">${clcode.comCodeNm }</c:if>   	 
                                         </c:forEach>
                                         </td>
-                                        <td style="text-align: right;">${item.supplyCount }(${item.each})</td>
+                                        <td style="text-align: right;">
+                                        <span class="input-group-sm input-group-append float-right"   >
+                                                <input type="text" class="inputValue" data-code="${item.articlesCode }"  data-each="${item.each}" disabled value= "${item.supplyCount }(${item.each})" style="width: 100px; text-align: right;">
+                                                <button class="btn btn-sm btn-warning modifyBtn" onclick="autoModify()">수정</button>
+                                            	<span class="btn-group-vertical modifySpan" style="width: 18px;display: none">
+														<button type="button" class="btn btn-sm btn-default p-0" style="height: 18px;" onclick="minusQuantity(this)">-</button>
+												</span>
+												 <button class="btn btn-sm btn-primary saveBtn" onclick="SaveSupplyCount()" style="display:none" >저장</button>
+                                            </span>
+                                       </td>
                                         <td style="text-align: right;padding-top: 10px;padding-bottom: 5px;">
                                             <span class="input-group-sm input-group-append float-right"   >
                                                 <input type="text" class="inputValue" data-code="${item.articlesCode }"  data-each="${item.each}" disabled value="${item.autoOrderCount }(${item.each})" style="width: 100px; text-align: right;">
@@ -158,6 +167,36 @@
 </div>
 <script>
 let articlesCode= null;
+function SaveSupplyCount(){
+	let input = event.target.parentNode.querySelectorAll(".inputValue")[0];
+	
+	let modifySpan=event.target.parentNode.querySelectorAll(".modifySpan")[0];
+	let saveBtn=event.target.parentNode.querySelectorAll(".saveBtn")[0];
+	let modifyBtn= event.target.parentNode.querySelectorAll(".modifyBtn")[0];
+	
+	let code = input.dataset.code;
+	let each = input.dataset.each;
+	
+	$.ajax({
+		url : '<%=request.getContextPath()%>/branch/itemauto/savesupplycount',
+		type : 'post',
+		data:{
+			articlesCode:code,
+			supplyCount:input.value
+		},
+		success : function(data) {
+			input.value+="("+each+")"
+			modifySpan.style.display="none";
+			saveBtn.style.display="none";
+			modifyBtn.style.display="inline-block";
+			
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
+
 
 function plusQuantity(){
 	

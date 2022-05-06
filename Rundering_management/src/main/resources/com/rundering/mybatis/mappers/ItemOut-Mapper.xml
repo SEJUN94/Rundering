@@ -15,26 +15,28 @@
 	<select id="selectItemOutList" resultMap="itemOutMap">
 		select *
 		  from tb_item_out
-		 where brnach_code=#{branchCode}
+		 where branch_code=#{branchCode}
 		 ORDER BY out_date ASC 
 		   
 	</select>
 	
-		<select id="selectItemOutCount" resultType="int" >
+	<select id="selectItemOutCount" resultType="int" >
 		select count(*)
 		  from tb_item_out
-		 where brnach_code=#{branchCode}
+		 where branch_code=#{branchCode}
 		 ORDER BY out_date ASC 
-		   
+		    
 	</select>
 	
 	<insert id="insertItemOut" parameterType="itemOut">
 	insert into tb_item_out
 	(
+	OUT_ITEM_CODE,
 	ARTICLES_CODE,
 	BRANCH_CODE,
 	ITEMCOUNT
 	)values(
+		item_order_seq.nextval,
 		#{articlesCode},
 		#{branchCode},
 		#{itemcount}

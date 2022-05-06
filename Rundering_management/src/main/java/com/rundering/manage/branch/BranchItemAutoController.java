@@ -83,6 +83,24 @@ public class BranchItemAutoController {
 		return resp;
 	}
 	
+	@RequestMapping(value = "savesupplycount",method = RequestMethod.POST)
+	@ResponseBody
+	private ResponseEntity<String> savesupplycount(LaundryGoodsStockVO laundryGoodsStock,HttpSession session) {
+		ResponseEntity<String> resp = null;
+		EmployeesVO emp=(EmployeesVO) session.getAttribute("loginEmployee");
+		laundryGoodsStock.setBranchCode(emp.getBranchCode());
+		try {
+			itemService.updateSupllyCount(laundryGoodsStock);
+			resp = new ResponseEntity<String>(HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return resp;
+	}
+	
+	
 	
 	@RequestMapping(value="chart",method =RequestMethod.GET,produces = "application/json;charset=utf-8")
 	@ResponseBody
