@@ -63,7 +63,15 @@ public class LaundryGoodsStockDAOImpl implements LaundryGoodsStockDAO{
 	}
 	@Override 
 	public void updateLaundryGoodsStockSupplyCountPlusByVO(LaundryGoodsStockVO laundryGoodsStock) throws Exception{
-		session.selectOne("updateLaundryGoodsStockSupplyCountPlusByVO", laundryGoodsStock);
+		session.selectOne("LaundryGoodsStock-Mapper.updateLaundryGoodsStockSupplyCountPlusByVO", laundryGoodsStock);
+	}
+	@Override
+	public List<LaundryGoodsStockVO> selectLaundryGoodsStock() throws Exception{
+		return session.selectList("LaundryGoodsStock-Mapper.selectLaundryGoodsStock");
+	}
+	@Override
+	public void udateLaundryGoodsStockSupplyAuto(LaundryGoodsStockVO laundryGoodsStock) throws Exception{
+		session.update("LaundryGoodsStock-Mapper.udateLaundryGoodsStockSupplyAuto",laundryGoodsStock);
 	}
 
 

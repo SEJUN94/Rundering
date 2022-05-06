@@ -1,6 +1,8 @@
 package com.rundering.scheduler;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -9,11 +11,14 @@ import org.slf4j.LoggerFactory;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.EmployeesDAO;
+import com.rundering.dao.ItemOrderDAO;
+import com.rundering.dao.LaundryGoodsStockDAO;
 import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.NotificationDAO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.EmployeesVO;
+import com.rundering.dto.LaundryGoodsStockVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.NotificationVO;
 import com.rundering.util.SensSms;
@@ -51,6 +56,15 @@ public class OrderTaskScheduler {
 	private NotificationDAO notificationDAO;
 	public void setNotificationDAO(NotificationDAO notificationDAO) {
 		this.notificationDAO = notificationDAO;
+	}
+	
+	private LaundryGoodsStockDAO laundryGoodsStockDAO;
+	public void setLaundryGoodsStockDAO(LaundryGoodsStockDAO laundryGoodsStockDAO) {
+		this.laundryGoodsStockDAO = laundryGoodsStockDAO;
+	}
+	private ItemOrderDAO itemOrderDAO;
+	public void setItemOrderDAO(ItemOrderDAO itemOrderDAO) {
+		this.itemOrderDAO = itemOrderDAO;
 	}
 	
 	
@@ -429,6 +443,32 @@ public class OrderTaskScheduler {
 			}
 		}
 	}
+	public void autoOrder() throws Exception{
+		List<LaundryGoodsStockVO> goodList= laundryGoodsStockDAO.selectLaundryGoodsStock();
+		
+		
+		for (LaundryGoodsStockVO laundryGoodsStock : goodList) {
+			laundryGoodsStock.get
+		}
+		
+		for (LaundryGoodsStockVO laundryGoodsStock : goodList) {
+			int supplyCount=laundryGoodsStock.getSupplyCount();
+			int point=laundryGoodsStock.getAutoOrderPoint();
+			Date autoLastDay= laundryGoodsStock.getAutoOrderLastDate();
+			Date sysdate = new Date();
+			
+			
+			if(supplyCount<point) {
+				if((sysdate.getTime()-autoLastDay.getTime())/(1000*60*60*24)>=14) {
+					laundryGoodsStockDAO.updateLaundryGoodsStockSupplyCountPlusByVO(laundryGoodsStock);
+				}
+			}
+			
+		}
+		
+	}
+	
+	
 	
 	
 

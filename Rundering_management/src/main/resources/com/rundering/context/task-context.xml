@@ -12,6 +12,7 @@
 		p:employeesDAO-ref="employeesDAO"
 		p:sensSms-ref="sensSms"
 		p:notificationDAO-ref="notificationDAO"
+		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
 	/>
 	<scheduler id="assignLaundryOrderScheduler"/>
 	 
@@ -32,6 +33,13 @@
 				   method="assignDeliveryEmployee"
 				   cron="0 0 23 * * *"/>
 				  <!--  cron="*/5 * * * * *"/> -->
+	</scheduled-tasks>
+	
+	<scheduled-tasks scheduler="assignLaundryOrderScheduler">
+		<scheduled ref="orderTask" 
+		method="autoOrder"
+		cron="*/5 * * * * *"
+		/>
 	</scheduled-tasks> 
 	
 </beans:beans>

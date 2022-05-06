@@ -44,6 +44,25 @@ public class BranchItemController {
 		model.addAttribute("dataMap", dataMap);
 		return url;
 	}
+	@RequestMapping(value="/orderlist",method = RequestMethod.GET)
+	@ResponseBody
+	private ResponseEntity<Map<String, Object>> orderlist(BranchCriteria cri, ModelAndView mnv,HttpSession session) {
+		ResponseEntity<Map<String, Object>> resp = null;
+		Map<String, Object> dataMap=null;
+		try {
+			dataMap = itemOrderService.itemOrdeList(cri,session);
+			resp = new ResponseEntity<Map<String,Object>>(dataMap, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			resp = new ResponseEntity<Map<String,Object>>(HttpStatus.BAD_REQUEST);
+		}
+		
+		 
+		return resp;
+		
+	}
+	
+	
 	@RequestMapping(value="/insertList",method = RequestMethod.GET)
 	@ResponseBody
 	private ResponseEntity<Map<String, Object>> insertList(BranchCriteria cri,HttpSession session,int page) {
