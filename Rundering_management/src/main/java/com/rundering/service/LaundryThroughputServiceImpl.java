@@ -72,4 +72,15 @@ public class LaundryThroughputServiceImpl implements LaundryThroughputService{
 		
 		return branchTableList;
 	}
+
+	@Override
+	public List<LaundryThroughPutVO> getBranchToDateTable(LaundryThroughPutVO laundryThroughput) throws Exception {
+		List<LaundryThroughPutVO> branchTableList = laundryThroughputDAO.getBranchToDateTable(laundryThroughput);
+		return branchTableList;
+	}
+
+	@Override
+	public void updateBranchLndrpcrymslmcoqy(BranchVO branch) throws Exception {
+		laundryThroughputDAO.updateBranchLndrpcrymslmcoqy(branch);
+	}
 }

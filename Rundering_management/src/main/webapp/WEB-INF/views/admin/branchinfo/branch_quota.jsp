@@ -139,7 +139,7 @@
 					<tbody>
 						<c:forEach begin="1" end="7">
 							<tr>
-								<td class="week">d</td>
+								<td class="week"></td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -153,8 +153,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
 window.addEventListener('load', onloadWeek);
+var now = null;
 function onloadWeek(){
-	var now = moment(todayDate.value, "YYYY-MM-DD");
+	now = moment(todayDate.value, "YYYY-MM-DD");
 	for(var i=0; i<7; i++){
 		document.querySelectorAll('tr .week')[i].innerHTML = now.format('YYYY-MM-DD');
 		now.subtract(1, "days").format('YYYY-MM-DD');
@@ -166,21 +167,22 @@ todayDate.value = new Date().toISOString().substring(0, 10);
 document.querySelector('#todayDate').setAttribute("max", todayDate.value);
 
 
-	function branchTable(branchCode){
-		$.ajax({
-			url : '<%=request.getContextPath()%>/admin/branchinfo/branchdata',
-			data : {
-				'branchCode' : branchCode
-			},
-			type : 'post',
-			success : function(ok) {
-				onloadWeek();
-			},
-			error : function(error) {
-				AjaxErrorSecurityRedirectHandler(error.status);
-			}
-		});
-	}
+function branchTable(branchCode){
+	$.ajax({
+		url : '<%=request.getContextPath()%>/admin/branchinfo/sumdata',
+		data : {
+			'branchCode' : branchCode,
+			'date' : now
+		},
+		type : 'post',
+		success : function(ok) {
+			onloadWeek();
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
 </script>
 <script>
 
@@ -199,8 +201,58 @@ function changeDate(cDate){
 		}
 	});
 }
+</script>
+
+<script>
+
+function changeTableData(branchCode){
+	$.ajax({
+		url : '<%=request.getContextPath()%>/admin/branchinfo/sumdata',
+		data : {
+			'branchCode' : branchCode,
+			'date' : cDate.value
+		},
+		type : 'post',
+		success : function(ok) {
+			onloadWeek();
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
+</script>
+
+<script>
+$(data.branchList).each(function(i) {
+	 if(data.branchList[i].branchCode == '000000'){
+		 return;
+	 }
+	 //해당지점 현재 처리중인 주문량 / 지점의 세탁가능수량 * 100)
+	  let excessCapacity = data.excessCapacityList.filter(branch => branch.branchCode == data.branchList[i].branchCode);
+	  let processingRate = (data.branchList[i].branchLndrpcrymslmcoqy - excessCapacity[0].branchLndrpcrymslmcoqy)  / data.branchList[i].branchLndrpcrymslmcoqy * 100
+	  let bgColor =  "bg-primary";
+	  if(processingRate >= 90){  
+		  bgColor = "bg-danger";
+	  }else if(processingRate >= 70){
+		  bgColor = "bg-warning";
+	  }
+		 let branchAdd = "<tr style='cursor: pointer;' onclick='selectbranch(this);'>"+
+		 "<td>"+data.branchList[i].branchName+"</td>"+
+		 "<td>"+(data.branchList[i].branchLndrpcrymslmcoqy - excessCapacity[0].branchLndrpcrymslmcoqy)+'/'+data.branchList[i].branchLndrpcrymslmcoqy+"</td>"+
+		 "<td style='width: 90px;padding-top: 21px;'><div class='progress progress-xs'><div class='progress-bar "+bgColor+"' style='width: "+processingRate+"%'></div></div></td>"+
+		 "<td style='width: 30px;padding-left: 0px;padding-right: 10px;text-align: center;'><span class='badge "+bgColor+"'>"+processingRate+"%</span><input type='radio' value='"+data.branchList[i].branchCode+"' name='branchradio'  style= 'display: none'/></td>"+
+		 "</tr>"; 
+		 
+		$(".branchList>tbody").append(branchAdd);
+	 
+})
+
 
 </script>
+
+
+
 <script>
 var CHARTEX = $('#canvas');
 var barChartExample = new Chart(CHARTEX , {

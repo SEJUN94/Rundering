@@ -100,7 +100,8 @@
 			C.NAME as name,
 			C.PHONE as phone,
 			C.EMAIL as email,
-			A.ADD1 || ' ' || A.ADD2 as addr
+			A.ADD1 || ' ' || A.ADD2 as addr,
+			A.BRANCH_LNDRPCRYMSLMCOQY AS branchLndrpcrymslmcoqy
 		  from TB_BRANCH A, TB_EMPLOYEES B, TB_MEMBER C, TB_COM_CODE D
 		 WHERE B.POSITION = D.COM_CODE
            AND D.COM_CODE_NM='지점장'
@@ -125,5 +126,18 @@
 		 where LDATE=#{date} 
 		 order by LDATE desc
 	</select>
+<!-- 	//표 리스트 출력(합친거) -->	
+	<select id="getBranchToDateTable" resultMap="laundryThroughputMap" parameterType="laundryThroughput">
+		SELECT *
+		  FROM TB_LAUNDRY_THROUGHPUT
+		 WHERE BRANCH_CODE='#{branchCode}'
+		   AND TO_CHAR(LDATE,'YYYY/MM/DD') BETWEEN TO_CHAR(TO_DATE(to_char(TO_DATE('#{date}')-6,'YYYY/MM/DD'))) 
+		   AND TO_CHAR(TO_DATE('#{date}'),'YYYY/MM/DD')
+	</select>
 	
+	<update id="updateBranchLndrpcrymslmcoqy" parameterType="branch">
+		update TB_BRANCH
+		   set BRANCH_LNDRPCRYMSLMCOQY=#{branchLndrpcrymslmcoqy }
+		 where branch_code=#{branchCode }
+	</update>
 </mapper>

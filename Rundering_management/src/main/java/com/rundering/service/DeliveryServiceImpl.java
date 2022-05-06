@@ -138,7 +138,6 @@ public class DeliveryServiceImpl implements DeliveryService{
 			status = "배송완료";
 		}
 		
-		
 		String attachNo = deliveryDAO.getAttachFileNo(laundryOrder.getOrderNo());
 	
 		laundryOrder.setAtchFileNo(attachNo);

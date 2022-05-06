@@ -71,6 +71,38 @@
 	</div>
 	<!-- 알림 sweetalert2 -->
 <script	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script>
+let imgList = null;
+function getImages(atchFileNo){ 
+    $.ajax({
+        url:"<%=request.getContextPath()%>/branch/laundrysituatuion/getimgs",
+        type:"post",
+        data: {
+        	atchFileNo:atchFileNo
+        },
+        dataType:"json",
+        success:function(data){
+			imgList= new Array();
+			for(let i of data){
+				imgList.push(i);
+			}
+			let handleData= {
+					count:countArray
+			};
+        	let html = template(handleData);
+        	
+        	document.querySelector("#imgsrc").src="data:image/jpg;base64,"+imgList[0];
+        	document.querySelector("#imgsrc").style.display="flex";
+        },
+        error:function(error){
+		//alert('댓글이 등록을 실패했습니다.');
+		AjaxErrorSecurityRedirectHandler(error.status);
+	}
+    })
+}
+</script>
+
 <script>
 	function pickup_cancel(orderStatus){
 		Swal.fire({

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.rundering.command.AppCriteria;
 import com.rundering.command.BranchInfoDetailCommand;
+import com.rundering.dto.BranchVO;
 import com.rundering.dto.LaundryThroughPutVO;
 
 public interface LaundryThroughputDAO {
@@ -21,5 +22,12 @@ public interface LaundryThroughputDAO {
 	public List<LaundryThroughPutVO> branchQuotaTable(String branchCode) throws Exception;
 	//표 리스트 출력(일자별)
 	public List<LaundryThroughPutVO> branchTableDate(String date) throws Exception;
+	
+	//표 리스트출력(합친거)
+	public List<LaundryThroughPutVO> getBranchToDateTable(LaundryThroughPutVO laundryThroughput) throws Exception;
+	
+	//최대 세탁량(수정)
+	public void updateBranchLndrpcrymslmcoqy(BranchVO branch) throws Exception;
+	
 	
 }
