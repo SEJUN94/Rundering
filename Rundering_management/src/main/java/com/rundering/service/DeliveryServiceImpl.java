@@ -10,6 +10,7 @@ import com.rundering.dao.MemberDAO;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.util.SensSms;
 
 public class DeliveryServiceImpl implements DeliveryService{
 
@@ -27,6 +28,10 @@ public class DeliveryServiceImpl implements DeliveryService{
 	
 	public void setLaundryOrderDAO(DeliveryDAO deliveryDAO) {
 		this.deliveryDAO = deliveryDAO;
+	}
+	private SensSms sensSms;
+	public void setSensSms(SensSms sensSms) {
+		this.sensSms = sensSms;
 	}
 	
 	// 수거 리스트 가져오기
@@ -124,10 +129,13 @@ public class DeliveryServiceImpl implements DeliveryService{
 	public void regist(LaundryOrderVO laundryOrder,AttachVO attach) throws Exception {
 		//업무구분
 		String bizType = null;
+		String status = null;
 		if(laundryOrder.getOrderStatus().equals("03")) {
 			bizType = "수거완료사진";
+			status = "수거완료";
 		}else if(laundryOrder.getOrderStatus().equals("08") || laundryOrder.getOrderStatus().equals("09")) {
 			bizType = "배송완료사진";
+			status = "배송완료";
 		}
 		
 		
@@ -152,6 +160,13 @@ public class DeliveryServiceImpl implements DeliveryService{
 		attach.setAtchFileNo(laundryOrder.getAtchFileNo());
 		attachDAO.insertAttach(attach);
 		deliveryDAO.updatePickUpCom(laundryOrder);
+		
+//		//고객 문자알림 주석처리
+//		try {
+//		sensSms.sendSMS(laundryOrder.getContactNumber().trim(), "[Rundering]\n고객님의 세탁물이 "+status+"되었습니다.\n주문내역에서 확인해주세요.");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override

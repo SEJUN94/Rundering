@@ -20,6 +20,7 @@ import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.dto.LaundryFixturesVO;
 import com.rundering.dto.LaundryGoodsStockVO;
 import com.rundering.dto.MemberVO;
+import com.rundering.util.SensSms;
 import com.rundering.util.UserSha256;
 
 public class BranchApplicationServiceImpl implements BranchApplicationService{
@@ -58,6 +59,10 @@ public class BranchApplicationServiceImpl implements BranchApplicationService{
 	public void setMailSendService(MailSendService mailSendService) {
 		this.mailSendService = mailSendService;
 	}
+	private SensSms sensSms;
+	public void setSensSms(SensSms sensSms) {
+		this.sensSms = sensSms;
+	}
 	
 	
 	
@@ -95,21 +100,34 @@ public class BranchApplicationServiceImpl implements BranchApplicationService{
 	@Override
 	public void updateRejectContent(BranchApplicationVO branchApplication) throws Exception{
 		branchApplicationDAO.updateApprovalreturnContentsByBranchApplicationVO(branchApplication);
+		sendMesage(branchApplication.getPhone());
 	}
 	@Override
 	public void updateApproval(BranchApplicationVO branchApplication) throws Exception{
 		branchApplicationDAO.updateApprovalreturnYByBranchApplicationVO(branchApplication);
+		sendMesage(branchApplication.getPhone());
 	}
 
 	@Override
 	public void updateExamination(BranchApplicationVO branchApplication,EmployeesVO emp) throws Exception {
 		branchApplicationDAO.updateExaminationByBranchApplicationVO(branchApplication);
-		
+		sendMesage(branchApplication.getPhone());
 	}
 	@Override
 	public void updateVoluntaryCheck(BranchApplicationVO branchApplication) throws Exception{
 		branchApplicationDAO.updateProgressStatusCode08ByBranchApplicationVO(branchApplication);
+		sendMesage(branchApplication.getPhone());
 	}
+	
+	private void sendMesage(String phoneNum) {
+		//주석
+//		try {
+//		sensSms.sendSMS(phoneNum.trim(), "[Rundering]\n지점신청 처리상태가 변경되었습니다.\n지점신청확인에서 확인해주세요.");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+	}
+	
 	@Override
 	public String selectBranchCode(String area) throws Exception{
 		String maxBranchCode = branchDAO.selectBranchCodeByArea(area);
@@ -165,7 +183,12 @@ public class BranchApplicationServiceImpl implements BranchApplicationService{
 			
 			mailSendService.sendIdPwMail(emp.getMemberno());
 			
-			
+			//고객문자알림 주석
+//			try {
+//				sensSms.sendSMS(member.getPhone().trim(), "[Rundering]\n지점등록이 완료되었습니다.\n이메일을 확인해주세요.");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

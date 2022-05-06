@@ -75,6 +75,11 @@
 		where faqno=#{faqno}
 			and a.writer = b.memberno
 	</select>
+	<select id="selectOriginalFAQByFaqno" parameterType="int" resultMap="faqMap">
+		select *
+		from tb_faq
+		where faqno=#{faqno}
+	</select>
 
 	<select id="selectFAQSequenceNextValue" resultType="int">
 		select

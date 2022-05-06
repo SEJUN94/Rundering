@@ -75,4 +75,9 @@ public class FAQDAOImpl implements FAQDAO {
 		session.update("FAQ-mapper.deleteFrequently", faqno);
 	}
 
+	@Override
+	public FAQVO selectOriginalFAQByFaqno(int faqno) throws SQLException {
+		return session.selectOne("FAQ-mapper.selectOriginalFAQByFaqno", faqno);
+	}
+
 }
