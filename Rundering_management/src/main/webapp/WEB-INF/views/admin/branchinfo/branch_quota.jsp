@@ -133,7 +133,7 @@
 
 		<div style="width: 49%; font-size:0.9em;" class="card p-0">
 			<div class="card-body" style="height:300px;">
-				<table border="1" class="table table-sm">
+				<table border="1" class="table table-sm throughputTable">
 					<thead>
 						<tr>
 							<th style="width:112px;">날짜</th>
@@ -145,7 +145,7 @@
 					<tbody>
 						<c:forEach begin="1" end="7">
 							<tr>
-								<td class="week">d</td>
+								<td class="week"></td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -161,7 +161,7 @@
 window.addEventListener('load', onloadWeek);
 function onloadWeek(data){
 	var now = moment(todayDate.value, "YYYY-MM-DD");
-	console.log(data);
+	//console.log(data);
 	for(var i=0; i<7; i++){
 		document.querySelectorAll('tr .week')[i].innerHTML = now.format('YYYY-MM-DD');
 		now.subtract(1, "days").format('YYYY-MM-DD');
@@ -226,7 +226,6 @@ function getWeeksBranchThroughput(branchCode){
 		},
 		type : 'post',
 		success : function(data) {
-			console.log(data);
 			a=time(data[0].date)
 			b=time(data[1].date)
 			c=time(data[2].date)
@@ -244,6 +243,8 @@ function getWeeksBranchThroughput(branchCode){
 			chart(a,b,c,d,e,f,g,data1,data2,data3,data4,data5,data6,data7)
 			
 			
+			updateTable(data);
+			
 		},
 		error : function(error) {
 			AjaxErrorSecurityRedirectHandler(error.status);
@@ -255,7 +256,20 @@ function time(timeValue){
     var year=dateObj.getFullYear();
     var month=dateObj.getMonth()+1;
     var date=dateObj.getDate();
-    return year+"/"+month+"/"+date;
+    return year+"-"+month+"-"+date;
+}
+
+//테이블에 값 넣기
+function updateTable(data){
+ 	const throughputTable = document.querySelectorAll('.throughputTable tbody tr');
+ 	throughputTable.forEach(
+ 			  function(el, Index) {
+ 				 const newIndex = 6-Index;
+ 				 el.children[1].innerText = data[newIndex].laundryQuota;
+ 				 el.children[2].innerText = data[newIndex].totalThroughput;
+ 				 el.children[3].innerText = Math.floor(data[newIndex].totalThroughput / data[newIndex].laundryQuota * 100);
+ 			  }
+	);
 }
 </script>
 
