@@ -84,4 +84,11 @@ public class FAQServiceImpl implements FAQService {
 	public void remove(int faqno) throws SQLException {
 		faqDAO.deleteFrequently(faqno);
 	}
+	
+	// 자주묻는질문 등록(아코디언)
+	@Override
+	public void insertQnA(FAQVO faq) throws Exception {
+		faqDAO.insertQnA(faq);
+	}
+	
 }

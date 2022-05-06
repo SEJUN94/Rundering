@@ -32,5 +32,26 @@ public class AttachService {
 		}
 		return atchFileNo;
 	}
+	
+	// 계약서 신청 파일 수정
+	public void updateToContractFile(AttachVO attach) throws Exception{
+		attachDAO.updateToContractFile(attach);
+	}
+	
+	// 지점 신청 계약서 첨부파일 추가(등록)
+	public void insertContractFile(AttachVO attach) throws Exception{
+		int seq = attachDAO.getAttachNoSeq(attach.getAtchFileNo());
+		
+		attach.setAtchFileSeq(++seq);
+		
+		attachDAO.insertAttach(attach);
+	}
+	
+	// 파일다운로드를 위한 해당 파일의 정보가져오기
+	public AttachVO selectAttachByBizType(AttachVO attach) throws Exception {
+		attach = attachDAO.selectAttachByBizType(attach);
+		
+		return attach;
+	}
 
 }

@@ -26,4 +26,8 @@ public interface FAQService {
 	
 	// 아코디언 삭제
 	void remove(int faqno) throws SQLException;
+	
+	// 자주묻는질문 등록(아코디언)
+	public void insertQnA(FAQVO faq) throws Exception;
+		
 }

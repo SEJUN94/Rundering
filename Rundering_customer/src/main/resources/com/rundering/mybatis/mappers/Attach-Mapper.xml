@@ -31,6 +31,13 @@
 		 where ATCH_FILE_NO = #{atchFileNo}
 	</select>
 	
+	<select id="selectAttachByBizType" resultMap="attachMap">
+		select *
+		  from TB_ATTACH_FILE
+		 where ATCH_FILE_NO = #{atchFileNo}
+		 and BIZ_TYPE = #{bizType}
+	</select>
+	
 	
 	<update id="insertAttach" parameterType="attach">
 		INSERT INTO TB_ATTACH_FILE
@@ -57,10 +64,29 @@
 		)
 	</update>
 	
+	<update id="updateToContractFile" parameterType="attach">
+		update TB_ATTACH_FILE
+		set 
+		UPD_DATE = sysdate
+		,FILE_PATH = #{filePath}
+		,FILE_NM = #{fileNm}
+		,SAVE_FILE_NM = #{saveFileNm}
+		,FILE_CONT_TYPE = #{fileContType}
+		where ATCH_FILE_NO = #{atchFileNo}
+		and BIZ_TYPE = #{bizType}
+	</update>
+	
+	
 	<delete id="deleteAttchFileRemoveByFileNo">
 		DELETE FROM TB_ATTACH_FILE
 		 WHERE
 	    ATCH_FILE_NO = #{atchFileNo}
 	</delete>
+	
+	<select id="getAttachNoSeq" parameterType="str" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_ATTACH_FILE
+		WHERE ATCH_FILE_NO = #{atchFileNo}
+	</select>
   
 </mapper>

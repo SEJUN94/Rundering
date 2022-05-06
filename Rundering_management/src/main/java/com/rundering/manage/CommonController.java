@@ -3,6 +3,7 @@ package com.rundering.manage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -20,8 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.MemberAddCommand;
+import com.rundering.dto.BranchVO;
 import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
+import com.rundering.service.BranchService;
 import com.rundering.service.MemberAddressService;
 import com.rundering.service.MemberService;
 import com.rundering.util.FormatUtil;
@@ -38,15 +41,23 @@ public class CommonController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private BranchService branchService;
+	
 	@Resource(name="memberAddressService")
 	private MemberAddressService memberAddressService;
 	
 	
 	@RequestMapping("/common/application")
-	public String application() {
+	public ModelAndView application(ModelAndView mnv) throws Exception {
 		String url = "common/worker_register";
 		
-		return url;
+		List<BranchVO> branchList = branchService.getBranchList();
+		
+		mnv.addObject("branchList", branchList);
+		mnv.setViewName(url);
+		
+		return mnv;
 		
 	}
 	

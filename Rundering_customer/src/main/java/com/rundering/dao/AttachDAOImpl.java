@@ -35,5 +35,23 @@ public class AttachDAOImpl implements AttachDAO{
 	public void deleteAttchFileRemoveByFileNo(String fileNo) throws Exception{
 		session.delete("Attach-Mapper.deleteAttchFileRemoveByFileNo", fileNo);
 	}
+	
+	//계약서 첨부 파일 수정
+	@Override
+	public void updateToContractFile(AttachVO attach) throws Exception {
+		session.update("Attach-Mapper.updateToContractFile" , attach);
+	}
+	
+	//첨부파일 시퀀스 가져오기
+	@Override
+	public int getAttachNoSeq(String atchFileNo) throws Exception {
+		return session.selectOne("Attach-Mapper.getAttachNoSeq", atchFileNo);
+	}
+	
+	// 파일다운로드를 위한 해당 파일의 정보가져오기
+	@Override
+	public AttachVO selectAttachByBizType(AttachVO attach) throws Exception {
+		return session.selectOne("Attach-Mapper.selectAttachByBizType", attach);
+	}
 
 }
