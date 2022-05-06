@@ -69,7 +69,7 @@
 			<c:if test="${comCodeMap[itemOrder.itemOrderStatus] eq '미수령' }">
 				<button type="button" class="btn btn-primary btn-m" onclick="ItemOrderUpdate('${itemOrder.ordercode}')">수령</button>
 			</c:if>
-			<button type="button" class="btn btn-danger btn-m" onclick="history.go(-1);">닫기</button>
+			<button type="button" class="btn btn-danger btn-m" onclick="window.close();">닫기</button>
 		</div>
 	</div>
 	<div id="formTag"></div>
