@@ -59,7 +59,7 @@
            AND E.COM_CODE_NM='지점장'
            AND B.BRANCH_CODE=C.BRANCH_CODE
            AND C.MEMBERNO=D.MEMBERNO
-           <!-- 		   and TO_CHAR(A.LDATE,'YYYY/MM/DD')=TO_CHAR(SYSDATE,'YYYY/MM/DD') -->
+           AND A.LDATE >= TO_CHAR(SYSDATE-7,'YYYYMMDD')
            <include refid="search" />
 		 order by A.LDATE desc
 	</select>
@@ -124,6 +124,15 @@
 		  from TB_LAUNDRY_THROUGHPUT
 		 where LDATE=#{date} 
 		 order by LDATE desc
+	</select>
+	
+<!-- 	//표 리스트 출력(일자별) -->
+	<select id="selectWeeksBranchLaundryThroughPut" resultMap="laundryThroughputMap" parameterType="laundryThroughput">
+		  	SELECT *
+		  FROM TB_LAUNDRY_THROUGHPUT
+		 WHERE BRANCH_CODE=#{branchCode}
+		   AND TO_CHAR(LDATE,'YYYY/MM/DD') BETWEEN to_char(#{date}-6,'YYYY/MM/DD')
+         AND TO_CHAR(#{date},'YYYY/MM/DD')
 	</select>
 	
 </mapper>

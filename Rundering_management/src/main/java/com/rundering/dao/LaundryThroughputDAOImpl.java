@@ -67,4 +67,10 @@ public class LaundryThroughputDAOImpl implements LaundryThroughputDAO{
 		List<LaundryThroughPutVO> branchTableList = session.selectList("LaundryThroughput-Mapper.changeDateBranchQuotaTable", date);
 		return branchTableList;
 	}
+
+	@Override
+	public List<LaundryThroughPutVO> selectWeeksBranchLaundryThroughPut(LaundryThroughPutVO throughPutVO) {
+		List<LaundryThroughPutVO> branchLaundryThroughPutList = session.selectList("LaundryThroughput-Mapper.selectWeeksBranchLaundryThroughPut", throughPutVO);
+		return branchLaundryThroughPutList;
+	}
 }

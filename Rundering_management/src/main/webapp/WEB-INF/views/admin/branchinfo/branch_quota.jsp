@@ -7,6 +7,9 @@
 <c:set value="${dataMap.pageMaker }" var="pageMaker"></c:set>
 <c:set value="${dataMap.pageMaker.cri }" var="cri"></c:set>
 <c:set value="${dataMap.throughputList }" var="throughputList"></c:set>
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+
 
 <style>
 </style>
@@ -71,8 +74,10 @@
 							</tr>
 						</c:if>
 						<c:forEach items="${throughputList }" var="throughput">
+						<fmt:formatDate value="${throughput.date}" pattern="yyyy-MM-dd" var="throughputDate"/>
+						<c:if test="${today == throughputDate}">
 							<tr
-								onclick="branchTable('${throughput.branchCode }');"
+								onclick="getWeeksBranchThroughput('${throughput.branchCode }');"
 								style="cursor: pointer;">
 								<td>${throughput.name }</td>
 								<td>${throughput.branchName }</td>
@@ -106,6 +111,7 @@
 										onclick="window.open('<%=request.getContextPath()%>/admin/branchinfo/infodetail?branchCode=${throughput.branchCode } ','지점상세', 'width=800, height=800')">세탁상세</button>
 								</td>
 							</tr>
+							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>
@@ -153,8 +159,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
 window.addEventListener('load', onloadWeek);
-function onloadWeek(){
+function onloadWeek(data){
 	var now = moment(todayDate.value, "YYYY-MM-DD");
+	console.log(data);
 	for(var i=0; i<7; i++){
 		document.querySelectorAll('tr .week')[i].innerHTML = now.format('YYYY-MM-DD');
 		now.subtract(1, "days").format('YYYY-MM-DD');
@@ -173,8 +180,8 @@ document.querySelector('#todayDate').setAttribute("max", todayDate.value);
 				'branchCode' : branchCode
 			},
 			type : 'post',
-			success : function(ok) {
-				onloadWeek();
+			success : function(data) {
+				onloadWeek(data);
 			},
 			error : function(error) {
 				AjaxErrorSecurityRedirectHandler(error.status);
@@ -191,8 +198,8 @@ function changeDate(cDate){
 			'date' : cDate.value
 		},
 		type : 'post',
-		success : function(ok) {
-			onloadWeek();
+		success : function(data) {
+			onloadWeek(data);
 		},
 		error : function(error) {
 			AjaxErrorSecurityRedirectHandler(error.status);
@@ -201,6 +208,31 @@ function changeDate(cDate){
 }
 
 </script>
+
+<script>
+//지점번호와 날짜로 날짜기준으로 일주일 전까지의 데이터 가져오기
+function getWeeksBranchThroughput(branchCode){
+	
+	  const todayDate = document.querySelector('#todayDate');
+	
+	$.ajax({
+		url : '<%=request.getContextPath()%>/admin/branchinfo/getWeeksBranchThroughput',
+		data : {
+			'date' : todayDate.value,
+			'branchCode' : branchCode
+		},
+		type : 'post',
+		success : function(data) {
+			console.log(data);
+			//onloadWeek(data);
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
+</script>
+
 <script>
 var CHARTEX = $('#canvas');
 var barChartExample = new Chart(CHARTEX , {
@@ -208,7 +240,7 @@ var barChartExample = new Chart(CHARTEX , {
     data: {
         labels: [1, 2,3, 4, 5, 6, 7 ],
         datasets: [{
-                label: "세탕량(%)",
+                label: "세탁량(%)",
                 data: [15, 60, 56, 60, 6, 45, 1],
                 backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 borderColor: 'rgba(54, 162, 235, 1)',

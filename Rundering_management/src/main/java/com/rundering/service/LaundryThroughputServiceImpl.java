@@ -72,4 +72,9 @@ public class LaundryThroughputServiceImpl implements LaundryThroughputService{
 		
 		return branchTableList;
 	}
+
+	@Override
+	public List<LaundryThroughPutVO> getWeeksBranchThroughput(LaundryThroughPutVO throughPutVO) {
+		return laundryThroughputDAO.selectWeeksBranchLaundryThroughPut(throughPutVO);
+	}
 }

@@ -21,5 +21,7 @@ public interface LaundryThroughputDAO {
 	public List<LaundryThroughPutVO> branchQuotaTable(String branchCode) throws Exception;
 	//표 리스트 출력(일자별)
 	public List<LaundryThroughPutVO> branchTableDate(String date) throws Exception;
+	//branchCode 와 date를 입력받아 입력받은 날로부터 일주일 처리량 가져오기
+	public List<LaundryThroughPutVO> selectWeeksBranchLaundryThroughPut(LaundryThroughPutVO throughPutVO);
 	
 }

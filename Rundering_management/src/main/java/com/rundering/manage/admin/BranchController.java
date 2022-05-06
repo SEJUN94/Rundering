@@ -1,5 +1,7 @@
 package com.rundering.manage.admin;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.AppCriteria;
@@ -65,7 +68,7 @@ public class BranchController {
 		String url="/admin/branchinfo/branch_quota_detail";
 		
 		Map<String, Object> dataMap = laundryThroughputService.getLaundryQuatoByThroughputNo(throughputNo);
-		
+
 		//mnv.addObject("throughput",throughput);
 		mnv.addObject("dataMap",dataMap);
 		mnv.setViewName(url);
@@ -95,6 +98,24 @@ public class BranchController {
 		try {
 			List<LaundryThroughPutVO> branchTableList = laundryThroughputService.branchTableDate(date);
 			entity = new ResponseEntity<List<LaundryThroughPutVO>>(branchTableList, HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<List<LaundryThroughPutVO>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = "/getWeeksBranchThroughput", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public ResponseEntity<List<LaundryThroughPutVO>> getBranchThroughput(String branchCode, String date) throws Exception{
+		ResponseEntity<List<LaundryThroughPutVO>> entity = null;
+		try {
+			LaundryThroughPutVO throughPutVO = new LaundryThroughPutVO();
+			throughPutVO.setBranchCode(branchCode);
+			SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
+			Date datetype = formatter.parse(date);
+			throughPutVO.setDate(datetype);
+			List<LaundryThroughPutVO> branchLaundryThroughList = laundryThroughputService.getWeeksBranchThroughput(throughPutVO);
+			entity = new ResponseEntity<List<LaundryThroughPutVO>>(branchLaundryThroughList, HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<List<LaundryThroughPutVO>>(HttpStatus.INTERNAL_SERVER_ERROR);

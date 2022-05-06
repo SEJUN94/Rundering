@@ -198,7 +198,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		comCodeUtil.getUpperCodeMap("ORDER_STATUS", orderCodeMap, comCodeDAO);
 		comCodeUtil.getCodeMap("AREA", areaCodeMap, comCodeDAO);
 		
-		List<BranchVO> branchList = branchDAO.selectBranchList();
+		List<BranchVO> branchList = branchDAO.selectAvailableBranchList();
 		for (BranchVO branchVO : branchList) {
 			branchNameMap.put(branchVO.getBranchCode(), branchVO.getBranchName());
 		}
