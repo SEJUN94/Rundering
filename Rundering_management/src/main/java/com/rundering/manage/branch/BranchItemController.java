@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.BranchCriteria;
+import com.rundering.command.BranchPageMaker;
+import com.rundering.command.PageMaker;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
@@ -75,7 +77,6 @@ public class BranchItemController {
 		
 		try {
 			 dataMap = itemService.itemOutList(cri, "");
-			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,6 +84,42 @@ public class BranchItemController {
 		resp=  new ResponseEntity<Map<String,Object>>(dataMap,HttpStatus.OK);	
 		
 		return resp;
+	}
+	@RequestMapping("outcancel")
+	@ResponseBody
+	private ResponseEntity<String> outCancel(String outItemCode,BranchCriteria cri,HttpSession session,String page){
+		ResponseEntity<String> resp = null;
+		try {
+			itemService.updateSupplyCountCancel(outItemCode);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		EmployeesVO emp=(EmployeesVO) session.getAttribute("loginEmployee");
+		cri.setBranchCode( emp.getBranchCode());
+		cri.setPerPageNum(4);
+		Map<String, Object> dataMap = null;
+		
+		try {
+			dataMap=itemService.itemOutList(cri, "");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int pageInt = Integer.parseInt(page);
+		
+		BranchPageMaker pageMaker = (BranchPageMaker) dataMap.get("pageMaker");
+		
+		int realEndPage = pageMaker.getRealEndPage();
+		if (pageInt > realEndPage) {
+			pageInt = realEndPage;
+			page =String.valueOf(pageInt);
+		}
+		
+		resp = new ResponseEntity<String>(page,HttpStatus.OK);
+		
+		return resp;
+		
 	}
 	
 	@RequestMapping("/detail")

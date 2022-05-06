@@ -26,18 +26,20 @@
                                     	출고일
                                 </th>
                                 <th style="text-align: center;">출고량</th>
-                                <th>출고취소</th>
+                                <th style="text-align: center;"> 취소</th>
                             </tr>
                         </thead>
                         <tbody>
                                   {{#each itemOutList}}
                                     <tr>
-                                        <td >{{laundryArticlesName articlesCode}} </td>
+                                        <td >{{outlaundryArticlesName articlesCode}} </td>
                                         <td style="text-align: center">
-                                        	{{prettifyDate outDate}}
+                                        	{{outprettifyDate outDate}}
                                         </td>
-                                        <td style="text-align: right;">{{itemcount }}({{laundryArticlesEach articlesCode}})</td>
-                                        <td>취소</td>
+                                        <td style="text-align: right;">{{itemcount }}({{outlaundryArticlesEach articlesCode}})</td>
+                                        <td style="padding-top: 10px;padding-bottom: 5px; text-align:center;">
+											<button type="button" class="btn btn-sm btn-warning" data-outitemcode="{{outItemCode}}" onclick="cancle()">취소 </button>
+										</td>
                                     </tr>
 								 {{/each}}
                         </tbody>
@@ -50,12 +52,12 @@
 <script type="text/x-handlebars-template" id="out_pagination-template" >
 <nav aria-label="Navigation" id="OutpageItem">
 <ul class="pagination justify-content-center m-0">
-<li class="paginate_button page-item" onclick="numberChange(1)">
+<li class="paginate_button page-item" onclick="out_numberChange(1)">
    <a href="javascript:out_page_go('{{outpageurl 1}}')" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
       <i class='fas fa-angle-double-left'></i>
    </a>
 </li>
-<li class="paginate_button page-item">
+<li class="paginate_button page-item" onclick="out_numberChange({{#if prev}} {{prevPageNum}} {{/if}})">
    <a href="javascript:out_page_go('{{#if prev}}{{outpageurl prevPageNum}}{{/if}}')" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
       <i class='fas fa-angle-left'></i>
    </a>
@@ -63,19 +65,19 @@
 </li>
 {{url}}
 {{#each pageNum}}
-<li class="paginate_button page-item {{signActive this}}" onclick="numberChange({{this}})">
+<li class="paginate_button page-item {{outsignActive this}}" onclick="out_numberChange({{this}})">
    <a href="javascript: out_page_go('{{outpageurl this}}')" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
       {{this}}
    </a>
 </li>
 {{/each}}
 
-<li class="paginate_button page-item" onclick="numberChange({{#if next}}{{nextPageNum}}{{/if}})" >
+<li class="paginate_button page-item" onclick="out_numberChange({{#if next}}{{nextPageNum}}{{/if}})" >
    <a href="javascript:out_page_go('{{#if next}}{{outpageurl nextPageNum}}{{/if}}')" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
       <i class='fas fa-angle-right'></i>
    </a>
 </li>
-<li class="paginate_button page-item" onclick="numberChange({{realEndPage}})">
+<li class="paginate_button page-item" onclick="out_numberChange({{realEndPage}})">
    <a href="javascript:out_page_go('{{outpageurl realEndPage}}')" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
       <i class='fas fa-angle-double-right'></i>
    </a>
@@ -85,7 +87,29 @@
 </script>
 
 <script >
-let out_page= 1;
+let out_page=1;
+
+function cancle(){
+	let outItemCode= event.target.dataset.outitemcode;
+	console.log(outItemCode)
+	
+	$.ajax({
+		url : '<%=request.getContextPath()%>/branch/item/outcancel',
+		type : 'get',
+		data:{
+			outItemCode:outItemCode,
+			page:out_page
+		},
+		success : function(data) {
+			console.log(data);
+			out_page=data;
+			out_page_go("<%=request.getContextPath()%>/branch/item/outlist?page="+out_page);
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
 
 
 
@@ -98,6 +122,8 @@ function out_page_go(url){
 } 
 function out_numberChange(number){
 	out_page=number;
+	
+	
 }
 function out_List(pageInfo){
 	$.ajax({
@@ -120,6 +146,9 @@ function out_List(pageInfo){
 			let laundryArticlesMap ={}
 			
 			console.log(dataMap);
+			
+			
+			
 			for(let i of laundryArticlesList){
 				laundryArticlesMap[i.articlesCode]=i;
 				
@@ -130,19 +159,28 @@ function out_List(pageInfo){
 		    for(let i=0; i<pageMaker.endPage-pageMaker.startPage+1;i++){
 		        pageNumArray[i]=pageMaker.startPage+i;
 	    	}
-		
+		  
 			
 			pageMaker.pageNum=pageNumArray;
    			pageMaker.prevPageNum=pageMaker.startPage-1;
             pageMaker.nextPageNum=pageMaker.endPage+1;
             
             Handlebars.registerHelper({
+            	  "outsignActive":function(pageNum){
+            		  
+ 					 if(pageNum == out_page) return 'active';
+ 			   }, "outprettifyDate":function(timeValue){
+             	      var dateObj=new Date(timeValue);
+             	      var year=dateObj.getFullYear();
+             	      var month=dateObj.getMonth()+1;
+             	      var date=dateObj.getDate();
+             	      return year+"/"+month+"/"+date;
+             	},
                "outpageurl":function(pageNum){
-            	   out_numberChange(pageNum);
-            	   return "<%=request.getContextPath()%>/branch/item/outlist?page="+out_page;
-               },"laundryArticlesName":function(articlesCode){
+            	   return "<%=request.getContextPath()%>/branch/item/outlist?page="+pageNum;
+               },"outlaundryArticlesName":function(articlesCode){
             		return laundryArticlesMap[articlesCode].articlesName;
-            	},"laundryArticlesEach":function(articlesCode){
+            	},"outlaundryArticlesEach":function(articlesCode){
             		return laundryArticlesMap[articlesCode].each;
             	}
 			});

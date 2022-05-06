@@ -97,6 +97,14 @@
 		   and articles_code=#{articlesCode} 
 	</update>
 	
+	<update id="updateLaundryGoodsStockSupplyCountPlusByVO" parameterType="laundrygoodsstock">
+		update tb_laundry_goods_stock
+		   set supply_count=supply_count+#{supplyCount}
+		 where branch_code=#{branchCode}
+		   and articles_code=#{articlesCode} 
+	</update>
+	
+	
 	
 	
 	

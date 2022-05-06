@@ -61,6 +61,10 @@ public class LaundryGoodsStockDAOImpl implements LaundryGoodsStockDAO{
 	public int selectSupplyCountByVO(LaundryGoodsStockVO laundryGoodsStock) throws Exception {
 		return session.selectOne("LaundryGoodsStock-Mapper.selectSupplyCountByVO",laundryGoodsStock);
 	}
+	@Override 
+	public void updateLaundryGoodsStockSupplyCountPlusByVO(LaundryGoodsStockVO laundryGoodsStock) throws Exception{
+		session.selectOne("updateLaundryGoodsStockSupplyCountPlusByVO", laundryGoodsStock);
+	}
 
 
 }

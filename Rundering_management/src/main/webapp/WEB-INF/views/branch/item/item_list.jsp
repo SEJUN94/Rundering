@@ -22,18 +22,7 @@
 		</div>
 	</div>
 </section>
-
-    <div class="card-secondary  ml-3 mr-3 row">
-    	<div class="col-6" style="padding-left: 0px;" id="appenRegist">
-        
-          </div>
-    
-    	<div class="col-6" style="padding-right: 0px;" id="appendOut">
-        
-        
-        </div>
-    </div>
-    	<div class=" ml-3 mr-3 ">
+	<div class=" ml-3 mr-3 ">
        		 <div class="card  p-0" style="padding-bottom: 10px;margin-bottom: 10px;">
                 <div class="card-header">
                    <h2 style="height: 20px;" class="card-title">
@@ -76,16 +65,31 @@
 				<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 			</div>
 		</div>
-      </div>
+     </div>
+
+
+    <div class="card-secondary  ml-3 mr-3 row">
+    	<div class="col-6" style="padding-left: 0px;" id="appenRegist">
+        
+          </div>
+     	<div class="col-6" style="padding-right: 0px;" id="appendOut">
+        
+        
+        </div>
+    	
+    </div>
+   
     <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
     <%@ include file="./regist_list.jsp" %>
     <%@ include file="./out_list.jsp" %>
 <script>
+
+
 window.onload=function(){
-	registList("<%=request.getContextPath()%>/branch/item/insertList?page="+page);
-	out_List("<%=request.getContextPath()%>/branch/item/outlist?page="+out_page);
+	registList("<%=request.getContextPath()%>/branch/item/insertList?page="+page)
+	out_List('<%=request.getContextPath()%>/branch/item/outlist?page='+out_page)
 	
-}   
+}
 
 function minusQuantity(){
 	let input =event.target.parentNode.parentNode.querySelectorAll('.inputValue')[0]

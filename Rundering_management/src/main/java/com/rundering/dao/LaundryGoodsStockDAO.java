@@ -16,6 +16,7 @@ public interface LaundryGoodsStockDAO {
 	public void updateLaundryGoodsStockAutoOrderCountByVO(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 	void updateLaundryGoodsStockSupplyCountByVO(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 	public int selectSupplyCountByVO(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
+	void updateLaundryGoodsStockSupplyCountPlusByVO(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 
 }
  

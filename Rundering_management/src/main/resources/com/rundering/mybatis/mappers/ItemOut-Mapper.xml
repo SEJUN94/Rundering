@@ -5,10 +5,10 @@
   <mapper namespace="ItemOut-Mapper">
   <resultMap type="itemOut" id="itemOutMap">
 		<result column="ARTICLES_CODE"  property="articlesCode"/>
-		<result column="INSERT_DATE"  property="insertDate"/>
+		<result column="OUT_DATE"  property="outDate"/>
 		<result column="ITEM_COUNT"  property="itemCount"/>
 		<result column="BRANCH_CODE"  property="branchCode"/>
-		<result column="ORDER_NO"  property="orderNo"/>
+		<result column="OUT_ITEM_CODE"  property="outItemCode"/>
 	</resultMap>
 	
 	
@@ -25,8 +25,13 @@
 		  from tb_item_out
 		 where branch_code=#{branchCode}
 		 ORDER BY out_date ASC 
-		    
 	</select>
+	<select id="selectItemOutByOutItemCode" parameterType="str" resultMap="itemOutMap">
+		select *
+		  from tb_item_out
+		 WHERE out_item_code=#{outItemCode} 
+	</select>
+	
 	
 	<insert id="insertItemOut" parameterType="itemOut">
 	insert into tb_item_out
@@ -36,7 +41,7 @@
 	BRANCH_CODE,
 	ITEMCOUNT
 	)values(
-		item_order_seq.nextval,
+		item_out_seq.nextval,
 		#{articlesCode},
 		#{branchCode},
 		#{itemcount}
