@@ -112,7 +112,6 @@
 						title: '수거 완료 처리 되었습니다.',
 					});
 					setTimeout(function(){location.href='<%=request.getContextPath()%>/fordelivery/pickup';},1000);
-		
 				},
 				error : function(error) {
 					Swal.fire({

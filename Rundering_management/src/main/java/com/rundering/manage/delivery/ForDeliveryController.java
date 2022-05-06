@@ -99,7 +99,7 @@ public class ForDeliveryController {
 		attach.setSaveFileNm(fileName);
 		attach.setFileSize(fileSize);
 		attach.setFilePath(deliveryPath);
-
+		
 		deliveryService.regist(laundryOrder, attach);
 		rttr.addFlashAttribute("from", "regist");
 

@@ -106,7 +106,8 @@
 			C.NAME as name,
 			C.PHONE as phone,
 			C.EMAIL as email,
-			A.ADD1 || ' ' || A.ADD2 as addr
+			A.ADD1 || ' ' || A.ADD2 as addr,
+			A.BRANCH_LNDRPCRYMSLMCOQY AS branchLndrpcrymslmcoqy
 		  from TB_BRANCH A, TB_EMPLOYEES B, TB_MEMBER C, TB_COM_CODE D
 		 WHERE B.POSITION = D.COM_CODE
            AND D.COM_CODE_NM='지점장'
@@ -143,4 +144,9 @@
           
 	</select>
 	
+	<update id="updateBranchLndrpcrymslmcoqy" parameterType="branch">
+		update TB_BRANCH
+		   set BRANCH_LNDRPCRYMSLMCOQY=#{branchLndrpcrymslmcoqy }
+		 where branch_code=#{branchCode }
+	</update>
 </mapper>

@@ -6,16 +6,20 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.AppCriteria;
 import com.rundering.command.BranchInfoDetailCommand;
+import com.rundering.dto.BranchVO;
+import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.LaundryThroughPutVO;
 import com.rundering.service.LaundryThroughputService;
 
@@ -75,6 +79,23 @@ public class BranchController {
 		
 		return mnv;
 	}
+	
+	@RequestMapping(value = "/autosavepoint",method = RequestMethod.POST)
+	@ResponseBody
+	private ResponseEntity<String> autosavepoint(BranchVO branch,HttpSession session) {
+		ResponseEntity<String> entity = null;
+		EmployeesVO emp=(EmployeesVO) session.getAttribute("loginEmployee");
+		branch.setBranchCode(emp.getBranchCode());
+		try {
+			laundryThroughputService.updateBranchLndrpcrymslmcoqy(branch);
+			entity = new ResponseEntity<String>(HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return entity;
+	}
+	
 	
 	@RequestMapping("/branchdata")
 	public ResponseEntity<List<LaundryThroughPutVO>> tableAndChart(String branchCode) throws Exception{
