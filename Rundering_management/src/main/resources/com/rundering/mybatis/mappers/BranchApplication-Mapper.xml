@@ -45,7 +45,8 @@
 	<update id="updateApprovalreturnYByBranchApplicationVO" parameterType="branchapplication">
 		update tb_branch_application
 		   set APPROVALRETURN_YN='Y',
-		   	   PROGRESS_STATUS_CODE='03'	
+		   	   PROGRESS_STATUS_CODE='03',
+		   	   CHARGER=#{charger}
 		 where APPLICATION_NO=#{applicationNo}
 	</update>
 	
