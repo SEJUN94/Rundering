@@ -27,16 +27,15 @@
 								</tr>
 							</thead>
 							
-							
-							
 							<tbody>
-							<tr style="cursor:pointer;" onclick="OpenWindow('detail.do?ordercode=221','상세보기',800,700);">
-							<td style="text-align: center;">221</td>
-							<td style="text-align: right;">30036원</td>
-							<td style="text-align: center;">2022-05-03</td>			
-							<td style="text-align: center;">
-								
-						</td></tr>
+							{{#each itemOrderList}}
+							<tr style="cursor:pointer;" onclick="OpenWindow('detail.do?ordercode={{ordercode}}','상세보기',800,700);">
+								<td style="text-align: center;">{{ordercode}}</td>
+								<td style="text-align: right;">{{itemOrderPaymentPrice}}</td>
+								<td style="text-align: center;">{{orderprettifyDate registDate}}</td>			
+								<td style="text-align: center;">{{itemOrderStatusName itemOrderStatus}}</td>
+							</tr>
+							{{/each}}
 					</tbody>
 					</table>
                 </div>
@@ -105,7 +104,6 @@ function order_List(pageInfo){
 		dataType : "json",
 		success : function(dataMap) {
 			
-			
 			let source = $("#order_list").html();
 			let pageSource = $("#order_pagination-template").html();
 			
@@ -115,10 +113,8 @@ function order_List(pageInfo){
 			let pageMaker=dataMap.pageMaker;
 			let cri=dataMap.pageMaker.cri;
 			let	itemOrderList =dataMap.itemOrderList;
-			
+			let comCodeMap = dataMap.comCodeMap;
 			console.log(dataMap);
-			
-			
 			
 			
 			let pageNumArray = new Array(pageMaker.endPage-pageMaker.startPage+1);
@@ -134,7 +130,7 @@ function order_List(pageInfo){
             Handlebars.registerHelper({
             	  "ordersignActive":function(pageNum){
             		  
- 					 if(pageNum == out_page) return 'active';
+ 					 if(pageNum == order_page) return 'active';
  			   }, "orderprettifyDate":function(timeValue){
              	      var dateObj=new Date(timeValue);
              	      var year=dateObj.getFullYear();
@@ -144,6 +140,8 @@ function order_List(pageInfo){
              	},
                "orderpageurl":function(pageNum){
             	   return "<%=request.getContextPath()%>/branch/item/orderlist?page="+pageNum;
+               },"itemOrderStatusName":function(itemOrderStatus){
+            	  return comCodeMap[itemOrderStatus];
                }
 			});
             

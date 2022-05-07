@@ -7,7 +7,7 @@
 	<div>
 		<div class="row ml-2 mr-2">
 			<div class="col-6">
-				<div class="card card-primary card-outline col-12" style="height: 805px;display: block; overflow: auto;">
+				<div class="card card-primary card-outline col-12" >
 					<div class="card-header ">
 						
 							<h3 class="card-title">물품리스트</h3>
@@ -21,7 +21,7 @@
 								</div>
 						
 					</div>
-					<div class="card-body p-0" >
+					<div class="card-body p-0" style="height: 683px;display: block; overflow: auto;" >
 						<table class="table table-hover ">
 							<thead id="listBody">
 								<tr>
@@ -54,7 +54,7 @@
 						</div>
 	
 					</div>
-					<div class="card-body p-0" >
+					<div class="card-body p-0"  >
 					<form action="regist" method="post" id="formOrder">
 						<table class="table table-hover " >
 							<thead>
@@ -120,10 +120,10 @@ function order_go(){
 			<img alt="" src="" onclick="imgclicknone()" class="articlesImg" data-fileno="{{atchFileNo}}" style="position: absolute;z-index:2; display:none;" width="300" height="300">
 			{{articlesName}} 
 		</td>
-			<td style="text-align: center;">분류
-			
+			<td style="text-align: center;">
+				{{articlesCodeMap clcode}}
 			</td>
-			<td style="text-align: center;">{{price}}</td>
+			<td style="text-align: right;">{{price}}원</td>
 			<td style="text-align: center; padding-top: 8px"><button type="button"	class="btn btn-primary btn-sm" onclick="getOrder()" >담기</button></td>
 		</tr>
 {{/laundryArticlesList}}
@@ -259,7 +259,7 @@ function orderGoodsList(pageInfo){
 		type : 'get',
 		dataType : "json",
 		success : function(dataMap) {
-			
+			console.log(dataMap)
 			
 			let source = $("#laundryArticlesList").html();
 			let pageSource = $("#pagination-template").html();
@@ -270,6 +270,8 @@ function orderGoodsList(pageInfo){
 			let pageMaker=dataMap.pageMaker
 			let cri=dataMap.pageMaker.cri 
 			let	laundryArticlesList =dataMap.laundryArticlesList
+			
+			console.log(laundryArticlesList[0].articlesCode)
 			
 			let pageNumArray = new Array(pageMaker.endPage-pageMaker.startPage+1);
 		    for(var i=0; i<pageMaker.endPage-pageMaker.startPage+1;i++){
@@ -289,7 +291,14 @@ function orderGoodsList(pageInfo){
                "pageurl":function(pageNum){
             	   
             	   return "<%=request.getContextPath()%>/branch/itemorder/orderGoodsList?page="+pageNum;
+               },"articlesCodeMap":function(code){
+            	   for(let i of dataMap.CLCODEList){
+            		   if(i.comCode==code) {
+            			   return i.comCodeNm
+            		   }
+            	   }
                }
+               
 			});
             
 			let data={
