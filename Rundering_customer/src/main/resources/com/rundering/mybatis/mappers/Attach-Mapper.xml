@@ -30,6 +30,13 @@
 		  from TB_ATTACH_FILE
 		 where ATCH_FILE_NO = #{atchFileNo}
 	</select>
+	
+	<select id="getContract" resultMap="attachMap">
+		select *
+		  from TB_ATTACH_FILE
+		 where ATCH_FILE_NO = '1'
+		 and BIZ_TYPE = '신청계약서'
+	</select>
 
 	<select id="getAttachForDownload" resultMap="attachMap" parameterType="attach">
 		SELECT *
@@ -70,6 +77,7 @@
 		,FILE_PATH = #{filePath}
 		,FILE_NM = #{fileNm}
 		,SAVE_FILE_NM = #{saveFileNm}
+		,FILE_SIZE = #{fileSize}
 		,FILE_CONT_TYPE = #{fileContType}
 		where ATCH_FILE_NO = #{atchFileNo}
 		and BIZ_TYPE = #{bizType}

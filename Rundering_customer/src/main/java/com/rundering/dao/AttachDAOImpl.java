@@ -53,5 +53,13 @@ public class AttachDAOImpl implements AttachDAO{
 	public AttachVO getAttachForDownload(AttachVO attach) throws Exception {
 		return session.selectOne("Attach-Mapper.getAttachForDownload", attach);
 	}
+	
+	// 계약서 파일을 가져오기
+	@Override
+	public List<AttachVO> getContract() throws Exception {
+		return session.selectList("Attach-Mapper.getContract");
+	}
+	
+	
 
 }

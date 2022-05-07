@@ -58,7 +58,11 @@
 				</tr>
 				<tr>
 					<td style="background-color:#EBF3FC">임대차계약서</td>
-					<td colspan="2">임대차 계약서 다운로드</td>
+					<td colspan="2">
+						<a href="<%=request.getContextPath()%>/branchapplication/file/filedownload?atchFileNo=${contractList[0].atchFileNo }&saveFileNm=11agc441da9843ca8g14a02321dfa5v6$$임대차계약서.pdf">
+						${contractList[0].fileNm }
+						</a>
+					</td>
 					<td colspan="3">
 						<c:if test="${bv.progressStatusCode ne '01'}" >
 						<a href="<%=request.getContextPath()%>/branchapplication/file/filedownload?atchFileNo=${bv.leasecontractFile}&saveFileNm=${avList[0].saveFileNm }">
@@ -140,7 +144,11 @@
 				<c:if test="${bv.progressStatusCode eq '06' || bv.progressStatusCode eq '07' || bv.progressStatusCode eq '08' || bv.progressStatusCode eq '09' || bv.progressStatusCode eq '10'}">
 				<tr>
 					<td style="background-color:#EBF3FC">수의계약서</td> 
-					<td colspan="2">수의계약서 양식다운로드</td>
+					<td colspan="2">
+						<a href="<%=request.getContextPath()%>/branchapplication/file/filedownload?atchFileNo=${contractList[1].atchFileNo }&saveFileNm=${contractList[1].saveFileNm }">
+						${contractList[1].fileNm }
+						</a>
+					</td>
 					<td colspan="3">
 						<c:if test="${bv.progressStatusCode eq '06'}">
 						 	<input id="inputFileName" type=text name="tempPicture" data-no="0"

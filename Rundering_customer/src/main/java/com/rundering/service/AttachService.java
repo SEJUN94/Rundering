@@ -19,10 +19,10 @@ public class AttachService {
 		return attachList;
 	}
 	
-	public List<AttachVO> contract(AttachVO av) throws Exception{
+	public List<AttachVO> contract() throws Exception{
 		List<AttachVO> contractList = new ArrayList<AttachVO>();
-		contractList  = attachDAO
-		
+		contractList = attachDAO.getContract();
+		return contractList;
 	} 
 
 	public void fileRemove(String fileNo) throws Exception {

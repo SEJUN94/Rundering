@@ -171,9 +171,11 @@ public class BranchApplicationController {
 		attach.setAtchFileNo(bv.getLeasecontractFile());
 
 		List<AttachVO> avList = attachService.getAttachVOList(attach.getAtchFileNo());
+		List<AttachVO> contractList = attachService.contract();
 
 		mnv.addObject("bv", bv);
 		mnv.addObject("avList", avList);
+		mnv.addObject("contractList", contractList);
 		mnv.setViewName(url);
 
 		return mnv;
