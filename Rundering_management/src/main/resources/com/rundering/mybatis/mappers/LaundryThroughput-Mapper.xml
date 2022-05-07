@@ -130,6 +130,7 @@
 	
 		SELECT 
 		    A.BRANCH_NAME as branchName,
+		    A.BRANCH_CODE as branchCode,
 		    C.NAME as name,
 		    ROUND(e.TOTAL_THROUGHPUT/e.LAUNDRY_QUOTA*100) AS branchLndrpcrymslmcoqy
 		  from TB_BRANCH A, TB_EMPLOYEES B, TB_MEMBER C, TB_COM_CODE D, TB_LAUNDRY_THROUGHPUT E

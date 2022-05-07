@@ -191,7 +191,7 @@ document.querySelector('#todayDate').setAttribute("max", todayDate.value);
 	}
 </script>
 <script>
-
+var selectDate = null
 function changeDate(cDate){
 	$.ajax({
 		url : '<%=request.getContextPath()%>/admin/branchinfo/datedata',
@@ -206,30 +206,39 @@ function changeDate(cDate){
 			}
 			console.log(data) 
 			let str= "";
-			for(let i=0; i<data.length; i++){
-				str+='<tr onclick="getWeeksBranchThroughput('+"${throughput.branchCode }"+');"style="cursor: pointer;" class="tableTr">'
-				str+="<td>"+data[i].name+"</td>";
-				str+="<td>"+data[i].branchName+"</td>";
-				str+="<td class='project_progress'>"
-				if(data[i].branchLndrpcrymslmcoqy <= 60 && data[i].branchLndrpcrymslmcoqy > 0){
-					str+="		<div class='progress progress-sm'>"
-					str+="				<div class='progress-bar bg-green' role='progressbar' aria-valuenow="+data[i].branchLndrpcrymslmcoqy+"aria-valuemin='0' aria-valuemax='100' style='width: "+data[i].branchLndrpcrymslmcoqy+"%'></div>"
-					str+="		</div>"
+			if(data.length!=0){
+				for(let i=0; i<data.length; i++){
+					str+='<tr onclick="getWeeksBranchThroughput('+data[i].branchCode+');"style="cursor: pointer;" class="tableTr">'
+					str+="<td>"+data[i].name+"</td>";
+					str+="<td>"+data[i].branchName+"</td>";
+					str+="<td class='project_progress'>"
+					if(data[i].branchLndrpcrymslmcoqy <= 60 && data[i].branchLndrpcrymslmcoqy > 0){
+						str+="		<div class='progress progress-sm'>"
+						str+="				<div class='progress-bar bg-green' role='progressbar' aria-valuenow="+data[i].branchLndrpcrymslmcoqy+"aria-valuemin='0' aria-valuemax='100' style='width: "+data[i].branchLndrpcrymslmcoqy+"%'></div>";
+						str+="		</div>";
+					}
+					if(data[i].branchLndrpcrymslmcoqy <= 80 && data[i].branchLndrpcrymslmcoqy > 60){
+						str+="		<div class='progress progress-sm'>"
+						str+="				<div class='progress-bar bg-warning' role='progressbar' aria-valuenow="+data[i].branchLndrpcrymslmcoqy+"aria-valuemin='0' aria-valuemax='100' style='width: "+data[i].branchLndrpcrymslmcoqy+"%'></div>";
+						str+="		</div>";
+					}
+					if(data[i].branchLndrpcrymslmcoqy <= 100 && data[i].branchLndrpcrymslmcoqy > 80){
+						str+="		<div class='progress progress-sm'>"
+						str+="				<div class='progress-bar bg-red' role='progressbar' aria-valuenow="+data[i].branchLndrpcrymslmcoqy+"aria-valuemin='0' aria-valuemax='100' style='width: "+data[i].branchLndrpcrymslmcoqy+"%'></div>";
+						str+="		</div>";
+					}
+					str+="	<small>"+ data[i].branchLndrpcrymslmcoqy+"%</small>"
+					str+="</td>"
+					str+="<td>"
+					alert("aa"+data[i].branchCode);
+					str+="	<button class='btn btn-warning btn-sm' onclick='troughput_detail(\""+data[i].branchCode+"\")'>상세보기</button>";
+					//str+="	<button class='btn btn-warning btn-sm' onclick='troughput_detail("+'"data[i].branchCode+")'>상세보기</button>";
+					str+="</td>";
+					str+="</tr>"
 				}
-				if(data[i].branchLndrpcrymslmcoqy <= 80 && data[i].branchLndrpcrymslmcoqy > 60){
-					str+="		<div class='progress progress-sm'>"
-					str+="				<div class='progress-bar bg-warning' role='progressbar' aria-valuenow="+data[i].branchLndrpcrymslmcoqy+"aria-valuemin='0' aria-valuemax='100' style='width: "+data[i].branchLndrpcrymslmcoqy+"%'></div>"
-					str+="		</div>"
-				}
-				if(data[i].branchLndrpcrymslmcoqy <= 100 && data[i].branchLndrpcrymslmcoqy > 80){
-					str+="		<div class='progress progress-sm'>"
-					str+="				<div class='progress-bar bg-red' role='progressbar' aria-valuenow="+data[i].branchLndrpcrymslmcoqy+"aria-valuemin='0' aria-valuemax='100' style='width: "+data[i].branchLndrpcrymslmcoqy+"%'></div>"
-					str+="		</div>"
-				}
-				str+="	<small>"+ data[i].branchLndrpcrymslmcoqy+"%</small>"
-				str+="</td>"
-				str+="<td><button class='btn btn-warning btn-sm' onclick="window.open('<%=request.getContextPath()%>/admin/branchinfo/infodetail?branchCode=${throughput.branchCode } ','지점상세', 'width=800, height=800')">세탁상세</button></td>";
-				str+="</tr>"
+				selectDate=cDate.value;
+			}else{
+				str+='<tr class="tableTr"><td colspan="4"><strong>해당 내용이 없습니다.</strong></td></tr>';
 			}
 			
 			document.querySelector('#tbody').innerHTML+=str;
@@ -240,6 +249,11 @@ function changeDate(cDate){
 	});
 }
 
+
+function troughput_detail(branchCode){
+	window.open('<%=request.getContextPath()%>/admin/branchinfo/infodetail?branchCode='+branchCode, '지점상세', 'width=800 height=800');
+}
+
 </script>
 
 <script>
@@ -247,10 +261,8 @@ function changeDate(cDate){
 function getWeeksBranchThroughput(branchCode){
 		document.querySelector("#canvas").remove;	
 		document.querySelector("#canvasTag").innerHTML='<canvas id="canvas"></canvas>'
-		
 	
 	  const todayDate = document.querySelector('#todayDate');
-	
 	$.ajax({
 		url : '<%=request.getContextPath()%>/admin/branchinfo/getWeeksBranchThroughput',
 		data : {
@@ -275,7 +287,6 @@ function getWeeksBranchThroughput(branchCode){
 			data7=data[6].totalThroughput
 			chart(a,b,c,d,e,f,g,data1,data2,data3,data4,data5,data6,data7)
 			
-			
 			updateTable(data);
 			
 		},
@@ -296,12 +307,12 @@ function time(timeValue){
 function updateTable(data){
  	const throughputTable = document.querySelectorAll('.throughputTable tbody tr');
  	throughputTable.forEach(
- 			  function(el, Index) {
- 				 const newIndex = 6-Index;
- 				 el.children[1].innerText = data[newIndex].laundryQuota;
- 				 el.children[2].innerText = data[newIndex].totalThroughput;
- 				 el.children[3].innerText = Math.floor(data[newIndex].totalThroughput / data[newIndex].laundryQuota * 100);
- 			  }
+		  function(el, Index) {
+			 const newIndex = 6-Index;
+			 el.children[1].innerText = data[newIndex].laundryQuota;
+			 el.children[2].innerText = data[newIndex].totalThroughput;
+			 el.children[3].innerText = Math.floor(data[newIndex].totalThroughput / data[newIndex].laundryQuota * 100);
+		  }
 	);
 }
 </script>
