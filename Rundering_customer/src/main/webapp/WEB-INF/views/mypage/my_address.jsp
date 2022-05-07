@@ -17,16 +17,17 @@
 
 <style>
 	#peter {
-		width: 250px;
+		width: 200px;
+		height: 450px;
 		list-style-type:none;
 		margin:0;
 		padding:0;
-		border:solid 1px black;
+		border:solid 1px #f3f3f3;
+		background-color:#f3f3f3;
 	}
 	aside ul li a{
 		color:#000000;
-		padding:10px;
-		font-size:1.2em;
+		font-size:1.1em;
 	}
 	li h1{
 	}
@@ -36,10 +37,10 @@
 
 
 <body>
-<div class="row" style="margin-left:10%;">
-	<aside style="padding-top:70px;">
+<div class="row"">
+	<aside style="padding-top:100px;">
 			<ul id="peter" style="">
-				<li style="margin-top:15px; padding-bottom:15px;border-bottom:solid 1px black;">
+				<li style="margin-top:15px; padding-bottom:15px;border-bottom:solid 1px lightgray;">
 					<h1 style="font-size:1.5em;text-align:center;">마이페이지</h1>
 				</li>
 				<li style="margin-top:30px; margin-bottom:15px; margin-left:30px;"><a>회원 정보 수정</a></li>
@@ -100,7 +101,7 @@
 												onchange="newAddr(this);" name="addressNo" class="토레타"
 												id="${memberAddress.addressNo}"> <label
 												for="${memberAddress.addressNo}" style="font-weight: 500;">주소${status.count }</label>
-												<button class="btn btn-danger btn-sm float-right" onclick="remove(${memberAddress.addressNo})">삭제</button>
+												<button class="btn btn-warning btn-sm float-right" onclick="remove(${memberAddress.addressNo})" style="background-color:#82BBD8; border-color:#82BBD8;" >삭제</button>
 										</div>
 									</c:if>
 								</c:forEach>
@@ -119,8 +120,8 @@
 									<input type="text" class="form-control" id="zip" name="zip"
 										placeholder="우편번호" readonly>
 									<div class="input-group-append">
-										<button type="button" id="modalBtn" class="btn btn-primary"
-											onclick="findZip();">주소검색</button>
+										<button type="button" id="modalBtn" class="btn btn-warning"
+											onclick="findZip();" style="background-color:#82BBD8; border-color:#82BBD8;">주소검색</button>
 									</div>
 								</div>
 								<div class="input-group mb-3">
