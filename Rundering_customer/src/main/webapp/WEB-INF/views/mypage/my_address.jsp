@@ -37,28 +37,33 @@
 
 
 <body>
-<div class="row"">
+<div class="row">
 	<aside style="padding-top:100px;">
 			<ul id="peter" style="">
 				<li style="margin-top:15px; padding-bottom:15px;border-bottom:solid 1px lightgray;">
 					<h1 style="font-size:1.5em;text-align:center;">마이페이지</h1>
 				</li>
-				<li style="margin-top:30px; margin-bottom:15px; margin-left:30px;"><a>회원 정보 수정</a></li>
-				<li style="margin-top:15px; margin-bottom:15px; margin-left:30px;"><a>주소 관리</a></li>
+				<li onclick="location.href='<%=request.getContextPath()%>/mypage'"
+					style="cursor: pointer; margin-top:30px; margin-bottom:15px; margin-left:30px;"><a>회원 정보 수정</a></li>
+				<li onclick="location.href='<%=request.getContextPath()%>/mypage/myaddress'"
+					style="cursor: pointer; margin-top:15px; margin-bottom:15px; margin-left:30px;"><a>주소 관리</a></li>
 				<li style="margin-top:15px; margin-bottom:15px; margin-left:30px;"><a>주문 내역</a>
 					<ul>
-						<li style="margin-top:5px; margin-bottom:5px;padding-left:15px;"><a>진행중인 세탁물</a></li>
-						<li style="margin-top:5px; margin-bottom:5px;padding-left:15px;"><a>배송 완료된 세탁</a></li>
-						<li style="margin-top:5px; margin-bottom:5px;padding-left:15px;"><a>결제 내역</a></li>
-						<li style="margin-top:5px; margin-bottom:5px;padding-left:15px;"><a>취소 내역</a></li>
+						<li style="margin-top:10px; margin-bottom:5px;padding-left:20px;"><a>진행중인 세탁물</a></li>
+						<li style="margin-top:10px; margin-bottom:5px;padding-left:20px;"><a>배송 완료된 세탁</a></li>
+						<li style="margin-top:10px; margin-bottom:5px;padding-left:20px;"><a>결제 내역</a></li>
+						<li style="margin-top:10px; margin-bottom:5px;padding-left:20px;"><a>취소 내역</a></li>
 					</ul>
 				</li>
-				<li style="margin-top:15px; margin-bottom:30px; margin-left:30px;"><a>회원 탈퇴</a></li>
+				<li onclick="location.href='<%=request.getContextPath()%>/mypage/myinquiry/list'"
+					style="cursor: pointer; margin-top:10px; margin-bottom:15px; margin-left:30px;"><a>문의 내역</a></li>
+				<li onclick="location.href='<%=request.getContextPath()%>/mypage/secedeform'"
+					style="cursor: pointer; margin-top:10px; margin-bottom:15px; margin-left:30px;"><a>회원 탈퇴</a></li>
 			</ul>
 	</aside>
 
 
-	<div style="width: 67%; display: flex; flex-direction: column;">
+	<div style="width: 55%; display: flex; flex-direction: column; margin-left: 50px; margin-top:10px;">
 
 		<section class="content-header">
 			<div class="container-fluid">
@@ -77,11 +82,10 @@
 			<hr style="border: 1px solid rgb(170, 167, 167);">
 		<form role="form" class="form-horizontal form" method="post">
 
-			<div class="card-body col-6" style="margin: auto; margin-top: 10px;">
+			<div class="card-body col-12">
 
-				<div class="form-group">
-					<label for="addr">주소지</label>
-					<div class="input-group" style="padding-top: 10px;">
+				<div class="form-group" style="padding-left:120px;">
+					<div class="input-group" style="width:400px;">
 						<div class="input-group" style="padding-right: 0;">
 							<div class="icheck-primary pt-3 pb-3 pl-1"
 								style="width: 100%; border-top: 1px solid rgba(0, 0, 0, .125); border-bottom: 1px solid rgba(0, 0, 0, .125);">
@@ -140,7 +144,7 @@
 												id="setDefaultAddr"> <label for="setDefaultAddr"
 												style="font-weight: 500;"> 기본주소지로 등록 </label>
 											<button type="button" class="btn btn-outline-secondary"
-												style="margin-left: 140px;" onclick="addrmodify();">수정</button>
+												style="margin-left: 140px; margin-left: 270px; width:80px;" onclick="addrmodify();">수정</button>
 										</div>
 									</div>
 								</div>

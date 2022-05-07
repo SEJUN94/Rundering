@@ -57,7 +57,7 @@ public class NoticeServiceImpl implements NoticeService{
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
-
+		
 		dataMap.put("noticeList", noticeList);
 		dataMap.put("pageMaker", pageMaker);
 
