@@ -91,7 +91,7 @@ function sendFile(file, el) {
 	var form_data = new FormData();
 	form_data.append("file", file); 
 	$.ajax({
-  	url: contextPath+'/uploadImg.do',
+  	url: contextPath+'/uploadImg',
   	data: form_data,
   	type: "POST",	    	
   	contentType: false,	    	
@@ -115,7 +115,7 @@ function deleteFile(src) {
 	var fileData = {fileName:fileName};
 	
 	$.ajax({
-		url:contextPath+"/deleteImg.do",
+		url:contextPath+"/deleteImg",
 		data : JSON.stringify(fileData),
 		type:"post",
 		contentType:"application/json",

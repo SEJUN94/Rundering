@@ -1,9 +1,12 @@
 package com.rundering.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import com.rundering.command.Criteria;
+import com.rundering.command.NoticeRegistCommand;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.NoticeVO;
 
 public interface NoticeService {
@@ -18,7 +21,7 @@ public interface NoticeService {
 	NoticeVO getNoticeForModify(int noticeno) throws SQLException;
 
 	// 등록
-	void regist(NoticeVO notice)throws Exception;
+	void regist(NoticeRegistCommand notice, List<AttachVO> attachList)throws Exception;
 	
 	// 수정
 	void modify(NoticeVO notice) throws SQLException;

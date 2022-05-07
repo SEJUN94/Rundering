@@ -5,9 +5,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -23,9 +25,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.Criteria;
+import com.rundering.command.NoticeRegistCommand;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.NoticeVO;
 import com.rundering.manage.HomeController;
 import com.rundering.service.NoticeService;
+import com.rundering.util.GetAttachesByMultipartFileAdapter;
 
 @Controller
 @RequestMapping("/admin/notice")
@@ -35,6 +40,8 @@ public class NoticeController {
 	
 	@Autowired
 	NoticeService noticeService;
+	@Resource(name = "boardPath")
+	private String boardPath;
 	
 	@RequestMapping("/list")
 	public ModelAndView noticeList(Criteria cri, ModelAndView mnv) {
@@ -75,14 +82,17 @@ public class NoticeController {
 		return dataMap;
 	}
 	
-	@RequestMapping("/regist")
-	public String regist(NoticeVO notice,HttpServletRequest request,
+	@RequestMapping(value="/regist",  method = RequestMethod.POST)
+	public String regist(NoticeRegistCommand notice,HttpServletRequest request,
 						RedirectAttributes rttr) throws Exception{
 		String url = "redirect:/admin/notice/list";
 		
 		//notice.setTitle((String)request.getAttribute("XSStitle"));
 		
-		noticeService.regist(notice);		
+		String savePath = this.boardPath;
+		List<AttachVO> attachList = GetAttachesByMultipartFileAdapter.save(notice.getUploadFile(), savePath,"공지사항");
+		
+		noticeService.regist(notice, attachList);		
 		
 		rttr.addFlashAttribute("from","regist");
 		
@@ -101,6 +111,8 @@ public class NoticeController {
 			notice = noticeService.getNotice(noticeno);
 			url="redirect:/admin/notice/detail.do?noticeno="+noticeno;
 		}
+		
+		
 		
 		mnv.addObject("notice",notice);
 		
