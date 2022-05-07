@@ -23,8 +23,6 @@ public class BranchApplicationVO {
 		super();
 	}
 	
-	
-	
 	public String getFileNm() {
 		return fileNm;
 	}

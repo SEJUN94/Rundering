@@ -115,7 +115,7 @@
 	</select>
 	
 	<!-- 자주묻는질문 입력 -->
-	<select id="insertFrequently" resultType="faq">
+	<update id="insertFrequently" parameterType="faq">
 		insert into tb_faq(
 			faqno,
 			question,
@@ -126,7 +126,14 @@
 				#{question},
 				#{answer},
 				'Y')
-	</select>
+	</update>
+	
+	<update id="insertQnA" parameterType="faq">
+		INSERT 
+		INTO TB_FAQ
+		(FAQNO,QUESTION,ANSWER,WRITER,FAQYN) 
+		VALUES(faqno_seq.nextval,#{question},#{answer},#{writer},'Y')
+	</update>
 	
 	<select id="selectFrequentlyListCount" resultType="int">
 		select

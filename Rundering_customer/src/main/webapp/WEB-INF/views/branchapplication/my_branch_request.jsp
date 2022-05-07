@@ -33,7 +33,7 @@
 				<tr>
 					<th colspan="10" style="font-size:1.2em;">신청 정보
 						<c:if test="${bv.progressStatusCode eq '01'}">	
-							<button class="btn btn-sm float-right" style="background-color:#82BBD8;border-color:#82BBD8;color:#ffffff" onclick="leaseModify()" >수정</button>
+							<button class="btn btn-sm float-right" style="background-color:#82BBD8;border-color:#82BBD8;color:#ffffff" onclick="modifyContractFile('01','임대차계약서','${bv.leasecontractFile}')" >수정</button>
 						</c:if>
 						<c:if test="${bv.progressStatusCode ne '01' }">
 							<c:if test="${bv.progressStatusCode eq '02'}">
@@ -61,11 +61,15 @@
 					<td colspan="2">임대차 계약서 다운로드</td>
 					<td colspan="3">
 						<c:if test="${bv.progressStatusCode ne '01'}" >
-						${avList[0].fileNm}
+						<a href="<%=request.getContextPath()%>/branchapplication/file/filedownload?atchFileNo=${bv.leasecontractFile}&saveFileNm=${avList[0].saveFileNm }">
+						<input type=text value="${avList[0].fileNm}" >
+						</a>
 						</c:if> 
 						<c:if test="${bv.progressStatusCode eq '01'}" >
+						<a href="<%=request.getContextPath()%>/branchapplication/file/filedownload?atchFileNo=${bv.leasecontractFile}&saveFileNm=${avList[0].saveFileNm }">
 						<input id="inputFileName" type=text name="tempPicture" data-no="0"
 						readonly style="border:none;" value="${avList[0].fileNm }">
+						</a>
 						<label for="inputFile" data-no="0"
 									class="btn btn-secondary btn-sm input-group-addon float-right"
 									style="background-color: #82BBD8; border: 1px solid #82BBD8"
@@ -122,10 +126,10 @@
 				<tr>
 					<th colspan="10" style="font-size:1.2em;">수의 계약 신청
 						<c:if test="${bv.progressStatusCode eq '06'}">	
-							<button class="btn btn-sm float-right" style="background-color:#82BBD8;border-color:#82BBD8;color:#ffffff" onclick="updateJudge1()" >신청</button>
+							<button class="btn btn-sm float-right" style="background-color:#82BBD8;border-color:#82BBD8;color:#ffffff" onclick="updateJudge1('${bv.privatecontractFile}')" >신청</button>
 						</c:if>
 						<c:if test="${bv.progressStatusCode eq '07'}">
-							<span class="float-right">처리상태 : <span style="">처리 대기</span>&ensp;<button class="btn btn-sm float-right" style="background-color:#82BBD8;border-color:#82BBD8;color:#ffffff" onclick="" >수정</button></span>
+							<span class="float-right">처리상태 : <span style="">처리 대기</span>&ensp;<button class="btn btn-sm float-right" style="background-color:#82BBD8;border-color:#82BBD8;color:#ffffff" onclick="modifyContractFile('07','수의계약서','${bv.privatecontractFile}')" >수정</button></span>
 						</c:if>
 						<c:if test="${bv.progressStatusCode eq '08' || bv.progressStatusCode eq '09' || bv.progressStatusCode eq '10'}">
 							<span class="float-right">처리상태 : <span style="color:blue;"> 승인</span></span>
@@ -137,10 +141,10 @@
 				<tr>
 					<td style="background-color:#EBF3FC">수의계약서</td> 
 					<td colspan="2">수의계약서 양식다운로드</td>
-					<td colspan="3">수의계약서 첨부
+					<td colspan="3">
 						<c:if test="${bv.progressStatusCode eq '06'}">
 						 	<input id="inputFileName" type=text name="tempPicture" data-no="0"
-							readonly style="border:none;" value="${avList[0].fileNm }">
+							readonly style="border:none;" value="${avList[1].fileNm }" onclick="location.href='<%=request.getContextPath()%>/branchapplication/file/filedownload?atchFileNo=${bv.leasecontractFile}&saveFileNm=${avList[1].saveFileNm }';">
 							<label for="inputFile" data-no="0"
 							class="btn btn-secondary btn-sm input-group-addon float-right"
 							style="background-color: #82BBD8; border: 1px solid #82BBD8"
@@ -148,7 +152,7 @@
 						</c:if>
 						<c:if test="${bv.progressStatusCode eq '07'}">
 							<input id="inputFileName" type=text name="tempPicture" data-no="0"
-							readonly style="border:none;" value="${avList[0].fileNm }">
+							readonly style="border:none;" value="${avList[1].fileNm }" onclick="location.href='<%=request.getContextPath()%>/branchapplication/file/filedownload?atchFileNo=${bv.leasecontractFile}&saveFileNm=${avList[1].saveFileNm }';">
 							<label for="inputFile" data-no="0"
 							class="btn btn-secondary btn-sm input-group-addon float-right"
 							style="background-color: #82BBD8; border: 1px solid #82BBD8"
@@ -190,6 +194,7 @@
 
 <!-- 알림 sweetalert2 -->
 <script	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
 
 <script>
 var FileNm = document.getElementById("uuidNm");
@@ -292,7 +297,6 @@ $('input[name="pictureFile"]').change(function(){
 			
 		},
 		error:function(error){
-			//alert("현재 사진 업로드가 불가합니다. \n관리자에게 연락바랍니다.");
 			AjaxErrorSecurityRedirectHandler(error.status);
 		}
 	});
@@ -300,7 +304,37 @@ $('input[name="pictureFile"]').change(function(){
 });
 </script>
 
-	
+
+<script>
+function modifyContractFile(progressStatusCode,bizType,leasecontractFile){
+	 $.ajax({
+			url: "<%=request.getContextPath()%>/branchapplication/modifyContractFile",
+			data:{
+				'saveFileNm' : fn,
+				'bizType' : bizType,
+				'atchFileNo' : leasecontractFile
+				},
+			type:'POST',
+			success:function(OK){
+				if(OK.toUpperCase() == "OK"){
+				Swal.fire({
+					icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '임대차 계약서 첨부파일이 수정되었습니다.'
+				});
+				setTimeout(function(){location.reload()},3000);
+				}else{
+					Swal.fire({
+						icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title: '임대차 계약서 첨부파일이 수정을 실패했습니다.'
+					});
+				}
+      		},
+			error:function(error){
+				AjaxErrorSecurityRedirectHandler(error.status);
+			}
+	});
+}
+</script>
 	
 <script>
 		var no = document.getElementById('applicationNo');
@@ -334,12 +368,14 @@ $('input[name="pictureFile"]').change(function(){
 		});
 		 
 	}
-	function updateJudge1() {
+	function updateJudge1(privatecontractFile) {
 		 $.ajax({
 			url: "<%=request.getContextPath()%>/branchapplication/updateJudge",
 			data:{
-				'progressStatusCode' : '06' 	,
-				'applicationNo' : no.value
+				'progressStatusCode' : '06',
+				'applicationNo' : no.value,
+				'atchFileNo' : privatecontractFile,
+				'saveFileNm' : fn
 				},
 			type:'POST',
 			success:function(re){

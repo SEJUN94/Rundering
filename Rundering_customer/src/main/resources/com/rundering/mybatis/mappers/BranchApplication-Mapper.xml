@@ -28,6 +28,7 @@
 			,PHONE
 			,EMAIL
 			,LEASECONTRACT_FILE
+			,PRIVATECONTRACT_FILE
 			,PROGRESS_STATUS_CODE
 			) VALUES (
 			APPLICATION_NO_SEQ.nextval
@@ -35,6 +36,7 @@
 			,#{applicateName}
 			,#{phone}
 			,#{email}
+			,#{leasecontractFile}
 			,#{leasecontractFile}
 			,'01'
 			)
