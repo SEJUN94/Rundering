@@ -70,8 +70,12 @@ public class LaundryGoodsStockDAOImpl implements LaundryGoodsStockDAO{
 		return session.selectList("LaundryGoodsStock-Mapper.selectLaundryGoodsStock");
 	}
 	@Override
-	public void udateLaundryGoodsStockSupplyAuto(LaundryGoodsStockVO laundryGoodsStock) throws Exception{
-		session.update("LaundryGoodsStock-Mapper.udateLaundryGoodsStockSupplyAuto",laundryGoodsStock);
+	public void updateLaundryGoodsStockLastDateAuto(LaundryGoodsStockVO laundryGoodsStock) throws Exception{
+		session.update("LaundryGoodsStock-Mapper.updateLaundryGoodsStockLastDateAuto",laundryGoodsStock);
+	}
+	@Override
+	public List<LaundryGoodsStockVO> selectLaundryGoodsStockByBranchCode(String branchCode) throws Exception{
+		return session.selectList("LaundryGoodsStock-Mapper.selectLaundryGoodsStockByBranchCode", branchCode);
 	}
 
 

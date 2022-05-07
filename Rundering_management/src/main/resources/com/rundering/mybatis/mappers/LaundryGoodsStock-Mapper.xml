@@ -27,10 +27,16 @@
 		select *
 		  from TB_LAUNDRY_GOODS_STOCK 
 		 WHERE AUTO_ORDER_YN='Y' 
-	
+		
+	</select>
+	<select id="selectLaundryGoodsStockByBranchCode" resultMap="laundrygoodsstockMap">
+		select *
+		  from TB_LAUNDRY_GOODS_STOCK 
+		 WHERE AUTO_ORDER_YN='Y' 
+		   and branch_code=#{branchCode}
 	</select>
 	
-	
+	 	
 	<select id="selectItemListByBranchCode" resultMap="itemMap">
 		select A.ARTICLES_CODE AS ARTICLES_CODE,
 		       A.ARTICLES_NAME AS ARTICLES_NAME,
@@ -114,7 +120,7 @@
 		   and articles_code=#{articlesCode} 
 	</update>
 	
-	<update id="udateLaundryGoodsStockSupplyAuto" parameterType="laundrygoodsstock">
+	<update id="updateLaundryGoodsStockLastDateAuto" parameterType="laundrygoodsstock">
 		update tb_laundry_goods_stock
 		   set  auto_order_last_date=sysdate
 		 where branch_code=#{branchCode}

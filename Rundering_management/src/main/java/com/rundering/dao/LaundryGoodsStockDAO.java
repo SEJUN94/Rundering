@@ -18,7 +18,8 @@ public interface LaundryGoodsStockDAO {
 	public int selectSupplyCountByVO(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 	void updateLaundryGoodsStockSupplyCountPlusByVO(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 	List<LaundryGoodsStockVO> selectLaundryGoodsStock() throws Exception;
-	void udateLaundryGoodsStockSupplyAuto(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
+	void updateLaundryGoodsStockLastDateAuto(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
+	List<LaundryGoodsStockVO> selectLaundryGoodsStockByBranchCode(String branchCode) throws Exception;
 
 }
  

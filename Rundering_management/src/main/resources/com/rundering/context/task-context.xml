@@ -13,6 +13,8 @@
 		p:sensSms-ref="sensSms"
 		p:notificationDAO-ref="notificationDAO"
 		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
+		p:itemOrderDAO-ref="itemOrderDAO"
+		p:laundryArticlesDAO-ref="laundryArticlesDAO"
 	/>
 	<scheduler id="assignLaundryOrderScheduler"/>
 	 
