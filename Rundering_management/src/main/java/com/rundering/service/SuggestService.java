@@ -1,9 +1,12 @@
 package com.rundering.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import com.rundering.command.Criteria;
+import com.rundering.command.SuggestRegistCommand;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.SuggestVO;
 
 public interface SuggestService {
@@ -12,16 +15,16 @@ public interface SuggestService {
 	public Map<String, Object> getSuggestList(Criteria cri) throws SQLException;
 
 	// 상세보기
-	SuggestVO getSuggest(int sno) throws SQLException;
+	Map<String, Object> getSuggest(int sno) throws Exception;
 	
 	// 확인미확인
 	SuggestVO getCheck(int sno) throws SQLException;
 
 	// 수정화면 상세
-	SuggestVO getSuggestModify(int sno) throws SQLException;
+	Map<String, Object> getSuggestModify(int sno) throws Exception;
 
 	// 등록
-	void regist(SuggestVO suggest) throws Exception;
+	void regist(SuggestRegistCommand suggest, List<AttachVO> attachList) throws Exception;
 
 	// 수정
 	void modify(SuggestVO suggest) throws SQLException;

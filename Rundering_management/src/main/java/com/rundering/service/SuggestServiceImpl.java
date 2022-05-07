@@ -7,10 +7,13 @@ import java.util.Map;
 
 import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
+import com.rundering.command.SuggestRegistCommand;
+import com.rundering.dao.AttachDAO;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dao.EmployeesDAO;
 import com.rundering.dao.NotificationDAO;
 import com.rundering.dao.SuggestDAO;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.NotificationVO;
@@ -34,6 +37,10 @@ public class SuggestServiceImpl implements SuggestService {
 	private NotificationDAO notificationDAO;
 	public void setNotificationDAO(NotificationDAO notificationDAO) {
 		this.notificationDAO = notificationDAO;
+	}
+	private AttachDAO attachDAO;
+	public void setAttachDAO(AttachDAO attachDAO) {
+		this.attachDAO = attachDAO;
 	}
 
 	@Override
@@ -59,11 +66,18 @@ public class SuggestServiceImpl implements SuggestService {
 	}
 
 	@Override
-	public SuggestVO getSuggest(int sno) throws SQLException {
+	public Map<String, Object> getSuggest(int sno) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
 		suggestDAO.increaseViewCount(sno);
 
 		SuggestVO suggest = suggestDAO.selectSuggestBySno(sno);
-		return suggest;
+		if(suggest.getAtchFileNo() != null) {
+			List<AttachVO> attachList = attachDAO.selectAttachVOByFileNo(suggest.getAtchFileNo());
+			dataMap.put("attachList", attachList);
+		}
+		
+		dataMap.put("suggest", suggest);
+		return dataMap;
 	}
 
 	@Override
@@ -75,14 +89,34 @@ public class SuggestServiceImpl implements SuggestService {
 	}
 
 	@Override
-	public SuggestVO getSuggestModify(int sno) throws SQLException {
+	public Map<String, Object> getSuggestModify(int sno) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
 		SuggestVO suggest = suggestDAO.selectSuggestBySno(sno);
-		return suggest;
+		if(suggest.getAtchFileNo() != null) {
+			List<AttachVO> attachList = attachDAO.selectAttachVOByFileNo(suggest.getAtchFileNo());
+			dataMap.put("attachList", attachList);
+		}
+		
+		dataMap.put("suggest", suggest);
+		return dataMap;
 	}
 
 	@Override
-	public void regist(SuggestVO suggest) throws Exception {
-		suggestDAO.insertSuggest(suggest);
+	public void regist(SuggestRegistCommand suggest, List<AttachVO> attachList) throws Exception {
+		SuggestVO suggestVO = suggest.toSuggestVO();
+		
+		if(attachList != null && attachList.size() > 0) {
+			int atchFileNo = attachDAO.selectFileNo();
+
+			for (AttachVO attach : attachList) {
+				attach.setAtchFileNo(String.valueOf(atchFileNo));
+				attachDAO.insertAttach(attach);
+			}
+			suggestVO.setAtchFileNo(String.valueOf(atchFileNo));
+		}
+		
+		suggestDAO.insertSuggest(suggestVO);
+		
 		//본사 직원들에게 알림
 		BranchVO branchVO = branchDAO.selectBranchByBranchCode("000000");
 		List<EmployeesVO> employeesList = employeesDAO.selectEmployeesByBranchCode(branchVO.getBranchCode());

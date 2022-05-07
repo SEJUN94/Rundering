@@ -82,16 +82,15 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/regist",  method = RequestMethod.POST)
-	public String regist(NoticeRegistCommand notice,HttpServletRequest request,
+	public String regist(NoticeRegistCommand noticecmd,HttpServletRequest request,
 						RedirectAttributes rttr) throws Exception{
 		String url = "redirect:/admin/notice/list";
 		
 		//notice.setTitle((String)request.getAttribute("XSStitle"));
 		
-		String savePath = this.boardPath;
-		List<AttachVO> attachList = GetAttachesByMultipartFileAdapter.save(notice.getUploadFile(), savePath,"공지사항");
+		List<AttachVO> attachList = GetAttachesByMultipartFileAdapter.save(noticecmd.getUploadFile(), this.boardPath,"공지사항");
 		
-		noticeService.regist(notice, attachList);		
+		noticeService.regist(noticecmd, attachList);		
 		
 		rttr.addFlashAttribute("from","regist");
 		
