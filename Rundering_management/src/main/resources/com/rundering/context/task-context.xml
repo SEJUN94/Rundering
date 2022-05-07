@@ -40,7 +40,7 @@
 	<scheduled-tasks scheduler="assignLaundryOrderScheduler">
 		<scheduled ref="orderTask" 
 		method="autoOrder"
-		cron="*/5 * * * * *"
+		cron="0 0 22 * * *"
 		/>
 	</scheduled-tasks> 
 	
