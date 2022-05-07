@@ -17,6 +17,7 @@
 	<result column="DELETE_YN" property="deleteYn"/>
 	<result column="BRANCH_CODE" property="branchCode"/>
 	<result column="REPLYNO" property="replyNo"/>
+	<result column="ATCH_FILE_NO" property="atchFileNo"/>
 </resultMap>
 	<sql id="search">
 		<if test="searchType == 't'.toString()">
@@ -78,11 +79,11 @@
 	
 	<update id="insertNotice" parameterType="notice">
 		insert into 
-		TB_NOTICE(NOTICENO,TITLE,EMPLOYEE_ID,CONTENT,REGIST_DATE,REPLYNO)
-		values(#{noticeno},#{title},#{employeeId},#{content},sysdate,#{replyNo})
+		TB_NOTICE(NOTICENO,TITLE,EMPLOYEE_ID,CONTENT,REGIST_DATE,REPLYNO,ATCH_FILE_NO)
+		values(#{noticeno},#{title},#{employeeId},#{content},sysdate,#{replyNo},#{atchFileNo})
 	</update>	
 	
-	<select id="selectNoticeByNno" parameterType="int" resultType="notice">
+	<select id="selectNoticeByNno" parameterType="int" resultMap="noticeMap" >
 		select 
 		* 
 		from TB_NOTICE

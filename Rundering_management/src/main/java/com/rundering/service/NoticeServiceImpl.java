@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.rundering.command.Criteria;
+import com.rundering.command.NoticeRegistCommand;
 import com.rundering.command.PageMaker;
+import com.rundering.dao.AttachDAO;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dao.EmployeesDAO;
 import com.rundering.dao.NoticeDAO;
 import com.rundering.dao.NotificationDAO;
 import com.rundering.dao.ReplyDAO;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.NoticeVO;
@@ -41,6 +44,10 @@ public class NoticeServiceImpl implements NoticeService{
 	public void setNotificationDAO(NotificationDAO notificationDAO) {
 		this.notificationDAO = notificationDAO;
 	}
+	private AttachDAO attachDAO;
+	public void setAttachDAO(AttachDAO attachDAO) {
+		this.attachDAO = attachDAO;
+	}
 
 	@Override
 	public Map<String, Object> getNoticeList(Criteria cri) throws SQLException {
@@ -66,25 +73,53 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public NoticeVO getNotice(int noticeno) throws SQLException {
+	public Map<String, Object> getNotice(int noticeno) throws Exception {
+			Map<String, Object> dataMap = new HashMap<String, Object>();
 			noticeDAO.increaseViewCount(noticeno);
-			NoticeVO notice = noticeDAO.selectNoticeByNno( noticeno);
-			return notice;
+			NoticeVO notice = noticeDAO.selectNoticeByNno(noticeno);
+			if(notice.getAtchFileNo() != null) {
+				List<AttachVO> attachList = attachDAO.selectAttachVOByFileNo(notice.getAtchFileNo());
+				dataMap.put("attachList", attachList);
+			}
+			
+			dataMap.put("notice", notice);
+			return dataMap;
 	}
 
 	@Override
-	public NoticeVO getNoticeForModify(int noticeno) throws SQLException {
-			NoticeVO board = noticeDAO.selectNoticeByNno(noticeno);
-			return board;
+	public Map<String, Object> getNoticeForModify(int noticeno) throws Exception {
+			Map<String, Object> dataMap = new HashMap<String, Object>();
+			NoticeVO notice = noticeDAO.selectNoticeByNno(noticeno);
+			
+			if(notice.getAtchFileNo() != null) {
+				List<AttachVO> attachList = attachDAO.selectAttachVOByFileNo(notice.getAtchFileNo());
+				dataMap.put("attachList", attachList);
+			}
+			
+			dataMap.put("notice", notice);
+			return dataMap;
 	}
 
 	@Override
-	public void regist(NoticeVO notice) throws Exception {
+	public void regist(NoticeRegistCommand notice, List<AttachVO> attachList) throws Exception {
 		  	int replyno = noticeDAO.selectNoticeSequenceNextValue();
 			int noticeno = noticeDAO.selectNoticeSequenceNextValue();
-			notice.setReplyNo(replyno);
-			notice.setNoticeno(noticeno);
-			noticeDAO.insertNotice(notice);
+			
+			NoticeVO noticeVO = notice.toNoticeVO();
+			noticeVO.setReplyNo(replyno);
+			noticeVO.setNoticeno(noticeno);
+			
+			if(attachList != null && attachList.size() > 0) {
+				int atchFileNo = attachDAO.selectFileNo();
+
+				for (AttachVO attach : attachList) {
+					attach.setAtchFileNo(String.valueOf(atchFileNo));
+					attachDAO.insertAttach(attach);
+				}
+				noticeVO.setAtchFileNo(String.valueOf(atchFileNo));
+			}
+			
+			noticeDAO.insertNotice(noticeVO);
 			
 			//모든 지점의 사원에게 공지 알림 - 배송사원 제외
 			List<BranchVO> branchList = branchDAO.selectBranchList();

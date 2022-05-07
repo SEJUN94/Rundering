@@ -40,16 +40,16 @@ public class BranchNoticeController {
 	@RequestMapping(value = "/detail")
 	private ModelAndView noticeDetail(int noticeno,  @RequestParam(defaultValue="") String from, ModelAndView mnv) throws Exception {
 		String url="branch/notice/notice_detail";
-		NoticeVO notice = null;
+		Map<String, Object> dataMap = null;
 		
 		if(!from.equals("list")) {
-			notice = noticeService.getNoticeForModify(noticeno);
+			dataMap = noticeService.getNoticeForModify(noticeno);
 		}else {
-			notice = noticeService.getNotice(noticeno);
+			dataMap = noticeService.getNotice(noticeno);
 			url="redirect:/branch/notice/detail.do?noticeno="+noticeno;
 		}
 		
-		mnv.addObject("notice",notice);
+		mnv.addAllObjects(dataMap);
 		mnv.setViewName(url);
 		
 		return mnv;

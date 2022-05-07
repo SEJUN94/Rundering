@@ -19,8 +19,7 @@
 		<result column="WRITER" property="writer" />
 		<result column="BRANCH_NAME" property="branchName" />
 		<result column="CHECKYN" property="checkyn" />
-		
-	
+		<result column="ATCH_FILE_NO" property="atchFileNo"/>
 	</resultMap>
 	
 	<sql id="search">
@@ -83,7 +82,7 @@
 	</select>
 	
 	<select id="selectSuggestBySno" parameterType="int" resultMap="suggestMap" >
-		select b.sno, b.title, b.content, b.regist_date, c.name as writer, d.branch_name
+		select b.sno, b.title, b.content, b.regist_date, c.name as writer, d.branch_name, b.ATCH_FILE_NO
 	    from tb_employees a, TB_SUGGEST_BOARD b, tb_member c, tb_branch d
 	    where sno=#{sno}
 	    	and a.employee_id = b.writer
@@ -119,12 +118,14 @@
 			title,
 			writer,
 			branch_name,
-			content) values(
+			content,
+			ATCH_FILE_NO) values(
 						sno_seq.nextval,
 						#{title},
 						#{writer},
 						#{branchName},
-						#{content})
+						#{content},
+						#{atchFileNo})
 	</select>
 	
 	<!-- 수정 -->

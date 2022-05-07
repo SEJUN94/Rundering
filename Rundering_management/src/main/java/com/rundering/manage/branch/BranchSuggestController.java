@@ -3,6 +3,7 @@ package com.rundering.manage.branch;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -22,9 +23,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.Criteria;
+import com.rundering.command.SuggestRegistCommand;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.SuggestVO;
 import com.rundering.service.SuggestService;
+import com.rundering.util.GetAttachesByMultipartFileAdapter;
 import com.rundering.util.MakeFileName;
 
 @Controller
@@ -32,6 +36,8 @@ import com.rundering.util.MakeFileName;
 public class BranchSuggestController {
 	@Autowired
 	SuggestService suggestService;
+	@Resource(name = "boardPath")
+	private String boardPath;
 
 	@RequestMapping(value = "/list")
 	private ModelAndView suggestList(Criteria cri, ModelAndView mnv) throws Exception {
@@ -46,16 +52,17 @@ public class BranchSuggestController {
 
 	@RequestMapping(value = "/detail")
 	private ModelAndView suggestDetail(int sno, @RequestParam(defaultValue = "") String from,
-			HttpServletRequest request, ModelAndView mnv, HttpSession session) throws SQLException {
+			HttpServletRequest request, ModelAndView mnv, HttpSession session) throws Exception {
 
 		String url = "branch/suggest/suggest_detail";
-
+		
+		Map<String, Object> dataMap = null;
 		SuggestVO suggest = null;
 
 		if (!from.equals("list")) {
-			suggest = suggestService.getSuggestModify(sno);
+			dataMap = suggestService.getSuggestModify(sno);
 		} else {
-			suggest = suggestService.getSuggest(sno);
+			dataMap = suggestService.getSuggest(sno);
 			
 			EmployeesVO employees = (EmployeesVO) session.getAttribute("loginEmployee");
 			if (employees.getBranchCode().equals("000000")) {
@@ -65,7 +72,7 @@ public class BranchSuggestController {
 			url = "redirect:/branch/suggest/detail?sno=" + sno;
 		}
 
-		mnv.addObject("suggest", suggest);
+		mnv.addAllObjects(dataMap);
 		mnv.setViewName(url);
 
 		return mnv;
@@ -75,10 +82,11 @@ public class BranchSuggestController {
 	public ModelAndView modifyForm(int sno, ModelAndView mnv) throws Exception {
 
 		String url = "branch/suggest/suggest_modify";
+		
+		Map<String, Object> dataMap = null;
+		dataMap = suggestService.getSuggestModify(sno);
 
-		SuggestVO suggest = suggestService.getSuggestModify(sno);
-
-		mnv.addObject("suggest", suggest);
+		mnv.addAllObjects(dataMap);
 		mnv.setViewName(url);
 
 		return mnv;
@@ -106,12 +114,14 @@ public class BranchSuggestController {
 	}
 
 	@RequestMapping(value = "/regist")
-	public String suggestRegist(SuggestVO suggest, HttpServletRequest request, RedirectAttributes rttr)
+	public String suggestRegist(SuggestRegistCommand suggestcmd, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
 
 		String url = "redirect:/branch/suggest/list";
+		
+	List<AttachVO> attachList = GetAttachesByMultipartFileAdapter.save(suggestcmd.getUploadFile(), this.boardPath,"건의사항");
 
-		suggestService.regist(suggest);
+		suggestService.regist(suggestcmd, attachList);
 
 		rttr.addFlashAttribute("from", "regist");
 
@@ -129,9 +139,6 @@ public class BranchSuggestController {
 
 		return url;
 	}
-
-	@Resource(name = "boardPath")
-	private String boardPath;
 
 	@ResponseBody
 	@RequestMapping(value = "/suggest/upload", produces = "application/json;charset=UTF-8")
