@@ -18,6 +18,8 @@ public interface AttachDAO {
 	public int getAttachNoSeq(String atchFileNo) throws Exception;
 	// 수거 및 배송 취소시 업로드된 이미지 삭제
 	public void deleteDeliveryPicture(AttachVO attach)throws Exception;
+	// 파일다운로드를 위한 해당 파일의 정보가져오기
+	public AttachVO getAttachForDownload(AttachVO attach) throws Exception;
 
 }
 

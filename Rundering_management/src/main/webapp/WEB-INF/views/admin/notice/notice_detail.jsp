@@ -22,14 +22,16 @@
 			</div>
 			<div class="card-footer bg-white">
 				<ul class="mailbox-attachments d-flex align-items-stretch clearfix">
-					<li><div class="mailbox-attachment-info" style="margin: auto; border:1px solid lightgray;">
-							<a href="#" class="mailbox-attachment-name"><i
-								class="fas fa-paperclip"></i> Sep2014-report.pdf</a> <span
-								class="mailbox-attachment-size clearfix mt-1"> </span>
-						</div></li>
-
+				 <c:forEach items="${attachList }" var="attach">
+					<li style="border: none;"><div class="mailbox-attachment-info" style="margin: auto; border:1px solid lightgray;">
+							<a href="<%=request.getContextPath()%>/file/filedownload?atchFileNo=${attach.atchFileNo}&saveFileNm=${attach.saveFileNm }" class="mailbox-attachment-name"><i class="fas fa-paperclip"></i>&nbsp;&nbsp;${attach.fileNm }</a>
+						</div>
+					</li>
+					</c:forEach>
 				</ul>
 			</div>
+			
+			
 			<div class="card-footer">
 				<div class="float-right">
 					<!--    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">댓글작성 </button> -->
@@ -64,18 +66,7 @@
 						</div>
 						<div id="replyListTag" style="padding-bottom: 10px;">
 							<div id="replyHandler">
-								<div class="card-footer card-comments">
-									<div class="card-comment">
-										<div class="comment-text" style="margin-left:0px; ">
-											<span class="username"> Maria Gonzales <span
-												class="text-muted float-right">8:03 PM Today</span>
-											</span> It is a long established fact that a reader will be
-											distracted by the readable content of a page when looking at
-											its layout.
-										</div>
-	
-									</div>
-								</div>
+								
 							</div>
 						</div>
 						<div id="cardfooter">

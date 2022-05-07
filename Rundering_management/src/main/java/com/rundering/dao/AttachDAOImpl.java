@@ -53,6 +53,11 @@ public class AttachDAOImpl implements AttachDAO{
 		session.selectOne("Attach-Mapper.deleteDeliveryPicture", attach);
 		
 	}
+	// 파일다운로드를 위한 해당 파일의 정보가져오기
+	@Override
+	public AttachVO getAttachForDownload(AttachVO attach) throws Exception {
+		return session.selectOne("Attach-Mapper.getAttachForDownload", attach);
+	}
 	
 
 }

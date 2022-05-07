@@ -73,16 +73,31 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public NoticeVO getNotice(int noticeno) throws SQLException {
+	public Map<String, Object> getNotice(int noticeno) throws Exception {
+			Map<String, Object> dataMap = new HashMap<String, Object>();
 			noticeDAO.increaseViewCount(noticeno);
-			NoticeVO notice = noticeDAO.selectNoticeByNno( noticeno);
-			return notice;
+			NoticeVO notice = noticeDAO.selectNoticeByNno(noticeno);
+			if(notice.getAtchFileNo() != null) {
+				List<AttachVO> attachList = attachDAO.selectAttachVOByFileNo(notice.getAtchFileNo());
+				dataMap.put("attachList", attachList);
+			}
+			
+			dataMap.put("notice", notice);
+			return dataMap;
 	}
 
 	@Override
-	public NoticeVO getNoticeForModify(int noticeno) throws SQLException {
-			NoticeVO board = noticeDAO.selectNoticeByNno(noticeno);
-			return board;
+	public Map<String, Object> getNoticeForModify(int noticeno) throws Exception {
+			Map<String, Object> dataMap = new HashMap<String, Object>();
+			NoticeVO notice = noticeDAO.selectNoticeByNno(noticeno);
+			
+			if(notice.getAtchFileNo() != null) {
+				List<AttachVO> attachList = attachDAO.selectAttachVOByFileNo(notice.getAtchFileNo());
+				dataMap.put("attachList", attachList);
+			}
+			
+			dataMap.put("notice", notice);
+			return dataMap;
 	}
 
 	@Override

@@ -15,10 +15,10 @@ public interface NoticeService {
 	public Map<String, Object> getNoticeList(Criteria cri) throws SQLException;
 	
 	// 상세보기
-	NoticeVO getNotice(int noticeno) throws SQLException;
+	Map<String, Object> getNotice(int noticeno) throws Exception;
 	
 	// 수정화면 상세
-	NoticeVO getNoticeForModify(int noticeno) throws SQLException;
+	Map<String, Object> getNoticeForModify(int noticeno) throws Exception;
 
 	// 등록
 	void regist(NoticeRegistCommand notice, List<AttachVO> attachList)throws Exception;

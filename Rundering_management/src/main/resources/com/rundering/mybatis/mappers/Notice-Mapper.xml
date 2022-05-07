@@ -83,7 +83,7 @@
 		values(#{noticeno},#{title},#{employeeId},#{content},sysdate,#{replyNo},#{atchFileNo})
 	</update>	
 	
-	<select id="selectNoticeByNno" parameterType="int" resultType="notice">
+	<select id="selectNoticeByNno" parameterType="int" resultMap="noticeMap" >
 		select 
 		* 
 		from TB_NOTICE

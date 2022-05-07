@@ -2,8 +2,6 @@ package com.rundering.manage.admin;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -42,6 +40,7 @@ public class NoticeController {
 	NoticeService noticeService;
 	@Resource(name = "boardPath")
 	private String boardPath;
+	
 	
 	@RequestMapping("/list")
 	public ModelAndView noticeList(Criteria cri, ModelAndView mnv) {
@@ -103,19 +102,15 @@ public class NoticeController {
 	public ModelAndView noticeDetail(int noticeno,  @RequestParam(defaultValue="") String from, ModelAndView mnv) throws Exception {
 		
 		String url="admin/notice/notice_detail";
-		NoticeVO notice = null;
-		
+		Map<String, Object> dataMap = null;
 		if(!from.equals("list")) {
-			notice = noticeService.getNoticeForModify(noticeno);
+			dataMap = noticeService.getNoticeForModify(noticeno);
 		}else {
-			notice = noticeService.getNotice(noticeno);
+			dataMap = noticeService.getNotice(noticeno);
 			url="redirect:/admin/notice/detail.do?noticeno="+noticeno;
 		}
 		
-		
-		
-		mnv.addObject("notice",notice);
-		
+		mnv.addAllObjects(dataMap);
 		mnv.setViewName(url);
 		
 		return mnv;
@@ -126,9 +121,10 @@ public class NoticeController {
 	public ModelAndView modifyForm(int noticeno,ModelAndView mnv) throws Exception{
 		String url="admin/notice/notice_modify";
 		
-		NoticeVO notice = noticeService.getNoticeForModify(noticeno);
+		Map<String, Object> dataMap = null;
+		dataMap = noticeService.getNoticeForModify(noticeno);
 		
-		mnv.addObject("notice",notice);
+		mnv.addAllObjects(dataMap);
 		mnv.setViewName(url);
 		
 		return mnv;
@@ -193,4 +189,6 @@ public class NoticeController {
 
 		return "admin/notice/suggest_detail";
 	}
+	
+	
 }
