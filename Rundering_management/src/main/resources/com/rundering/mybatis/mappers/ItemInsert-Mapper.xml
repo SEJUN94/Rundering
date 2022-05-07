@@ -11,7 +11,7 @@
 		<result column="ORDER_NO"  property="orderNo"/>
 	</resultMap>
 	
-	<select id="selectDayItemByItem" resultType="item">
+	<select id="selectDayItemByItem" resultType="item" parameterType="item">
 		 SELECT SUM(ITEM_COUNT) as sum,
 		        TO_CHAR(sysdate-#{number},'YYYY-MM-DD')  as day
 	  	   FROM TB_ITEM_INSERT

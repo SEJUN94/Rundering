@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.BranchCriteria;
 import com.rundering.command.BranchPageMaker;
@@ -167,6 +168,25 @@ public class BranchItemController {
 		mnv.setViewName(url);
 		return mnv;
 	} 
+	@RequestMapping("/modify")
+	private String modify(String ordercode,RedirectAttributes rttr) throws Exception{
+		String url = "redirect:/branch/itemorder/detail?ordercode="+ordercode;
+		ItemOrderVO itemOrder = new ItemOrderVO();
+		itemOrder.setOrdercode(ordercode);
+		itemOrder.setItemOrderStatus("06");
+		itemOrderService.updateState(itemOrder);
+		//여기에 재고관리 쪽 재고 업데이트 나중에 넣어야 함
+		rttr.addFlashAttribute("from", "modify");
+		return url;
+	}
+	@RequestMapping("/remove")
+	private String remove(String ordercode,RedirectAttributes rttr) throws Exception{
+		String url = "redirect:/branch/itemorder/list";
+		itemOrderService.deleteItemorder(ordercode);
+		
+		rttr.addFlashAttribute("from", "remove");
+		return url;
+	}
 	
 	
 

@@ -31,7 +31,7 @@
 							{{#each itemOrderList}}
 							<tr style="cursor:pointer;" onclick="OpenWindow('detail.do?ordercode={{ordercode}}','상세보기',800,700);">
 								<td style="text-align: center;">{{ordercode}}</td>
-								<td style="text-align: right;">{{itemOrderPaymentPrice}}</td>
+								<td style="text-align: right;">{{itemOrderPaymentPrice}} 원</td>
 								<td style="text-align: center;">{{orderprettifyDate registDate}}</td>			
 								<td style="text-align: center;">{{itemOrderStatusName itemOrderStatus}}</td>
 							</tr>

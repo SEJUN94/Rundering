@@ -38,7 +38,8 @@ public class ItemOrderRegistCommand {
 	}
 	public ItemOrderVO itemOrderVO() {
 		ItemOrderVO itemOrder=new ItemOrderVO();
-		itemOrder.setItemOrderPaymentPrice(0);
+		
+		itemOrder.setItemOrderPaymentPrice(Integer.parseInt(totalprice));
 		
 		return itemOrder;
 		

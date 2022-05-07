@@ -48,7 +48,6 @@
 							<strong>합계 총금액</strong> 
 							
 							<input  style="width: 100px" class="input-sm  " id="totalPrice" name="content" type="text" disabled="disabled">
-							<button class="btn btn-sm btn-primary " style="margin-right: 10px;margin-left: -4px" onclick="seeTotalPrice()">보기</button>
 							<button type="button" class="btn btn-sm btn-primary" onclick="order_go()">발주</button>
 							
 						</div>
@@ -61,7 +60,7 @@
 								<tr style="text-align: center;">
 									<th class="width25">물품명</th>
 									<th class="width25">수량</th>
-									<th class="width25">총금액</th>
+									<th class="width25">총금액(원)</th>
 									<th class="width15" >취소</th>
 								</tr>
 							</thead>
@@ -124,7 +123,7 @@ function order_go(){
 				{{articlesCodeMap clcode}}
 			</td>
 			<td style="text-align: right;">{{price}}원</td>
-			<td style="text-align: center; padding-top: 8px"><button type="button"	class="btn btn-primary btn-sm" onclick="getOrder()" >담기</button></td>
+			<td style="text-align: center; padding-top: 8px"><button type="button"	class="btn btn-primary btn-sm" onclick="getOrder()" data-each="{{getEach}}" >담기</button></td>
 		</tr>
 {{/laundryArticlesList}}
 </tbody>
@@ -170,15 +169,19 @@ function order_go(){
  
 <tr class="{{code}} count">
 	<input type="hidden" name="code" value="{{code}}">
-	<input type="hidden" name="price" class="inputPrice" value="">
+	<input type="hidden" name="price" class="inputPrice" value="{{price}}">
 	<td>
 		{{name}}
 	</td>
 	<td  style="text-align:center; padding-left:0px;padding-right:0px;"> 
-		<input type="text" name="quantity" class="quantity" value="0" class="form-control" onkeyup="inputNumber()" style="width: 60px; height: 30px; text-align:right; display:inline">
-		단위
+		<input type="text" readonly="readonly" name="quantity" class="quantity" value="1" class="form-control" onkeyup="inputNumber()" style="width: 60px; height: 30px; text-align:right; display:inline">
+		{{getEach}}
+		<span class="btn-group-vertical modifySpan" style="width: 18px;">
+				<button type="button" class="btn btn-sm btn-default p-0" style="height: 18px;" onclick="plusQuantity(this)">+</button>
+				<button type="button" class="btn btn-sm btn-default p-0" style="height: 18px;" onclick="minusQuantity(this)">-</button>
+		</span>
 	</td>
-	<td  style="text-align:right" class="price" data-price="{{price}}"></td> 
+	<td  style="text-align:right" class="price" data-price="{{price}}">{{price}}</td> 
 	<td  style="text-align:center;">
 		<button type="button" style="color: black" class="btn btn-tool" onclick="itemRemove()" style="color: black">
 			<i class="fas fa-times xbutton"></i>
@@ -270,8 +273,11 @@ function orderGoodsList(pageInfo){
 			let pageMaker=dataMap.pageMaker
 			let cri=dataMap.pageMaker.cri 
 			let	laundryArticlesList =dataMap.laundryArticlesList
+			for(let i of laundryArticlesList){
+				i.getEach=i.each;
+			}
 			
-			console.log(laundryArticlesList[0].articlesCode)
+			console.log(laundryArticlesList)
 			
 			let pageNumArray = new Array(pageMaker.endPage-pageMaker.startPage+1);
 		    for(var i=0; i<pageMaker.endPage-pageMaker.startPage+1;i++){
@@ -298,6 +304,8 @@ function orderGoodsList(pageInfo){
             		   }
             	   }
                }
+            	   
+            	   
                
 			});
             
@@ -312,13 +320,13 @@ function orderGoodsList(pageInfo){
 			
 			$("#listBody").innerHTML="";
 			if($("#removeBody")!=null){
-				$("#removeBody").remove()
+				$("#removeBody").remove();
 			}
 			if(document.querySelector("#pageItem")!=null){
 				document.querySelector("#pageItem").remove()
 			}
-			$("#cardfooter").append(pagehtml)
-			$("#listBody").after(html)
+			$("#cardfooter").append(pagehtml);
+			$("#listBody").after(html);
 			
 			getImage();
 		},
@@ -335,8 +343,8 @@ function orderGoodsList(pageInfo){
 function getOrder(){
 	
 	
-	let code= event.target.parentNode.parentNode.children[0].dataset.code
-	let count = document.querySelectorAll("."+code)
+	let code= event.target.parentNode.parentNode.children[0].dataset.code;
+	let count = document.querySelectorAll("."+code);
 	
 	if(count.length>1){
 		return
@@ -345,8 +353,9 @@ function getOrder(){
 	
 	
 	let dataCode = event.target.parentNode.parentNode.children[0].dataset.code;
-	let price = event.target.parentNode.parentNode.children[2].innerText
-	let itemName=event.target.parentNode.parentNode.children[0].innerText
+	let getEach = event.target.dataset.each
+	let price = event.target.parentNode.parentNode.children[2].innerText.split("원")[0];
+	let itemName=event.target.parentNode.parentNode.children[0].innerText;
 	let source = $("#getOrder-tempalet").html();
 	let template = Handlebars.compile(source); 
 
@@ -354,10 +363,12 @@ function getOrder(){
 	let data = {
 	    	code:dataCode,
 	    	price:price,
-	    	name:itemName
+	    	name:itemName,
+	    	getEach:getEach
 	}; 
 	let html = template(data);
 	$('#tbody').append(html);
+	seeTotalPrice()
 
 }
 
@@ -426,6 +437,41 @@ function inputNumber(){
 			}
 		}
 		document.querySelector("#totalPrice").value=sum;	
+	}
+	
+	function plusQuantity(){
+		let input =event.target.parentNode.parentNode.querySelectorAll('.quantity')[0]
+		let intValue= parseInt(input.value)
+		
+		let result=intValue+1;
+	
+		if(result>100){
+			 result=100;
+		}
+		input.setAttribute("value",result)
+		console.log(input)
+		
+		let sum= event.target.parentNode.parentNode.querySelectorAll('.quantity')[0].value*event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].dataset.price
+		event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].innerText=sum
+		event.target.parentNode.parentNode.parentNode.querySelectorAll(".inputPrice")[0].value=sum;
+		seeTotalPrice()
+	}
+	function minusQuantity(){
+		let input =event.target.parentNode.parentNode.querySelectorAll('.quantity')[0]
+		let intValue= parseInt(input.value)
+		let result=intValue-1;
+		
+		if(result<1){
+			result=1;
+		}
+		input.setAttribute("value",result)
+		
+		
+		let sum= event.target.parentNode.parentNode.querySelectorAll('.quantity')[0].value*event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].dataset.price
+		event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].innerText=sum
+		event.target.parentNode.parentNode.parentNode.querySelectorAll(".inputPrice")[0].value=sum;
+		console.log(input)
+		seeTotalPrice()
 	}
 
 </script>

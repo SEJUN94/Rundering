@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.command.BranchCriteria;
 import com.rundering.dto.ItemOutVO;
+import com.rundering.dto.ItemVO;
 
 public class ItemOutDAOImpl implements ItemOutDAO{
 	SqlSession session;
@@ -45,6 +46,13 @@ public class ItemOutDAOImpl implements ItemOutDAO{
 	@Override
 	public ItemOutVO selectItemOutByOutItemCode(String itemOutCode) throws Exception {
 		return session.selectOne("ItemOut-Mapper.selectItemOutByOutItemCode",itemOutCode);
+	}
+
+
+	@Override
+	public ItemVO selectDayItemOutByItem(ItemVO itemVO) throws Exception {
+		
+		return session.selectOne("ItemOut-Mapper.selectDayItemOutByItem",itemVO);
 	}
 
 	

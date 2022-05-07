@@ -212,5 +212,67 @@ public class ItemServiceImpl implements ItemService {
 		
 		
 	}
+	@Override
+	public List<ItemVO> selectDDItemOutByItem(ItemVO item) throws Exception {
+		List<ItemVO> itemList = new ArrayList<ItemVO>();
+		for(int i = 0; i < 7; i++) {
+			ItemVO resultItem = new ItemVO();
+			
+			item.setNumber(i);
+			item.setNumber2(i+1);
+			resultItem= itemOutDAO.selectDayItemOutByItem(item);
+			itemList.add(resultItem);
+			
+		}
+		
+		
+		return itemList;
+	}
+	@Override
+	public List<ItemVO> selectMMItemOutByItem(ItemVO item) throws Exception {
+		List<ItemVO> itemList = new ArrayList<ItemVO>();
+		
+		for(int i = 0; i < 7; i++) {
+			ItemVO resultItem = new ItemVO();
+			
+			item.setNumber(i*30);
+			item.setNumber2((i+1)*30);
+			resultItem= itemOutDAO.selectDayItemOutByItem(item);
+			itemList.add(resultItem);
+			
+		}
+		return itemList;
+	}
+	@Override
+	public List<ItemVO> selectYYItemOutByItem(ItemVO item) throws Exception {
+		List<ItemVO> itemList = new ArrayList<ItemVO>();
+		
+		for(int i = 0; i < 7; i++) {
+			ItemVO resultItem = new ItemVO();
+			
+			item.setNumber(i*90);
+			item.setNumber2((i+1)*90);
+			resultItem= itemOutDAO.selectDayItemOutByItem(item);
+			itemList.add(resultItem);
+			
+		}
+		return itemList;
+	}
+	@Override
+	public List<ItemVO> select3MItemOutByItem(ItemVO item) throws Exception {
+		List<ItemVO> itemList = new ArrayList<ItemVO>();
+		for(int i = 0; i < 7; i++) {
+			ItemVO resultItem = new ItemVO();
+			
+			item.setNumber(i*365);
+			item.setNumber2((i+1)*365);
+			resultItem= itemOutDAO.selectDayItemOutByItem(item);
+			itemList.add(resultItem);
+			
+		}
+		
+		
+		return itemList;
+	}
 	
 }

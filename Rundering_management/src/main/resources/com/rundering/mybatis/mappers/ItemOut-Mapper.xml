@@ -10,14 +10,21 @@
 		<result column="BRANCH_CODE"  property="branchCode"/>
 		<result column="OUT_ITEM_CODE"  property="outItemCode"/>
 	</resultMap>
-	
+	<select id="selectDayItemOutByItem" resultType="item" parameterType="item">
+		 SELECT SUM(ITEMCOUNT) as sum,
+		        TO_CHAR(sysdate-#{number},'YYYY-MM-DD')  as day
+	  	   FROM TB_ITEM_OUT
+	   	  WHERE OUT_DATE BETWEEN SYSDATE-#{number2}
+	  	                 AND SYSDATE -#{number}
+	        AND BRANCH_CODE=#{branchCode}
+	        and articles_code=#{articlesCode}
+	</select>
 	
 	<select id="selectItemOutList" resultMap="itemOutMap">
 		select *
 		  from tb_item_out
 		 where branch_code=#{branchCode}
 		 ORDER BY out_date ASC 
-		   
 	</select>
 	
 	<select id="selectItemOutCount" resultType="int" >
