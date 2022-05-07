@@ -10,6 +10,6 @@ public interface ItemOutDAO {
 	public void insertItemOut(ItemOutVO itemOut) throws Exception;
 	public void deleteItemOut(ItemOutVO itemOut) throws Exception;
 	public int selectItemOutCount(BranchCriteria cri) throws Exception;
-	
+	ItemOutVO selectItemOutByOutItemCode(String itemOutCode) throws Exception;
  } 
  

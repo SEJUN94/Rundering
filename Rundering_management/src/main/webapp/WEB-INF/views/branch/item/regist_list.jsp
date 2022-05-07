@@ -88,8 +88,6 @@
 let page= 1;
 
 
-
-
 function page_go(url){
 	if(url==null||url.trim()==""){
 		alert("페이지가 없습니다");
@@ -151,10 +149,6 @@ function registList(pageInfo){
             	      var month=dateObj.getMonth()+1;
             	      var date=dateObj.getDate();
             	      return year+"/"+month+"/"+date;
-               },"VisibleByLoginCheck" : function(replyer) {//LoginUser와 댓글작성자가 같을때 modify버튼 노출
-            	      var result = "none";
-            	      if(replyer == "${loginMember.memberNo }") result="visible";
-            	      return result;
             	},"laundryArticlesName":function(articlesCode){
             		return laundryArticlesMap[articlesCode].articlesName;
             	},"laundryArticlesEach":function(articlesCode){

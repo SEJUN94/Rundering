@@ -200,5 +200,17 @@ public class ItemServiceImpl implements ItemService {
 		
 		return dataMap;
 	}
+	@Override
+	public void updateSupplyCountCancel(String itemOutCode) throws Exception {
+		ItemOutVO itemOut=itemOutDAO.selectItemOutByOutItemCode(itemOutCode);
+		LaundryGoodsStockVO laundryGoodsStock = new LaundryGoodsStockVO();
+		laundryGoodsStock.setArticlesCode(itemOut.getArticlesCode());
+		laundryGoodsStock.setSupplyCount(itemOut.getItemcount());
+		laundryGoodsStock.setBranchCode(itemOut.getBranchCode());
+		itemOutDAO.deleteItemOut(itemOut);
+		LaundryGoodsStockDAO.updateLaundryGoodsStockSupplyCountPlusByVO(laundryGoodsStock);
+		
+		
+	}
 	
 }

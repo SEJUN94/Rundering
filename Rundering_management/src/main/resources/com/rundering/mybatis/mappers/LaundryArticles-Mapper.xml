@@ -66,6 +66,7 @@
 		  from TB_LAUNDRY_ARTICLES
 		 where CLCODE !='A'
 	</select>
+	
 	<select id="selectLaundryArticles" resultType="str"  parameterType="str">
 	select SUBSTR(ARTICLES_CODE,2)
 	  from (

@@ -1,5 +1,7 @@
 package com.rundering.dto;
 
+import java.util.Date;
+
 public class LaundryGoodsStockVO {
 	private String branchCode; 		//지점코드
 	private String articlesCode; 	//세탁물품코드
@@ -7,6 +9,7 @@ public class LaundryGoodsStockVO {
 	private int	autoOrderPoint;
 	private int	autoOrderCount;
 	private String autoOrderYn;
+	private Date autoOrderLastDate;
 	
 	public LaundryGoodsStockVO() {
 		super();
@@ -60,6 +63,17 @@ public class LaundryGoodsStockVO {
 	public void setAutoOrderYn(String autoOrderYn) {
 		this.autoOrderYn = autoOrderYn;
 	}
+
+
+	public Date getAutoOrderLastDate() {
+		return autoOrderLastDate;
+	}
+
+
+	public void setAutoOrderLastDate(Date autoOrderLastDate) {
+		this.autoOrderLastDate = autoOrderLastDate;
+	}
+	
 	
 
 	

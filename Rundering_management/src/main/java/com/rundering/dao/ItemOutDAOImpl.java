@@ -40,6 +40,13 @@ public class ItemOutDAOImpl implements ItemOutDAO{
 	public int selectItemOutCount(BranchCriteria cri) throws Exception {
 		return session.selectOne("ItemOut-Mapper.selectItemOutCount", cri);
 	}
+
+ 
+	@Override
+	public ItemOutVO selectItemOutByOutItemCode(String itemOutCode) throws Exception {
+		return session.selectOne("ItemOut-Mapper.selectItemOutByOutItemCode",itemOutCode);
+	}
+
 	
 
 
