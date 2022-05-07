@@ -61,11 +61,15 @@
 					<td colspan="2">임대차 계약서 다운로드</td>
 					<td colspan="3">
 						<c:if test="${bv.progressStatusCode ne '01'}" >
-						<input type=text value="${avList[0].fileNm}" onclick="download('${bv.leasecontractFile}','수의계약서')">
+						<a href="<%=request.getContextPath()%>/branchapplication/file/filedownload?atchFileNo=${bv.leasecontractFile}&saveFileNm=${avList[0].saveFileNm }">
+						<input type=text value="${avList[0].fileNm}" >
+						</a>
 						</c:if> 
 						<c:if test="${bv.progressStatusCode eq '01'}" >
+						<a href="<%=request.getContextPath()%>/branchapplication/file/filedownload?atchFileNo=${bv.leasecontractFile}&saveFileNm=${avList[0].saveFileNm }">
 						<input id="inputFileName" type=text name="tempPicture" data-no="0"
-						readonly style="border:none;" value="${avList[0].fileNm }" onclick="download('${bv.leasecontractFile}','임대차계약서')">
+						readonly style="border:none;" value="${avList[0].fileNm }">
+						</a>
 						<label for="inputFile" data-no="0"
 									class="btn btn-secondary btn-sm input-group-addon float-right"
 									style="background-color: #82BBD8; border: 1px solid #82BBD8"
@@ -140,7 +144,7 @@
 					<td colspan="3">
 						<c:if test="${bv.progressStatusCode eq '06'}">
 						 	<input id="inputFileName" type=text name="tempPicture" data-no="0"
-							readonly style="border:none;" value="${avList[1].fileNm }" onclick="download('${bv.leasecontractFile}','수의계약서')">
+							readonly style="border:none;" value="${avList[1].fileNm }" onclick="location.href='<%=request.getContextPath()%>/branchapplication/file/filedownload?atchFileNo=${bv.leasecontractFile}&saveFileNm=${avList[1].saveFileNm }';">
 							<label for="inputFile" data-no="0"
 							class="btn btn-secondary btn-sm input-group-addon float-right"
 							style="background-color: #82BBD8; border: 1px solid #82BBD8"
@@ -148,7 +152,7 @@
 						</c:if>
 						<c:if test="${bv.progressStatusCode eq '07'}">
 							<input id="inputFileName" type=text name="tempPicture" data-no="0"
-							readonly style="border:none;" value="${avList[1].fileNm }" onclick="download('${bv.leasecontractFile}','수의계약서')">
+							readonly style="border:none;" value="${avList[1].fileNm }" onclick="location.href='<%=request.getContextPath()%>/branchapplication/file/filedownload?atchFileNo=${bv.leasecontractFile}&saveFileNm=${avList[1].saveFileNm }';">
 							<label for="inputFile" data-no="0"
 							class="btn btn-secondary btn-sm input-group-addon float-right"
 							style="background-color: #82BBD8; border: 1px solid #82BBD8"
@@ -191,79 +195,6 @@
 <!-- 알림 sweetalert2 -->
 <script	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 
-
-<!-- 파일다운로드 -->
-<script>
-const dataSetting = function(){
-   let dataArr = [];
-   let dataObj = {};
-   
-   for(let i = 0; i < checkMark.length; i++){
-      if(checkMark[i].checked){
-         dataObj = {"unityatchmnflno" : uniflno.value,
-                  "ano" : checkMark[i].value}
-         dataArr.push(dataObj);   
-      }      
-   }
-   
-   return dataArr;
-};
-
-const sendDownloadFile = function(dataArr){
-   let data = dataSetting(dataArr);
-   let downUrl = "restDownload";
-   if(data.length > 1){
-      downUrl = "zipDownload"; 
-   }
-   
-   const xhr = new XMLHttpRequest();
-   xhr.onreadystatechange = function(){
-       if (this.readyState == 4 && this.status == 200){
-         
-          let filename = "";
-          let disposition = xhr.getResponseHeader('Content-Disposition');
-            if (disposition && disposition.indexOf('attachment') !== -1) {
-                let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-                let matches = filenameRegex.exec(disposition);
-                if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-            }
-         
-           let a = document.createElement("a");
-           let url = URL.createObjectURL(this.response)
-           a.href = url;
-           a.download = filename;
-           document.body.appendChild(a);
-           a.click();
-           window.URL.revokeObjectURL(url);
-       }
-   }
-   xhr.open('POST', downUrl);
-   xhr.setRequestHeader('Content-type','application/json');
-   xhr.responseType = 'blob'; 
-   xhr.send(JSON.stringify(data));
-   
-}
-
-function download(fileNo,bizType){
-	 $.ajax({
-			url: "<%=request.getContextPath()%>/branchapplication/restDownload",
-			data:{
-				'atchFileNo' : fileNo,
-				'bizType' : bizType
-			},
-			type:'POST',
-			success:function(data){
-				
-				
-			},
-			error:function(error){
-				AjaxErrorSecurityRedirectHandler(error.status);
-			}
-		});
-	
-}
-
-</script>
 
 <script>
 var FileNm = document.getElementById("uuidNm");

@@ -18,6 +18,5 @@ public interface AttachDAO {
 	//첨부파일 시퀀스 가져오기
 	public int getAttachNoSeq(String atchFileNo)throws Exception;
 	// 파일다운로드를 위한 해당 파일의 정보가져오기
-	public AttachVO selectAttachByBizType(AttachVO attach) throws Exception;
-	
+	public AttachVO getAttachForDownload(AttachVO attach) throws Exception;
 }

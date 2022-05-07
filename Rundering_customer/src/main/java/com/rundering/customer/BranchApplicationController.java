@@ -1,12 +1,17 @@
 package com.rundering.customer;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,12 +19,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,7 +31,6 @@ import com.rundering.dto.AttachVO;
 import com.rundering.dto.BranchApplicationVO;
 import com.rundering.service.AttachService;
 import com.rundering.service.BranchApplicationService;
-import com.rundering.util.RESTFileDownloadResolver;
 
 @RequestMapping("/branchapplication")
 @Controller
@@ -211,19 +213,42 @@ public class BranchApplicationController {
 	public void selfAuthentification() {
 	}
 
-	//파일다운로드
-	@RequestMapping("/getFile")
-	public String getFile(AttachVO attach, Model model) throws Exception {
-		String url = "downloadFile";
+	// 파일다운로드
+	@RequestMapping("/file/filedownload") 
+	public void fileDownload(HttpServletRequest request,AttachVO attach ,HttpServletResponse response) throws Exception { 
 		
+		attach = attachService.getAttachForDownload(attach);
 		
-		model.addAttribute("savedPath", filePath);
-		model.addAttribute("fileName", attach.getSaveFileNm());
+		String saveDir = attach.getFilePath(); 
+		String fileName = attach.getSaveFileNm(); 
+		File file = new File(saveDir + "/" + fileName); 
+		FileInputStream fis = null; BufferedInputStream bis = null; 
+		ServletOutputStream sos = null; 
+		try { 
+			fis = new FileInputStream(file); 
+			bis = new BufferedInputStream(fis); 
+			sos = response.getOutputStream(); 
+			String reFilename = ""; 
+			reFilename = URLEncoder.encode(attach.getFileNm(), "utf-8"); 
+			reFilename = reFilename.replaceAll("\\+", "%20"); 
+
 		
-		return url;
-		
+			response.setContentType("application/octet-stream;charset=utf-8"); 
+			response.addHeader("Content-Disposition", "attachment;filename=\""+reFilename+"\""); 
+			response.setContentLength((int)file.length()); 
+			int read = 0; while((read = bis.read()) != -1) {sos.write(read);}
+			
+		}catch(IOException e) { 
+			e.printStackTrace(); }finally { 
+				try { 
+					sos.close(); bis.close(); 
+				}catch (IOException e) { 
+					e.printStackTrace();
+				} 
+		} 
 	}
-	
+
+
 	// 인증 후 지점 신청 확인
 	@RequestMapping("/self_authentification/comfirm")
 	@ResponseBody

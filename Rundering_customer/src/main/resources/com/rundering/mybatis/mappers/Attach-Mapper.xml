@@ -30,14 +30,13 @@
 		  from TB_ATTACH_FILE
 		 where ATCH_FILE_NO = #{atchFileNo}
 	</select>
-	
-	<select id="selectAttachByBizType" resultMap="attachMap">
-		select *
-		  from TB_ATTACH_FILE
-		 where ATCH_FILE_NO = #{atchFileNo}
-		 and BIZ_TYPE = #{bizType}
+
+	<select id="getAttachForDownload" resultMap="attachMap" parameterType="attach">
+		SELECT *
+		FROM TB_ATTACH_FILE
+		WHERE ATCH_FILE_NO = #{atchFileNo}
+		AND SAVE_FILE_NM = #{saveFileNm}
 	</select>
-	
 	
 	<update id="insertAttach" parameterType="attach">
 		INSERT INTO TB_ATTACH_FILE
