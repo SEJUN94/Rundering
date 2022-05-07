@@ -18,6 +18,12 @@ public class AttachService {
 		attachList = attachDAO.selectAttachVOByFileNo(fileNo);
 		return attachList;
 	}
+	
+	public List<AttachVO> contract(AttachVO av) throws Exception{
+		List<AttachVO> contractList = new ArrayList<AttachVO>();
+		contractList  = attachDAO
+		
+	} 
 
 	public void fileRemove(String fileNo) throws Exception {
 		attachDAO.deleteAttchFileRemoveByFileNo(fileNo);
