@@ -28,4 +28,7 @@ public interface FAQDAO {
 	void updateFrequently(FAQVO FAQ) throws SQLException;
 	
 	void deleteFrequently(int faqno) throws SQLException;
+	
+	// 자주묻는질문 등록(아코디언)
+	public void insertQnA(FAQVO faq)throws Exception;
 }

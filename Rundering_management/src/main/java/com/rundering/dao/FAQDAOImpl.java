@@ -74,6 +74,12 @@ public class FAQDAOImpl implements FAQDAO {
 	public void deleteFrequently(int faqno) throws SQLException {
 		session.update("FAQ-mapper.deleteFrequently", faqno);
 	}
+	
+	// 자주묻는질문 등록(아코디언)
+	@Override
+	public void insertQnA(FAQVO faq) throws Exception {
+		session.update("FAQ-mapper.insertQnA", faq);
+	}
 
 	@Override
 	public FAQVO selectOriginalFAQByFaqno(int faqno) throws SQLException {

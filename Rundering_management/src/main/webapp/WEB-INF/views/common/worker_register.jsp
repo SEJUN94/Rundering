@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="branchList" value="${branchList}" />
 <!DOCTYPE html>
 <head>
 <style>
@@ -42,12 +43,9 @@
                         <div class="input-group-append">
                             <select class="btn btn-info btn-sm form-control" name="password" id="password">
                                 <option value="">지점선택</option>
-                                <option value="060101">동구지점</option>
-                                <option value="060201">중구지점</option>
-                                <option value="060301">서구지점</option>
-                                <option value="060401">유성구지점</option>
-                                <option value="060501">대덕구지점</option>
-                                <option value="000000">본사</option>
+                                <c:forEach items="${branchList}" var="list">
+                                	<option value="${list.branchCode}">${list.branchName }</option>
+                                </c:forEach>
                             </select>
                         </div>
                     </div>
@@ -96,12 +94,6 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                                <label for="agreeTerms">
-                                    I agree to the <a href="#">terms</a>
-                                </label>
-                            </div>
                         </div>
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block" onclick="regist()">등록신청</button>
@@ -130,10 +122,13 @@
 					data : formData,
 					success : function(response){
 						if(response.toUpperCase() == "OK"){
-							location.href = "<%=request.getContextPath()%>/common/loginform";
 							Swal.fire('Rundering 사원등록 신청이 완료되었습니다.', '사원 등록 후 아이디 및 패스워드를 이메일로 보내드리니 이메일을 확인해주세요', 'success' )
+							setTimeout(function(){location.href = "<%=request.getContextPath()%>/common/loginform";},2000);
 							} else {
-							Swal.fire('공백없이 형식에 맞게 작성해주세요!', 'error' )
+								 Swal.fire({
+					                  icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					                  title: '공백없이 형식에 맞게 작성해주세요!'
+					             });
 							}
 						},
 						error : function(xhr) {
@@ -141,10 +136,16 @@
 						},
 					});
 			}else {
-				Swal.fire('지점코드르 선택해주세요!', 'error' )
+				Swal.fire({
+	                 icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+	                 title: '지점코드르 선택해주세요!'
+	            });
 			}
 		}else{
-			Swal.fire('휴대폰 인증이 필요합니다!', 'error' )
+			Swal.fire({
+            	icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+                title: '휴대폰 인증이 필요합니다!'
+            });
 			document.getElementById("phone").focus();
 		}
 	}

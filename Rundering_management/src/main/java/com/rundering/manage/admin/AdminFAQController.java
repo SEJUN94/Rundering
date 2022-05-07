@@ -7,16 +7,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.AcoCriteria;
 import com.rundering.command.FAQCriteria;
 import com.rundering.dto.FAQVO;
+import com.rundering.dto.MemberVO;
 import com.rundering.service.FAQService;
 
 @Controller
@@ -93,6 +97,23 @@ public class AdminFAQController {
 		return url;
 	}
 	
+	
+	// 자주묻는질문 등록
+	@RequestMapping("/insert")
+	@ResponseBody
+	public ResponseEntity<String> insert(HttpServletRequest request,FAQVO faq)throws Exception {
+		ResponseEntity<String> entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+		//세션을 통한 사원의 고유번호 불러오기
+		HttpSession session = request.getSession();
+		MemberVO mv = (MemberVO)session.getAttribute("loginMember");
+		
+		faq.setWriter(mv.getMemberNo());
+
+		faqService.insertQnA(faq);
+		
+		return entity;
+	}
+	
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String modify(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
@@ -106,15 +127,17 @@ public class AdminFAQController {
 		return url;
 	}
 	
-	@RequestMapping(value = "/remove", method = RequestMethod.GET)
-	public String remove(int faqno, RedirectAttributes rttr) throws Exception {
-		String url = "redirect:/admin/question/faq";
+	@RequestMapping("/remove")
+	public ResponseEntity<String> remove(int faqno) throws Exception {
+		ResponseEntity<String> entity = null;
 
-		faqService.remove(faqno);
+		try {
+			faqService.remove(faqno);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+		}catch(Exception e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-		rttr.addFlashAttribute("from", "remove");
-		rttr.addAttribute("faqno", faqno);
-
-		return url;
+		return entity;
 	}
 }
