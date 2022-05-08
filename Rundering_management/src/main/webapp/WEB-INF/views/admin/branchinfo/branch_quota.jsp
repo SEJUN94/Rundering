@@ -204,11 +204,10 @@ function changeDate(cDate){
 			for(let i of tr ){
 				i.remove();
 			}
-			console.log(data) 
 			let str= "";
 			if(data.length!=0){
 				for(let i=0; i<data.length; i++){
-					str+='<tr onclick="getWeeksBranchThroughput('+data[i].branchCode+');"style="cursor: pointer;" class="tableTr">'
+					str+="<tr onclick='getWeeksBranchThroughput(\""+data[i].branchCode+"\");'style='cursor: pointer;' class='tableTr'>"
 					str+="<td>"+data[i].name+"</td>";
 					str+="<td>"+data[i].branchName+"</td>";
 					str+="<td class='project_progress'>"
@@ -230,7 +229,6 @@ function changeDate(cDate){
 					str+="	<small>"+ data[i].branchLndrpcrymslmcoqy+"%</small>"
 					str+="</td>"
 					str+="<td>"
-					alert("aa"+data[i].branchCode);
 					str+="	<button class='btn btn-warning btn-sm' onclick='troughput_detail(\""+data[i].branchCode+"\")'>상세보기</button>";
 					//str+="	<button class='btn btn-warning btn-sm' onclick='troughput_detail("+'"data[i].branchCode+")'>상세보기</button>";
 					str+="</td>";
