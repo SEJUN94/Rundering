@@ -139,10 +139,11 @@ public class CommonController {
 	}
 	
 	@RequestMapping("/common/change/newpasswordform")
-	public ModelAndView changePasswordForm(ModelAndView mnv,String id) {
+	public ModelAndView changePasswordForm(ModelAndView mnv,String id,String password) {
 		String url = "common/worker_change_new_password";
 		
 		mnv.addObject("id" , id);
+		mnv.addObject("password" , password);
 		mnv.setViewName(url);
 		
 		return mnv;

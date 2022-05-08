@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 
-<c:set var="mv" value="${id}"/>
     
 <style>
     .bg{
