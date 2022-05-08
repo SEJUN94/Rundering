@@ -84,8 +84,8 @@
                                                 <input type="text" class="inputValue" data-code="${item.articlesCode }"  data-each="${item.each}" disabled value="${item.autoOrderCount }(${item.each})" style="width: 100px; text-align: right;">
                                                 <button class="btn btn-sm btn-warning modifyBtn" onclick="autoModify()">수정</button>
                                             	<span class="btn-group-vertical modifySpan" style="width: 18px;display: none">
-														<button type="button" class="btn btn-sm btn-default p-0" style="height: 18px;" onclick="plusQuantity(this)">+</button>
-														<button type="button" class="btn btn-sm btn-default p-0" style="height: 18px;" onclick="minusQuantity(this)">-</button>
+														<button type="button" class="btn btn-sm btn-default p-0" style="height: 15px;" onclick="plusQuantity(this)">+</button>
+														<button type="button" class="btn btn-sm btn-default p-0" style="height: 15px;" onclick="minusQuantity(this)">-</button>
 												</span>
 												 <button class="btn btn-sm btn-primary saveBtn" onclick="autoSaveCount()" style="display:none" >저장</button>
                                             </span>
@@ -95,8 +95,8 @@
                                                 <input type="text" class="inputValue" data-code="${item.articlesCode }" data-each="${item.each}" disabled value="${item.autoOrderPoint }(${item.each})" style="width: 100px; text-align: right;">
                                                 <button class="btn btn-sm btn-warning modifyBtn" onclick="autoModify()">수정</button>
                                                 <span class="btn-group-vertical modifySpan" style="width: 18px;display: none">
-														<button type="button" class="btn btn-sm btn-default p-0" style="height: 18px;" onclick="plusQuantity(this)">+</button>
-														<button type="button" class="btn btn-sm btn-default p-0" style="height: 18px;" onclick="minusQuantity(this)">-</button>
+														<button type="button" class="btn btn-sm btn-default p-0" style="height: 15px;" onclick="plusQuantity(this)">+</button>
+														<button type="button" class="btn btn-sm btn-default p-0" style="height: 15px;" onclick="minusQuantity(this)">-</button>
 												</span>
 												  <button class="btn btn-sm btn-primary saveBtn" onclick="autoSavePoint()" style="display:none" >저장</button>
                                             </span>

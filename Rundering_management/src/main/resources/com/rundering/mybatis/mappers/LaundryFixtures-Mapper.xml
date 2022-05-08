@@ -18,7 +18,19 @@
 		<result column="FIXTURES_NAME" property="fixturesName" />
 
 	</resultMap>
-
+	
+	<sql id="search">
+		<if test="searchType == 'A001'.toString()">
+			and ARTICLES_CODE = 'A001'		
+		</if>
+		<if test="searchType == 'A002'.toString()">
+			and ARTICLES_CODE = 'A002'			
+		</if>
+		<if test="searchType == 'A003'.toString()">
+			and ARTICLES_CODE = 'A003'		
+		</if>
+	</sql>
+	
 
 	<select id="getFixturesCodeAsRequest" parameterType="laundryFixtures" resultType="str">
 		select A.FIXTURES_CODE as FIXTURES_CODE
@@ -28,17 +40,39 @@
             AND A.FIXTURES_NAME = #{fixturesName}
 	</select>
 	
-		<select id="selectFixturesListByBranchCode" parameterType="str" resultMap="laundryFixturesMap">
+	<select id="selectFixturesListByBranchCode" parameterType="str" resultMap="laundryFixturesMap">
 		select *
 		  from tb_laundry_fixtures
 		 where branch_code=#{branchCode} 
 	</select>
+	
+	<select id="selectFixturesList"  resultMap="laundryFixturesMap">
+		select *
+		  from tb_laundry_fixtures
+		 where branch_code=#{branchCode} 
+		 <include refid="search"></include>
+		 ORDER BY REGIST_DATE
+	</select>
+	<select id="selectFixturesListCount"  resultType="int">
+		select count(*)
+		  from tb_laundry_fixtures
+		 where branch_code=#{branchCode} 
+		  <include refid="search"></include>
+	</select>
+
 	 
-		<select id="selectLaundryFixtureByFixturesCode" parameterType="str" resultMap="laundryFixturesMap">
+	<select id="selectLaundryFixtureByFixturesCode" parameterType="str" resultMap="laundryFixturesMap">
 		select *
 		  from tb_laundry_fixtures
 		 where FIXTURES_CODE=#{fixturesCode} 
 	</select> 
+	
+	<update id ="updateFixturesStatusByFixturesCode" parameterType="laundryFixtures">
+		update tb_laundry_fixtures
+		   set status=#{status}
+		 where fixtures_code=#{fixturesCode}
+		   
+	</update>
 	
 	<insert id="insertFixturesByFixtrues" parameterType="laundryFixtures">
 			insert into TB_LAUNDRY_FIXTURES
@@ -55,9 +89,7 @@
 			#{articlesCode},
 			#{fixturesName}
 			)
-			
-			
-			
 	</insert>
-
+	
+	
 </mapper>

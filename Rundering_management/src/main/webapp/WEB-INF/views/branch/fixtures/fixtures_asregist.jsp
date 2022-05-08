@@ -42,36 +42,29 @@
 					</div>
 					<div class="form-group">
 						<div class="row">
-							<%-- div class=" col">
-								<label for="articlesCode"
-									style="margin-left: 10px; font-size: large;">물품
-									<select	class="form-control" name="articlesCode" id="articlesCode"
-									style=" width: 200px; margin-top: 6px;">
-									<option selected>선택해주세요</option>
-									<c:forEach items="${getItemList }" var="code" >
-										<option><c:out value="${code.articlesCode }" /></option>
-									</c:forEach>
-								</select></label> 
-							</div> --%>
+						
 							<div class=" col">
 								<label for="articlesCode"
-									style="margin-left: 10px; font-size: large;">물품<select
-									class="form-control" name="articlesCode" id="articlesCode"
-									style=" width: 200px; margin-top: 6px;">
-									<option value="A001">세탁기</option>
-									<option value="A002">건조기</option>
-									<option value="A003">에어컨</option>
-								</select></label> 
+									style="margin-left: 10px; font-size: large;">물품
+									<input type="hidden" name="fixturesCode" value="${param.articlesCode}">
+										<c:if test="${param.articlesCode  eq 'A001'}">
+											<input class="form-control"  id="articlesCode" value="세탁기" disabled="disabled"	style=" width: 200px; margin-top: 6px;" type="text" >
+										</c:if>
+										<c:if test="${param.articlesCode  eq 'A002'}">
+											<input class="form-control"  id="articlesCode" value="건조기" disabled="disabled"	style=" width: 200px; margin-top: 6px;" type="text" >
+										</c:if>
+										<c:if test="${param.articlesCode  eq 'A003'}">
+											<input class="form-control"  id="articlesCode" value="에어컨" disabled="disabled"	style=" width: 200px; margin-top: 6px;" type="text" >
+										</c:if>
+								</label> 
 							</div>
 							<div class=" col">
 								<label for="fixturesCode"
-									style="margin-left: 10px; font-size: large;">호수<select
-									class="form-control" name="fixturesCode" id="fixturesCode"
-									style=" width: 200px; margin-top: 6px;">
-										<c:forEach items="${fixturesList }" var="fixtures">
-											<option value="${fixtures.fixturesCode }">${fixtures.fixturesName }</option>
-										</c:forEach>
-								</select></label> 
+									style="margin-left: 10px; font-size: large;">호수
+									
+									<input type="hidden" name="fixturesCode" value="${param.fixturesCode}">
+									<input class="form-control"  id="fixturesCode" value="${param.fixturesName }" disabled="disabled"	style=" width: 200px; margin-top: 6px;" type="text" >
+								</label> 
 							</div>
 							<div class=" col">
 								<label for="requestDate"
@@ -104,19 +97,4 @@
    	} 
 	</script>
 
-	<script>
-		function regist_go() {
-			var form = document.registForm;
-			if (form.title.value == "") {
-				alert("제목은 필수입니다.");
-				return;
-			}
-			if (form.requestDate.value == "") {
-				alert("고장난 날짜를 적용하세요.");
-				return;
-			}
-			alert("요청 등록이 성공했습니다.");
-			form.submit();
-		}
-	</script>
 </body>
