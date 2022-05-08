@@ -16,6 +16,7 @@ import com.rundering.dto.BranchVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.dto.NotificationVO;
+import com.rundering.util.UserSha256;
 
 public class MemberServiceImpl implements MemberService {
 
@@ -142,6 +143,9 @@ public class MemberServiceImpl implements MemberService {
 	// 새로운 비밀번호로 변경
 	@Override
 	public void modifyPwById(MemberVO mv) throws Exception {
+		
+		mv.setEmail(UserSha256.encrypt(mv.getEmail()));
+		
 		memberDAO.modifyPwById(mv);
 	}
 

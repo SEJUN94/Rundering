@@ -36,7 +36,7 @@ public class MailSendService {
 					.append("<br/><h1>[사원 비밀번호]</h1><br/>")
 					.append("<h3>"+mv.getId()+"<h3><br/>")
 					.append("<br/>비밀번호는 사원번호와 일치하여 보안에 취약하니 로그인시 비밀번호 변경을 권고 드립니다.<br/>")
-					.append("<br/><a href='http://localhost/runderingmanage/common/change/newpasswordform?id="+mv.getId()+"'>비밀번호 변경</a>")
+					.append("<br/><a href='http://localhost/runderingmanage/common/change/newpasswordform?id="+mv.getId()+"&password="+mv.getPassword()+"'>비밀번호 변경</a>")
 					.toString());
 			sendMail.setTo(mv.getEmail());
 			sendMail.send();

@@ -51,6 +51,7 @@
                             <button type="submit" id="sendBtn" class="btn btn-primary btn-block"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비밀번호 변경</font></font></button>
                         </div>
                         <input type="hidden" class="form-control" id="id" name="id" value="${id}" required> 
+                        <input type="hidden" class="form-control" id="password" name="password" value="${passoword}" required> 
                     </div>
                 </form>
             </div>
@@ -83,7 +84,8 @@ let passchk = false;
 				type : 'post',
 				data : {
 					'id' : $('#id').val(),
-					'password' : $('#newPw').val()
+					'password' : $('#passoword').val(),
+					'newPassword' : $('#newPw').val()
 				},
 				success : function(response){
 					if(response.toUpperCase() == "OK"){
