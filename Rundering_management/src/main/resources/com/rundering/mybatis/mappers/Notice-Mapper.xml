@@ -78,9 +78,18 @@
 	</update>
 	
 	<update id="insertNotice" parameterType="notice">
-		insert into 
-		TB_NOTICE(NOTICENO,TITLE,EMPLOYEE_ID,CONTENT,REGIST_DATE,REPLYNO,ATCH_FILE_NO)
-		values(#{noticeno},#{title},#{employeeId},#{content},sysdate,#{replyNo},#{atchFileNo})
+		<choose>
+			<when test="atchFileNo != null">
+				insert into 
+				TB_NOTICE(NOTICENO,TITLE,EMPLOYEE_ID,CONTENT,REGIST_DATE,REPLYNO,ATCH_FILE_NO)
+				values(#{noticeno},#{title},#{employeeId},#{content},sysdate,#{replyNo},#{atchFileNo})
+			</when>
+			<otherwise>
+				insert into 
+				TB_NOTICE(NOTICENO,TITLE,EMPLOYEE_ID,CONTENT,REGIST_DATE,REPLYNO)
+				values(#{noticeno},#{title},#{employeeId},#{content},sysdate,#{replyNo})
+			</otherwise>
+			</choose>
 	</update>	
 	
 	<select id="selectNoticeByNno" parameterType="int" resultMap="noticeMap" >
@@ -91,9 +100,13 @@
 	</select>
 	
 	<update id="updateNotice" parameterType="notice">
+	
 		update TB_NOTICE
 		set 
 		title=#{title},content=#{content},modify_date=sysdate	
+		<if test="atchFileNo != null">
+			,ATCH_FILE_NO=#{atchFileNo}
+		</if>
 		where noticeno=#{noticeno}
 	</update>
 	

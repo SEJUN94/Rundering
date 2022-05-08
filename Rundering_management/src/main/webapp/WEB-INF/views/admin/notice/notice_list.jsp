@@ -46,7 +46,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h2 style="height: 20px;" class="card-title">
-		            	<b>공지사항 리스트</b>
+		            	<b></b>
 		            </h2>
 					<div class="card-tools">
 						<div class="input-group input-group-sm" style="width: 300px;">

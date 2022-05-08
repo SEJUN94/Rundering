@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.rundering.command.Criteria;
+import com.rundering.command.NoticeModifyCommand;
 import com.rundering.command.NoticeRegistCommand;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.NoticeVO;
@@ -24,10 +25,10 @@ public interface NoticeService {
 	void regist(NoticeRegistCommand notice, List<AttachVO> attachList)throws Exception;
 	
 	// 수정
-	void modify(NoticeVO notice) throws SQLException;
+	void modify(NoticeModifyCommand notice, List<AttachVO> attachList) throws Exception;
 
 	// 삭제
-	void remove(int noticeno) throws SQLException;
+	void remove(int noticeno) throws Exception;
 
 	Map<String, Object> getNoticeReplyList(String replyno, Criteria cri) throws Exception;
 	

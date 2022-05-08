@@ -23,10 +23,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.Criteria;
+import com.rundering.command.NoticeModifyCommand;
 import com.rundering.command.NoticeRegistCommand;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.NoticeVO;
 import com.rundering.manage.HomeController;
+import com.rundering.service.AttachService;
 import com.rundering.service.NoticeService;
 import com.rundering.util.GetAttachesByMultipartFileAdapter;
 
@@ -38,6 +40,8 @@ public class NoticeController {
 	
 	@Autowired
 	NoticeService noticeService;
+	@Autowired
+	AttachService attachService;
 	@Resource(name = "boardPath")
 	private String boardPath;
 	
@@ -131,7 +135,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/modify",method=RequestMethod.POST)
-	public String noticeModify(NoticeVO notice,
+	public String noticeModify(NoticeModifyCommand noticecmd,
 						     HttpServletRequest request,
 							 RedirectAttributes rttr)throws Exception{
 		String url = "redirect:/admin/notice/detail";
@@ -139,9 +143,15 @@ public class NoticeController {
 		//notice.setTitle(HTMLInputFilter.htmlSpecialChars(notice.getTitle()));
 		//notice.setTitle((String)request.getAttribute("XSStitle"));
 		
-		noticeService.modify(notice);
 		
-		rttr.addAttribute("noticeno",notice.getNoticeno());
+
+		// 파일 저장
+		List<AttachVO> attachList = GetAttachesByMultipartFileAdapter.save(noticecmd.getUploadFile(), this.boardPath,"공지사항");
+
+		
+		noticeService.modify(noticecmd, attachList);
+		
+		rttr.addAttribute("noticeno",noticecmd.getNoticeno());
 		rttr.addFlashAttribute("from","modify");
 		
 		return url;

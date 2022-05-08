@@ -58,6 +58,18 @@ public class AttachDAOImpl implements AttachDAO{
 	public AttachVO getAttachForDownload(AttachVO attach) throws Exception {
 		return session.selectOne("Attach-Mapper.getAttachForDownload", attach);
 	}
+	@Override
+	public void deleteAttchFileRemoveByFileNoAndSeq(AttachVO attach) throws Exception {
+		session.delete("Attach-Mapper.deleteAttchFileRemoveByFileNoAndSeq", attach);
+	}
+	@Override
+	public AttachVO selectAttachVOByFileNoAndSeq(AttachVO attach) throws Exception {
+		return session.selectOne("Attach-Mapper.selectAttachVOByFileNoAndSeq", attach);
+	}
+	@Override
+	public int selectLastSeqAttachVOByFileNo(String atchFileNo) throws Exception {
+		return session.selectOne("Attach-Mapper.selectLastSeqAttachVOByFileNo", atchFileNo);
+	}
 	
 
 }
