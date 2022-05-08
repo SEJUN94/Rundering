@@ -113,19 +113,36 @@
 	
 	<!-- 삽입 -->
 	<select id="insertSuggest" resultType="suggest">
-		insert into TB_SUGGEST_BOARD(
-			sno,
-			title,
-			writer,
-			branch_name,
-			content,
-			ATCH_FILE_NO) values(
-						sno_seq.nextval,
-						#{title},
-						#{writer},
-						#{branchName},
-						#{content},
-						#{atchFileNo})
+		 <choose>
+			<when test="atchFileNo != null">
+			insert into TB_SUGGEST_BOARD(
+				sno,
+				title,
+				writer,
+				branch_name,
+				content,
+				ATCH_FILE_NO) values(
+							sno_seq.nextval,
+							#{title},
+							#{writer},
+							#{branchName},
+							#{content},
+							#{atchFileNo})
+			</when>
+			<otherwise>
+					insert into TB_SUGGEST_BOARD(
+				sno,
+				title,
+				writer,
+				branch_name,
+				content) values(
+							sno_seq.nextval,
+							#{title},
+							#{writer},
+							#{branchName},
+							#{content})
+			</otherwise>
+			</choose>
 	</select>
 	
 	<!-- 수정 -->
@@ -133,6 +150,9 @@
 		update TB_SUGGEST_BOARD
 		set 
 		title=#{title},content=#{content}
+		<if test="atchFileNo != null">
+			,ATCH_FILE_NO=#{atchFileNo}
+		</if>
 		where sno=#{sno}
 	</update>
 	

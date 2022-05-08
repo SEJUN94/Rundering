@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.rundering.command.Criteria;
+import com.rundering.command.SuggestModifyCommand;
 import com.rundering.command.SuggestRegistCommand;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.SuggestVO;
@@ -24,12 +25,12 @@ public interface SuggestService {
 	Map<String, Object> getSuggestModify(int sno) throws Exception;
 
 	// 등록
-	void regist(SuggestRegistCommand suggest, List<AttachVO> attachList) throws Exception;
+	void regist(SuggestRegistCommand suggestcmd, List<AttachVO> attachList) throws Exception;
 
 	// 수정
-	void modify(SuggestVO suggest) throws SQLException;
+	void modify(SuggestModifyCommand suggestcmd, List<AttachVO> attachList) throws Exception;
 
 	// 삭제
-	void remove(int sno) throws SQLException;
+	void remove(int sno) throws Exception;
 
 }

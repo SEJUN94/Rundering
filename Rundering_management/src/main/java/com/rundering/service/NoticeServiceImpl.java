@@ -211,7 +211,7 @@ public class NoticeServiceImpl implements NoticeService{
 			noticeDAO.updateNotice(noticeVO);
 	}
 	
-	//
+	//attach 파일, DB삭제
 	private void removeAttach(AttachVO attach) throws Exception {
 		// DB에 저장된 저장경로 참고! - properties의 저장경로 변경 가능성
 		File deleteFile = new File(attach.getFilePath(), attach.getSaveFileNm());

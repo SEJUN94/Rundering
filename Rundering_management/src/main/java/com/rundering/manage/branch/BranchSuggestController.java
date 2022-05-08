@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.Criteria;
+import com.rundering.command.SuggestModifyCommand;
 import com.rundering.command.SuggestRegistCommand;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.EmployeesVO;
@@ -93,13 +94,17 @@ public class BranchSuggestController {
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyPost(SuggestVO suggest, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+	public String modifyPost(SuggestModifyCommand suggestcmd, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
 		String url = "redirect:/branch/suggest/detail";
+		
+		// 파일 저장
+		List<AttachVO> attachList = GetAttachesByMultipartFileAdapter.save(suggestcmd.getUploadFile(), this.boardPath,"건의사항");
 
-		suggestService.modify(suggest);
+		
+		suggestService.modify(suggestcmd, attachList);
 
-		rttr.addAttribute("sno", suggest.getSno());
+		rttr.addAttribute("sno", suggestcmd.getSno());
 		rttr.addFlashAttribute("from", "modify");
 
 		return url;
