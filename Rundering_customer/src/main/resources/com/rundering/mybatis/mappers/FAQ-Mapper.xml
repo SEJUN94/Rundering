@@ -69,6 +69,35 @@
 		order by a.regist_date desc
 	</select>
 
+	<!-- 내 리스트보기 -->
+	<select id="MypageSearchFAQList" resultMap="faqMap" parameterType="str">
+		select
+			a.faqno,
+			a.setbukdoorclcode,
+			a.question,
+			a.fcontent,
+			b.name as writer,
+			a.regist_date,
+			a.secretyn,
+			a.faqyn,
+			a.answer
+		from tb_faq a, tb_member b
+			where a.writer = b.memberno
+				and a.faqyn = 'N'
+				and a.writer = #{writer}
+			order by a.faqno desc
+	</select>
+
+	<select id="MypageFAQListCount" resultType="int" parameterType="str">
+		select
+		count(*)
+		from tb_faq
+		where faqno is not null
+		  and faqyn = 'N'
+		  and writer = #{writer}
+		order by regist_date desc
+	</select>
+
 	<select id="selectFAQByFaqno" parameterType="int" resultMap="faqMap">
 		select a.faqno, a.setbukdoorclcode, a.question, a.fcontent, a.orderno, a.regist_date, b.name as writer, a.answer
 		from tb_faq a, tb_member b

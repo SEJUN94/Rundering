@@ -28,4 +28,7 @@ public interface FAQService {
 	
 	/* 아코디언 */
 	public Map<String, Object> getFAQFrequentlyList(MyOrderCriteria cri) throws SQLException;
+	
+	// 내 목록조회
+	public Map<String, Object> getMyFAQList(MyOrderCriteria cri) throws SQLException;
 }

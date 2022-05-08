@@ -57,6 +57,8 @@ public class FAQServiceImpl implements FAQService {
 		return dataMap;
 	}
 	
+	
+	
 	@Override
 	public FAQVO getFAQModify(int faqno) throws SQLException {
 		FAQVO faq = faqDAO.selectFAQByFaqno(faqno);
@@ -121,6 +123,28 @@ public class FAQServiceImpl implements FAQService {
 		pageMaker.setTotalCount(totalCount);
 
 		dataMap.put("frequentlyList", frequentlyList);
+		dataMap.put("pageMaker", pageMaker);
+
+		return dataMap;
+	}
+
+	// 내 문의내역
+	@Override
+	public Map<String, Object> getMyFAQList(MyOrderCriteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+
+		// 현재 page 번호에 맞게 리스트를 가져오기
+		List<FAQVO> faqList = faqDAO.MypageFAQList(cri);
+
+		// 전체 board 개수
+		int totalCount = faqDAO.MypageFAQListCount(cri);
+
+		// PageMaker 생성.
+		MyOrderPageMaker pageMaker = new MyOrderPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+
+		dataMap.put("faqList", faqList);
 		dataMap.put("pageMaker", pageMaker);
 
 		return dataMap;

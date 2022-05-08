@@ -7,7 +7,14 @@ public class MyOrderCriteria {
 	private String searchType="";
 	private String keyword="";
 	private String memberNo;
+	private String writer;
 	
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
 	public String getMemberNo() {
 		return memberNo;
 	}
