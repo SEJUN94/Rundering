@@ -102,6 +102,32 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 		return dataMap;
 		
 	}
+	@Override
+	public Map<String, Object> adminItemOrdeList(BranchCriteria cri) throws Exception{
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		Map<String,String> comCodeMap = new HashMap<String, String>();		
+		List<ItemOrderVO> itemOrderList = new ArrayList<ItemOrderVO>();
+		
+		cri.setPerPageNum(10);
+		 
+		List<ComCodeVO> itemOrderComCode = comCodeDAO.selectItemOrderCode();
+		itemOrderList = itemOrderDAO.selectAdminItemOrderList(cri);
+		for (ComCodeVO comCode : itemOrderComCode) {
+			comCodeMap.put(comCode.getComCode(), comCode.getComCodeNm());
+		}
+		
+		
+		int totalCount = itemOrderDAO.selectCount(cri);
+		BranchPageMaker pageMaker = new BranchPageMaker();
+		pageMaker.setCri(cri); 
+		pageMaker.setTotalCount(totalCount);
+		 
+		dataMap.put("itemOrderList", itemOrderList);
+		dataMap.put("pageMaker", pageMaker);
+		dataMap.put("comCodeMap",comCodeMap);
+		return dataMap;
+		
+	}
 	
 	@Override
 	public List<ItemOrderDetailVO> getItemOrdeDetail(String ordercode) throws Exception{

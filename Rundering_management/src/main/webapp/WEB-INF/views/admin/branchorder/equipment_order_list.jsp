@@ -11,7 +11,7 @@
 <title>지점 발주 내역</title>
 
 <body>
-
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <section class="content-header">
    <div class="container-fluid">
       <div class="row mb-2">
@@ -22,11 +22,10 @@
    </div>
 </section>
 
-<div class="row ml-3 mr-3">
-   <div class="col-12">
-      <div class="card">
+<div class="row ml-3 mr-3 row">
+   <div class="col-6" id="appendBranchOrder">
+      <div class="card" id="removeOrder">
          <div class="card-header">
-
             <div class="input-group input-group-sm">
                <h2 style="height: 20px;" class="card-title">
                   <b>지점 발주 리스트</b>
@@ -85,5 +84,50 @@
 					</div>
 			</div>
 		</div>
+		<div class="card card-default col-6" id="appendOrder">
+		<div id="removeItem">
+                <div class="card-header">
+                   <h2 style="height: 20px;" class="card-title">
+						<b>재고 리스트</b>
+					</h2>
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm" >
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body table-responsive p-0 mt-0" style="height: 600px;overflow: auto;">
+                    <table
+                        class="table table-hover text-nowrap card-outline">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">물품이름</th>
+                                <th style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;">
+                                    <div class="input-group input-group-sm" >
+                                        <select class="form-control" style="width: 60px;" name="laundryItemsCode"  id="laundryItemsCode" onchange="list_go(1);">
+                                           	 <c:forEach items="${clcodeList }" var="clcode">
+                                           	 
+                                             	<option value="${clcode.comCode}">${clcode.comCodeNm }</option>
+                                             </c:forEach>
+                                         </select>
+                                     </div>
+                                </th>
+                                <th style="text-align: center;">물품량</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                               <tr>
+                               		<td style="text-align: left">물품이름</td>
+                               		<td style="text-align: center;">물품분류</td>
+                               		<td style="text-align: right;">212개 </td>
+                               </tr>     
+                        </tbody>
+                    </table>
+                </div>
+              <div class="card-footer" >
+			</div>
+            </div>
+            </div>
+		
+		
 	</div>
 </body>

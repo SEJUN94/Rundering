@@ -21,5 +21,6 @@ public interface ItemOrderDAO {
 	public void updateItemOrderStatusByOrderCode(ItemOrderVO itemOrder) throws Exception;
 	public void deleteItemOrderRemoveByOrdercode(String ordercode) throws Exception;
 	public void deleteItemOrderDetailRemove(String ordercode) throws Exception;
+	List<ItemOrderVO> selectAdminItemOrderList(BranchCriteria cri) throws Exception;
  
 } 
