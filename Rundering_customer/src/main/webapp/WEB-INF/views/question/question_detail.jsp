@@ -28,61 +28,45 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<!-- Main content -->
 	<section class="content container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-md-10" style="max-width: 960px;">
 				<div class="card card-secondary card-outline ">
 					<div class="card-header">
-						<h3 class="card-title p-1">상세보기</h3>
+						<h2 class="card-title p-1"><b>${faq.question }</b></h2>
+						<c:choose>
+							<c:when test="${not empty faqorderno }">
+								<label class="float-right" for="orderno">주문번호 : ${faq.orderno }</label>
+							</c:when>
+							<c:when test="${empty faqorderno }"></c:when>
+						</c:choose>
 					</div>
 					<!--end card-header  -->
 					<div class="card-body pad col-12">
 						<div class="form-group">
-							<div class="row">
-								<div class="col">
-									<label for="question">제 목</label> <input type="text" id="question"
-										readonly name='question' class="form-control"
-										value="${faq.question }">
-								</div>
-								<div class="col">
-									<c:choose>
-										<c:when test="${not empty faqorderno }">
-											<label for="orderno">주문번호</label>
-											<input type="text" id="orderno"
-												readonly name='orderno' class="form-control"
-												value="${faq.orderno }">								
-										</c:when> 
-										<c:when test="${empty faqorderno }">						
-										</c:when>							
-									</c:choose>
-								</div>							
+							<div class="col">
+								
 							</div>
 						</div>
 						<div class="form-group ">
 							<div class="row">
 								<div class="col">
-									<label for="writer">요청자</label><input type="text" id="writer"
-										readonly name="writer" class="form-control"
-										value="${faq.writer }">
+									<label for="writer">작성자 : ${faq.writer }</label>
 								</div>
 								<div class="col">
-									<label for="setbukdoorclcode">카테고리</label>
-										<input type="text"
-										id="setbukdoorclcode" readonly name="setbukdoorclcode"
-										class="form-control"
-										value="<c:choose>
-												<c:when test="${faq.setbukdoorclcode == 'OR'}">주문문의</c:when>
-												<c:when test="${faq.setbukdoorclcode == 'US'}">이용문의</c:when>
-												<c:when test="${faq.setbukdoorclcode == 'ET'}">기타문의</c:when>
-											   </c:choose>">
+									<label for="setbukdoorclcode">카테고리 : 
+										<c:choose>
+											<c:when test="${faq.setbukdoorclcode == 'OR'}">주문문의</c:when>
+											<c:when test="${faq.setbukdoorclcode == 'US'}">이용문의</c:when>
+											<c:when test="${faq.setbukdoorclcode == 'ET'}">기타문의</c:when>
+										</c:choose>
+									</label>
 								</div>
 								<div class="col">
-									<label for="registDate">등록일</label>
-									<input type="text"
-										id="registDate" readonly name="registDate"
-										class="form-control" value="${faq.registDate }">
+									<label for="registDate">등록일 : ${faq.registDate }</label>
+
 								</div>
 							</div>
 						</div>
@@ -94,14 +78,14 @@
 							<c:choose>
 								<c:when test="${not empty faqanswer }">
 									<label for="answer">문의 답변</label>
-									<div>${faq.answer }</div>									
-								</c:when> 
-								<c:when test="${empty faqanswer }">						
-								</c:when>							
+									<div>${faq.answer }</div>
+								</c:when>
+								<c:when test="${empty faqanswer }">
+								</c:when>
 							</c:choose>
 						</div>
 					</div>
-					<!--end card-body  -->					
+					<!--end card-body  -->
 					<div class="card-footer">
 						<div class="float-right">
 							<button type="button" class="btn btn-danger" id="removeBtn"
@@ -125,7 +109,7 @@
 	<!-- /.content -->
 	<script>
 		function modify_go(faqno) {
-				location.href = "modifyForm?faqno=" + faqno;
+			location.href = "modifyForm?faqno=" + faqno;
 		}
 		function remove_go(faqno) {
 			location.href = "remove?faqno=" + faqno;

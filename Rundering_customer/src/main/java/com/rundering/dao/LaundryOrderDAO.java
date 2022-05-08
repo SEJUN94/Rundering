@@ -19,8 +19,14 @@ public interface LaundryOrderDAO {
 	
 	// 마이페이지 - 내 주문내역 가져오기
 	public List<LaundryOrderVO> getMyOrderList(MyOrderCriteria cri) throws Exception;
+
+	// 마이페이지 - 완료된 내 주문내역 가져오기
+	public List<LaundryOrderVO> getMyCompleteOrderList(MyOrderCriteria cri) throws Exception;
 	
 	// 마이페이지 - 주문내역 전체 개수 체크
 	public int myOrderList(MyOrderCriteria cri) throws SQLException;
+	
+	// 마이페이지 - 완료된 주문내역 개수 체크
+	public int myCompleteOrderList(MyOrderCriteria cri) throws SQLException;
 	
 }

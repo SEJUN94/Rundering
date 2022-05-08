@@ -372,6 +372,27 @@ public class MyPageController {
 		return mnv;
 	}
 	
+	// 배송완료된 주문내역
+	@RequestMapping("/myorder/histroy/complete")
+	public ModelAndView myCompleteorder(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {
+		String url = "/mypage/order_Complete_history";
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		LaundryOrderVO laundryOrder = new LaundryOrderVO();
+		
+		// 세션을 통해 고객번호 받아오기!
+		laundryOrder.setMemberNo(loginUser.getMemberNo());
+		cri.setMemberNo(loginUser.getMemberNo());
+		
+		Map<String, Object> dataMap = laundryOrderService.getMyCompleteOrderList(cri);
+		
+		mnv.addObject("dataMap",dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
 	
 	@RequestMapping("/order_detail")
 	public void orderDetail() {}
