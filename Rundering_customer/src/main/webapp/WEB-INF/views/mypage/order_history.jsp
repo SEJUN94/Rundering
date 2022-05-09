@@ -47,20 +47,14 @@ aside ul li a {
 			<li style="margin-top: 15px; margin-bottom: 15px; margin-left: 30px;">
 				<a>주문 내역</a>
 				<ul>
-					<li onclick="location.href='<%=request.getContextPath()%>/mypage/myorder/histroy/main'"
-						style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;">
-						<a>진행중인 세탁물</a>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.9em;">
+						<a href="<%=request.getContextPath()%>/mypage/myorder/histroy/main">진행중인 세탁물</a>
 					</li>
-					<li	onclick="location.href='<%=request.getContextPath()%>/mypage/myorder/histroy/complete'"
-						style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;">
-						<a>배송 완료된 세탁</a>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.9em;">
+						<a href="<%=request.getContextPath()%>/mypage/myorder/histroy/complete">배송 완료된 세탁</a>
 					</li>
-					<li style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;">
-						<a>결제 내역</a>
-					</li>
-					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;">
-						<a>취소 내역</a>
-					</li>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.9em;"><a>결제 내역</a></li>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.9em;"><a>취소 내역</a></li>
 				</ul>
 			</li>
 			<li	onclick="location.href='<%=request.getContextPath()%>/mypage/myinquiry/list'"
