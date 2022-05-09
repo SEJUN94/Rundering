@@ -56,7 +56,7 @@ th, td {
 	   </div>
 	</section>
 	<div id="body">
-		<div class="row ml-2 mr-2">
+		<div class="row ml-3 mr-3">
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header">

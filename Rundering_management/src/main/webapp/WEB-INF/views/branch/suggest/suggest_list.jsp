@@ -57,7 +57,7 @@ th, td {
 	</section>
 
 	<div id="body">
-		<div class="row ml-2 mr-2">
+		<div class="row ml-3 mr-3">
 			<div class="col-12">
 				<div class="card ">
 					<div class="card-header">
@@ -81,6 +81,7 @@ th, td {
 									</button>
 								</span>
 							</div>
+						</div>
 						</div>
 						<div class="card-body p-0">
 							<table class="table table-hover text-nowrap">
@@ -132,6 +133,5 @@ th, td {
 				</div>
 			</div>
 		</div>
-	</div>
 
 </body>

@@ -18,8 +18,9 @@
 	</div>
 </section>
 
-    <div class="card ml-3 mr-3">
-        <div class="col-12 p-0">
+    <div class="row ml-3 mr-3">
+        <div class="col-12">
+        <div class="card ">
                 <div class="card-header">
                    <h2 style="height: 20px;" class="card-title">비품 목록</h2>
                     <div class="card-tools">
@@ -95,6 +96,7 @@
                 </div>
               <div class="card-footer" >
 				<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+			</div>
 			</div>
             </div>
     </div>
