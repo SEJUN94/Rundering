@@ -22,14 +22,14 @@
 	   <div class="container-fluid">
 	      <div class="row mb-2">
 	         <div class="col-sm-6">
-	            <h1>세탁품목</h1>
+	            <h1>세탁 품목</h1>
 	         </div>
 	      </div>
 	   </div>
 	</section>
 	<div class="card ml-3 mr-3">
 		<div class="card-header">
-			<h3 class="card-title">세탁품목 리스트</h3>
+			<h3 class="card-title"></h3>
 			<div class="card-tools">
 				<div class="input-group input-group-sm" style="width: 400px;">
 					

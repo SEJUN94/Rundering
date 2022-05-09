@@ -67,7 +67,7 @@
 		<div class="col-12 p-0">
 			<div class="card m-0 card-secondary card-outline">
 			<div class="card-header">
-					<h3 class="card-title" style="font-size: 1.75rem;">세탁 주문</h3>
+					<h3 class="card-title" style="font-size: 1.8rem;  font-weight: 500;">세탁 주문</h3>
 					<span class="text-muted" style="display: inline-block;margin-top: 6px;padding-left: 15px;">검색결과 <fmt:formatNumber type="number" maxFractionDigits="3" value="${pageMaker.totalCount }" />개</span>
 					<button type="button" class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#modal-lg">선택주문 지점할당</button>
 					<div class="card-tools">

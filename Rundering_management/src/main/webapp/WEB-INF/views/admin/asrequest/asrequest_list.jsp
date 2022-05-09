@@ -46,12 +46,21 @@ th, td {
 </head>
 
 <body>
+<section class="content-header">
+	   <div class="container-fluid">
+	      <div class="row mb-2">
+	         <div class="col-sm-6">
+	            <h1>AS 요청</h1>
+	         </div>
+	      </div>
+	   </div>
+	</section>
 	<div id="body">
 		<div class="row ml-2 mr-2">
 			<div class="col-12">
-				<div class="card card-primary card-outline">
+				<div class="card ">
 					<div class="card-header">
-						<h3 class="card-title">AS 요청</h3>
+						<h3 class="card-title">요청 목록</h3>
 						<div class="card-tools">
 							<div class="input-group input-group-sm" style="width: 300px;">
 								<select class="form-control col-md-4" name="searchType"
@@ -66,7 +75,7 @@ th, td {
 								</select> <input class="form-control" type="text" name="keyword"
 									placeholder="검색어를 입력하세요." value="" /> <span
 									class="input-group-append">
-									<button class="btn btn-primary" type="button"
+									<button class="btn btn-primary" type="button" style="background-color: #82BBD8;border-color: #82BBD8;"
 										onclick="list_go(1);" data-card-widget="search">
 										<i class="fa fa-fw fa-search"></i>
 									</button>

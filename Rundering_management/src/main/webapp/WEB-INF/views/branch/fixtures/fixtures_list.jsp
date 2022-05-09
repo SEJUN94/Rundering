@@ -12,18 +12,16 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1>비품 목록</h1>
+				<h1>비품 현황</h1>
 			</div>
 		</div>
 	</div>
 </section>
 
-    <div class="card card-secondary card-outline ml-3 mr-3">
+    <div class="card ml-3 mr-3">
         <div class="col-12 p-0">
                 <div class="card-header">
-                   <h2 style="height: 20px;" class="card-title">
-						<b>비품</b>
-					</h2>
+                   <h2 style="height: 20px;" class="card-title">비품 목록</h2>
                     <div class="card-tools">
                         <div class="input-group input-group-sm" >
                         </div>

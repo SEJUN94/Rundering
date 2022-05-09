@@ -12,12 +12,20 @@
 <title>세탁 품목 관리</title>
 
 <body>
- 
+ <section class="content-header">
+	   <div class="container-fluid">
+	      <div class="row mb-2">
+	         <div class="col-sm-6">
+	            <h1>세탁 품목</h1>
+	         </div>
+	      </div>
+	   </div>
+	</section>
 	<div class="row ml-3 mr-3">
 		<div class="col-12 p-0">
 			<div class="card m-0">
 				<div class="card-header">
-					<h3 class="card-title" style="font-size: 1.75rem;">세탁 품목</h3>
+					<h3 class="card-title" style="font-size: 1.75rem;"></h3>
 					<div class="card-tools">
 						<div class="input-group input-group-sm" style="width: 400px; margin-top:5px;">
 						
@@ -51,7 +59,7 @@
 				<form role="form" class="form-horizontal" action="regist"
 						method="post" name="registForm">
 					<table
-						class="table table-hover text-nowrap card-secondary card-outline">
+						class="table table-hover text-nowrap ">
 						<thead>
 							<tr>
 							    <th style="width:150px;">분류</th>

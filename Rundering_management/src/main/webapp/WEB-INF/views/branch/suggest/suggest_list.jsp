@@ -46,12 +46,22 @@ th, td {
 </head>
 
 <body>
+<section class="content-header">
+	   <div class="container-fluid">
+	      <div class="row mb-2">
+	         <div class="col-sm-6">
+	            <h1>건의사항</h1>
+	         </div>
+	      </div>
+	   </div>
+	</section>
+
 	<div id="body">
 		<div class="row ml-2 mr-2">
 			<div class="col-12">
-				<div class="card card-primary card-outline">
+				<div class="card ">
 					<div class="card-header">
-						<h3 class="card-title">건의사항</h3>
+						<h3 class="card-title"></h3>
 						<div class="card-tools">
 							<div class="input-group input-group-sm" style="width: 300px;">
 								<select class="form-control col-md-4" name="searchType"
