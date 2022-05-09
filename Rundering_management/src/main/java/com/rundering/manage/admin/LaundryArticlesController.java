@@ -33,9 +33,8 @@ public class LaundryArticlesController {
 	@RequestMapping("/ordergoods/list")
 	public ModelAndView OrderGoodsList(Criteria cri, ModelAndView mnv) throws SQLException {
 		String url = "admin/ordergoods/ordergoods_list";
-
+		cri.setPerPageNum(4);
 		Map<String, Object> dataMap = laundryArticlesService.getLaundryArticles(cri);
-
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
 		return mnv;

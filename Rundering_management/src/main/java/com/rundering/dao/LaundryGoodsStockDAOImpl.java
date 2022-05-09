@@ -2,6 +2,7 @@ package com.rundering.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.rundering.command.BranchCriteria;
@@ -27,7 +28,13 @@ public class LaundryGoodsStockDAOImpl implements LaundryGoodsStockDAO{
 
 	@Override
 	public List<ItemVO> selectItemListByBranchCode(BranchCriteria cri) throws Exception {
-		return session.selectList("LaundryGoodsStock-Mapper.selectItemListByBranchCode", cri);
+		//페이징 처리를 위한 것들
+				int offset = cri.getStartRowNum();
+				int limit = cri.getPerPageNum();
+				RowBounds rowBounds = new RowBounds(offset, limit);
+				
+		
+		return session.selectList("LaundryGoodsStock-Mapper.selectItemListByBranchCode", cri,rowBounds);
 	}
 
 	@Override

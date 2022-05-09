@@ -34,7 +34,7 @@ public class BranchItemAutoController {
 		String url = "/branch/itemauto/item_list";
 		EmployeesVO emp=(EmployeesVO) session.getAttribute("loginEmployee");
 		cri.setBranchCode( emp.getBranchCode());
-		cri.setPerPageNum(5);
+		cri.setPerPageNum(4);
 		Map<String, Object> dataMap = null;
 		dataMap=itemService.selectItemVOList(cri);
 		model.addAttribute("dataMap", dataMap);
