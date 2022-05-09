@@ -21,4 +21,7 @@ public interface LaundryOrderService {
 	
 	// 마이페이지 - 내 주문내역 가져오기
 	public Map<String, Object> getMyOrderList(MyOrderCriteria cri) throws Exception;
+
+	// 마이페이지 - 완료된 내 주문내역 가져오기
+	public Map<String, Object> getMyCompleteOrderList(MyOrderCriteria cri) throws Exception;
 }

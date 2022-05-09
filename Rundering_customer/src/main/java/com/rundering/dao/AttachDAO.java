@@ -19,4 +19,6 @@ public interface AttachDAO {
 	public int getAttachNoSeq(String atchFileNo)throws Exception;
 	// 파일다운로드를 위한 해당 파일의 정보가져오기
 	public AttachVO getAttachForDownload(AttachVO attach) throws Exception;
+	// 계약서 파일을 가져오기
+	public List<AttachVO> getContract() throws Exception;
 }

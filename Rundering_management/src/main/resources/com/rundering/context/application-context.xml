@@ -134,6 +134,7 @@
 		p:branchDAO-ref="branchDAO"
 		p:employeesDAO-ref="employeesDAO"
 		p:notificationDAO-ref="notificationDAO"
+		p:attachDAO-ref="attachDAO"
 	/>	
 	<bean id="faqService" class="com.rundering.service.FAQServiceImpl"
 		p:faqDAO-ref="faqDAO"
@@ -158,6 +159,7 @@
 		p:branchDAO-ref="branchDAO"
 		p:employeesDAO-ref="employeesDAO"
 		p:notificationDAO-ref="notificationDAO"
+		p:attachDAO-ref="attachDAO"
 	/>
 	<bean id="itemOrderService" class="com.rundering.service.ItemOrderServiceImpl"
 		p:itemOrderDAO-ref="itemOrderDAO"

@@ -37,16 +37,17 @@ public class AdminSuggestController {
 	
 	@RequestMapping(value = "/detail")
 	private ModelAndView suggestDetail(int sno, @RequestParam(defaultValue = "") String from,
-			HttpServletRequest request, ModelAndView mnv, HttpSession session) throws SQLException {
+			HttpServletRequest request, ModelAndView mnv, HttpSession session) throws Exception {
 
 		String url = "admin/suggest/suggest_detail";
-
+		
+		Map<String, Object> dataMap = null;
 		SuggestVO suggest = null;
 
 		if (!from.equals("list")) {
-			suggest = suggestService.getSuggestModify(sno);
+			dataMap = suggestService.getSuggestModify(sno);
 		} else {
-			suggest = suggestService.getSuggest(sno);
+			dataMap = suggestService.getSuggest(sno);
 			EmployeesVO employees = (EmployeesVO) session.getAttribute("loginEmployee");
 			if (employees.getBranchCode().equals("000000")) {
 				suggest = suggestService.getCheck(sno);
@@ -54,7 +55,7 @@ public class AdminSuggestController {
 			url = "redirect:/admin/suggest/detail?sno=" + sno;
 		}
 
-		mnv.addObject("suggest", suggest);
+		mnv.addAllObjects(dataMap);
 		mnv.setViewName(url);
 
 		return mnv;

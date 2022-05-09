@@ -86,4 +86,22 @@ public class FAQDAOImpl implements FAQDAO {
 		return session.selectOne("FAQ-mapper.selectFrequentlyListCount", cri);
 	}
 
+	/* 마이페이지 문의 */
+	//내 문의 리스트 가져오기
+	@Override
+	public List<FAQVO> MypageFAQList(MyOrderCriteria cri) throws SQLException {
+		int offset = cri.getStartRowNum();
+		int limit = cri.getPerPageNum();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+
+		List<FAQVO> faqList = session.selectList("FAQ-mapper.MypageSearchFAQList", cri, rowBounds);
+		return faqList;
+	}
+
+	//페이징 처리
+	@Override
+	public int MypageFAQListCount(MyOrderCriteria cri) throws SQLException {
+		return session.selectOne("FAQ-mapper.MypageFAQListCount", cri);
+	}
+
 }

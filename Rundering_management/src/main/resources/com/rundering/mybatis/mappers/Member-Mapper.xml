@@ -172,8 +172,9 @@
 		UPDATE
 		TB_MEMBER
 		SET
-		PASSWORD = #{password}
+		PASSWORD = #{email}
 		WHERE ID = #{id}
+		AND PASSWORD = #{password}
 	</update>
 	
 	<select id="selectMemberNoSeq" resultType="str">

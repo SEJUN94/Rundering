@@ -66,7 +66,7 @@
 							<th style="width: 12%">세탁상세</th>
 						</tr>
 					</thead>
-					<tbody style="font-size:0.9em;	">
+					<tbody style="font-size:0.9em;" id="tbody">
 						<c:if test="${empty throughputList }">
 							<tr>
 								<td colspan="5" style="text-align: center;"><strong>해당
@@ -78,10 +78,11 @@
 						<c:if test="${today == throughputDate}">
 							<tr
 								onclick="getWeeksBranchThroughput('${throughput.branchCode }');"
-								style="cursor: pointer;">
+								style="cursor: pointer;" class="tableTr">
 								<td>${throughput.name }</td>
 								<td>${throughput.branchName }</td>
-								<td class="project_progress"><c:if
+								<td class="project_progress">
+									<c:if
 										test="${throughput.quotaPercent gt 0 and throughput.quotaPercent le 60}">
 										<div class="progress progress-sm">
 											<div class="progress-bar bg-green" role="progressbar"
@@ -89,7 +90,8 @@
 												aria-valuemin="0" aria-valuemax="100"
 												style="width: ${throughput.quotaPercent}%"></div>
 										</div>
-									</c:if> <c:if
+									</c:if> 
+									<c:if
 										test="${throughput.quotaPercent gt 60 and throughput.quotaPercent le 80 }">
 										<div class="progress progress-sm">
 											<div class="progress-bar bg-warning" role="progressbar"
@@ -97,15 +99,16 @@
 												aria-valuemin="0" aria-valuemax="100"
 												style="width: ${throughput.quotaPercent}%"></div>
 										</div>
-									</c:if> <c:if
-										test="${throughput.quotaPercent gt 80 and throughput.quotaPercent le 101 }">
+									</c:if> 
+									<c:if test="${throughput.quotaPercent gt 80 and throughput.quotaPercent le 101 }">
 										<div class="progress progress-sm">
 											<div class="progress-bar bg-red" role="progressbar"
 												aria-valuenow="${throughput.quotaPercent }"
 												aria-valuemin="0" aria-valuemax="100"
 												style="width: ${throughput.quotaPercent}%"></div>
 										</div>
-									</c:if> <small> ${throughput.quotaPercent }%</small></td>
+									</c:if> <small> ${throughput.quotaPercent }%</small>
+								</td>
 								<td>
 									<button class="btn btn-warning btn-sm"
 										onclick="window.open('<%=request.getContextPath()%>/admin/branchinfo/infodetail?branchCode=${throughput.branchCode } ','지점상세', 'width=800, height=800')">세탁상세</button>
@@ -161,7 +164,6 @@
 window.addEventListener('load', onloadWeek);
 function onloadWeek(data){
 	var now = moment(todayDate.value, "YYYY-MM-DD");
-	//console.log(data);
 	for(var i=0; i<7; i++){
 		document.querySelectorAll('tr .week')[i].innerHTML = now.format('YYYY-MM-DD');
 		now.subtract(1, "days").format('YYYY-MM-DD');
@@ -171,7 +173,6 @@ function onloadWeek(data){
 var todayDate = document.getElementById('todayDate')
 todayDate.value = new Date().toISOString().substring(0, 10);
 document.querySelector('#todayDate').setAttribute("max", todayDate.value);
-
 
 	function branchTable(branchCode){
 		$.ajax({
@@ -190,7 +191,7 @@ document.querySelector('#todayDate').setAttribute("max", todayDate.value);
 	}
 </script>
 <script>
-
+var selectDate = null
 function changeDate(cDate){
 	$.ajax({
 		url : '<%=request.getContextPath()%>/admin/branchinfo/datedata',
@@ -199,12 +200,56 @@ function changeDate(cDate){
 		},
 		type : 'post',
 		success : function(data) {
-			onloadWeek(data);
+			let tr= document.querySelectorAll('.tableTr')
+			for(let i of tr ){
+				i.remove();
+			}
+			let str= "";
+			if(data.length!=0){
+				for(let i=0; i<data.length; i++){
+					str+="<tr onclick='getWeeksBranchThroughput(\""+data[i].branchCode+"\");'style='cursor: pointer;' class='tableTr'>"
+					str+="<td>"+data[i].name+"</td>";
+					str+="<td>"+data[i].branchName+"</td>";
+					str+="<td class='project_progress'>"
+					if(data[i].branchLndrpcrymslmcoqy <= 60 && data[i].branchLndrpcrymslmcoqy > 0){
+						str+="		<div class='progress progress-sm'>"
+						str+="				<div class='progress-bar bg-green' role='progressbar' aria-valuenow="+data[i].branchLndrpcrymslmcoqy+"aria-valuemin='0' aria-valuemax='100' style='width: "+data[i].branchLndrpcrymslmcoqy+"%'></div>";
+						str+="		</div>";
+					}
+					if(data[i].branchLndrpcrymslmcoqy <= 80 && data[i].branchLndrpcrymslmcoqy > 60){
+						str+="		<div class='progress progress-sm'>"
+						str+="				<div class='progress-bar bg-warning' role='progressbar' aria-valuenow="+data[i].branchLndrpcrymslmcoqy+"aria-valuemin='0' aria-valuemax='100' style='width: "+data[i].branchLndrpcrymslmcoqy+"%'></div>";
+						str+="		</div>";
+					}
+					if(data[i].branchLndrpcrymslmcoqy <= 100 && data[i].branchLndrpcrymslmcoqy > 80){
+						str+="		<div class='progress progress-sm'>"
+						str+="				<div class='progress-bar bg-red' role='progressbar' aria-valuenow="+data[i].branchLndrpcrymslmcoqy+"aria-valuemin='0' aria-valuemax='100' style='width: "+data[i].branchLndrpcrymslmcoqy+"%'></div>";
+						str+="		</div>";
+					}
+					str+="	<small>"+ data[i].branchLndrpcrymslmcoqy+"%</small>"
+					str+="</td>"
+					str+="<td>"
+					str+="	<button class='btn btn-warning btn-sm' onclick='troughput_detail(\""+data[i].branchCode+"\")'>상세보기</button>";
+					//str+="	<button class='btn btn-warning btn-sm' onclick='troughput_detail("+'"data[i].branchCode+")'>상세보기</button>";
+					str+="</td>";
+					str+="</tr>"
+				}
+				selectDate=cDate.value;
+			}else{
+				str+='<tr class="tableTr"><td colspan="4"><strong>해당 내용이 없습니다.</strong></td></tr>';
+			}
+			
+			document.querySelector('#tbody').innerHTML+=str;
 		},
 		error : function(error) {
 			AjaxErrorSecurityRedirectHandler(error.status);
 		}
 	});
+}
+
+
+function troughput_detail(branchCode){
+	window.open('<%=request.getContextPath()%>/admin/branchinfo/infodetail?branchCode='+branchCode, '지점상세', 'width=800 height=800');
 }
 
 </script>
@@ -214,10 +259,8 @@ function changeDate(cDate){
 function getWeeksBranchThroughput(branchCode){
 		document.querySelector("#canvas").remove;	
 		document.querySelector("#canvasTag").innerHTML='<canvas id="canvas"></canvas>'
-		
 	
 	  const todayDate = document.querySelector('#todayDate');
-	
 	$.ajax({
 		url : '<%=request.getContextPath()%>/admin/branchinfo/getWeeksBranchThroughput',
 		data : {
@@ -242,7 +285,6 @@ function getWeeksBranchThroughput(branchCode){
 			data7=data[6].totalThroughput
 			chart(a,b,c,d,e,f,g,data1,data2,data3,data4,data5,data6,data7)
 			
-			
 			updateTable(data);
 			
 		},
@@ -263,12 +305,12 @@ function time(timeValue){
 function updateTable(data){
  	const throughputTable = document.querySelectorAll('.throughputTable tbody tr');
  	throughputTable.forEach(
- 			  function(el, Index) {
- 				 const newIndex = 6-Index;
- 				 el.children[1].innerText = data[newIndex].laundryQuota;
- 				 el.children[2].innerText = data[newIndex].totalThroughput;
- 				 el.children[3].innerText = Math.floor(data[newIndex].totalThroughput / data[newIndex].laundryQuota * 100);
- 			  }
+		  function(el, Index) {
+			 const newIndex = 6-Index;
+			 el.children[1].innerText = data[newIndex].laundryQuota;
+			 el.children[2].innerText = data[newIndex].totalThroughput;
+			 el.children[3].innerText = Math.floor(data[newIndex].totalThroughput / data[newIndex].laundryQuota * 100);
+		  }
 	);
 }
 </script>

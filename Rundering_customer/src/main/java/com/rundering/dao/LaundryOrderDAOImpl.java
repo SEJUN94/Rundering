@@ -55,6 +55,25 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		int count = session.selectOne("LaundryOrder-Mapper.myOrderListCount", cri);
 		return count;
 	}
+	
+	// 마이페이지 - 완료된 내 주문내역 가져오기
+	@Override
+	public List<LaundryOrderVO> getMyCompleteOrderList(MyOrderCriteria cri) throws Exception {
+		//페이징 처리를 위한 것들
+		int offset = cri.getStartRowNum();
+		int limit = cri.getPerPageNum();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<LaundryOrderVO> myOrderList = session.selectList("LaundryOrder-Mapper.getmyCompleteorderList", cri, rowBounds);
+
+		return myOrderList;
+	}
+
+	// 마이페이지 - 완료된 주문내역 개수 체크
+	@Override
+	public int myCompleteOrderList(MyOrderCriteria cri) throws SQLException {
+		return session.selectOne("LaundryOrder-Mapper.myCompleteOrderListCount", cri);
+	}
 
 
 }

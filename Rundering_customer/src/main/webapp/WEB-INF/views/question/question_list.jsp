@@ -117,18 +117,21 @@ th, td {
 							<td class="title" style="text-align: inherit;">${faq.question }</td>
 							<td class="writer">${faq.writer }</td>
 							<td class="date">${faq.registDate }</td>
-							<td class="yn"><c:choose>
-												<c:when test="${faq.secretyn eq 'Y'}">
-													<i class="fas fa-lock fa-fw" style="color: var(- -fa-navy);"></i>
-												</c:when>
-												<c:when test="${faq.secretyn eq 'N'}">
-												</c:when>
-											</c:choose></td>
-							<td class="answer"><c:choose>
+							<td class="yn">
+								<c:choose>
+									<c:when test="${faq.secretyn eq 'Y'}">
+										<i class="fas fa-lock fa-fw" style="color: var(- -fa-navy);"></i>
+									</c:when>
+									<c:when test="${faq.secretyn eq 'N'}">
+									</c:when>
+								</c:choose></td>
+							<td class="answer">
+								<c:choose>
 									<c:when test="${!empty faq.answer}">
 										답변완료
 									</c:when>
-							</c:choose>
+								</c:choose>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>

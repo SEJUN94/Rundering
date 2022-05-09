@@ -135,6 +135,41 @@
 		AND A.CANCEL_YN='N'
 	</select>
 	
+	<select id="getmyCompleteorderList" parameterType="str" resultMap="laundryOrderMap">
+		SELECT  
+		A.ORDER_NO AS ORDER_NO
+        ,A.ORDER_DATE AS ORDER_DATE
+        ,A.TOTAL_PRICE AS TOTAL_PRICE 
+        ,(SELECT 
+        D.BRANCH_NAME
+        FROM TB_BRANCH D
+        WHERE A.BRANCH_CODE = D.BRANCH_CODE
+        AND A.MEMBERNO = #{memberNo}) AS BRANCH_CODE
+        ,(SELECT  
+		B.COM_CODE_NM
+		FROM ORDER_STATUS B
+		WHERE A.MEMBERNO=#{memberNo}
+		AND A.ORDER_STATUS=b.COM_CODE) AS ORDER_STATUS
+        ,(SELECT 
+        C.PAYMENT_NAME
+        FROM TB_PAYMENT C
+        WHERE A.PAYMENTNO = C.PAYMENTNO
+        AND A.MEMBERNO = #{memberNo}) AS PAYMENTNO
+        ,A.ATCH_FILE_NO AS ATCH_FILE_NO
+		FROM TB_LAUNDRY_ORDER A
+		WHERE A.MEMBERNO=#{memberNo}
+		AND A.CANCEL_YN='N'
+		AND A.ORDER_STATUS = '08' OR A.ORDER_STATUS = '09'
+	</select>
+	
+	<select id="myCompleteOrderListCount" resultType="int" parameterType="str">
+		select count(*)
+		FROM TB_LAUNDRY_ORDER
+		WHERE MEMBERNO=#{memberNo}
+		AND ORDER_STATUS = '08' OR ORDER_STATUS = '09'
+	</select>
+	
+	
 	<select id="myOrderListCount" resultType="int" parameterType="str">
 		select count(*)
 		FROM TB_LAUNDRY_ORDER

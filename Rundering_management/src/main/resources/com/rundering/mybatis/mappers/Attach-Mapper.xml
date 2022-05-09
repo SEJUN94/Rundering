@@ -110,5 +110,34 @@
       and ATCH_FILE_NO = #{atchFileNo}
 	</update>
 	
+	
+	<select id="getAttachForDownload" resultMap="attachMap" parameterType="attach">
+		SELECT *
+		FROM TB_ATTACH_FILE
+		WHERE ATCH_FILE_NO = #{atchFileNo}
+		AND SAVE_FILE_NM = #{saveFileNm}
+	</select>
   
+	
+	<update id="deleteAttchFileRemoveByFileNoAndSeq" parameterType="attach">
+		DELETE 
+      FROM TB_ATTACH_FILE
+      WHERE ATCH_FILE_NO = #{atchFileNo}
+       AND ATCH_FILE_SEQ = #{atchFileSeq}
+      
+	</update>
+	
+	<select id="selectAttachVOByFileNoAndSeq" resultMap="attachMap" parameterType="attach">
+		SELECT *
+		FROM TB_ATTACH_FILE
+		WHERE ATCH_FILE_NO = #{atchFileNo}
+		 AND ATCH_FILE_SEQ = #{atchFileSeq}
+	</select>
+	
+	<select id="selectLastSeqAttachVOByFileNo" resultType="int" parameterType="str">
+		SELECT MAX(ATCH_FILE_SEQ)
+		FROM TB_ATTACH_FILE
+		WHERE ATCH_FILE_NO = #{atchFileNo}
+	</select>
+	
 </mapper>

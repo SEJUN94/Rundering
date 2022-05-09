@@ -30,4 +30,10 @@ public interface FAQDAO {
 	List<FAQVO> selectFrequentlyList(MyOrderCriteria cri) throws SQLException;
 	
 	int selectFrequentlyListCount(MyOrderCriteria cri) throws SQLException;
+
+	/* 마이페이지 문의 */
+	//내 문의 리스트 가져오기
+	List<FAQVO> MypageFAQList(MyOrderCriteria cri) throws SQLException;
+	//페이징 처리
+	int MypageFAQListCount(MyOrderCriteria cri) throws SQLException;
 }

@@ -1,11 +1,16 @@
 package com.rundering.manage.delivery;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -102,6 +107,35 @@ public class ForDeliveryController {
 		
 		deliveryService.regist(laundryOrder, attach);
 		rttr.addFlashAttribute("from", "regist");
+		
+		// 썸네일 테스트
+		String oPath = deliveryPath + attach.getSaveFileNm(); // 원본 경로
+		File oFile = new File(oPath);
+
+		int index = oPath.lastIndexOf(".");
+		String ext = oPath.substring(index + 1); // 파일 확장자
+
+		String tPath = oFile.getParent() + File.separator + "t-" + oFile.getName(); // 썸네일저장 경로
+		File tFile = new File(tPath);
+
+		double ratio = 2; // 이미지 축소 비율
+
+		try {
+			BufferedImage oImage = ImageIO.read(oFile); // 원본이미지
+			int tWidth = (int) (oImage.getWidth() / ratio); // 생성할 썸네일이미지의 너비    200 너비 고정
+			int tHeight = (int) (oImage.getHeight() / ratio); // 생성할 썸네일이미지의 높이 200 높이 고정
+			
+			BufferedImage tImage = new BufferedImage(tWidth, tHeight, BufferedImage.TYPE_3BYTE_BGR); // 썸네일이미지
+			Graphics2D graphic = tImage.createGraphics();
+			Image image = oImage.getScaledInstance(tWidth, tHeight, Image.SCALE_SMOOTH);
+			graphic.drawImage(image, 0, 0, tWidth, tHeight, null);
+			graphic.dispose(); // 리소스를 모두 해제
+
+			ImageIO.write(tImage, ext, tFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 
 		return url;
 	}
@@ -242,6 +276,31 @@ public class ForDeliveryController {
 		return entity;
 	}
 	
+	/** 업로드 이미지 출력하기
+     */
+//    @GetMapping("/display")
+//    public ResponseEntity<byte[]> getFile(String fileName){
+
+       /* ResponseEntity<byte[]> result = null;
+
+        try{
+            String srcFileName = URLDecoder.decode(fileName,"UTF-8");
+            File file = new File(uploadPath + File.separator + srcFileName);
+            HttpHeaders header = new HttpHeaders();
+
+            //MIME 타입 처리
+            header.add("Content-Type", Files.probeContentType(file.toPath()));
+            //File객체를 Path로 변환하여 MIME 타입을 판단하여 HTTPHeaders의 Content-Type에  값으로 들어갑니다.
+
+            //파일 데이터 처리 *FileCopyUtils.copy 아래에 정리
+            //new ResponseEntity(body,header,status)
+            result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file),header,HttpStatus.OK);
+            
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return result;
+	*/
 	
 	
 	
@@ -268,5 +327,5 @@ public class ForDeliveryController {
 //
 //
 //		return ok;
-//	}
+	//}
 }
