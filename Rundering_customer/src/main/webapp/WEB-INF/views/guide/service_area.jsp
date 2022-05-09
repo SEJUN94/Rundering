@@ -16,13 +16,13 @@ P {
 </style>
 <div class="col-lg-12" style="position: relative;">
 	<div>
-		<img style="width: 1280px; margin: auto;"
+		<img style="width: 1100px; margin: auto; padding-top: 20px;"
 			src="<%=request.getContextPath()%>/resources/images/area.png"
 			alt="introduce_bg">
 		<div class="b"
 			style="text-align: center; position: absolute; top: 10%; left: 18%; transform: translate(-50%, -50%);">
 			<div>
-				<h1>세특권 안내</h1>
+				<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;세특권 안내</h1>
 			</div>
 		</div>
 	</div>
