@@ -31,9 +31,12 @@
 							{{#each itemOrderList}}
 							<tr style="cursor:pointer;" onclick="OpenWindow('detail.do?ordercode={{ordercode}}','상세보기',800,700);">
 								<td style="text-align: center;">{{ordercode}}</td>
-								<td style="text-align: right;">{{itemOrderPaymentPrice}} 원</td>
+								<td style="text-align: right;">{{priceToString itemOrderPaymentPrice}} 원</td>
 								<td style="text-align: center;">{{orderprettifyDate registDate}}</td>			
-								<td style="text-align: center;">{{itemOrderStatusName itemOrderStatus}}</td>
+								<td style="text-align: center;">
+								<span class="badge badge-{{itemOrderStatusBtnClass itemOrderStatus}}">{{itemOrderStatusName itemOrderStatus}}</span>
+								</td>
+
 							</tr>
 							{{/each}}
 					</tbody>
@@ -142,7 +145,25 @@ function order_List(pageInfo){
             	   return "<%=request.getContextPath()%>/branch/item/orderlist?page="+pageNum;
                },"itemOrderStatusName":function(itemOrderStatus){
             	  return comCodeMap[itemOrderStatus];
-               }
+               },'priceToString':function(price){
+            		 return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        	   },"itemOrderStatusBtnClass":function(status){
+	          	  	if(status=="01"){
+	        	  		return 'warning';
+	        	  	}if(status=="02"){
+	        	  		return 'warning';
+	        	  	}
+	        	  	if(status=="03"){
+	        	  		return 'success';
+	        	  	}if(status=="04"){
+	        	  		return 'warning';
+	        	  	}            	  	
+	        	  	if(status=="05"){
+	        	  		return 'danger';
+	        	  	}if(status=="06"){
+	        	  		return 'success';
+	        	  	}
+         	   }
 			});
             
 			let data={

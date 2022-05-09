@@ -31,7 +31,7 @@
 								<tr		onclick="window.open('<%=request.getContextPath()%>/admin/branchorder/detail?ordercode={{ordercode}}', '발주 상세', 'width=700, height=900');"
 									style="cursor: pointer;">
 									<td>{{branchCode}}</td>
-									<td style="text-align:right">{{itemOrderPaymentPrice}}</td>
+									<td style="text-align:right">{{priceToString itemOrderPaymentPrice}}</td>
 									<td>
 										{{orderprettifyDate registDate}}
 									</td>
@@ -166,7 +166,9 @@ function order_List(pageInfo){
             	  	}
             	  	
             	  	
-               }
+               },'priceToString':function(price){
+          		 return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+         	  	}
 			});
             
 			let data={

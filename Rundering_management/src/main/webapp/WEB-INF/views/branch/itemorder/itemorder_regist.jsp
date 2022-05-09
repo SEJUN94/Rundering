@@ -4,13 +4,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <body>
+<section class="content-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-sm-6">
+				<h1>발주</h1>
+			</div>
+		</div>
+	</div>
+</section>
+
+
 	<div>
 		<div class="row ml-2 mr-2">
 			<div class="col-6">
-				<div class="card card-primary card-outline col-12" >
+				<div class="card col-12" >
 					<div class="card-header ">
-						
-							<h3 class="card-title">물품리스트</h3>
+						<h2 style="height: 20px;" class="card-title">
+						<b>발주 물품</b>
+						</h2>
 								<div class="float-right ">
 									<div class="input-group-sm selectWidth">
 										<select class="form-control" name="searchType" id="searchType"
@@ -21,7 +33,7 @@
 								</div>
 						
 					</div>
-					<div class="card-body p-0" style="height: 683px;display: block; overflow: auto;" >
+					<div class="card-body p-0" style="height: 600px;display: block; overflow: auto;" >
 						<table class="table table-hover ">
 							<thead id="listBody">
 								<tr>
@@ -41,9 +53,11 @@
 	
 			</div>
 			<div class="col-6">
-				<div class="card card-primary card-outline col-12" style="height: 805px;display: block;overflow: auto;">
+				<div class="card   col-12" style="height: 717px;display: block;overflow: auto;">
 					<div class="card-header">
-						<h3 class="card-title">발주신청</h3>
+						<h2 style="height: 20px;" class="card-title">
+						<b>발주 신청</b> 
+						</h2>
 							<div class="float-right">
 							<strong>합계 총금액</strong> 
 							

@@ -5,7 +5,7 @@
 			<div id="removeItem">
                 <div class="card-header">
                    <h2 style="height: 20px;" class="card-title">
-						<b>재고 리스트</b>
+						<b>재고</b>
 					</h2>
                     <div class="card-tools">
                         <div class="input-group input-group-sm" >
