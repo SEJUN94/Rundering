@@ -46,6 +46,7 @@
 			d.branch_name like '%'||#{keyword}||'%'			
 			)			
 		</if>
+		
 	</sql>
 	
 	<!-- 리스트보기 -->
@@ -65,7 +66,12 @@
 		  and b.branch_name = d.branch_code
 		  and b.deleteyn='N'
 		  <include refid="search" />
-		order by b.sno desc
+		<if test="searchType != 'n'.toString()">
+			order by b.regist_date desc
+		</if>
+		<if test="searchType == 'n'.toString()">
+			order by b.checkyn asc
+		</if>
 	</select>
 	
 	<select id="selectSearchSuggestListCount" resultType="int">
@@ -78,6 +84,7 @@
 		  and b.sno is not null
 		  and b.deleteyn='N'
 		<include refid="search" />
+		
 		order by b.regist_date desc
 	</select>
 	

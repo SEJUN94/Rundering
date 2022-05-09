@@ -30,7 +30,7 @@
 							{{#each itemOrderList }}
 								<tr		onclick="window.open('<%=request.getContextPath()%>/admin/branchorder/detail?ordercode={{ordercode}}', '발주 상세', 'width=700, height=900');"
 									style="cursor: pointer;">
-									<td>{{branchCode}}</td>
+									<td>{{branchMap branchCode}}</td>
 									<td style="text-align:right">{{priceToString itemOrderPaymentPrice}}</td>
 									<td>
 										{{orderprettifyDate registDate}}
@@ -117,7 +117,7 @@ function order_List(pageInfo){
 			let cri=dataMap.pageMaker.cri;
 			let	itemOrderList =dataMap.itemOrderList;
 			let comCodeMap = dataMap.comCodeMap;
-			
+			let branchList=dataMap.branchList;
 			let pageNumArray = new Array(pageMaker.endPage-pageMaker.startPage+1);
 		    for(let i=0; i<pageMaker.endPage-pageMaker.startPage+1;i++){
 		        pageNumArray[i]=pageMaker.startPage+i;
@@ -168,7 +168,15 @@ function order_List(pageInfo){
             	  	
                },'priceToString':function(price){
           		 return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-         	  	}
+         	  },"branchMap":function(code){
+         		  for(let i of branchList){
+         			  if(i.branchCode==code){
+         				  return i.branchName;
+         			  }
+         		  }
+         		  
+         	  }
+         	  
 			});
             
 			let data={

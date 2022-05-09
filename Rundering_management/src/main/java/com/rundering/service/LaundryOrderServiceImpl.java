@@ -256,5 +256,16 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		dataMap.put("branchName", branchName);
 		return dataMap;
 	}
+	@Override
+	public Map<String, Object> piChart() throws Exception{
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<BranchVO> branchList =branchDAO.selectBranchList();
+		dataMap.put("branchList", branchList);
+		for (BranchVO branch : branchList) {
+			int count= laundryOrderDAO.selectLaundryOrderCountTodayByBranchCode(branch.getBranchCode());
+			dataMap.put(branch.getBranchCode(), count);
+		}
+		return dataMap;
+	}
 	
 }

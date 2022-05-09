@@ -8,201 +8,160 @@
 <title></title>
 </head>
 <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
    <div class="row2 ml-3 mr-3">
       <div class="row">
-         <div class="col-md-6">
-            <div class="card">
-               <div class="card-header">
-                  <h3 class="card-title">General</h3>
-                  <div class="card-tools">
-                     <button type="button" class="btn btn-tool"
-                        data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                     </button>
-                  </div>
-               </div>
-               <div class="card-body" style="height: 300px">
-                  <div class="card-body table-responsive p-0">
-                     <table class="table table-hover text-nowrap">
-                        <thead>
-                           <tr>
-                              <th>주문번호</th>
-                              <th>담당자</th>
-                              <th>날짜</th>
-                              <th>상태</th>
-
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td>183</td>
-                              <td><a
-                                 onclick="OpenWindow('http://localhost/runderingmanage/admin/delivery/detail.do','글등록',800,700);"
-                                 style="cursor: pointer;">게시글등록</a></td>
-                              <td>2022-03-30</td>
-                              <td><span class="badge bg-warning">배송중</span></td>
-
-                           </tr>
-                           <tr>
-                              <td>219</td>
-                              <td>이수윤</td>
-                              <td>2022-03-30</td>
-                              <td><span class="badge bg-success">배송완료</span></td>
-
-                           </tr>
-                           <tr>
-                              <td>657</td>
-                              <td>오세준</td>
-                              <td>2022-03-30</td>
-                              <td><span class="badge bg-warning">수거중</span></td>
-
-                           </tr>
-                           <tr>
-                              <td>175</td>
-                              <td>백관우</td>
-                              <td>2022-03-30</td>
-                              <td><span class="badge bg-success">수거완료</span></td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-               </div>
-               <div class="card-footer">
-                  <div class="col-2 float-right">
-                     <button type="button" class="btn btn-block btn-primary btn-sm">자세히</button>
-                  </div>
-               </div>
-            </div>
+         <div class="col-md-6" id="appendNotice">
+            
          </div>
-         <div class="col-md-6">
-            <div class="card ">
-               <div class="card-header">
-                  <h3 class="card-title">Budget</h3>
-                  <div class="card-tools">
-                     <button type="button" class="btn btn-tool"
-                        data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                     </button>
-                  </div>
-               </div>
-               <div class="card-body" style="height: 350px">
-                  <div class="form-group">
-                     <label for="inputEstimatedBudget">Estimated budget</label> <input
-                        type="number" id="inputEstimatedBudget" class="form-control">
-                  </div>
-                  <div class="form-group">
-                     <label for="inputSpentBudget">Total amount spent</label> <input
-                        type="number" id="inputSpentBudget" class="form-control">
-                  </div>
-                  <div class="form-group">
-                     <label for="inputEstimatedDuration">Estimated project
-                        duration</label> <input type="number" id="inputEstimatedDuration"
-                        class="form-control">
-                  </div>
-               </div>
-            </div>
+         <div class="col-md-6" id="appendSuggest">
+            
          </div>
       </div>
       <div class="row">
-         <div class="col-md-6">
-            <div class="card ">
-               <div class="card-header">
-                  <h3 class="card-title">General</h3>
-                  <div class="card-tools">
-                     <button type="button" class="btn btn-tool"
-                        data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                     </button>
-                  </div>
-               </div>
-               <div class="card-body" style="height: 350px">
-                  <div class="form-group">
-                     <label for="inputName">Project Name</label> <input type="text"
-                        id="inputName" class="form-control">
-                  </div>
-                  <div class="form-group">
-                     <label for="inputDescription">Project Description</label>
-                     <textarea id="inputDescription" class="form-control" rows="4"></textarea>
-                  </div>
-               </div>
-            </div>
+         <div class="col-md-6" id="appendOrder">
+            
 
          </div>
-         <div class="col-md-6">
-            <div class="card ">
-               <div class="card-header">
-                  <h3 class="card-title">세탁 주문량</h3>
-                  <div class="card-tools">
-                     <button type="button" class="btn btn-tool"
-                        data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                     </button>
-                  </div>
-               </div>
-               <div class="card-body" style="height: 350px">
-         <table class="table table-striped projects">
-            <thead>
-               <tr>
-                  <th style="width: 20%">지점장</th>
-                  <th style="width: 20%">지점</th>
-                  <th>주문량</th>
-                  <th style="width: 15%" class="text-center">상태</th>
-               </tr>
-            </thead>
-            <tbody>
-               <tr>
-                  <td><a> 구건희</a></td>
-                  <td><a>branch</a></td>
-                  <td class="project_progress">
-                     <div class="progress progress-sm">
-                        <div class="progress-bar bg-yellow" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100" style="width: 82%"></div>
-                     </div> <small> 82% Complete </small>
-                  </td>
-                  <td class="project-state"><span class="badge badge-warning">혼잡</span>
-                  </td>
-               </tr>
-               <tr>
-                  <td><a> 백관우</a></td>
-                  <td><a>branch</a></td>
-                  <td class="project_progress">
-                     <div class="progress progress-sm">
-                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100" style="width: 12%"></div>
-                     </div> <small> 12% Complete </small>
-                  </td>
-                  <td class="project-state"><span class="badge badge-success">원활</span>
-                  </td>
-               </tr>
-               <tr>
-                  <td><a> 이민호</a></td>
-                  <td><a>branch</a></td>
-                  <td class="project_progress">
-                     <div class="progress progress-sm">
-                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%"></div>
-                     </div> <small> 35% Complete </small>
-                  </td>
-                  <td class="project-state"><span class="badge badge-success">원활</span>
-                  </td>
-               </tr>
-               <tr>
-                  <td><a> 이어진</a></td>
-                  <td><a>branch</a></td>
-                  <td class="project_progress">
-                     <div class="progress progress-sm">
-                        <div class="progress-bar bg-red" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-                     </div> <small> 100% Complete </small>
-                  </td>
-                  <td class="project-state"><span class="badge badge-danger">초과</span>
-                  </td>
-               </tr>
-      
-            </tbody>
-         </table>
-               </div>
-
-            </div>
+         <div class="card col-6"id="appendChart" >
+				
 
          </div>
       </div>
    </div>
+ 
+      <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+	 <%@include file="./main/notice_list.jsp" %>
+   <%@include file="./main/suggest_list.jsp" %>
+   <%@include file="./main/order_list.jsp" %>
+
+<script type="text/x-handlebars-template" id="chart" >
+<div class="card-header">
+					<h2 style="height: 20px;" class="card-title">
+		            	<b>발주</b>
+		            </h2>
+					<div class="card-tools">
+						<select onchange="getChart()">
+							{{#each branchList}}
+								{{#if admin}}
+									<option value="{{branchLndrpcrymslmcoqy}},{{count}},{{branchName}}">{{branchName}}</option>
+								{{/if}}
+							{{/each}}
+						</select>
+					</div>
+				</div>
+
+			<div class="card-body p-0" style="width:350px; height:350px; margin-left: 60px" id="canvasDiv" >
+             <canvas id="pie-chart" ></canvas>
+             </div>
+
+</script>
+
+<script>
+
+function getChart(){
+	let result= event.target.value.split(",");
+	console.log(result)
+	document.querySelector("#pie-chart").remove()
+	document.querySelector('#canvasDiv').innerHTML="<canvas id='pie-chart' ></canvas>"
+	pieChart(parseInt(result[0]),parseInt(result[1]),result[2])
+}
+
+
+function pieChart(totalCount,count,branchName){
+ console.log(event.target)
+	new Chart(document.getElementById("pie-chart"), {
+	    type: 'pie',
+	    data: {
+	      labels: ["가능세탁주문", "현재주문"],
+	      datasets: [{
+	        label: "Population (millions)",
+	        backgroundColor: ["#82BBD8", "#8e5ea2"],
+	        data: [(totalCount-count),count] 
+	      }]
+	    },
+	    options: {
+	      title: {
+	        display: true,
+	        text: branchName
+	      }
+	    }
+	});
+
+}
+
+function goPage(url,menuCode){
+	
+
+	this.parent.document.querySelector('iframe[name="ifr"]').src=url;
+	
+
+	// HTML5 지원브라우저에서 사용 가능
+	if (typeof (this.parent.history.pushState) == 'function') {
+		//현재 주소를 가져온다.
+		var renewURL = this.parent.location.href;
+		//현재 주소 중 .부분이 있다면 날려버린다.
+		renewURL = renewURL.substring(0, renewURL.indexOf(".") );
+
+		if (menuCode != 'A000000') {
+			renewURL += "?menuCode=" + menuCode;
+		}
+		//페이지를 리로드하지 않고 페이지 주소만 변경할 때 사용
+		this.parent.history.pushState(menuCode, null, renewURL);
+	} else {
+		this.parent.location.hash = "#" + menuCode;
+	}
+	
+} 
+
+
+
+
+window.onload= function (){
+	notice_list("<%=request.getContextPath()%>/admin/main/noticelist")
+	suggest_list("<%=request.getContextPath()%>/admin/main/suggestlist?searchType=n")
+	order_list("<%=request.getContextPath()%>/admin/main/orderlist")
+	$.ajax({
+		url : "<%=request.getContextPath()%>/admin/main/chart",
+		type : 'get',
+		dataType : "json",
+		success : function(dataMap) {
+			console.log(dataMap)
+			let branchList = dataMap.branchList;
+			for(let i of branchList){
+				i.count= dataMap[i.branchCode]
+				if(i.branchCode!="000000"){
+					i.admin=true;
+				}else{
+					i.admin=false;
+				}
+			}
+			let source = $("#chart").html();
+			
+			let template = Handlebars.compile(source); 
+			
+			console.log(branchList)
+			let data={
+					branchList:branchList
+			}
+			
+			let html = template(data);
+			
+			$("#appendChart").innerHTML="";
+			$("#appendChart").append(html)
+			
+			pieChart(branchList[1].branchLndrpcrymslmcoqy,branchList[1].count,branchList[1].branchName)
+			
+		
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
+
+</script>
+
 </body>
 </html>

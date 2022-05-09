@@ -250,5 +250,12 @@
 		 WHERE REPLYNO = #{replyNo}
 	</select>
 	
+	<select id="selectLaundryOrderCountTodayByBranchCode" resultType="int" >
+		SELECT count(*)
+		  FROM TB_LAUNDRY_ORDER
+		 WHERE branch_code = #{brnachCode}
+		   and TO_CHAR(ORDER_DATE,'YYYYMMDD')=TO_CHAR(SYSDATE,'YYYYMMDD')
+	</select>
+	
 
 </mapper>

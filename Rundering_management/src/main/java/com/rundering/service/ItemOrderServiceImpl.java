@@ -9,10 +9,12 @@ import javax.servlet.http.HttpSession;
 
 import com.rundering.command.BranchCriteria;
 import com.rundering.command.BranchPageMaker;
+import com.rundering.dao.BranchDAO;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.ItemInsertDAO;
 import com.rundering.dao.ItemOrderDAO;
 import com.rundering.dao.LaundryGoodsStockDAO;
+import com.rundering.dto.BranchVO;
 import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.ItemInsertVO;
@@ -30,6 +32,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 	
 	LaundryGoodsStockDAO laundryGoodsStockDAO;
 	
+	BranchDAO branchDAO;
+	
 	
 	public void setItemOrderDAO(ItemOrderDAO itemOrderDAO) {
 		this.itemOrderDAO = itemOrderDAO;
@@ -42,6 +46,9 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 	}
 	public void setItemInsertDAO(ItemInsertDAO itemInsertDAO) {
 		this.itemInsertDAO = itemInsertDAO;
+	}
+	public void setBranchDAO(BranchDAO branchDAO) {
+		this.branchDAO = branchDAO;
 	}
 	
 	
@@ -107,6 +114,9 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		Map<String,String> comCodeMap = new HashMap<String, String>();		
 		List<ItemOrderVO> itemOrderList = new ArrayList<ItemOrderVO>();
+		List<BranchVO> branchList = branchDAO.selectBranchList();
+		dataMap.put("branchList", branchList);
+		
 		
 		cri.setPerPageNum(10);
 		 

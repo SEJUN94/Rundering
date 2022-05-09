@@ -25,5 +25,7 @@ public interface LaundryOrderService {
 	String selectGetBranchCode(String branchCode) throws Exception;
 
 	Map<String, Object> assignmentOrder(AdminLaundryOrderListCriteria cri) throws Exception;
+
+	Map<String, Object> piChart() throws Exception;
 	
 }
