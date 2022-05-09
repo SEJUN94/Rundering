@@ -34,7 +34,12 @@ public class AttachService {
 	}
 	// 파일다운로드를 위한 해당 파일의 정보가져오기
 	public AttachVO getAttachForDownload(AttachVO attach) throws Exception {
-			return attachDAO.getAttachForDownload(attach);
+		return attachDAO.getAttachForDownload(attach);
+	}
+	
+	// vd
+	public List<AttachVO> selectAttachVOByFileNoAndSeq2(AttachVO attach) throws Exception {
+		return attachDAO.selectAttachVOByFileNoAndSeq2(attach);
 	}
 
 }
