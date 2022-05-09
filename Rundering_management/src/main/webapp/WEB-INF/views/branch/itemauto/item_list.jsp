@@ -54,8 +54,8 @@
                                      </div>
                                 </th>
                                 <th style="text-align: center;">물품량</th>
-                                <th style="text-align: center;">자동 발주 개수</th>
-                                <th style="text-align: center;">자동 발주 최소량</th>
+                                <th style="text-align: center;">자동 발주량</th>
+                                <th style="text-align: center;">자동 발주 시점</th>
                                 <th style="text-align: center;">자동발주 사용여부</th>
                             </tr>
                         </thead>

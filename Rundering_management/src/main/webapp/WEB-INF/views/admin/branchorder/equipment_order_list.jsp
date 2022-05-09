@@ -16,7 +16,7 @@
    <div class="container-fluid">
       <div class="row mb-2">
          <div class="col-sm-6">
-            <h1>지점 발주 내역</h1>
+            <h1>지점 발주</h1>
          </div>
       </div>
    </div>
