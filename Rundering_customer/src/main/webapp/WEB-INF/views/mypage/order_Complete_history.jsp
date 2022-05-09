@@ -11,8 +11,57 @@
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="myOrderList" value="${dataMap.myOrderList }" />
 
-<div
-	style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
+
+
+
+<style>
+#peter {
+	width: 200px;
+	height: 450px;
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	border:solid 1px #f3f3f3;
+	background-color:#f3f3f3;
+}
+aside ul li a{
+	color:#000000;
+	font-size:1.1em;
+}
+</style>
+
+
+<div class="row">
+	<aside style="padding-top: 50px;">
+		<ul id="peter" style="">
+			<li
+				style="margin-top: 15px; padding-bottom: 15px; border-bottom: solid 1px lightgray;">
+				<h1 style="font-size: 1.5em; text-align: center;">마이페이지</h1>
+			</li>
+			<li onclick="location.href='<%=request.getContextPath()%>/mypage'"
+				style="cursor: pointer; margin-top: 30px; margin-bottom: 15px; margin-left: 30px;"><a>회원
+					정보 수정</a></li>
+			<li
+				onclick="location.href='<%=request.getContextPath()%>/mypage/myaddress'"
+				style="cursor: pointer; margin-top: 15px; margin-bottom: 15px; margin-left: 30px;"><a>주소
+					관리</a></li>
+			<li style="margin-top: 15px; margin-bottom: 15px; margin-left: 30px;"><a>주문
+					내역</a>
+				<ul>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;"><a>진행중인 세탁물</a></li>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;"><a>배송 완료된 세탁</a></li>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;"><a>결제 내역</a></li>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;"><a>취소 내역</a></li>
+				</ul></li>
+			<li	onclick="location.href='<%=request.getContextPath()%>/mypage/myinquiry/list'" style="cursor: pointer; margin-top: 10px; margin-bottom: 15px; margin-left: 30px;">
+				<a>문의 내역</a>
+			</li>
+			<li onclick="location.href='<%=request.getContextPath()%>/mypage/secedeform'" style="cursor: pointer; margin-top: 10px; margin-bottom: 15px; margin-left: 30px;">
+				<a>회원 탈퇴</a>
+			</li>
+		</ul>
+	</aside>
+	<div style="width: 60%; display: flex; flex-direction: column; margin-left: 50px; margin-top:30px;">
 	<section class="content-header">
 		<div class="container-fluid">
 			<div class="row mb-2">
@@ -54,9 +103,10 @@
 								<td style="width: 25%" align="center">배송상태 : ${list.orderStatus}</td>
 								<td style="width: 25%" align="center">주문일자 : <fmt:formatDate value="${list.orderDate}" pattern="yyyy-MM-dd"/></td>
 								<td style="width: 25%"></td>
-								<td rowspan="3"
-									style="width: 25%; border-left: 1px solid rgba(0, 0, 0, .125); text-align: center; vertical-align: middle;">
-									<button class="btn btn-primary btn-m col-10" onclick="">배송조회</button>
+								<td rowspan="3"	style="width: 25%; border-left: 1px solid rgba(0, 0, 0, .125); text-align: center; vertical-align: middle;">
+									<c:if test="${list.orderStatus eq '배송정상완료' || list.orderStatus eq '배송지연완료'}">
+										<span style="font-weight: bold;">세탁물 배송 완료</span>
+									</c:if> 
 								</td>
 							</tr>
 							<tr style="border: none;">
@@ -78,5 +128,6 @@
 			<%@ include file="/WEB-INF/views/mypage/pagination.jsp"%>
 		</div>
 	</div>
+</div>
 
 </div>

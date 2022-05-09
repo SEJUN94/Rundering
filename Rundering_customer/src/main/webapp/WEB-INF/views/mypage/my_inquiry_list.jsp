@@ -65,7 +65,7 @@ li h1{
 <body>
 
 <div class="row">
-	<aside style="padding-top:100px;">
+	<aside style="padding-top:50px;">
 			<ul id="peter" style="">
 				<li style="margin-top:15px; padding-bottom:15px;border-bottom:solid 1px lightgray;">
 					<h1 style="font-size:1.5em;text-align:center;">마이페이지</h1>
@@ -82,10 +82,12 @@ li h1{
 						<li style="margin-top:10px; margin-bottom:5px;padding-left:20px;"><a>취소 내역</a></li>
 					</ul>
 				</li>
-				<li onclick="location.href='<%=request.getContextPath()%>/mypage/myinquiry/list'"
-					style="cursor: pointer; margin-top:10px; margin-bottom:15px; margin-left:30px;"><a>문의 내역</a></li>
-				<li onclick="location.href='<%=request.getContextPath()%>/mypage/secedeform'"
-					style="cursor: pointer; margin-top:10px; margin-bottom:15px; margin-left:30px;"><a>회원 탈퇴</a></li>
+				<li onclick="location.href='<%=request.getContextPath()%>/mypage/myinquiry/list'" style="cursor: pointer; margin-top:10px; margin-bottom:15px; margin-left:30px;">
+					<a>문의 내역</a>
+				</li>
+				<li onclick="location.href='<%=request.getContextPath()%>/mypage/secedeform'" style="cursor: pointer; margin-top:10px; margin-bottom:15px; margin-left:30px;">
+					<a>회원 탈퇴</a>
+				</li>
 			</ul>
 	</aside>
 

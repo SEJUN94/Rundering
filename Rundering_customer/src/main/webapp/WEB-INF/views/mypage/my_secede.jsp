@@ -30,7 +30,7 @@ li h1{
 </style>
 
 <div class="row">
-	<aside style="padding-top:100px;">
+	<aside style="padding-top:50px;">
 			<ul id="peter" style="">
 				<li style="margin-top:15px; padding-bottom:15px;border-bottom:solid 1px lightgray;">
 					<h1 style="font-size:1.5em;text-align:center;">마이페이지</h1>

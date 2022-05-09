@@ -38,7 +38,7 @@
 
 <body>
 <div class="row">
-	<aside style="padding-top:100px;">
+	<aside style="padding-top:50px;">
 			<ul id="peter" style="">
 				<li style="margin-top:15px; padding-bottom:15px;border-bottom:solid 1px lightgray;">
 					<h1 style="font-size:1.5em;text-align:center;">마이페이지</h1>
@@ -63,7 +63,7 @@
 	</aside>
 
 
-	<div style="width: 55%; display: flex; flex-direction: column; margin-left: 50px; margin-top:10px;">
+<div style="width: 60%; display: flex; flex-direction: column; margin-left: 50px; margin-top:30px;">
 
 		<section class="content-header">
 			<div class="container-fluid">
@@ -105,7 +105,7 @@
 												onchange="newAddr(this);" name="addressNo" class="토레타"
 												id="${memberAddress.addressNo}"> <label
 												for="${memberAddress.addressNo}" style="font-weight: 500;">주소${status.count }</label>
-												<button class="btn btn-warning btn-sm float-right" onclick="remove(${memberAddress.addressNo})" style="background-color:#82BBD8; border-color:#82BBD8;" >삭제</button>
+												<button class="btn btn-danger btn-sm float-right" onclick="remove(${memberAddress.addressNo})">삭제</button>
 										</div>
 									</c:if>
 								</c:forEach>
@@ -125,7 +125,7 @@
 										placeholder="우편번호" readonly>
 									<div class="input-group-append">
 										<button type="button" id="modalBtn" class="btn btn-warning"
-											onclick="findZip();" style="background-color:#82BBD8; border-color:#82BBD8;">주소검색</button>
+											onclick="findZip();" style="background-color:#82BBD8; border-color:#82BBD8; color:white;">주소검색</button>
 									</div>
 								</div>
 								<div class="input-group mb-3">
@@ -144,7 +144,7 @@
 												id="setDefaultAddr"> <label for="setDefaultAddr"
 												style="font-weight: 500;"> 기본주소지로 등록 </label>
 											<button type="button" class="btn btn-outline-secondary"
-												style="margin-left: 140px; margin-left: 270px; width:80px;" onclick="addrmodify();">수정</button>
+												style="margin-left: 320px; width:80px;" onclick="addrmodify();">수정</button>
 										</div>
 									</div>
 								</div>
@@ -158,7 +158,7 @@
 										placeholder="우편번호" readonly>
 									<div class="input-group-append">
 										<button type="button" id="modalBtn" class="btn btn-primary"
-											onclick="findZip1();">주소검색</button>
+											onclick="findZip1();" style="background-color:#82BBD8; border-color:#82BBD8;">주소검색</button>
 									</div>
 								</div>
 								<div class="input-group mb-3">
@@ -176,7 +176,7 @@
 												id="setDefaultAddr1"> <label for="setDefaultAddr1"
 												style="font-weight: 500;"> 기본주소지로 등록 </label>
 											<button type="button" class="btn btn-outline-secondary"
-												style="margin-left: 140px;" onclick="addrregist();">등록</button>
+												style="margin-left: 320px; width:80px;" onclick="addrregist();">등록</button>
 										</div>
 									</div>
 								</div>
