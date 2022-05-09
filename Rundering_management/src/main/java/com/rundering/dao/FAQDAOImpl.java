@@ -81,4 +81,9 @@ public class FAQDAOImpl implements FAQDAO {
 		session.update("FAQ-mapper.insertQnA", faq);
 	}
 
+	@Override
+	public FAQVO selectOriginalFAQByFaqno(int faqno) throws SQLException {
+		return session.selectOne("FAQ-mapper.selectOriginalFAQByFaqno", faqno);
+	}
+
 }

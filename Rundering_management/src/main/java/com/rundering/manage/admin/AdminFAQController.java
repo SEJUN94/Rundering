@@ -88,7 +88,7 @@ public class AdminFAQController {
 	public String replyPost(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
 		String url = "redirect:/admin/question/detail";
-
+		
 		faqService.reply(faq);
 
 		rttr.addAttribute("faqno", faq.getFaqno());

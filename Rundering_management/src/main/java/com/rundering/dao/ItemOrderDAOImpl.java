@@ -53,6 +53,17 @@ public class ItemOrderDAOImpl implements ItemOrderDAO{
 	 	return itemOrderList;
 	}
 	@Override
+	public List<ItemOrderVO> selectAdminItemOrderList(BranchCriteria cri) throws Exception{
+		int offset=cri.getStartRowNum();
+		int limit=cri.getPerPageNum();		
+		RowBounds rowBounds=new RowBounds(offset,limit);
+		List<ItemOrderVO> itemOrderList = null;
+	 	itemOrderList = session.selectList("ItemOrder-Mapper.selectAdminItemOrderList",cri,rowBounds);
+	 	return itemOrderList;
+	}
+	
+	
+	@Override
 	public int selectCount(BranchCriteria cri) throws Exception{
 		int count = session.selectOne("ItemOrder-Mapper.selectCount",cri);
 		return count;

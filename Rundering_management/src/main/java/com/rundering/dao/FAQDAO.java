@@ -16,6 +16,7 @@ public interface FAQDAO {
 	int selectFAQSequenceNextValue() throws SQLException;
 	
 	FAQVO selectFAQByFaqno(int faqno) throws SQLException;
+	FAQVO selectOriginalFAQByFaqno(int faqno) throws SQLException;
 	
 	void replyFAQ(FAQVO FAQ) throws SQLException;
 	

@@ -13,6 +13,7 @@ public class SuggestVO {
 	private String writer; // 작성자
 	private String branchName; // 지점명
 	private String checkyn; // 확인여부
+	private String atchFileNo;			//통합첨부파일번호
 
 	public SuggestVO() {
 	}
@@ -95,6 +96,15 @@ public class SuggestVO {
 
 	public void setCheckyn(String checkyn) {
 		this.checkyn = checkyn;
+	}
+	
+
+	public String getAtchFileNo() {
+		return atchFileNo;
+	}
+
+	public void setAtchFileNo(String atchFileNo) {
+		this.atchFileNo = atchFileNo;
 	}
 
 	@Override

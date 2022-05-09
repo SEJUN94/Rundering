@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<script type="text/x-handlebars-template" id="regist_list" >
-	<div class="card  p-0" style="padding-bottom: 10px;margin-bottom: 10px;" id="removeRegist">
+<script type="text/x-handlebars-template" id="insert_list" >
+	<div class="card  p-0" style="padding-bottom: 10px;margin-bottom: 10px;" id="removeInsert">
                 <div class="card-header">
                    <h2 style="height: 20px;" class="card-title">
 						<b>입고 리스트</b>
@@ -23,39 +23,27 @@
                             <tr>
                                 <th style="text-align: center;">물품이름</th>
                                 <th style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;">
-                                    <div class="input-group input-group-sm" >
-                                        <select class="form-control" style="width: 60px;" name="laundryItemsCode"  id="laundryItemsCode" onchange="list_go(1);">
-                                           	 <c:forEach items="${clcodeList }" var="clcode">
-                                           	 
-                                             	<option value="${clcode.comCode}">${clcode.comCodeNm }</option>
-                                             </c:forEach>
-                                         </select>
-                                     </div>
+                                    	입고일
                                 </th>
                                 <th style="text-align: center;">입고량</th>
                                 <th>발주번호</th>
                             </tr>
                         </thead>
                         <tbody>
-                                    
-                                   <c:forEach items="${itemList }" var="item">
+                                  {{#each itemInsertList}}
                                     <tr>
-                                        <td onclick="tdClick('${item.articlesCode}')">${item.articlesName} </td>
-                                        <td>
-                                        <c:forEach items="${clcodeList }" var="clcode">
-                                        	<c:if test="${item.clcode eq clcode.comCode}">${clcode.comCodeNm }</c:if>   	 
-                                        </c:forEach>
+                                        <td >{{laundryArticlesName articlesCode}} </td>
+                                        <td style="text-align: center">
+                                        	{{prettifyDate insertDate}}
                                         </td>
-                                        <td style="text-align: right;">${item.supplyCount }(${item.each})</td>
-                                        <td>200</td>
+                                        <td style="text-align: right;">{{itemCount }}({{laundryArticlesEach articlesCode}})</td>
+                                        <td>{{orderNo}}</td>
                                     </tr>
-                                   </c:forEach> 
+								 {{/each}}
                         </tbody>
                     </table>
                 </div>
-              <div class="card-footer" >
-				페이징
-
+              <div class="card-footer" id="registPaging">
 			</div>
 			</div>
 </script>
@@ -100,10 +88,6 @@
 let page= 1;
 
 
-window.onload=function(){
-	registList("<%=request.getContextPath()%>/admin/item/registlist?page="+page);
-}   
-
 function page_go(url){
 	if(url==null||url.trim()==""){
 		alert("페이지가 없습니다");
@@ -122,7 +106,7 @@ function registList(pageInfo){
 		success : function(dataMap) {
 			
 			
-			let source = $("#regist_list").html();
+			let source = $("#insert_list").html();
 			let pageSource = $("#pagination-template").html();
 			
 			let pageTemplate = Handlebars.compile(pageSource); 
@@ -130,12 +114,16 @@ function registList(pageInfo){
 			
 			let pageMaker=dataMap.pageMaker;
 			let cri=dataMap.pageMaker.cri;
-			let	itemRegistList =dataMap.itemRgistList;
-			console.log(dataMap);
-			for(let i of itemRgistList){
-			}
-			console.log(replyList);
+			let	itemInsertList =dataMap.itemInsertList;
+			let laundryArticlesList=dataMap.laundryArticlesList;
+			let laundryArticlesMap ={}
 			
+			console.log(dataMap);
+			for(let i of laundryArticlesList){
+				laundryArticlesMap[i.articlesCode]=i;
+				
+			}
+			console.log(laundryArticlesMap)
 			
 			let pageNumArray = new Array(pageMaker.endPage-pageMaker.startPage+1);
 		    for(let i=0; i<pageMaker.endPage-pageMaker.startPage+1;i++){
@@ -153,39 +141,41 @@ function registList(pageInfo){
 					 if(pageNum == page) return 'active';
 			   },
                "pageurl":function(pageNum){
-            	   
-            	   return "<%=request.getContextPath()%>/admin/notice/noticereplylist?replyno=${notice.replyNo}&page="+pageNum;
+            	   numberChange(pageNum)
+            	   return "<%=request.getContextPath()%>/branch/item/insertList?page="+page;
                },"prettifyDate":function(timeValue){
             	      var dateObj=new Date(timeValue);
             	      var year=dateObj.getFullYear();
             	      var month=dateObj.getMonth()+1;
             	      var date=dateObj.getDate();
             	      return year+"/"+month+"/"+date;
-               },"VisibleByLoginCheck" : function(replyer) {//LoginUser와 댓글작성자가 같을때 modify버튼 노출
-            	      var result = "none";
-            	      if(replyer == "${loginMember.memberNo }") result="visible";
-            	      return result;
+            	},"laundryArticlesName":function(articlesCode){
+            		return laundryArticlesMap[articlesCode].articlesName;
+            	},"laundryArticlesEach":function(articlesCode){
+            		return laundryArticlesMap[articlesCode].each;
             	}
 			});
             
 			let data={
 					pageMaker:pageMaker,
 					cri:cri,
-					replyList:replyList,
+					itemInsertList:itemInsertList,
+					laundryArticlesMap:laundryArticlesMap,
 			}
 			
 			let html = template(data);
 			let pagehtml = pageTemplate(pageMaker);
 			
-			$("#replyListTag").innerHTML="";
-			if($("#replyHandler")!=null){
-				$("#replyHandler").remove()
+			$("#appenRgist").innerHTML="";
+			if($("#removeInsert")!=null){
+				$("#removeInsert").remove()
 			}
 			if(document.querySelector("#pageItem")!=null){
 				document.querySelector("#pageItem").remove()
 			}
-			$("#cardfooter").append(pagehtml)
-			$("#replyListTag").append(html)
+			
+			$("#appenRegist").append(html)
+			$("#registPaging").append(pagehtml);
 		},
 		error : function(error) {
 			AjaxErrorSecurityRedirectHandler(error.status);

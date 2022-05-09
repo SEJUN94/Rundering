@@ -8,6 +8,10 @@
 		<result column="BRANCH_CODE" property="branchCode"/>
 		<result column="ARTICLES_CODE" property="articlesCode"/>
 		<result column="SUPPLY_COUNT" property="supplyCount"/>
+	    <result column="AUTO_ORDER_POINT" property="autoOrderPoint"/> 	
+	    <result column="AUTO_ORDER_COUNT" property="autoOrderCount"/> 	
+	    <result column="AUTO_ORDER_YN" property="autoOrderYn"/> 	
+	    <result column="AUTO_ORDER_LAST_DATE" property="autoOrderLastDate" />
 	</resultMap>
 	<resultMap type="item" id="itemMap">
 		<result column="ARTICLES_CODE" property="articlesCode"/>
@@ -19,8 +23,20 @@
 		<result column="AUTO_ORDER_COUNT" property="autoOrderCount" />
 		<result column="AUTO_ORDER_YN" property="autoOrderYn"/>
 	</resultMap>
+	<select id="selectLaundryGoodsStock" resultMap="laundrygoodsstockMap">
+		select *
+		  from TB_LAUNDRY_GOODS_STOCK 
+		 WHERE AUTO_ORDER_YN='Y' 
+		
+	</select>
+	<select id="selectLaundryGoodsStockByBranchCode" resultMap="laundrygoodsstockMap">
+		select *
+		  from TB_LAUNDRY_GOODS_STOCK 
+		 WHERE AUTO_ORDER_YN='Y' 
+		   and branch_code=#{branchCode}
+	</select>
 	
-	
+	 	
 	<select id="selectItemListByBranchCode" resultMap="itemMap">
 		select A.ARTICLES_CODE AS ARTICLES_CODE,
 		       A.ARTICLES_NAME AS ARTICLES_NAME,
@@ -42,6 +58,12 @@
 		   AND B.BRANCH_CODE = #{branchCode}
 	</select>
 	
+	<select id="selectSupplyCountByVO" resultType="int">
+		select SUPPLY_COUNT
+		  from TB_LAUNDRY_GOODS_STOCK 
+		 WHERE ARTICLES_CODE = #{articlesCode}
+		   AND BRANCH_CODE = #{branchCode}
+	</select>
 	
 	
 	
@@ -84,6 +106,28 @@
 		   and articles_code=#{articlesCode} 
 	</update>
 	
+	<update id="updateLaundryGoodsStockSupplyCountByVO" parameterType="laundrygoodsstock">
+		update tb_laundry_goods_stock
+		   set supply_count=#{supplyCount}
+		 where branch_code=#{branchCode}
+		   and articles_code=#{articlesCode} 
+	</update>
+	
+	<update id="updateLaundryGoodsStockSupplyCountPlusByVO" parameterType="laundrygoodsstock">
+		update tb_laundry_goods_stock
+		   set supply_count=supply_count+#{supplyCount}
+		 where branch_code=#{branchCode}
+		   and articles_code=#{articlesCode} 
+	</update>
+	
+	<update id="updateLaundryGoodsStockLastDateAuto" parameterType="laundrygoodsstock">
+		update tb_laundry_goods_stock
+		   set  auto_order_last_date=sysdate
+		 where branch_code=#{branchCode}
+		   and articles_code=#{articlesCode} 
+		   
+	
+	</update>
 	
 	
 	

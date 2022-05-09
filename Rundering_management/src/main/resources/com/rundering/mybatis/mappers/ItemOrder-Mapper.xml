@@ -54,9 +54,19 @@
 		select *
 		  from tb_item_order
 		 where ordercode is not null
+		   and branch_code=#{branchCode}
 		 <include refid="search"/>
 		 order by regist_date
 	</select>
+	
+	<select id="selectAdminItemOrderList" resultMap="itemOrderMap">
+		select *
+		  from tb_item_order
+		 where ordercode is not null
+		 <include refid="search"/>
+		 order by regist_date
+	</select>
+	
 	<select id="selectItemOrderDetailByOrdercode" resultMap="itemOrderDetailMap">
 		select *
 		  from tb_item_order_detail

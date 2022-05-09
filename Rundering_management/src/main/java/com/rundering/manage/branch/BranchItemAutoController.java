@@ -83,6 +83,24 @@ public class BranchItemAutoController {
 		return resp;
 	}
 	
+	@RequestMapping(value = "savesupplycount",method = RequestMethod.POST)
+	@ResponseBody
+	private ResponseEntity<String> savesupplycount(LaundryGoodsStockVO laundryGoodsStock,HttpSession session) {
+		ResponseEntity<String> resp = null;
+		EmployeesVO emp=(EmployeesVO) session.getAttribute("loginEmployee");
+		laundryGoodsStock.setBranchCode(emp.getBranchCode());
+		try {
+			itemService.updateSupllyCount(laundryGoodsStock);
+			resp = new ResponseEntity<String>(HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return resp;
+	}
+	
+	
 	
 	@RequestMapping(value="chart",method =RequestMethod.GET,produces = "application/json;charset=utf-8")
 	@ResponseBody
@@ -107,6 +125,40 @@ public class BranchItemAutoController {
 				}
 				if(chartDay == 365) {
 					itemList=itemService.selectYYItemByItem(item);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		resp= new ResponseEntity<List<ItemVO>>(itemList, HttpStatus.OK);
+		
+		
+		return resp;
+		
+	}
+	@RequestMapping(value="chartout",method =RequestMethod.GET,produces = "application/json;charset=utf-8")
+	@ResponseBody
+	private ResponseEntity<List<ItemVO>> chartOut(int chartDay,String articlesCode,HttpSession session){
+		ItemVO item = new ItemVO();
+		item.setArticlesCode(articlesCode);
+		EmployeesVO emp = (EmployeesVO)session.getAttribute("loginEmployee");
+		item.setBranchCode(emp.getBranchCode());
+		
+		List<ItemVO> itemList = new ArrayList<ItemVO>();
+		ResponseEntity<List<ItemVO>> resp =null;
+		
+			try {
+				if(chartDay == 1) {
+					itemList=itemService.selectDDItemOutByItem(item);
+				}
+				if(chartDay == 30) {
+					itemList=itemService.selectMMItemOutByItem(item);
+				}
+				if(chartDay == 90) {
+					itemList=itemService.select3MItemOutByItem(item);
+				}
+				if(chartDay == 365) {
+					itemList=itemService.selectYYItemOutByItem(item);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

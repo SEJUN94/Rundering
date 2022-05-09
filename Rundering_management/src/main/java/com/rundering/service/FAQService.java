@@ -16,7 +16,7 @@ public interface FAQService {
 	FAQVO getFAQReply(int faqno) throws SQLException;
 	
 	// 답글
-	void reply(FAQVO faq) throws SQLException;
+	void reply(FAQVO faq) throws Exception;
 	
 	/* 아코디언 */
 	public Map<String, Object> getFAQFrequentlyList(AcoCriteria cri) throws SQLException;

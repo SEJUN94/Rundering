@@ -13,6 +13,7 @@ public class NoticeVO {
 	private String deleteYn;    //삭제여부
 	private String branchCode;  //지점코드
 	private int replyNo;		//댓글번호
+	private String atchFileNo;			//통합첨부파일번호
 	
 	
 	public NoticeVO() {
@@ -80,5 +81,12 @@ public class NoticeVO {
 	public void setReplyNo(int replyNo) {
 		this.replyNo = replyNo;
 	}
+	public String getAtchFileNo() {
+		return atchFileNo;
+	}
+	public void setAtchFileNo(String atchFileNo) {
+		this.atchFileNo = atchFileNo;
+	}
+	
 	
 }

@@ -7,6 +7,9 @@
 <c:set value="${dataMap.pageMaker }" var="pageMaker"></c:set>
 <c:set value="${dataMap.pageMaker.cri }" var="cri"></c:set>
 <c:set value="${dataMap.throughputList }" var="throughputList"></c:set>
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+
 
 <style>
 </style>
@@ -63,7 +66,7 @@
 							<th style="width: 12%">세탁상세</th>
 						</tr>
 					</thead>
-					<tbody style="font-size:0.9em;	">
+					<tbody style="font-size:0.9em;" id="tbody">
 						<c:if test="${empty throughputList }">
 							<tr>
 								<td colspan="5" style="text-align: center;"><strong>해당
@@ -71,12 +74,15 @@
 							</tr>
 						</c:if>
 						<c:forEach items="${throughputList }" var="throughput">
+						<fmt:formatDate value="${throughput.date}" pattern="yyyy-MM-dd" var="throughputDate"/>
+						<c:if test="${today == throughputDate}">
 							<tr
-								onclick="branchTable('${throughput.branchCode }');"
-								style="cursor: pointer;">
+								onclick="getWeeksBranchThroughput('${throughput.branchCode }');"
+								style="cursor: pointer;" class="tableTr">
 								<td>${throughput.name }</td>
 								<td>${throughput.branchName }</td>
-								<td class="project_progress"><c:if
+								<td class="project_progress">
+									<c:if
 										test="${throughput.quotaPercent gt 0 and throughput.quotaPercent le 60}">
 										<div class="progress progress-sm">
 											<div class="progress-bar bg-green" role="progressbar"
@@ -84,7 +90,8 @@
 												aria-valuemin="0" aria-valuemax="100"
 												style="width: ${throughput.quotaPercent}%"></div>
 										</div>
-									</c:if> <c:if
+									</c:if> 
+									<c:if
 										test="${throughput.quotaPercent gt 60 and throughput.quotaPercent le 80 }">
 										<div class="progress progress-sm">
 											<div class="progress-bar bg-warning" role="progressbar"
@@ -92,20 +99,22 @@
 												aria-valuemin="0" aria-valuemax="100"
 												style="width: ${throughput.quotaPercent}%"></div>
 										</div>
-									</c:if> <c:if
-										test="${throughput.quotaPercent gt 80 and throughput.quotaPercent le 101 }">
+									</c:if> 
+									<c:if test="${throughput.quotaPercent gt 80 and throughput.quotaPercent le 101 }">
 										<div class="progress progress-sm">
 											<div class="progress-bar bg-red" role="progressbar"
 												aria-valuenow="${throughput.quotaPercent }"
 												aria-valuemin="0" aria-valuemax="100"
 												style="width: ${throughput.quotaPercent}%"></div>
 										</div>
-									</c:if> <small> ${throughput.quotaPercent }%</small></td>
+									</c:if> <small> ${throughput.quotaPercent }%</small>
+								</td>
 								<td>
 									<button class="btn btn-warning btn-sm"
 										onclick="window.open('<%=request.getContextPath()%>/admin/branchinfo/infodetail?branchCode=${throughput.branchCode } ','지점상세', 'width=800, height=800')">세탁상세</button>
 								</td>
 							</tr>
+							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>
@@ -118,7 +127,7 @@
 	<div class="row ml-3 mr-3 p-0" style="height: 280px; width: 98%">
 		<div class="card p-0" style="width: 49%; font-size:0.9em;">
 			<div class="card-body">
-				<div style="width: 100%;">
+				<div style="width: 100%;" id="canvasTag">
 					<canvas id="canvas"></canvas>
 				</div>
 			</div>
@@ -127,7 +136,7 @@
 
 		<div style="width: 49%; font-size:0.9em;" class="card p-0">
 			<div class="card-body" style="height:300px;">
-				<table border="1" class="table table-sm">
+				<table border="1" class="table table-sm throughputTable">
 					<thead>
 						<tr>
 							<th style="width:112px;">날짜</th>
@@ -139,7 +148,7 @@
 					<tbody>
 						<c:forEach begin="1" end="7">
 							<tr>
-								<td class="week">d</td>
+								<td class="week"></td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -153,7 +162,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
 window.addEventListener('load', onloadWeek);
-function onloadWeek(){
+function onloadWeek(data){
 	var now = moment(todayDate.value, "YYYY-MM-DD");
 	for(var i=0; i<7; i++){
 		document.querySelectorAll('tr .week')[i].innerHTML = now.format('YYYY-MM-DD');
@@ -165,7 +174,6 @@ var todayDate = document.getElementById('todayDate')
 todayDate.value = new Date().toISOString().substring(0, 10);
 document.querySelector('#todayDate').setAttribute("max", todayDate.value);
 
-
 	function branchTable(branchCode){
 		$.ajax({
 			url : '<%=request.getContextPath()%>/admin/branchinfo/branchdata',
@@ -173,8 +181,8 @@ document.querySelector('#todayDate').setAttribute("max", todayDate.value);
 				'branchCode' : branchCode
 			},
 			type : 'post',
-			success : function(ok) {
-				onloadWeek();
+			success : function(data) {
+				onloadWeek(data);
 			},
 			error : function(error) {
 				AjaxErrorSecurityRedirectHandler(error.status);
@@ -183,7 +191,7 @@ document.querySelector('#todayDate').setAttribute("max", todayDate.value);
 	}
 </script>
 <script>
-
+var selectDate = null
 function changeDate(cDate){
 	$.ajax({
 		url : '<%=request.getContextPath()%>/admin/branchinfo/datedata',
@@ -191,8 +199,47 @@ function changeDate(cDate){
 			'date' : cDate.value
 		},
 		type : 'post',
-		success : function(ok) {
-			onloadWeek();
+		success : function(data) {
+			let tr= document.querySelectorAll('.tableTr')
+			for(let i of tr ){
+				i.remove();
+			}
+			let str= "";
+			if(data.length!=0){
+				for(let i=0; i<data.length; i++){
+					str+="<tr onclick='getWeeksBranchThroughput(\""+data[i].branchCode+"\");'style='cursor: pointer;' class='tableTr'>"
+					str+="<td>"+data[i].name+"</td>";
+					str+="<td>"+data[i].branchName+"</td>";
+					str+="<td class='project_progress'>"
+					if(data[i].branchLndrpcrymslmcoqy <= 60 && data[i].branchLndrpcrymslmcoqy > 0){
+						str+="		<div class='progress progress-sm'>"
+						str+="				<div class='progress-bar bg-green' role='progressbar' aria-valuenow="+data[i].branchLndrpcrymslmcoqy+"aria-valuemin='0' aria-valuemax='100' style='width: "+data[i].branchLndrpcrymslmcoqy+"%'></div>";
+						str+="		</div>";
+					}
+					if(data[i].branchLndrpcrymslmcoqy <= 80 && data[i].branchLndrpcrymslmcoqy > 60){
+						str+="		<div class='progress progress-sm'>"
+						str+="				<div class='progress-bar bg-warning' role='progressbar' aria-valuenow="+data[i].branchLndrpcrymslmcoqy+"aria-valuemin='0' aria-valuemax='100' style='width: "+data[i].branchLndrpcrymslmcoqy+"%'></div>";
+						str+="		</div>";
+					}
+					if(data[i].branchLndrpcrymslmcoqy <= 100 && data[i].branchLndrpcrymslmcoqy > 80){
+						str+="		<div class='progress progress-sm'>"
+						str+="				<div class='progress-bar bg-red' role='progressbar' aria-valuenow="+data[i].branchLndrpcrymslmcoqy+"aria-valuemin='0' aria-valuemax='100' style='width: "+data[i].branchLndrpcrymslmcoqy+"%'></div>";
+						str+="		</div>";
+					}
+					str+="	<small>"+ data[i].branchLndrpcrymslmcoqy+"%</small>"
+					str+="</td>"
+					str+="<td>"
+					str+="	<button class='btn btn-warning btn-sm' onclick='troughput_detail(\""+data[i].branchCode+"\")'>상세보기</button>";
+					//str+="	<button class='btn btn-warning btn-sm' onclick='troughput_detail("+'"data[i].branchCode+")'>상세보기</button>";
+					str+="</td>";
+					str+="</tr>"
+				}
+				selectDate=cDate.value;
+			}else{
+				str+='<tr class="tableTr"><td colspan="4"><strong>해당 내용이 없습니다.</strong></td></tr>';
+			}
+			
+			document.querySelector('#tbody').innerHTML+=str;
 		},
 		error : function(error) {
 			AjaxErrorSecurityRedirectHandler(error.status);
@@ -200,46 +247,117 @@ function changeDate(cDate){
 	});
 }
 
+
+function troughput_detail(branchCode){
+	window.open('<%=request.getContextPath()%>/admin/branchinfo/infodetail?branchCode='+branchCode, '지점상세', 'width=800 height=800');
+}
+
 </script>
+
 <script>
-var CHARTEX = $('#canvas');
-var barChartExample = new Chart(CHARTEX , {
-    type: 'bar',
-    data: {
-        labels: [1, 2,3, 4, 5, 6, 7 ],
-        datasets: [{
-                label: "세탕량(%)",
-                data: [15, 60, 56, 60, 6, 45, 1],
-                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }]
-    },
-    options: {
-        responsive: true,
-        legend: {
-            position: 'bottom',
-        },
-        hover: {
-            mode: 'label'
-        },
-        scales: {
-            yAxes: [{
-                    display: true,
-                    ticks: {
-                        beginAtZero: true,
-                        steps: 20,
-                        stepValue: 10,
-                        max: 100
-                    }
-                }]
-        },
-        title: {
-            display: true,
-            text: '일별 세탁량'
-        }
-    }
-});
+//지점번호와 날짜로 날짜기준으로 일주일 전까지의 데이터 가져오기
+function getWeeksBranchThroughput(branchCode){
+		document.querySelector("#canvas").remove;	
+		document.querySelector("#canvasTag").innerHTML='<canvas id="canvas"></canvas>'
+	
+	  const todayDate = document.querySelector('#todayDate');
+	$.ajax({
+		url : '<%=request.getContextPath()%>/admin/branchinfo/getWeeksBranchThroughput',
+		data : {
+			'date' : todayDate.value,
+			'branchCode' : branchCode
+		},
+		type : 'post',
+		success : function(data) {
+			a=time(data[0].date)
+			b=time(data[1].date)
+			c=time(data[2].date)
+			d=time(data[3].date)
+			e=time(data[4].date)
+			f=time(data[5].date)
+			g=time(data[6].date)
+			data1=data[0].totalThroughput
+			data2=data[1].totalThroughput
+			data3=data[2].totalThroughput
+			data4=data[3].totalThroughput
+			data5=data[4].totalThroughput
+			data6=data[5].totalThroughput
+			data7=data[6].totalThroughput
+			chart(a,b,c,d,e,f,g,data1,data2,data3,data4,data5,data6,data7)
+			
+			updateTable(data);
+			
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
+function time(timeValue){
+    var dateObj=new Date(timeValue);
+    var year=dateObj.getFullYear();
+    var month=dateObj.getMonth()+1;
+    var date=dateObj.getDate();
+    return year+"-"+month+"-"+date;
+}
+
+//테이블에 값 넣기
+function updateTable(data){
+ 	const throughputTable = document.querySelectorAll('.throughputTable tbody tr');
+ 	throughputTable.forEach(
+		  function(el, Index) {
+			 const newIndex = 6-Index;
+			 el.children[1].innerText = data[newIndex].laundryQuota;
+			 el.children[2].innerText = data[newIndex].totalThroughput;
+			 el.children[3].innerText = Math.floor(data[newIndex].totalThroughput / data[newIndex].laundryQuota * 100);
+		  }
+	);
+}
+</script>
+
+<script>
+function chart(a,b,c,d,e,f,g,data1,data2,data3,data4,data5,data6,data7){
+	var CHARTEX = $('#canvas');
+	var barChartExample = new Chart(CHARTEX , {
+	    type: 'bar',
+	    data: {
+	        labels: [a,b,c,d,e,f,g],
+	        datasets: [{
+	                label: "세탁량(%)",
+	                data: [data1, data2,data3,data4,data5,data6,data7],
+	                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+	                borderColor: 'rgba(54, 162, 235, 1)',
+	                borderWidth: 1
+	            }]
+	    },
+	    options: {
+	        responsive: true,
+	        legend: {
+	            position: 'bottom',
+	        },
+	        hover: {
+	            mode: 'label'
+	        },
+	        scales: {
+	            yAxes: [{
+	                    display: true,
+	                    ticks: {
+	                        beginAtZero: true,
+	                        steps: 20,
+	                        stepValue: 10,
+	                        max: 100
+	                    }
+	                }]
+	        },
+	        title: {
+	            display: true,
+	            text: '일별 세탁량'
+	        }
+	    }
+	});
+}
+
+
 </script>
 </body>
 

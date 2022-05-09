@@ -17,6 +17,7 @@
 	<result column="DELETE_YN" property="deleteYn"/>
 	<result column="BRANCH_CODE" property="branchCode"/>
 	<result column="REPLYNO" property="replyNo"/>
+	<result column="ATCH_FILE_NO" property="atchFileNo"/>
 </resultMap>
 	<sql id="search">
 		<if test="searchType == 't'.toString()">
@@ -77,12 +78,21 @@
 	</update>
 	
 	<update id="insertNotice" parameterType="notice">
-		insert into 
-		TB_NOTICE(NOTICENO,TITLE,EMPLOYEE_ID,CONTENT,REGIST_DATE,REPLYNO)
-		values(#{noticeno},#{title},#{employeeId},#{content},sysdate,#{replyNo})
+		<choose>
+			<when test="atchFileNo != null">
+				insert into 
+				TB_NOTICE(NOTICENO,TITLE,EMPLOYEE_ID,CONTENT,REGIST_DATE,REPLYNO,ATCH_FILE_NO)
+				values(#{noticeno},#{title},#{employeeId},#{content},sysdate,#{replyNo},#{atchFileNo})
+			</when>
+			<otherwise>
+				insert into 
+				TB_NOTICE(NOTICENO,TITLE,EMPLOYEE_ID,CONTENT,REGIST_DATE,REPLYNO)
+				values(#{noticeno},#{title},#{employeeId},#{content},sysdate,#{replyNo})
+			</otherwise>
+			</choose>
 	</update>	
 	
-	<select id="selectNoticeByNno" parameterType="int" resultType="notice">
+	<select id="selectNoticeByNno" parameterType="int" resultMap="noticeMap" >
 		select 
 		* 
 		from TB_NOTICE
@@ -90,9 +100,13 @@
 	</select>
 	
 	<update id="updateNotice" parameterType="notice">
+	
 		update TB_NOTICE
 		set 
 		title=#{title},content=#{content},modify_date=sysdate	
+		<if test="atchFileNo != null">
+			,ATCH_FILE_NO=#{atchFileNo}
+		</if>
 		where noticeno=#{noticeno}
 	</update>
 	

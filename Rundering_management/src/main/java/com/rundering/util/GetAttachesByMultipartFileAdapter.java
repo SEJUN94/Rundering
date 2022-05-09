@@ -10,11 +10,12 @@ import com.rundering.dto.AttachVO;
 
 public class GetAttachesByMultipartFileAdapter {
 	
-	public static List<AttachVO> save(List<MultipartFile> multiFiles, String savePath)	throws Exception{
+	public static List<AttachVO> save(List<MultipartFile> multiFiles, String savePath, String bizType)	throws Exception{
 		List<AttachVO> attachList = new ArrayList<AttachVO>();
 		
 		//저장 -> attachVO -> list.add
 		if (multiFiles != null) {
+			int cnt = 1;
 			for (MultipartFile multi : multiFiles) {
 				
 				String fileName = MakeFileName.toUUIDFileName(multi.getOriginalFilename(), "$$");
@@ -23,14 +24,18 @@ public class GetAttachesByMultipartFileAdapter {
 				target.mkdirs();
 
 				multi.transferTo(target);
+				
 				AttachVO attach = new AttachVO();
 				
-//				attach.setUploadPath(savePath);
-//				attach.setSaveFileName(fileName);
-//				attach.setFileName(multi.getOriginalFilename());
-//				attach.setFileType(fileName.substring(fileName.lastIndexOf('.') + 1)
-//						.toUpperCase());
+				attach.setFilePath(savePath);
+				attach.setSaveFileNm(fileName);
+				attach.setFileNm(orginalFileName);
+				attach.setFileContType(fileName.substring(fileName.lastIndexOf('.') + 1).toUpperCase());
 				attach.setFileSize(target.length()/1024);
+				attach.setBizType(bizType);
+				attach.setAtchFileSeq(cnt);
+				cnt++;
+				
 				attachList.add(attach);
 			}
 		}

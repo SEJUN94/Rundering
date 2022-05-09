@@ -49,10 +49,13 @@
 				</div>
 				<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
 					<div class="col-12 col-sm-4">
+<<<<<<< HEAD
 						<div class="row pl-3">
 							<div class="goodsPicture" id="pictureView" data-id="${pickup.atchFileNo }"
 							style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto;"></div>
 						</div>
+=======
+>>>>>>> refs/heads/GGH_laundryThroughput2
 						<div class="info-box bg-light" onclick="deliveryCom_cancel('07','${delivery.orderNo }');">
 							<div class="info-box-content">
 								<span class="info-box-text text-center text-muted"
@@ -80,6 +83,38 @@ function OrderGoodsPictureThumb(){
 }
 </script>	
 	
+
+<script>
+let imgList = null;
+function getImages(atchFileNo){ 
+    $.ajax({
+        url:"<%=request.getContextPath()%>/branch/laundrysituatuion/getimgs",
+        type:"post",
+        data: {
+        	atchFileNo:atchFileNo
+        },
+        dataType:"json",
+        success:function(data){
+			imgList= new Array();
+			for(let i of data){
+				imgList.push(i);
+			}
+			let handleData= {
+					count:countArray
+			};
+        	let html = template(handleData);
+        	
+        	document.querySelector("#imgsrc").src="data:image/jpg;base64,"+imgList[0];
+        	document.querySelector("#imgsrc").style.display="flex";
+        },
+        error:function(error){
+		//alert('댓글이 등록을 실패했습니다.');
+		AjaxErrorSecurityRedirectHandler(error.status);
+	}
+    })
+}
+
+</script>
 	
 <script>
 	function deliveryCom_cancel(orderStatus,orderNo){

@@ -48,7 +48,7 @@
 					</table>
 				</c:if>
 				<c:forEach items="${myOrderList }" var="list">
-					<table class="table m-0">
+					<table class="table m-0" onclick="location.href='<%=request.getContextPath()%>/mypage/order_detail'">
 						<tbody>
 							<tr style="border: none;">
 								<td style="width: 25%" align="center">배송상태 : ${list.orderStatus}</td>
@@ -57,7 +57,6 @@
 								<td rowspan="3"
 									style="width: 25%; border-left: 1px solid rgba(0, 0, 0, .125); text-align: center; vertical-align: middle;">
 									<button class="btn btn-primary btn-m col-10" onclick="">배송조회</button>
-									<button class="btn btn-danger btn-m col-10" onclick="">주문ㆍ배송취소</button>
 								</td>
 							</tr>
 							<tr style="border: none;">

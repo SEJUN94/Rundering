@@ -1,17 +1,22 @@
 package com.rundering.service;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.rundering.command.Criteria;
+import com.rundering.command.NoticeModifyCommand;
+import com.rundering.command.NoticeRegistCommand;
 import com.rundering.command.PageMaker;
+import com.rundering.dao.AttachDAO;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dao.EmployeesDAO;
 import com.rundering.dao.NoticeDAO;
 import com.rundering.dao.NotificationDAO;
 import com.rundering.dao.ReplyDAO;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.NoticeVO;
@@ -41,6 +46,10 @@ public class NoticeServiceImpl implements NoticeService{
 	public void setNotificationDAO(NotificationDAO notificationDAO) {
 		this.notificationDAO = notificationDAO;
 	}
+	private AttachDAO attachDAO;
+	public void setAttachDAO(AttachDAO attachDAO) {
+		this.attachDAO = attachDAO;
+	}
 
 	@Override
 	public Map<String, Object> getNoticeList(Criteria cri) throws SQLException {
@@ -57,7 +66,7 @@ public class NoticeServiceImpl implements NoticeService{
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
-
+		
 		dataMap.put("noticeList", noticeList);
 		dataMap.put("pageMaker", pageMaker);
 
@@ -66,25 +75,53 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public NoticeVO getNotice(int noticeno) throws SQLException {
+	public Map<String, Object> getNotice(int noticeno) throws Exception {
+			Map<String, Object> dataMap = new HashMap<String, Object>();
 			noticeDAO.increaseViewCount(noticeno);
-			NoticeVO notice = noticeDAO.selectNoticeByNno( noticeno);
-			return notice;
+			NoticeVO notice = noticeDAO.selectNoticeByNno(noticeno);
+			if(notice != null && notice.getAtchFileNo() != null) {
+				List<AttachVO> attachList = attachDAO.selectAttachVOByFileNo(notice.getAtchFileNo());
+				dataMap.put("attachList", attachList);
+			}
+			
+			dataMap.put("notice", notice);
+			return dataMap;
 	}
 
 	@Override
-	public NoticeVO getNoticeForModify(int noticeno) throws SQLException {
-			NoticeVO board = noticeDAO.selectNoticeByNno(noticeno);
-			return board;
+	public Map<String, Object> getNoticeForModify(int noticeno) throws Exception {
+			Map<String, Object> dataMap = new HashMap<String, Object>();
+			NoticeVO notice = noticeDAO.selectNoticeByNno(noticeno);
+			
+			if(notice != null && notice.getAtchFileNo() != null) {
+				List<AttachVO> attachList = attachDAO.selectAttachVOByFileNo(notice.getAtchFileNo());
+				dataMap.put("attachList", attachList);
+			}
+			
+			dataMap.put("notice", notice);
+			return dataMap;
 	}
 
 	@Override
-	public void regist(NoticeVO notice) throws Exception {
+	public void regist(NoticeRegistCommand notice, List<AttachVO> attachList) throws Exception {
 		  	int replyno = noticeDAO.selectNoticeSequenceNextValue();
 			int noticeno = noticeDAO.selectNoticeSequenceNextValue();
-			notice.setReplyNo(replyno);
-			notice.setNoticeno(noticeno);
-			noticeDAO.insertNotice(notice);
+			
+			NoticeVO noticeVO = notice.toNoticeVO();
+			noticeVO.setReplyNo(replyno);
+			noticeVO.setNoticeno(noticeno);
+			
+			if(attachList != null && attachList.size() > 0) {
+				int atchFileNo = attachDAO.selectFileNo();
+
+				for (AttachVO attach : attachList) {
+					attach.setAtchFileNo(String.valueOf(atchFileNo));
+					attachDAO.insertAttach(attach);
+				}
+				noticeVO.setAtchFileNo(String.valueOf(atchFileNo));
+			}
+			
+			noticeDAO.insertNotice(noticeVO);
 			
 			//모든 지점의 사원에게 공지 알림 - 배송사원 제외
 			List<BranchVO> branchList = branchDAO.selectBranchList();
@@ -110,12 +147,91 @@ public class NoticeServiceImpl implements NoticeService{
 	
 	
 	@Override
-	public void modify(NoticeVO notice) throws SQLException {
-			noticeDAO.updateNotice(notice);
+	public void modify(NoticeModifyCommand noticecmd, List<AttachVO> attachList) throws Exception {
+		
+		NoticeVO noticeVO = noticecmd.toNoticeVO();
+		String atchFileNo = noticeDAO.selectNoticeByNno(noticeVO.getNoticeno()).getAtchFileNo();
+		
+		if(atchFileNo != null) { //글에 첨부파일이 있었을 경우
+			// 파일 삭제
+			if (noticecmd.getDeleteFile() != null && noticecmd.getDeleteFile().size() > 0) {
+				//삭제 파일이 1개인 경우 ,을 기준으로 List에 index0과 1로 나눠 저장되어 들어옴
+				if(!noticecmd.getDeleteFile().get(0).contains(",")) {
+					AttachVO attach = new AttachVO();
+					attach.setAtchFileNo(atchFileNo);
+					attach.setAtchFileSeq(Integer.parseInt(noticecmd.getDeleteFile().get(1)));
+					attach = attachDAO.selectAttachVOByFileNoAndSeq(attach);
+					
+					removeAttach(attach);
+				}else {
+					for (String atchFileNoAndSeq : noticecmd.getDeleteFile()) {
+						String[] split = atchFileNoAndSeq.split(",");
+						int atchFileSeq = Integer.parseInt(split[1]);
+						
+						AttachVO attach = new AttachVO();
+						attach.setAtchFileNo(atchFileNo);
+						attach.setAtchFileSeq(atchFileSeq);
+						attach = attachDAO.selectAttachVOByFileNoAndSeq(attach);
+
+						removeAttach(attach);
+					}					
+				}
+			}
+			// 파일 추가시
+			if(attachList != null && attachList.size() >0) {
+				int attachNoSeq = attachDAO.getAttachNoSeq(atchFileNo);
+				if(attachNoSeq > 0) {
+					int lastSeq = attachDAO.selectLastSeqAttachVOByFileNo(atchFileNo);
+					for (AttachVO attach : attachList) {
+						attach.setAtchFileNo(atchFileNo);
+						attach.setAtchFileSeq(++lastSeq);
+						attachDAO.insertAttach(attach);
+					}
+				}else {
+					//첨부파일이 있었으나 모두 삭제해서 첨부파일번호만 공지사항테이블에 존재하는 경우
+					for (AttachVO attach : attachList) {
+						attach.setAtchFileNo(atchFileNo);
+						attachDAO.insertAttach(attach);
+					}
+				}
+			}
+			
+		}else {//글에 첨부파일이 없었을 경우
+			if(attachList != null && attachList.size() >0) {
+				int addAtchFileNo = attachDAO.selectFileNo();
+	
+				for (AttachVO attach : attachList) {
+					attach.setAtchFileNo(String.valueOf(addAtchFileNo));
+					attachDAO.insertAttach(attach);
+				}
+				noticeVO.setAtchFileNo(String.valueOf(atchFileNo));
+			}
+		}
+		
+			noticeDAO.updateNotice(noticeVO);
+	}
+	
+	//attach 파일, DB삭제
+	private void removeAttach(AttachVO attach) throws Exception {
+		// DB에 저장된 저장경로 참고! - properties의 저장경로 변경 가능성
+		File deleteFile = new File(attach.getFilePath(), attach.getSaveFileNm());
+
+		if (deleteFile.exists()) {
+			deleteFile.delete(); // File삭제
+		}
+		attachDAO.deleteAttchFileRemoveByFileNoAndSeq(attach); //DB삭제
 	}
 
 	@Override
-	public void remove(int noticeno) throws SQLException {
+	public void remove(int noticeno) throws Exception {
+		//첨부파일 있는지 확인 후 삭제
+		String atchFileNo = noticeDAO.selectNoticeByNno(noticeno).getAtchFileNo();
+		if(atchFileNo != null) { 
+			List<AttachVO> attachList = attachDAO.selectAttachVOByFileNo(atchFileNo);
+			if (attachList.size() > 0) for (AttachVO attachVO : attachList) {
+					removeAttach(attachVO);
+				}
+		}
 			noticeDAO.deleteNotice( noticeno);
 	}
 	

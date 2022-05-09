@@ -71,7 +71,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 		List<ItemOrderVO> itemOrderList = new ArrayList<ItemOrderVO>();
 		
 		int totalPrice=0;
-		
+		cri.setPerPageNum(4);
 		EmployeesVO emp = (EmployeesVO)session.getAttribute("loginEmployee");
 		cri.setBranchCode(emp.getBranchCode());
 		 
@@ -99,6 +99,32 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 		dataMap.put("pageMaker", pageMaker);
 		dataMap.put("comCodeMap",comCodeMap);
 		dataMap.put("totalPriceMap",totalPriceMap);
+		return dataMap;
+		
+	}
+	@Override
+	public Map<String, Object> adminItemOrdeList(BranchCriteria cri) throws Exception{
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		Map<String,String> comCodeMap = new HashMap<String, String>();		
+		List<ItemOrderVO> itemOrderList = new ArrayList<ItemOrderVO>();
+		
+		cri.setPerPageNum(10);
+		 
+		List<ComCodeVO> itemOrderComCode = comCodeDAO.selectItemOrderCode();
+		itemOrderList = itemOrderDAO.selectAdminItemOrderList(cri);
+		for (ComCodeVO comCode : itemOrderComCode) {
+			comCodeMap.put(comCode.getComCode(), comCode.getComCodeNm());
+		}
+		
+		
+		int totalCount = itemOrderDAO.selectCount(cri);
+		BranchPageMaker pageMaker = new BranchPageMaker();
+		pageMaker.setCri(cri); 
+		pageMaker.setTotalCount(totalCount);
+		 
+		dataMap.put("itemOrderList", itemOrderList);
+		dataMap.put("pageMaker", pageMaker);
+		dataMap.put("comCodeMap",comCodeMap);
 		return dataMap;
 		
 	}

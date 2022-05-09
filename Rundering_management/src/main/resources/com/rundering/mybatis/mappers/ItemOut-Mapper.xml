@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="ItemOut-Mapper">
+  <resultMap type="itemOut" id="itemOutMap">
+		<result column="ARTICLES_CODE"  property="articlesCode"/>
+		<result column="OUT_DATE"  property="outDate"/>
+		<result column="ITEM_COUNT"  property="itemCount"/>
+		<result column="BRANCH_CODE"  property="branchCode"/>
+		<result column="OUT_ITEM_CODE"  property="outItemCode"/>
+	</resultMap>
+	<select id="selectDayItemOutByItem" resultType="item" parameterType="item">
+		 SELECT SUM(ITEMCOUNT) as sum,
+		        TO_CHAR(sysdate-#{number},'YYYY-MM-DD')  as day
+	  	   FROM TB_ITEM_OUT
+	   	  WHERE OUT_DATE BETWEEN SYSDATE-#{number2}
+	  	                 AND SYSDATE -#{number}
+	        AND BRANCH_CODE=#{branchCode}
+	        and articles_code=#{articlesCode}
+	</select>
+	
+	<select id="selectItemOutList" resultMap="itemOutMap">
+		select *
+		  from tb_item_out
+		 where branch_code=#{branchCode}
+		 ORDER BY out_date ASC 
+	</select>
+	
+	<select id="selectItemOutCount" resultType="int" >
+		select count(*)
+		  from tb_item_out
+		 where branch_code=#{branchCode}
+		 ORDER BY out_date ASC 
+	</select>
+	<select id="selectItemOutByOutItemCode" parameterType="str" resultMap="itemOutMap">
+		select *
+		  from tb_item_out
+		 WHERE out_item_code=#{outItemCode} 
+	</select>
+	
+	
+	<insert id="insertItemOut" parameterType="itemOut">
+	insert into tb_item_out
+	(
+	OUT_ITEM_CODE,
+	ARTICLES_CODE,
+	BRANCH_CODE,
+	ITEMCOUNT
+	)values(
+		item_out_seq.nextval,
+		#{articlesCode},
+		#{branchCode},
+		#{itemcount}
+	)
+	</insert>
+	<delete id="deleteItemOut" parameterType="str">
+		DELETE FROM tb_item_out
+		 WHERE out_item_code=#{outItemCode}
+		
+	</delete>		
+	
+	
+	
+	
+	
+	</mapper>

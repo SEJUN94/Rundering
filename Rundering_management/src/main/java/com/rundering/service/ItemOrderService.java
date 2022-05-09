@@ -35,5 +35,8 @@ public interface ItemOrderService {
 
 
 	public Map<String, Object> itemOrdeList(BranchCriteria cri, HttpSession session) throws Exception;
+
+
+	Map<String, Object> adminItemOrdeList(BranchCriteria cri) throws Exception;
 	
 }

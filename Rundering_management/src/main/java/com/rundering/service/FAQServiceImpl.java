@@ -10,7 +10,10 @@ import com.rundering.command.AcoPageMaker;
 import com.rundering.command.FAQCriteria;
 import com.rundering.command.FAQPageMaker;
 import com.rundering.dao.FAQDAO;
+import com.rundering.dao.MemberDAO;
 import com.rundering.dto.FAQVO;
+import com.rundering.dto.MemberVO;
+import com.rundering.util.SensSms;
 
 public class FAQServiceImpl implements FAQService {
 	
@@ -18,6 +21,14 @@ public class FAQServiceImpl implements FAQService {
 	
 	public void setFaqDAO(FAQDAO faqDAO) {
 		this.faqDAO = faqDAO;
+	}
+	private MemberDAO memberDAO;
+	public void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
+	}
+	private SensSms sensSms;
+	public void setSensSms(SensSms sensSms) {
+		this.sensSms = sensSms;
 	}
 
 	@Override
@@ -48,8 +59,18 @@ public class FAQServiceImpl implements FAQService {
 	}
 	
 	@Override
-	public void reply(FAQVO faq) throws SQLException {
+	public void reply(FAQVO faq) throws Exception {
 		faqDAO.replyFAQ(faq);
+		
+		FAQVO faqVO = faqDAO.selectOriginalFAQByFaqno(faq.getFaqno());
+		MemberVO memberVO = memberDAO.selectMemberByMemberNo(faqVO.getWriter());
+		//고객 문자알림 주석처리
+//		try {
+//		sensSms.sendSMS(memberVO.getPhone().trim(), "[Rundering]\n고객님의 문의에 답변이 등록되었습니다.\n문의내역에서 확인해주세요.");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		
 	}
 	
 	/* 아코디언 */	

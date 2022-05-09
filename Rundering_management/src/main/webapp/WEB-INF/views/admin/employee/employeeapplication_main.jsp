@@ -42,7 +42,7 @@
 
          </div>
 
-         <div class="card-body p-0">
+         <div class="card-body p-0" style="height:300px;">
             <table style="text-align: center;" class="table text-nowrap">
                <thead>
                   <tr>
@@ -52,7 +52,7 @@
                      <th>상태변경</th>
                   </tr>
                </thead>
-               <tbody style="height:245px;">
+               <tbody>
                   <c:if test="${empty appList  }">
                      <tr>
                         <td colspan="5" style="vertical-align:middle;"><strong>해당 내용이 없습니다.</strong></td>
