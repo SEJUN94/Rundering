@@ -418,4 +418,7 @@ public class MyPageController {
 	
 	@RequestMapping("/order_detail")
 	public void orderDetail() {}
+	
+	@RequestMapping("/order_delivery")
+	public void orderDelivery() {}
 }

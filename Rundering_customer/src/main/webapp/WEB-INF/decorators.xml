@@ -16,6 +16,7 @@
 
 	<excludes>
 		<pattern>/resources/*</pattern>
+		<pattern>*/order_detail</pattern>
 	</excludes>
 
 </decorators>	

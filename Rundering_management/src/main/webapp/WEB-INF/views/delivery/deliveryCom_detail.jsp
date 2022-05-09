@@ -49,6 +49,13 @@
 				</div>
 				<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
 					<div class="col-12 col-sm-4">
+<<<<<<< HEAD
+						<div class="row pl-3">
+							<div class="goodsPicture" id="pictureView" data-id="${pickup.atchFileNo }"
+							style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto;"></div>
+						</div>
+=======
+>>>>>>> refs/heads/GGH_laundryThroughput2
 						<div class="info-box bg-light" onclick="deliveryCom_cancel('07','${delivery.orderNo }');">
 							<div class="info-box-content">
 								<span class="info-box-text text-center text-muted"
@@ -62,6 +69,20 @@
 	</div>
 <!-- 알림 sweetalert2 -->
 <script	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+	
+<script>
+window.addEventListener('load', OrderGoodsPictureThumb)
+function OrderGoodsPictureThumb(){
+	 for(var target of document.querySelectorAll('.goodsPicture')){	
+		 var atchFileNo = target.getAttribute('data-id');
+		 target.style.backgroundImage="url('<%=request.getContextPath() %>/fordelivery/getPicture?atchFileNo="+atchFileNo+"')";
+		 target.style.backgroundPosition="center";
+		 target.style.backgroundRepeat="no-repeat";
+		 target.style.backgroundSize="cover";
+	}
+}
+</script>	
+	
 
 <script>
 let imgList = null;

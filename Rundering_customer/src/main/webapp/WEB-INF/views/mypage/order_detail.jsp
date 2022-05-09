@@ -1,6 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<!DOCTYPE html>
+
 <head>
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/dist/css/adminlte.min.css">
+<!--파비콘-->
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/images/Favicon.ico" />
+<link rel="icon" href="<%=request.getContextPath() %>/resources/images/Favicon.svg" />
+<!--Google Material Icons-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/main.css" />  
+  
 <style>
     .circle {
         width: 75px;
@@ -9,29 +23,113 @@
         border-radius: 50%;
         margin-right:200px;
     }
+    .stepper-wrapper {
+     margin-top: auto;
+     display: flex;
+     justify-content: space-between;
+     margin-bottom: 20px;
+   }
+   .stepper-item {
+     position: relative;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     flex: 1;
+   
+     @media (max-width: 768px) {
+       font-size: 12px;
+     }
+   }
+   
+   .stepper-item::before {
+     position: absolute;
+     content: "";
+     border-bottom: 2px solid #ccc;
+     width: 100%;
+     top: 20px;
+     left: -50%;
+     z-index: 2;
+   }
+   
+   .stepper-item::after {
+     position: absolute;
+     content: "";
+     border-bottom: 2px solid #ccc;
+     width: 100%;
+     top: 20px;
+     left: 50%;
+     z-index: 2;
+   }
+   
+   .stepper-item .step-counter {
+     position: relative;
+     z-index: 5;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 40px;
+     height: 40px;
+     border-radius: 50%;
+     background: #ccc;
+     margin-bottom: 6px;
+   }
+   
+   .stepper-item.active {
+     font-weight: bold;
+   }
+   
+   .stepper-item.completed .step-counter {
+     background-color: #26ff7b;
+     color : white;
+   }
+   
+   .stepper-item.completed::after {
+     position: absolute;
+     content: "";
+     border-bottom: 2px solid #26ff7b;
+     width: 100%;
+     top: 20px;
+     left: 50%;
+     z-index: 3;
+   }
+   
+   .stepper-item:first-child::before {
+     content: none;
+   }
+   .stepper-item:last-child::after {
+     content: none;
+   }
 </style>
 </head>
 <body>
-   	<div class="col-12 ml-2 mr-2" style="padding-top:30px;">
-   		<div class="card ml-3 mr-3">
-   			<div class="card-body" style="font-size:1.5em;">배송조회</div>
+   	<div class="col-12" style="padding-top:30px;">
+   		<div class="card">
+   			<div class="card-body mt-3 ml-3 p-0" style="font-size:1.5em;">배송조회</div>
    			<hr>
-   			<div class="card-body">
-   				<div class="col-12 mb-3" style="background-color:#82BBD8;" >
-				    <span class="circle" style="margin-left:85px;"></span>
-			    	<span class="circle"></span>
-			    	<span class="circle"></span>
-				    <span class="circle"></span>
-				    <span class="circle"></span>
-   				</div>
+			<div class="row">
+				<div class="col-sm-12" style="padding-top: 10px;">
+				      <div class="stepper-wrapper">
+				        <div class="stepper-item completed">
+				          <div class="step-counter">
+				             <i class="fa-solid fa-1"></i>
+				          </div>
+				          <div class="step-name">발송대상자선택</div>
+				        </div>
+				        <div id="" class="stepper-item second">
+				          <div class="step-counter">
+				             <i class="fa-solid fa-2"></i>
+				          </div>
+				          <div class="step-name">발송메세지선택</div>
+				        </div>
+				        <div id="" class="stepper-item third">
+				          <div class="step-counter">
+				             <i class="fa-solid fa-3"></i>
+				          </div>
+				          <div class="step-name">선택정보확인</div>
+				        </div>
+				      </div>
+				  </div>
 			</div>
-	 		<div class="col-12 mb-3">
-			    <span class="col-3" style="margin-left:95px;">수거대기</span>
-		    	<span class="col-3" style="margin-left:175px;">수거중</span>
-		    	<span class="col-3" style="margin-left:180px;">수거완료</span>
-			    <span class="col-3" style="margin-left:175px;">배송중</span>
-			    <span class="col-3" style="margin-left:182px;">배송완료</span>
-	 		</div>
    		</div>
    	</div>
     <div class="col-12" style=" width: 100%;min-height:700px;max-height:600px; margin: 10px auto; display: flex;">
@@ -194,4 +292,15 @@
             </div>
         </div>
     </div>
+    
+    <!-- jQuery -->
+<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>
+    
+    
 </body>
+
+</html>

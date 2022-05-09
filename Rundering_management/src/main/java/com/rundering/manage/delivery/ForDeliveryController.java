@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.service.AttachService;
 import com.rundering.service.DeliveryService;
 import com.rundering.util.FileUtil;
 import com.rundering.util.MakeFileName;
@@ -40,6 +41,9 @@ public class ForDeliveryController {
 	private DeliveryService deliveryService;
 	@Resource(name = "deliveryPath")
 	private String deliveryPath;
+	
+	@Autowired
+	private AttachService attachService;
 
 	@RequestMapping("/login")
 	public String login() {
@@ -62,6 +66,21 @@ public class ForDeliveryController {
 		
 		return mnv;
 	}
+	
+	
+	@RequestMapping(value = "/getPicture", produces = "text/plain;charset=utf-8")
+	public ResponseEntity<byte[]> getPicture(String atchFileNo, AttachVO attach) throws Exception {
+		
+		FileUtil fileUtil = new FileUtil();
+		ResponseEntity<List<byte[]>> en = fileUtil.getPicture(atchFileNo, attachService);
+		List<byte[]> bs =en.getBody();
+		byte[] file = bs.get(0);
+		
+		ResponseEntity<byte[]> entity = null;
+		entity = new ResponseEntity<byte[]>(file, HttpStatus.CREATED);
+		return entity;
+	}
+	
 
 	@RequestMapping(value ="pictureupload",method = RequestMethod.POST,produces ="application/json;charset=utf-8")
 	@ResponseBody

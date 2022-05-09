@@ -32,7 +32,7 @@
 
 	<div class="card">
 		<div class="card-header border-transparent">
-			<h3 class="card-title">My Laundry Orders</h3>
+			<h3 class="card-title">전체 주문내역</h3>
 		</div>
 
 		<div class="card-body p-0">
@@ -48,7 +48,7 @@
 					</table>
 				</c:if>
 				<c:forEach items="${myOrderList }" var="list">
-					<table class="table m-0">
+					<table class="table m-0" onClick="window.open('<%=request.getContextPath()%>/mypage/order_detail','주문내역상세','width=1000, height=750')"> 
 						<tbody>
 							<tr style="border: none;">
 								<td style="width: 25%" align="center">배송상태 : ${list.orderStatus}</td>
@@ -56,8 +56,15 @@
 								<td style="width: 25%"></td>
 								<td rowspan="3"
 									style="width: 25%; border-left: 1px solid rgba(0, 0, 0, .125); text-align: center; vertical-align: middle;">
-									<button class="btn btn-primary btn-m col-10" onclick="">배송조회</button>
+									<c:if test="${list.orderStatus ne '배송정상완료' && list.orderStatus ne '배송지연완료'}">
+									<button class="btn btn-primary btn-m col-10" >배송조회</button>
+									</c:if>
+									<c:if test="${list.orderStatus eq '배송정상완료' || list.orderStatus eq '배송지연완료'}">
+									<span style="font-weight:bold;">세탁물 배송 완료</span>
+									</c:if>
+									<c:if test="${list.orderStatus eq '수거대기' }">
 									<button class="btn btn-danger btn-m col-10" onclick="">주문ㆍ배송취소</button>
+									</c:if>
 								</td>
 							</tr>
 							<tr style="border: none;">

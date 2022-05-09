@@ -89,7 +89,7 @@
 							</label>
 							</span>
 							<h5 style="display: inline;"></h5>
-							<button class="btn btn-xs btn-secondary" onclick="addFile_go();"
+							<button class="btn btn-xs btn-secondary" onclick="location.href='<%=request.getContextPath()%>/branchapplication/file/filedownload?atchFileNo=1&saveFileNm=11agc441da9843ca8g14a02321dfa5v6$$임대차계약서.pdf';"
 								type="button" id="addFileBtn"
 								style="background-color: #82BBD8; border: 1px solid #82BBD8">
 								<i class="fas fa-file"></i>&nbsp; 양식 다운로드
