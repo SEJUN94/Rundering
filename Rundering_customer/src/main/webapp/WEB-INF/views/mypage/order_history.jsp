@@ -32,7 +32,7 @@
 
 	<div class="card">
 		<div class="card-header border-transparent">
-			<h3 class="card-title">My Laundry Orders</h3>
+			<h3 class="card-title">전체 주문내역</h3>
 		</div>
 
 		<div class="card-body p-0">
