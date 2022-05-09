@@ -122,7 +122,7 @@ public class BranchSuggestController {
 	public String suggestRegist(SuggestRegistCommand suggestcmd, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
 
-		String url = "redirect:/branch/suggest/detail";
+		String url = "redirect:/branch/suggest/list";
 		
 	List<AttachVO> attachList = GetAttachesByMultipartFileAdapter.save(suggestcmd.getUploadFile(), this.boardPath,"건의사항");
 
