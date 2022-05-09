@@ -187,6 +187,16 @@ public class BranchItemController {
 		rttr.addFlashAttribute("from", "remove");
 		return url;
 	}
+	@RequestMapping("/notreceived")
+	private String notreceived(String ordercode,RedirectAttributes rttr) throws Exception{
+		String url = "redirect:/branch/itemorder/detail?ordercode="+ordercode;
+		ItemOrderVO itemOrder = new ItemOrderVO();
+		itemOrder.setOrdercode(ordercode);
+		itemOrder.setItemOrderStatus("04");
+		itemOrderService.updateStateNotRecive(itemOrder);
+		rttr.addFlashAttribute("from", "modify"); 
+		return url;
+	}
 	
 	
 

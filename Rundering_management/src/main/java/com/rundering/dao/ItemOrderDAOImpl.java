@@ -68,6 +68,13 @@ public class ItemOrderDAOImpl implements ItemOrderDAO{
 		int count = session.selectOne("ItemOrder-Mapper.selectCount",cri);
 		return count;
 	}
+	
+	@Override
+	public int selectAdminItemOrderCount() throws Exception{
+		int count = session.selectOne("ItemOrder-Mapper.selectAdminItemOrderCount");
+		return count;
+	}
+	
 	@Override
 	public int selectTotalPriceByOrderCode(String ordercode) throws Exception{
 		int result =0;

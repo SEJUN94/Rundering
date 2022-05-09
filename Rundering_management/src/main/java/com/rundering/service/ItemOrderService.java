@@ -38,5 +38,8 @@ public interface ItemOrderService {
 
 
 	Map<String, Object> adminItemOrdeList(BranchCriteria cri) throws Exception;
+
+
+	void updateStateNotRecive(ItemOrderVO itemOrder) throws Exception;
 	
 }

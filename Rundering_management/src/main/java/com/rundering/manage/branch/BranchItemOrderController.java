@@ -131,6 +131,7 @@ public class BranchItemOrderController {
 		rttr.addFlashAttribute("from", "modify");
 		return url;
 	}
+	
 	@RequestMapping("/remove")
 	private String remove(String ordercode,RedirectAttributes rttr) throws Exception{
 		String url = "redirect:/branch/itemorder/list";

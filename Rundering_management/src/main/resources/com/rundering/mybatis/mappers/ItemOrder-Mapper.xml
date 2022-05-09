@@ -67,6 +67,13 @@
 		 order by regist_date
 	</select>
 	
+	<select id="selectAdminItemOrderCount" resultType="int">
+		select count(*)
+		  from tb_item_order
+		 where ordercode is not null
+		 <include refid="search"/>
+	</select>
+	
 	<select id="selectItemOrderDetailByOrdercode" resultMap="itemOrderDetailMap">
 		select *
 		  from tb_item_order_detail
@@ -78,6 +85,9 @@
 		  from tb_item_order
 		 where ordercode=#{ordercode} 
 	</select>
+	
+	
+	
 	
 	<select id="selectCount" resultType="int">
 		select count(*)

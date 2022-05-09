@@ -66,6 +66,10 @@
 			<c:if test="${comCodeMap[itemOrder.itemOrderStatus] eq '승인대기' }">
 			<button type="button" class="btn btn-danger btn-m" onclick="ItemOrderRemove('${itemOrder.ordercode}')">취소</button>
 			</c:if> 
+			<c:if test="${comCodeMap[itemOrder.itemOrderStatus] eq '발주완료' }">
+				<button type="button" class="btn btn-primary btn-m" onclick="ItemOrderUpdate('${itemOrder.ordercode}')">수령</button>
+				<button type="button" class="btn btn-primary btn-m" onclick="ItemNotReciveUpdate('${itemOrder.ordercode}')">미수령</button>
+			</c:if>
 			<c:if test="${comCodeMap[itemOrder.itemOrderStatus] eq '미수령' }">
 				<button type="button" class="btn btn-primary btn-m" onclick="ItemOrderUpdate('${itemOrder.ordercode}')">수령</button>
 			</c:if>
@@ -110,6 +114,20 @@ function ItemOrderUpdate(ordercode){
 	let tag= document.querySelector("#formTag")
 	let form = document.createElement("form");
     form.action="modify"
+    form.method="post"
+    let input = document.createElement("input")
+    input.name="ordercode"
+    input.setAttribute("value",ordercode)
+    form.append(input);
+    tag.append(form);
+    form.submit();
+
+	
+}
+function ItemNotReciveUpdate(ordercode){
+	let tag= document.querySelector("#formTag")
+	let form = document.createElement("form");
+    form.action="notreceived"
     form.method="post"
     let input = document.createElement("input")
     input.name="ordercode"

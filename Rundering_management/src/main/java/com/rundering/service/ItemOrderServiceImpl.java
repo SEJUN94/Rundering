@@ -117,7 +117,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 		}
 		
 		
-		int totalCount = itemOrderDAO.selectCount(cri);
+		int totalCount = itemOrderDAO.selectAdminItemOrderCount();
 		BranchPageMaker pageMaker = new BranchPageMaker();
 		pageMaker.setCri(cri); 
 		pageMaker.setTotalCount(totalCount);
@@ -163,7 +163,6 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 		itemOrderDAO.updateItemOrderStatusByOrderCode(itemOrder);
 		
 		for (ItemOrderDetailVO itemOrderDetail : itemOrderDetailList) {
-			System.out.println(itemOrderDetail.getArticlesCode());
 			ItemInsertVO itemInsert = new ItemInsertVO();
 			LaundryGoodsStockVO laundryGoodsStock = new LaundryGoodsStockVO();
 			itemInsert.setArticlesCode(itemOrderDetail.getArticlesCode());
@@ -176,12 +175,11 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 			laundryGoodsStock.setBranchCode(branchCode);
 			laundryGoodsStock.setSupplyCount(itemOrderDetail.getSeq());
 			laundryGoodsStockDAO.updateLaundryGoodsStockCountByVO(laundryGoodsStock);
-			
 		}
-		
-		
-		
-		
+	}
+	@Override
+	public void updateStateNotRecive(ItemOrderVO itemOrder) throws Exception{
+		itemOrderDAO.updateItemOrderStatusByOrderCode(itemOrder);
 		
 	}
 	@Override
