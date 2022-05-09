@@ -13,8 +13,8 @@
 			<div class="card-header">
 				<h3 class="card-title">건의사항 작성</h3>
 			</div>
-			<form role="form" action="regist" method="post" name="registForm" enctype="multipart/form-data">
-				<div class="card-body p-0">
+			<form role="form" action="<%=request.getContextPath() %>/branch/suggest/regist" method="post" name="registForm" enctype="multipart/form-data">
+				<div class="card-body p-1">
 					<div class="form-group">
 						<label for="title"
 							style="margin-left: 10px; margin-top: 10px; font-size: large;">제목</label>
@@ -65,6 +65,8 @@
 		</div>
 	</div>
 
+
+
 	<script>
 	window.onload=function(){
 		summernote_go($('textarea[name="content"]'),'<%=request.getContextPath()%>');	
@@ -78,7 +80,7 @@
 				alert("제목은 필수입니다.");
 				return;
 			}
-			alert("요청 등록이 성공했습니다.");
+			alert("등록 완료되었습니다.");
 			form.submit();
 		}
 	</script>
@@ -131,6 +133,19 @@ var dataNum = 0;
 		$("form[role='form']").submit();
 		
 	}
+	
+	<c:if test="${from eq 'modify' }">
+	alert("수정되었습니다.");
+
+	</c:if>
+
+	<c:if test="${from eq 'remove' }">
+		alert("삭제되었습니다.");
+
+		window.opener.parent.location.reload(true);
+		window.close();
+
+	</c:if>
 	
 </script> 
 	
