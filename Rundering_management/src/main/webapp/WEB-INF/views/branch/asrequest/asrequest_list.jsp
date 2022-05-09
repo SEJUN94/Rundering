@@ -131,5 +131,15 @@ th, td {
 				</div>
 			</div>
 		</div>
+		
+		<script>
+		<c:if test="${from eq 'regist' }">
+		alert("요청 완료되었습니다.");
+
+		window.opener.parent.location.reload(true);
+		window.close();
+
+	</c:if>
+		</script>
 
 </body>

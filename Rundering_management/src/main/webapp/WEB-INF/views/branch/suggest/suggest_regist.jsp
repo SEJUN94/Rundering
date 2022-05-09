@@ -65,6 +65,8 @@
 		</div>
 	</div>
 
+
+
 	<script>
 	window.onload=function(){
 		summernote_go($('textarea[name="content"]'),'<%=request.getContextPath()%>');	
@@ -131,6 +133,19 @@ var dataNum = 0;
 		$("form[role='form']").submit();
 		
 	}
+	
+	<c:if test="${from eq 'modify' }">
+	alert("수정되었습니다.");
+
+	</c:if>
+
+	<c:if test="${from eq 'remove' }">
+		alert("삭제되었습니다.");
+
+		window.opener.parent.location.reload(true);
+		window.close();
+
+	</c:if>
 	
 </script> 
 	
