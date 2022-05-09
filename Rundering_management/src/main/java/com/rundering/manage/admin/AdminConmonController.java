@@ -20,7 +20,7 @@ public class AdminConmonController {
 	private MenuService menuService;
 	
 	@RequestMapping("/admin/index")
-	public String index(@RequestParam(defaultValue = "B000000") String menuCode, Model model) throws Exception {
+	public String index(@RequestParam(defaultValue = "A000000") String menuCode, Model model) throws Exception {
 		String url = "admin/admin_index";
 		Map<String, List<MenuVO>> dataMap = menuService.getAdminMenuList();
 		List<String> key = new ArrayList<String>(); 
@@ -28,6 +28,22 @@ public class AdminConmonController {
 			key.add(keyValue);
 		}
 		
+		MenuVO menu = menuService.MenuByMenuCode(menuCode);
+		
+		model.addAttribute("key", key);
+		model.addAttribute("dataMap", dataMap);
+		model.addAttribute("menu", menu);
+		return url;
+	}
+	
+	@RequestMapping("/admin/common/main")
+	public String main(@RequestParam(defaultValue = "A000000") String menuCode, Model model) throws Exception {
+		String url = "/admin/main";
+		Map<String, List<MenuVO>> dataMap = menuService.getAdminMenuList();
+		List<String> key = new ArrayList<String>(); 
+		for (String keyValue : dataMap.keySet()) {
+			key.add(keyValue);
+		}
 		MenuVO menu = menuService.MenuByMenuCode(menuCode);
 		
 		model.addAttribute("key", key);

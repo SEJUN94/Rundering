@@ -111,6 +111,9 @@
 			location.href = "remove?sno=" + sno;
 		}
 
+		<c:if test="${from eq 'regist' }">
+		alert("등록 완료되었습니다.");
+		</c:if>
 		<c:if test="${from eq 'modify' }">
 		alert("수정되었습니다.");
 		</c:if>

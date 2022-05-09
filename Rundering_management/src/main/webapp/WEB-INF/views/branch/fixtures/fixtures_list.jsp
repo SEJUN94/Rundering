@@ -81,10 +81,10 @@
                         		<td style="text-align: center" class="fixturesCode">${fixtures.fixturesCode}</td>
                         		<td class="as">
                         		<c:if test="${fixtures.status eq '정상' }">
-                        			<button class="btn btn-sm btn-primary asBtn"  disabled="disabled" onclick="OpenWindow('asform?fixturesName=${fixtures.fixturesName}&articlesCode=${fixtures.articlesCode }&fixturesCode=${fixtures.fixturesCode}','as요청',800,700);">AS요청</button>
+                        			<button class="btn btn-sm btn-primary asBtn"  disabled="disabled" onclick="OpenWindow('asform?fixturesName=${fixtures.fixturesName}&articlesCode=${fixtures.articlesCode }&fixturesCode=${fixtures.fixturesCode}','as요청',800,780);">AS요청</button>
                         		</c:if>
                         		<c:if test="${fixtures.status eq '고장' }">
-                        			<button class="btn btn-sm btn-primary asBtn" onclick="OpenWindow('asform?fixturesName=${fixtures.fixturesName}&articlesCode=${fixtures.articlesCode }&fixturesCode=${fixtures.fixturesCode}','as요청',800,700);">AS요청</button>
+                        			<button class="btn btn-sm btn-primary asBtn" onclick="OpenWindow('asform?fixturesName=${fixtures.fixturesName}&articlesCode=${fixtures.articlesCode }&fixturesCode=${fixtures.fixturesCode}','as요청',800,780);">AS요청</button>
                         		</c:if>
                         		
                         		

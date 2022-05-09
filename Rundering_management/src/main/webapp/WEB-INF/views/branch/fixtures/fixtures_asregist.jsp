@@ -11,13 +11,13 @@
 
 <body>
 
-	<div class="col-md-12">
-		<div class="card card-primary card-outline">
+	<div class="col-md-12 mt-1">
+		<div class="card">
 			<div class="card-header">
 				<h3 class="card-title">AS 요청</h3>
 			</div>
 			<form role="form" action="<%=request.getContextPath() %>/branch/asrequest/regist" method="post" name="registForm">
-				<div class="card-body p-0">
+				<div class="card-body p-1">
 					<div class="form-group">
 						<label for="title"
 							style="margin-left: 10px; margin-top: 10px; font-size: large;">제목</label>
@@ -108,7 +108,6 @@
 				alert("고장난 날짜를 적용하세요.");
 				return;
 			}
-			alert("요청 등록이 성공했습니다.");
 			form.submit();
 		}
 	</script>

@@ -11,7 +11,7 @@
    <div class="row2 ml-3 mr-3">
       <div class="row">
          <div class="col-md-6">
-            <div class="card card-primary card-outline">
+            <div class="card">
                <div class="card-header">
                   <h3 class="card-title">General</h3>
                   <div class="card-tools">
@@ -75,7 +75,7 @@
             </div>
          </div>
          <div class="col-md-6">
-            <div class="card card-secondary card-outline">
+            <div class="card ">
                <div class="card-header">
                   <h3 class="card-title">Budget</h3>
                   <div class="card-tools">
@@ -105,7 +105,7 @@
       </div>
       <div class="row">
          <div class="col-md-6">
-            <div class="card card-primary card-outline">
+            <div class="card ">
                <div class="card-header">
                   <h3 class="card-title">General</h3>
                   <div class="card-tools">
@@ -129,7 +129,7 @@
 
          </div>
          <div class="col-md-6">
-            <div class="card card-secondary card-outline">
+            <div class="card ">
                <div class="card-header">
                   <h3 class="card-title">세탁 주문량</h3>
                   <div class="card-tools">
