@@ -30,7 +30,6 @@ import com.rundering.service.MemberService;
 import com.rundering.util.FormatUtil;
 import com.rundering.util.PhoneResDTO.SendSmsResponse;
 import com.rundering.util.SensSms;
-import com.rundering.util.UserSha256;
 
 @Controller
 public class CommonController {
@@ -140,26 +139,20 @@ public class CommonController {
 	}
 	
 	@RequestMapping("/common/change/newpasswordform")
-	public ModelAndView changePasswordForm(ModelAndView mnv,String id) {
+	public ModelAndView changePasswordForm(ModelAndView mnv,String id,String password) {
 		String url = "common/worker_change_new_password";
 		
 		mnv.addObject("id" , id);
+		mnv.addObject("password" , password);
 		mnv.setViewName(url);
 		
 		return mnv;
 	}
 	
 	@RequestMapping("/common/change/newpassword")
-	public ResponseEntity<String> changePassword(String id,String password) {
+	public ResponseEntity<String> changePassword(MemberVO mv) {
 		ResponseEntity<String> entity = null;
 
-		MemberVO mv = new MemberVO();
-		
-		password = UserSha256.encrypt(password);
-		
-		mv.setId(id);
-		mv.setPassword(password);
-		
 		try {
 			memberService.modifyPwById(mv);
 			entity = new ResponseEntity<String>("OK", HttpStatus.OK);

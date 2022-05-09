@@ -119,6 +119,8 @@ li h1{
 							<th class="category">카테고리</th>
 							<th class="title">제목</th>
 							<th class="date">문의일</th>
+							<th class="yn">비밀글</th>
+							<th class="answer">답변</th>
 						</tr>
 					</thead>
 					<c:if test="${empty faqList }">
@@ -127,11 +129,32 @@ li h1{
 						</tr>
 					</c:if>
 					<c:forEach items="${faqList }" var="faq">
-						<tr	onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',900,700);">
+						<tr	onclick="OpenWindow('myinquiry/detail?from=list&faqno=${faq.faqno }');">
 							<td class="no">${faq.faqno }</td>
-							<td class="category">${faq.setbukdoorclcode }</td>
+							<td class="category">
+								<c:choose>
+									<c:when test="${faq.setbukdoorclcode == 'OR'}">주문문의</c:when>
+									<c:when test="${faq.setbukdoorclcode == 'US'}">이용문의</c:when>
+									<c:when test="${faq.setbukdoorclcode == 'ET'}">기타문의</c:when>
+							  	</c:choose>
+							 </td>
 							<td class="title">${faq.question }</td>
 							<td class="date"><fmt:formatDate value="${faq.registDate }" pattern="yyyy-MM-dd" /></td>
+							<td class="yn">
+								<c:choose>
+									<c:when test="${faq.secretyn eq 'Y'}">
+										<i class="fas fa-lock fa-fw" style="color: var(- -fa-navy);"></i>
+									</c:when>
+									<c:when test="${faq.secretyn eq 'N'}">
+									</c:when>
+								</c:choose></td>
+							<td class="answer">
+								<c:choose>
+									<c:when test="${!empty faq.answer}">
+										답변완료
+									</c:when>
+								</c:choose>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>

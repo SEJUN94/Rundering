@@ -13,11 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.MemberAddCommand;
 import com.rundering.command.MyOrderCriteria;
+import com.rundering.dto.FAQVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
@@ -138,11 +140,31 @@ public class MyPageController {
 	
 	//문의내역
 	@RequestMapping("/myinquiry/list")
-	private ModelAndView myInquiryList(MyOrderCriteria cri, ModelAndView mnv) throws Exception {
+	private ModelAndView myInquiryList(HttpServletRequest request,MyOrderCriteria cri, ModelAndView mnv) throws Exception {
 		String url = "mypage/my_inquiry_list";
 		
-		Map<String, Object> dataMap = faqService.getFAQList(cri);
+		HttpSession session = request.getSession();
+		MemberVO mv = (MemberVO) session.getAttribute("loginUser");
+		cri.setWriter(mv.getMemberNo());
+		
+		Map<String, Object> dataMap = faqService.getMyFAQList(cri);
 		mnv.addObject("dataMap", dataMap);
+		mnv.setViewName(url);
+
+		return mnv;
+	}
+	
+	@RequestMapping(value = "/myinquiry/detail")
+	private ModelAndView faqDetail(int faqno, @RequestParam(defaultValue = "") String from, HttpServletRequest request,
+			ModelAndView mnv, HttpSession session) throws SQLException {
+
+		String url = "question/question_detail";
+
+		FAQVO faq = null;
+
+		faq = faqService.getFAQModify(faqno);
+
+		mnv.addObject("faq", faq);
 		mnv.setViewName(url);
 
 		return mnv;
@@ -365,6 +387,27 @@ public class MyPageController {
 		
 		Map<String, Object> dataMap = laundryOrderService.getMyOrderList(cri);
 		
+		
+		mnv.addObject("dataMap",dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	// 배송완료된 주문내역
+	@RequestMapping("/myorder/histroy/complete")
+	public ModelAndView myCompleteorder(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {
+		String url = "/mypage/order_Complete_history";
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		LaundryOrderVO laundryOrder = new LaundryOrderVO();
+		
+		// 세션을 통해 고객번호 받아오기!
+		laundryOrder.setMemberNo(loginUser.getMemberNo());
+		cri.setMemberNo(loginUser.getMemberNo());
+		
+		Map<String, Object> dataMap = laundryOrderService.getMyCompleteOrderList(cri);
 		
 		mnv.addObject("dataMap",dataMap);
 		mnv.setViewName(url);
