@@ -17,7 +17,7 @@
 <style>
 #peter {
 	width: 200px;
-	height: 450px;
+	height: 430px;
 	list-style-type:none;
 	margin:0;
 	padding:0;
@@ -41,18 +41,18 @@ aside ul li a{
 			<li onclick="location.href='<%=request.getContextPath()%>/mypage'"
 				style="cursor: pointer; margin-top: 30px; margin-bottom: 15px; margin-left: 30px;"><a>회원
 					정보 수정</a></li>
-			<li
-				onclick="location.href='<%=request.getContextPath()%>/mypage/myaddress'"
+			<li onclick="location.href='<%=request.getContextPath()%>/mypage/myaddress'"
 				style="cursor: pointer; margin-top: 15px; margin-bottom: 15px; margin-left: 30px;"><a>주소
 					관리</a></li>
 			<li style="margin-top: 15px; margin-bottom: 15px; margin-left: 30px;"><a>주문
 					내역</a>
 				<ul>
-					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;"><a>진행중인 세탁물</a></li>
-					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;"><a>배송 완료된 세탁</a></li>
-					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;"><a>결제 내역</a></li>
-					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;"><a>취소 내역</a></li>
-				</ul></li>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.8em;"><a>진행중인 세탁물</a></li>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.8em;"><a>배송 완료된 세탁</a></li>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.8em;"><a>결제 내역</a></li>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.8em;"><a>취소 내역</a></li>
+				</ul>
+			</li>
 			<li	onclick="location.href='<%=request.getContextPath()%>/mypage/myinquiry/list'" style="cursor: pointer; margin-top: 10px; margin-bottom: 15px; margin-left: 30px;">
 				<a>문의 내역</a>
 			</li>
@@ -81,7 +81,7 @@ aside ul li a{
 
 	<div class="card">
 		<div class="card-header border-transparent">
-			<h3 class="card-title">My Laundry Orders</h3>
+			<h3 class="card-title">완료된 주문내역</h3>
 		</div>
 
 		<div class="card-body p-0">

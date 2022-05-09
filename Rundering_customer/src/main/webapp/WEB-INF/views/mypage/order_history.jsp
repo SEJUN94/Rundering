@@ -15,7 +15,7 @@
 <style>
 #peter {
 	width: 200px;
-	height: 450px;
+	height: 430px;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -44,35 +44,37 @@ aside ul li a {
 				onclick="location.href='<%=request.getContextPath()%>/mypage/myaddress'"
 				style="cursor: pointer; margin-top: 15px; margin-bottom: 15px; margin-left: 30px;"><a>주소
 					관리</a></li>
-			<li style="margin-top: 15px; margin-bottom: 15px; margin-left: 30px;"><a>주문
-					내역</a>
+			<li style="margin-top: 15px; margin-bottom: 15px; margin-left: 30px;">
+				<a>주문 내역</a>
 				<ul>
-					<li
-						style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;"><a>진행중인
-							세탁물</a></li>
-					<li
-						style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;"><a>배송
-							완료된 세탁</a></li>
-					<li
-						style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;"><a>결제
-							내역</a></li>
-					<li
-						style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;"><a>취소
-							내역</a></li>
-				</ul></li>
-			<li
-				onclick="location.href='<%=request.getContextPath()%>/mypage/myinquiry/list'"
-				style="cursor: pointer; margin-top: 10px; margin-bottom: 15px; margin-left: 30px;"><a>문의
-					내역</a></li>
-			<li
-				onclick="location.href='<%=request.getContextPath()%>/mypage/secedeform'"
-				style="cursor: pointer; margin-top: 10px; margin-bottom: 15px; margin-left: 30px;"><a>회원
-					탈퇴</a></li>
+					<li onclick="location.href='<%=request.getContextPath()%>/mypage/myorder/histroy/main'"
+						style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;">
+						<a>진행중인 세탁물</a>
+					</li>
+					<li	onclick="location.href='<%=request.getContextPath()%>/mypage/myorder/histroy/complete'"
+						style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;">
+						<a>배송 완료된 세탁</a>
+					</li>
+					<li style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;">
+						<a>결제 내역</a>
+					</li>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px;">
+						<a>취소 내역</a>
+					</li>
+				</ul>
+			</li>
+			<li	onclick="location.href='<%=request.getContextPath()%>/mypage/myinquiry/list'"
+				style="cursor: pointer; margin-top: 10px; margin-bottom: 15px; margin-left: 30px;">
+				<a>문의 내역</a>
+			</li>
+			<li	onclick="location.href='<%=request.getContextPath()%>/mypage/secedeform'"
+				style="cursor: pointer; margin-top: 10px; margin-bottom: 15px; margin-left: 30px;">
+				<a>회원 탈퇴</a>
+			</li>
 		</ul>
 	</aside>
 
-	<div
-		style="width: 60%; display: flex; flex-direction: column; margin-left: 50px; margin-top: 30px;">
+	<div style="width: 60%; display: flex; flex-direction: column; margin-left: 50px; margin-top: 30px;">
 		<section class="content-header">
 			<div class="container-fluid">
 				<div class="row mb-2">
@@ -109,8 +111,7 @@ aside ul li a {
 						</table>
 					</c:if>
 					<c:forEach items="${myOrderList }" var="list">
-						<table class="table m-0"
-							onClick="window.open('<%=request.getContextPath()%>/mypage/order_detail','주문내역상세','width=1000, height=750')">
+						<table class="table m-0" onClick="window.open('<%=request.getContextPath()%>/mypage/order_detail','주문내역상세','width=1000, height=750')">
 							<tbody>
 								<tr style="border: none;">
 									<td style="width: 25%" align="center">배송상태 :

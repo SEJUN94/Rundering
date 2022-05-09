@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -155,8 +154,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "/myinquiry/detail")
-	private ModelAndView faqDetail(int faqno, @RequestParam(defaultValue = "") String from, HttpServletRequest request,
-			ModelAndView mnv, HttpSession session) throws SQLException {
+	private ModelAndView faqDetail(int faqno, HttpServletRequest request, ModelAndView mnv, HttpSession session) throws SQLException {
 
 		String url = "question/question_detail";
 
