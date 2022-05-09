@@ -169,4 +169,5 @@
 		 WHERE BRANCH_CODE=#{branchCode}
 		   AND ORDER_STATUS='07'
 	</select>
+	
 </mapper>

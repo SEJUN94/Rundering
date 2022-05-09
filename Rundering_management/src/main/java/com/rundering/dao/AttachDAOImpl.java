@@ -70,6 +70,12 @@ public class AttachDAOImpl implements AttachDAO{
 	public int selectLastSeqAttachVOByFileNo(String atchFileNo) throws Exception {
 		return session.selectOne("Attach-Mapper.selectLastSeqAttachVOByFileNo", atchFileNo);
 	}
+	@Override
+	public List<AttachVO> selectAttachVOByFileNoAndSeq2(AttachVO attach) throws Exception {
+		return session.selectList("Attach-Mapper.selectAttachVOByFileNoAndSeq2", attach);
+	}
+	
+	
 	
 
 }

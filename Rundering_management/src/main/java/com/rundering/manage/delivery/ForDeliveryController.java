@@ -67,12 +67,11 @@ public class ForDeliveryController {
 		return mnv;
 	}
 	
-	
 	@RequestMapping(value = "/getPicture", produces = "text/plain;charset=utf-8")
-	public ResponseEntity<byte[]> getPicture(String atchFileNo, AttachVO attach) throws Exception {
+	public ResponseEntity<byte[]> getPicture(AttachVO atch) throws Exception {
 		
 		FileUtil fileUtil = new FileUtil();
-		ResponseEntity<List<byte[]>> en = fileUtil.getPicture(atchFileNo, attachService);
+		ResponseEntity<List<byte[]>> en = fileUtil.getPicture(atch, attachService);
 		List<byte[]> bs =en.getBody();
 		byte[] file = bs.get(0);
 		
@@ -188,14 +187,14 @@ public class ForDeliveryController {
 	
 	// 수거 상세정보
 	@RequestMapping("/pickupdetail")
-	public ModelAndView pickUpDetail(ModelAndView mnv, String orderNo,String orderStatus) throws Exception {
+	public ModelAndView pickUpDetail(ModelAndView mnv, String orderNo,String orderStatus, AttachVO attach) throws Exception {
 		String url = null;
 		if (orderStatus.equals("02")) {
 			url = "/delivery/pickUp_detail";
 		} else if (orderStatus.equals("03")) {
 			url = "/delivery/pickUpCom_detail";
 		}
-		Map<String, Object> dataMap = deliveryService.getOrderDetailByOrderNo(orderNo);
+		Map<String, Object> dataMap = deliveryService.getOrderDetailByOrderNo(orderNo, attach);
 			
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
@@ -262,7 +261,7 @@ public class ForDeliveryController {
 	}
 	//배송 상세조회
 	@RequestMapping(value="/deliverydetail")
-	public ModelAndView deliveryDetail(String orderNo,String orderStatus, ModelAndView mnv) throws Exception{
+	public ModelAndView deliveryDetail(String orderNo,String orderStatus, ModelAndView mnv, AttachVO attach) throws Exception{
 		String url=null;
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
@@ -271,7 +270,7 @@ public class ForDeliveryController {
 		}else if((orderStatus.equals("08"))||(orderStatus.equals("09"))){
 			url="/delivery/deliveryCom_detail";
 		}
-		dataMap = deliveryService.getOrderDetailByOrderNo(orderNo);
+		dataMap = deliveryService.getOrderDetailByOrderNo(orderNo, attach);
 
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);

@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set value="${dataMap.detail }" var="pickup"></c:set>
 <c:set value="${dataMap.detailList }" var="pickupList"></c:set>
+<c:set value="${dataMap.avList }" var="avList"></c:set>
 
 <!DOCTYPE html>
 <html>
@@ -52,10 +53,14 @@
 				</div>
 				<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
 					<div class="col-12 col-sm-4">
-						<div class="row pl-3">
-							<div class="goodsPicture" id="pictureView" data-id="${pickup.atchFileNo }"
-							style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto;"></div>
-						</div>
+						<c:forEach items="${avList }" var="av">
+							<c:if test="${av.bizType eq '수거완료사진' }">
+								<div class="row pl-3">
+									<div class="goodsPicture" id="pictureView" data-id="${pickupList[0].atchFileNo }"
+									style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto;"></div>
+								</div>
+							</c:if>
+						</c:forEach>
 						<div class="info-box bg-light mt-5">
 							<div class="info-box-content">
 								<span class="info-box-text text-center text-muted"
