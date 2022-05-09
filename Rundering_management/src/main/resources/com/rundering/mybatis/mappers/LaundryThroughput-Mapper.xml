@@ -126,14 +126,25 @@
 	</select>
 	
 <!-- 	//표 리스트 출력(일자별) -->
-	<select id="changeDateBranchQuotaTable" resultMap="laundryThroughputMap" parameterType="str">
-		select *
-		  from TB_LAUNDRY_THROUGHPUT
-		 where LDATE=#{date} 
-		 order by LDATE desc
-	</select>
+	<select id="changeDateBranchQuotaTable" resultType="com.rundering.command.BranchInfoDetailCommand" parameterType="str">
 	
-<!-- 	//표 리스트 출력(일자별) -->
+		SELECT 
+		    A.BRANCH_NAME as branchName,
+		    A.BRANCH_CODE as branchCode,
+		    C.NAME as name,
+		    ROUND(e.TOTAL_THROUGHPUT/e.LAUNDRY_QUOTA*100) AS branchLndrpcrymslmcoqy
+		  from TB_BRANCH A, TB_EMPLOYEES B, TB_MEMBER C, TB_COM_CODE D, TB_LAUNDRY_THROUGHPUT E
+		 WHERE B.POSITION = D.COM_CODE
+		   AND TO_CHAR(E.LDATE,'YYYY-MM-DD')=#{date}
+		   AND D.COM_CODE_NM='지점장'
+		   and C.ID=B.EMPLOYEE_ID
+		   AND A.BRANCH_CODE=B.BRANCH_CODE
+		   AND A.BRANCH_CODE=E.BRANCH_CODE
+		   AND B.MEMBERNO=C.MEMBERNO
+		   order by E.LDATE DESC
+	</select> 
+	
+<!-- branchCode 와 date를 입력받아 입력받은 날로부터 일주일 처리량 가져오기 -->
 	<select id="selectWeeksBranchLaundryThroughPut" resultMap="laundryThroughputMap" parameterType="laundryThroughput">
 		  	SELECT *
 		  FROM TB_LAUNDRY_THROUGHPUT
