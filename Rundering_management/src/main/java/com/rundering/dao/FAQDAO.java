@@ -31,4 +31,9 @@ public interface FAQDAO {
 	
 	// 자주묻는질문 등록(아코디언)
 	public void insertQnA(FAQVO faq)throws Exception;
+	
+	//회원의 문의목록가져오기
+	public List<FAQVO> selectFAQListByMemberNo(String memberNo) throws Exception;
+	//세탁주문의 문의 가져오기
+	public List<FAQVO> selectFAQListByOrderNo(String orderNo);
 }

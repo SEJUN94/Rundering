@@ -13,6 +13,7 @@ import com.rundering.command.PageMaker;
 import com.rundering.dao.AttachDAO;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dao.ComCodeDAO;
+import com.rundering.dao.FAQDAO;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
@@ -21,6 +22,7 @@ import com.rundering.dao.MemberDAO;
 import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.BranchVO;
+import com.rundering.dto.FAQVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberVO;
@@ -64,6 +66,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	private LaundryThroughputDAO laundryThroughputDAO;
 	public void setLaundryThroughputDAO(LaundryThroughputDAO laundryThroughputDAO) {
 		this.laundryThroughputDAO = laundryThroughputDAO;
+	}
+	private FAQDAO faqDAO;
+	public void setFaqDAO(FAQDAO faqDAO) {
+		this.faqDAO = faqDAO;
 	}
 	@Override
 	public Map<String,Object> laundryOrderList(BranchCriteria cri) throws Exception{
@@ -148,10 +154,11 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		comCodeUtil.getCodeMap("AREA", areaCodeMap, comCodeDAO);
 		
 		LaundryOrderVO laundryOrder = laundryOrderDAO.selectLaundryOrderByOrderNo(orderNo);
-		List<LaundryOrderDetailVO> laundryOrderDetailList = laundryOrderDetailDAO.selectlaundryOrderDetailListByOrderNo(orderNo);
 		if(laundryOrder==null) {
 			return null;
 		}
+		List<LaundryOrderDetailVO> laundryOrderDetailList = laundryOrderDetailDAO.selectlaundryOrderDetailListByOrderNo(orderNo);
+		
 		BranchInfoDetailCommand branchDetail = null;;
 		
 		if(laundryOrder.getBranchCode() != null) {
@@ -165,12 +172,15 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		
 		laundryOrder.setContactNumber(FormatUtil.hyphenationPhoneNum(laundryOrder.getContactNumber()));
 		
+		List<FAQVO> faqList = faqDAO.selectFAQListByOrderNo(laundryOrder.getOrderNo());
+		
 		dataMap.put("orderCodeMap",orderCodeMap);
 		dataMap.put("areaCodeMap",areaCodeMap);
 		dataMap.put("branchNameMap",branchNameMap);
 		dataMap.put("laundryOrder", laundryOrder);
 		dataMap.put("laundryOrderDetailList", laundryOrderDetailList);
 		dataMap.put("branchDetail", branchDetail);
+		dataMap.put("faqList", faqList);
 		
 		
 		return dataMap;

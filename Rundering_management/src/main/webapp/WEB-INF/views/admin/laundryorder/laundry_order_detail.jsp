@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <title>세탁주문 상세</title>
 <body>
@@ -156,24 +157,32 @@
 				<div class="card-body table-responsive p-0 card-secondary card-outline" style="height: 300px;">
 					<table class="table table-head-fixed text-nowrap">
 						<thead>
-							<tr>
-								<th>문의제목</th>
-								<th>날짜</th>
-								<th>답변여부</th>
+						<tr style="text-align: center;">
+								<th class="width70 pl-3">문의제목</th>
+								<th class="width15">날짜</th>
+								<th class="width15">답변여부</th>
 							</tr>
 						</thead>
 						<tbody>
+						<c:if test="${empty faqList }">
 							<tr>
-								<td>John Doe</td>
-								<td>11-7-2014</td>
-								<td>183</td>
+								<td colspan="3" style="text-align: center;"><strong>해당 내용이 없습니다.</strong></td>
 							</tr>
-							<tr>
-								<td>John Doe</td>
-								<td>11-7-2014</td>
-								<td>183</td>
+						</c:if>
+						<c:forEach items="${faqList }" var="faq">
+							<tr style='cursor: pointer;' onclick="OpenWindow('<%=request.getContextPath()%>/admin/question/detail?from=list&faqno=${faq.faqno }','상세보기',700,600);">
+								<td class="pl-3">
+									<c:if test="${fn:length(faq.question) > 11}">
+									${fn:substring(faq.question,0,11) }..
+									</c:if>
+									<c:if test="${fn:length(faq.question) <= 11}">
+									${faq.question}
+									</c:if>
+								</td>
+								<td>${faq.registDate }</td>
+								<td><c:if test="${empty faq.answer }">미답변</c:if><c:if test="${!empty faq.answer }">답변완료</c:if></td>
 							</tr>
-
+						</c:forEach> 
 						</tbody>
 					</table>
 				</div>
