@@ -3,23 +3,23 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 
 <script type="text/x-handlebars-template" id="notice_list" >
-			<div class="card" id="removeNotice">
+			<div class="card m-0" id="removeNotice" style="height: 398px;">
 				<div class="card-header">
-					<h2 style="height: 20px;" class="card-title">
+					<h2 style="height: 20px;padding: 5px;" class="card-title">
 		            	<b>공지사항</b>
 		            </h2>
 					<div class="card-tools">
-						<button class="btn btn-sm btn-primary" onclick="goPage('<%=request.getContextPath() %>/admin/notice/list','A050100')">바로가기</button>
+						<button class="btn btn-sm btn-outline-primary" onclick="goPage('<%=request.getContextPath() %>/admin/notice/list','A050100')">바로가기</button>
 
 					</div>
 				</div>
 
 				<div class="card-body p-0" style="height:355px; overflow:auto">
-					<table class="table table-hover text-nowrap">
+					<table class="table table-hover text-nowrap listScroll">
 						<thead>
 							<tr>
-								<th class="width50" style="text-align:center">제목</th>
-								<th class="width25" style="text-align:center">작성자</th>
+								<th class="width60" style="text-align:center">제목</th>
+								<th class="width15" style="text-align:center">작성자</th>
 								<th class="width25" style="text-align:center">작성날짜</th>
 							</tr>
 						</thead>
@@ -27,13 +27,14 @@
 							{{#each noticeList}}
 								<tr style='cursor: pointer;'
 									onclick="OpenWindow('<%=request.getContextPath() %>/admin/notice/detail?from=list&noticeno={{noticeno }}','상세보기',800,700);">
-									<td>{{title}}</td>
+									<td>{{title}}	
+										{{#if noticeDate}}
+										&nbsp;<span class="badge bg-red">new</span>
+										{{/if}}
+									</td>
 									<td>{{employeeId}}</td>
 									<td style="text-align:center">
 										{{noticePrettifyDate registDate}}
-										{{#if noticeDate}}
-										&nbsp;&nbsp;<span class="badge bg-red">new</span>
-										{{/if}}
 									</td>
 								</tr>
 							{{/each}}
