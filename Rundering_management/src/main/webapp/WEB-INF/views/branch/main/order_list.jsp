@@ -9,7 +9,7 @@
 		            	<b>발주</b>
 		            </h2>
 					<div class="card-tools">
-						<button class="btn btn-sm btn-outline-primary" onclick="goPage('<%=request.getContextPath() %>/admin/branchorder/list','A030100')">바로가기</button>
+						<button class="btn btn-sm btn-outline-primary" onclick="goPage('<%=request.getContextPath() %>/branch/item/list','B020100')">바로가기</button>
 					</div>
 				</div>
 
