@@ -56,12 +56,12 @@
 
 			<div class="row invoice-info">
 				<div class="col-sm-6 invoice-col">
-					<strong>수거요청일</strong><br>
+					<strong>수거요청일자</strong><br>
 					<p class="text-muted"><fmt:formatDate value="${laundryOrder.pickupRequestDate }" pattern="yyyy-MM-dd"/></p>
 					<hr>
-					<strong>수거완료일</strong><br>
+					<strong>수거완료일시</strong><br>
 					<c:if test="${!empty laundryOrder.pickupDate }">
-					<p class="text-muted">${laundryOrder.pickupDate}</p>
+					<p class="text-muted"><fmt:formatDate value="${laundryOrder.pickupDate }" pattern="yyyy-MM-dd HH:mm"/></p>
 					</c:if>
 					<c:if test="${empty laundryOrder.pickupDate }">
 					<p class="text-muted">-</p>
@@ -69,12 +69,12 @@
 				</div>
 
 				<div class="col-sm-6 invoice-col">
-					<strong>배송요청일</strong><br>
+					<strong>배송요청일자</strong><br>
 					<p class="text-muted"><fmt:formatDate value="${laundryOrder.deliveryRequestDate }" pattern="yyyy-MM-dd"/></p>
 					<hr>
-					<strong>배송완료일</strong><br>
+					<strong>배송완료일시</strong><br>
 					<c:if test="${!empty laundryOrder.deliveryDate }">
-					<p class="text-muted">${laundryOrder.pickupDate}</p>
+					<p class="text-muted"><fmt:formatDate value="${laundryOrder.deliveryDate }" pattern="yyyy-MM-dd HH:mm"/></p>
 					</c:if>
 					<c:if test="${empty laundryOrder.deliveryDate }">
 					<p class="text-muted">-</p>

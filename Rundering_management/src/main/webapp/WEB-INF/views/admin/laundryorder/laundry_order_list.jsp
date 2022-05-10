@@ -80,7 +80,7 @@
 					</div>
 				</div>
 
-				<div class="card-body table-responsive p-0 mt-0">
+				<div class="card-body table-responsive p-0 mt-0" style="min-height: 539px;">
 					<table
 						class="table table-hover text-nowrap" style="text-align: center;">
 						<thead>
@@ -122,7 +122,7 @@
 						</tbody>
 					</table>
 
-
+				</div>
 					<div class="card-footer">
 						<%@ include file="/WEB-INF/views/admin/laundryorder/laundry_order_pagination.jsp" %>
 					</div>
@@ -211,7 +211,6 @@
 
 			</div>
 		</div>
-	</div>
 	
 
 	<script>
