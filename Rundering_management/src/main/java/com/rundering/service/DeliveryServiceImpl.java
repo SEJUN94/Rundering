@@ -87,7 +87,7 @@ public class DeliveryServiceImpl implements DeliveryService{
 	
 	// 수거ㆍ배송 상세
 	@Override
-	public Map<String, Object> getOrderDetailByOrderNo(String orderNo) throws Exception {
+	public Map<String, Object> getOrderDetailByOrderNo(String orderNo, AttachVO attach) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
 		LaundryOrderVO detail = deliveryDAO.selectOrderByOrderNo(orderNo);
@@ -96,7 +96,9 @@ public class DeliveryServiceImpl implements DeliveryService{
 		detail.setPhone(phone);
 		
 		List<LaundryOrderDetailVO> detailList = deliveryDAO.selectOrdertDetailList(orderNo);
+		List<AttachVO> avList = attachDAO.selectAttachVOByFileNo(detail.getAtchFileNo());
 		
+		dataMap.put("avList", avList);
 		dataMap.put("detail", detail);
 		dataMap.put("detailList", detailList);
 		

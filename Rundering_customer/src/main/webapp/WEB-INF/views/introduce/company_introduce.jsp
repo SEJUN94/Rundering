@@ -15,22 +15,22 @@ h1 {
 </style>
 <div class="col-lg-12" style="position: relative;">
 	<div>
-		<img style="width: 1280px; margin: auto;"
+		<img style="width: 1100px; margin: auto; padding-top: 20px;"
 			src="<%=request.getContextPath()%>/resources/images/introduce.jpeg"
 			alt="introduce_bg">
 		<div class="b"
-			style="text-align: center; position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);">
+			style="text-align: center; position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); text-shadow: 2px 2px 6px darkslategrey; font-weight: 600;">
 			<div>
-				<h1>Rundering</h1>
+				<h1 style="padding-top: 100px;">Rundering</h1>
 			</div>
 			<div>
 				<p class="text-slide">
-					<span class="text">회사 이름은 세탁을 뜻하는 영어 laundry와
-						<br>달린다는 단어Run을 합친 것으로
-						<br>빠르고 신속 하게 세탁해 고객에게
-						<br>가져다 드린다는 의미를 가지고있습니다.<br> 
+					<span class="text">Rundering은 세탁을 뜻하는 단어 Laundry와
+						<br>달린다는 단어 Run을 합친 것으로
+						<br>빠르고 신속하게 세탁해 고객에게
+						<br>가져다드린다는 의미를 가지고 있습니다.<br> 
 						<br> Rundering 컴퍼니는 과감하고 창의적인 노력을 통해<br>
-						복잡한 현대인들의 삶을 좀 더 단순하고 윤택하게<br> 만들겠다는 비전을 가지고 있습니다.
+						복잡한 현대인들의 삶을 좀 더 단순하고 윤택하게<br> 만들겠다는 이상을 가지고 있습니다.
 					</span>
 				</p>
 			</div>

@@ -5,7 +5,7 @@
          <div class="card-header">
             <div class="input-group input-group-sm">
                <h2 style="height: 20px;" class="card-title">
-                  <b>지점 발주 리스트</b>
+                  <b>발주 </b>
                </h2>
 
                <div class="col-7"></div>
@@ -17,46 +17,31 @@
             <table style="text-align: center;" class="table text-nowrap">
                <thead>
                   <tr>
-                   <th>발주번호</th>
-					<th>지점명</th>
-					<th>요청일</th>
+                   <th>지점명</th>
+					<th>총가격(원)</th>
+					<th>신청일</th>
 					<th>처리상태</th>
                   </tr>
                </thead>
 						<tbody>
-							<c:if test="${empty itemOrderList }">
+							{{#if itemOrderListFlag}}
 								<td colspan="4" style="text-align:center;"><strong>발주내역이 존재하지 않습니다.</strong></td>
-							</c:if>
-							<c:forEach items="${itemOrderList }" var="itemOrder">
-								<tr
-									onclick="window.open('<%=request.getContextPath()%>/admin/branchorder/detail?ordercode=${itemOrder.ordercode }', '발주 상세', 'width=700, height=900');"
+							{{/if}}
+							{{#each itemOrderList }}
+								<tr		onclick="window.open('<%=request.getContextPath()%>/admin/branchorder/detail?ordercode={{ordercode}}', '발주 상세', 'width=700, height=900');"
 									style="cursor: pointer;">
-									<td>${itemOrder.ordercode }</td>
-									<td>${itemOrder.branchCode }</td>
+									<td>{{branchMap branchCode}}</td>
+									<td style="text-align:right">{{priceToString itemOrderPaymentPrice}}</td>
 									<td>
-										<fmt:formatDate value="${itemOrder.registDate }" pattern="	yy-MM-dd HH:mm" /> 
+										{{orderprettifyDate registDate}}
 									</td>
-									<c:if test="${itemOrder.itemOrderStatus eq '01'}">
-										<td><span class="badge badge-warning">승인대기</span></td>
-									</c:if>
-									<c:if test="${itemOrder.itemOrderStatus eq '02'}">
-										<td><span class="badge badge-success">발주대기</span></td>
-									</c:if>
-									<c:if test="${itemOrder.itemOrderStatus eq '03'}">
-										<td><span class="badge badge-warning">미수령</span></td>
-									</c:if>
-									<c:if test="${itemOrder.itemOrderStatus eq '04'}">
-										<td><span class="badge badge-success">수령</span></td>
-									</c:if>
-									<c:if test="${itemOrder.itemOrderStatus eq '05'}">
-										<td><span class="badge badge-danger">반려</span></td>
-									</c:if>
+										<td><span class="badge badge-{{itemOrderStatusBtnClass itemOrderStatus}}">{{itemOrderStatusName itemOrderStatus}}</span></td>
 								</tr>
-							</c:forEach>
+							{{/each}}
 						</tbody>
 					</table>
 				</div>
-					<div class="card-footer clearfix" id="orderpageItem">
+					<div class="card-footer clearfix" id="orderPaging">
 					</div>
 			</div>
 			
@@ -132,15 +117,18 @@ function order_List(pageInfo){
 			let cri=dataMap.pageMaker.cri;
 			let	itemOrderList =dataMap.itemOrderList;
 			let comCodeMap = dataMap.comCodeMap;
-			console.log(dataMap);
-			
-			
+			let branchList=dataMap.branchList;
 			let pageNumArray = new Array(pageMaker.endPage-pageMaker.startPage+1);
 		    for(let i=0; i<pageMaker.endPage-pageMaker.startPage+1;i++){
 		        pageNumArray[i]=pageMaker.startPage+i;
 	    	}
-		  
-			
+		  	
+		    let itemOrderListFlag= true;
+			if(itemOrderList.length>0){
+				itemOrderListFlag= false;
+			}
+		    console.log(dataMap)
+		    
 			pageMaker.pageNum=pageNumArray;
    			pageMaker.prevPageNum=pageMaker.startPage-1;
             pageMaker.nextPageNum=pageMaker.endPage+1;
@@ -157,16 +145,46 @@ function order_List(pageInfo){
              	      return year+"/"+month+"/"+date;
              	},
                "orderpageurl":function(pageNum){
-            	   return "<%=request.getContextPath()%>/branch/item/orderlist?page="+pageNum;
+            	   return "<%=request.getContextPath()%>/amdin/branchOrder/orderlist?page="+pageNum;
                },"itemOrderStatusName":function(itemOrderStatus){
             	  return comCodeMap[itemOrderStatus];
-               }
+               },"itemOrderStatusBtnClass":function(status){
+            	  	if(status=="01"){
+            	  		return 'warning';
+            	  	}if(status=="02"){
+            	  		return 'warning';
+            	  	}
+            	  	if(status=="03"){
+            	  		return 'success';
+            	  	}if(status=="04"){
+            	  		return 'warning';
+            	  	}            	  	
+            	  	if(status=="05"){
+            	  		return 'danger';
+            	  	}if(status=="06"){
+            	  		return 'success';
+            	  	}
+            	  	
+            	  	
+               },'priceToString':function(price){
+          		 return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+         	  },"branchMap":function(code){
+         		  for(let i of branchList){
+         			  if(i.branchCode==code){
+         				  return i.branchName;
+         			  }
+         		  }
+         		  
+         	  }
+         	  
 			});
             
 			let data={
 					pageMaker:pageMaker,
 					cri:cri,
 					itemOrderList:itemOrderList,
+					itemOrderListFlag:itemOrderListFlag
+					
 			}
 			
 			let html = template(data);

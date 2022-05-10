@@ -238,7 +238,7 @@ aside ul li a{
 	        			success : function(result) {
 	        				if (result.toUpperCase() == "OK") {
 	        					Swal.fire('수정 완료', '회원정보 수정이 완료되었습니다.', 'success' )
-	        					location.href = "<%=request.getContextPath()%>/mypage";
+	        					setTimeout(function(){location.href = "<%=request.getContextPath()%>/mypage";},1000);
 	        				} else {
 	        					Swal.fire({
 	        						icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
@@ -289,6 +289,7 @@ function pwModify(){
 	         
 	       }).then((result) => {
 	           if (result.isConfirmed) {
+	        	   event.preventDefault(); // 이벤트를 막아 페이지 리로드를 방지
 	        	   $.ajax({
 	        			url : '<%=request.getContextPath()%>/mypage/pwModify',
 	        			data : {

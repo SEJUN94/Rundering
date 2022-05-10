@@ -149,4 +149,10 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.modifyPwById(mv);
 	}
 
+	//탈퇴 취소
+	@Override
+	public void cancelSecession(String memberNo) throws Exception {
+		memberDAO.updateSecession(memberNo);
+	}
+
 }

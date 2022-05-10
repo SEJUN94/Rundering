@@ -158,4 +158,20 @@
 		where faqno=#{faqno}
 	</update>
 
+	<!-- 회원의 문의 목록 조회 -->
+	<select id="selectFAQListByMemberNo" resultMap="faqMap" parameterType="str">
+		SELECT  *
+		 FROM TB_FAQ
+			WHERE FAQYN = 'N'
+			 AND WRITER = #{memberNo}
+			ORDER BY REGIST_DATE DESC		 
+	</select>
+	<!-- 세탁주문의 문의 목록 조회 -->
+	<select id="selectFAQListByOrderNo" resultMap="faqMap" parameterType="str">
+		SELECT  *
+		 FROM TB_FAQ
+			WHERE FAQYN = 'N'
+			 AND ORDERNO = #{orderNo}
+			ORDER BY REGIST_DATE DESC		 
+	</select>
 </mapper>

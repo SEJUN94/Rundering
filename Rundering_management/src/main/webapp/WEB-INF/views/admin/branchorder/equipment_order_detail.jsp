@@ -27,23 +27,28 @@
 	                    </span>
 	                </c:if>
 	                <c:if test="${itemOrder.itemOrderStatus eq '02'}">
-	                    <span class="badge bg-success">
+	                    <span class="badge bg-warning">
 	                    	발주대기
 	                    </span>
 	                </c:if>
 	                <c:if test="${itemOrder.itemOrderStatus eq '03'}">
-	                    <span class="badge bg-warning">
-	                    	미수령
+	                    <span class="badge bg-success">
+	                    	발주완료
 	                    </span>
 	                </c:if>
 	                <c:if test="${itemOrder.itemOrderStatus eq '04'}">
-	                    <span class="badge bg-success">
-	                    	수령
+	                    <span class="badge bg-warning">
+	                    	미수령
 	                    </span>
 	                </c:if>
 	                <c:if test="${itemOrder.itemOrderStatus eq '05'}">
 	                    <span class="badge bg-danger">
 	                    	반려
+	                    </span>
+	                </c:if>
+	                 <c:if test="${itemOrder.itemOrderStatus eq '06'}">
+	                    <span class="badge bg-success">
+	                    	수령
 	                    </span>
 	                </c:if>
 	                
@@ -66,16 +71,22 @@
                  <button type="button" class="btn bg-gradient-secondary float-right"
                     style="margin-right: 5px;" onclick="CloseWindow();">목록
                 </button>
-<c:if test="${itemOrder.itemOrderStatus eq '01'}">
+				<c:if test="${itemOrder.itemOrderStatus eq '01'}">
                 <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;"
                 	onclick="fail();">
-                    반려
+              			      반려
                 </button>
  				 <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"
  				 	onclick="success();">
-                    승인
+             			       승인
                 </button>
-</c:if>
+				</c:if>
+				<c:if test="${itemOrder.itemOrderStatus eq '02'}">
+                <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"
+                	onclick="orderSuccess();">
+              			      발주완료
+                </button>
+				</c:if>
             </div>
         </div>
         <div class="row">
@@ -116,6 +127,10 @@
 	<input type="hidden" value="${itemOrder.ordercode }" name="ordercode">
 	<input type="hidden" value="05" name="itemOrderStatus">
 </form>
+<form action="modifyStatus" method="post" role="orderSuccess" name="modifyForm">
+	<input type="hidden" value="${itemOrder.ordercode }" name="ordercode">
+	<input type="hidden" value="03" name="itemOrderStatus">
+</form>
 <script>
 	function success() {
 	    if (confirm("승인하시겠습니까?")) {
@@ -123,6 +138,13 @@
 			$("form[role='success']").submit();
 	    }
 	}
+	function orderSuccess(){
+		if (confirm("발주하시겠습니까?")){
+			alert("발주 완료되었습니다.")
+			$("form[role='orderSuccess']").submit();
+		}
+	}
+	
 	function fail() {
 	    if (confirm("반려하시겠습니까?")) {
 	    	alert("반려되었습니다.")

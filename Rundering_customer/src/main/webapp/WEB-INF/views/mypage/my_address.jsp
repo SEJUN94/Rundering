@@ -75,10 +75,6 @@
 						<h1>내 주소 관리</h1>
 					</div>
 					<div class="col-sm-6">
-						<ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item active">내 주소 관리</li>
-							<li class="breadcrumb-item"><a href="#">마이페이지</a></li>
-						</ol>
 					</div>
 				</div>
 			</div>

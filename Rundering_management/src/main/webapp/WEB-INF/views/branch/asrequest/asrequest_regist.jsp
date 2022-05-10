@@ -16,7 +16,7 @@
 			<div class="card-header">
 				<h3 class="card-title">AS 요청</h3>
 			</div>
-			<form role="form" action="regist" method="post" name="registForm">
+			<form role="form" action="<%=request.getContextPath() %>/branch/asrequest/regist" method="post" name="registForm">
 				<div class="card-body p-0">
 					<div class="form-group">
 						<label for="title"

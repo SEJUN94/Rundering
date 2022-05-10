@@ -26,6 +26,8 @@ public interface AttachDAO {
 	public AttachVO selectAttachVOByFileNoAndSeq(AttachVO attach) throws Exception;
 	//attach의 현재 존재하는 마지막 seq번호 가져오기
 	public int selectLastSeqAttachVOByFileNo(String atchFileNo) throws Exception;
+	
+	public List<AttachVO> selectAttachVOByFileNoAndSeq2(AttachVO attach) throws Exception;
 
 }
 

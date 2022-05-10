@@ -16,9 +16,9 @@ public class MemberAddressServiceImpl implements MemberAddressService{
 	@Override
 	public void memberAddressRegist(MemberAddressVO memberAdd) throws Exception {
 		
-		memberAdd = getAreaCode(memberAdd);
-		
-		if(memberAdd.getDefaultYn().equals("Y")) {
+		if(memberAdd.getDefaultYn() == null) {
+			
+		}else if(memberAdd.getDefaultYn().equals("Y")) {
 			memberAddressDAO.updateAllMemberAddressDefaultN(memberAdd.getMemberNo());
 		}
 		

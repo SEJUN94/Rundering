@@ -542,7 +542,10 @@ public class OrderTaskScheduler {
 				int detailSeq = 1;
 
 				for (LaundryGoodsStockVO laundryGoodsStock : goodList) {
-
+					if(laundryGoodsStock.getBranchCode().equals("000000")) {
+						continue;
+					}
+					
 					int supplyCount = laundryGoodsStock.getSupplyCount();
 					int point = laundryGoodsStock.getAutoOrderPoint();
 					Date autoLastDay = laundryGoodsStock.getAutoOrderLastDate();

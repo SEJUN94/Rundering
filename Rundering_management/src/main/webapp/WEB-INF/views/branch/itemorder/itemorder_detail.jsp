@@ -13,7 +13,7 @@
 </c:if>
 
 <div class="col-12">
-		<h3 class="m-3">발주 상세 정보</h3>
+		<h3 class="m-3">발주 상세 </h3>
 		<div class="p-3 m-0 card-primary card-outline">
 			<div class="row">
 				<div class="col-12">
@@ -34,9 +34,10 @@
 			
 			<div class="row">
 				<div class="col-12 table-responsive p-0" style="height: 500px;overflow: auto;">
-					<table class="table table-striped m-0 card-primary card-outline"> 
+					<table class="table table-striped m-0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "> 
 						<thead>
 							<tr>
+								<th>물품명</th>
 								<th>세탁 품목</th>
 								<th>개수</th>
 								<th>가격</th>
@@ -45,13 +46,14 @@
 						<tbody>
 						<c:forEach items="${itemOrderDetailList }" var="itemOrderDetail">
 							<tr>
+								<td>${itemOrderDetail.articlesName }</td>
 								<td>${itemOrderDetail.articlesCode} </td>
 								<td class="count">${itemOrderDetail.orderCount }</td>
 								<td class="price">${itemOrderDetail.price }</td>
 							</tr>
 						</c:forEach>
 							<tr>
-								<td>합계</td>
+								<td colspan="2">합계</td>
 								<td>총 개수:<p id="totalCount"></p></td>
 								<td>총 가격:<p id="totalPrice"></p></td>
 							</tr>
@@ -66,6 +68,10 @@
 			<c:if test="${comCodeMap[itemOrder.itemOrderStatus] eq '승인대기' }">
 			<button type="button" class="btn btn-danger btn-m" onclick="ItemOrderRemove('${itemOrder.ordercode}')">취소</button>
 			</c:if> 
+			<c:if test="${comCodeMap[itemOrder.itemOrderStatus] eq '발주완료' }">
+				<button type="button" class="btn btn-primary btn-m" onclick="ItemOrderUpdate('${itemOrder.ordercode}')">수령</button>
+				<button type="button" class="btn btn-primary btn-m" onclick="ItemNotReciveUpdate('${itemOrder.ordercode}')">미수령</button>
+			</c:if>
 			<c:if test="${comCodeMap[itemOrder.itemOrderStatus] eq '미수령' }">
 				<button type="button" class="btn btn-primary btn-m" onclick="ItemOrderUpdate('${itemOrder.ordercode}')">수령</button>
 			</c:if>
@@ -110,6 +116,20 @@ function ItemOrderUpdate(ordercode){
 	let tag= document.querySelector("#formTag")
 	let form = document.createElement("form");
     form.action="modify"
+    form.method="post"
+    let input = document.createElement("input")
+    input.name="ordercode"
+    input.setAttribute("value",ordercode)
+    form.append(input);
+    tag.append(form);
+    form.submit();
+
+	
+}
+function ItemNotReciveUpdate(ordercode){
+	let tag= document.querySelector("#formTag")
+	let form = document.createElement("form");
+    form.action="notreceived"
     form.method="post"
     let input = document.createElement("input")
     input.name="ordercode"

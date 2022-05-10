@@ -275,7 +275,7 @@ const Toast = Swal.mixin({
 	     		      title: '인증되었습니다.'
 	     		});
 	  			
-	  			form_phone_show();
+	  			setTimeout(function(){document.querySelector('.verificationCode').style.display = 'none';  },1000);
 	  		}else{
 	  			Toast.fire({
 	  		      icon: 'warning',

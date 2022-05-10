@@ -187,7 +187,7 @@ function valid(){
 					success : function(response){
 						if(response.toUpperCase() == "OK"){
 							Swal.fire('Rundering 회원가입이 완료되었습니다.', '축하드립니다!', 'success' )
-							location.href = "<%=request.getContextPath()%>/login/form";
+							setTimeout(function(){location.href = "<%=request.getContextPath()%>/login/form";},3000);
 							} else {
 							Swal.fire('공백없이 형식에 맞게 작성해주세요!', 'error' )
 							}
@@ -216,7 +216,7 @@ function valid(){
 		                     success : function(response){
 		                        if(response.toUpperCase() == "OK"){
 		                           Swal.fire('Rundering 회원가입이 완료되었습니다.', '축하드립니다!', 'success' )
-		                           location.href = "<%=request.getContextPath()%>/login/form";
+		                           setTimeout(function(){location.href = "<%=request.getContextPath()%>/login/form";},3000);
 		                           } else {
 		                              Swal.fire('공백없이 형식에 맞게 작성해주세요!', 'error' )
 		                           }
@@ -551,8 +551,7 @@ const Toast = Swal.mixin({
 	     		      icon: 'success',
 	     		      title: '인증되었습니다.'
 	     		});
-	  			
-	  			form_phone_show();
+	  			setTimeout(function(){document.querySelector('.verificationCode').style.display = 'none';  },1000);
 	  		}else{
 	  			Toast.fire({
 	  		      icon: 'warning',

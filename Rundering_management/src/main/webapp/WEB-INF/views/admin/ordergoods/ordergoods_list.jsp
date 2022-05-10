@@ -16,7 +16,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>발주 등록 관리</h1>
+					<h1>발주 물품  </h1>
 				</div>
 			</div>
 		</div>
@@ -26,7 +26,7 @@
 	<div class="card ml-3 mr-3" style="height: 400px">
 		<div class="card-header">
 			<h2 style="height: 20px;" class="card-title">
-				<b>발주 물품 리스트</b>
+				<b>물품 </b>
 			</h2>
 			<div class="card-tools">
 				<div class="input-group input-group-sm" style="width: 300px;">
@@ -73,7 +73,14 @@
 								</c:if>
 								<c:forEach items="${laundryArticlesList }" var="laundryArticles">
 									<tr>
-										<td>${laundryArticles.articlesCode }</td>
+									
+										<td>
+										<c:forEach items="${CLCODEList }" var="CLCODE">
+											<c:if test="${CLCODE.comCode eq laundryArticles.clcode }">
+											${CLCODE.comCodeNm }
+											</c:if> 
+										</c:forEach>
+										</td>
 										<td>${laundryArticles.articlesName }</td>
 										<td style="text-align: center;">${laundryArticles.price }</td>
 										<td><fmt:formatDate
@@ -103,7 +110,7 @@
 			<div class="card card-default">
 				<div class="card-header">
 					<h3 class="card-title" style="padding-top: 6px;">
-						<b>물품 등록</b>
+						<b>등록</b>
 					</h3>
 						<div class="card-tools">
 							<button type="submit" class="btn btn-primary btn-sm float-right">

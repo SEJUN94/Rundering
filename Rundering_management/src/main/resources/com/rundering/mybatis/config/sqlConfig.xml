@@ -38,6 +38,7 @@
 		<typeAlias type="com.rundering.dto.BranchApplicationVO" alias="branchapplication"/>
 		<typeAlias type="com.rundering.dto.LaundryGoodsStockVO" alias="laundrygoodsstock"/>
 		<typeAlias type="com.rundering.dto.NotificationVO" alias="notification"/>
+		<typeAlias type="com.rundering.dto.OrderDelayDTO" alias="orderdelay"/>
 
 	</typeAliases>
 	

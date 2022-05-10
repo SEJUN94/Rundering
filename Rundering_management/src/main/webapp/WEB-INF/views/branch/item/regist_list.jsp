@@ -5,7 +5,7 @@
 	<div class="card  p-0" style="padding-bottom: 10px;margin-bottom: 10px;" id="removeInsert">
                 <div class="card-header">
                    <h2 style="height: 20px;" class="card-title">
-						<b>입고 리스트</b>
+						<b>입고</b>
 					</h2>
                     <div class="card-tools">
                         <div class="input-group input-group-sm" >

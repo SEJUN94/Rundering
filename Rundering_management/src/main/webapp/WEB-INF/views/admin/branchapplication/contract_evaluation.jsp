@@ -25,7 +25,7 @@
 
 				<div class="input-group input-group-sm">
 					<h2 style="height: 20px;" class="card-title">
-						<b>지점 신청 리스트</b>
+						<b>지점 신청</b>
 					</h2>
 
 					<div class="col-7"></div>

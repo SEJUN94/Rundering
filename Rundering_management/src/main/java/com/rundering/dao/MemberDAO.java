@@ -61,4 +61,7 @@ public interface MemberDAO {
 	//주문 고객의 연락처 가져오기
 	public String getPhoneNum(String memberNo)throws Exception;
 	
+	//탈퇴 취소
+	public void updateSecession(String memberNo) throws Exception;
+	
 }

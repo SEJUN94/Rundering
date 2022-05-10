@@ -35,4 +35,20 @@ public class BranchCommonController {
 		model.addAttribute("menu", menu);
 		return url;
 	}
+	
+	@RequestMapping("/branch/common/main")
+	public String main(@RequestParam(defaultValue = "B000000") String menuCode, Model model) throws Exception {
+		String url = "/branch/main";
+		Map<String, List<MenuVO>> dataMap = menuService.getBranchMenuList();
+		List<String> key = new ArrayList<String>(); 
+		for (String keyValue : dataMap.keySet()) {
+			key.add(keyValue);
+		}
+		MenuVO menu = menuService.MenuByMenuCode(menuCode);
+		
+		model.addAttribute("key", key);
+		model.addAttribute("dataMap", dataMap);
+		model.addAttribute("menu", menu);
+		return url;
+	}
 }

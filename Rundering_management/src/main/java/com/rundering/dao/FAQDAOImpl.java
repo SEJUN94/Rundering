@@ -86,4 +86,14 @@ public class FAQDAOImpl implements FAQDAO {
 		return session.selectOne("FAQ-mapper.selectOriginalFAQByFaqno", faqno);
 	}
 
+	@Override
+	public List<FAQVO> selectFAQListByMemberNo(String memberNo) throws Exception {
+		return session.selectList("FAQ-mapper.selectFAQListByMemberNo", memberNo);
+	}
+
+	@Override
+	public List<FAQVO> selectFAQListByOrderNo(String orderNo) {
+		return session.selectList("FAQ-mapper.selectFAQListByOrderNo", orderNo);
+	}
+
 }

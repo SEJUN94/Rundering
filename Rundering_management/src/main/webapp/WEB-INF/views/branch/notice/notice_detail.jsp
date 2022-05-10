@@ -40,7 +40,7 @@
 	
 
 	<!-- Reply content -->
-	<section class="content container-fluid">
+	<section class="content container-fluid p-0">
 		<!-- reply component start -->
 		<div class="row">
 			<div class="col-md-12">

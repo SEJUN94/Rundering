@@ -16,7 +16,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1>재고 자동 발주 관리</h1>
+				<h1>자동 발주 설정</h1>
 			</div>
 		</div>
 	</div>
@@ -26,7 +26,7 @@
         <div class="col-12 p-0">
                 <div class="card-header">
                    <h2 style="height: 20px;" class="card-title">
-						<b>재고 리스트</b>
+						<b>자동 발주</b>
 					</h2>
                     <div class="card-tools">
                         <div class="input-group input-group-sm" >
@@ -54,8 +54,8 @@
                                      </div>
                                 </th>
                                 <th style="text-align: center;">물품량</th>
-                                <th style="text-align: center;">자동 발주 개수</th>
-                                <th style="text-align: center;">자동 발주 최소량</th>
+                                <th style="text-align: center;">자동 발주량</th>
+                                <th style="text-align: center;">자동 발주 시점</th>
                                 <th style="text-align: center;">자동발주 사용여부</th>
                             </tr>
                         </thead>

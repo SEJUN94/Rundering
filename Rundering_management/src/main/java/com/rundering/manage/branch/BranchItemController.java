@@ -39,7 +39,7 @@ public class BranchItemController {
 		String url = "/branch/item/item_list";
 		EmployeesVO emp=(EmployeesVO) session.getAttribute("loginEmployee");
 		cri.setBranchCode( emp.getBranchCode());
-		cri.setPerPageNum(5);
+		cri.setPerPageNum(4);
 		Map<String, Object> dataMap = null;
 		dataMap=itemService.selectItemVOList(cri);
 		model.addAttribute("dataMap", dataMap);
@@ -50,6 +50,7 @@ public class BranchItemController {
 	private ResponseEntity<Map<String, Object>> orderlist(BranchCriteria cri, ModelAndView mnv,HttpSession session) {
 		ResponseEntity<Map<String, Object>> resp = null;
 		Map<String, Object> dataMap=null;
+		cri.setPerPageNum(4);
 		try {
 			dataMap = itemOrderService.itemOrdeList(cri,session);
 			resp = new ResponseEntity<Map<String,Object>>(dataMap, HttpStatus.OK);
@@ -185,6 +186,16 @@ public class BranchItemController {
 		itemOrderService.deleteItemorder(ordercode);
 		
 		rttr.addFlashAttribute("from", "remove");
+		return url;
+	}
+	@RequestMapping("/notreceived")
+	private String notreceived(String ordercode,RedirectAttributes rttr) throws Exception{
+		String url = "redirect:/branch/itemorder/detail?ordercode="+ordercode;
+		ItemOrderVO itemOrder = new ItemOrderVO();
+		itemOrder.setOrdercode(ordercode);
+		itemOrder.setItemOrderStatus("04");
+		itemOrderService.updateStateNotRecive(itemOrder);
+		rttr.addFlashAttribute("from", "modify"); 
 		return url;
 	}
 	

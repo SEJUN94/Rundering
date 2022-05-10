@@ -22,12 +22,14 @@
 		select *
 		from tb_menu
 		where MENU_SE='SUB'
+		order by menu_ord asc 
 	</select>
 	
 	<select id="selectMenuByMenuCode" resultType="menu">
 		select *
 		from tb_menu
 		where menu_code = #{menuCode}
+		
 	</select>
 	<select id="selectMenuByMenuName" resultType="menu">
 		select *

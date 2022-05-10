@@ -11,13 +11,13 @@
 
 <body>
 
-	<div class="col-md-12">
-		<div class="card card-primary card-outline">
+	<div class="col-md-12 mt-1">
+		<div class="card">
 			<div class="card-header">
 				<h3 class="card-title">AS 요청</h3>
 			</div>
-			<form role="form" action="regist" method="post" name="registForm">
-				<div class="card-body p-0">
+			<form role="form" action="<%=request.getContextPath() %>/branch/asrequest/regist" method="post" name="registForm">
+				<div class="card-body p-1">
 					<div class="form-group">
 						<label for="title"
 							style="margin-left: 10px; margin-top: 10px; font-size: large;">제목</label>
@@ -46,7 +46,7 @@
 							<div class=" col">
 								<label for="articlesCode"
 									style="margin-left: 10px; font-size: large;">물품
-									<input type="hidden" name="fixturesCode" value="${param.articlesCode}">
+									<input type="hidden" name="articlesCode" value="${param.articlesCode}">
 										<c:if test="${param.articlesCode  eq 'A001'}">
 											<input class="form-control"  id="articlesCode" value="세탁기" disabled="disabled"	style=" width: 200px; margin-top: 6px;" type="text" >
 										</c:if>
@@ -95,6 +95,21 @@
 	window.onload=function(){
 		summernote_go($('textarea[name="ascontent"]'),'<%=request.getContextPath()%>');	
    	} 
+	</script>
+	
+	<script>
+		function regist_go() {
+			var form = document.registForm;
+			if (form.title.value == "") {
+				alert("제목은 필수입니다.");
+				return;
+			}
+			if (form.requestDate.value == "") {
+				alert("고장난 날짜를 적용하세요.");
+				return;
+			}
+			form.submit();
+		}
 	</script>
 
 </body>

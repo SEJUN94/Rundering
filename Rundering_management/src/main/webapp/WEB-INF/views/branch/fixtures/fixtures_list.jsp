@@ -12,18 +12,17 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1>비품 목록</h1>
+				<h1>비품 현황</h1>
 			</div>
 		</div>
 	</div>
 </section>
 
-    <div class="card card-secondary card-outline ml-3 mr-3">
-        <div class="col-12 p-0">
+    <div class="row ml-3 mr-3">
+        <div class="col-12">
+        <div class="card ">
                 <div class="card-header">
-                   <h2 style="height: 20px;" class="card-title">
-						<b>비품</b>
-					</h2>
+                   <h2 style="height: 20px;" class="card-title">비품 목록</h2>
                     <div class="card-tools">
                         <div class="input-group input-group-sm" >
                         </div>
@@ -82,10 +81,10 @@
                         		<td style="text-align: center" class="fixturesCode">${fixtures.fixturesCode}</td>
                         		<td class="as">
                         		<c:if test="${fixtures.status eq '정상' }">
-                        			<button class="btn btn-sm btn-primary asBtn"  disabled="disabled" onclick="OpenWindow('asform?fixturesName=${fixtures.fixturesName}&articlesCode=${fixtures.articlesCode }&fixturesCode=${fixtures.fixturesCode}','as요청',800,700);">AS요청</button>
+                        			<button class="btn btn-sm btn-primary asBtn"  disabled="disabled" onclick="OpenWindow('asform?fixturesName=${fixtures.fixturesName}&articlesCode=${fixtures.articlesCode }&fixturesCode=${fixtures.fixturesCode}','as요청',800,780);">AS요청</button>
                         		</c:if>
                         		<c:if test="${fixtures.status eq '고장' }">
-                        			<button class="btn btn-sm btn-primary asBtn" onclick="OpenWindow('asform?fixturesName=${fixtures.fixturesName}&articlesCode=${fixtures.articlesCode }&fixturesCode=${fixtures.fixturesCode}','as요청',800,700);">AS요청</button>
+                        			<button class="btn btn-sm btn-primary asBtn" onclick="OpenWindow('asform?fixturesName=${fixtures.fixturesName}&articlesCode=${fixtures.articlesCode }&fixturesCode=${fixtures.fixturesCode}','as요청',800,780);">AS요청</button>
                         		</c:if>
                         		
                         		
@@ -97,6 +96,7 @@
                 </div>
               <div class="card-footer" >
 				<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+			</div>
 			</div>
             </div>
     </div>
