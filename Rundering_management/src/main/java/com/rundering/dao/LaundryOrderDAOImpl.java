@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.rundering.command.AdminLaundryOrderListCriteria;
 import com.rundering.command.BranchCriteria;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.dto.OrderDelayDTO;
 
 public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 	
@@ -91,19 +92,23 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 	}
 
 	@Override
-	public LaundryOrderVO selectLaundryOrderByReplyNo(int replyNo) {
+	public LaundryOrderVO selectLaundryOrderByReplyNo(int replyNo) throws Exception{
 		return session.selectOne("LaundryOrder-Mapper.selectLaundryOrderByReplyNo",replyNo);
 	}
 
 	@Override
-	public int selectLaundryOrderCountTodayByBranchCode(String branchCode) {
+	public int selectLaundryOrderCountTodayByBranchCode(String branchCode) throws Exception{
 		
 		return session.selectOne("LaundryOrder-Mapper.selectLaundryOrderCountTodayByBranchCode",branchCode);
+	}
+	@Override 
+	public OrderDelayDTO selectLaundryOrderLateDeliveryByBranchCode(OrderDelayDTO orderDelay) throws Exception{
+		return session.selectOne("LaundryOrder-Mapper.selectLaundryOrderLateDeliveryByBranchCode",orderDelay);
 	}
 
 
 
-	
+	 
 	
 	
 
