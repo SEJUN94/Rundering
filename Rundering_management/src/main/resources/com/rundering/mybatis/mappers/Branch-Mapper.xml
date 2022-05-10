@@ -23,6 +23,7 @@
 	<select id="selectBranchList" resultMap="branchMap" >
 		SELECT *
 		FROM TB_BRANCH
+		WHERE DELETE_YN = 'N'
 	</select>
 
 	<select id="selectAvailableBranchList" resultMap="branchMap" >

@@ -56,7 +56,7 @@
 		 where ordercode is not null
 		   and branch_code=#{branchCode}
 		 <include refid="search"/>
-		 order by regist_date
+		 order by regist_date desc
 	</select>
 	
 	<select id="selectAdminItemOrderList" resultMap="itemOrderMap">
@@ -64,7 +64,7 @@
 		  from tb_item_order
 		 where ordercode is not null
 		 <include refid="search"/>
-		 order by regist_date
+		 order by regist_date desc
 	</select>
 	
 	<select id="selectAdminItemOrderCount" resultType="int">
