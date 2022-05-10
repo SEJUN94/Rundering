@@ -24,6 +24,7 @@ import com.rundering.dto.BranchVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberVO;
+import com.rundering.dto.OrderDelayDTO;
 import com.rundering.util.ComCodeUtil;
 import com.rundering.util.FormatUtil;
 
@@ -265,6 +266,13 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 			int count= laundryOrderDAO.selectLaundryOrderCountTodayByBranchCode(branch.getBranchCode());
 			dataMap.put(branch.getBranchCode(), count);
 		}
+		return dataMap;
+	}
+	@Override
+	public Map<String, Object> orderDelay(OrderDelayDTO orderDelay) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		
 		return dataMap;
 	}
 	
