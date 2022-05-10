@@ -96,12 +96,6 @@ li h1{
 					<div class="col-sm-6">
 						<h1>문의내역</h1>
 					</div>
-					<div class="col-sm-6">
-						<ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item active">문의내역</li>
-							<li class="breadcrumb-item"><a href="#">마이페이지</a></li>
-						</ol>
-					</div>
 				</div>
 			</div>
 		<hr style="border: 1px solid rgb(170, 167, 167);">
