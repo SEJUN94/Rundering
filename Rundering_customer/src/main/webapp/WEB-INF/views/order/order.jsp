@@ -112,12 +112,12 @@
 						<div class="col-sm-6">
 							<h1>세탁주문 상세</h1>
 						</div>
-						<div class="col-sm-6">
+						<!-- <div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item active">세탁주문 상세</li>
 								<li class="breadcrumb-item"><a href="#">세탁주문</a></li>
 							</ol>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</section>
