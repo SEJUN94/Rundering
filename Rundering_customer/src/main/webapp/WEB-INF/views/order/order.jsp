@@ -5,13 +5,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="laundryItemsList" value="${dataMap.laundryItemsList }" />
 
-<c:set var="now" value="<%=new java.util.Date()%>" />
-<c:set var="nowDate">
-	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" />
+<c:set var="tomorrow" value="<%=new java.util.Date(new java.util.Date().getTime() + 60 * 60 * 24 * 1000 * 1)%>" />
+<c:set var="tomorrowDate">
+	<fmt:formatDate value="${tomorrow}" pattern="yyyy-MM-dd" />
 </c:set>
 <!-- 이주 후 -->
 <c:set var="twoWeeksAfter"
-	value="<%=new java.util.Date(new java.util.Date().getTime() + 60 * 60 * 24 * 1000 * 14)%>" />
+	value="<%=new java.util.Date(new java.util.Date().getTime() + 60 * 60 * 24 * 1000 * 15)%>" />
 <c:set var="twoWeeksAfterDate">
 	<fmt:formatDate value="${twoWeeksAfter}" pattern="yyyy-MM-dd" />
 </c:set>
@@ -136,7 +136,8 @@
 					<input type="hidden" name="setDefaultAddr" value="${command.setDefaultAddr}" >
 				</div>
 
-				<div class="card-body col-6" style="margin: auto; margin-top: 25px;">
+			<p class="mt-3" style="text-align: center;">선택하신 날짜의 새벽 00:00 - 07:00 사이 수거가 진행됩니다.</p>
+				<div class="card-body col-6 mt-0 pt-3" style="margin: auto; margin-top: 25px;">
 
 					<div class="input-group mb-3">
 						<label>수거날짜 입력</label>
@@ -145,7 +146,7 @@
 
 
 					<div class="">
-						<input type="date" class="form-control" name="pickupRequestDate" min="${nowDate }" max="${twoWeeksAfterDate}" required> <span class="sp"></span>
+						<input type="date" class="form-control" name="pickupRequestDate" min="${tomorrowDate }" max="${twoWeeksAfterDate}" required> <span class="sp"></span>
 					</div>
 
 					<div class="input-group mb-3" style="margin-top: 20px;">
