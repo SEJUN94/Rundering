@@ -37,15 +37,23 @@
 </style>
 </head>
 <body>
-	<div class="card card-secondary card-outline ml-3 mr-3">
-		<div class="card-header" style="border-bottom: 0px;">
-			<h3 class="card-title" style="font-size: 1.75rem;">회원 관리</h3>
-
-		</div>
-		<div class="col-12 card">
-			<div class="row">
-				<div class="col-12 float-right" style="padding:5px;">
-					<div class="input-group input-group-sm float-right" style="width: 400px; padding-top: 3px">
+<section class="content-header">
+	   <div class="container-fluid">
+	      <div class="row mb-2">
+	         <div class="col-sm-6">
+	            <h1>회원관리</h1>
+	         </div>
+	      </div>
+	   </div>
+	</section>
+	
+<div id="body">
+		<div class="row ml-2 mr-2">
+			<div class="col-12">
+				<div class="card ">
+					<div class="card-header">
+						<div class="card-tools">
+					<div class="input-group input-group-sm" style="width: 380px;">
 
 						<!-- sort -->
 						<select class="form-control col-md-3" name="customerSort"
@@ -61,10 +69,10 @@
 							<option value="tc" ${cri.searchType eq 'tc' ? 'selected':'' }>전체</option>
 							<option value="t" ${cri.searchType eq 't' ? 'selected':'' }>회원번호</option>
 							<option value="c" ${cri.searchType eq 'c' ? 'selected':'' }>이름</option>
-						</select> <input class="form-control" type="text" name="keyword"
+						</select> <input class="form-control" type="text" name="keyword" 
 							placeholder="검색어를 입력하세요." value="" /> <span
 							class="input-group-append">
-							<button class="btn btn-primary" type="button"
+							<button class="btn btn-primary" type="button" style="background-color: #82BBD8;border-color: #82BBD8;"
 								onclick="list_go(1);" data-card-widget="search">
 								<i class="fa fa-fw fa-search"></i>
 							</button>
@@ -73,7 +81,7 @@
 				</div>
 			</div>
 
-			<div class="card table-responsive p-0">
+
 				<table class="table table-hover text-nowrap" style="text-align:center;">
 					<thead>
 						<tr>
@@ -104,8 +112,8 @@
 											pattern="yyyy-MM-dd hh:mm:ss" /></td>
 									<td>
 										<c:if test="${member.deleteYn eq 'Y' }">
-											<button class="btn btn-warning btn-sm"
-												onclick="modify_go('modify','${member.memberNo}');">변경</button>
+											<button class="btn btn-warning btn-sm"  style="background-color: #82BBD8;border-color: #82BBD8;"
+												onclick="modify_go('${member.memberNo}');">변경</button>
 										</c:if>
 									</td>
 								</tr>
@@ -113,21 +121,28 @@
 						</c:if>
 					</tbody>
 				</table>
-			</div>
+
+				<div class="card-footer">
+					<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+				</div>
+			
 		</div>
 	</div>
-	<div class="card-footer">
-		<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
-	</div>
-	
-	
+</div>
+</div>
+<form action="cancel" id="cancel">
+	<input type="hidden" name="memberNo" id="cancelHidden" value="">
+</form>
+
 <script>
 
-function modify_go(url,memberNo){
+function modify_go(memberNo){
 	   if(confirm("일반회원으로 변경하시겠습니까?")){
-	      alert("변경되었습니다.")   
+			   document.querySelector("#cancelHidden").value=""+memberNo
+			   document.querySelector('#cancel').submit();
+			   console.log(document.querySelector("#cancelHidden").value)
+	     
 	   }
-		window.opener.location.reload();
 	}
 
 

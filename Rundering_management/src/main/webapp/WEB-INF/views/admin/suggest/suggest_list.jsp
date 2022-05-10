@@ -78,7 +78,15 @@ th, .td {
 								<tr style='cursor: pointer; font-size:0.9em;'
 									onclick="OpenWindow('detail?from=list&sno=${suggest.sno }','상세보기',900,700);">
 									<td class="td">${suggest.sno }</td>
-									<td>${suggest.title }</td>
+									<td id="Title"
+										style="text-align: left; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${suggest.title }
+										<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
+										<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
+										<fmt:parseNumber value="${suggest.registDate.time / (1000*60*60*24)}" integerOnly="true" var="chgDttm" /><!-- 게시글 작성날짜를 숫자로 -->
+										<c:if test="${today - chgDttm le 3}"><!-- 3일동안은 new 표시 -->
+											&nbsp;&nbsp;<span class="badge bg-red">new</span>
+										</c:if>
+									</td>
 									<td class="td">${suggest.writer }</td>
 									<td class="td">${suggest.branchName }</td>
 									<td class="td"><fmt:formatDate

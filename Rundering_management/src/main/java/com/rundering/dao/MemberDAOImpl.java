@@ -160,4 +160,9 @@ public class MemberDAOImpl implements MemberDAO {
 		return session.selectOne("Member-Mapper.getPhoneNum",memberNo);
 	}
 
+	@Override
+	public void updateSecession(String memberNo) throws Exception {
+		session.update("Member-Mapper.updateSecession",memberNo);
+	}
+
 }

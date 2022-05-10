@@ -39,5 +39,8 @@ public interface MemberService {
 	
 	// 새로운 비밀번호로 변경
 	public void modifyPwById(MemberVO mv) throws Exception;
+	
+	//탈퇴 취소
+	public void cancelSecession(String memberNo) throws Exception;
 
 }

@@ -195,5 +195,11 @@
 		 where phone=#{phone}
 	
 	</select>
+	
+	<update id="updateSecession" parameterType="str">
+		update TB_MEMBER
+		   set DELETE_YN= 'N'
+		 where MEMBERNO=#{memberNo}
+	</update>
 	 
 </mapper>

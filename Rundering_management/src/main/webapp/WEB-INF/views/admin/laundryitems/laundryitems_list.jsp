@@ -87,9 +87,9 @@
 									${laundryItems.laundryItemsCode }</td>
 								<td>${laundryItems.itemsName}</td>
 								<td>${laundryItems.price }</td>
-								<td><input type="button" class="btn btn-warning btn-sm"
+								<td><input type="button" class="btn btn-warning btn-sm" style="background-color: #82BBD8;border-color: #82BBD8;"
 								onclick="window.open('<%=request.getContextPath()%>/admin/laundryitems/modifyForm?laundryItemsCode=${laundryItems.laundryItemsCode }','세탁품목수정', 'width=600, height=600')" value="수정"></td>
-								<td><input type="button" class="btn btn-danger btn-sm" 
+								<td><input type="button" class="btn btn-danger btn-sm"
 								onclick="remove_go('remove','${laundryItems.laundryItemsCode}');" value="삭제"></td>
 							</tr>
 						</c:forEach>
