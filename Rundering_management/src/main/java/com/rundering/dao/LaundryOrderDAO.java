@@ -7,6 +7,7 @@ import com.rundering.command.AdminLaundryOrderListCriteria;
 import com.rundering.command.BranchCriteria;
 import com.rundering.command.Criteria;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.dto.OrderDelayDTO;
 
 public interface LaundryOrderDAO {
 	
@@ -36,6 +37,11 @@ public interface LaundryOrderDAO {
 	//배송 기사 할당
 	public void updateLaundryOrderDeliveryEmployeeId(LaundryOrderVO laundryOrder) throws Exception;
 	//댓글번호로 주문가져오기
-	public LaundryOrderVO selectLaundryOrderByReplyNo(int replyNo);
-	public int selectLaundryOrderCountTodayByBranchCode(String branchCode);
+	public LaundryOrderVO selectLaundryOrderByReplyNo(int replyNo) throws Exception;
+	// 당일 주문 개수
+	public int selectLaundryOrderCountTodayByBranchCode(String branchCode) throws Exception;
+	
+	public OrderDelayDTO selectLaundryOrderLateDeliveryByBranchCode(OrderDelayDTO orderDelay ) throws Exception;
+	
+	
 }

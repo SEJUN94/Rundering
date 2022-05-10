@@ -78,7 +78,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 		List<ItemOrderVO> itemOrderList = new ArrayList<ItemOrderVO>();
 		
 		int totalPrice=0;
-		cri.setPerPageNum(4);
+		
 		EmployeesVO emp = (EmployeesVO)session.getAttribute("loginEmployee");
 		cri.setBranchCode(emp.getBranchCode());
 		 

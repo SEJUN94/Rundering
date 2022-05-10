@@ -7,6 +7,7 @@ import com.rundering.command.AdminLaundryOrderListCriteria;
 import com.rundering.command.BranchCriteria;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.dto.OrderDelayDTO;
 
 public interface LaundryOrderService {
 
@@ -27,5 +28,9 @@ public interface LaundryOrderService {
 	Map<String, Object> assignmentOrder(AdminLaundryOrderListCriteria cri) throws Exception;
 
 	Map<String, Object> piChart() throws Exception;
+	
+	Map<String,Object> orderDelay(OrderDelayDTO orderDelay) throws Exception;
+
+	Map<String, Object> branchOrderPiChart(String branchCode) throws Exception;
 	
 }
