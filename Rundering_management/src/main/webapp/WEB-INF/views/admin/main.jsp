@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<!DOCTYPE html>
-<html>
 <head>
 <meta charset="UTF-8">
-<title></title>
 </head>
+
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
@@ -19,12 +17,12 @@
             
          </div>
       </div>
-      <div class="row">
+      <div class="row" style="margin-top: 8px;">
          <div class="col-md-6" id="appendOrder">
             
 
          </div>
-         <div class="card col-6"id="appendChart" >
+         <div class="col-md-6"id="appendChart" >
 				
 
          </div>
@@ -37,9 +35,10 @@
    <%@include file="./main/order_list.jsp" %>
 
 <script type="text/x-handlebars-template" id="chart" >
-<div class="card-header">
-					<h2 style="height: 20px;" class="card-title">
-		            	<b>발주</b>
+<div class="card m-0" style="height: 398px;">
+<div class="card-header" style="height: 56px;">
+					<h2 style="height: 20px;padding: 5px;" class="card-title">
+		            	<b>주문량</b>
 		            </h2>
 					<div class="card-tools">
 						<select onchange="getChart()">
@@ -52,9 +51,10 @@
 					</div>
 				</div>
 
-			<div class="card-body p-0" style="width:350px; height:350px; margin-left: 60px" id="canvasDiv" >
+			<div class="card-body p-0" style="width:330px; height:330px; margin-left: 60px" id="canvasDiv" >
              <canvas id="pie-chart" ></canvas>
              </div>
+</div>
 
 </script>
 
