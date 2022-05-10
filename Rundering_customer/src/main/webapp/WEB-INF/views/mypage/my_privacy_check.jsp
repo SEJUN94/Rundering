@@ -1,18 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<div style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
+<style>
+
+#peter {
+	width: 200px;
+	height: 450px;
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	border:solid 1px #f3f3f3;
+	background-color:#f3f3f3;
+}
+aside ul li a{
+	color:#000000;
+	font-size:1.1em;
+}
+li h1{
+}
+
+</style>
+    
+<div class="row">
+	<aside style="padding-top:100px;">
+			<ul id="peter" style="">
+				<li style="margin-top:15px; padding-bottom:15px;border-bottom:solid 1px lightgray;">
+					<h1 style="font-size:1.5em;text-align:center;">마이페이지</h1>
+				</li>
+				<li onclick="location.href='<%=request.getContextPath()%>/mypage'"
+					style="cursor: pointer; margin-top:30px; margin-bottom:15px; margin-left:30px;"><a>회원 정보 수정</a></li>
+				<li onclick="location.href='<%=request.getContextPath()%>/mypage/myaddress'"
+					style="cursor: pointer; margin-top:15px; margin-bottom:15px; margin-left:30px;"><a>주소 관리</a></li>
+				<li style="margin-top:15px; margin-bottom:15px; margin-left:30px;"><a>주문 내역</a>
+					<ul>
+						<li style="margin-top:10px; margin-bottom:5px;padding-left:20px;"><a>진행중인 세탁물</a></li>
+						<li style="margin-top:10px; margin-bottom:5px;padding-left:20px;"><a>배송 완료된 세탁</a></li>
+						<li style="margin-top:10px; margin-bottom:5px;padding-left:20px;"><a>결제 내역</a></li>
+						<li style="margin-top:10px; margin-bottom:5px;padding-left:20px;"><a>취소 내역</a></li>
+					</ul>
+				</li>
+				<li onclick="location.href='<%=request.getContextPath()%>/mypage/myinquiry/list'"
+					style="cursor: pointer; margin-top:10px; margin-bottom:15px; margin-left:30px;"><a>문의 내역</a></li>
+				<li onclick="location.href='<%=request.getContextPath()%>/mypage/secedeform'"
+					style="cursor: pointer; margin-top:10px; margin-bottom:15px; margin-left:30px;"><a>회원 탈퇴</a></li>
+			</ul>
+	</aside>
+    
+<div style="width: 60%; display: flex; flex-direction: column; margin-left: 50px; margin-top:30px;">
 	<section class="content-header">
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
 					<h1>회원정보 수정</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item active">회원정보 수정</li>
-						<li class="breadcrumb-item"><a href="#">마이페이지</a></li>
-					</ol>
 				</div>
 			</div>
 		</div>
@@ -20,12 +59,12 @@
 	</section>
 
 	
-    <strong><p class="text-center display-10" style="font-size: 1.2em;">회원님의 정보를 안전하게 보호하기위해 비밀번호를 다시한번 입력해 주세요</p></strong>
+    <strong><p class="text-center display-10" style="font-size: 1.2em; padding-top:30px;">회원님의 정보를 안전하게 보호하기위해 비밀번호를 다시한번 입력해 주세요</p></strong>
     <div class="card-body col-10 " style="margin-left: auto;">
         <div class="form-group">
-                    <div class="row ">
-                        <label for="password" class="col-2">
-                            <p style="font-size: 1.5em;">비밀번호</p>
+                    <div class="row " style="padding-top:30px;">
+                        <label for="password" class="col-2" >
+                            <p style="font-size: 1.5em; ">비밀번호</p>
 
                         </label>
                         <div class="col-10">
@@ -34,7 +73,8 @@
                                     <input type="password" class="form-control" name="password" id="password"  value=""  />
                                 </div>
                                 <span class="form-group col-2">
-                                    <button class="btn btn-secondary float-right" onClick="pwCkeck()" >확인</button>
+                                    <button class="btn float-right" style="border-color: gray; 
+                                    type="submit" onClick="pwCkeck()" >확인</button>
                                 </span>
                             </div>
                         </div>
@@ -42,6 +82,7 @@
                 </div>
             </div>
      </div>
+  </div>
 <script>
 	
 	document.getElementById("password").focus();
