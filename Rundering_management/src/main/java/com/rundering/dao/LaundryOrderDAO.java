@@ -41,7 +41,7 @@ public interface LaundryOrderDAO {
 	// 당일 주문 개수
 	public int selectLaundryOrderCountTodayByBranchCode(String branchCode) throws Exception;
 	
-	public int selectLaundryOrderLateDeliveryByBranchCode(OrderDelayDTO orderDelay ) throws Exception;
+	public OrderDelayDTO selectLaundryOrderLateDeliveryByBranchCode(OrderDelayDTO orderDelay ) throws Exception;
 	
 	
 }

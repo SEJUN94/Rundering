@@ -1,256 +1,224 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+</head>
 
 <body>
-	<div class="row2 ml-3 mr-3">
-		<div class="row">
-			<!-- 1번째 화면 -->
-			<div class="col-md-6" style="margin-top: 30px">
-				<div class="card card-primary card-outline">
-					<div class="card-header">
-						<h3 class="card-title">공지사항</h3>
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool"
-								data-card-widget="collapse" title="Collapse">
-								<i class="fas fa-minus"></i>
-							</button>
-						</div>
-					</div>
-					<div class="card-body" style="height: 250x">
-						<div class="card-body table-responsive p-0">
-							<table class="table table-hover text-nowrap">
-								<thead>
-									<tr>
-										<th style="text-align: center;">글번호</th>
-										<th>작성자</th>
-										<th>날짜</th>
-										<th>Title</th>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
-									</tr>
-								</thead>
-								<tbody>
-								
-									<tr>
-										<td style="text-align: center;">1</td>
-										<td>이민호</td>
-										<td>2022-03-30</td>
-										<td>회원가입</td>
-
-									</tr>
-									<tr>
-										<td style="text-align: center;">2</td>
-										<td>이수윤</td>
-										<td>2022-03-30</td>
-										<td>발주프로세스</td>
-
-									</tr>
-									<tr>
-										<td style="text-align: center;">3</td>
-										<td>오세준</td>
-										<td>2022-03-30</td>
-										<td>배달프로세스</td>
-
-									</tr>
-									<tr>
-										<td style="text-align: center;">4</td>
-										<td>백관우</td>
-										<td>2022-03-30</td>
-										<td>고객필수안내사항</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="card-footer">
-						<div class="col-2 float-right" style="margin-right: 10px;">
-							<a href="notice/list.do"><button type="button"
-									class="btn btn-block btn-primary btn-sm" style="width: 80px;">More>></button></a>
-						</div>
-					</div>
+   <div class="row2 ml-3 mr-3">
+      <div class="row">
+         <div class="col-md-6" id="appendNotice">
+            
+         </div>
+         <div class="col-md-6" id="appendOrder">
+            
+         </div>
+      </div>
+      <div class="row" style="margin-top: 8px;">
+         <div class="col-md-6" id="append">
+			<div class="card m-0" style="height: 398px;">
+				<div class="card-header" style="height: 56px;">
+					<h2 style="height: 20px;padding: 5px;" class="card-title">
+		            	<b>배송 지연 (7일)</b>
+		            </h2>
 				</div>
-			</div>
-			<!-- 2번째 화면 -->
-			<div class="col-md-6" style="margin-top: 30px">
-				<div class="card card-secondary card-outline">
-					<div class="card-header">
-						<h3 class="card-title">시설AS요청</h3>
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool"
-								data-card-widget="collapse" title="Collapse">
-								<i class="fas fa-minus"></i>
-							</button>
-						</div>
-					</div>
-					<div class="card-body" style="height: 250x">
-						<div class="card-body table-responsive p-0">
-							<table class="table table-hover text-nowrap">
-								<thead>
-									<tr>
-										<th>물품이름</th>
-										<th>법인명</th>
-										<th>고장부위</th>
-										<th style="text-align: center;">상태</th>
 
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>세탁기 30kg</td>
-										<td>삼성</td>
-										<td>전원 불량</td>
-										<td style="text-align: center;">1</td>
-									</tr>
-									<tr>
-										<td>세탁선반</td>
-										<td>굿퍼니</td>
-										<td>우측다리 파손</td>
-										<td style="text-align: center;">2</td>
-									</tr>
-									<tr>
-										<td>세탁바구니10kg</td>
-										<td>굿퍼니</td>
-										<td>좌측 파손</td>
-										<td style="text-align: center;">2</td>
-									</tr>
-									<tr>
-										<td>건조기20kg</td>
-										<td>삼성</td>
-										<td>코드 불량</td>
-										<td style="text-align: center;">1</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="card-footer">
-						<div class="col-2 float-right" style="margin-right: 10px;">
-							<a href="asrequest/list.do"><button type="button"
-									class="btn btn-block btn-primary btn-sm" style="width: 80px;">More>></button></a>
-						</div>
-					</div>
-				</div>
+				<div class="card-body p-0"  >
+         	    <canvas id="bar-chart" ></canvas>
+         	    </div>
 			</div>
-		</div>
-		<div class="row">
-			<!-- 3번째 화면 -->
-			<div class="col-md-6" style="margin-top: 20px">
-				<div class="card card-primary card-outline">
-					<div class="card-header">
-						<h3 class="card-title">세탁현황</h3>
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool"
-								data-card-widget="collapse" title="Collapse">
-								<i class="fas fa-minus"></i>
-							</button>
-						</div>
-					</div>
-					<div class="card-body" style="height: 250x">
-						<div class="card-body table-responsive p-0">
-							<table class="table table-hover text-nowrap"  style="text-align: center;">
-								<thead>
-									<tr>
-										<th>주문번호</th>
-										<th>고객명</th>
-										<th>세탁물 상태</th>
-										<th>배송예정일</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>11121</td>
-										<td>백관우</td>
-										<td>세탁중</td>
-										<td>2일</td>
-									</tr>
-									<tr>
-										<td>11121</td>
-										<td>구건회</td>
-										<td>세탁완료</td>
-										<td>1일</td>
-									</tr>
-									<tr>
-										<td>11121</td>
-										<td>이민호</td>
-										<td>세탁준비중</td>
-										<td>3일</td>
-									</tr>
-									<tr>
-										<td>11121</td>
-										<td>오세준</td>
-										<td>세탁중</td>
-										<td>2일</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="card-footer">
-						<div class="col-2 float-right" style="margin-right: 10px;">
-							<a href="laundry/situatuion_list.do"><button
-									type="button" class="btn btn-block btn-primary btn-sm"
-									style="width: 80px;">More>></button></a>
-						</div>
-					</div>
+
+         </div>
+         <div class="col-md-6"id="appendChart" >
+				
+
+         </div>
+      </div>
+   </div>
+ 
+      <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+	 <%@include file="./main/notice_list.jsp" %>
+   <%@include file="./main/order_list.jsp" %>
+
+<script type="text/x-handlebars-template" id="chart" >
+<div class="card m-0" style="height: 398px;">
+<div class="card-header" style="height: 56px;">
+					<h2 style="height: 20px;padding: 5px;" class="card-title">
+		            	<b>주문량</b>
+		            </h2>
 				</div>
-			</div>
-			<!-- 4번째 화면 -->
-			<div class="col-md-6" style="margin-top: 20px">
-				<div class="card card-secondary card-outline">
-					<div class="card-header">
-						<h3 class="card-title">매출관리</h3>
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool"
-								data-card-widget="collapse" title="Collapse">
-								<i class="fas fa-minus"></i>
-							</button>
-						</div>
-					</div>
-					<div class="card-body" style="height: 250x">
-						<div class="card-body table-responsive p-0">
-							<table class="table table-hover text-nowrap"  style="text-align: center;">
-								<thead>
-									<tr>
-										<th>일자별</th>
-										<th>금 액</th>
-										<th>세탁개수</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>2022.03.01</td>
-										<td>547,300원</td>
-										<td>747 건</td>
-									</tr>
-									<tr>
-										<td>2022.03.02</td>
-										<td>513,500원</td>
-										<td>630 건</td>
-									</tr>
-									<tr>
-										<td>2022.03.03</td>
-										<td>599,400원</td>
-										<td>795 건</td>
-									</tr>
-									<tr>
-										<td>2022.03.04</td>
-										<td>354,700원</td>
-										<td>476 건</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="card-footer">
-						<div class="col-2 float-right" style="margin-right: 10px;">
-							<a href="financial/sales_list.do"><button
-									type="button" class="btn btn-block btn-primary btn-sm"
-									style="width: 80px;">More>></button></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
+			<div class="card-body p-0" style="width:330px; height:330px; margin-left: 60px" id="canvasDiv" >
+             <canvas id="pie-chart" ></canvas>
+             </div>
+</div>
+
+</script>
+
+<script>
+function getBarChart(a,b,c,d,e,f,g,data1,data2,data3,data4,data5,data6,data7){
+	new Chart(document.getElementById("bar-chart"), {
+	    type: 'bar',
+	    data: {
+	      labels: [a, b, c, d, e,f,g],
+	      datasets: [
+	        {
+	          label: "배송 지연 건수",
+	          backgroundColor: ["#3e95cd", "#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd"],
+	          data: [data1,data2,data3,data4,data5,data6,data7]
+	        }
+	      ]
+	    },
+	    options: {
+	      legend: { display: false },
+	      title: {
+	        display: true,
+	        text: '배송 지연'
+	      }
+	    }
+	});
+}
+
+function timeSet(timeValue){
+    var dateObj=new Date(timeValue);
+    var year=dateObj.getFullYear();
+    var month=dateObj.getMonth()+1;
+    var date=dateObj.getDate();
+    return year+"/"+month+"/"+date;
+}
+
+function getChart(){
+	let result= event.target.value.split(",");
+	console.log(result)
+	document.querySelector("#pie-chart").remove()
+	document.querySelector('#canvasDiv').innerHTML="<canvas id='pie-chart' ></canvas>"
+	pieChart(parseInt(result[0]),parseInt(result[1]),result[2])
+}
+
+
+function pieChart(totalCount,count,branchName){
+ console.log(event.target)
+	new Chart(document.getElementById("pie-chart"), {
+	    type: 'pie',
+	    data: {
+	      labels: ["가능세탁주문", "현재주문"],
+	      datasets: [{
+	        label: "Population (millions)",
+	        backgroundColor: ["#82BBD8", "#8e5ea2"],
+	        data: [(totalCount-count),count] 
+	      }]
+	    },
+	    options: {
+	      title: {
+	        display: true,
+	        text: branchName
+	      }
+	    }
+	});
+
+}
+
+function goPage(url,menuCode){
+	
+
+	this.parent.document.querySelector('iframe[name="ifr"]').src=url;
+	
+
+	// HTML5 지원브라우저에서 사용 가능
+	if (typeof (this.parent.history.pushState) == 'function') {
+		//현재 주소를 가져온다.
+		var renewURL = this.parent.location.href;
+		//현재 주소 중 .부분이 있다면 날려버린다.
+		renewURL = renewURL.substring(0, renewURL.indexOf(".") );
+
+		if (menuCode != 'A000000') {
+			renewURL += "?menuCode=" + menuCode;
+		}
+		//페이지를 리로드하지 않고 페이지 주소만 변경할 때 사용
+		this.parent.history.pushState(menuCode, null, renewURL);
+	} else {
+		this.parent.location.hash = "#" + menuCode;
+	}
+	
+} 
+
+
+
+
+window.onload= function (){
+	notice_list("<%=request.getContextPath()%>/branch/main/noticelist")
+	order_list("<%=request.getContextPath()%>/branch/main/orderlist")
+	$.ajax({
+		url : "<%=request.getContextPath()%>/branch/main/chart",
+		type : 'get',
+		dataType : "json",
+		success : function(dataMap) {
+			console.log(dataMap)
+			let branchList = dataMap.branchList;
+			let source = $("#chart").html();
+			
+			let template = Handlebars.compile(source); 
+			
+			console.log(branchList)
+		
+			let data = {
+				
+			}
+			let html = template(data);
+			
+			$("#appendChart").innerHTML="";
+			$("#appendChart").append(html)
+			
+			pieChart(dataMap.branch.branchLndrpcrymslmcoqy,dataMap.count,dataMap.branch.branchName)
+			
+		
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+	
+	$.ajax({
+		url : "<%=request.getContextPath()%>/branch/main/orderdelay",
+		type : 'get',
+		dataType : "json",
+		success : function(dataMap) {
+			let dateList=dataMap.dateList
+			let countList=dataMap.countList
+			
+			let a =timeSet(dateList[0])
+			let b =timeSet(dateList[1])
+			let c =timeSet(dateList[2])
+			let d =timeSet(dateList[3])
+			let e =timeSet(dateList[4])
+			let f =timeSet(dateList[5])
+			let g =timeSet(dateList[6])
+			
+			let data1=countList[0]
+			let data2=countList[1]
+			let data3=countList[2]
+			let data4=countList[3]
+			let data5=countList[4]
+			let data6=countList[5]
+			let data7=countList[6]
+			
+		
+			getBarChart(g,f,e,d,c,b,a,data7,data6,data5,data4,data3,data2,data1)
+			
+			document.querySelector("#bar-chart").style.height="300px"
+		
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+}
+
+</script>
+
+
 </body>
+</html>

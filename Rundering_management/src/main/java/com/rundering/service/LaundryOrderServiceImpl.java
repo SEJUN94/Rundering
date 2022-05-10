@@ -1,9 +1,12 @@
 package com.rundering.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import com.rundering.command.AdminLaundryOrderListCriteria;
 import com.rundering.command.BranchCriteria;
@@ -271,9 +274,32 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	@Override
 	public Map<String, Object> orderDelay(OrderDelayDTO orderDelay) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<Integer> countList = new ArrayList<Integer>();
+		List<Date> dateList = new ArrayList<Date>();
+		/*1주일씩 데이터를 가져옴*/
+		for (int i = 0 ; i <7; i++) {
+			orderDelay.setStartNumber((i+1)*7);
+			orderDelay.setEndNumber(i*7);
+			
+			OrderDelayDTO resultOrderDelay= laundryOrderDAO.selectLaundryOrderLateDeliveryByBranchCode(orderDelay);
+			
+			countList.add(resultOrderDelay.getCount());
+			dateList.add(resultOrderDelay.getDay());
+		}
+		dataMap.put("countList", countList);
+		dataMap.put("dateList", dateList);
 		
 		
 		return dataMap;
 	}
-	
+	@Override
+	public Map<String,Object> branchOrderPiChart(String branchCode) throws Exception{
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		BranchVO branch = branchDAO.selectBranchByBranchCode(branchCode);
+		int count= laundryOrderDAO.selectLaundryOrderCountTodayByBranchCode(branchCode);
+		dataMap.put("branch", branch);
+		dataMap.put("count",count);
+		
+		return dataMap;
+	}
 }

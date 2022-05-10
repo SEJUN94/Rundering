@@ -30,5 +30,7 @@ public interface LaundryOrderService {
 	Map<String, Object> piChart() throws Exception;
 	
 	Map<String,Object> orderDelay(OrderDelayDTO orderDelay) throws Exception;
+
+	Map<String, Object> branchOrderPiChart(String branchCode) throws Exception;
 	
 }

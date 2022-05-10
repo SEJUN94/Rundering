@@ -256,12 +256,13 @@
 		 WHERE branch_code = #{brnachCode}
 		   and TO_CHAR(ORDER_DATE,'YYYYMMDD')=TO_CHAR(SYSDATE,'YYYYMMDD')
 	</select>
-	<select id="selectLaundryOrderLateDeliveryByBranchCode" resultType="int">
-		SELECT count(*)
+	<select id="selectLaundryOrderLateDeliveryByBranchCode" resultType="orderdelay" parameterType="orderdelay">
+		SELECT count(*) as count,
+			   TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'))-#{endNumber} as day
 		  FROM TB_LAUNDRY_ORDER
          WHERE BRANCH_CODE=#{branchCode}
-		   AND  TO_DATE(TO_CHAR(ORDER_DATE,'YYYYMMDD')) BETWEEN TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'))-#{{startNumber}}
-                                                          AND TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'))-#{{endNumber}}
+		   AND  TO_DATE(TO_CHAR(ORDER_DATE,'YYYYMMDD')) BETWEEN TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'))-#{startNumber}
+                                                          AND TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'))-#{endNumber}
             AND TO_DATE(TO_CHAR(DELIVERY_REQUEST_DATE,'YYYYMMDD'))  <![CDATA[ < ]]> TO_DATE(TO_CHAR(DELIVERY_DATE,'YYYYMMDD'))
 	</select>
 	

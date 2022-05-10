@@ -38,6 +38,7 @@ public class BranchItemOrderController {
 	private ModelAndView list(BranchCriteria cri, ModelAndView mnv,HttpSession session) {
 		String url= "/branch/itemorder/itemorder_list";
 		Map<String, Object> dataMap=null;
+		cri.setPerPageNum(4);
 		try {
 			dataMap = itemOrderService.itemOrdeList(cri,session);
 		} catch (Exception e) {

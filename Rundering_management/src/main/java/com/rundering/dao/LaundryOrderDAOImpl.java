@@ -102,7 +102,7 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		return session.selectOne("LaundryOrder-Mapper.selectLaundryOrderCountTodayByBranchCode",branchCode);
 	}
 	@Override 
-	public int selectLaundryOrderLateDeliveryByBranchCode(OrderDelayDTO orderDelay) throws Exception{
+	public OrderDelayDTO selectLaundryOrderLateDeliveryByBranchCode(OrderDelayDTO orderDelay) throws Exception{
 		return session.selectOne("LaundryOrder-Mapper.selectLaundryOrderLateDeliveryByBranchCode",orderDelay);
 	}
 
