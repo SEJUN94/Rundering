@@ -98,20 +98,18 @@ aside ul li a {
 						<table class="table m-0">
 							<tbody>
 								<tr>
-									<td colspan="5" rowspan="3" align="center"><strong>해당
-											내용이 없습니다.</strong></td>
+									<td colspan="5" rowspan="3" align="center"><strong>해당 내용이 없습니다.</strong></td>
 								</tr>
 							</tbody>
 						</table>
 					</c:if>
 					<c:forEach items="${myOrderList }" var="list">
-						<table class="table m-0" onClick="window.open('<%=request.getContextPath()%>/mypage/order_detail','주문내역상세','width=1000, height=750')">
+						<table class="table m-0" onClick="window.open('<%=request.getContextPath()%>/mypage/order_detail?orderNo='+${list.orderNo}+'','주문내역상세','width=1000, height=750')">
 							<tbody>
 								<tr style="border: none;">
-									<td style="width: 25%" align="center">배송상태 :
-										${list.orderStatus}</td>
-									<td style="width: 25%" align="center">주문일자 : <fmt:formatDate
-											value="${list.orderDate}" pattern="yyyy-MM-dd" /></td>
+									<input type="hidden" id="orderNo" value="${list.orderNo }" />
+									<td style="width: 25%" align="center">배송상태 : ${list.orderStatus}</td>
+									<td style="width: 25%" align="center">주문일자 : <fmt:formatDate value="${list.orderDate}" pattern="yyyy-MM-dd" /></td>
 									<td style="width: 25%"></td>
 									<td rowspan="3"
 										style="width: 25%; border-left: 1px solid rgba(0, 0, 0, .125); text-align: center; vertical-align: middle;">
@@ -132,23 +130,17 @@ aside ul li a {
 										alt="${list.atchFileNo}" height="100px;" width="70px;"
 										src="<%=request.getContextPath() %>/resources/images/자산 1.png">
 									</td>
-									<td colspan="2" align="left;" style="border-top: none;">상품명
-										: ${list.paymentNo}</td>
+									<td colspan="2" align="left;" style="border-top: none;">상품명 : ${list.paymentNo}</td>
 								</tr>
 								<tr style="border: none;">
-									<td align="left;" style="border-left: none; border-top: none;">지점명
-										: ${list.branchCode }</td>
-									<td style="text-align: right; border-top: none;">결제금액 : <fmt:formatNumber
-											type="number" maxFractionDigits="3"
-											value="${list.totalPrice}" />원
-									</td>
+									<td align="left;" style="border-left: none; border-top: none;">지점명 : ${list.branchCode }</td>
+									<td style="text-align: right; border-top: none;">결제금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${list.totalPrice}" />원</td>
 								</tr>
 							</tbody>
 						</table>
 					</c:forEach>
 				</div>
 			</div>
-
 			<div class="card-footer clearfix">
 				<!--페이징 처리할 공간 -->
 				<%@ include file="/WEB-INF/views/mypage/pagination.jsp"%>
@@ -156,3 +148,30 @@ aside ul li a {
 		</div>
 	</div>
 </div>
+
+
+
+<script>
+	function detail(){
+		$.ajax({
+			url : '<%=request.getContextPath()%>/mypage/order_detail',
+			data : {
+				'password' : $('#password').val()
+			},
+			type : 'post',
+			success : function(result) {
+				if (result.toUpperCase() == "OK") {
+					Swal.fire('변경 완료', '비밀변호 변경이 완료되었습니다.', 'success' )
+				} else {
+					Swal.fire({
+						icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title: '비밀번호 변경에 실패하였습니다.',
+					});
+				}
+			},
+			error : function(error) {
+				AjaxErrorSecurityRedirectHandler(error.status);
+			}
+		});
+	}
+</script>

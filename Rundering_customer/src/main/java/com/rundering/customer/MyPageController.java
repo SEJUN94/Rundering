@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.MemberAddCommand;
 import com.rundering.command.MyOrderCriteria;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.FAQVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberAddressVO;
@@ -392,6 +393,17 @@ public class MyPageController {
 		return mnv;
 	}
 	
+	// 주문내역 디테일
+	@RequestMapping("/order_detail")
+	public ModelAndView orderDetail(ModelAndView mnv,AttachVO attach,LaundryOrderVO laundryOrder) {
+		String url = "/mypage/order_detail";
+		
+		
+		
+		mnv.setViewName(url);
+		return mnv;
+	}
+	
 	// 배송완료된 주문내역
 	@RequestMapping("/myorder/histroy/complete")
 	public ModelAndView myCompleteorder(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {
@@ -412,10 +424,6 @@ public class MyPageController {
 		
 		return mnv;
 	}
-	
-	
-	@RequestMapping("/order_detail")
-	public void orderDetail() {}
 	
 	@RequestMapping("/order_delivery")
 	public void orderDelivery() {}

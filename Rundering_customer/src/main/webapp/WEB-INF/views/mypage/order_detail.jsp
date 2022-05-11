@@ -1,19 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<!DOCTYPE html>
-
-<head>
-
-<!-- Font Awesome Icons -->
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/fontawesome-free/css/all.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/dist/css/adminlte.min.css">
-<!--파비콘-->
-<link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/images/Favicon.ico" />
-<link rel="icon" href="<%=request.getContextPath() %>/resources/images/Favicon.svg" />
-<!--Google Material Icons-->
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/main.css" />  
   
 <style>
     .circle {
@@ -100,8 +86,7 @@
      content: none;
    }
 </style>
-</head>
-<body>
+
    	<div class="col-12" style="padding-top:30px;">
    		<div class="card">
    			<div class="card-body mt-3 ml-3 p-0" style="font-size:1.5em;">배송조회</div>
@@ -176,6 +161,7 @@
 
                 <div class="card-body p-0">
                     <ul class="products-list product-list-in-card pl-2 pr-2" style="height:552px;">
+                      
                         <li class="item">
                             <div class="product-info">
                                 <a href="javascript:void(0)" class="product-title">Samsung TV
@@ -323,14 +309,3 @@
         </div>
     </div>
     
-    <!-- jQuery -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/dist/js/adminlte.min.js"></script>
-    
-    
-</body>
-
-</html>
