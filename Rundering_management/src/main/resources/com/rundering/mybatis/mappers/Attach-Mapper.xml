@@ -117,6 +117,13 @@
 		WHERE ATCH_FILE_NO = #{atchFileNo}
 		AND SAVE_FILE_NM = #{saveFileNm}
 	</select>
+
+	<select id="getDownloadFile" resultMap="attachMap" parameterType="attach">
+		SELECT *
+		FROM TB_ATTACH_FILE
+		WHERE ATCH_FILE_NO = #{atchFileNo}
+		AND BIZ_TYPE = #{bizType}
+	</select>
   
 	
 	<update id="deleteAttchFileRemoveByFileNoAndSeq" parameterType="attach">

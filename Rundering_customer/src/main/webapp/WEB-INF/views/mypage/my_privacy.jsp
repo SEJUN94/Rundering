@@ -1,15 +1,67 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 
 <!--이쁜 알럽트창 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 
 <!-- 주소api -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-	<div style="width: 60%; display: flex; flex-direction: column; margin-left: 20%;">
+<style>
+#peter {
+	width: 200px;
+	height: 300px;
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	border:solid 1px #f3f3f3;
+	background-color:#f3f3f3;
+}
+aside ul li a{
+	color:#000000;
+	font-size:1.1em;
+}
+</style>
+
+
+<div class="row">
+	<aside style="padding-top: 50px;">
+		<ul id="peter">
+			<li style="margin-top: 15px; padding-bottom: 15px; border-bottom: solid 1px lightgray;">
+				<h1 style="font-size: 1.5em; text-align: center;">마이페이지</h1>
+			</li>
+			<li onclick="location.href='<%=request.getContextPath()%>/mypage'"
+				style="cursor: pointer; margin-top: 30px; margin-bottom: 15px; margin-left: 30px;"><a href="">회원
+					정보 수정</a></li>
+			<li onclick="location.href='<%=request.getContextPath()%>/mypage/myaddress'"
+				style="cursor: pointer; margin-top: 15px; margin-bottom: 15px; margin-left: 30px;">
+				<a>주소 관리</a>
+			</li>
+			<li onclick="location.href='<%=request.getContextPath()%>/mypage/myorder/histroy/main'" 
+				style="margin-top: 15px; margin-bottom: 15px; margin-left: 30px;">
+				<a>주문 내역</a>
+			</li>
+			<li	onclick="location.href='<%=request.getContextPath()%>/mypage/myinquiry/list'"
+				style="cursor: pointer; margin-top: 10px; margin-bottom: 15px; margin-left: 30px;">
+				<a>문의 내역</a>
+			</li>
+			<li	onclick="location.href='<%=request.getContextPath()%>/mypage/secedeform'"
+				style="cursor: pointer; margin-top: 10px; margin-bottom: 15px; margin-left: 30px;">
+				<a>회원 탈퇴</a>
+			</li>
+		</ul>
+	</aside>
+
+
+	<div
+		style="width: 60%; display: flex; flex-direction: column; margin-left: 50px; margin-top: 30px;">
 		<section class="content-header">
 			<div class="container-fluid">
 				<div class="row mb-2">
@@ -24,124 +76,136 @@
 					</div>
 				</div>
 			</div>
-		<hr style="border: 1px solid rgb(170, 167, 167);">
+			<hr style="border: 1px solid rgb(170, 167, 167);">
 		</section>
 
-	
-<form class="form-horizontal" method="post">
-<div class="card-body marginfont text-center">
-	<div class="form-group">
-		<div class="row ">
-			<label for="name" class="col-2">
-				<p>이름</p>
-			</label>
-			<div class="col-10">
-				<div class="col-12 row">
-					<div class="form-group col-8">
-						<input type="text" class="form-control" name="name" id="name" value="${loginUser.getName() }" disabled style="border:none;background-color:transparent;" readonly>
+
+		<form class="form-horizontal" method="post">
+			<div class="card-body marginfont text-center">
+				<div class="form-group">
+					<div class="row ">
+						<label for="name" class="col-2">
+							<p>이름</p>
+						</label>
+						<div class="col-10">
+							<div class="col-12 row">
+								<div class="form-group col-8">
+									<input type="text" class="form-control" name="name" id="name"
+										value="${loginUser.getName() }" disabled
+										style="border: none; background-color: transparent;" readonly>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row ">
+						<label for="password" class="col-2">비밀번호 </label>
+						<div class="col-10" id="divPassword">
+							<div class="col-12 row">
+								<div class="form-group col-8">
+									<input type="password" class="form-control" id="password"
+										name="password" placeholder="변경 버튼을 통해 수정이 가능합니다."> <span
+										class="sp"></span>
+								</div>
+								<span class="form-group col-2">
+									<button class="btn float-right" id="pw" name="pw"
+										style="border-color: gray;" onclick="pwModify()">변경</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row ">
+						<label for="call" class="col-2">
+							<p>전화번호</p>
+						</label>
+						<div class="col-10" id="divCall">
+							<div class="col-12 row">
+								<div class="form-group col-8">
+									<input type="text" class="form-control" id="phone" name="phone"
+										value="${loginUser.getPhone() }">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row ">
+						<label for="email" class="col-2">
+							<p>email</p>
+						</label>
+						<div class="col-10" id="divEmail">
+							<div class="col-12 row">
+								<div class="form-group col-8">
+									<input type="email" class="form-control " id="email"
+										name="email" value="${loginUser.getEmail() }"> <span
+										class="sp1"></span> <span id="rst1"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row ">
+						<label for="call" class="col-2">
+							<p>주소지</p>
+						</label>
+						<div class="col-10">
+							<div class="col-12 row">
+								<div class="form-group col-8">
+									<input type="text" class="form-control" name="add1" id="add1"
+										value="${memberAddress.getAdd1() }" readonly>
+								</div>
+								<span class="form-group col-2">
+									<button class="btn float-right" id="modalBtn"
+										style="border-color: gray;" onclick="findAdd();">검색</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row ">
+						<label for="call" class="col-2">
+							<p>상세주소</p>
+						</label>
+						<div class="col-10">
+							<div class="col-12 row">
+								<div class="form-group col-8">
+									<input type="text" class="form-control" name="add2" id="add2"
+										value="${memberAddress.getAdd2() }">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row ">
+						<label for="call" class="col-2"> </label>
+						<div class="col-10">
+							<div class="col-12 row">
+								<div class="form-group col-8">
+									<input type="hidden" class="form-control" name="zip" id="zip"
+										value="${memberAddress.getZip() }" readonly> <input
+										type="hidden" class="form-control" name="id" id="id"
+										value="${loginUser.getId() }" readonly> <input
+										type="hidden" class="form-control" name="memberNo"
+										id="memberNo" value="${loginUser.getMemberNo() }" readonly>
+								</div>
+								<span class="form-group col-2">
+									<button class="btn float-right" type="submit"
+										onClick="modify();" id="sendBtn" style="border-color: gray;">수정</button>
+								</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="row ">
-			<label for="password" class="col-2">비밀번호 </label>
-			<div class="col-10" id="divPassword">
-				<div class="col-12 row">
-					<div class="form-group col-8">
-						<input type="password" class="form-control" id="password" name="password" placeholder="변경 버튼을 통해 수정이 가능합니다.">
-						<span class="sp"></span> 
-					</div>
-					<span class="form-group col-2">
-						<button class="btn float-right" id="pw" name="pw" style="border-color: gray;" onclick="pwModify()">변경</button>
-					</span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="row ">
-			<label for="call" class="col-2">
-				<p>전화번호</p>
-			</label>
-			<div class="col-10" id="divCall">
-				<div class="col-12 row">
-					<div class="form-group col-8">
-						<input type="text" class="form-control"  id="phone" name="phone" value="${loginUser.getPhone() }">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="row ">
-			<label for="email" class="col-2">
-				<p>email</p>
-			</label>
-			<div class="col-10" id="divEmail">
-				<div class="col-12 row">
-					<div class="form-group col-8">
-						<input type="email" class="form-control " id="email" name="email" value="${loginUser.getEmail() }" >
-						<span class="sp1"></span> 
-						<span id="rst1"></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="row ">
-			<label for="call" class="col-2">
-				<p>주소지</p>
-			</label>
-			<div class="col-10">
-				<div class="col-12 row">
-					<div class="form-group col-8">
-						<input type="text" class="form-control" name="add1" id="add1" value="${memberAddress.getAdd1() }" readonly>
-					</div>
-					<span class="form-group col-2">
-						<button class="btn float-right" id="modalBtn" style="border-color: gray;" onclick="findAdd();">검색</button>
-					</span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="row ">
-			<label for="call" class="col-2">
-				<p>상세주소</p>
-			</label>
-			<div class="col-10">
-				<div class="col-12 row">
-					<div class="form-group col-8">
-						<input type="text" class="form-control" name="add2" id="add2" value="${memberAddress.getAdd2() }">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="row ">
-			<label for="call" class="col-2">
-			</label>
-			<div class="col-10">
-				<div class="col-12 row">
-					<div class="form-group col-8">
-						<input type="hidden" class="form-control" name="zip" id="zip" value="${memberAddress.getZip() }" readonly>
-						<input type="hidden" class="form-control" name="id" id="id" value="${loginUser.getId() }" readonly>
-						<input type="hidden" class="form-control" name="memberNo" id="memberNo" value="${loginUser.getMemberNo() }" readonly>
-					</div>
-					<span class="form-group col-2">
-						<button class="btn float-right" type="submit" onClick="modify();" id="sendBtn" style="border-color: gray;">수정</button>
-					</span>
-				</div>
-			</div>
-		</div>
+		</form>
 	</div>
 </div>
-</form>
-	</div>
 
 <script>
 	function modify(){
@@ -174,7 +238,7 @@
 	        			success : function(result) {
 	        				if (result.toUpperCase() == "OK") {
 	        					Swal.fire('수정 완료', '회원정보 수정이 완료되었습니다.', 'success' )
-	        					location.href = "<%=request.getContextPath()%>/mypage";
+	        					setTimeout(function(){location.href = "<%=request.getContextPath()%>/mypage";},1000);
 	        				} else {
 	        					Swal.fire({
 	        						icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
@@ -225,6 +289,7 @@ function pwModify(){
 	         
 	       }).then((result) => {
 	           if (result.isConfirmed) {
+	        	   event.preventDefault(); // 이벤트를 막아 페이지 리로드를 방지
 	        	   $.ajax({
 	        			url : '<%=request.getContextPath()%>/mypage/pwModify',
 	        			data : {
@@ -285,7 +350,7 @@ function pwModify(){
 			}
 		});
 	}
-</script>	
+</script>
 
 <script>
 window.addEventListener('load',com);

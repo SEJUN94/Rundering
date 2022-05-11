@@ -38,7 +38,7 @@
                 <p class="login-box-msg"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">▼▼아래 정보를 입력해주세요▼▼</font></font></p>
                 <form class="form-horizontal" onsubmit="return pwModify();" method="post" >
                     <div class="input-group">
-                        <input type="password" class="form-control pass" id="newPw" name="password" placeholder="새로운 비밀번호를 입력해 주세요." required>
+                        <input type="password" class="form-control pass" id="newPw" name="email" placeholder="새로운 비밀번호를 입력해 주세요." required>
                     </div>
                     <div class="form-group"><span class="sp"></span></div>
                     <div class="input-group mb-3">
@@ -50,7 +50,7 @@
                             <button type="submit" id="sendBtn" class="btn btn-primary btn-block"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비밀번호 변경</font></font></button>
                         </div>
                         <input type="hidden" class="form-control" id="id" name="id" value="${id}" required> 
-                        <input type="hidden" class="form-control" id="password" name="password" value="${passoword}" required> 
+                        <input type="hidden" class="form-control" id="password" name="password" value="${password}" required> 
                     </div>
                 </form>
             </div>
@@ -63,7 +63,6 @@ function okProc(ele, str){
 	$(vs).html(str).css('color','green');
 }
 function noProc(ele, str){
-	
 	let vs = $(ele).parents('.form-group').find('.sp');
 	$(vs).html(str).css('color','red');
 }
@@ -83,14 +82,13 @@ let passchk = false;
 				type : 'post',
 				data : {
 					'id' : $('#id').val(),
-					'password' : $('#passoword').val(),
-					'newPassword' : $('#newPw').val()
+					'password' : $('#password').val(),
+					'email' : $('#newPw').val()
 				},
 				success : function(response){
 					if(response.toUpperCase() == "OK"){
 						Swal.fire('비밀번호가 변경!', '새로운 비밀번호로 변경되었습니다.', 'success' )
-						setTimeout(function(){location.reload();},1000);
-						location.href = "<%=request.getContextPath()%>/common/loginform";
+						setTimeout(function(){location.href = "<%=request.getContextPath()%>/common/loginform";},1000);
 						} else {
 							Swal.fire({
 								icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.

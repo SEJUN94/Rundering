@@ -107,7 +107,7 @@ th, td {
 					</c:if>
 					<c:forEach items="${faqList }" var="faq">
 						<tr style='cursor: pointer;'
-							onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',900,700);">
+							onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',800,450);">
 							<td class="no">${faq.faqno }</td>
 							<td class="category"><c:choose>
 												<c:when test="${faq.setbukdoorclcode == 'OR'}">주문문의</c:when>

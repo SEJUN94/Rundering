@@ -113,19 +113,49 @@
 				          <div class="step-counter">
 				             <i class="fa-solid fa-1"></i>
 				          </div>
-				          <div class="step-name">발송대상자선택</div>
+				          <div class="step-name">수거대기</div>
 				        </div>
 				        <div id="" class="stepper-item second">
 				          <div class="step-counter">
 				             <i class="fa-solid fa-2"></i>
 				          </div>
-				          <div class="step-name">발송메세지선택</div>
+				          <div class="step-name">수거중</div>
 				        </div>
 				        <div id="" class="stepper-item third">
 				          <div class="step-counter">
 				             <i class="fa-solid fa-3"></i>
 				          </div>
-				          <div class="step-name">선택정보확인</div>
+				          <div class="step-name">수거완료</div>
+				        </div>
+				        <div id="" class="stepper-item fourth">
+				          <div class="step-counter">
+				             <i class="fa-solid fa-2"></i>
+				          </div>
+				          <div class="step-name">세탁대기</div>
+				        </div>
+				        <div id="" class="stepper-item fifth">
+				          <div class="step-counter">
+				             <i class="fa-solid fa-2"></i>
+				          </div>
+				          <div class="step-name">세탁중</div>
+				        </div>
+				        <div id="" class="stepper-item sixth">
+				          <div class="step-counter">
+				             <i class="fa-solid fa-2"></i>
+				          </div>
+				          <div class="step-name">세탁완료</div>
+				        </div>
+				        <div id="" class="stepper-item seventh">
+				          <div class="step-counter">
+				             <i class="fa-solid fa-2"></i>
+				          </div>
+				          <div class="step-name">배송중</div>
+				        </div>
+				        <div id="" class="stepper-item eighth">
+				          <div class="step-counter">
+				             <i class="fa-solid fa-2"></i>
+				          </div>
+				          <div class="step-name">배송완료</div>
 				        </div>
 				      </div>
 				  </div>

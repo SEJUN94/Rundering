@@ -66,7 +66,7 @@
 					<td colspan="3">
 						<c:if test="${bv.progressStatusCode ne '01'}" >
 						<a href="<%=request.getContextPath()%>/branchapplication/file/filedownload?atchFileNo=${bv.leasecontractFile}&saveFileNm=${avList[0].saveFileNm }">
-						<input type=text value="${avList[0].fileNm}" >
+						<input type=text style="border:none;" value="${avList[0].fileNm}" >
 						</a>
 						</c:if> 
 						<c:if test="${bv.progressStatusCode eq '01'}" >
@@ -114,13 +114,13 @@
 						<td rowspan="4" colspan="10" style="overflow: auto;">${bv.examinationDetails }</td>
 					</tr>
 					<tr>
-						<td  colspan="" style="border-bottom: 0px;border-top: 0px; background-color:#EBF3FC;"></td>
+						<td colspan="" style="border-bottom: 0px;border-top: 0px; background-color:#EBF3FC;"></td>
 					</tr>
 					<tr>
-						<td  colspan="" style="border-bottom: 0px;border-top: 0px; background-color:#EBF3FC;"></td>
+						<td colspan="" style="border-bottom: 0px;border-top: 0px; background-color:#EBF3FC;"></td>
 					</tr>
 					<tr>
-						<td  colspan="" style="border-bottom: 0px;border-top: 0px; background-color:#EBF3FC;"></td>
+						<td colspan="" style="border-bottom: 0px;border-top: 0px; background-color:#EBF3FC;"></td>
 					</tr>
 				</c:if>
 				</c:if>

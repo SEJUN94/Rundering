@@ -12,11 +12,13 @@
 		<pattern>/login/*</pattern>
 		<pattern>/question/detail*</pattern>
 		<pattern>/question/modify*</pattern>
+		<pattern>*/myinquiry/detail*</pattern>
 	</decorator>
 
 	<excludes>
 		<pattern>/resources/*</pattern>
 		<pattern>*/order_detail</pattern>
+		
 	</excludes>
 
 </decorators>	

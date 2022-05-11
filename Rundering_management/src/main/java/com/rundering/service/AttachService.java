@@ -37,9 +37,13 @@ public class AttachService {
 		return attachDAO.getAttachForDownload(attach);
 	}
 	
-	// vd
+	// 
 	public List<AttachVO> selectAttachVOByFileNoAndSeq2(AttachVO attach) throws Exception {
 		return attachDAO.selectAttachVOByFileNoAndSeq2(attach);
 	}
-
+	
+	// 파일다운로드를 위한 해당 파일의 정보가져오기(파일번호,업무구분)
+	public AttachVO getDownloadFile(AttachVO attach) throws Exception {
+		return attachDAO.getDownloadFile(attach);
+	}
 }
