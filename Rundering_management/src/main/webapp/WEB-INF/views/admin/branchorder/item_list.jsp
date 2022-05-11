@@ -17,8 +17,8 @@
                         class="table table-hover text-nowrap card-outline">
                         <thead>
                             <tr>
-                                <th style="text-align: center;">물품이름</th>
-                                <th style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;">
+                                <th class="width50" style="text-align: center;">물품이름</th>
+                                <th class="width25" style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;">
                                     <div class="input-group input-group-sm" >
                                         <select class="form-control" style="width: 60px;" name="laundryItemsCode"  id="laundryItemsCode" onchange="list_go(1);">
 											{{#each clcodeList}}                                           	 
@@ -27,7 +27,7 @@
                                          </select>
                                      </div>
                                 </th>
-                                <th style="text-align: center;">물품량</th>
+                                <th class="width25" style="text-align: center;">물품량</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,19 +63,19 @@
 {{url}}
 {{#each pageNum}}
 <li class="paginate_button page-item {{itemsignActive this}}" onclick="item_numberChange({{this}})">
-   <a href="javascript: out_page_go('{{itempageurl this}}')" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
+   <a href="javascript: item_page_go('{{itempageurl this}}')" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
       {{this}}
    </a>
 </li>
 {{/each}}
 
 <li class="paginate_button page-item" onclick="item_numberChange({{#if next}}{{nextPageNum}}{{/if}})" >
-   <a href="javascript:out_page_go('{{#if next}}{{itempageurl nextPageNum}}{{/if}}')" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
+   <a href="javascript:item_page_go('{{#if next}}{{itempageurl nextPageNum}}{{/if}}')" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
       <i class='fas fa-angle-right'></i>
    </a>
 </li>
 <li class="paginate_button page-item" onclick="item_numberChange({{realEndPage}})">
-   <a href="javascript:out_page_go('{{itempageurl realEndPage}}')" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
+   <a href="javascript:item_page_go('{{itempageurl realEndPage}}')" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
       <i class='fas fa-angle-double-right'></i>
    </a>
 </li>   
@@ -149,7 +149,7 @@ function item_List(pageInfo){
              	      return year+"/"+month+"/"+date;
              	},
                "itempageurl":function(pageNum){
-            	   return "<%=request.getContextPath()%>/branch/item/itemlist?page="+pageNum;
+            	   return "<%=request.getContextPath()%>/admin/branchorder/itemlist?page="+pageNum;
                },"clcodeNm":function(clcode){
                		for(let i of dataMap.CLCODEList){
                			if(clcode==i.comCode){
@@ -172,8 +172,8 @@ function item_List(pageInfo){
 			let pagehtml = pageTemplate(pageMaker);
 			
 			$("#appenditem").innerHTML="";
-			if($("#removeitem")!=null){
-				$("#removeitem").remove()
+			if($("#removeItem")!=null){
+				$("#removeItem").remove()
 			}
 			if(document.querySelector("#itemPageItem")!=null){
 				document.querySelector("#itemPageItem").remove()
