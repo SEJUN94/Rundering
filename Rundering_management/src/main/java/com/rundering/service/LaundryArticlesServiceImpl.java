@@ -14,6 +14,7 @@ import com.rundering.dao.LaundryArticlesDAO;
 import com.rundering.dao.LaundryGoodsStockDAO;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.BranchVO;
+import com.rundering.dto.ComCodeVO;
 import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.dto.LaundryGoodsStockVO;
 import com.rundering.util.ComCodeUtil;
@@ -126,5 +127,12 @@ public class LaundryArticlesServiceImpl implements LaundryArticlesService {
 	public void remove(String articlesCode) throws SQLException {
 		laundryArticlesDAO.deleteLaundryArticles(articlesCode);
 		
+	}
+	@Override
+	public Map<String, Object> getItemCode() throws Exception{
+		ComCodeUtil codeUtil = new ComCodeUtil();
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		codeUtil.getCodeListMap("CLCODE", dataMap, comCodeDAO);
+		return dataMap;
 	}
 }

@@ -27,7 +27,11 @@
 									<div class="input-group-sm selectWidth">
 										<select class="form-control" name="searchType" id="searchType"
 											onchange="list_go('1')">
-											<option value="">분류검색 예정 건회 작업끝나면 시작</option>
+											<option value="">전체</option>
+											<c:forEach items="${dataMap.CLCODEList}" var="clcode">
+												
+												<option value="${clcode.comCode }">${clcode.comCodeNm }</option>
+											</c:forEach>
 										</select>
 									</div>
 								</div>
@@ -91,6 +95,25 @@
 			</div>
 		</div>
 	</div>
+
+
+<form id="jobForm">	
+	<input type='hidden' name="searchType" value="" />
+	<input type='hidden' name="keyword" value="" />
+</form>
+
+<script>
+	function list_go(page){
+		
+		
+		
+		let searchType=event.target.value
+		
+		orderGoodsList("<%=request.getContextPath()%>/branch/itemorder/orderGoodsList?page="+page+"&searchType="+searchType)
+		
+		
+	}
+</script>
 
 <script>
 
