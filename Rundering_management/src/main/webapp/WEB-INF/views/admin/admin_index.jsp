@@ -170,6 +170,11 @@
 			return new Date(createdAt).format("yyyy.MM.dd");
 	 }
 
+		setTimeout(function refreshNotification(){
+		getNotification();
+		setTimeout(refreshNotification, 3000);
+	}, 3000);
+	
 	</script>
 	
 	
