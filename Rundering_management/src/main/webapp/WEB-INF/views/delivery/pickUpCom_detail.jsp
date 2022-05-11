@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set value="${dataMap.detail }" var="pickup"></c:set>
 <c:set value="${dataMap.detailList }" var="pickupList"></c:set>
 <c:set value="${dataMap.avList }" var="avList"></c:set>
@@ -53,14 +54,33 @@
 				</div>
 				<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
 					<div class="col-12 col-sm-4">
-						<c:forEach items="${avList }" var="av">
-							<c:if test="${av.bizType eq '수거완료사진' }">
-								<div class="row pl-3">
-									<div class="goodsPicture" id="pictureView" data-id="${pickupList[0].atchFileNo }"
-									style="border: 1px solid green; height: 140px; width: 140px; margin: 0 auto;"></div>
-								</div>
-							</c:if>
-						</c:forEach>
+						<div class="row pl-3">
+							<c:forEach items="${avList }" var="av">
+								<c:if test="${av.bizType eq '배송완료사진' }">
+									<div class="goodsPicture ml-2 mb-2" id="pictureView" data-id="${av.atchFileNo }" data-aa="${av.atchFileSeq }"
+										style="border: 1px solid green; height: 100px; width: 100px;"></div>
+								</c:if>
+							</c:forEach>
+						</div>
+						<div>수거완료</div>
+						<div class="row pl-3">
+							<c:forEach items="${avList }" var="av">
+								<c:if test="${av.bizType eq '수거완료사진' }">
+									<div class="goodsPicture ml-2" id="pictureView" data-id="${av.atchFileNo }" data-aa="${av.atchFileSeq }"
+										style="border: 1px solid green; height: 100px; width: 100px;"></div>
+								</c:if>
+							</c:forEach>
+						</div>
+						<div>세탁주문</div>
+						<div class="row pl-3">
+							<c:forEach items="${avList }" var="av">
+								<c:if test="${av.bizType eq '세탁주문' }">
+									<div class="goodsPicture ml-2" id="pictureView" data-id="${av.atchFileNo }" data-aa="${av.atchFileSeq }"
+										style="border: 1px solid green; height: 100px; width: 100px;"></div>
+								</c:if>
+							</c:forEach>
+						</div>
+						<div>배송완료사진</div>
 						<div class="info-box bg-light mt-5">
 							<div class="info-box-content">
 								<span class="info-box-text text-center text-muted"
@@ -81,7 +101,8 @@ window.addEventListener('load', OrderGoodsPictureThumb)
 function OrderGoodsPictureThumb(){
 	 for(var target of document.querySelectorAll('.goodsPicture')){	
 		 var atchFileNo = target.getAttribute('data-id');
-		 target.style.backgroundImage="url('<%=request.getContextPath() %>/fordelivery/getPicture?atchFileNo="+atchFileNo+"')";
+		 var atchFileSeq = target.getAttribute('data-aa');
+		 target.style.backgroundImage="url('<%=request.getContextPath() %>/fordelivery/getPicture?atchFileNo="+atchFileNo+"&atchFileSeq="+atchFileSeq+"')";
 		 target.style.backgroundPosition="center";
 		 target.style.backgroundRepeat="no-repeat";
 		 target.style.backgroundSize="cover";

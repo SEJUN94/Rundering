@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set value="${dataMap.detail }" var="pickup"></c:set>
 <c:set value="${dataMap.detailList }" var="pickupList"></c:set>
+<c:set value="${dataMap.avList }" var="avList"></c:set>
 
 <!DOCTYPE html>
 <html>
@@ -54,6 +55,15 @@
 					</div>
 					<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
 						<div class="col-12 col-sm-4">
+							<div>세탁주문</div>
+							<div class="row pl-3 mb-3">
+								<c:forEach items="${avList }" var="av">
+									<c:if test="${av.bizType eq '세탁주문' }">
+										<div class="goodsPicture ml-2" id="pictureView" data-id="${av.atchFileNo }" data-aa="${av.atchFileSeq }"
+											style="border: 1px solid green; height: 100px; width: 100px;"></div>
+									</c:if>
+								</c:forEach>
+							</div> 
 							<div class="custom-file" style="padding: 1.5rem;">
 								<input type="file" class="custom-file-input"
 									id="orginalName" name="multi" onchange="fileUpload()"> <label
@@ -79,6 +89,19 @@
 <!-- 알림 sweetalert2 -->
 <script	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 	
+<script>
+window.addEventListener('load', OrderGoodsPictureThumb)
+function OrderGoodsPictureThumb(){
+	 for(var target of document.querySelectorAll('.goodsPicture')){	
+		 var atchFileNo = target.getAttribute('data-id');
+		 var atchFileSeq = target.getAttribute('data-aa');
+		 target.style.backgroundImage="url('<%=request.getContextPath() %>/fordelivery/getPicture?atchFileNo="+atchFileNo+"&atchFileSeq="+atchFileSeq+"')";
+		 target.style.backgroundPosition="center";
+		 target.style.backgroundRepeat="no-repeat";
+		 target.style.backgroundSize="cover";
+	}
+}
+</script>		
 	
 	<script>
 	let orderNo1 = document.querySelector("#orderNo");

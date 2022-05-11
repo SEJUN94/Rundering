@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set value="${dataMap.detail }" var="delivery"></c:set>
 <c:set value="${dataMap.detailList }" var="deliveryList"></c:set>
+<c:set value="${dataMap.avList }" var="avList"></c:set>
 
 <!DOCTYPE html>
 <html>
@@ -54,6 +55,15 @@
 								<input type="file" class="custom-file-input" name="multi" id="orginalName" onchange="fileUpload()"> <label class="custom-file-label" for="orginalName" id="lab">사진을 첨부해주세요.</label>
 								<input type="hidden" id="picture" name="picture" value="">
 							</div>
+							
+							<div class="row pl-3">
+								<c:forEach items="${avList }" var="av">
+									<c:if test="${av.bizType eq '수거완료사진' }">
+										<div class="goodsPicture ml-2" id="pictureView" data-id="${av.atchFileNo }" data-aa="${av.atchFileSeq }"
+											style="border: 1px solid green; height: 100px; width: 100px;"></div>
+									</c:if>
+								</c:forEach>
+							</div>
 							<div class="info-box bg-light" style="display:block;" id="jassi" onclick="delivery_complete('08','${delivery.orderNo }');">
 								<input type="hidden" id="orderNo" name="orderNo" value="${delivery.orderNo}">
 								<div class="info-box-content">
@@ -75,7 +85,20 @@
 	</div>
 <!-- 알림 sweetalert2 -->
 <script	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-	
+
+<script>
+window.addEventListener('load', OrderGoodsPictureThumb)
+function OrderGoodsPictureThumb(){
+	 for(var target of document.querySelectorAll('.goodsPicture')){	
+		 var atchFileNo = target.getAttribute('data-id');
+		 var atchFileSeq = target.getAttribute('data-aa');
+		 target.style.backgroundImage="url('<%=request.getContextPath() %>/fordelivery/getPicture?atchFileNo="+atchFileNo+"&atchFileSeq="+atchFileSeq+"')";
+		 target.style.backgroundPosition="center";
+		 target.style.backgroundRepeat="no-repeat";
+		 target.style.backgroundSize="cover";
+	}
+}
+</script>	
 	
 <script>
 let 아가모토의눈 = new Date();
