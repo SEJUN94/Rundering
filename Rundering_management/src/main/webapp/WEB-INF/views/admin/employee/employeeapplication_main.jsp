@@ -255,7 +255,7 @@
 		            'memberNo' : no
 		         },
 		         type : 'post',
-		         success : function(오케이) {
+		         success : function(ok) {
 		            if(ok.toUpperCase() == "OK"){
 		               Swal.fire({
 		                  icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.

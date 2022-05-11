@@ -98,7 +98,7 @@ public class BranchEmployeesApplicationController {
 		try {
 			memberService.removeByNo(memberNo);
 
-				entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
 		} catch (SQLException e) {
 			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
