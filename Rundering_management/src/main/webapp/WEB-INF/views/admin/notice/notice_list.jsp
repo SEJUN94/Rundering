@@ -70,12 +70,12 @@
 				<div class="card-body p-0">
 					<table class="table table-hover text-nowrap">
 						<thead>
-							<tr style="text-align: center;">
-								<th class="noticeno">번호</th>
-								<th class="title">제목</th>
-								<th class="employeeId">작성자</th>
-								<th class="registDate">작성일</th>
-								<th class="views">조회수</th>
+							<tr style="text-align: left;">
+								<th class="noticeno" style="width:10%;">번호</th>
+								<th class="title" style="width:50%;">제목</th>
+								<th class="employeeId" style="width:10%;">작성자</th>
+								<th class="registDate" style="width:20%;">작성일</th>
+								<th class="views" style="width:10%;">조회수</th>
 							</tr>
 						</thead>
 						<tbody>
