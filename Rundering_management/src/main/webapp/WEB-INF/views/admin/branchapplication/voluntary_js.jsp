@@ -27,7 +27,7 @@
 							type="button" style="background-color:#82BBD8;border: 1px solid #82BBD8">
 						<i class="fas fa-file"></i>
 						&nbsp; 임대차계약서 다운로드</button>
-						<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
+						<button class="btn btn-xs btn-secondary" onclick="openPdf('{{leasecontractFile}}','임대차계약서');" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
 						임대차계약서 보기</button>
 					</div>
 					
@@ -38,7 +38,7 @@
 						<button class="btn btn-xs btn-secondary" onclick="location.href='<%=request.getContextPath()%>/admin/branchapplication/file/filedownload?atchFileNo={{privatecontractFile}}&bizType=수의계약서'" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
 						<i class="fas fa-file"></i>
 						&nbsp; 수의계약서 다운로드</button>
-						<button class="btn btn-xs btn-secondary" onclick="addFile_go();" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
+						<button class="btn btn-xs btn-secondary" onclick="openPdf('{{privatecontractFile}}','수의계약서');" type="button"  style="background-color:#82BBD8;border: 1px solid #82BBD8">
 						수의계약서 보기</button>
 					</div>
 					

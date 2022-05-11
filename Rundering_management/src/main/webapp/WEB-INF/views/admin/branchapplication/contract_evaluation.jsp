@@ -138,6 +138,9 @@
 <%@ include file="./branchRequestComplate.jsp" %>
 			
 <script>
+function openPdf(fileNo,bizType){
+	window.open("pdfview?atchFileNo="+fileNo+"&bizType="+bizType);
+}
 	
 </script>	
 
