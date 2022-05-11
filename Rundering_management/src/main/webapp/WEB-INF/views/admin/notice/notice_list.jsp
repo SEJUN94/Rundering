@@ -70,7 +70,7 @@
 				<div class="card-body p-0">
 					<table class="table table-hover text-nowrap">
 						<thead>
-							<tr>
+							<tr style="text-align: center;">
 								<th class="noticeno">번호</th>
 								<th class="title">제목</th>
 								<th class="employeeId">작성자</th>
@@ -80,7 +80,7 @@
 						</thead>
 						<tbody>
 							<c:if test="${empty noticeList }">
-								<tr>
+								<tr style="text-align: center;">
 									<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
 								</tr>
 							</c:if>

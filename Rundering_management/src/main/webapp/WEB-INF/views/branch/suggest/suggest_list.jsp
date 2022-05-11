@@ -85,7 +85,7 @@ th, td {
 						</div>
 						<div class="card-body p-0">
 							<table class="table table-hover text-nowrap">
-								<thead>
+								<thead style="text-align: center;">
 									<tr>
 										<th class="no">번호</th>
 										<th class="boardtitle">제목</th>
@@ -98,7 +98,7 @@ th, td {
 								</thead>
 								<c:if test="${empty suggestList }">
 									<tr>
-										<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+										<td colspan="7" style="text-align: center;"><strong>해당 내용이 없습니다.</strong></td>
 									</tr>
 								</c:if>
 								<c:forEach items="${suggestList }" var="suggest">
