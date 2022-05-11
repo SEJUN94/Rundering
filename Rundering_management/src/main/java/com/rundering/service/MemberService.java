@@ -28,7 +28,7 @@ public interface MemberService {
 	public List<String> getAuthList(String memberNo) throws Exception;
 
 	// 등록 신청 사원 반려 
-	public int removeByNo(String memberNo) throws Exception;
+	public void removeByNo(String memberNo) throws Exception;
 
 	// 고객 리스트 조회
 	public Map<String, Object> getMemberList(CustomerListCriteria cri) throws Exception;

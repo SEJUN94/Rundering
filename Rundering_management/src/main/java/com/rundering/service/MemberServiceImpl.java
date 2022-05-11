@@ -10,6 +10,7 @@ import com.rundering.command.CustomerListCriteria;
 import com.rundering.command.CustomerListPageMaker;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dao.EmployeesDAO;
+import com.rundering.dao.MemberAddressDAO;
 import com.rundering.dao.MemberDAO;
 import com.rundering.dao.NotificationDAO;
 import com.rundering.dto.BranchVO;
@@ -36,6 +37,11 @@ public class MemberServiceImpl implements MemberService {
 	private NotificationDAO notificationDAO;
 	public void setNotificationDAO(NotificationDAO notificationDAO) {
 		this.notificationDAO = notificationDAO;
+	}
+	private MemberAddressDAO memberAddressDAO; 
+
+	public void setMemberAddressDAO(MemberAddressDAO memberAddressDAO) {
+		this.memberAddressDAO = memberAddressDAO;
 	}
 	
 	@Override
@@ -109,9 +115,9 @@ public class MemberServiceImpl implements MemberService {
 
 	// 등록 신청 사원 반려
 	@Override
-	public int removeByNo(String memberNo) throws Exception {
-		return memberDAO.removeByNo(memberNo);
-
+	public void removeByNo(String memberNo) throws Exception {
+		memberAddressDAO.removeByNo(memberNo);
+		memberDAO.removeByNo(memberNo);
 	}
 	
 	//고객 정보 	

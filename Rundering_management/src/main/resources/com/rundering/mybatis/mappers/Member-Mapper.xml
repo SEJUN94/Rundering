@@ -91,11 +91,11 @@
 		where MEMBERNO = #{memberNo}
 	</update>
 	
-	<update id="removeByNo" parameterType="str">
+	<delete id="removeByNo" parameterType="str">
 		DELETE 
 		FROM TB_MEMBER
-		WHERE MEMBERNO = #{MEMBERNO}
-	</update>
+		WHERE MEMBERNO = #{memberNo}
+	</delete>
 	
 	<select id="getPhoneNum" parameterType="str" resultType="str">
 		select phone 

@@ -47,7 +47,7 @@ public interface MemberDAO {
 	public List<MemberVO> selectMemberList(CustomerListCriteria cri) throws Exception;
 
 	// 등록 신청 사원 반려 
-	public int removeByNo(String memberNo) throws Exception;
+	public void removeByNo(String memberNo) throws Exception;
 	
 	// 새로운 비밀번호로 변경
 	public void modifyPwById(MemberVO mv) throws Exception;
