@@ -33,7 +33,7 @@
     
     <div class="card">
         <div class="card-body login-card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg">사원번호로 로그인하세요</p>
             <form action="<%=request.getContextPath() %>/common/login" method="post">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="사번입력" name="id">
@@ -51,27 +51,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember">
-                            <label for="remember">
-                                Remember Me
-                            </label>
-                        </div>
-                    </div>
                     
-                    <div class="col-4">
+                    <div class="col-12">
                         <button type="submit" class="btn btn-primary btn-block">로그인</button>
                     </div>
 
                 </div>
             </form>
             
-            <p class="mb-1">
-                <a href="<%=request.getContextPath()%>/common/findpassword">I forgot my password</a>
+            <p class="mt-2 mb-1">
+                <a href="<%=request.getContextPath()%>/common/findpassword">비밀번호 찾기</a>
             </p>
             <p class="mb-0">
-                <a href="<%=request.getContextPath() %>/common/application" class="text-center">새로운 계정 발급하기</a>
+                <a href="<%=request.getContextPath() %>/common/application" class="text-center">사원 등록 신청</a>
             </p>
         </div>
     </div>
