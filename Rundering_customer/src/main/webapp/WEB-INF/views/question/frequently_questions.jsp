@@ -42,7 +42,7 @@
 						</select> <input class="form-control" type="text" name="keyword"
 							placeholder="검색어를 입력하세요." value="" /> <span
 							class="input-group-append">
-							<button class="btn btn-primary" type="button"
+							<button class="btn btn-primary" type="button"  style="background-color: #82BBD8; border: 1px solid #82BBD8;""
 								onclick="list_go(1);" data-card-widget="search">
 								<i class="fa fa-fw fa-search"></i>
 							</button>
@@ -56,8 +56,8 @@
 				<div class="col-12" id="accordion" style='cursor: pointer;'>
 					<c:forEach items="${frequentlyList }" var="faq">
 						<div class="card card-default card-outline">
-							<a class="d-block w-100 collapsed" data-toggle="collapse"
-								href="#abc${faq.faqno }" aria-expanded="false">
+							<a class="d-block w-100 collapsed" data-toggle="collapse" 
+								href="#abc${faq.faqno }" aria-expanded="false" style="background-color:#ebebeb;">
 								<div class="card-header">
 									<div class="row">
 										<div class="col-sm-8">
@@ -89,19 +89,21 @@
 				</div>
 			</div>
 			<section class="content-footer">
-				<div>
-					<%@ include file="/WEB-INF/views/question/pagination.jsp"%>
-				</div>
+			
 				<!-- 추가문의 -->
 				<div class="row">
-					<div class="col-12 mt-3 text-center">
+					<div class="col-12 mt-3 text-center" style="padding-bottom:20px; ">
 						<p class="lead">
-							<a href="<%=request.getContextPath()%>/question/list">Contact
-								us, if you found not the right anwser or you have a other
-								question?</a><br />
+							<a href="<%=request.getContextPath()%>/question/list">  
+							<button type="button" class="btn "
+								data-toggle="modal" data-target="#modal-lg" style="background-color: #cfe0ea; font-size:20px;"> 도움이 필요하신가요? ▶ 1:1 문의하기  </button></a><br />
 						</p>
 					</div>
 				</div>
+				
+					<div style="padding-top:10px; padding-bottom:20px;">
+					<%@ include file="/WEB-INF/views/question/pagination.jsp"%>
+					</div>
 			</section>
 		</div>
 	</div>
