@@ -235,6 +235,40 @@ public class BranchApplication {
 					} 
 			} 
 		}
+	@RequestMapping("/pdfview") 
+	public void pdfView(HttpServletRequest request,AttachVO attach ,HttpServletResponse response) throws Exception { 
+		
+		attach = attachService.getDownloadFile(attach);
+		
+		String saveDir = attach.getFilePath(); 
+		String fileName = attach.getSaveFileNm(); 
+		File file = new File(saveDir + "/" + fileName); 
+		FileInputStream fis = null; BufferedInputStream bis = null; 
+		ServletOutputStream sos = null; 
+		try { 
+			fis = new FileInputStream(file); 
+			bis = new BufferedInputStream(fis); 
+			sos = response.getOutputStream(); 
+			String reFilename = ""; 
+			reFilename = URLEncoder.encode(attach.getFileNm(), "utf-8"); 
+			reFilename = reFilename.replaceAll("\\+", "%20"); 
+
+		
+			response.setContentType("application/pdf;charset=utf-8"); 
+			response.setContentLength((int)file.length()); 
+			response.addHeader("Content-Disposition", "inline;filename=\""+reFilename+"\""); 
+
+			int read = 0; while((read = bis.read()) != -1) {sos.write(read);}
+			
+		}catch(IOException e) { 
+			e.printStackTrace(); }finally { 
+				try { 
+					sos.close(); bis.close(); 
+				}catch (IOException e) { 
+					e.printStackTrace();
+				} 
+		} 
+	}
 
 	
 	
