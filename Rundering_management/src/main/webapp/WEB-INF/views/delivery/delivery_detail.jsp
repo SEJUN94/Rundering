@@ -55,7 +55,16 @@
 								<input type="file" class="custom-file-input" name="multi" id="orginalName" onchange="fileUpload()"> <label class="custom-file-label" for="orginalName" id="lab">사진을 첨부해주세요.</label>
 								<input type="hidden" id="picture" name="picture" value="">
 							</div>
-							
+							<div>세탁주문사진</div>
+							<div class="row pl-3">
+								<c:forEach items="${avList }" var="av">
+									<c:if test="${av.bizType eq '세탁주문' }">
+										<div class="goodsPicture ml-2" id="pictureView" data-id="${av.atchFileNo }" data-aa="${av.atchFileSeq }"
+											style="border: 1px solid green; height: 100px; width: 100px;"></div>
+									</c:if>
+								</c:forEach>
+							</div>
+							<div>수거완료사진</div>
 							<div class="row pl-3">
 								<c:forEach items="${avList }" var="av">
 									<c:if test="${av.bizType eq '수거완료사진' }">

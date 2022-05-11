@@ -55,7 +55,7 @@
 					</div>
 					<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
 						<div class="col-12 col-sm-4">
-							<div>세탁주문</div>
+							<div>세탁주문사진</div>
 							<div class="row pl-3 mb-3">
 								<c:forEach items="${avList }" var="av">
 									<c:if test="${av.bizType eq '세탁주문' }">

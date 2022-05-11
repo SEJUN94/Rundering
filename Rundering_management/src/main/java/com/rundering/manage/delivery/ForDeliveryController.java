@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.LaundryOrderVO;
+import com.rundering.scheduler.OrderTaskScheduler;
 import com.rundering.service.AttachService;
 import com.rundering.service.DeliveryService;
 import com.rundering.util.FileUtil;
@@ -292,6 +293,12 @@ public class ForDeliveryController {
 		entity = new ResponseEntity<List<LaundryOrderVO>>(sort,HttpStatus.OK);
 		
 		return entity;
+	}
+	
+	@RequestMapping("/playScheduler")
+	public void playScheduler() throws Exception{
+		new OrderTaskScheduler().assignPickupEmployee(); 
+		new OrderTaskScheduler().assignDeliveryEmployee();
 	}
 	
 	/** 업로드 이미지 출력하기
