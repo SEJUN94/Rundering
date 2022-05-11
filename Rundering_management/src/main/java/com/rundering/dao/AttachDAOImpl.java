@@ -74,6 +74,11 @@ public class AttachDAOImpl implements AttachDAO{
 	public List<AttachVO> selectAttachVOByFileNoAndSeq2(AttachVO attach) throws Exception {
 		return session.selectList("Attach-Mapper.selectAttachVOByFileNoAndSeq2", attach);
 	}
+	// 파일다운로드를 위한 해당 파일의 정보가져오기(파일번호,업무구분)
+	@Override
+	public AttachVO getDownloadFile(AttachVO attach) throws Exception {
+		return session.selectOne("Attach-Mapper.getDownloadFile", attach);
+	}
 	
 	
 	

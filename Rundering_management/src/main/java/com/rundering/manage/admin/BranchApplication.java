@@ -1,9 +1,17 @@
 package com.rundering.manage.admin;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +27,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.rundering.command.Criteria;
 import com.rundering.command.EnrollmentRegistCommand;
 import com.rundering.dao.ComCodeDAO;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.BranchApplicationVO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.LaundryFixturesVO;
 import com.rundering.dto.MemberVO;
+import com.rundering.service.AttachService;
 import com.rundering.service.BranchApplicationService;
 import com.rundering.util.ComCodeUtil;
 
@@ -35,6 +45,8 @@ public class BranchApplication {
 	BranchApplicationService branchApplicationService;
 	@Autowired
 	ComCodeDAO comCodeDAO;
+	@Autowired 
+	AttachService attachService;
 	
 	@RequestMapping("/contract")
 	public ModelAndView branchContract(ModelAndView mnv,Criteria cri) {
@@ -188,6 +200,42 @@ public class BranchApplication {
 		
 		return url;
 	}
+	
+	// 파일다운로드
+		@RequestMapping("/file/filedownload") 
+		public void fileDownload(HttpServletRequest request,AttachVO attach ,HttpServletResponse response) throws Exception { 
+			
+			attach = attachService.getDownloadFile(attach);
+			
+			String saveDir = attach.getFilePath(); 
+			String fileName = attach.getSaveFileNm(); 
+			File file = new File(saveDir + "/" + fileName); 
+			FileInputStream fis = null; BufferedInputStream bis = null; 
+			ServletOutputStream sos = null; 
+			try { 
+				fis = new FileInputStream(file); 
+				bis = new BufferedInputStream(fis); 
+				sos = response.getOutputStream(); 
+				String reFilename = ""; 
+				reFilename = URLEncoder.encode(attach.getFileNm(), "utf-8"); 
+				reFilename = reFilename.replaceAll("\\+", "%20"); 
+
+			
+				response.setContentType("application/octet-stream;charset=utf-8"); 
+				response.addHeader("Content-Disposition", "attachment;filename=\""+reFilename+"\""); 
+				response.setContentLength((int)file.length()); 
+				int read = 0; while((read = bis.read()) != -1) {sos.write(read);}
+				
+			}catch(IOException e) { 
+				e.printStackTrace(); }finally { 
+					try { 
+						sos.close(); bis.close(); 
+					}catch (IOException e) { 
+						e.printStackTrace();
+					} 
+			} 
+		}
+
 	
 	
 	
