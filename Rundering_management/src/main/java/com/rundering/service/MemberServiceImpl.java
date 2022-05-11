@@ -49,9 +49,8 @@ public class MemberServiceImpl implements MemberService {
 	public void applicationEmployee(MemberVO member) throws Exception {
 		memberDAO.applicationEmployee(member);
 		
-		//본사 직원들에게 알림
-		BranchVO branchVO = branchDAO.selectBranchByBranchCode("000000");
-		List<EmployeesVO> employeesList = employeesDAO.selectEmployeesByBranchCode(branchVO.getBranchCode());
+		//신청한 지점 직원들에게 알림
+		List<EmployeesVO> employeesList = employeesDAO.selectEmployeesByBranchCode(member.getPassword());
 		NotificationVO notificationVO = new NotificationVO();
 			for (EmployeesVO employeesVO : employeesList) {
 				int sequence = notificationDAO.selectNotificationSequenceNextValue();

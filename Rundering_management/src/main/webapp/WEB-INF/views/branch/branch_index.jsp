@@ -104,6 +104,10 @@
 			iconClass = "fas fa-tools mr-2";
 		}else if(item.ntcnknd == 'PC'){
 			iconClass = "fas fa-tasks mr-2";
+		}else if(item.ntcnknd == 'EA'){
+			iconClass = "fas fa-user mr-2";
+		}else if(item.ntcnknd == 'IQ'){
+			iconClass = "fas fa-question-circle mr-2";
 		}
 		
 		let displaytime = displayedAt(item.occrrncdehour);
