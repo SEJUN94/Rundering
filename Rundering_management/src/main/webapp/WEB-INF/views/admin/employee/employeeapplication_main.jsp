@@ -258,7 +258,7 @@
 		         success : function(ok) {
 		            if(ok.toUpperCase() == "OK"){
 		               Swal.fire({
-		                  icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+		                  icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
 		                  title: '반려',
 		                  text: '해당 신청을 반려하였습니다.'
 		               });
