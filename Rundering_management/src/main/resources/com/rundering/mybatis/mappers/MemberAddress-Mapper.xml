@@ -51,5 +51,11 @@
 		)
 	</update>
 	
+	<delete id="remove" parameterType="str">
+		DELETE 
+		FROM TB_MEMBER_ADDRESS
+		WHERE MEMBERNO = #{memberNo}
+	</delete>
+	
 
 </mapper>

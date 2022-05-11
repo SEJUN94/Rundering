@@ -83,9 +83,8 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	// 등록 신청 사원 반려 
 	@Override
-	public int removeByNo(String memberNo) throws Exception {
-		return session.update("Member-Mapper.removeByNo",memberNo);
-		
+	public void removeByNo(String memberNo) throws Exception {
+		session.delete("Member-Mapper.removeByNo",memberNo);
 	}
 
 	//권한그룹
