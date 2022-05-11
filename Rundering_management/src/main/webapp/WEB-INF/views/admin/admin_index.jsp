@@ -81,7 +81,7 @@
 								<i class="far fa-bell"></i> 
 								<span class="badge badge-warning navbar-badge">${'${items.length}'}</span>
 							</a>
-								<div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px; width: 340px; padding: 0;">
+								<div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px; width: 340px; padding: 0;max-height: 370px;overflow-y: auto;">
 									<span class="dropdown-item dropdown-header">읽지 않은 알림 ${'${items.length}'}개</span>`;
 									
 		  let lasthtml = `<div class="dropdown-divider m-0"></div>
@@ -170,10 +170,10 @@
 			return new Date(createdAt).format("yyyy.MM.dd");
 	 }
 
-		setTimeout(function refreshNotification(){
+	/* setTimeout(function refreshNotification(){
 		getNotification();
-		setTimeout(refreshNotification, 3000);
-	}, 3000);
+		setTimeout(refreshNotification, 5000);
+	}, 5000); */
 	
 	</script>
 	

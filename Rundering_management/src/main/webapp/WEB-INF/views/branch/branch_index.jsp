@@ -68,7 +68,7 @@
 				 <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false"> 
 					<i class="far fa-bell"></i> 
 				</a>
-					<div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px; width: 340px; padding: 0;">
+					<div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px; width: 340px; padding: 0;max-height: 370px;overflow-y: auto;">
 					<div class="d-flex justify-content-center text-muted pt-3 pb-3">
 						<span>
 							새로운 알림이 없습니다.
@@ -170,10 +170,10 @@
 			return new Date(createdAt).format("yyyy.MM.dd");
 	 }
 
-	 setTimeout(function refreshNotification(){
+	/*  setTimeout(function refreshNotification(){
 			getNotification();
-			setTimeout(refreshNotification, 3000);
-	}, 3000);
+			setTimeout(refreshNotification, 5000);
+	}, 5000); */
 	
 	</script>
 	
