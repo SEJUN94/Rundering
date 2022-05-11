@@ -143,19 +143,28 @@
 	
 	
 	<select id="selectSearchEmployeeList" resultType="com.rundering.command.EmployeesCommand" parameterType="str">
-		select A.EMPLOYEE_ID as employeeId,
-		    A.BRANCH_CODE as branchCode,
-		    A.DEPARTMENT as department,
-		    A.POSITION as position,
-		    A.JOINING_COMPANY_DATE as joiningCompanyDate,
-		    B.NAME,
-		    B.PHONE
-		  from tb_employees A, tb_member B
-		 WHERE A.MEMBERNO IS NOT NULL
-		 <include refid="searchSort" />
-		 <include refid="search"/>
-		   AND A.MEMBERNO = B.MEMBERNO
-		   AND B.EMPLOYEE_ID_YN = 'Y'
+		  SELECT A.EMPLOYEE_ID AS employeeId,
+		  		 A.JOINING_COMPANY_DATE as joiningCompanyDate,
+                 B.NAME,
+                 B.PHONE,
+                 C.BRANCH_NAME as branchCode,
+                 D.DEPARTMENT_NM as department,
+                 F.POSITION_NM as position
+          FROM TB_EMPLOYEES A, TB_MEMBER B, TB_BRANCH C,(SELECT COM_CODE AS DEPARTMENT_CODE,
+                                                                COM_CODE_NM AS DEPARTMENT_NM
+                                                           FROM TB_COM_CODE
+                                                          WHERE COM_CODE_GRP = 'DEPARTMENT') D,
+                                                          (SELECT COM_CODE AS POSITION_CODE,
+                                                                COM_CODE_NM AS POSITION_NM
+                                                           FROM TB_COM_CODE
+                                                          WHERE COM_CODE_GRP = 'POSITION')F
+          WHERE A.MEMBERNO = B.MEMBERNO
+          	<include refid="searchSort" />
+			<include refid="search"/>
+            AND A.BRANCH_CODE = C.BRANCH_CODE
+            AND A.DEPARTMENT = D.DEPARTMENT_CODE
+            AND A.POSITION =F.POSITION_CODE
+            AND B.EMPLOYEE_ID_YN = 'Y'
 	</select>
 	
 	<select id="selectSearchEmployeeListCount" resultType="int">

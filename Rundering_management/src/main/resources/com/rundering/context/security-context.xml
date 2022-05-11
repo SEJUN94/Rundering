@@ -34,7 +34,7 @@
 		
 		<intercept-url pattern="/admin/index" access="isAuthenticated()"/>
 		<intercept-url pattern="/branch/index" access="isAuthenticated()"/>
-		<intercept-url pattern="/fordelivery/main.do" access="isAuthenticated()"/>
+		<intercept-url pattern="/fordelivery/main" access="isAuthenticated()"/>
 		
 		
 		<form-login login-page="/common/loginform.do?error=1"

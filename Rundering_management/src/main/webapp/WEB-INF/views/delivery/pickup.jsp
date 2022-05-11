@@ -160,10 +160,6 @@ function sortAddr1(branchCode){
 
 
 </script>
-
-
-		
-	
 <script>
 	function complete_all(){
 		Swal.fire({
@@ -186,7 +182,7 @@ function sortAddr1(branchCode){
 					if(ok.toUpperCase() == "OK"){
 						Swal.fire({
 							icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
-							title: '취소 처리 되었습니다.',
+							title: '지점전달 완료하였습니다.',
 						});
 						setTimeout(function(){location.href='<%=request.getContextPath()%>/fordelivery/pickup';},1000);
 					} else {
