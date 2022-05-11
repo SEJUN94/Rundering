@@ -113,6 +113,7 @@ public class BranchItemOrderController {
 	@ResponseBody
 	private Map<String, Object> orderGoodsList(Criteria cri){
 		Map<String, Object> dataMap=null;
+		cri.setPerPageNum(10);
 		try {
 			dataMap = laundryArticlesService.getLaundryArticles(cri);
 		} catch (SQLException e) {

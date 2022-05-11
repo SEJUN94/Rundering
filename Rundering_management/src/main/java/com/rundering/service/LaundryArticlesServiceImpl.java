@@ -48,7 +48,7 @@ public class LaundryArticlesServiceImpl implements LaundryArticlesService {
 	public Map<String, Object> getLaundryArticles(Criteria cri) throws SQLException {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		ComCodeUtil comCodeUtil = new ComCodeUtil();
-		cri.setPerPageNum(4);
+		
 		try {
 			comCodeUtil.getCodeListMap("EACH", dataMap, comCodeDAO);
 			comCodeUtil.getCodeListMap("CLCODE", dataMap, comCodeDAO);
