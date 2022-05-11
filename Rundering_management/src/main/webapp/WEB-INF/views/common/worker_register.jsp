@@ -18,6 +18,7 @@
         left: 50%;        
         -ms-transform: translate(-50%, -50%);        
         transform: translate(-50%, -50%);
+        opacity: 0.965;
     }
 </style>
 <!-- 이쁜알림창 -->
@@ -28,15 +29,14 @@
 </head>
 
 <body>
-
+<img class="bg" src="<%=request.getContextPath() %>/resources/image/LoginBackground.jpg" alt="rundering_bg" style="opacity: 0.6;">
     <div class="register-box">
-        <div class="login-logo">
-            <div><img class="logo" src="imgfile/RunderingLogo.png" alt="RunderingMember"></div>
-            <!-- <b>회원</b> 로그인 -->
-        </div>
         <div class="card">
+        <div class="card-header text-center">
+			<p class="h3 p-1 mb-0">사원 등록 신청</p>
+			</div>
             <div class="card-body register-card-body">
-                <p class="login-box-msg">Register a new membership</p>
+                <p class="login-box-msg">인사담당자 검토 후 사원등록 예정입니다.</p>
                 <form class="form-horizontal" onsubmit="return valid();" method="post">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" id="name" name="name" placeholder="사원명 입력">
@@ -96,7 +96,7 @@
                         <div class="col-8">
                         </div>
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block" onclick="regist()">등록신청</button>
+                            <button type="submit" class="btn btn-info btn-block" onclick="regist()">등록신청</button>
                         </div>
                     </div>
                 </form>
