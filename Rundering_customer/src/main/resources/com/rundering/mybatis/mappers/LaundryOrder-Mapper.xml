@@ -136,30 +136,9 @@
 	
 	<!--주문내역 디테일에 뿌려줄 쿼리 -->
 	<select id="getmyorderByorderNo" parameterType="str" resultMap="laundryOrderMap">
-		SELECT  
-		A.ORDER_NO AS ORDER_NO
-        ,A.ORDER_DATE AS ORDER_DATE
-        ,A.TOTAL_PRICE AS TOTAL_PRICE 
-        ,(SELECT 
-        D.BRANCH_NAME
-        FROM TB_BRANCH D
-        WHERE A.BRANCH_CODE = D.BRANCH_CODE
-        AND A.MEMBERNO = #{memberNo}) AS BRANCH_CODE
-        ,(SELECT  
-		B.COM_CODE_NM
-		FROM ORDER_STATUS B
-		WHERE A.MEMBERNO=#{memberNo}
-		AND A.ORDER_STATUS=b.COM_CODE) AS ORDER_STATUS
-        ,(SELECT 
-        C.PAYMENT_NAME
-        FROM TB_PAYMENT C
-        WHERE A.PAYMENTNO = C.PAYMENTNO
-        AND A.MEMBERNO = #{memberNo}) AS PAYMENTNO
-        ,A.ATCH_FILE_NO AS ATCH_FILE_NO
-		FROM TB_LAUNDRY_ORDER A
-		WHERE A.MEMBERNO=#{memberNo}
-		AND A.CANCEL_YN='N'
-		AND A.ORDER_NO= #{orderNo}
+		SELECT  *	
+		FROM TB_LAUNDRY_ORDER
+		WHERE ORDER_NO= #{orderNo}
 	</select>
 	
 	<select id="getmyCompleteorderList" parameterType="str" resultMap="laundryOrderMap">

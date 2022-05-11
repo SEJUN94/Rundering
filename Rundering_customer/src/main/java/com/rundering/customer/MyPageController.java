@@ -395,11 +395,15 @@ public class MyPageController {
 	
 	// 주문내역 디테일
 	@RequestMapping("/order_detail")
-	public ModelAndView orderDetail(ModelAndView mnv,AttachVO attach,LaundryOrderVO laundryOrder) {
+	public ModelAndView orderDetail(HttpServletRequest request,ModelAndView mnv,AttachVO attach,String orderNo) throws Exception {
 		String url = "/mypage/order_detail";
 		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		Map<String, Object> dataMap = laundryOrderService.getDetail(orderNo);
 		
-		
+		mnv.addObject("loginUser",loginUser);
+		mnv.addObject("dataMap",dataMap);
 		mnv.setViewName(url);
 		return mnv;
 	}

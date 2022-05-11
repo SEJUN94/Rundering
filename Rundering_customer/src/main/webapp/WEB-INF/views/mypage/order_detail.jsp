@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:set var="laundryOrder" value="${dataMap.laundryOrder }" />
+<c:set var="detailList" value="${dataMap.detailList }" />
+<c:set var="loginUser" value="${loginUser }" />
   
 <style>
     .circle {
@@ -98,15 +104,42 @@
 				          <div class="step-counter">
 				             <i class="fa-solid fa-1"></i>
 				          </div>
+				          <c:if test="${laundryOrder.orderStatus eq '01'}" >
+				          <div class="step-name"><span style="font-size:1.5em;font-weight: 500;">수거대기</span></div>
+				          </c:if>
+				           <c:if test="${laundryOrder.orderStatus ne '01'}" >
 				          <div class="step-name">수거대기</div>
+				          </c:if>
 				        </div>
+				        <c:if test="${laundryOrder.orderStatus eq '02'}" >
+				        <div class="stepper-item completed">
+				          <div class="step-counter">
+				             <i class="fa-solid fa-2"></i>
+				          </div>
+				          <div class="step-name"><span style="font-size:1.5em;font-weight: 500;">수거중</span></div>
+				        </div>
+				         </c:if>
+				        <c:if test="${laundryOrder.orderStatus ne '02'}" >
+				        <c:if test="${laundryOrder.orderStatus eq '01'}" >
 				        <div id="" class="stepper-item second">
+				        </c:if>
+				        <c:if test="${laundryOrder.orderStatus ne '01'}" >
+				        <div class="stepper-item completed">
+				        </c:if>
+						</c:if>
 				          <div class="step-counter">
 				             <i class="fa-solid fa-2"></i>
 				          </div>
 				          <div class="step-name">수거중</div>
 				        </div>
+				        <c:if test="${laundryOrder.orderStatus ne '01' }" >
+				        <c:if test="${laundryOrder.orderStatus ne '02' }" >
+				        <div class="stepper-item completed">
+				        </c:if>
+				        </c:if>
+				        <c:if test="${laundryOrder.orderStatus eq '01' || laundryOrder.orderStatus eq '02' }" >
 				        <div id="" class="stepper-item third">
+				        </c:if>
 				          <div class="step-counter">
 				             <i class="fa-solid fa-3"></i>
 				          </div>
@@ -147,7 +180,7 @@
 			</div>
    		</div>
    	</div>
-    <div class="col-12" style=" width: 100%;min-height:700px;max-height:600px; margin: 10px auto; display: flex;">
+    <div class="col-12" style=" width: 100%;min-height:500px;max-height:500px; margin: 10px auto; display: flex;">
 
         <div class="card-body col-6 ml-1" style="min-height:600px;max-height:600px; flex:1;width:50%;box-sizing: border-box; padding-top:1px;">
             <div class="card">
@@ -160,84 +193,46 @@
                 </div>
 
                 <div class="card-body p-0">
-                    <ul class="products-list product-list-in-card pl-2 pr-2" style="height:552px;">
-                      
+                    <ul class="products-list product-list-in-card pl-2 pr-2" style="height:455px;">
+                      <c:forEach items="${detailList }" var="list">
                         <li class="item">
                             <div class="product-info">
-                                <a href="javascript:void(0)" class="product-title">Samsung TV
-                                    <span class="badge badge-warning float-right">$1800</span></a>
-                                <span class="product-description">
-                                    Samsung 32" 1080p 60Hz LED Smart HDTV.
-                                </span>
+                                <span style="font-weight:bold;">${list.itemsName }</strong>
+                                <span class="product-description float-right">${list.quantity } 개</span>
                             </div>
                         </li>
-
-                        <li class="item">
-                            <div class="product-info">
-                                <a href="javascript:void(0)" class="product-title">Bicycle
-                                    <span class="badge badge-info float-right">$700</span></a>
-                                <span class="product-description">
-                                    26" Mongoose Dolomite Men's 7-speed, Navy Blue.
-                                </span>
-                            </div>
-                        </li>
-
-                        <li class="item">
-                            <div class="product-info">
-                                <a href="javascript:void(0)" class="product-title">
-                                    Xbox One <span class="badge badge-danger float-right">
-                                        $350
-                                    </span>
-                                </a>
-                                <span class="product-description">
-                                    Xbox One Console Bundle with Halo Master Chief Collection.
-                                </span>
-                            </div>
-                        </li>
-
-                        <li class="item">
-                            <div class="product-info">
-                                <a href="javascript:void(0)" class="product-title">PlayStation 4
-                                    <span class="badge badge-success float-right">$399</span></a>
-                                <span class="product-description">
-                                    PlayStation 4 500GB Console (PS4)
-                                </span>
-                            </div>
-                        </li>
-
+				      </c:forEach>
                     </ul>
                 </div>
 
                 <div class="card-footer clearfix">
-                	총 가격 : 
+                	총 가격 :  <fmt:formatNumber value="${laundryOrder.totalPrice}" pattern="#,###"/> 원 
                 </div>
 
             </div>
         </div>
-        <div class="col-6" style="min-height: 600px; max-height:600px; flex:1;width:50%;box-sizing: border-box;">
+        <div class="col-6" style="min-height: 450px; max-height:450px; flex:1;width:50%;box-sizing: border-box;">
             <div class="card card-primary card-outline direct-chat direct-chat-primary col-12 p-0"
                 style="box-sizing: border-box;">
                 <div class="card-header">
-                    <h3 class="card-title">Direct Chat</h3>
+                    <h3 class="card-title">요청사항</h3>
                 </div>
 
                 <div class="card-body">
 
                     <div class="direct-chat-messages">
-
+						<c:if test="${not empty laundryOrder.requestDetails}">
                         <div class="direct-chat-msg">
                             <div class="direct-chat-infos clearfix">
-                                <span class="direct-chat-name float-left">고객</span>
-                                <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
+                                <span class="direct-chat-name float-left">${loginUser.name }</span>
+                                <span class="direct-chat-timestamp float-right"><fmt:formatDate value="${laundryOrder.orderDate}" pattern="yy-MM-dd HH:mm" /> </span>
                             </div>
-
-                            <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="No img">
-
                             <div class="direct-chat-text">
-                                옷 깨끗하게 빨아놔라!
+                                ${laundryOrder.requestDetails}
                             </div>
 
                         </div>
+                        </c:if>
 
 
                         <div class="direct-chat-msg right">
@@ -245,8 +240,6 @@
                                 <span class="direct-chat-name float-right">Rundering</span>
                                 <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
                             </div>
-
-                            <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="No img">
 
                             <div class="direct-chat-text">
                                 신속 깨끗하게 처리해서 집 앞까지 확실히 가져다 드리겠습니다!
@@ -293,7 +286,7 @@
                     </div>
 
                     <div class="card-body p-0">
-                        <ul class="users-list clearfix" style="height:250px;">
+                        <ul class="users-list clearfix" style="height:150px;">
                             <li>
                                 <img src="dist/img/user1-128x128.jpg" alt="사진넣을곳">
                                 <a class="users-list-name" href="#">사진</a>

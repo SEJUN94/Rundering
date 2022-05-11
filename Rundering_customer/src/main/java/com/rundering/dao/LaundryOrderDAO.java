@@ -29,4 +29,7 @@ public interface LaundryOrderDAO {
 	// 마이페이지 - 완료된 주문내역 개수 체크
 	public int myCompleteOrderList(MyOrderCriteria cri) throws SQLException;
 	
+	// 마이페이지 - 주문내역 디테일
+	public LaundryOrderVO getmyorderByorderNo(String orderNo) throws Exception;
+	
 }

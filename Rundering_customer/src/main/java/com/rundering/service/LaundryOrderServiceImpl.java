@@ -176,4 +176,18 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		
 		return dataMap;
 	}
+
+	// 마이페이지 - 내 주문내역 디테일
+	@Override
+	public Map<String, Object> getDetail(String orderNo) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		LaundryOrderVO laundryOrder = laundryOrderDAO.getmyorderByorderNo(orderNo);
+		List<LaundryOrderDetailVO> detailList = laundryOrderDetailDAO.getMyorderDetail(orderNo);
+		
+		dataMap.put("laundryOrder",laundryOrder);
+		dataMap.put("detailList", detailList);
+		
+		return dataMap;
+	}
 }
