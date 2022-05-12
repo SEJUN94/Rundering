@@ -23,10 +23,14 @@ import com.rundering.dto.FAQVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
+import com.rundering.dto.ReplyVO;
+import com.rundering.service.AttachService;
 import com.rundering.service.FAQService;
 import com.rundering.service.LaundryOrderService;
 import com.rundering.service.MemberAddressService;
 import com.rundering.service.MemberService;
+import com.rundering.service.ReplyService;
+import com.rundering.util.FileUtil;
 import com.rundering.util.UserSha256;
 
 
@@ -39,6 +43,12 @@ public class MyPageController {
 	
 	@Resource(name="memberAddressService")
 	private MemberAddressService memberAddressService;
+
+	@Resource(name="attachService")
+	private AttachService attachService;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	@Autowired
 	private LaundryOrderService laundryOrderService; 
@@ -429,6 +439,40 @@ public class MyPageController {
 		return mnv;
 	}
 	
-	@RequestMapping("/order_delivery")
-	public void orderDelivery() {}
+	// 요청사항 댓글 달기
+	@RequestMapping("/reply")
+	public ResponseEntity<String> reply(ReplyVO rv,String no,HttpSession session) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		rv.setMemberno(loginUser.getMemberNo());
+		rv.setReplyno(Integer.parseInt(no));
+		try {
+			replyService.insertMypageRe(rv);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+
+		return entity;
+	}
+	
+	// 사진가져오기
+	@RequestMapping(value = "/getPicture", produces = "text/plain;charset=utf-8")
+	public ResponseEntity<byte[]> getPicture(AttachVO atch) throws Exception {
+		
+		FileUtil fileUtil = new FileUtil();
+		ResponseEntity<List<byte[]>> en = fileUtil.getPicture(atch, attachService);
+		List<byte[]> bs =en.getBody();
+		byte[] file = bs.get(0);
+		
+		ResponseEntity<byte[]> entity = null;
+		entity = new ResponseEntity<byte[]>(file, HttpStatus.CREATED);
+		return entity;
+	}
+	
+
 }

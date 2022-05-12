@@ -82,6 +82,7 @@
 		p:laundryOrderDetailDAO-ref="laundryOrderDetailDAO"
 		p:laundryItemsDAO-ref="laundryItemsDAO"
 		p:paymentDAO-ref="paymentDAO"
+		p:attachDAO-ref="attachDAO"
 		p:replyDAO-ref="replyDAO"
 	/>
 	<bean id="laundryItemsService" class="com.rundering.service.LaundryItemsServiceImpl"
@@ -99,7 +100,9 @@
 		p:employeesDAO-ref="employeesDAO"
 		p:notificationDAO-ref="notificationDAO"
 	/>
-	
+	<bean id="replyService" class="com.rundering.service.ReplyService"
+	 	p:replyDAO-ref="replyDAO"
+	/>
 	
 	
 	

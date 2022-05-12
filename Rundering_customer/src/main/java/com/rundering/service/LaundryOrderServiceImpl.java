@@ -9,15 +9,18 @@ import java.util.Map;
 
 import com.rundering.command.MyOrderCriteria;
 import com.rundering.command.MyOrderPageMaker;
+import com.rundering.dao.AttachDAO;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
 import com.rundering.dao.PaymentDAO;
 import com.rundering.dao.ReplyDAO;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.LaundryItemsVO;
 import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.PaymentVO;
+import com.rundering.dto.ReplyVO;
 
 public class LaundryOrderServiceImpl implements LaundryOrderService {
 	
@@ -36,6 +39,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	private PaymentDAO paymentDAO;
 	public void setPaymentDAO(PaymentDAO paymentDAO) {
 		this.paymentDAO = paymentDAO;
+	}
+	private AttachDAO attachDAO;
+	public void setAttachDAO(AttachDAO attachDAO) {
+		this.attachDAO = attachDAO;
 	}
 	private ReplyDAO replyDAO;
 	public void setReplyDAO(ReplyDAO replyDAO) {
@@ -184,9 +191,13 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		
 		LaundryOrderVO laundryOrder = laundryOrderDAO.getmyorderByorderNo(orderNo);
 		List<LaundryOrderDetailVO> detailList = laundryOrderDetailDAO.getMyorderDetail(orderNo);
+		List<AttachVO> avList = attachDAO.selectAttachVOByFileNo(laundryOrder.getAtchFileNo());
+		List<ReplyVO> rvList = replyDAO.getReList(laundryOrder.getReplyNo());
 		
+		dataMap.put("rvList", rvList);
 		dataMap.put("laundryOrder",laundryOrder);
 		dataMap.put("detailList", detailList);
+		dataMap.put("avList", avList);
 		
 		return dataMap;
 	}

@@ -73,11 +73,6 @@
 		order by replyno asc
 	</select>
 	
-	<update id="insertReply" >
-		insert into TB_REPLY(replyno,replyContent,memberno)
-		values(#{replyno},#{replyContent},#{memberno})
-	</update>
-	
 	<update id="updateReply" parameterType="reply">
 		update TB_REPLY
 		set 
@@ -90,5 +85,24 @@
 		delete from TB_REPLY
 		where replyno=#{replyno}		
 	</update>	
+	
+	<select id="getSeq" resultType="int" parameterType="int">
+		select count(*)
+		from tb_reply
+		where REPLYNO = #{replyno}
+	</select>
+	
+	<update id="insertMypageRe" parameterType="reply">
+	INSERT INTO TB_REPLY
+	(REPLYNO, REPLY_CONTENT, MEMBERNO, REPLYNO_SEQ) 
+	VALUES (#{replyno}, #{replyContent}, #{memberno}, #{replynoSeq})
+	</update>
+	
+	<select id="getReList" parameterType="int" resultMap="replyMap">
+		  select *
+		from TB_REPLY
+		where REPLYNO= #{replyno}
+		order by REPLYNO_SEQ asc
+	</select>
  
  </mapper>
