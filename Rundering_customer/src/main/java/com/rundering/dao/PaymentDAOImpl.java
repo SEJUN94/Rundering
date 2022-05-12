@@ -23,4 +23,10 @@ public class PaymentDAOImpl implements PaymentDAO{
 		session.update("Payment-Mapper.updatePaymentOrderNo", payment);
 	}
 
+	// 결제 취소
+	@Override
+	public void cancelPayment(String orderNo) throws Exception {
+		session.update("Payment-Mapper.cancelPayment", orderNo);
+	}
+
 }

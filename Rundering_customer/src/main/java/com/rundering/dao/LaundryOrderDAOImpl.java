@@ -81,5 +81,11 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		return session.selectOne("LaundryOrder-Mapper.getmyorderByorderNo", orderNo);
 	}
 
+	// 마이페이지 - 주문취소
+	@Override
+	public void cancelLaundryOrder(String orderNo) throws Exception {
+		session.update("LaundryOrder-Mapper.cancelLaundryOrder", orderNo);
+	}
+
 
 }

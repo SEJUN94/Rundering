@@ -207,4 +207,11 @@
 		WHERE MEMBERNO=#{memberNo}
 	</select>
 	
+	<update id="cancelLaundryOrder" parameterType="str">
+		update TB_LAUNDRY_ORDER
+	     set 
+	     CANCEL_YN = 'Y'
+	     where ORDER_NO = #{orderNo}
+	</update>
+	
 </mapper>

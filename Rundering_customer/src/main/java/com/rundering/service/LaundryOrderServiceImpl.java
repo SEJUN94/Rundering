@@ -226,4 +226,16 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		
 		return dataMap;
 	}
+
+	// 주문취소
+	@Override
+	public void cancelOrder(LaundryOrderVO laundryOrder) throws Exception {
+
+		laundryOrderDAO.cancelLaundryOrder(laundryOrder.getOrderNo());
+		paymentDAO.cancelPayment(laundryOrder.getOrderNo());
+		
+		attachDAO.deleteAttchFileRemoveByFileNo(laundryOrder.getAtchFileNo());
+		replyDAO.deleteReply(laundryOrder.getReplyNo());
+		
+	}
 }

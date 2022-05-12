@@ -4,10 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
@@ -173,5 +171,41 @@ aside ul li a {
 				AjaxErrorSecurityRedirectHandler(error.status);
 			}
 		});
+	}
+	
+	function cancel(){
+		Swal.fire({
+            title: '세탁 주문을 취소하시겠습니까?',
+            icon : 'warning' ,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '승인',
+            cancelButtonText: '취소',
+            reverseButtons: true, // 버튼 순서 거꾸로
+            
+          }).then((result) => {
+              if (result.isConfirmed) {
+				$.ajax({
+					url : '<%=request.getContextPath()%>/mypage/cancelOrder',
+					data : {
+						'password' : $('#password').val()
+					},
+					type : 'post',
+					success : function(result) {
+						if (result.toUpperCase() == "OK") {
+							Swal.fire('변경 완료', '비밀변호 변경이 완료되었습니다.', 'success' )
+						} else {
+							Swal.fire({
+								icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+								title: '비밀번호 변경에 실패하였습니다.',
+							});
+						}
+					},
+					error : function(error) {
+						AjaxErrorSecurityRedirectHandler(error.status);
+					}
+				});
+              }})	
 	}
 </script>
