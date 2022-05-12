@@ -13,6 +13,7 @@ import com.rundering.dao.AttachDAO;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
+import com.rundering.dao.MemberDAO;
 import com.rundering.dao.PaymentDAO;
 import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.AttachVO;
@@ -47,6 +48,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	private ReplyDAO replyDAO;
 	public void setReplyDAO(ReplyDAO replyDAO) {
 		this.replyDAO = replyDAO;
+	}
+	private MemberDAO memberDAO;
+	public void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
 	}
 	
 	//세탁주문접수
@@ -189,15 +194,35 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	public Map<String, Object> getDetail(String orderNo) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
+		String pickUpNum = null;
+		String deliveryNum = null;
+		
+		// 주문정보 가져오기
 		LaundryOrderVO laundryOrder = laundryOrderDAO.getmyorderByorderNo(orderNo);
+		// 주문에 대한 상세내역 가져오기
 		List<LaundryOrderDetailVO> detailList = laundryOrderDetailDAO.getMyorderDetail(orderNo);
+		// 주문에 대한 사진(이미지) 불러오기 
 		List<AttachVO> avList = attachDAO.selectAttachVOByFileNo(laundryOrder.getAtchFileNo());
+		// 주문에 대한 댓글 불러오기
 		List<ReplyVO> rvList = replyDAO.getReList(laundryOrder.getReplyNo());
+		
+		
+		if(laundryOrder.getPickupEmployeeId() != null ){
+			// 주문에 대한 수거기사 연락처 가져오기
+			pickUpNum =  memberDAO.getDelivery(laundryOrder.getPickupEmployeeId());
+		}
+		if(laundryOrder.getDeliveryEmployeeId() != null ){
+			// 주문에 대한 배송기사 연락처 가져오기
+			deliveryNum =  memberDAO.getDelivery(laundryOrder.getDeliveryEmployeeId());
+		}
+		
 		
 		dataMap.put("rvList", rvList);
 		dataMap.put("laundryOrder",laundryOrder);
 		dataMap.put("detailList", detailList);
 		dataMap.put("avList", avList);
+		dataMap.put("pickUpNum", pickUpNum);
+		dataMap.put("deliveryNum", deliveryNum);
 		
 		return dataMap;
 	}

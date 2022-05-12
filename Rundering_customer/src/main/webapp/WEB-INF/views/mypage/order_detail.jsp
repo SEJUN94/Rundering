@@ -11,6 +11,8 @@
 <c:set var="avList" value="${dataMap.avList }" />
 <c:set var="rvList" value="${dataMap.rvList }" />
 <c:set var="loginUser" value="${loginUser }" />
+<c:set var="pickUpNum" value="${dataMap.pickUpNum }" />
+<c:set var="deliveryNum" value="${dataMap.deliveryNum }" />
 
 <style>
 .circle {
@@ -349,9 +351,30 @@
 			<div class="card">
 				<div class="card-header">
 					<h3 class="card-title">담당지점</h3>
+					<c:if test="${empty laundryOrder.branchCode }">
+					</c:if>
+					<c:if test="${!empty laundryOrder.branchCode}" >
+					<p class="float-right pt-1">${laundryOrder.branchCode }</p>
+					</c:if>
 				</div>
 
 				<div class="card-body p-0" style="height:150px;">
+				<div style="margin:30px;">
+				<c:if test="${pickUpNum != null}">
+				<span style="font-size:1.2em;">수거기사 연락처 : ${pickUpNum }</span>
+				</c:if>
+				<c:if test="${pickUpNum == null}">
+				<span style="font-size:1.2em;">수거기사 미정</span>
+				</div>
+				<div style="margin:30px;">
+				</c:if>
+				<c:if test="${deliveryNum != null}">
+				<span style="font-size:1.2em;">배송기사 연락처 : ${deliveryNum }</span>
+				</c:if>
+				<c:if test="${deliveryNum == null }">
+				<span style="font-size:1.2em;">배송기사 미정</span>
+				</c:if>
+				</div>
 				</div>
 			</div>
 		</div>

@@ -95,6 +95,12 @@ public class MemberDAOImpl implements MemberDAO{
 		return pw;
 	}
 	
+	// 사원ID를 통해 배송기사 연락처 가져오기
+	@Override
+	public String getDelivery(String id) throws Exception {
+		return session.selectOne("Member-Mapper.getDelivery", id); 
+	}
+	
 
 	
 }

@@ -32,6 +32,9 @@ public interface MemberDAO {
 	// 회원정보 삭제(비활성화)
 	public void deleteMember(String id) throws Exception;
 	
+	// 사원ID를 통해 배송기사 연락처 가져오기
+	public String getDelivery(String id) throws Exception;
+	
 	public int selectIdFindByMember(MemberVO member) throws Exception;
 	public int selectPasswordFindByMember(MemberVO member) throws Exception;
 	public String selectGetFindIdByMember(MemberVO member) throws Exception;
