@@ -323,7 +323,7 @@
 				<span class="info-box-icon bg-success elevation-1"><i
 					class="fas fa-shopping-cart"></i></span>
 				<div class="info-box-content">
-					<span class="info-box-text">주문 상세 내역</span>
+					<span class="info-box-text" style="font-size:1.5em;">주문 상세 내역</span>
 				</div>
 			</div>
 
@@ -333,7 +333,7 @@
 					<c:forEach items="${detailList }" var="list">
 						<li class="item">
 							<div class="product-info">
-								<span style="font-weight: bold;font-size:1.3em;">${list.itemsName } </span>
+								<span style="font-weight: 400;font-size:1.2em;">${list.itemsName } </span>
 								<span class="product-description float-right pt-1">${list.quantity } 개</span>
 							</div>
 						</li>
@@ -403,29 +403,66 @@
 					</div>
 			</div>
 		</div>
-  <div class="card card-primary card-outline direct-chat direct-chat-primary col-12 p-0" style="box-sizing: border-box;">
+<div class="card card-primary card-outline direct-chat direct-chat-primary col-12 p-0" style="box-sizing: border-box;">
 			<div class="card-header">
 				<h3 class="card-title">요청사항</h3>
 			</div>
 
 			<div class="card-body">
 				<div class="direct-chat-messages" style="overflow:auto;">
-					<div class="direct-chat-msg right">
+					<c:if test="${not empty laundryOrder.requestDetails}">
+						<div class="direct-chat-msg right">
 							<div class="direct-chat-infos clearfix">
 								<span class="direct-chat-timestamp float-left">
-									22-05-10 17:06</span>
+									<fmt:formatDate value="${laundryOrder.orderDate}" pattern="yy-MM-dd HH:mm" />
+								</span>
 							</div>
 							<div class="direct-chat-text">
-								공동 비밀번호#9980#</div>
+								${laundryOrder.requestDetails}
+							</div>
 						</div>
-					</div>
+					</c:if>
+					<c:forEach items="${rvList }" var="list">
+					<c:if test="${list.memberno != laundryOrder.memberNo }">
+						<div class="direct-chat-msg">
+							<div class="direct-chat-infos clearfix">
+								<span class="direct-chat-name float-left">관리자</span>
+								<span class="direct-chat-timestamp float-right">
+									<fmt:formatDate value="${list.registDate}" pattern="yy-MM-dd HH:mm" />
+								</span>
+							</div>
+							<div class="direct-chat-text">
+								${list.replyContent}
+							</div>
+						</div>
+						</c:if>
+						<c:if test="${list.memberno == laundryOrder.memberNo }">
+						<div class="direct-chat-msg right">
+							<div class="direct-chat-infos clearfix">
+								<span class="direct-chat-timestamp float-left">
+									<fmt:formatDate value="${list.registDate}" pattern="yy-MM-dd HH:mm" />
+								</span>
+							</div>
+							<div class="direct-chat-text">
+								${list.replyContent}
+							</div>
+						</div>
+						</c:if>
+						</c:forEach>
+				
+
+
+				
+
+				</div>
 			</div>
 
 			<div class="card-footer">
 				<form action="#" method="post">
 					<div class="input-group">
-						<input type="hidden" name="replyNo" id="replyNo" value="445"> 
-						<input type="text" name="reply" id="reply" placeholder="Type Message ..." class="form-control"> <span class="input-group-append">
+						<input type="hidden" name="replyNo" id="replyNo" value="${laundryOrder.replyNo}"> 
+						<input type="text" name="reply" id="reply" placeholder="요청사항을 적어주세요"
+							class="form-control"> <span class="input-group-append">
 							<button onclick="insertReply();" class="btn btn-primary">전송</button>
 						</span>
 					</div>
