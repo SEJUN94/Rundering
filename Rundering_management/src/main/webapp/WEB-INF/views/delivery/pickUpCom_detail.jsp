@@ -54,24 +54,7 @@
 				</div>
 				<div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
 					<div class="col-12 col-sm-4">
-						<div class="row pl-3">
-							<c:forEach items="${avList }" var="av">
-								<c:if test="${av.bizType eq '배송완료사진' }">
-									<div class="goodsPicture ml-2 mb-2" id="pictureView" data-id="${av.atchFileNo }" data-aa="${av.atchFileSeq }"
-										style="border: 1px solid green; height: 100px; width: 100px;"></div>
-								</c:if>
-							</c:forEach>
-						</div>
-						<div>수거완료</div>
-						<div class="row pl-3">
-							<c:forEach items="${avList }" var="av">
-								<c:if test="${av.bizType eq '수거완료사진' }">
-									<div class="goodsPicture ml-2" id="pictureView" data-id="${av.atchFileNo }" data-aa="${av.atchFileSeq }"
-										style="border: 1px solid green; height: 100px; width: 100px;"></div>
-								</c:if>
-							</c:forEach>
-						</div>
-						<div>세탁주문</div>
+						<div>세탁주문사진</div>
 						<div class="row pl-3">
 							<c:forEach items="${avList }" var="av">
 								<c:if test="${av.bizType eq '세탁주문' }">
@@ -80,8 +63,16 @@
 								</c:if>
 							</c:forEach>
 						</div>
-						<div>배송완료사진</div>
-						<div class="info-box bg-light mt-5">
+						<div>수거완료사진</div>
+						<div class="row pl-3">
+							<c:forEach items="${avList }" var="av">
+								<c:if test="${av.bizType eq '수거완료사진' }">
+									<div class="goodsPicture ml-2" id="pictureView" data-id="${av.atchFileNo }" data-aa="${av.atchFileSeq }"
+										style="border: 1px solid green; height: 100px; width: 100px;"></div>
+								</c:if>
+							</c:forEach>
+						</div>
+						<div class="info-box bg-light mt-3">
 							<div class="info-box-content">
 								<span class="info-box-text text-center text-muted"
 									style="font-size: 2rem;" onclick="pickup_cancel('02');">취 소</span>
