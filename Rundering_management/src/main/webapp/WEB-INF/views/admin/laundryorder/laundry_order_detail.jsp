@@ -5,6 +5,42 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <title>세탁주문 상세</title>
+<head>
+<style>
+.orderDetailListScroll thead, .orderDetailListScroll tbody {
+	display: block;
+}
+
+.orderDetailListScroll th, .orderDetailListScroll td {
+	width: 100%;
+}
+
+.orderDetailListScroll tbody {
+	max-height: 295px; /* Just for the demo          */
+	overflow-y: auto; /* Trigger vertical scroll    */
+	overflow-x: hidden; /* Hide the horizontal scroll */
+}
+
+/* 스크롤바 설정*/
+.orderDetailListScroll tbody::-webkit-scrollbar{
+	/* 스크롤바 막대 너비 설정 */
+	width: 6px;
+}
+/* 스크롤바 막대 설정*/
+.orderDetailListScroll tbody::-webkit-scrollbar-thumb{
+	/* 스크롤바 막대 높이 설정 */
+	height: 17%;
+	background-color: #d3d3d3;
+	/* 스크롤바 둥글게 설정 */
+	border-radius: 10px;
+}
+/* 스크롤바 뒷 배경 설정*/
+.orderDetailListScroll tbody::-webkit-scrollbar-track {
+	background-color: rgba(0, 0, 0, 0);
+}
+</style>
+</head>
+
 <body>
 <div class="row" style="width: 100%">
 	<div class="col-6 pl-3">
@@ -92,7 +128,7 @@
 						<thead>
 						<tr style="text-align: center;">
 								<th class="width70 pl-3">문의제목</th>
-								<th class="width15">날짜</th>
+								<th class="width15">문의일자</th>
 								<th class="width15">답변여부</th>
 							</tr>
 						</thead>
@@ -124,34 +160,37 @@
 	</div>
 	
 	<div class="col-6">
-	
+		
+		<div class="card">
 		<div class="col-12 table-responsive p-0">
-					<table class="table table-striped m-0 card-secondary card-outline">
+			<h4 class="m-3">세탁품목</h4>
+					<table class="table table-striped m-0 card-secondary card-outline orderDetailListScroll">
 						<thead>
 							<tr>
 								<th colspan="4" style="text-align: end;">총 결제금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryOrder.totalPrice}" />원</th>
 							</tr>
-							<tr>
-								<th>세탁물</th>
-								<th>개수</th>
-								<th style="text-align: end;">가격</th>
+							<tr style="text-align: center;">
+								<th style="width: 232px;">세탁물</th>
+								<th style="width: 60px;">개수</th>
+								<th style="width: 130px;">가격</th>
 							</tr>
 						</thead>
-						<tbody style="max-height: 333px; overflow-y: auto; overflow-x: hidden;">
+						<tbody>
 							<c:forEach items="${laundryOrderDetailList }" var="laundryOrderDetail" >
 								<tr>
-									<td>${laundryOrderDetail.itemsName}</td>
-									<td>${laundryOrderDetail.quantity}</td>
-									<td style="text-align: end;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryOrderDetail.price}" />원</td>
+									<td style="width: 232px;">${laundryOrderDetail.itemsName}</td>
+									<td style="text-align: end; width: 60px;">${laundryOrderDetail.quantity}</td>
+									<td style="text-align: end;  width: 130px;" ><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryOrderDetail.price}" />원</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
 				</div>
+				</div>
 				
 			<div class="card mt-1">
-					<h4 class="m-3">담당지점 정보</h4>
-				<div class="card-body p-0 card-secondary card-outline" style="min-height: 320px;">
+					<h4 class="m-3">담당지점</h4>
+				<div class="card-body p-0 card-secondary card-outline" style="min-height: 280px;">
 					<table class="table">
 						<tbody>
 							<c:if test="${empty branchDetail }">
