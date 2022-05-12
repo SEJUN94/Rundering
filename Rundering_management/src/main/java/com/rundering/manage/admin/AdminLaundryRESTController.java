@@ -60,5 +60,21 @@ public class AdminLaundryRESTController {
 		 
 		return result;
 	}
+	
+	// 버튼을 통한 - 지점 주문 자동 할당
+	@RequestMapping(value = "/autoAssignmentOrder", method = RequestMethod.GET, consumes = "application/json;")
+	public ResponseEntity<Map<String, Object>> autoAssignmentOrder(Model model) throws Exception {
+		
+		ResponseEntity<Map<String, Object>> result = null;
+		Map<String, Object> dataMap = new HashMap<>();
+		
+		try {
+			dataMap = laundryOrderService.autoAssignmentOrder();
+			result = new ResponseEntity<Map<String, Object>>(dataMap, HttpStatus.OK);
+		} catch (Exception e) {
+			result = new ResponseEntity<Map<String, Object>>(HttpStatus.INTERNAL_SERVER_ERROR); e.printStackTrace(); }
+		
+		return result;
+	}
 
 }

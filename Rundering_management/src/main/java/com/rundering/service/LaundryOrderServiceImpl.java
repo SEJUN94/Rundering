@@ -30,6 +30,7 @@ import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.dto.OrderDelayDTO;
+import com.rundering.scheduler.OrderTaskScheduler;
 import com.rundering.util.ComCodeUtil;
 import com.rundering.util.FormatUtil;
 
@@ -311,5 +312,11 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		dataMap.put("count",count);
 		
 		return dataMap;
+	}
+	@Override
+	public Map<String, Object> autoAssignmentOrder() throws Exception {
+		OrderTaskScheduler orderTaskScheduler = new OrderTaskScheduler(); 
+		orderTaskScheduler.assignLaundryOrderToBranch();
+		return null;
 	}
 }
