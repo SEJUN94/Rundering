@@ -5,9 +5,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="laundryItemsList" value="${dataMap.laundryItemsList }" />
 
+<c:set var="today" value="<%=new java.util.Date()%>" />
 <c:set var="tomorrow" value="<%=new java.util.Date(new java.util.Date().getTime() + 60 * 60 * 24 * 1000 * 1)%>" />
+<c:set var="dayAfterTomorrow" value="<%=new java.util.Date(new java.util.Date().getTime() + 60 * 60 * 24 * 1000 * 2)%>" />
+
 <c:set var="tomorrowDate">
 	<fmt:formatDate value="${tomorrow}" pattern="yyyy-MM-dd" />
+</c:set>
+<c:set var="dayAfterTomorrowDate">
+	<fmt:formatDate value="${dayAfterTomorrow}" pattern="yyyy-MM-dd" />
 </c:set>
 <!-- 이주 후 -->
 <c:set var="twoWeeksAfter"
@@ -146,7 +152,12 @@
 
 
 					<div class="">
+					<c:if test="${today.getHours() > 21}">
+						<input type="date" class="form-control" name="pickupRequestDate" min="${dayAfterTomorrowDate }" max="${twoWeeksAfterDate}" required> <span class="sp"></span>
+					</c:if>
+					<c:if test="${today.getHours() < 22}">
 						<input type="date" class="form-control" name="pickupRequestDate" min="${tomorrowDate }" max="${twoWeeksAfterDate}" required> <span class="sp"></span>
+					</c:if>
 					</div>
 
 					<div class="input-group mb-3" style="margin-top: 20px;">
