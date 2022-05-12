@@ -37,7 +37,7 @@ public class AttachService {
 		return attachDAO.getAttachForDownload(attach);
 	}
 	
-	// 
+	// 이미지 출력
 	public List<AttachVO> selectAttachVOByFileNoAndSeq2(AttachVO attach) throws Exception {
 		return attachDAO.selectAttachVOByFileNoAndSeq2(attach);
 	}

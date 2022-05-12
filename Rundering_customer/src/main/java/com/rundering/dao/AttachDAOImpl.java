@@ -60,6 +60,10 @@ public class AttachDAOImpl implements AttachDAO{
 		return session.selectList("Attach-Mapper.getContract");
 	}
 	
-	
+	// 이미지 출력
+	@Override
+	public List<AttachVO> selectAttachVOByFileNoAndSeq2(AttachVO attach) throws Exception {
+		return session.selectList("Attach-Mapper.selectAttachVOByFileNoAndSeq2", attach);
+	}
 
 }

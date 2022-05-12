@@ -75,5 +75,11 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		return session.selectOne("LaundryOrder-Mapper.myCompleteOrderListCount", cri);
 	}
 
+	// 마이페이지 - 주문내역 디테일
+	@Override
+	public LaundryOrderVO getmyorderByorderNo(String orderNo) throws Exception {
+		return session.selectOne("LaundryOrder-Mapper.getmyorderByorderNo", orderNo);
+	}
+
 
 }
