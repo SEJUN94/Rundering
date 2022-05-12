@@ -69,7 +69,8 @@
 			<div class="card-header">
 					<h3 class="card-title" style="font-size: 1.8rem;  font-weight: 500;">세탁 주문</h3>
 					<span class="text-muted" style="display: inline-block;margin-top: 6px;padding-left: 15px;">검색결과 <fmt:formatNumber type="number" maxFractionDigits="3" value="${pageMaker.totalCount }" />개</span>
-					<button type="button" class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#modal-lg">선택주문 지점할당</button>
+					<button type="button" class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#modal-lg">선택주문 직접할당</button>
+					<button type="button" class="btn btn-outline-success ml-3">전체주문 할당</button>
 					<div class="card-tools">
 						<div class="input-group input-group-sm" style="width: 200px;margin-top: auto;">
 							<input class="form-control" type="text" name="orderNo" placeholder="주문번호 입력" value="${cri.orderNo }"> <span class="input-group-append">
