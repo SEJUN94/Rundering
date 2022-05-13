@@ -438,7 +438,7 @@
 	<script>
 	// 자동할당 스케줄링 메소드 연결
 		function autoAssignmentOrder(){
-		    if (!confirm("오늘이 수거요청일인 지점 미할당 주문건을 자동할당하시겠습니까?")) {
+		    if (!confirm("내일이 수거요청일인 지점 미할당 주문건을 자동할당하시겠습니까?")) {
 		    	return;
 	        } else {
 				            
