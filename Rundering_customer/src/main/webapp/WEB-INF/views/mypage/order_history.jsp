@@ -128,7 +128,7 @@ aside ul li a {
 										alt="${list.atchFileNo}" height="100px;" width="70px;"
 										src="<%=request.getContextPath() %>/resources/images/자산 1.png">
 									</td>
-									<td colspan="2" align="left;" style="border-top: none;vertical-align:middle;">세탁주문 : ${list.paymentNo}</td>
+									<td colspan="2" align="left;" style="border-top: none;vertical-align:middle;">주문번호 : ${list.orderNo}</td>
 								</tr>
 								<tr style="border: none;">
 									<td align="left;" style="border-left: none; border-top: none;padding:12px;vertical-align:middle;">
