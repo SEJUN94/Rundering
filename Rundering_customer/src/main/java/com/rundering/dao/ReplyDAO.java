@@ -21,5 +21,7 @@ public interface ReplyDAO {
 	public int getSeq(int replyno) throws Exception;
 	// 댓글 리스트 불러오기
 	public List<ReplyVO> getReList(int replyno) throws Exception;
+	// 댓글 삭제
+	public void deleteReply(int replyno)throws Exception;
 	
 }

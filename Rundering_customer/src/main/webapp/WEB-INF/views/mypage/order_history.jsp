@@ -4,10 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
@@ -108,9 +106,9 @@ aside ul li a {
 							<tbody>
 								<tr style="border: none;">
 									<input type="hidden" id="orderNo" value="${list.orderNo }" />
-									<td style="width: 25%" align="center">배송상태 : ${list.orderStatus}</td>
-									<td style="width: 25%" align="center">주문일자 : <fmt:formatDate value="${list.orderDate}" pattern="yyyy-MM-dd" /></td>
-									<td style="width: 25%"></td>
+									<td style="width:25%;padding:12px;" align="center">배송상태 : <span style="font-weight:600;font-size:1.2em;">${list.orderStatus}</span></td>
+									<td style="width:25%" align="left">주문일자 : <fmt:formatDate value="${list.orderDate}" pattern="yyyy-MM-dd" /></td>
+									<td style="width:25%"></td>
 									<td rowspan="3"
 										style="width: 25%; border-left: 1px solid rgba(0, 0, 0, .125); text-align: center; vertical-align: middle;">
 										<c:if test="${list.orderStatus ne '배송정상완료' && list.orderStatus ne '배송지연완료'}">
@@ -126,15 +124,22 @@ aside ul li a {
 								</tr>
 								<tr style="border: none;">
 									<td rowspan="2" align="center"
-										style="border-right: none; border-top: none;"><img
+										style="border-right: none; border-top: none;padding:12px;"><img
 										alt="${list.atchFileNo}" height="100px;" width="70px;"
 										src="<%=request.getContextPath() %>/resources/images/자산 1.png">
 									</td>
-									<td colspan="2" align="left;" style="border-top: none;">상품명 : ${list.paymentNo}</td>
+									<td colspan="2" align="left;" style="border-top: none;vertical-align:middle;">세탁주문 : ${list.paymentNo}</td>
 								</tr>
 								<tr style="border: none;">
-									<td align="left;" style="border-left: none; border-top: none;">지점명 : ${list.branchCode }</td>
-									<td style="text-align: right; border-top: none;">결제금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${list.totalPrice}" />원</td>
+									<td align="left;" style="border-left: none; border-top: none;padding:12px;vertical-align:middle;">
+									<c:if test="${!empty list.branchCode}" >
+									담당 : ${list.branchCode }
+									</c:if>
+									<c:if test="${empty list.branchCode}" >
+									<span style="color:red; font-size:1em;">미정</span>
+									</c:if>
+									</td>
+									<td style="text-align: right; border-top: none;vertical-align:middle;padding:12px;">결제금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${list.totalPrice}" />원</td>
 								</tr>
 							</tbody>
 						</table>
@@ -173,5 +178,41 @@ aside ul li a {
 				AjaxErrorSecurityRedirectHandler(error.status);
 			}
 		});
+	}
+	
+	function cancel(){
+		Swal.fire({
+            title: '세탁 주문을 취소하시겠습니까?',
+            icon : 'warning' ,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '승인',
+            cancelButtonText: '취소',
+            reverseButtons: true, // 버튼 순서 거꾸로
+            
+          }).then((result) => {
+              if (result.isConfirmed) {
+				$.ajax({
+					url : '<%=request.getContextPath()%>/mypage/cancelOrder',
+					data : {
+						'password' : $('#password').val()
+					},
+					type : 'post',
+					success : function(result) {
+						if (result.toUpperCase() == "OK") {
+							Swal.fire('변경 완료', '비밀변호 변경이 완료되었습니다.', 'success' )
+						} else {
+							Swal.fire({
+								icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+								title: '비밀번호 변경에 실패하였습니다.',
+							});
+						}
+					},
+					error : function(error) {
+						AjaxErrorSecurityRedirectHandler(error.status);
+					}
+				});
+              }})	
 	}
 </script>

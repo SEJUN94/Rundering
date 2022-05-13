@@ -32,4 +32,7 @@ public interface LaundryOrderDAO {
 	// 마이페이지 - 주문내역 디테일
 	public LaundryOrderVO getmyorderByorderNo(String orderNo) throws Exception;
 	
+	// 마이페이지 - 주문취소
+	public void cancelLaundryOrder(String orderNo) throws Exception;
+	
 }

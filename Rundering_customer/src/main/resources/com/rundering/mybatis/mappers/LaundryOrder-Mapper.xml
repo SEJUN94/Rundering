@@ -136,7 +136,32 @@
 	
 	<!--주문내역 디테일에 뿌려줄 쿼리 -->
 	<select id="getmyorderByorderNo" parameterType="str" resultMap="laundryOrderMap">
-		SELECT  *	
+		SELECT  ORDER_NO
+		,REQUEST_DETAILS
+		,ORDER_DATE
+		,CONTACT_NUMBER
+		,DELIVERY_REQUEST_DATE
+		,TOTAL_PRICE
+		,PICKUP_REQUEST_DATE
+		,PICKUP_DATE
+		,BRANCH_ARRIVAL_DATE
+		,AREA
+		,DELIVERY_DATE
+		,ORDER_STATUS
+		,CANCEL_YN
+		,PAYMENTNO
+		,(select b.BRANCH_NAME
+         from TB_LAUNDRY_ORDER a, TB_BRANCH b
+         where a.BRANCH_CODE = b.BRANCH_CODE
+         and a.ORDER_NO=  #{orderNo}) as BRANCH_CODE
+		,MEMBERNO
+		,DELIVERY_EMPLOYEE_ID
+		,PICKUP_EMPLOYEE_ID
+		,ZIP
+		,ADD1
+		,ADD2
+		,ATCH_FILE_NO
+		,REPLYNO	
 		FROM TB_LAUNDRY_ORDER
 		WHERE ORDER_NO= #{orderNo}
 	</select>
@@ -181,5 +206,12 @@
 		FROM TB_LAUNDRY_ORDER
 		WHERE MEMBERNO=#{memberNo}
 	</select>
+	
+	<update id="cancelLaundryOrder" parameterType="str">
+		update TB_LAUNDRY_ORDER
+	     set 
+	     CANCEL_YN = 'Y'
+	     where ORDER_NO = #{orderNo}
+	</update>
 	
 </mapper>

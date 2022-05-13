@@ -115,6 +115,15 @@
 		WHERE email =#{email}
 	</select>
 	
+	<select id="getDelivery" resultType="str" parameterType="str">
+		select 
+        a.PHONE as phone
+        from tb_member a, tb_employees b
+        where a.id = b.EMPLOYEE_ID
+        and b.EMPLOYEE_ID = #{id}
+        and a.EMPLOYEE_ID_YN = 'Y'
+	</select>
+	
 	
 
 </mapper>
