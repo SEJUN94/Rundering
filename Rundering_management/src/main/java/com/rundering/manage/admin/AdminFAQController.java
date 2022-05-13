@@ -115,16 +115,18 @@ public class AdminFAQController {
 	}
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modify(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+	public ResponseEntity<String> modify(FAQVO fv) throws Exception {
+		ResponseEntity<String> entity = null;
 
-		String url = "redirect:admin/question/faq";
+		
+		try {
+			faqService.modify(fv);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+		}catch(Exception e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-		faqService.modify(faq);
-
-		rttr.addAttribute("faqno", faq.getFaqno());
-		rttr.addFlashAttribute("from", "modify");
-
-		return url;
+		return entity;
 	}
 	
 	@RequestMapping("/remove")

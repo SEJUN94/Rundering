@@ -78,7 +78,7 @@
 										<div class="float-right hi3">
 											<button type="button" id="modifyBtn" class="btn btn-warning"
 												style="padding: 0.25rem 0.5rem; font-size: .875rem; line-height: 1.5;"
-												onclick="modify('${faq.question }','${faq.answer }')" data-toggle="modal" data-target="#modify">수정</button>
+												onclick="modify('${faq.question }','${faq.answer }','${faq.faqno }')" data-toggle="modal" data-target="#modify">수정</button>
 											<button type="button" id="removeBtn" class="btn btn-danger"
 												style="padding: 0.25rem 0.5rem; font-size: .875rem; line-height: 1.5;"
 												onclick="remove_go('${faq.faqno}');">삭제</button>
@@ -113,6 +113,7 @@
 							<label for="answer" style="margin:10px;">답변입력</label> <input type="text" id="a" 	name='answer' class="form-control" value="">
 						</div>
 					</div>
+					<input type="hidden" id="no" value="">
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" data-replyno onclick="regist_go()" id="insertBtn">등록</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
@@ -138,7 +139,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-replyno onclick="regist_go()" id="insertBtn">수정</button>
+						<button type="button" class="btn btn-primary" data-replyno  onclick="modify_go()" id="insertBtn">수정</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
 					</div>
 				</div>
@@ -192,33 +193,35 @@ function regist_go() {
 	});
 }
 
-function modify(question,answer){
+function modify(question,answer,faqno){
+	console.log(faqno);
 	var modalQ = document.querySelector('#moq');
 	var modalA = document.querySelector('#moa');
+	var no = document.querySelector('#no');
 	modalQ.value = question;
 	modalA.value = answer;
+	no.value = faqno;
 }
 	
-function modify_go(faqno) {
-
-	
-	
+function modify_go() {
+	console.log(no.value);
+	console.log(modalQ.value);
+	console.log(modalA.value);
 	event.preventDefault();	//submit 이벤트를 막아 페이지 리로드를 방지
 	 $.ajax({
 		url: "<%=request.getContextPath()%>/admin/question/modify",
 		data:{
-			'faqno' : faqno
+			'faqno' : no.value,
+			'question' : modalQ.value,
+			'answer' : modalA.value
 			},
 		type:'POST',
 		success:function(ok){
           if(ok.toUpperCase() == "OK"){
       		Swal.fire({
 					icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
-					title: '자주 묻는 질문을 삭제했습니다!',
+					title: '자주 묻는 질문을 수정했습니다!',
 				});
-      		  $('#questionmo').removeClass("d-flex");
-      		  $('#answermo').removeClass("d-flex");
-      		  hi.style.display = 'flex';
               setTimeout(function(){location.reload();},2000);
            } else {
               Swal.fire({
