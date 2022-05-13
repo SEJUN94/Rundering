@@ -18,7 +18,7 @@
                         class="table table-hover text-nowrap card-outline">
                         <thead>
                             <tr>
-                                <th style="text-align: center;">물품이름</th>
+                                <th style="text-align: center;" onload="textLength(2)">물품이름</th>
                                 <th style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;">
                                     	입고일
                                 </th>
@@ -29,7 +29,7 @@
                         <tbody>
                                   {{#each itemInsertList}}
                                     <tr>
-                                        <td >{{laundryArticlesName articlesCode}} </td>
+                                        <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{laundryArticlesName articlesCode}} </td>
                                         <td style="text-align: center">
                                         	{{prettifyDate insertDate}}
                                         </td>
@@ -83,6 +83,7 @@
 
 <script >
 let page= 1;
+
 function registChangeDate(page){
 	let date = event.target.value
 	registList("<%=request.getContextPath()%>/branch/item/insertList?page="+page+"&date="+date)

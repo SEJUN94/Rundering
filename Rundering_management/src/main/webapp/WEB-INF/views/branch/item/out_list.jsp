@@ -29,7 +29,7 @@
                         <tbody>
                                   {{#each itemOutList}}
                                     <tr>
-                                        <td >{{outlaundryArticlesName articlesCode}} </td>
+                                        <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{outlaundryArticlesName articlesCode}} </td>
                                         <td style="text-align: center">
                                         	{{outprettifyDate outDate}}
                                         </td>
