@@ -352,9 +352,8 @@
 					<c:forEach items="${detailList }" var="list">
 						<li class="item">
 							<div class="product-info">
-								<span style="font-weight: 400; font-size: 1.2em;">${list.itemsName }
-								</span> <span class="product-description float-right pt-1">${list.quantity }
-									개</span>
+								<span style="font-weight: 400; font-size: 1.2em;">${list.itemsName }</span>
+								<span class="product-description float-right pt-1">${list.quantity } 개</span>
 							</div>
 						</li>
 					</c:forEach>
@@ -411,8 +410,7 @@
 					<h3 class="card-title">사진</h3>
 				</div>
 
-				<div class="card-body p-0"
-					style="height: 150px; overflow: auto; overflow-x: hidden;">
+				<div class="card-body p-0" style="height: 150px; overflow: auto; overflow-x: hidden;">
 					<c:if test="${not empty av.bizType eq '세탁주문' }">
 						<div class="mt-2 mb-2 ml-3">세탁주문</div>
 						<div class="row pl-3">

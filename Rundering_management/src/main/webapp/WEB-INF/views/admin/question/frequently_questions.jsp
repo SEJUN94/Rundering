@@ -193,8 +193,6 @@ function regist_go() {
 }
 
 function modify(question,answer){
-	console.log(question);
-	console.log(answer);
 	var modalQ = document.querySelector('#moq');
 	var modalA = document.querySelector('#moa');
 	modalQ.value = question;
