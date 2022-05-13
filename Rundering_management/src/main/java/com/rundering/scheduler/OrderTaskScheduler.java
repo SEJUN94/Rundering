@@ -294,44 +294,47 @@ public class OrderTaskScheduler {
 					.selectLaundryOrderListNotAssignedToBranchByArea(comCodeVO.getComCode());
 			remainAllAreaOrder += orderListByArea.size();
 		}
-
-		// 본사 직원들에게 알림
-		List<EmployeesVO> employeesList = employeesDAO.selectEmployeesByBranchCode("000000");
-		NotificationVO notificationVO = new NotificationVO();
-		for (EmployeesVO employeesVO : employeesList) {
-			int sequence = notificationDAO.selectNotificationSequenceNextValue();
-			notificationVO.setNtcnId(String.valueOf(sequence));
-			notificationVO.setEmployeeId(employeesVO.getEmployeeId());
-			notificationVO.setNtcnknd("PC"); // 알림종류 공통코드 - 할당완료
-			notificationVO.setNtcncn("세탁주문, 미할당 " + remainAllAreaOrder + "건");
-			notificationVO.setNtcnclickhourUrl("'/runderingmanage/admin/laundryorder/list','A010100'");
-			notificationDAO.insertNotification(notificationVO);
-		}
-
-		// 주문이 할당된 모든 지점의 사원에게 공지 알림 - 배송사원 제외
-		List<BranchVO> branchList = branchDAO.selectBranchList();
-		for (BranchVO branch : branchList) {
-			if (branch.getBranchCode().equals("000000"))
-				continue;
-			List<LaundryOrderVO> orderlist = laundryOrderDAO
-					.selectLaundryOrderListPickUpRequestDateTodayByBranchCode(branch.getBranchCode());
-			if (orderlist.size() < 1)
-				continue;
-
-			List<EmployeesVO> employeesli = employeesDAO.selectEmployeesByBranchCode(branch.getBranchCode());
-			for (EmployeesVO employees2 : employeesli) {
-				if (employees2.getDepartment().equals("DE"))
-					continue;
+		
+		//할당된 주문이 있을 경우에만 알림
+		if(assignedOrderCnt > 0) {
+			// 본사 직원들에게 알림
+			List<EmployeesVO> employeesList = employeesDAO.selectEmployeesByBranchCode("000000");
+			NotificationVO notificationVO = new NotificationVO();
+			for (EmployeesVO employeesVO : employeesList) {
 				int sequence = notificationDAO.selectNotificationSequenceNextValue();
 				notificationVO.setNtcnId(String.valueOf(sequence));
-				notificationVO.setEmployeeId(employees2.getEmployeeId());
+				notificationVO.setEmployeeId(employeesVO.getEmployeeId());
 				notificationVO.setNtcnknd("PC"); // 알림종류 공통코드 - 할당완료
-				notificationVO.setNtcncn("세탁주문 " + orderlist.size() + "건 할당됨");
-				notificationVO.setNtcnclickhourUrl("'/runderingmanage/branch/laundrysituatuion/list','B010100'");
+				notificationVO.setNtcncn("세탁주문, 미할당 " + remainAllAreaOrder + "건");
+				notificationVO.setNtcnclickhourUrl("'/runderingmanage/admin/laundryorder/list','A010100'");
 				notificationDAO.insertNotification(notificationVO);
 			}
-
+			
+			// 주문이 할당된 모든 지점의 사원에게 공지 알림 - 배송사원 제외
+			List<BranchVO> branchList = branchDAO.selectBranchList();
+			for (BranchVO branch : branchList) {
+				if (branch.getBranchCode().equals("000000"))
+					continue;
+				List<LaundryOrderVO> orderlist = laundryOrderDAO
+						.selectLaundryOrderListPickUpRequestDateTodayByBranchCode(branch.getBranchCode());
+				if (orderlist.size() < 1)
+					continue;
+				
+				List<EmployeesVO> employeesli = employeesDAO.selectEmployeesByBranchCode(branch.getBranchCode());
+				for (EmployeesVO employees2 : employeesli) {
+					if (employees2.getDepartment().equals("DE"))
+						continue;
+					int sequence = notificationDAO.selectNotificationSequenceNextValue();
+					notificationVO.setNtcnId(String.valueOf(sequence));
+					notificationVO.setEmployeeId(employees2.getEmployeeId());
+					notificationVO.setNtcnknd("PC"); // 알림종류 공통코드 - 할당완료
+					notificationVO.setNtcncn("세탁주문 " + orderlist.size() + "건 할당됨");
+					notificationVO.setNtcnclickhourUrl("'/runderingmanage/branch/laundrysituatuion/list','B010100'");
+					notificationDAO.insertNotification(notificationVO);
+				}
+			}
 		}
+
 		dataMap.put("assignedOrderCnt",assignedOrderCnt);
 		dataMap.put("remainAllAreaOrder",remainAllAreaOrder);
 		return dataMap;
