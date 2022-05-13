@@ -91,8 +91,8 @@ function list_go(page){
 	
 	let searchType = document.querySelector("#searchType").value;
 	
-	item_List("<%=request.getContextPath()%>/admin/branchorder/itemlist?page="+page+"&searchType="+searchType)
-	f
+	item_List("<%=request.getContextPath()%>/admin/branchorder/itemlist?page="+page+"&searchType="+searchType);
+	
 }
 
 
