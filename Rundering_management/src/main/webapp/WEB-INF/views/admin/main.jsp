@@ -37,11 +37,11 @@
 <script type="text/x-handlebars-template" id="chart" >
 <div class="card m-0" style="height: 398px;">
 <div class="card-header" style="height: 56px;">
-					<h2 style="height: 20px;padding: 5px;" class="card-title">
+					<h2 style="height: 20px;padding: 5px;font-size: 1.25rem;" class="card-title">
 		            	<b>주문량</b>
 		            </h2>
 					<div class="card-tools">
-						<select onchange="getChart()">
+						<select onchange="getChart()" style="font-size: 1.08rem; margin-top: 3px;">
 							{{#each branchList}}
 								{{#if admin}}
 									<option value="{{branchLndrpcrymslmcoqy}},{{count}},{{branchName}}">{{branchName}}</option>
@@ -82,9 +82,13 @@ function pieChart(totalCount,count,branchName){
 	      }]
 	    },
 	    options: {
+	    	legend: {
+				labels: {
+					fontSize: 18
+				}
+			},
 	      title: {
 	        display: true,
-	        text: branchName
 	      }
 	    }
 	});

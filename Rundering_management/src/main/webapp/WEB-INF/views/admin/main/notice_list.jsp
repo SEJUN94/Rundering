@@ -5,11 +5,11 @@
 <script type="text/x-handlebars-template" id="notice_list" >
 			<div class="card m-0" id="removeNotice" style="height: 398px;">
 				<div class="card-header">
-					<h2 style="height: 20px;padding: 5px;" class="card-title">
+					<h2 style="height: 20px;padding: 5px;font-size: 1.25rem;" class="card-title">
 		            	<b>공지사항</b>
 		            </h2>
 					<div class="card-tools">
-						<button class="btn btn-sm btn-outline-primary" onclick="goPage('<%=request.getContextPath() %>/admin/notice/list','A050100')">바로가기</button>
+						<button class="btn btn-sm btn-outline-primary" onclick="goPage('<%=request.getContextPath() %>/admin/notice/list','A050100')" style="font-weight: 500;font-size: 0.97rem;">바로가기</button>
 
 					</div>
 				</div>
