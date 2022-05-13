@@ -131,7 +131,6 @@
         ,A.ATCH_FILE_NO AS ATCH_FILE_NO
 		FROM TB_LAUNDRY_ORDER A
 		WHERE A.MEMBERNO=#{memberNo}
-		AND A.CANCEL_YN='N'
 	</select>
 
 	<select id="getmyorderIngList" parameterType="str" resultMap="laundryOrderMap">
@@ -245,6 +244,7 @@
 		update TB_LAUNDRY_ORDER
 	     set 
 	     CANCEL_YN = 'Y'
+	     ,ORDER_STATUS = '10'
 	     where ORDER_NO = #{orderNo}
 	</update>
 	

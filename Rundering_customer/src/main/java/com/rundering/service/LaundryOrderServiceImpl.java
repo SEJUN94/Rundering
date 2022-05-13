@@ -254,8 +254,8 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		laundryOrderDAO.cancelLaundryOrder(laundryOrder.getOrderNo());
 		paymentDAO.cancelPayment(laundryOrder.getOrderNo());
 		
-		attachDAO.deleteAttchFileRemoveByFileNo(laundryOrder.getAtchFileNo());
-		replyDAO.deleteReply(laundryOrder.getReplyNo());
+		//attachDAO.deleteAttchFileRemoveByFileNo(laundryOrder.getAtchFileNo());
+		//replyDAO.deleteReply(laundryOrder.getReplyNo());
 		
 	}
 
