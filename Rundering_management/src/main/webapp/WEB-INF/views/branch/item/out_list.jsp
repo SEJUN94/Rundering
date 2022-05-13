@@ -9,10 +9,7 @@
 					</h2>
                     <div class="card-tools">
                         <div class="input-group input-group-sm" >
-                            <select class="form-control" name="laundryItemsCode"
-                                id="laundryItemsCode" onchange="list_go(1);">
-                                <option value="asd">asdaadas</option>
-                            </select>
+                             <input type="date" onchange="outChangeDate('1')" id="outTodayDate" value="{{cri.date}}">
                         </div>
                     </div>
                 </div>
@@ -87,6 +84,12 @@
 </script>
 
 <script >
+function outChangeDate(page){
+	let date = event.target.value
+	out_List("<%=request.getContextPath()%>/branch/item/outlist?page="+page+"&date="+date)
+}
+
+
 let out_page=1;
 
 function cancle(){
@@ -205,6 +208,9 @@ function out_List(pageInfo){
 			
 			$("#appendOut").append(html)
 			$("#outPaging").append(pagehtml);
+			let todayDate = document.querySelector("#outTodayDate");
+			todayDate.max = new Date().toISOString().split("T")[0];
+			
 		},
 		error : function(error) {
 			AjaxErrorSecurityRedirectHandler(error.status);

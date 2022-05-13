@@ -9,15 +9,23 @@ import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
 import com.rundering.dao.AdminItemOrderDAO;
 import com.rundering.dao.ItemOrderDAO;
+import com.rundering.dao.LaundryGoodsStockDAO;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
+import com.rundering.dto.LaundryGoodsStockVO;
 
 public class AdminItemOrderServiceImpl implements AdminItemOrderService{
 	private AdminItemOrderDAO adminItemOrderDAO;
 	
+	private LaundryGoodsStockDAO laundryGoodsStockDAO;
+	
 	public void setAdminItemOrderDAO(AdminItemOrderDAO adminItemOrderDAO) {
 		this.adminItemOrderDAO = adminItemOrderDAO;
 	}
+	public void setLaundryGoodsStockDAO(LaundryGoodsStockDAO laundryGoodsStockDAO) {
+		this.laundryGoodsStockDAO = laundryGoodsStockDAO;
+	}
+
 	
 	@Override
 	public Map<String, Object> getItemOrderList(Criteria cri) throws SQLException {
@@ -56,8 +64,19 @@ public class AdminItemOrderServiceImpl implements AdminItemOrderService{
 	}
 
 	@Override
-	public void modifyStatus(ItemOrderVO itemOrder) throws SQLException {
+	public void modifyStatus(ItemOrderVO itemOrder) throws Exception {
 		adminItemOrderDAO.modifyStatus(itemOrder);
+		if(itemOrder.getItemOrderStatus().equals("03")){
+			List<ItemOrderDetailVO> detailList = adminItemOrderDAO.selectItemOrderDetailList(itemOrder.getOrdercode());
+			for (ItemOrderDetailVO detail : detailList) {
+				LaundryGoodsStockVO laundryGoodsStock = new LaundryGoodsStockVO();
+				laundryGoodsStock.setSupplyCount(detail.getOrderCount());
+				laundryGoodsStock.setArticlesCode(detail.getArticlesCode());
+				laundryGoodsStockDAO.updateAdminGoodsStockSupplyByLaundryGoodsStock(laundryGoodsStock);
+			}
+			
+		}
+		
 	}
 	
 }

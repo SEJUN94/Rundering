@@ -20,6 +20,7 @@ public interface LaundryGoodsStockDAO {
 	List<LaundryGoodsStockVO> selectLaundryGoodsStock() throws Exception;
 	void updateLaundryGoodsStockLastDateAuto(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 	List<LaundryGoodsStockVO> selectLaundryGoodsStockByBranchCode(String branchCode) throws Exception;
+	void updateAdminGoodsStockSupplyByLaundryGoodsStock(LaundryGoodsStockVO laundryGoodsStockVO) throws Exception;
 
 }
  

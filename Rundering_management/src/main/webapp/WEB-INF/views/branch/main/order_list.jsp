@@ -25,7 +25,7 @@
 						</thead>
 						<tbody>
 								{{#each itemOrderList }}
-								<tr	onclick="window.open('<%=request.getContextPath()%>/admin/branchorder/detail?ordercode={{ordercode}}', '발주 상세', 'width=700, height=900');"
+								<tr	onclick="window.open('<%=request.getContextPath()%>/branch/item/detail?ordercode={{ordercode}}', '발주 상세', 'width=700, height=900');"
 									style="cursor: pointer;">
 									<td style="text-align:center">{{ordercode}}</td>
 									<td style="text-align:right">{{priceToString itemOrderPaymentPrice}}원</td>

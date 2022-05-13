@@ -104,7 +104,7 @@ public class BranchOrderController {
 	}
 	
 	@RequestMapping(value="/branchorder/modifyStatus", method=RequestMethod.POST)
-	public String branchOrderModify(ItemOrderVO itemOrder, RedirectAttributes rttr) throws SQLException{
+	public String branchOrderModify(ItemOrderVO itemOrder, RedirectAttributes rttr) throws Exception{
 		String url="redirect:/admin/branchorder/detail";
 		
 		adminItemOrderService.modifyStatus(itemOrder);

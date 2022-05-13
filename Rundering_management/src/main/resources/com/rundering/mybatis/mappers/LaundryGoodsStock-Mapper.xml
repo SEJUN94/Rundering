@@ -23,6 +23,18 @@
 		<result column="AUTO_ORDER_COUNT" property="autoOrderCount" />
 		<result column="AUTO_ORDER_YN" property="autoOrderYn"/>
 	</resultMap>
+	<sql id="search">
+	<if test="searchType == 'B'.toString()">
+		AND A.CLCODE LIKE 'B'
+	</if>
+	<if test="searchType == 'C'.toString()">
+		AND A.CLCODE LIKE 'C'
+	</if>
+	<if test="searchType == 'D'.toString()">
+		AND A.CLCODE LIKE 'D'
+	</if>
+</sql>
+	
 	<select id="selectLaundryGoodsStock" resultMap="laundrygoodsstockMap">
 		select *
 		  from TB_LAUNDRY_GOODS_STOCK 
@@ -48,6 +60,7 @@
 		       B.AUTO_ORDER_YN AS AUTO_ORDER_YN
 		  from tb_laundry_articles A,TB_LAUNDRY_GOODS_STOCK B
 		 WHERE A.ARTICLES_CODE =B.ARTICLES_CODE
+		 	<include refid="search"/>
 		   AND B.BRANCH_CODE = #{branchCode}
 	</select>
 	
@@ -55,6 +68,7 @@
 		select COUNT(*)
 		  from tb_laundry_articles A,TB_LAUNDRY_GOODS_STOCK B
 		 WHERE A.ARTICLES_CODE =B.ARTICLES_CODE
+		   <include refid="search"/>
 		   AND B.BRANCH_CODE = #{branchCode}
 	</select>
 	
@@ -80,6 +94,13 @@
 		0
 		)
 	</insert>
+	
+	<update id="updateAdminGoodsStockSupplyByLaundryGoodsStock" parameterType="laundrygoodsstock">
+		update tb_laundry_goods_stock
+		   set supply_count=supply_count-#{supplyCount}
+		 where branch_code='000000'
+		   and articles_code=#{articlesCode} 
+	</update>
 	
 	<update id="updateLaundryGoodsStockCountByVO" parameterType="laundrygoodsstock">
 		update tb_laundry_goods_stock
@@ -125,8 +146,6 @@
 		   set  auto_order_last_date=sysdate
 		 where branch_code=#{branchCode}
 		   and articles_code=#{articlesCode} 
-		   
-	
 	</update>
 	
 	
