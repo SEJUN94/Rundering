@@ -102,7 +102,7 @@ th, td {
 					</thead>
 					<c:if test="${empty faqList }">
 						<tr>
-							<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+							<td colspan="7"><strong>해당 내용이 없습니다.</strong></td>
 						</tr>
 					</c:if>
 					<c:forEach items="${faqList }" var="faq">

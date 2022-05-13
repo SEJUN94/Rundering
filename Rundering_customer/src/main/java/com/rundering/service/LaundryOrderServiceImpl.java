@@ -168,6 +168,26 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		
 		return dataMap;
 	}
+	
+	// 마이페이지 - 진행중인 내 주문내역 가져오기
+	@Override
+	public Map<String, Object> getMyOrderIngList(MyOrderCriteria cri) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+
+		List<LaundryOrderVO> myOrderList = laundryOrderDAO.getMyOrderIngList(cri);
+		
+		// 전체 list 개수
+		int totalCount = laundryOrderDAO.myOrderIngList(cri);
+		// PageMaker 생성.
+		MyOrderPageMaker pageMaker = new MyOrderPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		
+		dataMap.put("myOrderList",myOrderList);
+		dataMap.put("pageMaker", pageMaker);
+		
+		return dataMap;
+	}
 
 	// 마이페이지 - 완료된 내 주문내역 가져오기
 	@Override
@@ -238,4 +258,5 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		replyDAO.deleteReply(laundryOrder.getReplyNo());
 		
 	}
+
 }
