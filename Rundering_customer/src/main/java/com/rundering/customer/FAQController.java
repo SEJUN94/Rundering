@@ -1,8 +1,10 @@
 package com.rundering.customer;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.FAQRegistCommand;
 import com.rundering.command.MyOrderCriteria;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.FAQVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.service.FAQService;
+import com.rundering.util.GetAttachesByMultipartFileAdapter;
 
 @Controller
 @RequestMapping("/question")
@@ -26,6 +31,8 @@ public class FAQController {
 
 	@Autowired
 	FAQService faqService;
+	@Resource(name = "boardPath")
+	private String boardPath;
 
 	//아코디언
 	@RequestMapping("/faq")
@@ -67,12 +74,14 @@ public class FAQController {
 		return url;
 	}
 
-	@RequestMapping(value = "/regist")
-	public String faqRegist(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+	@RequestMapping(value = "/regist",  method = RequestMethod.POST)
+	public String faqRegist(FAQRegistCommand faqCmd, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
 		String url = "redirect:/question/list";
-
-		faqService.regist(faq);
+		
+		List<AttachVO> attachList = GetAttachesByMultipartFileAdapter.save(faqCmd.getUploadFile(), this.boardPath,"고객문의");
+		
+		faqService.regist(faqCmd,attachList);
 
 		rttr.addFlashAttribute("from", "regist");
 
@@ -81,15 +90,14 @@ public class FAQController {
 
 	@RequestMapping(value = "/detail")
 	private ModelAndView faqDetail(int faqno, @RequestParam(defaultValue = "") String from, HttpServletRequest request,
-			ModelAndView mnv, HttpSession session) throws SQLException {
+			ModelAndView mnv, HttpSession session) throws Exception {
 
 		String url = "question/question_detail";
+		Map<String, Object> dataMap = null;
 
-		FAQVO faq = null;
+		dataMap = faqService.getFAQModify(faqno);
 
-		faq = faqService.getFAQModify(faqno);
-
-		mnv.addObject("faq", faq);
+		mnv.addAllObjects(dataMap);
 		mnv.setViewName(url);
 
 		return mnv;
@@ -99,11 +107,10 @@ public class FAQController {
 	public ModelAndView modifyForm(MyOrderCriteria cri, Model model, HttpSession session, int faqno, ModelAndView mnv) throws Exception {
 
 		String url = "question/question_modify";
+		Map<String, Object> dataMap = null;
+		dataMap = faqService.getFAQModify(faqno);
 
-		FAQVO faq = faqService.getFAQModify(faqno);
-
-		mnv.addObject("faq", faq);
-
+		mnv.addAllObjects(dataMap);
 		mnv.setViewName(url);
 
 		return mnv;

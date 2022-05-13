@@ -5,12 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.FAQRegistCommand;
 import com.rundering.command.MyOrderCriteria;
 import com.rundering.command.MyOrderPageMaker;
+import com.rundering.dao.AttachDAO;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dao.EmployeesDAO;
 import com.rundering.dao.FAQDAO;
 import com.rundering.dao.NotificationDAO;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.FAQVO;
@@ -34,6 +37,10 @@ public class FAQServiceImpl implements FAQService {
 	private NotificationDAO notificationDAO;
 	public void setNotificationDAO(NotificationDAO notificationDAO) {
 		this.notificationDAO = notificationDAO;
+	}
+	private AttachDAO attachDAO;
+	public void setAttachDAO(AttachDAO attachDAO) {
+		this.attachDAO = attachDAO;
 	}
 
 	@Override
@@ -60,14 +67,44 @@ public class FAQServiceImpl implements FAQService {
 	
 	
 	@Override
-	public FAQVO getFAQModify(int faqno) throws SQLException {
+	public Map<String, Object> getFAQModify(int faqno) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
 		FAQVO faq = faqDAO.selectFAQByFaqno(faqno);
-		return faq;
+		if(faq != null && faq.getAtchFileNo() != null) {
+			List<AttachVO> attachList = attachDAO.selectAttachVOByFileNo(faq.getAtchFileNo());
+			dataMap.put("attachList", attachList);
+		}
+		
+		dataMap.put("faq", faq);
+		
+		return dataMap;
 	}
 	
 	@Override
-	public void regist(FAQVO faq) throws Exception {
-		faqDAO.insertFAQ(faq);
+	public void regist(FAQRegistCommand faqcmd, List<AttachVO> attachList) throws Exception {
+		
+		int faqno = faqDAO.selectFAQSequenceNextValue();
+		
+		FAQVO faqvo = faqcmd.toFAQVO();
+		faqvo.setFaqno(faqno);
+		
+		faqDAO.insertFAQ(faqvo);
+		
+		if(faqvo.getOrderno() != null && !faqvo.getOrderno().isEmpty()) {
+			faqDAO.updateFAQOrderNo(faqvo);
+		}
+		
+		if(attachList != null && attachList.size() > 0) {
+			int atchFileNo = attachDAO.selectFileNo();
+
+			for (AttachVO attach : attachList) {
+				attach.setAtchFileNo(String.valueOf(atchFileNo));
+				attachDAO.insertAttach(attach);
+			}
+			faqvo.setAtchFileNo(String.valueOf(atchFileNo));
+			faqDAO.updateFAQAtchFileNo(faqvo);
+		}
+		
 		
 		//본사 직원들에게 알림
 		BranchVO branchVO = branchDAO.selectBranchByBranchCode("000000");
@@ -78,7 +115,7 @@ public class FAQServiceImpl implements FAQService {
 				notificationVO.setNtcnId(String.valueOf(sequence));
 				notificationVO.setEmployeeId(employeesVO.getEmployeeId());
 				notificationVO.setNtcnknd("IQ"); // 알림종류 공통코드 - 고객문의
-				notificationVO.setNtcncn(faq.getQuestion());
+				notificationVO.setNtcncn(faqvo.getQuestion());
 				notificationVO.setNtcnclickhourUrl("'/runderingmanage/admin/question/list','A060200'");
 				notificationDAO.insertNotification(notificationVO);
 			}

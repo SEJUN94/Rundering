@@ -7,6 +7,7 @@ import com.rundering.command.MyOrderCriteria;
 import com.rundering.dto.FAQVO;
 
 public interface FAQDAO {
+	
 
 	/* 일반 문의 */
 	List<FAQVO> selectSearchFAQList(MyOrderCriteria cri) throws SQLException;
@@ -20,6 +21,10 @@ public interface FAQDAO {
 	FAQVO selectFAQByFaqno(int faqno) throws SQLException;
 	
 	void updateFAQ(FAQVO FAQ) throws SQLException;
+	//첨부파일번호 업데이트
+	void updateFAQAtchFileNo(FAQVO FAQ) throws SQLException;
+	//주문번호 업데이트
+	void updateFAQOrderNo(FAQVO FAQ) throws SQLException;
 	
 	void deleteFAQ(int faqno) throws SQLException;
 	

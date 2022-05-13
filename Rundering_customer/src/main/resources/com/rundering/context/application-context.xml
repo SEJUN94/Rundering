@@ -100,6 +100,7 @@
 		p:branchDAO-ref="branchDAO"
 		p:employeesDAO-ref="employeesDAO"
 		p:notificationDAO-ref="notificationDAO"
+		p:attachDAO-ref="attachDAO"
 	/>
 	<bean id="replyService" class="com.rundering.service.ReplyService"
 	 	p:replyDAO-ref="replyDAO"

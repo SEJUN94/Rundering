@@ -34,7 +34,7 @@ public class FAQDAOImpl implements FAQDAO {
 
 	@Override
 	public int selectFAQSequenceNextValue() throws SQLException {
-		return session.selectOne("FAQ-mapper.selecFAQSequenceNextValue");
+		return session.selectOne("FAQ-mapper.selectFAQSequenceNextValue");
 	}
 	
 	@Override
@@ -98,6 +98,16 @@ public class FAQDAOImpl implements FAQDAO {
 	@Override
 	public int MypageFAQListCount(MyOrderCriteria cri) throws SQLException {
 		return session.selectOne("FAQ-mapper.MypageFAQListCount", cri);
+	}
+
+	@Override
+	public void updateFAQAtchFileNo(FAQVO FAQ) throws SQLException {
+		session.update("FAQ-mapper.updateFAQAtchFileNo", FAQ);
+	}
+
+	@Override
+	public void updateFAQOrderNo(FAQVO FAQ) throws SQLException {
+		session.update("FAQ-mapper.updateFAQOrderNo", FAQ);
 	}
 
 }
