@@ -365,9 +365,9 @@
 				</c:if>
 				<c:if test="${pickUpNum == null}">
 				<span style="font-size:1.2em;">수거기사 미정</span>
+				</c:if>
 				</div>
 				<div style="margin:30px;">
-				</c:if>
 				<c:if test="${deliveryNum != null}">
 				<span style="font-size:1.2em;">배송기사 연락처 : ${deliveryNum }</span>
 				</c:if>
@@ -389,20 +389,47 @@
 				</div>
 
 				<div class="card-body p-0" style="height:150px;overflow:auto;overflow-x: hidden;">
+					<c:if test="${not empty av.bizType eq '세탁주문' }">
 					<div class="mt-2 mb-2 ml-3">세탁주문</div>
 					<div class="row pl-3">
-						<div class="orderPicture ml-2" id="pictureView" data-id="625" data-aa="1" style="height: 100px; width: 100px; background-image: url(&quot;/rundering/mypage/getPicture?atchFileNo=625&amp;atchFileSeq=1&quot;); background-position: center center; background-repeat: no-repeat; background-size: cover;">
+						<c:forEach items="${avList }" var="av">
+							<c:if test="${av.bizType eq '세탁주문' }">
+								<div class="orderPicture ml-2" id="pictureView"
+									data-id="${av.atchFileNo }" data-aa="${av.atchFileSeq }"
+									style="height: 100px; width: 100px;">
 								</div>
-							</div>
+							</c:if>
+						</c:forEach>
+					</div>
+					</c:if>
+					<c:if test="${not empty av.bizType eq '수거완료사진' }">
 					<div class="mt-2 mb-2 ml-3">수거완료</div>
 					<div class="row pl-3">
-						</div>
+						<c:forEach items="${avList }" var="av">
+							<c:if test="${av.bizType eq '수거완료사진' }">
+								<div class="orderPicture ml-2" id="pictureView"
+									data-id="${av.atchFileNo }" data-aa="${av.atchFileSeq }"
+									style="height: 100px; width: 100px;"></div>
+							</c:if>
+						</c:forEach>
+					</div>
+					</c:if>
+					<c:if test="${not empty av.bizType eq '배송완료사진' }">
 					<div class="mt-2 mb-2 ml-3">배송완료사진</div>
 					<div class="row pl-3">
-						</div>
+						<c:forEach items="${avList }" var="av">
+							<c:if test="${av.bizType eq '배송완료사진' }">
+								<div class="orderPicture ml-2" id="pictureView"
+									data-id="${av.atchFileNo }" data-aa="${av.atchFileSeq }"
+									style="height: 100px; width: 100px;"></div>
+							</c:if>
+						</c:forEach>
 					</div>
+					</c:if>
+				</div>
 			</div>
-		</div>
+			</div>
+		
 <div class="card card-primary card-outline direct-chat direct-chat-primary col-12 p-0" style="box-sizing: border-box;">
 			<div class="card-header">
 				<h3 class="card-title">요청사항</h3>
