@@ -460,6 +460,23 @@ public class MyPageController {
 		return entity;
 	}
 	
+	// 주문취소
+	@RequestMapping("/cancelOrder")
+	public ResponseEntity<String> cancelOrder(LaundryOrderVO laundryOrder) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		try {
+			laundryOrderService.cancelOrder(laundryOrder);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+
+		return entity;
+	}
+	
 	// 사진가져오기
 	@RequestMapping(value = "/getPicture", produces = "text/plain;charset=utf-8")
 	public ResponseEntity<byte[]> getPicture(AttachVO atch) throws Exception {

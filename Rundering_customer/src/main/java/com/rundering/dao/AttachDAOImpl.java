@@ -31,6 +31,8 @@ public class AttachDAOImpl implements AttachDAO{
 	public List<AttachVO> selectAttachVOByFileNo(String fileNo)  throws Exception{
 		return session.selectList("Attach-Mapper.selectAttachVOByFileNo", fileNo);
 	}
+	
+	// 파일 삭제 
 	@Override
 	public void deleteAttchFileRemoveByFileNo(String fileNo) throws Exception{
 		session.delete("Attach-Mapper.deleteAttchFileRemoveByFileNo", fileNo);

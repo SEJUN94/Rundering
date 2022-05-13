@@ -27,4 +27,7 @@ public interface LaundryOrderService {
 	
 	// 마이페이지 - 내 주문내역 디테일
 	public Map<String, Object> getDetail(String orderNo) throws Exception;
+	
+	// 주문취소
+	public void cancelOrder(LaundryOrderVO laundryOrder) throws Exception;
 }

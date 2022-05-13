@@ -84,7 +84,7 @@
 	</update>
 	
 	
-	<delete id="deleteAttchFileRemoveByFileNo">
+	<delete id="deleteAttchFileRemoveByFileNo" parameterType="str">
 		DELETE FROM TB_ATTACH_FILE
 		 WHERE
 	    ATCH_FILE_NO = #{atchFileNo}

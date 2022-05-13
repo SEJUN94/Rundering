@@ -26,4 +26,12 @@
 		   SET ORDER_NO = #{orderNo}
 		 WHERE PAYMENTNO = #{paymentNo}
  	</update>
+ 	
+ 	<update id="cancelPayment" parameterType="str">
+		update TB_PAYMENT
+	     set 
+	     CANCEL_YN = 'Y'
+	     where ORDER_NO = #{orderNo}
+	</update>
+ 	
 </mapper>

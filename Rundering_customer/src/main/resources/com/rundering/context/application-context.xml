@@ -84,6 +84,7 @@
 		p:paymentDAO-ref="paymentDAO"
 		p:attachDAO-ref="attachDAO"
 		p:replyDAO-ref="replyDAO"
+		p:memberDAO-ref="memberDAO"
 	/>
 	<bean id="laundryItemsService" class="com.rundering.service.LaundryItemsServiceImpl"
 		p:laundryItemsDAO-ref="laundryItemsDAO" 
