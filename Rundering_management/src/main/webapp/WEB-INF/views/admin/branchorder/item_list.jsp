@@ -20,9 +20,10 @@
                                 <th class="width50" style="text-align: center;">물품이름</th>
                                 <th class="width25" style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;">
                                     <div class="input-group input-group-sm" >
-                                        <select class="form-control" style="width: 60px;" name="laundryItemsCode"  id="laundryItemsCode" onchange="list_go(1);">
+										 <select class="form-control" style="width: 60px;" name="searchType"  id="searchType" onchange="list_go(1);">
+											<option value="">전체</option>
 											{{#each clcodeList}}                                           	 
-                                             	<option value="{{comCode}}">{{comCodeNm }}</option>
+                                             	<option value="{{comCode}}"  {{selected comCode}}>{{comCodeNm }}</option>
                                             {{/each}}
                                          </select>
                                      </div>
@@ -86,7 +87,13 @@
  
 <script >
 let item_page=1;
-
+function list_go(page){
+	
+	let searchType = document.querySelector("#searchType").value;
+	
+	item_List("<%=request.getContextPath()%>/admin/branchorder/itemlist?page="+page+"&searchType="+searchType)
+	f
+}
 
 
 
@@ -156,7 +163,11 @@ function item_List(pageInfo){
                				return i.comCodeNm
                			}
                		}
-            	}
+            	},"selected":function(code){
+         			if(dataMap.pageMaker.cri.searchType==code){
+	        	  		return 'selected';
+	        	  	}
+         	   }
             	
 			});
             
