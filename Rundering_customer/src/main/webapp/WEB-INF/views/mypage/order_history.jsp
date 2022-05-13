@@ -106,9 +106,9 @@ aside ul li a {
 							<tbody>
 								<tr style="border: none;">
 									<input type="hidden" id="orderNo" value="${list.orderNo }" />
-									<td style="width: 25%" align="center">배송상태 : ${list.orderStatus}</td>
-									<td style="width: 25%" align="center">주문일자 : <fmt:formatDate value="${list.orderDate}" pattern="yyyy-MM-dd" /></td>
-									<td style="width: 25%"></td>
+									<td style="width:25%;padding:12px;" align="center">배송상태 : <span style="font-weight:600;font-size:1.2em;">${list.orderStatus}</span></td>
+									<td style="width:25%" align="left">주문일자 : <fmt:formatDate value="${list.orderDate}" pattern="yyyy-MM-dd" /></td>
+									<td style="width:25%"></td>
 									<td rowspan="3"
 										style="width: 25%; border-left: 1px solid rgba(0, 0, 0, .125); text-align: center; vertical-align: middle;">
 										<c:if test="${list.orderStatus ne '배송정상완료' && list.orderStatus ne '배송지연완료'}">
@@ -124,15 +124,22 @@ aside ul li a {
 								</tr>
 								<tr style="border: none;">
 									<td rowspan="2" align="center"
-										style="border-right: none; border-top: none;"><img
+										style="border-right: none; border-top: none;padding:12px;"><img
 										alt="${list.atchFileNo}" height="100px;" width="70px;"
 										src="<%=request.getContextPath() %>/resources/images/자산 1.png">
 									</td>
-									<td colspan="2" align="left;" style="border-top: none;">상품명 : ${list.paymentNo}</td>
+									<td colspan="2" align="left;" style="border-top: none;vertical-align:middle;">세탁주문 : ${list.paymentNo}</td>
 								</tr>
 								<tr style="border: none;">
-									<td align="left;" style="border-left: none; border-top: none;">지점명 : ${list.branchCode }</td>
-									<td style="text-align: right; border-top: none;">결제금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${list.totalPrice}" />원</td>
+									<td align="left;" style="border-left: none; border-top: none;padding:12px;vertical-align:middle;">
+									<c:if test="${!empty list.branchCode}" >
+									담당 : ${list.branchCode }
+									</c:if>
+									<c:if test="${empty list.branchCode}" >
+									<span style="color:red; font-size:1em;">미정</span>
+									</c:if>
+									</td>
+									<td style="text-align: right; border-top: none;vertical-align:middle;padding:12px;">결제금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${list.totalPrice}" />원</td>
 								</tr>
 							</tbody>
 						</table>
