@@ -76,6 +76,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	public void setFaqDAO(FAQDAO faqDAO) {
 		this.faqDAO = faqDAO;
 	}
+	private OrderTaskScheduler orderTaskScheduler;
+	public void setOrderTaskScheduler(OrderTaskScheduler orderTaskScheduler) {
+		this.orderTaskScheduler = orderTaskScheduler;
+	}
 	@Override
 	public Map<String,Object> laundryOrderList(BranchCriteria cri) throws Exception{
 		ComCodeUtil comCodeUtil =new ComCodeUtil();
@@ -237,7 +241,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 			if(branchVO.getBranchCode().equals("000000")) continue;
 			BranchVO branch = new BranchVO();
 			branch.setBranchCode(branchVO.getBranchCode());
-			branch.setBranchLndrpcrymslmcoqy(branchDAO.selectExcessCapacityOfTodayLaundryByBranchCode(branchVO.getBranchCode()));
+			branch.setBranchLndrpcrymslmcoqy(branchDAO.selectExcessCapacityOfTomorrowLaundryByBranchCode(branchVO.getBranchCode()));
 			excessCapacityList.add(branch);
 		}
 		dataMap.put("branchList", branchList);
@@ -315,8 +319,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	}
 	@Override
 	public Map<String, Object> autoAssignmentOrder() throws Exception {
-		OrderTaskScheduler orderTaskScheduler = new OrderTaskScheduler(); 
-		orderTaskScheduler.assignLaundryOrderToBranch();
-		return null;
+		Map<String, Object> dataMap = orderTaskScheduler.assignLaundryOrderToBranch();
+		return dataMap;
 	}
 }

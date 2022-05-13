@@ -189,6 +189,7 @@
 		p:attachDAO-ref="attachDAO"
 		p:laundryThroughputDAO-ref="laundryThroughputDAO"
 		p:faqDAO-ref="faqDAO"
+		p:orderTaskScheduler-ref="orderTask"
 	/>
 	<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl" 
 		p:memberAddressDAO-ref="memberAddressDAO"

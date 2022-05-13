@@ -16,7 +16,7 @@
 }
 
 .orderDetailListScroll tbody {
-	max-height: 295px; /* Just for the demo          */
+	height: 295px;
 	overflow-y: auto; /* Trigger vertical scroll    */
 	overflow-x: hidden; /* Hide the horizontal scroll */
 }
@@ -123,7 +123,7 @@
 	
 	<div class="card">
 					<h4 class="m-3">주문관련문의</h4>
-				<div class="card-body table-responsive p-0 card-secondary card-outline" style="min-height: 320px;">
+				<div class="card-body table-responsive p-0 card-secondary card-outline" style="min-height: 195px;">
 					<table class="table table-head-fixed text-nowrap">
 						<thead>
 						<tr style="text-align: center;">
