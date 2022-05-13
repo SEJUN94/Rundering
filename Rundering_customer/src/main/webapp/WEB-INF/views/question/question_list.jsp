@@ -19,7 +19,7 @@ th, td {
 }
 
 .no {
-	width: 10%;
+	width: 5%;
 }
 
 .category {
@@ -27,11 +27,11 @@ th, td {
 }
 
 .title {
-	width: 22%;
+	width: 33%;
 }
 
 .writer {
-	width: 18%;
+	width: 15%;
 }
 
 .date {
@@ -39,35 +39,35 @@ th, td {
 }
 
 .yn {
-	width: 10%;
+	width: 5%;
 }
 .answer {
-	width: 10%
+	width: 12%
 }
 </style>
 </head>
 
 <body>
-	<section class="content-header">
+	<section class="content-header" style="width: 70%; max-width: 874px; margin: auto;">
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
 					<h1>문의게시판</h1>
 				</div>
-				<div class="col-sm-6">
+				<!-- <div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item active">문의게시판</li>
 						<li class="breadcrumb-item"><a href="#">Home</a></li>
 					</ol>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</section>
 
 	<div class="col-12">
-		<div class="card">
-			<div class="card-header">
-				<div class="card-tools">
+		<div class="card" style="width: 70%; max-width: 874px; margin: auto; box-shadow: none;">
+			<div class="card-header pb-3">
+				<div class="card-tools mr-2">
 					<div class="input-group input-group-sm" style="width: 300px;">
 						<select class="form-control col-md-4" name="searchType"
 							id="searchType">
@@ -102,7 +102,7 @@ th, td {
 					</thead>
 					<c:if test="${empty faqList }">
 						<tr>
-							<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+							<td colspan="7"><strong>해당 내용이 없습니다.</strong></td>
 						</tr>
 					</c:if>
 					<c:forEach items="${faqList }" var="faq">
@@ -135,7 +135,8 @@ th, td {
 						</tr>
 					</c:forEach>
 				</table>
-				<div class="float-right mt-3 mr-3 mb-3">
+			<div class="card-footer" style="font-size: 0.9em">
+				<div class="float-right m-0">
 
 					<button class="btn btn-primary" type="button" id="registBtn"
 						onclick="loginyn()">
@@ -144,12 +145,14 @@ th, td {
 						onclick="location.href='<%=request.getContextPath()%>/question/registForm'">
 						문의하기</button> --%>
 				</div>
+				<div style="margin-left: 50px;">
+			<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+			</div>
 			</div>
 		</div>
-
-		<div class="card-footer" style="font-size: 0.9em">
-			<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 		</div>
+
+		
 	</div>
 	
 <!-- 	알럽트 js -->

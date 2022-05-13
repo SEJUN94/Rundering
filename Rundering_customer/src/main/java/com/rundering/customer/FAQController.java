@@ -52,12 +52,11 @@ public class FAQController {
 	}
 
 	@RequestMapping("/registForm")
-	private String faqRegistForm(MyOrderCriteria cri, Model model, HttpSession session) {
+	private String faqRegistForm(Model model, HttpSession session) {
 		
 		MemberVO member =(MemberVO)session.getAttribute("loginUser");
-		cri.setMemberNo(member.getMemberNo());
 		try {
-			Map<String, Object> dataMap = faqService.getOrderList(cri);
+			Map<String, Object> dataMap = faqService.getOrderList(member.getMemberNo());
 			model.addAttribute("dataMap", dataMap);
 		} catch (SQLException e) {
 			e.printStackTrace();

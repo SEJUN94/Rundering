@@ -59,13 +59,9 @@ public class FAQDAOImpl implements FAQDAO {
 	
 	/* 주문번호 */
 	@Override
-	public List<FAQVO> selectOrderno(MyOrderCriteria cri) throws SQLException {
+	public List<FAQVO> selectOrderno(String memberNo) throws SQLException {
 
-		int offset = cri.getStartRowNum();
-		int limit = cri.getPerPageNum();
-		RowBounds rowBounds = new RowBounds(offset, limit);
-
-		List<FAQVO> orderList = session.selectList("FAQ-mapper.selectOrderno", cri, rowBounds);
+		List<FAQVO> orderList = session.selectList("FAQ-mapper.selectOrderno",memberNo);
 		return orderList;
 	}
 	

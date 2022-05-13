@@ -96,10 +96,10 @@ public class FAQServiceImpl implements FAQService {
 	
 	/* 주문번호 */
 	@Override
-	public Map<String, Object> getOrderList(MyOrderCriteria cri) throws SQLException {
+	public Map<String, Object> getOrderList(String memberNo) throws SQLException {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 
-		List<FAQVO> orderList = faqDAO.selectOrderno(cri);
+		List<FAQVO> orderList = faqDAO.selectOrderno(memberNo);
 
 		dataMap.put("orderList", orderList);
 

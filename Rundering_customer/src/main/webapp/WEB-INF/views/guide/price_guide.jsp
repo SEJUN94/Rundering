@@ -6,27 +6,27 @@
 <c:set var="laundryItemsList" value="${dataMap.laundryItemsList }" />
 
 
-<section class="content-header">
+<section class="content-header" style="width: 60%; max-width: 758px; margin: auto;">
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
 				<h1>가격안내</h1>
 			</div>
-			<div class="col-sm-6">
+			<!-- <div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
 					<li class="breadcrumb-item active">가격안내</li>
 					<li class="breadcrumb-item"><a href="#">이용안내</a></li>
 				</ol>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </section>
 
 <div class="col-12 col-sm-12">
-	<div class="card card-primary card-tabs">
-		<div class="card-header p-0 pt-1">
+	<div class="card card-secondary card-tabs mb-5" style="width: 60%; max-width: 758px; margin: auto;">
+		<div class="card-header p-0 pt-1" style="font-size: 1.2rem;">
 			<ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
-				<li class="pt-2 px-3"><h3 class="card-title">구분</h3></li>
+				<li class="pt-2 px-3"><h3 class="card-title" style="font-size: 1.3rem;">세탁품목 구분</h3></li>
 				<li class="nav-item"><a class="nav-link active"
 					id="custom-tabs-two-home-tab" data-toggle="pill"
 					href="#custom-tabs-two-home" role="tab"
@@ -43,22 +43,22 @@
 				</li>
 			</ul>
 		</div>
-		<div class="card-body">
+		<div class="card-body p-0">
 			<div class="tab-content" id="custom-tabs-two-tabContent">
 				<div class="tab-pane fade show active" id="custom-tabs-two-home"
 					role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
 					<div class="card-body table-responsive p-0" style="height: 500px;">
 						<table class="table table-head-fixed text-nowrap">
 							<thead>
-								<tr>
-									<th>품목</th>
-									<th>기본요금</th>
+							<tr style="text-align: center; font-size: 1.1rem;">
+									<th style="width: 50%;">품목</th>
+									<th style="width: 50%;">기본요금</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody style="font-size: 1.1rem;">
 								<c:if test="${empty laundryItemsList }">
 										<tr>
-											<td colspan="5" style="text-align: center;"><strong>물품이
+											<td colspan="2" style="text-align: center;"><strong>물품이
 													없습니다.</strong></td>
 										</tr>
 									</c:if>
@@ -66,8 +66,8 @@
 									<c:forEach items="${laundryItemsList }" var="laundryItems">
 										<c:if test="${laundryItems.laundryCategory eq 'CL' }">
 											<tr>
-												<td>${laundryItems.itemsName }</td>
-												<td>${laundryItems.price }원</td>
+												<td style="padding-left: 70px;">${laundryItems.itemsName }</td>
+												<td style="text-align: end;padding-right: 70px;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price }" />원</td>
 											</tr>
 										</c:if>
 									</c:forEach>
@@ -81,18 +81,18 @@
 					<div class="card-body table-responsive p-0" style="height: 500px;">
 						<table class="table table-head-fixed text-nowrap">
 							<thead>
-								<tr>
-									<th>품목</th>
-									<th>기본요금</th>
+							<tr style="text-align: center; font-size: 1.1rem;">
+									<th style="width: 50%;">품목</th>
+									<th style="width: 50%;">기본요금</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody style="font-size: 1.1rem;">
 								<c:if test="${!empty laundryItemsList }">
 									<c:forEach items="${laundryItemsList }" var="laundryItems">
 										<c:if test="${laundryItems.laundryCategory eq 'SH' }">
 											<tr>
-												<td>${laundryItems.itemsName }</td>
-												<td>${laundryItems.price }원</td>
+												<td style="padding-left: 70px;">${laundryItems.itemsName }</td>
+												<td style="text-align: end;padding-right: 70px;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price }" />원</td>
 											</tr>
 										</c:if>
 									</c:forEach>
@@ -106,18 +106,18 @@
 					<div class="card-body table-responsive p-0" style="height: 500px;">
 						<table class="table table-head-fixed text-nowrap">
 							<thead>
-								<tr>
-									<th>품목</th>
-									<th>기본요금</th>
+						<tr style="text-align: center; font-size: 1.1rem;">
+									<th style="width: 50%;">품목</th>
+									<th style="width: 50%;">기본요금</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody style="font-size: 1.1rem;">
 								<c:if test="${!empty laundryItemsList }">
 									<c:forEach items="${laundryItemsList }" var="laundryItems">
 										<c:if test="${laundryItems.laundryCategory eq 'BE' }">
-											<tr>
-												<td>${laundryItems.itemsName }</td>
-												<td>${laundryItems.price }원</td>
+										<tr>
+												<td style="padding-left: 70px;">${laundryItems.itemsName }</td>
+												<td style="text-align: end;padding-right: 70px;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price }" />원</td>
 											</tr>
 										</c:if>
 									</c:forEach>
