@@ -29,6 +29,7 @@ public interface ItemService {
 	Map<String, Object> itemInsertList(BranchCriteria cri, String articlesCode) throws Exception;
 	void updateSupllyCount(LaundryGoodsStockVO laundryGoodsStock) throws Exception;
 	void updateSupplyCountCancel(  String itemOutCode) throws Exception;
+	void branchAutoOrder(String branchCode) throws Exception;
 	
 	
 };

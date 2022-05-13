@@ -235,5 +235,6 @@
 		p:itemInsertDAO-ref="itemInsertDAO"
 		p:laundryArticlesDAO-ref="laundryArticlesDAO"
 		p:itemOutDAO-ref="itemOutDAO"
+		p:itemOrderDAO-ref="itemOrderDAO"
 	/>
 </beans>

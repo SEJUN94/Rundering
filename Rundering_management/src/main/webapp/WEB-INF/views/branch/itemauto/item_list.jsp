@@ -29,11 +29,17 @@
 						<b>자동 발주</b>
 					</h2>
                     <div class="card-tools">
+                    	
                         <div class="input-group input-group-sm" >
+                        	  <button class="btn btn-sm btn-primary" onclick="autoOrder()">
+                        	  	자동발주
+                    		</button>
+                         
                             <select class="form-control" name="laundryItemsCode"
                                 id="laundryItemsCode" onchange="list_go(1);">
                                 <option value="asd">asdaadas</option>
                             </select>
+                          
                         </div>
                     </div>
                 </div>
@@ -171,6 +177,24 @@
          </div>
     </div>
 </div>
+<script>
+function autoOrder(){
+	$.ajax({
+		url : '<%=request.getContextPath()%>/branch/itemauto/autoButton',
+		type : 'get',
+		success : function(data) {
+			alert("성공")
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+	
+	
+}
+</script>
+
+
 <script>
 let articlesCode= null;
 function SaveSupplyCount(){

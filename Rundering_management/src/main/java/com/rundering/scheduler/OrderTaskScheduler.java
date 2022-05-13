@@ -1,3 +1,4 @@
+
 package com.rundering.scheduler;
 
 import java.util.ArrayList;
@@ -489,11 +490,13 @@ public class OrderTaskScheduler {
 	}
 
 	public void autoOrder() throws Exception {
-
+		List<BranchVO> branchList = branchDAO.selectBranchList();
+		
+		
 		/* 키 : 아티클 코드 벨류 아티클 이름 */
 		Map<String, Integer> articlesPrice = new HashMap<String, Integer>();
 		// 지점 가져오기
-		List<BranchVO> branchList = branchDAO.selectBranchList();
+		
 
 		List<LaundryArticlesVO> laundrArticlesList = laundryArticlesDAO.selectLandryArticlesStock();
 		// 물품가격을 합함
@@ -503,13 +506,53 @@ public class OrderTaskScheduler {
 
 		}
 		for (BranchVO branch : branchList) {
-			// 지점에 해당하는 재고 물품 불러옴
-			List<LaundryGoodsStockVO> goodList = laundryGoodsStockDAO
-					.selectLaundryGoodsStockByBranchCode(branch.getBranchCode());
+			autoOrderMethod(branch.getBranchCode(),articlesPrice,laundryGoodsStockDAO,itemOrderDAO);
+		}
+	}
+	
+	public void autoOrderMethod(String branchCode,Map<String,Integer> articlesPrice,LaundryGoodsStockDAO laundryGoodsStockDAO, ItemOrderDAO itemOrderDAO) throws Exception {
+		
+		
+		List<LaundryGoodsStockVO> goodList = laundryGoodsStockDAO.selectLaundryGoodsStockByBranchCode(branchCode);
 
-			int sum = 0;
+		int sum = 0;
+		for (LaundryGoodsStockVO laundryGoodsStock : goodList) {
+
+			int supplyCount = laundryGoodsStock.getSupplyCount();
+			int point = laundryGoodsStock.getAutoOrderPoint();
+			Date autoLastDay = laundryGoodsStock.getAutoOrderLastDate();
+			Date sysdate = new Date();
+
+			// 14일 비교
+			if (supplyCount < point) {
+				if ((sysdate.getTime() - autoLastDay.getTime()) / (1000 * 60 * 60 * 24) >= 14) {
+					// 제품 * 개수
+					sum += articlesPrice.get(laundryGoodsStock.getArticlesCode())
+							* laundryGoodsStock.getAutoOrderCount();
+					// 총합 가격을 가져옴
+				}
+			}
+
+		}
+		// SEQ 가져오기
+		
+		// 주문 넣기
+		if (sum > 0) {
+			String seq = itemOrderDAO.seq();
+			ItemOrderVO itemOrder = new ItemOrderVO();
+			itemOrder.setBranchCode(branchCode);
+			itemOrder.setOrdercode(seq);
+			itemOrder.setItemOrderPaymentPrice(sum);
+			itemOrderDAO.insertItemOrderByItmeOrder(itemOrder);
+
+			// 주문 상세 순번
+			int detailSeq = 1;
+
 			for (LaundryGoodsStockVO laundryGoodsStock : goodList) {
-
+				if(laundryGoodsStock.getBranchCode().equals("000000")) {
+					continue;
+				}
+				
 				int supplyCount = laundryGoodsStock.getSupplyCount();
 				int point = laundryGoodsStock.getAutoOrderPoint();
 				Date autoLastDay = laundryGoodsStock.getAutoOrderLastDate();
@@ -518,62 +561,24 @@ public class OrderTaskScheduler {
 				// 14일 비교
 				if (supplyCount < point) {
 					if ((sysdate.getTime() - autoLastDay.getTime()) / (1000 * 60 * 60 * 24) >= 14) {
-						// 제품 * 개수
-						sum += articlesPrice.get(laundryGoodsStock.getArticlesCode())
-								* laundryGoodsStock.getAutoOrderCount();
-						// 총합 가격을 가져옴
-					}
-				}
+						ItemOrderDetailVO detail = new ItemOrderDetailVO();
+						// 가격 뽑기
+						detail.setPrice(articlesPrice.get(laundryGoodsStock.getArticlesCode())
+								* laundryGoodsStock.getAutoOrderCount());
+						detail.setOrdercode(seq);
+						detail.setArticlesCode(laundryGoodsStock.getArticlesCode());
+						detail.setSeq(detailSeq);
+						detail.setOrderCount(laundryGoodsStock.getAutoOrderCount());
+						itemOrderDAO.insertItemOrderDetailByItmeOrderDetail(detail);
+						// 날짜업데이틍
+						laundryGoodsStockDAO.updateLaundryGoodsStockLastDateAuto(laundryGoodsStock);
 
-			}
-			// SEQ 가져오기
-			
-			// 주문 넣기
-			if (sum > 0) {
-				String seq = itemOrderDAO.seq();
-				ItemOrderVO itemOrder = new ItemOrderVO();
-				itemOrder.setBranchCode(branch.getBranchCode());
-				itemOrder.setOrdercode(seq);
-				itemOrder.setItemOrderPaymentPrice(sum);
-				itemOrderDAO.insertItemOrderByItmeOrder(itemOrder);
+						detailSeq++;
 
-				// 주문 상세 순번
-				int detailSeq = 1;
-
-				for (LaundryGoodsStockVO laundryGoodsStock : goodList) {
-					if(laundryGoodsStock.getBranchCode().equals("000000")) {
-						continue;
-					}
-					
-					int supplyCount = laundryGoodsStock.getSupplyCount();
-					int point = laundryGoodsStock.getAutoOrderPoint();
-					Date autoLastDay = laundryGoodsStock.getAutoOrderLastDate();
-					Date sysdate = new Date();
-
-					// 14일 비교
-					if (supplyCount < point) {
-						if ((sysdate.getTime() - autoLastDay.getTime()) / (1000 * 60 * 60 * 24) >= 14) {
-							ItemOrderDetailVO detail = new ItemOrderDetailVO();
-							// 가격 뽑기
-							detail.setPrice(articlesPrice.get(laundryGoodsStock.getArticlesCode())
-									* laundryGoodsStock.getAutoOrderCount());
-							detail.setOrdercode(seq);
-							detail.setArticlesCode(laundryGoodsStock.getArticlesCode());
-							detail.setSeq(detailSeq);
-							detail.setOrderCount(laundryGoodsStock.getAutoOrderCount());
-							itemOrderDAO.insertItemOrderDetailByItmeOrderDetail(detail);
-							// 날짜업데이틍
-							laundryGoodsStockDAO.updateLaundryGoodsStockLastDateAuto(laundryGoodsStock);
-
-							detailSeq++;
-
-						}
 					}
 				}
 			}
-
 		}
-		// 여기에서 알림 넣어줘야해용~~
 	}
 
 }
