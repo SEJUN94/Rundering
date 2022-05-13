@@ -118,7 +118,7 @@ aside ul li a {
 											<span style="font-weight: bold;">세탁물 배송 완료</span>
 										</c:if> 
 										<c:if test="${list.orderStatus eq '수거대기' }">
-											<button class="btn btn-danger btn-m col-10" onclick="">주문ㆍ배송취소</button>
+											<button class="btn btn-danger btn-m col-10" onclick="cancel('${list.orderNo }','${list.atchFileNo }','${list.replyNo }')">주문ㆍ배송취소</button>
 										</c:if>
 									</td>
 								</tr>
@@ -180,7 +180,7 @@ aside ul li a {
 		});
 	}
 	
-	function cancel(){
+	function cancel(orderNo,atchFileNo,replyNo){
 		Swal.fire({
             title: '세탁 주문을 취소하시겠습니까?',
             icon : 'warning' ,
@@ -196,12 +196,18 @@ aside ul li a {
 				$.ajax({
 					url : '<%=request.getContextPath()%>/mypage/cancelOrder',
 					data : {
-						'password' : $('#password').val()
+						'orderNo' : orderNo,
+						'atchFileNo' : atchFileNo,
+						'replyNo' : replyNo
 					},
 					type : 'post',
 					success : function(result) {
 						if (result.toUpperCase() == "OK") {
-							Swal.fire('변경 완료', '비밀변호 변경이 완료되었습니다.', 'success' )
+							Swal.fire({
+								icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+								title: '주문이 취소되었습니다.',
+								content: '1~2일 이내에 환불 처리 됩니다.' 
+							});
 						} else {
 							Swal.fire({
 								icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
