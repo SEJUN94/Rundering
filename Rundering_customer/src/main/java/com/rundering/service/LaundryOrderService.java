@@ -19,9 +19,12 @@ public interface LaundryOrderService {
 	// 세탁주문조회
 	LaundryOrderVO getLaundryOrder(String orderNo) throws SQLException;
 	
-	// 마이페이지 - 내 주문내역 가져오기
+	// 마이페이지 - 내 전체 주문내역 가져오기
 	public Map<String, Object> getMyOrderList(MyOrderCriteria cri) throws Exception;
 
+	// 마이페이지 - 진행중인 주문내역 가져오기
+	public Map<String, Object> getMyOrderIngList(MyOrderCriteria cri) throws Exception;
+	
 	// 마이페이지 - 완료된 내 주문내역 가져오기
 	public Map<String, Object> getMyCompleteOrderList(MyOrderCriteria cri) throws Exception;
 	

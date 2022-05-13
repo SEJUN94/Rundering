@@ -29,6 +29,7 @@ import com.rundering.service.FAQService;
 import com.rundering.service.LaundryOrderService;
 import com.rundering.service.MemberAddressService;
 import com.rundering.service.MemberService;
+import com.rundering.service.PaymentService;
 import com.rundering.service.ReplyService;
 import com.rundering.util.FileUtil;
 import com.rundering.util.UserSha256;
@@ -46,6 +47,9 @@ public class MyPageController {
 
 	@Resource(name="attachService")
 	private AttachService attachService;
+	
+	@Resource(name="paymentService")
+	private PaymentService paymentService;
 	
 	@Autowired
 	private ReplyService replyService;
@@ -418,6 +422,27 @@ public class MyPageController {
 		return mnv;
 	}
 	
+	// 진행중인 주문내역
+	@RequestMapping("/myorder/histroy/ingList")
+	public ModelAndView myorderIng(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {
+		String url = "/mypage/order_history_ing";
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		LaundryOrderVO laundryOrder = new LaundryOrderVO();
+		
+		// 세션을 통해 고객번호 받아오기!
+		laundryOrder.setMemberNo(loginUser.getMemberNo());
+		cri.setMemberNo(loginUser.getMemberNo());
+		
+		Map<String, Object> dataMap = laundryOrderService.getMyOrderIngList(cri);
+		
+		mnv.addObject("dataMap",dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
 	// 배송완료된 주문내역
 	@RequestMapping("/myorder/histroy/complete")
 	public ModelAndView myCompleteorder(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {
@@ -432,6 +457,44 @@ public class MyPageController {
 		cri.setMemberNo(loginUser.getMemberNo());
 		
 		Map<String, Object> dataMap = laundryOrderService.getMyCompleteOrderList(cri);
+		
+		mnv.addObject("dataMap",dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	// 결제내역
+	@RequestMapping("/myorder/histroy/comlist")
+	public ModelAndView myComOrder(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {
+		String url = "/mypage/order_complete_list";
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		
+		// 세션을 통해 고객번호 받아오기!
+		cri.setMemberNo(loginUser.getMemberNo());
+		
+		Map<String, Object> dataMap = paymentService.getComList(cri);
+		
+		mnv.addObject("dataMap",dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	// 취소내역
+	@RequestMapping("/myorder/histroy/cnacellist")
+	public ModelAndView myCancelOrder(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {
+		String url = "/mypage/order_cancel_list";
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		
+		// 세션을 통해 고객번호 받아오기!
+		cri.setMemberNo(loginUser.getMemberNo());
+		
+		Map<String, Object> dataMap = paymentService.getCancelList(cri);
 		
 		mnv.addObject("dataMap",dataMap);
 		mnv.setViewName(url);
@@ -472,7 +535,6 @@ public class MyPageController {
 		} catch (SQLException e) {
 			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 
 		return entity;
 	}

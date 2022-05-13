@@ -19,7 +19,7 @@ th, td {
 }
 
 .no {
-	width: 5%;
+	width: 10%;
 }
 
 .category {
@@ -27,11 +27,11 @@ th, td {
 }
 
 .title {
-	width: 33%;
+	width: 22%;
 }
 
 .writer {
-	width: 15%;
+	width: 18%;
 }
 
 .date {
@@ -39,35 +39,35 @@ th, td {
 }
 
 .yn {
-	width: 5%;
+	width: 10%;
 }
 .answer {
-	width: 12%
+	width: 10%
 }
 </style>
 </head>
 
 <body>
-	<section class="content-header" style="width: 70%; max-width: 874px; margin: auto;">
+	<section class="content-header">
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
 					<h1>문의게시판</h1>
 				</div>
-				<!-- <div class="col-sm-6">
+				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item active">문의게시판</li>
 						<li class="breadcrumb-item"><a href="#">Home</a></li>
 					</ol>
-				</div> -->
+				</div>
 			</div>
 		</div>
 	</section>
 
 	<div class="col-12">
-		<div class="card" style="width: 70%; max-width: 874px; margin: auto; box-shadow: none;">
-			<div class="card-header pb-3">
-				<div class="card-tools mr-2">
+		<div class="card">
+			<div class="card-header">
+				<div class="card-tools">
 					<div class="input-group input-group-sm" style="width: 300px;">
 						<select class="form-control col-md-4" name="searchType"
 							id="searchType">
@@ -135,24 +135,14 @@ th, td {
 						</tr>
 					</c:forEach>
 				</table>
+
+					
+			</div>
 			<div class="card-footer" style="font-size: 0.9em">
-				<div class="float-right m-0">
-
-					<button class="btn btn-primary" type="button" id="registBtn"
-						onclick="loginyn()">
-						문의하기</button>
-					<%-- <button class="btn btn-primary" type="button" id="registBtn"
-						onclick="location.href='<%=request.getContextPath()%>/question/registForm'">
-						문의하기</button> --%>
-				</div>
-				<div style="margin-left: 50px;">
 			<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
-			</div>
+			<button class="btn btn-primary float-right" type="button" id="registBtn" onclick="loginyn()">문의하기</button>
 			</div>
 		</div>
-		</div>
-
-		
 	</div>
 	
 <!-- 	알럽트 js -->

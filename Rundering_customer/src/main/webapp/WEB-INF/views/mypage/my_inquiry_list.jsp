@@ -79,7 +79,7 @@ li h1{
 			</li>
 			<li onclick="location.href='<%=request.getContextPath()%>/mypage/myorder/histroy/main'" 
 				style="margin-top: 15px; margin-bottom: 15px; margin-left: 30px;">
-				<a>주문 내역</a>
+				<a href="<%=request.getContextPath()%>/mypage/myorder/histroy/main">주문 내역</a>
 			</li>
 			<li	onclick="location.href='<%=request.getContextPath()%>/mypage/myinquiry/list'"
 				style="cursor: pointer; margin-top: 10px; margin-bottom: 15px; margin-left: 30px;">
@@ -122,7 +122,7 @@ li h1{
 					</thead>
 					<c:if test="${empty faqList }">
 						<tr>
-							<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+							<td colspan="6"><strong>해당 내용이 없습니다.</strong></td>
 						</tr>
 					</c:if>
 					<c:forEach items="${faqList }" var="faq">

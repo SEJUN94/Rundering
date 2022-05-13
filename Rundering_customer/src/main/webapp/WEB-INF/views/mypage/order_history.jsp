@@ -38,21 +38,22 @@ aside ul li a {
 			<li onclick="location.href='<%=request.getContextPath()%>/mypage'"
 				style="cursor: pointer; margin-top: 30px; margin-bottom: 15px; margin-left: 30px;"><a>회원
 					정보 수정</a></li>
-			<li
-				onclick="location.href='<%=request.getContextPath()%>/mypage/myaddress'"
+			<li	onclick="location.href='<%=request.getContextPath()%>/mypage/myaddress'"
 				style="cursor: pointer; margin-top: 15px; margin-bottom: 15px; margin-left: 30px;"><a>주소
 					관리</a></li>
 			<li style="margin-top: 15px; margin-bottom: 15px; margin-left: 30px;">
-				<a>주문 내역</a>
+				<a href="<%=request.getContextPath()%>/mypage/myorder/histroy/main">주문 내역</a>
 				<ul>
 					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.9em;">
-						<a href="<%=request.getContextPath()%>/mypage/myorder/histroy/main">진행중인 세탁물</a>
+						<a href="<%=request.getContextPath()%>/mypage/myorder/histroy/ingList">진행중인 주문</a>
 					</li>
 					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.9em;">
-						<a href="<%=request.getContextPath()%>/mypage/myorder/histroy/complete">배송 완료된 세탁</a>
+						<a href="<%=request.getContextPath()%>/mypage/myorder/histroy/complete">완료된 주문</a>
 					</li>
-					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.9em;"><a>결제 내역</a></li>
-					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.9em;"><a>취소 내역</a></li>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.9em;">
+					<a href="<%=request.getContextPath()%>/mypage/myorder/histroy/comlist">결제 내역</a></li>
+					<li	style="margin-top: 10px; margin-bottom: 5px; padding-left: 20px; font-size:0.9em;">
+					<a href="<%=request.getContextPath()%>/mypage/myorder/histroy/cnacellist">취소 내역</a></li>
 				</ul>
 			</li>
 			<li	onclick="location.href='<%=request.getContextPath()%>/mypage/myinquiry/list'"
@@ -118,7 +119,7 @@ aside ul li a {
 											<span style="font-weight: bold;">세탁물 배송 완료</span>
 										</c:if> 
 										<c:if test="${list.orderStatus eq '수거대기' }">
-											<button class="btn btn-danger btn-m col-10" onclick="">주문ㆍ배송취소</button>
+											<button class="btn btn-danger btn-m col-10" onclick="cancel('${list.orderNo }','${list.atchFileNo }','${list.replyNo }')">주문ㆍ배송취소</button>
 										</c:if>
 									</td>
 								</tr>
@@ -157,6 +158,21 @@ aside ul li a {
 
 
 <script>
+
+async function getImg(){
+	 for(var target of document.querySelectorAll('.orderPicture')){	
+		 var atchFileNo = target.getAttribute('data-id');
+		 var atchFileSeq = target.getAttribute('data-aa');
+		 target.style.backgroundImage="url('<%=request.getContextPath()%>/mypage/getPicture?atchFileNo="+atchFileNo+"&atchFileSeq="+atchFileSeq+"')";
+		 target.style.backgroundPosition="center";
+		 target.style.backgroundRepeat="no-repeat";
+		 target.style.backgroundSize="cover";
+	}
+}
+
+getImg();
+
+
 	function detail(){
 		$.ajax({
 			url : '<%=request.getContextPath()%>/mypage/order_detail',
@@ -180,7 +196,7 @@ aside ul li a {
 		});
 	}
 	
-	function cancel(){
+	function cancel(orderNo,atchFileNo,replyNo){
 		Swal.fire({
             title: '세탁 주문을 취소하시겠습니까?',
             icon : 'warning' ,
@@ -196,12 +212,18 @@ aside ul li a {
 				$.ajax({
 					url : '<%=request.getContextPath()%>/mypage/cancelOrder',
 					data : {
-						'password' : $('#password').val()
+						'orderNo' : orderNo,
+						'atchFileNo' : atchFileNo,
+						'replyNo' : replyNo
 					},
 					type : 'post',
 					success : function(result) {
 						if (result.toUpperCase() == "OK") {
-							Swal.fire('변경 완료', '비밀변호 변경이 완료되었습니다.', 'success' )
+							Swal.fire({
+								icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+								title: '주문이 취소되었습니다.',
+								content: '1~2일 이내에 환불 처리 됩니다.' 
+							});
 						} else {
 							Swal.fire({
 								icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.

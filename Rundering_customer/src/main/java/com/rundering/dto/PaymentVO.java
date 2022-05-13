@@ -3,7 +3,7 @@ package com.rundering.dto;
 import java.util.Date;
 
 public class PaymentVO {
-	private String paymentNo;   		 //결제번호
+	private String paymentNo;   	 //결제번호
 	private Date paymentDate;   	 //결제일자
 	private String paymentType;  	 //결제종류
 	private String cancelYn;  	 	 //취소여부
