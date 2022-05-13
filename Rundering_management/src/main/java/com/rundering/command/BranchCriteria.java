@@ -1,5 +1,7 @@
 package com.rundering.command;
 
+import java.util.Date;
+
 public class BranchCriteria {
 
 	private int page=1;
@@ -7,6 +9,7 @@ public class BranchCriteria {
 	private String searchType="";
 	private String keyword="";
 	private String branchCode;
+	private String date;
 	
 	private int startRowNum=0;
 	
@@ -61,6 +64,13 @@ public class BranchCriteria {
 	public void setBranchCode(String branchCode) {
 		this.branchCode = branchCode;
 	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
 	
 
 }

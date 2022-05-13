@@ -210,6 +210,7 @@
 	/>  
 	<bean id="adminItemOrderService" class="com.rundering.service.AdminItemOrderServiceImpl"
 		p:adminItemOrderDAO-ref="adminItemOrderDAO"
+		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
 	/>
 	<bean id="laundryThroughputService" class="com.rundering.service.LaundryThroughputServiceImpl"
 		p:laundryThroughputDAO-ref="laundryThroughputDAO"

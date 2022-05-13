@@ -35,10 +35,7 @@
                         	  	자동발주
                     		</button>
                          
-                            <select class="form-control" name="laundryItemsCode"
-                                id="laundryItemsCode" onchange="list_go(1);">
-                                <option value="asd">asdaadas</option>
-                            </select>
+                            
                           
                         </div>
                     </div>
@@ -51,10 +48,9 @@
                                 <th style="text-align: center;">물품이름</th>
                                 <th style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;">
                                     <div class="input-group input-group-sm" >
-                                        <select class="form-control" style="width: 60px;" name="laundryItemsCode"  id="laundryItemsCode" onchange="list_go(1);">
+                                        <select class="form-control" style="width: 85px;" name="searchType"  id="searchType" onchange="list_go(1);">
                                            	 <c:forEach items="${clcodeList }" var="clcode">
-                                           	 
-                                             	<option value="${clcode.comCode}">${clcode.comCodeNm }</option>
+                                             	<option value="${clcode.comCode}" ${cri.searchType eq clcode.comCode ? 'selected':'' }>${clcode.comCodeNm }</option>
                                              </c:forEach>
                                          </select>
                                      </div>

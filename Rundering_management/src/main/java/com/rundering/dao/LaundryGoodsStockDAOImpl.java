@@ -83,6 +83,10 @@ public class LaundryGoodsStockDAOImpl implements LaundryGoodsStockDAO{
 	public List<LaundryGoodsStockVO> selectLaundryGoodsStockByBranchCode(String branchCode) throws Exception{
 		return session.selectList("LaundryGoodsStock-Mapper.selectLaundryGoodsStockByBranchCode", branchCode);
 	}
+	@Override
+	public void updateAdminGoodsStockSupplyByLaundryGoodsStock(LaundryGoodsStockVO laundryGoodsStockVO) throws Exception{
+		session.update("LaundryGoodsStock-Mapper.updateAdminGoodsStockSupplyByLaundryGoodsStock", laundryGoodsStockVO);
+	}
 
 
 }

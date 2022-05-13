@@ -9,10 +9,7 @@
 					</h2>
                     <div class="card-tools">
                         <div class="input-group input-group-sm" >
-                            <select class="form-control" name="laundryItemsCode"
-                                id="laundryItemsCode" onchange="list_go(1);">
-                                <option value="asd">asdaadas</option>
-                            </select>
+                           <input type="date" onchange="registChangeDate('1')" id="todayDate" value="{{cri.date}}">
                         </div>
                     </div>
                 </div>
@@ -55,7 +52,7 @@
       <i class='fas fa-angle-double-left'></i>
    </a>
 </li>
-<li class="paginate_button page-item">
+<li class="paginate_button page-item" onclick="numberChange({{#if prev}} {{prevPageNum}} {{/if}})">
    <a href="javascript:page_go('{{#if prev}}{{pageurl prevPageNum}}{{/if}}')" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">
       <i class='fas fa-angle-left'></i>
    </a>
@@ -86,6 +83,10 @@
 
 <script >
 let page= 1;
+function registChangeDate(page){
+	let date = event.target.value
+	registList("<%=request.getContextPath()%>/branch/item/insertList?page="+page+"&date="+date)
+}
 
 
 function page_go(url){
@@ -141,8 +142,7 @@ function registList(pageInfo){
 					 if(pageNum == page) return 'active';
 			   },
                "pageurl":function(pageNum){
-            	   numberChange(pageNum)
-            	   return "<%=request.getContextPath()%>/branch/item/insertList?page="+page;
+            	   return "<%=request.getContextPath()%>/branch/item/insertList?page="+pageNum;
                },"prettifyDate":function(timeValue){
             	      var dateObj=new Date(timeValue);
             	      var year=dateObj.getFullYear();
@@ -176,6 +176,9 @@ function registList(pageInfo){
 			
 			$("#appenRegist").append(html)
 			$("#registPaging").append(pagehtml);
+			
+			let todayDate = document.querySelector("#todayDate");
+			todayDate.max = new Date().toISOString().split("T")[0];
 		},
 		error : function(error) {
 			AjaxErrorSecurityRedirectHandler(error.status);
