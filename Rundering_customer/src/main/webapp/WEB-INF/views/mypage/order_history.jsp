@@ -158,6 +158,21 @@ aside ul li a {
 
 
 <script>
+
+async function getImg(){
+	 for(var target of document.querySelectorAll('.orderPicture')){	
+		 var atchFileNo = target.getAttribute('data-id');
+		 var atchFileSeq = target.getAttribute('data-aa');
+		 target.style.backgroundImage="url('<%=request.getContextPath()%>/mypage/getPicture?atchFileNo="+atchFileNo+"&atchFileSeq="+atchFileSeq+"')";
+		 target.style.backgroundPosition="center";
+		 target.style.backgroundRepeat="no-repeat";
+		 target.style.backgroundSize="cover";
+	}
+}
+
+getImg();
+
+
 	function detail(){
 		$.ajax({
 			url : '<%=request.getContextPath()%>/mypage/order_detail',

@@ -135,20 +135,13 @@ th, td {
 						</tr>
 					</c:forEach>
 				</table>
-				<div class="float-right mt-3 mr-3 mb-3">
 
-					<button class="btn btn-primary" type="button" id="registBtn"
-						onclick="loginyn()">
-						문의하기</button>
-					<%-- <button class="btn btn-primary" type="button" id="registBtn"
-						onclick="location.href='<%=request.getContextPath()%>/question/registForm'">
-						문의하기</button> --%>
-				</div>
+					
 			</div>
-		</div>
-
-		<div class="card-footer" style="font-size: 0.9em">
+			<div class="card-footer" style="font-size: 0.9em">
 			<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+			<button class="btn btn-primary float-right" type="button" id="registBtn" onclick="loginyn()">문의하기</button>
+			</div>
 		</div>
 	</div>
 	
