@@ -6,6 +6,7 @@ import java.util.List;
 import com.rundering.command.AdminLaundryOrderListCriteria;
 import com.rundering.command.BranchCriteria;
 import com.rundering.command.Criteria;
+import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.OrderDelayDTO;
 
@@ -42,6 +43,5 @@ public interface LaundryOrderDAO {
 	public int selectLaundryOrderCountTodayByBranchCode(String branchCode) throws Exception;
 	
 	public OrderDelayDTO selectLaundryOrderLateDeliveryByBranchCode(OrderDelayDTO orderDelay ) throws Exception;
-	
 	
 }

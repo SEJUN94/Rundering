@@ -176,6 +176,12 @@
 		<include refid="search"/>
 	</select>
 	
+	<select id="selectDeliveryEmpListByBranchCode" resultMap="employeesMap" parameterType="str">
+			SELECT *
+		  FROM TB_EMPLOYEES
+		 WHERE BRANCH_CODE=#{branchCode}
+		   AND DEPARTMENT='DE'
+	</select>
 
 
 </mapper>

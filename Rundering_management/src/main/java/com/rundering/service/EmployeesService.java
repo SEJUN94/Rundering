@@ -30,4 +30,6 @@ public interface EmployeesService {
     //지점코드로 지점명 가져오기
     public String getBranchName(String branchCode) throws Exception;
     
+    public List<EmployeesVO> getDeliveryEmpListByBranchCode(String branchCode) throws Exception;
+    
 }

@@ -54,12 +54,10 @@ ${from }
 								</span>
 							</div>
 						</div>
+						<button type="button" class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#selectDeModal-lg"
+								onclick="DeliveryEmp();">선택주문 지점할당</button>
 					</div>
-
-
-
 					<table class="table table-hover text-nowrap">
-
 						<thead>
 							<tr>
 								<th class="width10" style="text-align: center;">주문번호</th>
@@ -187,7 +185,6 @@ ${from }
 					<div class="modal-body">
 						<form action="request" id="replyForm">
 							<input type="text" class="form-control" name="replyContent"	id="replyContent" >
-							</input> 
 						</form>
 					</div>
 					<div class="modal-footer">
@@ -198,6 +195,51 @@ ${from }
 			</div>
 		</div>
 		
+		<!-- 배송직원모달 -->
+		<div class="modal fade" id="selectDeModal-lg" style="display: none;"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">수거/배송 할당</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="card" style="width:49%; margin-right:1%">
+								<div class="card-body">
+									<table class="table table-hover text-nowrap" style="text-align: center;">
+										<thead>
+											<tr>
+												<th class="pr-0"><input type="checkbox" onclick="selectAll(this);" name="selectAllOrderNo" value="true"></th>
+												<th style="width: 230px;">배송사원</th>
+												<th>지점명</th>
+											</tr>   
+										</thead> 
+										<tbody class="realClass">
+										
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="card" style="width:49%; margin-left:1%">
+								<div class="card-body">
+									<input type="checkbox" value="0">									
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="registBtn" data-replyno onclick="registReply()">작성</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+				
 		<div class="modal fade" id="modal-modify" style="display: none;"
 			aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -212,7 +254,6 @@ ${from }
 					<div class="modal-body">
 						<form action="request" id="replyForm">
 							<input type="text" class="form-control" name="replyContent"	id="replyModifyContent" >
-							</input> 
 						</form>
 					</div>
 					<div class="modal-footer">
@@ -222,6 +263,7 @@ ${from }
 				</div>
 			</div>
 		</div>
+		
 		</div>
 		<c:if test="${empty laundryOrderList }">
 			<form id="jobForm">	
@@ -230,6 +272,7 @@ ${from }
 				<input type='hidden' name="customerSort" value="" />
 				<input type='hidden' name="keyword" value="" />
 			</form>
+			
 		
 							<script>
 								function list_go(page,url){
@@ -250,10 +293,11 @@ ${from }
 							</script>
 					</c:if>
 		
+		
 		<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 		<%@include file="./reply.jsp" %>
 		
-		<script type="text/x-handlebars-template" id="fileImage-template" >
+	<script type="text/x-handlebars-template" id="fileImage-template" >
 		<ul class="nav nav-tabs" id="custom-tabs-four-tab">
 			{{#count}}
 			<li class="nav-item">
@@ -264,6 +308,34 @@ ${from }
 			{{/count}}
 		</ul>	
 	</script>
+<script>
+function DeliveryEmp(){
+	var str = null;
+	 $.ajax({
+		url: "<%=request.getContextPath()%>/branch/laundrysituatuion/deliveryemp",
+		type:'POST',
+		contentType:'application/json',
+		success:function(data){
+			for(var i=0; i<data.length; i++){
+				str += "<tr>";
+				str += "	<td>";
+				str += "		<input type='checkbox'>"	
+				str += "	</td>";
+				str += "	<td>";
+				str += "	</td>";
+				str += "	<td>";
+				str += "	</td>";
+				str += "</tr>";
+				document.querySelectorAll('table .realClass')[i].innerHTML = str;
+				document.querySelectorAll('.modal .td')[i].innerHTML = data[i].employeeId;
+			}
+		},
+		error:function(error){
+			alert("현재 세탁주문 지점할당이 불가합니다. \n관리자에게 연락바랍니다.");
+		}
+	});
+}
+</script>
 <script>
 	let imgList =null;
 	function orderDetail_go(){

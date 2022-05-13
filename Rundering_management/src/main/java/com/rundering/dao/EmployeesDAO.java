@@ -35,4 +35,6 @@ public interface EmployeesDAO {
     public void employeeBranchRegist(EmployeesVO employee) throws Exception;
     
     public EmployeesVO selectEmployeeByMemberNo(String memberNo) throws Exception;
+    
+    public List<EmployeesVO> selectDeliveryEmpListByBranchCode(String branchCode) throws Exception;
 }

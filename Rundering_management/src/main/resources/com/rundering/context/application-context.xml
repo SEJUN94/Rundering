@@ -235,4 +235,6 @@
 		p:laundryArticlesDAO-ref="laundryArticlesDAO"
 		p:itemOutDAO-ref="itemOutDAO"
 	/>
+	
+	
 </beans>

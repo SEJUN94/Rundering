@@ -4,21 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.BranchCriteria;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.service.AttachService;
+import com.rundering.service.EmployeesService;
 import com.rundering.service.LaundryOrderService;
 import com.rundering.util.FileUtil;
 
@@ -29,6 +33,9 @@ public class LaundrySituatuionController {
 	LaundryOrderService laundryOrderService;
 	@Autowired
 	AttachService attachService;
+	@Autowired
+	EmployeesService employeesService;
+
 	
 	@RequestMapping("/list")
 	private String situatuionList(Model model,BranchCriteria cri,HttpSession session) throws Exception {
@@ -76,6 +83,24 @@ public class LaundrySituatuionController {
 		model.addAllAttributes(dataMap);
 		return url; 
 	}
+	@RequestMapping("/deliveryemp")
+	@ResponseBody
+	private ResponseEntity<List<EmployeesVO>> deliveryEmpList(String branchCode, HttpServletRequest request) throws Exception{
+		ResponseEntity<List<EmployeesVO>> entity = null;
+		
+		HttpSession session = request.getSession();
+		EmployeesVO empVO = (EmployeesVO)session.getAttribute("loginEmployee");
+		branchCode = empVO.getBranchCode();
+		
+		List<EmployeesVO> deEmpList =  employeesService.getDeliveryEmpListByBranchCode(branchCode);
+		
+		entity = new ResponseEntity<List<EmployeesVO>>(deEmpList, HttpStatus.OK);
+		
+		return entity;
+	}
+	
+	
+	
 	@RequestMapping(value =  "/getimgs",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	private  ResponseEntity<List<byte[]>> situationGetImage(String atchFileNo){
@@ -90,5 +115,7 @@ public class LaundrySituatuionController {
 		
 		return resp;
 	}
+	
+
 	
 }

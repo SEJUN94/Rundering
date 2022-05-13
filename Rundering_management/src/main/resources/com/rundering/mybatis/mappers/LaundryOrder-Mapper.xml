@@ -266,5 +266,10 @@
             AND TO_DATE(TO_CHAR(DELIVERY_REQUEST_DATE,'YYYYMMDD'))  <![CDATA[ < ]]> TO_DATE(TO_CHAR(DELIVERY_DATE,'YYYYMMDD'))
 	</select>
 	
+	<update id="updateLaundryOrder" parameterType="laundryOrder">
+		update tb_laundry_order
+		   set order_status='02'
+		 where branchCode=
+	</update>
 
 </mapper>

@@ -118,6 +118,11 @@ public class EmployeesServiceImpl implements EmployeesService {
 		return dataMap;
 	}
 
+	@Override
+	public List<EmployeesVO> getDeliveryEmpListByBranchCode(String branchCode) throws Exception {
+		return employeesDAO.selectDeliveryEmpListByBranchCode(branchCode);
+	}
+
 
 
 }

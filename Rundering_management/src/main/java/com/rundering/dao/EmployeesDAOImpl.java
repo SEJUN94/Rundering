@@ -85,8 +85,10 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 		int totalCount = session.selectOne("Employees-Mapper.selectSearchEmployeeListCount",cri);
 		return totalCount;
 	}
-	
-	
- 
+	@Override
+	public List<EmployeesVO> selectDeliveryEmpListByBranchCode(String branchCode) throws Exception {
+		List<EmployeesVO> deliveryEmpList = session.selectList("Employees-Mapper.selectDeliveryEmpListByBranchCode",branchCode);
+		return deliveryEmpList;
+	}
 	
 }
