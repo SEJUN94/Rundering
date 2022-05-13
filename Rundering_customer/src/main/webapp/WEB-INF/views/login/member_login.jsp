@@ -34,7 +34,8 @@
 	</c:if>
 
 
-<img class="bg" src="<%=request.getContextPath()%>/resources/images/rundering_bg.jpg" alt="rundering_bg">
+<img class="bg" src="<%=request.getContextPath() %>/resources/images/LoginBackground.jpg" alt="rundering_bg" style="opacity: 0.6;">
+<%-- <img class="bg" src="<%=request.getContextPath()%>/resources/images/rundering_bg.jpg" alt="rundering_bg"> --%>
 <div class="login-box">
     <div class="login-logo">
         <div><a href="<%=request.getContextPath()%>/home.do"><img class="logo" src="<%=request.getContextPath()%>/resources/images/RunderingMemberLogo.png" alt="RunderingMember"></a></div>

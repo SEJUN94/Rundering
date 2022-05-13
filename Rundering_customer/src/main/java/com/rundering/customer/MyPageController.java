@@ -18,14 +18,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.rundering.command.MemberAddCommand;
 import com.rundering.command.MyOrderCriteria;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.FAQVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
+import com.rundering.dto.ReplyVO;
+import com.rundering.service.AttachService;
 import com.rundering.service.FAQService;
 import com.rundering.service.LaundryOrderService;
 import com.rundering.service.MemberAddressService;
 import com.rundering.service.MemberService;
+import com.rundering.service.ReplyService;
+import com.rundering.util.FileUtil;
 import com.rundering.util.UserSha256;
 
 
@@ -38,6 +43,12 @@ public class MyPageController {
 	
 	@Resource(name="memberAddressService")
 	private MemberAddressService memberAddressService;
+
+	@Resource(name="attachService")
+	private AttachService attachService;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	@Autowired
 	private LaundryOrderService laundryOrderService; 
@@ -392,6 +403,21 @@ public class MyPageController {
 		return mnv;
 	}
 	
+	// 주문내역 디테일
+	@RequestMapping("/order_detail")
+	public ModelAndView orderDetail(HttpServletRequest request,ModelAndView mnv,AttachVO attach,String orderNo) throws Exception {
+		String url = "/mypage/order_detail";
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		Map<String, Object> dataMap = laundryOrderService.getDetail(orderNo);
+		
+		mnv.addObject("loginUser",loginUser);
+		mnv.addObject("dataMap",dataMap);
+		mnv.setViewName(url);
+		return mnv;
+	}
+	
 	// 배송완료된 주문내역
 	@RequestMapping("/myorder/histroy/complete")
 	public ModelAndView myCompleteorder(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {
@@ -413,10 +439,40 @@ public class MyPageController {
 		return mnv;
 	}
 	
+	// 요청사항 댓글 달기
+	@RequestMapping("/reply")
+	public ResponseEntity<String> reply(ReplyVO rv,String no,HttpSession session) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		rv.setMemberno(loginUser.getMemberNo());
+		rv.setReplyno(Integer.parseInt(no));
+		try {
+			replyService.insertMypageRe(rv);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+
+		return entity;
+	}
 	
-	@RequestMapping("/order_detail")
-	public void orderDetail() {}
+	// 사진가져오기
+	@RequestMapping(value = "/getPicture", produces = "text/plain;charset=utf-8")
+	public ResponseEntity<byte[]> getPicture(AttachVO atch) throws Exception {
+		
+		FileUtil fileUtil = new FileUtil();
+		ResponseEntity<List<byte[]>> en = fileUtil.getPicture(atch, attachService);
+		List<byte[]> bs =en.getBody();
+		byte[] file = bs.get(0);
+		
+		ResponseEntity<byte[]> entity = null;
+		entity = new ResponseEntity<byte[]>(file, HttpStatus.CREATED);
+		return entity;
+	}
 	
-	@RequestMapping("/order_delivery")
-	public void orderDelivery() {}
+
 }

@@ -96,4 +96,11 @@
 		WHERE ATCH_FILE_NO = #{atchFileNo}
 	</select>
   
+  	<select id="selectAttachVOByFileNoAndSeq2" resultMap="attachMap" parameterType="attach">
+		select *
+		  from TB_ATTACH_FILE
+		 where ATCH_FILE_NO = #{atchFileNo}
+		   and ATCH_FILE_SEQ = #{atchFileSeq}
+	</select>
+  
 </mapper>

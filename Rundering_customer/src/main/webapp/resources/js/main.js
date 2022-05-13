@@ -33,13 +33,6 @@ window.addEventListener('scroll', _.throttle(function () {
     })
   }
 }, 300))
-// 상단으로 스크롤 버튼을 클릭하면,
-toTopEl.addEventListener('click', function () {
-  // 페이지 위치를 최상단으로 부드럽게(0.7초 동안) 이동.
-  gsap.to(window, .7, {
-    scrollTo: 0
-  })
-})
 
 
 /**

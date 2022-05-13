@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rundering.dto.AttachVO;
@@ -53,6 +55,32 @@ public class FileUtil {
 		}
 		return attachList;
 	}
+	
+	// 이미지 불러오기 위한 바이트 데이터 스크립트 or html 태그 src or url 속성에서 get 형식으로 불러와서 배열을 내보내주면됨
+		public ResponseEntity<List<byte[]>> getPicture(AttachVO atch,AttachService attachService) throws Exception{
+			// 내일 이미지 불러오는거 좀더 쉽게 만들어 주도록 하죠
+			List<AttachVO> attachList = null;
+			ResponseEntity<List<byte[]>> entity = null;
+			attachList = attachService.selectAttachVOByFileNoAndSeq2(atch);
+			List<byte[]> byteArrayList = new ArrayList<byte[]>();
+			for (AttachVO attach : attachList) {
+				InputStream in = null;
+				String imgPath =attach.getFilePath();
+				try {
+					in = new FileInputStream(new File(imgPath, attach.getSaveFileNm()));
+					byte[] fileByte=IOUtils.toByteArray(in);
+					byteArrayList.add(fileByte);
+					System.out.println(fileByte);
+				}catch (Exception e) {
+					e.printStackTrace();
+				} 
+				finally {
+					in.close();
+				}
+			}
+			entity = new ResponseEntity<List<byte[]>>(byteArrayList, HttpStatus.CREATED);
+			return entity;
+		}
 		
 	// 이미지 불러오기 위한 바이트 데이터 스크립트 or html 태그 src or url 속성에서 get 형식으로 불러와서 배열을 내보내주면됨
 	public List<byte[]> getPicture(String fileNo,AttachService attachService) throws Exception{

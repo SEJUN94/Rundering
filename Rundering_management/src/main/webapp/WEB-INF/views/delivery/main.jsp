@@ -4,17 +4,19 @@
 
 <c:set var="pickupCount" value="${dataMap.pickupCount }"></c:set>
 <c:set var="deliveryCount" value="${dataMap.deliveryCount }"></c:set>
-
-<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css">
+</head>
 <body>
 	<section class="content-header">
-		<div class="container-fluid">
 			<div class="row mb-2">
-				<div class="col-sm-6">
+				<div class="row col-sm ml-3 mr-3 p-0">
 					<h1>세탁물 수거/배송 관리</h1>
+					<button class="btn btn-outline-light" style="margin-left:25%">
+						<i class="fa-solid fa-rotate"></i>
+					</button>
 				</div>
 			</div>
-		</div>
 	</section>
 	<div class="callout callout-info ml-3 mr-3">
 		<h5>
@@ -34,7 +36,6 @@
 			<i class="fa fa-bell"></i> 진행중인 배송 ${deliveryCount }건
 		</button>
 	</div>
-
 </body>
 
 

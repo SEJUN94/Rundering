@@ -35,6 +35,24 @@ public class ReplyDAOImpl implements ReplyDAO{
 		return session.selectOne("Reply-Mapper.selectReplyCountByReplyno", replyno);
 	}
 	
+	// 마이페이지 - 디테일 요청사항 댓글 등록
+	@Override
+	public void insertMypageRe(ReplyVO rv) throws Exception {
+		session.update("Reply-Mapper.insertMypageRe", rv);
+	}
+
+	// 시퀀스 계산
+	@Override
+	public int getSeq(int replyno) throws Exception {
+		return session.selectOne("Reply-Mapper.getSeq", replyno);
+	}
+
+	// 댓글 리스트 불러오기
+	@Override
+	public List<ReplyVO> getReList(int replyno) throws Exception {
+		return session.selectList("Reply-Mapper.getReList", replyno);
+	}
+	
 	
 	
 }

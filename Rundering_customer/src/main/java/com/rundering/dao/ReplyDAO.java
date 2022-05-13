@@ -7,13 +7,19 @@ import com.rundering.dto.ReplyVO;
 public interface ReplyDAO {
 	public List<ReplyVO> selectReplyByReplyNo(String replyNo) throws Exception;
 
-	int selectReplySeq() throws Exception;
+	public int selectReplySeq() throws Exception;
 
-	void insertReplyByReplyVO(ReplyVO reply) throws Exception;
+	public void insertReplyByReplyVO(ReplyVO reply) throws Exception;
 
-	void insertReplyByReplyVOFirst(ReplyVO reply) throws Exception;
+	public void insertReplyByReplyVOFirst(ReplyVO reply) throws Exception;
 	
-	int selectReplyCountByReplyno(String replyno) throws Exception;
+	public int selectReplyCountByReplyno(String replyno) throws Exception;
 	
+	// 마이페이지 - 디테일 요청사항 댓글 등록
+	public void insertMypageRe(ReplyVO rv) throws Exception;
+	// 시퀀스 계산
+	public int getSeq(int replyno) throws Exception;
+	// 댓글 리스트 불러오기
+	public List<ReplyVO> getReList(int replyno) throws Exception;
 	
 }

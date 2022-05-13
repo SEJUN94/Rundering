@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="LaundryOrder-Mapper">
-
 	<resultMap type="laundryOrder" id="laundryOrderMap">
 		<result column="ORDER_NO" 		 property="orderNo" />
 		<result column="REQUEST_DETAILS" property="requestDetails" />
@@ -133,6 +132,13 @@
 		FROM TB_LAUNDRY_ORDER A
 		WHERE A.MEMBERNO=#{memberNo}
 		AND A.CANCEL_YN='N'
+	</select>
+	
+	<!--주문내역 디테일에 뿌려줄 쿼리 -->
+	<select id="getmyorderByorderNo" parameterType="str" resultMap="laundryOrderMap">
+		SELECT  *	
+		FROM TB_LAUNDRY_ORDER
+		WHERE ORDER_NO= #{orderNo}
 	</select>
 	
 	<select id="getmyCompleteorderList" parameterType="str" resultMap="laundryOrderMap">

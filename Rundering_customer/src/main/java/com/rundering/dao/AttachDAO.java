@@ -21,4 +21,6 @@ public interface AttachDAO {
 	public AttachVO getAttachForDownload(AttachVO attach) throws Exception;
 	// 계약서 파일을 가져오기
 	public List<AttachVO> getContract() throws Exception;
+	// 이미지 출력
+	public List<AttachVO> selectAttachVOByFileNoAndSeq2(AttachVO attach) throws Exception;
 }
