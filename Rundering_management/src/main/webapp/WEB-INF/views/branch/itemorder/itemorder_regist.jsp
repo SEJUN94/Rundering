@@ -82,7 +82,7 @@
 									<th class="width15" >취소</th>
 								</tr>
 							</thead>
-								 <tbody id="tbody">
+								 <tbody id="tbody" >
 
 								</tbody>
 						</table>
@@ -103,9 +103,10 @@
 </form>
 
 <script>
+
+	
+
 	function list_go(page){
-		
-		
 		
 		let searchType=event.target.value
 		
@@ -154,7 +155,7 @@ function order_go(){
 		<tr>
 			<td style="text-align: left;" class="{{articlesCode}} visibleImg" data-code="{{articlesCode}}" onclick="imgclick()"  >
 			<img alt="" src="" onclick="imgclicknone()" class="articlesImg" data-fileno="{{atchFileNo}}" style="position: absolute;z-index:2; display:none;" width="300" height="300">
-			{{articlesName}} 
+			{{articlesName}}
 		</td>
 			<td style="text-align: center;">
 				{{articlesCodeMap clcode}}

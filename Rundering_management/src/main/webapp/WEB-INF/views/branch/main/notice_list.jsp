@@ -27,7 +27,7 @@
 							{{#each noticeList}}
 								<tr style='cursor: pointer;'
 									onclick="OpenWindow('<%=request.getContextPath() %>/branch/notice/detail?from=list&noticeno={{noticeno }}','상세보기',800,700);">
-									<td>{{title}}	
+									<td style="max-width:100px;overflow:hidden;text-overflow:ellipsis;">{{title}}	
 										{{#if noticeDate}}
 										&nbsp;<span class="badge bg-red">new</span>
 										{{/if}}

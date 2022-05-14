@@ -49,6 +49,7 @@
                                 <th style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;">
                                     <div class="input-group input-group-sm" >
                                         <select class="form-control" style="width: 85px;" name="searchType"  id="searchType" onchange="list_go(1);">
+                                           		<option value="">전체</option>
                                            	 <c:forEach items="${clcodeList }" var="clcode">
                                              	<option value="${clcode.comCode}" ${cri.searchType eq clcode.comCode ? 'selected':'' }>${clcode.comCodeNm }</option>
                                              </c:forEach>
@@ -65,7 +66,7 @@
                                     
                                    <c:forEach items="${itemList }" var="item">
                                     <tr>
-                                        <td onclick="tdClick('${item.articlesCode}')">${item.articlesName} </td>
+                                        <td style="max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" onclick="tdClick('${item.articlesCode}')">${item.articlesName} </td>
                                         <td>
                                         <c:forEach items="${clcodeList }" var="clcode">
                                         	<c:if test="${item.clcode eq clcode.comCode}">${clcode.comCodeNm }</c:if>   	 

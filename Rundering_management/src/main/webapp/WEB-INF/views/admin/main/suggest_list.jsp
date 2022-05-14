@@ -25,7 +25,7 @@
 							{{#each suggestList}}
 								<tr style='cursor: pointer;'
 									onclick="OpenWindow('<%=request.getContextPath() %>/admin/suggest/detail?from=list&sno={{sno}}','상세보기',800,700);">
-									<td>{{title}}</td>
+									<td style="max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{title}}</td>
 									<td>{{branchName}}</td>
 									<td style="text-align:center">
 										{{checkyn}}

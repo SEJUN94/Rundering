@@ -34,7 +34,7 @@
                         <tbody>
 						{{#each itemList}}
                                <tr>
-                               		<td style="text-align: left">{{articlesName}}</td>
+                               		<td style="text-align: left;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{articlesName}}</td>
                                		<td style="text-align: center;">{{clcodeNm clcode}}</td>
                                		<td style="text-align: right;">{{supplyCount}}({{getEach}})</td>
                                </tr>     
