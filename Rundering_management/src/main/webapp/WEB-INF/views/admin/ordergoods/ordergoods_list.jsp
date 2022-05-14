@@ -47,8 +47,8 @@
 						<table class="table table-head-fixed text-nowrap">
 							<thead style="text-align: center;">
 								<tr>
-									<th style="width: 70px">분류</th>
 									<th style="width: 100px;">이름</th>
+									<th style="width: 70px">분류</th>
 									<th style="width: 70px;">가격</th>
 									<th style="width: 100px">등록일</th>
 									<th style="width: 100px">수정일</th>
@@ -64,7 +64,7 @@
 								</c:if>
 								<c:forEach items="${laundryArticlesList }" var="laundryArticles">
 									<tr>
-									
+										<td style="text-align: left;max-width:270px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${laundryArticles.articlesName }</td>
 										<td>
 										<c:forEach items="${CLCODEList }" var="CLCODE">
 											<c:if test="${CLCODE.comCode eq laundryArticles.clcode }">
@@ -72,7 +72,6 @@
 											</c:if> 
 										</c:forEach>
 										</td>
-										<td>${laundryArticles.articlesName }</td>
 										<td style="text-align: center;">${laundryArticles.price }</td>
 										<td><fmt:formatDate
 												value="${laundryArticles.registDate }" pattern="yyyy-MM-dd" /></td>
