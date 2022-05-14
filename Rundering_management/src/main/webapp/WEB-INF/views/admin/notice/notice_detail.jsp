@@ -35,12 +35,9 @@
 			<div class="card-footer">
 				<div class="float-right">
 					<!--    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">댓글작성 </button> -->
-					<button type="button" class="btn btn-warning" onclick="modify_go('${notice.noticeno}');" 
-					style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8">수정</button>
-					<button type="button" class="btn btn-warning" onclick="remove_go('${notice.noticeno}');"
-					style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8">삭제</button>
-					<button type="button" class="btn btn-warning" onclick="CloseWindow();"
-					style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8">닫기</button>
+					<button type="button" class="btn btn-warning" onclick="modify_go('${notice.noticeno}');">수정</button>
+					<button type="button" class="btn btn-danger" onclick="remove_go('${notice.noticeno}');">삭제</button>
+					<button type="button" class="btn btn-primary" onclick="CloseWindow();">닫기</button>
 				</div>
 			</div>
 		</div>
@@ -56,8 +53,8 @@
 						
 						<input	class="form-control" type="text" placeholder="댓글을 입력해주세요"
 							id="replyContent" style="display: inline;width: 88%;"> 
-						<button type="button" class="btn btn-sm btn-warning float-right" id="replyAddBtn"
-							onclick="registReply();" style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8; padding: 8px;">댓글 등록</button><br />
+						<button type="button" class="btn btn-sm btn-primary float-right" id="replyAddBtn"
+							onclick="registReply();" style="margin: auto;">댓글 등록</button><br />
 						
 					</div>
 					<div class="card-body" style="padding-top: 10px;">

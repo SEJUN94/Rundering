@@ -74,7 +74,7 @@ th, td {
 									placeholder="검색어를 입력하세요." value="" /> <span
 									class="input-group-append">
 									<button class="btn btn-primary" type="button"
-										onclick="list_go(1);" data-card-widget="search">
+										onclick="list_go(1);" data-card-widget="search" style="background-color: #59a5cb;border-color: #59a5cb;">
 										<i class="fa fa-fw fa-search"></i>
 									</button>
 								</span>
@@ -116,7 +116,7 @@ th, td {
 
 							<div class="float-right mt-3 mr-3 mb-3">
 
-								<button class="btn btn-primary" type="button" id="registBtn"
+								<button class="btn btn-primary" type="button" id="registBtn"style="background-color: #59a5cb;border-color: #59a5cb;"
 									onclick="location.href='<%=request.getContextPath()%>/branch/asrequest/registForm'">
 									요청하기</button>
 							</div>

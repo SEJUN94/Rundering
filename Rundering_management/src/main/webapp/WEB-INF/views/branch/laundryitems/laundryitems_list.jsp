@@ -47,7 +47,7 @@
 								</select> <input class="form-control" type="text" name="keyword"
 									placeholder="검색어를 입력하세요." value="" /> <span
 									class="input-group-append">
-									<button class="btn btn-primary" type="button"
+									<button class="btn btn-primary" type="button" style="background-color: #59a5cb;border-color: #59a5cb;"
 										onclick="list_go(1);" data-card-widget="search">
 										<i class="fa fa-fw fa-search"></i>
 									</button>
@@ -75,7 +75,7 @@
 									</tr>
 								</c:if>
 								<c:forEach items="${laundryItemsList }" var="laundryItems">
-									<tr style='font-size: 0.85em;'>
+									<tr style='font-size: 1em;'>
 										<td>${codeMap[laundryItems.laundryCategory] }</td>
 										<td id="laundryItemsCode"
 											style="text-align: left; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">

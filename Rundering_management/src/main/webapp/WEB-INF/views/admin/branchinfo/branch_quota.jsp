@@ -26,13 +26,6 @@
 				<div class="col-sm-6">
 					<h1>지점전체조회</h1>
 				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="#">Home</a></li>
-						<li class="breadcrumb-item active">지점관리</li>
-						<li class="breadcrumb-item active">지점전체조회</li>
-					</ol>
-				</div>
 			</div>
 		</div>
 	</section>
@@ -47,7 +40,7 @@
 					</select> <input class="form-control" type="text" name="keyword"
 						placeholder="검색어를 입력하세요." value=""> <span
 						class="input-group-append">
-						<button class="btn btn-primary" type="button"
+						<button class="btn btn-primary" type="button" style="background-color: #59a5cb;border-color: #59a5cb;"
 							onclick="list_go(1);" data-card-widget="search">
 							<i class="fa fa-fw fa-search"></i>
 						</button>
@@ -66,7 +59,7 @@
 							<th style="width: 12%">세탁상세</th>
 						</tr>
 					</thead>
-					<tbody style="font-size:0.9em;" id="tbody">
+					<tbody style="font-size:1em;" id="tbody">
 						<c:if test="${empty throughputList }">
 							<tr>
 								<td colspan="5" style="text-align: center;"><strong>해당
@@ -119,13 +112,13 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="card-footer" style="font-size:0.9em;">
+			<div class="card-footer" style="font-size:1em;">
 				<%@ include file="/WEB-INF/views/admin/employee/pagination.jsp" %>
 			</div>
 		</div>
 	</div>
 	<div class="row ml-3 mr-3 p-0" style="height: 280px; width: 98%">
-		<div class="card p-0" style="width: 49%; font-size:0.9em;">
+		<div class="card p-0" style="width: 49%; font-size:1em;">
 			<div class="card-body">
 				<div style="width: 100%;" id="canvasTag">
 					<canvas id="canvas"></canvas>
@@ -134,7 +127,7 @@
 		</div>
 		<div style="width: 1%;"></div>
 
-		<div style="width: 49%; font-size:0.9em;" class="card p-0">
+		<div style="width: 49%; font-size:1em;" class="card p-0">
 			<div class="card-body" style="height:300px;">
 				<table border="1" class="table table-sm throughputTable">
 					<thead>

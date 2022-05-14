@@ -59,7 +59,7 @@
 								placeholder="검색어를 입력하세요." value="" /> <span
 								class="input-group-append">
 								<button class="btn btn-primary" type="button"
-									onclick="list_go(1);" data-card-widget="search" style="background-color: #82BBD8; border: 1px solid #82BBD8">
+									onclick="list_go(1);" data-card-widget="search" style="background-color: #59a5cb;border-color: #59a5cb;">
 									<i class="fa fa-fw fa-search"></i>
 								</button>
 							</span>
@@ -70,12 +70,12 @@
 				<div class="card-body p-0">
 					<table class="table table-hover text-nowrap">
 						<thead>
-							<tr style="text-align: center;">
-								<th class="noticeno">번호</th>
-								<th class="title">제목</th>
-								<th class="employeeId">작성자</th>
-								<th class="registDate">작성일</th>
-								<th class="views">조회수</th>
+							<tr style="text-align: left;">
+								<th class="noticeno" style="width:10%;">번호</th>
+								<th class="title" style="width:50%;">제목</th>
+								<th class="employeeId" style="width:10%;">작성자</th>
+								<th class="registDate" style="width:20%;">작성일</th>
+								<th class="views" style="width:10%;">조회수</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -85,7 +85,7 @@
 								</tr>
 							</c:if>
 							<c:forEach items="${noticeList }" var="notice">
-								<tr style='font-size: 0.85em; cursor: pointer;'
+								<tr style='font-size: 1em; cursor: pointer;'
 									onclick="OpenWindow('detail?from=list&noticeno=${notice.noticeno }','상세보기',800,700);">
 									<td>${notice.noticeno }</td>
 									<td id="Title"

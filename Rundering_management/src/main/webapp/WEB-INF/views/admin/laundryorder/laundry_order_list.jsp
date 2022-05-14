@@ -74,7 +74,7 @@
 					<div class="card-tools">
 						<div class="input-group input-group-sm" style="width: 200px;margin-top: auto;">
 							<input class="form-control" type="text" name="orderNo" placeholder="주문번호 입력" value="${cri.orderNo }"> <span class="input-group-append">
-									<button class="btn btn-primary" type="button" onclick="list_go(1);" data-card-widget="search">
+									<button class="btn btn-primary" type="button" onclick="list_go(1);" data-card-widget="search" style="background-color: #59a5cb;border-color: #59a5cb;">
 										<i class="fa fa-fw fa-search"></i>
 									</button>
 						</div>
