@@ -55,12 +55,6 @@ th, td {
             <div class="col-sm-6">
                <h1>문의게시판</h1>
             </div>
-            <div class="col-sm-6">
-               <ol class="breadcrumb float-sm-right">
-                  <li class="breadcrumb-item active">문의게시판</li>
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-               </ol>
-            </div>
          </div>
       </div>
    </section>
@@ -79,7 +73,7 @@ th, td {
                      placeholder="검색어를 입력하세요." value="" /> <span
                      class="input-group-append">
                      <button class="btn btn-primary" type="button"
-                        onclick="list_go(1);" data-card-widget="search">
+                        onclick="list_go(1);" data-card-widget="search" style="background-color: #59a5cb; border: 1px solid #59a5cb;">
                         <i class="fa fa-fw fa-search"></i>
                      </button>
                   </span>
@@ -134,7 +128,7 @@ th, td {
                </c:forEach>
             </table>
          </div>
-		<div class="card-footer" style="font-size: 0.9em">
+		<div class="card-footer" style="font-size: 1em">
 		   <%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 		</div>
       </div>

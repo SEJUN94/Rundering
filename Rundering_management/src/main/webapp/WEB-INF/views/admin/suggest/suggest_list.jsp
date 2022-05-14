@@ -49,7 +49,7 @@ th, .td {
 									placeholder="검색어를 입력하세요." value="" /> <span
 									class="input-group-append">
 									<button class="btn btn-primary" type="button"
-										onclick="list_go(1);" data-card-widget="search" style="background-color: #82BBD8; border: 1px solid #82BBD8">
+										onclick="list_go(1);" data-card-widget="search" style="background-color: #59a5cb; border: 1px solid #59a5cb;">
 										<i class="fa fa-fw fa-search"></i>
 									</button>
 								</span>
@@ -61,12 +61,12 @@ th, .td {
 							<thead>
 								<tr style="text-align: center;">
 									<th width="5%">번호</th>
-									<th width="27%">제목</th>
-									<th width="10%">작성자</th>
-									<th width="10%">지점</th>
-									<th width="10%">작성날짜</th>
+									<th width="50%">제목</th>
+									<th width="5%">작성자</th>
+									<th width="5%">지점</th>
+									<th width="5%">작성날짜</th>
 									<th width="5%">조회수</th>
-									<th width="8%">확인여부</th>
+									<th width="5%">확인여부</th>
 								</tr>
 							</thead>
 							<c:if test="${empty suggestList }">
@@ -75,7 +75,7 @@ th, .td {
 								</tr>
 							</c:if>
 							<c:forEach items="${suggestList }" var="suggest">
-								<tr style='cursor: pointer; font-size:0.9em;'
+								<tr style='cursor: pointer; font-size:1em;'
 									onclick="OpenWindow('detail?from=list&sno=${suggest.sno }','상세보기',900,700);">
 									<td class="td">${suggest.sno }</td>
 									<td id="Title"
@@ -97,7 +97,7 @@ th, .td {
 							</c:forEach>
 						</table>
 					</div>
-					<div class="card-footer" style="font-size: 0.9em">
+					<div class="card-footer" style="font-size: 1em">
 						<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 					</div>
 				</div>

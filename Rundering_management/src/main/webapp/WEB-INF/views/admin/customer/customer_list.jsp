@@ -72,7 +72,7 @@
 						</select> <input class="form-control" type="text" name="keyword" 
 							placeholder="검색어를 입력하세요." value="" /> <span
 							class="input-group-append">
-							<button class="btn btn-primary" type="button" style="background-color: #82BBD8;border-color: #82BBD8;"
+							<button class="btn btn-primary" type="button" style="background-color: #59a5cb;border-color: #59a5cb;"
 								onclick="list_go(1);" data-card-widget="search">
 								<i class="fa fa-fw fa-search"></i>
 							</button>
@@ -102,7 +102,7 @@
 						</c:if>
 						<c:if test="${!empty memberList }">
 							<c:forEach items="${memberList }" var="member">
-								<tr style='font-size: 0.85em;'>
+								<tr style='font-size: 1em;'>
 									<td>${member.memberNo }</td>
 									<td>${member.id }</td>
 									<td>${member.name}</td>
@@ -112,7 +112,7 @@
 											pattern="yyyy-MM-dd hh:mm:ss" /></td>
 									<td>
 										<c:if test="${member.deleteYn eq 'Y' }">
-											<button class="btn btn-warning btn-sm"  style="background-color: #82BBD8;border-color: #82BBD8;"
+											<button class="btn btn-warning btn-sm"  style="background-color: #59a5cb; border: 1px solid #59a5cb;"
 												onclick="modify_go('${member.memberNo}');">변경</button>
 										</c:if>
 									</td>

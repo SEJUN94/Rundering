@@ -51,7 +51,7 @@
 							placeholder="검색어를 입력하세요." value="" /> <span
 							class="input-group-append">
 							<button class="btn btn-primary" type="button"
-								onclick="list_go(1);" data-card-widget="search" style="background-color: #82BBD8; border: 1px solid #82BBD8">
+								onclick="list_go(1);" data-card-widget="search" style="background-color:  #59a5cb; border: 1px solid  #59a5cb;">
 								<i class="fa fa-fw fa-search"></i>
 							</button>
 						</span>
@@ -80,14 +80,14 @@
 							</tr>
 						</c:if>
 						<c:forEach items="${laundryItemsList }" var="laundryItems">
-							<tr style='font-size: 0.85em;'>
+							<tr style='font-size: 1em;'>
 								<td>${codeMap[laundryItems.laundryCategory] }</td>
 								<td id="laundryItemsCode"
 									style="text-align: left; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 									${laundryItems.laundryItemsCode }</td>
 								<td>${laundryItems.itemsName}</td>
 								<td>${laundryItems.price }</td>
-								<td><input type="button" class="btn btn-warning btn-sm" style="background-color: #82BBD8;border-color: #82BBD8;"
+								<td><input type="button" class="btn btn-warning btn-sm" 
 								onclick="window.open('<%=request.getContextPath()%>/admin/laundryitems/modifyForm?laundryItemsCode=${laundryItems.laundryItemsCode }','세탁품목수정', 'width=600, height=600')" value="수정"></td>
 								<td><input type="button" class="btn btn-danger btn-sm"
 								onclick="remove_go('remove','${laundryItems.laundryItemsCode}');" value="삭제"></td>
@@ -100,7 +100,7 @@
 			<div class="float-right mb-3 mr-2">
 					<button type="button" class="btn btn-primary"
 					onclick="window.open('<%=request.getContextPath()%>/admin/laundryitems/regist','세탁품목등록', 'width=600, height=600')"
-					 style="background-color: #82BBD8; border: 1px solid #82BBD8">
+					 style="background-color:  #59a5cb; border: 1px solid  #59a5cb;">
 					물품등록</button>
 			</div>
 			<%@ include file="/WEB-INF/views/admin/ordergoods/pagination.jsp" %>

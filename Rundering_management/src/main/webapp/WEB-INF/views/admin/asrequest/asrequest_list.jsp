@@ -75,7 +75,7 @@ th, td {
 								</select> <input class="form-control" type="text" name="keyword"
 									placeholder="검색어를 입력하세요." value="" /> <span
 									class="input-group-append">
-									<button class="btn btn-primary" type="button" style="background-color: #82BBD8;border-color: #82BBD8;"
+									<button class="btn btn-primary" type="button" style="background-color: #59a5cb;border-color: #59a5cb;"
 										onclick="list_go(1);" data-card-widget="search">
 										<i class="fa fa-fw fa-search"></i>
 									</button>
@@ -121,7 +121,7 @@ th, td {
 									요청하기</button> --%>
 						</div>
 					</div>
-					<div class="card-footer" style="font-size: 0.9em">
+					<div class="card-footer" style="font-size: 1em">
 						<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 					</div>
 				</div>

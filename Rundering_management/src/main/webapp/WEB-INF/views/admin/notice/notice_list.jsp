@@ -59,7 +59,7 @@
 								placeholder="검색어를 입력하세요." value="" /> <span
 								class="input-group-append">
 								<button class="btn btn-primary" type="button"
-									onclick="list_go(1);" data-card-widget="search" style="background-color: #82BBD8; border: 1px solid #82BBD8">
+									onclick="list_go(1);" data-card-widget="search" style="background-color: #59a5cb; border: 1px solid #59a5cb;">
 									<i class="fa fa-fw fa-search"></i>
 								</button>
 							</span>
@@ -85,7 +85,7 @@
 								</tr>
 							</c:if>
 							<c:forEach items="${noticeList }" var="notice">
-								<tr style='font-size: 0.85em; cursor: pointer;'
+								<tr style='font-size: 1em; cursor: pointer;'
 									onclick="OpenWindow('detail?from=list&noticeno=${notice.noticeno }','상세보기',800,700);">
 									<td>${notice.noticeno }</td>
 									<td id="Title"
@@ -112,7 +112,7 @@
 					<div class="float-right mb-3 mr-2">
 						<a href="<%=request.getContextPath()%>/admin/notice/registform">
 							<button type="button" class="btn btn-primary"
-								data-toggle="modal" data-target="#modal-lg" style="background-color: #82BBD8; border: 1px solid #82BBD8">공지등록</button>
+								data-toggle="modal" data-target="#modal-lg" style="background-color: #59a5cb; border: 1px solid #59a5cb;">공지등록</button>
 						</a>
 					</div>
 					<%@ include file="/WEB-INF/views/common/pagination.jsp" %>

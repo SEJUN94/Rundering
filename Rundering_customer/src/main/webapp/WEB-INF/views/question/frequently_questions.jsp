@@ -41,7 +41,7 @@
 						</select> <input class="form-control" type="text" name="keyword"
 							placeholder="검색어를 입력하세요." value="" /> <span
 							class="input-group-append">
-							<button class="btn btn-primary" type="button"  style="background-color: #82BBD8; border: 1px solid #82BBD8;""
+							<button class="btn btn-primary" type="button"  style="background-color: #59a5cb; border: 1px solid #59a5cb;"
 								onclick="list_go(1);" data-card-widget="search">
 								<i class="fa fa-fw fa-search"></i>
 							</button>

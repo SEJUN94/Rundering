@@ -34,7 +34,7 @@ ${from }
 										placeholder="주문 번호를 입력하세요" value="">
 								</div>
 								<span class="input-group-append">
-									<button class="btn btn-primary" type="button"
+									<button class="btn btn-primary" type="button" style="background-color: #59a5cb;border-color: #59a5cb;"
 										onclick="orderDetail_go()" data-card-widget="search">상세보기</button>
 								</span>
 							
@@ -49,7 +49,7 @@ ${from }
 								</div>
 								<span class="input-group-append ">
 
-									<button class="btn btn-primary" type="button"
+									<button class="btn btn-primary" type="button" style="background-color: #59a5cb;border-color: #59a5cb;"
 										onclick="statusChange()">상태변경</button>
 								</span>
 							</div>

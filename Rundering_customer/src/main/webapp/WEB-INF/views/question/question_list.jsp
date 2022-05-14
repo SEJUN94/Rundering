@@ -78,7 +78,7 @@ th, td {
 						</select> <input class="form-control" type="text" name="keyword"
 							placeholder="검색어를 입력하세요." value="" /> <span
 							class="input-group-append">
-							<button class="btn btn-primary" type="button"
+							<button class="btn btn-primary" type="button" style="background-color: #59a5cb; border: 1px solid #59a5cb;"
 								onclick="list_go(1);" data-card-widget="search">
 								<i class="fa fa-fw fa-search"></i>
 							</button>
@@ -138,7 +138,7 @@ th, td {
 			<div class="card-footer" style="font-size: 0.9em">
 				<div class="float-right m-0">
 
-					<button class="btn btn-primary" type="button" id="registBtn"
+					<button class="btn btn-primary" type="button" id="registBtn" style="background-color: #59a5cb; border: 1px solid #59a5cb;"
 						onclick="loginyn()">
 						문의하기</button>
 					<%-- <button class="btn btn-primary" type="button" id="registBtn"

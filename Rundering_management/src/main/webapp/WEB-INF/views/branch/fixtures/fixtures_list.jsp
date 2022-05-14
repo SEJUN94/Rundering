@@ -69,7 +69,7 @@
                         		
                         		<td style="text-align: center">
                         			<c:if test="${fixtures.status eq '정상' }">
-                        				<button class="btn btn-sm btn-primary"  onclick="statusChange()" >${fixtures.status }</button>
+                        				<button class="btn btn-sm btn-primary"   onclick="statusChange()" >${fixtures.status } </button>
                         			</c:if>
                         			<c:if test="${fixtures.status eq '고장' }">
                         				<button class="btn btn-sm btn-warning"  onclick="statusChange()">${fixtures.status }</button>
