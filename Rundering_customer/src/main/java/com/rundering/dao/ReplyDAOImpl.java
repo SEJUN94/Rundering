@@ -58,7 +58,12 @@ public class ReplyDAOImpl implements ReplyDAO{
 	public void deleteReply(int replyno) throws Exception {
 		session.delete("Reply-Mapper.deleteReply", replyno);
 	}
-	
+
+	// 댓글 삭제(삭제여부'Y'로 변경)
+	@Override
+	public void removeReply(ReplyVO rv) throws Exception {
+		session.update("Reply-Mapper.removeReply", rv);
+	}
 	
 	
 }

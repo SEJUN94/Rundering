@@ -100,6 +100,12 @@ aside ul li a {
 							<th style="text-align:center;"><span style="font-weight:bold;">결제 금액</span></th>
 							<th style="text-align:center;"><span style="font-weight:bold;">결제일자</span></th>
 						</tr>
+						<c:if test="${empty comList }">
+						<tr> 
+							<td colspan="6" style="font-weight:400px;" align="center">해당 내용이 없습니다.</td>
+						</tr>
+						</c:if>
+						<c:if test="${!empty comList }">
 						<c:forEach items="${comList }" var="list" varStatus="status">
 						<tr>
 							<td align="center"><strong>${status.count}</strong></td>
@@ -110,6 +116,7 @@ aside ul li a {
 							<td align="right"><fmt:formatDate value="${list.paymentDate}" pattern="yyyy-MM-dd" /></td>
 						</tr>
 						</c:forEach>
+						</c:if>
 					</tbody>
 				</table>
 			<hr class="m-0"/>

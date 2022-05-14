@@ -145,12 +145,6 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
 		List<LaundryOrderVO> myOrderList = laundryOrderDAO.getMyOrderList(cri);
-//		myOrderList.branch
-//		List<BranchVO> orderBranchNameList = 
-//				
-//		List<ComCodeVO> orderComCodeNameList =
-//		
-//		List<AttachVO> AttachList = 
 		
 		// 전체 list 개수
 		int totalCount = laundryOrderDAO.myOrderList(cri);
@@ -161,10 +155,6 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		
 		dataMap.put("myOrderList",myOrderList);
 		dataMap.put("pageMaker", pageMaker);
-//		dataMap.put("orderBranchNameList", orderBranchNameList);
-//		dataMap.put("orderComCodeNameList", orderComCodeNameList);
-//		dataMap.put("AttachList", AttachList);
-		
 		
 		return dataMap;
 	}
@@ -254,6 +244,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		laundryOrderDAO.cancelLaundryOrder(laundryOrder.getOrderNo());
 		paymentDAO.cancelPayment(laundryOrder.getOrderNo());
 		
+		// 주문 취소시 첨부파일 및 댓글 전체 삭제 DAO
 		//attachDAO.deleteAttchFileRemoveByFileNo(laundryOrder.getAtchFileNo());
 		//replyDAO.deleteReply(laundryOrder.getReplyNo());
 		

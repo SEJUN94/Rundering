@@ -107,7 +107,7 @@ aside ul li a{
 						</table>
 					</c:if>
 					<c:forEach items="${myOrderList }" var="list">
-						<table class="table m-0" onClick="window.open('<%=request.getContextPath()%>/mypage/order_detail?orderNo='+${list.orderNo}+'','주문내역상세','width=1000, height=750')">
+						<table class="table m-0">
 							<tbody>
 								<tr style="border: none;">
 									<input type="hidden" id="orderNo" value="${list.orderNo }" />
@@ -117,10 +117,11 @@ aside ul li a{
 									<td rowspan="3"
 										style="width: 25%; border-left: 1px solid rgba(0, 0, 0, .125); text-align: center; vertical-align: middle;">
 										<c:if test="${list.orderStatus ne '배송정상완료' && list.orderStatus ne '배송지연완료'}">
-											<button class="btn btn-primary btn-m col-10">배송조회</button>
+											<button class="btn btn-primary btn-m col-10" onClick="window.open('<%=request.getContextPath()%>/mypage/order_detail?orderNo='+${list.orderNo}+'','주문내역상세','width=1000, height=750')">배송조회</button>
 										</c:if> 
 										<c:if test="${list.orderStatus eq '배송정상완료' || list.orderStatus eq '배송지연완료'}">
 											<span style="font-weight: bold;">세탁물 배송 완료</span>
+											<button class="btn btn-primary btn-m col-10" onClick="window.open('<%=request.getContextPath()%>/mypage/order_detail?orderNo='+${list.orderNo}+'','주문내역상세','width=1000, height=750')">내역조회</button>
 										</c:if> 
 										<c:if test="${list.orderStatus eq '수거대기' }">
 											<button class="btn btn-danger btn-m col-10" onclick="">주문ㆍ배송취소</button>
@@ -128,10 +129,8 @@ aside ul li a{
 									</td>
 								</tr>
 								<tr style="border: none;">
-									<td rowspan="2" align="center"
-										style="border-right: none; border-top: none;padding:12px;"><img
-										alt="${list.atchFileNo}" height="100px;" width="70px;"
-										src="<%=request.getContextPath() %>/resources/images/자산 1.png">
+									<td rowspan="2" align="center" class="p-0" style="border-right: none; border-top: none;padding:12px;">
+										<div class="orderPicture mb-2" id="pictureView"	data-id="${list.atchFileNo}" data-aa="1" style="height: 100px; width: 120px;"></div>
 									</td>
 									<td colspan="2" align="left;" style="border-top: none;vertical-align:middle;">주문번호 : ${list.orderNo}</td>
 								</tr>
@@ -162,6 +161,19 @@ aside ul li a{
 
 
 <script>
+async function getImg(){
+	 for(var target of document.querySelectorAll('.orderPicture')){	
+		 var atchFileNo = target.getAttribute('data-id');
+		 var atchFileSeq = target.getAttribute('data-aa');
+		 target.style.backgroundImage="url('<%=request.getContextPath()%>/mypage/getPicture?atchFileNo="+atchFileNo+"&atchFileSeq=1')";
+		 target.style.backgroundPosition="center";
+		 target.style.backgroundRepeat="no-repeat";
+		 target.style.backgroundSize="cover";
+	}
+}
+
+getImg();
+
 	function detail(){
 		$.ajax({
 			url : '<%=request.getContextPath()%>/mypage/order_detail',

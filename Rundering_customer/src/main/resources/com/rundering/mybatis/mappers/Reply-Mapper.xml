@@ -102,7 +102,15 @@
 		  select *
 		from TB_REPLY
 		where REPLYNO= #{replyno}
+		and DELETE_YN = 'N'
 		order by REPLYNO_SEQ asc
 	</select>
+	
+	<update id="removeReply" parameterType="reply">
+		UPDATE TB_REPLY
+		SET DELETE_YN = 'Y'
+		WHERE REPLYNO = #{replyno}
+		AND REPLYNO_SEQ = #{replynoSeq}
+	</update>
  
  </mapper>
