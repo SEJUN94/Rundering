@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.FAQModifyCommand;
 import com.rundering.command.FAQRegistCommand;
 import com.rundering.command.MyOrderCriteria;
 import com.rundering.command.MyOrderPageMaker;
-import com.rundering.customer.FAQModifyCommand;
 import com.rundering.dao.AttachDAO;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dao.EmployeesDAO;
