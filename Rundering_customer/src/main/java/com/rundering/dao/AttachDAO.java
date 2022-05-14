@@ -14,6 +14,8 @@ public interface AttachDAO {
 	public List<AttachVO> selectAttachVOByFileNo(String fileNo) throws Exception;
 	// 파일 삭제
 	public  void deleteAttchFileRemoveByFileNo(String fileNo) throws Exception;
+	//atchFileNo 과 atchFileSeq 로 파일 삭제
+	public void deleteAttchFileRemoveByFileNoAndSeq(AttachVO attach) throws Exception;
 	// 계약서 첨부 파일 수정
 	public void updateToContractFile(AttachVO attach) throws Exception;
 	//첨부파일 시퀀스 가져오기
@@ -24,4 +26,8 @@ public interface AttachDAO {
 	public List<AttachVO> getContract() throws Exception;
 	// 이미지 출력
 	public List<AttachVO> selectAttachVOByFileNoAndSeq2(AttachVO attach) throws Exception;
+	//ATTACHVO 가져오기 - atchFileNo 과 atchFileSeq 로
+	public AttachVO selectAttachVOByFileNoAndSeq(AttachVO attach) throws Exception;
+	//attach의 현재 존재하는 마지막 seq번호 가져오기
+	public int selectLastSeqAttachVOByFileNo(String atchFileNo) throws Exception;
 }

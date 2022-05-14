@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.rundering.command.FAQRegistCommand;
 import com.rundering.command.MyOrderCriteria;
+import com.rundering.customer.FAQModifyCommand;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.FAQVO;
 
@@ -24,10 +25,10 @@ public interface FAQService {
 	public Map<String, Object> getOrderList(String memberNo) throws SQLException;
 	
 	// 수정
-	void modify(FAQVO faq) throws SQLException;
+	void modify(FAQModifyCommand faqcmd, List<AttachVO> attachList) throws Exception;
 	
 	// 삭제
-	void remove(int faqno) throws SQLException;
+	void remove(int faqno) throws Exception;
 	
 	/* 아코디언 */
 	public Map<String, Object> getFAQFrequentlyList(MyOrderCriteria cri) throws SQLException;

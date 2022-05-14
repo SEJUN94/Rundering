@@ -107,7 +107,7 @@ th, td {
 					</c:if>
 					<c:forEach items="${faqList }" var="faq">
 						<tr style='cursor: pointer;'
-							onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',800,450);">
+							onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',740,930);">
 							<td class="no">${faq.faqno }</td>
 							<td class="category"><c:choose>
 												<c:when test="${faq.setbukdoorclcode == 'OR'}">주문문의</c:when>
@@ -135,7 +135,7 @@ th, td {
 						</tr>
 					</c:forEach>
 				</table>
-			<div class="card-footer" style="font-size: 0.9em">
+			<div class="card-footer mb-5" style="font-size: 0.9em">
 				<div class="float-right m-0">
 
 					<button class="btn btn-primary" type="button" id="registBtn"

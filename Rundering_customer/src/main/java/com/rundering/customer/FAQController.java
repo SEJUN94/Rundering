@@ -117,13 +117,16 @@ public class FAQController {
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyPost(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+	public String modifyPost(FAQModifyCommand faqcmd, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
 		String url = "redirect:/question/detail";
+		
 
-		faqService.modify(faq);
+		List<AttachVO> attachList = GetAttachesByMultipartFileAdapter.save(faqcmd.getUploadFile(), this.boardPath,"고객문의");
+		
+		faqService.modify(faqcmd, attachList);
 
-		rttr.addAttribute("faqno", faq.getFaqno());
+		rttr.addAttribute("faqno", faqcmd.getFaqno());
 		rttr.addFlashAttribute("from", "modify");
 
 		return url;

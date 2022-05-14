@@ -1,6 +1,7 @@
 package com.rundering.customer;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -169,15 +170,15 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "/myinquiry/detail")
-	private ModelAndView faqDetail(int faqno, HttpServletRequest request, ModelAndView mnv, HttpSession session) throws SQLException {
+	private ModelAndView faqDetail(int faqno, HttpServletRequest request, ModelAndView mnv, HttpSession session) throws Exception {
 
 		String url = "question/question_detail";
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
 
-		FAQVO faq = null;
+		dataMap = faqService.getFAQModify(faqno);
 
-		faq = faqService.getFAQModify(faqno);
-
-		mnv.addObject("faq", faq);
+		mnv.addAllObjects(dataMap);
 		mnv.setViewName(url);
 
 		return mnv;
