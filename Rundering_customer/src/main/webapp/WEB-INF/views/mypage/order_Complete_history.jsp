@@ -130,7 +130,7 @@ aside ul li a{
 								</tr>
 								<tr style="border: none;">
 									<td rowspan="2" align="center" class="p-0" style="border-right: none; border-top: none;padding:12px;">
-										<div class="orderPicture mb-2" id="pictureView"	data-id="${list.atchFileNo}" data-aa="1" style="height: 100px; width: 120px;"></div>
+										<div class="orderPicture mb-3" id="pictureView"	data-id="${list.atchFileNo}" data-aa="1" style="height: 100px; width: 120px;"></div>
 									</td>
 									<td colspan="2" align="left;" style="border-top: none;vertical-align:middle;">주문번호 : ${list.orderNo}</td>
 								</tr>
