@@ -86,7 +86,6 @@ public class AdminFAQController {
 
 	@RequestMapping(value = "/reply", method = RequestMethod.POST)
 	public String replyPost(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-
 		String url = "redirect:/admin/question/detail";
 		
 		faqService.reply(faq);
@@ -117,7 +116,6 @@ public class AdminFAQController {
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public ResponseEntity<String> modify(FAQVO fv) throws Exception {
 		ResponseEntity<String> entity = null;
-
 		
 		try {
 			faqService.modify(fv);
@@ -125,7 +123,7 @@ public class AdminFAQController {
 		}catch(Exception e) {
 			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
+		
 		return entity;
 	}
 	

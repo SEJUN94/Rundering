@@ -205,15 +205,15 @@ function modify(question,answer,faqno){
 	
 function modify_go() {
 	console.log(no.value);
-	console.log(modalQ.value);
-	console.log(modalA.value);
+	console.log($("#moq").val());
+	console.log($("#moa").val());
 	event.preventDefault();	//submit 이벤트를 막아 페이지 리로드를 방지
 	 $.ajax({
 		url: "<%=request.getContextPath()%>/admin/question/modify",
 		data:{
 			'faqno' : no.value,
-			'question' : modalQ.value,
-			'answer' : modalA.value
+			'question' : $('#moq').val(),
+			'fcontent' :$('#moa').val()
 			},
 		type:'POST',
 		success:function(ok){
@@ -231,7 +231,10 @@ function modify_go() {
           }
 		},
 		error:function(error){
-			AjaxErrorSecurityRedirectHandler(error.status);
+			Swal.fire({
+                icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+                title: '시스템 오류로 반려 할 수 없습니다.'
+             });
 		}
 	});
 }

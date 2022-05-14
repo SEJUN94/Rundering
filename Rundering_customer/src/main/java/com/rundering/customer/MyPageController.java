@@ -422,6 +422,39 @@ public class MyPageController {
 		return mnv;
 	}
 	
+	// 댓글 삭제(삭제여부 상태변경)
+	@RequestMapping("/modifyReply")
+	public ResponseEntity<String> modifyReply(ReplyVO rv) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		try {
+			replyService.removeReply(rv);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return entity;
+	}
+	
+	// 댓글 삭제(삭제여부 상태변경)
+	@RequestMapping("/removeReply")
+	public ResponseEntity<String> removeReply(ReplyVO rv) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		try {
+			replyService.removeReply(rv);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return entity;
+	}
+	
+	
 	// 진행중인 주문내역
 	@RequestMapping("/myorder/histroy/ingList")
 	public ModelAndView myorderIng(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {

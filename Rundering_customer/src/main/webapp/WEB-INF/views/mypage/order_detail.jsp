@@ -451,8 +451,7 @@
 			</div>
 		</div>
 
-		<div
-			class="card card-primary card-outline direct-chat direct-chat-primary col-12 p-0"
+		<div class="card card-primary card-outline direct-chat direct-chat-primary col-12 p-0"
 			style="box-sizing: border-box;">
 			<div class="card-header">
 				<h3 class="card-title">요청사항</h3>
@@ -466,6 +465,12 @@
 								<span class="direct-chat-timestamp float-left"> <fmt:formatDate
 										value="${laundryOrder.orderDate}" pattern="yy-MM-dd HH:mm" />
 								</span>
+								<button type="button" id="modifyBtn" class="btn btn-sm btn-warning ml-1"
+												style="padding: 2px; font-size: .8rem; line-height: 1.5;"
+												data-toggle="modal" data-target="#modify">수정</button>
+								<button type="button" id="modifyBtn" class="btn btn-sm btn-danger ml-1"
+												style="padding: 2px; font-size: .8rem; line-height: 1.5;"
+												onclick="reqRemove()">삭제</button>
 							</div>
 							<div class="direct-chat-text">
 								${laundryOrder.requestDetails}</div>
@@ -489,8 +494,15 @@
 									<span class="direct-chat-timestamp float-left"> <fmt:formatDate
 											value="${list.registDate}" pattern="yy-MM-dd HH:mm" />
 									</span>
+									<button type="button" id="modifyBtn" class="btn btn-sm btn-warning ml-1"
+												style="padding: 2px; font-size: .8rem; line-height: 1.5;"
+												data-toggle="modal" data-target="#modify"
+												onclick="replyModify('${list.replyno}','${list.replynoSeq }')" >수정</button>
+								<button type="button" id="modifyBtn" class="btn btn-sm btn-danger ml-1"
+												style="padding: 2px; font-size: .8rem; line-height: 1.5;"
+												onclick="replyRemove('${list.replyno}','${list.replynoSeq }')">삭제</button>
 								</div>
-								<div class="direct-chat-text">${list.replyContent}</div>
+								<div class="direct-chat-text" id="content">${list.replyContent}</div>
 							</div>
 						</c:if>
 					</c:forEach>
@@ -511,14 +523,143 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="modify" style="display: none;" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">자주 묻는 질문 수정</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div>
+							<label for="moq" style="margin:10px;">요청사항 수정</label> <input type="text" id="getContent" name='question' class="form-control" value="">
+						</div>
+					</div>
+					<input type="hidden" id="replyno" value="">
+					<input type="hidden" id="replyseq" value="">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-replyno  onclick="modify_go()" id="insertBtn">수정</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
 </div>
 
 <!-- 알림 sweetalert2 -->
-<script
-	src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 
 
 <script>
+
+function replyModify(replyno,replynoSeq){
+	console.log(replyno)
+	console.log(replynoSeq)
+	
+	var replyno = document.querySelector('#replyno');
+	var replyseq = document.querySelector('#replyseq');
+	replyno.value = replyno;
+	replyseq.value = replynoSeq;
+}
+
+function modify_go(){
+	$.ajax({
+        url : '<%=request.getContextPath()%>/mypage/modifyReply',
+        type : 'post',
+        data : {
+       	 'no' : replyno,
+       	 'seq' : replynoSeq
+        },
+        success : function(ok){
+           if(ok.toUpperCase() == "OK"){
+           	Swal.fire({
+					icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '요청사항 삭제 완료!',
+				});
+           	setTimeout("location.reload(true);",1000);
+           } else {
+           	Swal.fire({
+					icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '삭제 실패',
+				});
+           }
+        },
+        error : function() {
+        	Swal.fire({
+			icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title: '시스템 에러',
+			});
+        },
+	});
+}
+
+function reqRemove(){
+	 $.ajax({
+         url : '<%=request.getContextPath()%>/mypage/removeReply',
+         type : 'post',
+         data : {
+        	 'no' : replyno,
+        	 'seq' : replynoSeq
+         },
+         success : function(ok){
+            if(ok.toUpperCase() == "OK"){
+            	Swal.fire({
+					icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '요청사항 삭제 완료!',
+				});
+            	setTimeout("location.reload(true);",1000);
+            } else {
+            	Swal.fire({
+					icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '삭제 실패',
+				});
+            }
+         },
+         error : function() {
+         	Swal.fire({
+			icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title: '시스템 에러',
+			});
+         },
+	});
+}
+
+function replyRemove(replyno,replynoSeq){
+	
+	 $.ajax({
+         url : '<%=request.getContextPath()%>/mypage/removeReply',
+         type : 'post',
+         data : {
+        	 replyno : replyno,
+        	 replynoSeq : replynoSeq
+         },
+         success : function(ok){
+            if(ok.toUpperCase() == "OK"){
+            	Swal.fire({
+					icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '요청사항 삭제 완료!',
+				});
+            	setTimeout("location.reload(true);",1000);
+            } else {
+            	Swal.fire({
+					icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '삭제 실패',
+				});
+            }
+         },
+         error : function() {
+         	Swal.fire({
+			icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title: '시스템 에러',
+			});
+         },
+	});
+}
+
+
+
 async function getImg(){
 	 for(var target of document.querySelectorAll('.orderPicture')){	
 		 var atchFileNo = target.getAttribute('data-id');
