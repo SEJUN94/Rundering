@@ -4,9 +4,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.FAQModifyCommand;
 import com.rundering.command.FAQRegistCommand;
 import com.rundering.command.MyOrderCriteria;
-import com.rundering.customer.FAQModifyCommand;
 import com.rundering.dto.AttachVO;
 import com.rundering.dto.FAQVO;
 

@@ -1,8 +1,7 @@
-package com.rundering.customer;
+package com.rundering.command;
 
 import java.util.List;
 
-import com.rundering.command.FAQRegistCommand;
 import com.rundering.dto.FAQVO;
 
 public class FAQModifyCommand extends FAQRegistCommand{

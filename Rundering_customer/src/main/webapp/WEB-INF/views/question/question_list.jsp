@@ -91,11 +91,12 @@ th, td {
 				<table class="table table-hover text-nowrap">
 					<thead>
 						<tr>
-							<th class="no">번호</th>
+							<th class="no"></th>
 							<th class="category">카테고리</th>
 							<th class="title">제목</th>
 							<th class="writer">작성자</th>
 							<th class="date">문의일</th>
+							<th class="">첨부파일${faq.atchFileNo }</th>
 							<th class="yn">비밀글</th>
 							<th class="answer">답변</th>
 						</tr>
@@ -105,10 +106,10 @@ th, td {
 							<td colspan="7"><strong>해당 내용이 없습니다.</strong></td>
 						</tr>
 					</c:if>
-					<c:forEach items="${faqList }" var="faq">
+					<c:forEach items="${faqList }" var="faq" varStatus="status">
 						<tr style='cursor: pointer;'
 							onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',740,930);">
-							<td class="no">${faq.faqno }</td>
+							<td class="no">${(cri.page - 1) * cri.perPageNum + (status.index +1) }</td>
 							<td class="category"><c:choose>
 												<c:when test="${faq.setbukdoorclcode == 'OR'}">주문문의</c:when>
 												<c:when test="${faq.setbukdoorclcode == 'US'}">이용문의</c:when>
@@ -117,6 +118,14 @@ th, td {
 							<td class="title" style="text-align: inherit;">${faq.question }</td>
 							<td class="writer">${faq.writer }</td>
 							<td class="date">${faq.registDate }</td>
+							<td>
+								<c:if test="${!empty faq.atchFileNo }">
+									<i class="nav-icon fas fa-file"></i>
+								</c:if>
+								<c:if test="${empty faq.atchFileNo }">
+									<span>-</span>
+								</c:if>
+							</td>
 							<td class="yn">
 								<c:choose>
 									<c:when test="${faq.secretyn eq 'Y'}">

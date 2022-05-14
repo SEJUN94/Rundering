@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.FAQModifyCommand;
 import com.rundering.command.FAQRegistCommand;
 import com.rundering.command.MyOrderCriteria;
 import com.rundering.dto.AttachVO;
