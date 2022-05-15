@@ -1,6 +1,7 @@
 package com.rundering.manage.branch;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ import com.rundering.command.PageMaker;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
+import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.service.ItemOrderService;
 import com.rundering.service.ItemService;
 
@@ -164,6 +166,14 @@ public class BranchItemController {
 		}
 		ItemOrderVO itemOrder = itemOrderService.getItemOrder(ordercode);
 		List<ItemOrderDetailVO> itemOrderDetailList= itemOrderService.getItemOrdeDetail(ordercode);
+		List<LaundryArticlesVO> laundryArticlesList = itemOrderService.getLaundryArticles();
+		Map<String, String> articlesMap = new HashMap<String, String>();
+		for (LaundryArticlesVO LaundryArticles : laundryArticlesList) {
+			articlesMap.put(LaundryArticles.getArticlesCode(), LaundryArticles.getArticlesName());
+		}
+		
+		mnv.addObject("articlesMap", articlesMap);
+		
 		mnv.addObject("itemOrderDetailList", itemOrderDetailList);
 		mnv.addObject("itemOrder", itemOrder);
 		mnv.addObject("comCodeMap",comCodeMap);

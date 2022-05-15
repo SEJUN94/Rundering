@@ -13,6 +13,7 @@ import com.rundering.dao.BranchDAO;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.ItemInsertDAO;
 import com.rundering.dao.ItemOrderDAO;
+import com.rundering.dao.LaundryArticlesDAO;
 import com.rundering.dao.LaundryGoodsStockDAO;
 import com.rundering.dto.BranchVO;
 import com.rundering.dto.ComCodeVO;
@@ -20,6 +21,7 @@ import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.ItemInsertVO;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
+import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.dto.LaundryGoodsStockVO;
 
 public class ItemOrderServiceImpl implements ItemOrderService {
@@ -33,6 +35,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 	LaundryGoodsStockDAO laundryGoodsStockDAO;
 	
 	BranchDAO branchDAO;
+	
+	LaundryArticlesDAO laundryArticlesDAO;
 	
 	
 	public void setItemOrderDAO(ItemOrderDAO itemOrderDAO) {
@@ -49,6 +53,10 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 	}
 	public void setBranchDAO(BranchDAO branchDAO) {
 		this.branchDAO = branchDAO;
+	}
+	
+	public void setLaundryArticlesDAO(LaundryArticlesDAO laundryArticlesDAO) {
+		this.laundryArticlesDAO = laundryArticlesDAO;
 	}
 	
 	
@@ -154,8 +162,15 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 	@Override
 	public ItemOrderVO getItemOrder(String ordercode) throws Exception{
 		ItemOrderVO itemOrder = itemOrderDAO.selectItemOrderByOrdercode(ordercode);
+		
 		return itemOrder; 
 	}
+	@Override
+	public List<LaundryArticlesVO> getLaundryArticles() throws Exception{
+		List<LaundryArticlesVO> laundryArticles = laundryArticlesDAO.selectLandryArticlesStock();
+		return laundryArticles;
+	}
+	
 	@Override
 	public Map<String,String> comCode() throws Exception{
 		 Map<String, String> comCodeMap = new HashMap<String, String>();

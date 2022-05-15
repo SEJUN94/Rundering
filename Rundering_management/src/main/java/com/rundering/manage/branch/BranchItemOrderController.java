@@ -1,6 +1,7 @@
 package com.rundering.manage.branch;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ import com.rundering.command.ItemOrderRegistCommand;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
+import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.service.ItemOrderService;
 import com.rundering.service.LaundryArticlesService;
 
@@ -76,10 +78,13 @@ public class BranchItemOrderController {
 			return mnv;
 		}
 		ItemOrderVO itemOrder = itemOrderService.getItemOrder(ordercode);
+		
 		List<ItemOrderDetailVO> itemOrderDetailList= itemOrderService.getItemOrdeDetail(ordercode);
+		
 		mnv.addObject("itemOrderDetailList", itemOrderDetailList);
 		mnv.addObject("itemOrder", itemOrder);
 		mnv.addObject("comCodeMap",comCodeMap);
+		
 		mnv.setViewName(url);
 		return mnv;
 	} 
