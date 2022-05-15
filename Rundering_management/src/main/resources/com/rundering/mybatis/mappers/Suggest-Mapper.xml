@@ -59,7 +59,8 @@
 		    d.branch_name,
 		    b.regist_date,
 		    b.viewcnt,
-		    b.checkyn
+		    b.checkyn,
+		    b.ATCH_FILE_NO
 		from tb_employees a, TB_SUGGEST_BOARD b, tb_member c, tb_branch d
 		where a.employee_id = b.writer
 		  and a.memberno = c.memberno

@@ -96,7 +96,7 @@ th, td {
 							<th class="title">제목</th>
 							<th class="writer">작성자</th>
 							<th class="date">문의일</th>
-							<th class="">첨부파일${faq.atchFileNo }</th>
+							<th class="">첨부파일</th>
 							<th class="yn">비밀글</th>
 							<th class="answer">답변</th>
 						</tr>
