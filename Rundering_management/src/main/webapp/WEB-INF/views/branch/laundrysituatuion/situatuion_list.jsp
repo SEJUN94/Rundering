@@ -326,13 +326,10 @@ function text(){
 	for(let i of texts){
 		let text =i.innerText
 		let text1=text.substr(text.indexOf('개')+1)
-			console.log(text1)
 			if(text1.indexOf('개')>-1){
 				let text2 =text1.substr(text1.indexOf('개')+1)
-				console.log(text2)
 				if(text2.indexOf('개')>-1){
 					let text3 =text2.substr(text2.indexOf('개')+1)
-					console.log(text3)
 					if(text3.indexOf('개')>-1){
 						let text4 =text3.substr(text3.indexOf('개')+1)
 						if(text4.indexOf('개')>-1){
