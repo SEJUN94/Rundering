@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.FAQModifyCommand;
 import com.rundering.command.MemberAddCommand;
 import com.rundering.command.MyOrderCriteria;
 import com.rundering.dto.AttachVO;
@@ -36,6 +37,7 @@ import com.rundering.service.MemberService;
 import com.rundering.service.PaymentService;
 import com.rundering.service.ReplyService;
 import com.rundering.util.FileUtil;
+import com.rundering.util.GetAttachesByMultipartFileAdapter;
 import com.rundering.util.UserSha256;
 
 
@@ -54,6 +56,9 @@ public class MyPageController {
 	
 	@Resource(name="paymentService")
 	private PaymentService paymentService;
+	
+	@Resource(name = "boardPath")
+	private String boardPath;
 	
 	@Autowired
 	private ReplyService replyService;
@@ -194,9 +199,9 @@ public class MyPageController {
 
 		String url = "mypage/my_inquiry_modify";
 
-		FAQVO faq = faqService.getFAQModify(faqno);
+		Map<String, Object> dataMap = faqService.getFAQModify(faqno);
 
-		mnv.addObject("faq", faq);
+		mnv.addAllObjects(dataMap);
 
 		mnv.setViewName(url);
 
@@ -205,13 +210,15 @@ public class MyPageController {
 	
 	// 문의사항 수정2
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyPost(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+	public String modifyPost(FAQModifyCommand faqcmd, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
 		String url = "redirect:/mypage/my_inquiry_detail";
 
-		faqService.modify(faq);
+		List<AttachVO> attachList = GetAttachesByMultipartFileAdapter.save(faqcmd.getUploadFile(), this.boardPath,"고객문의");
+		
+		faqService.modify(faqcmd, attachList);
 
-		rttr.addAttribute("faqno", faq.getFaqno());
+		rttr.addAttribute("faqno", faqcmd.getFaqno());
 		rttr.addFlashAttribute("from", "modify");
 
 		return url;
