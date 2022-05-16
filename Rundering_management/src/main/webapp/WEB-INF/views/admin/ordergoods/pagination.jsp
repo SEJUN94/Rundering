@@ -6,28 +6,28 @@
 	<ul class="pagination justify-content-center m-0">
 		<li class="page-item">
 			<a class="page-link" href="javascript:list_go(1);">
-				<i class="fas fa-angle-double-left" style="color:#82BBD8;"></i>
+				<i class="fas fa-angle-double-left" style="color: #59a5cb;"></i>
 			</a>
 		</li>
 		<li class="page-item">
 			<a class="page-link" href="javascript:list_go('${pageMaker.prev ? pageMaker.startPage-1 : pageMaker.cri.page}');">
-				<i class="fas fa-angle-left" style="color:#82BBD8;"></i>
+				<i class="fas fa-angle-left" style="color: #59a5cb;"></i>
 			</a>
 		</li>
 		<c:forEach var="pageNum" begin="${pageMaker.startPage }" end="${pageMaker.endPage }" >
 			<li class="page-item ${pageMaker.cri.page == pageNum?'active':''}" >
-				<a class="page-link" href="javascript:list_go('${pageNum}');"style="${pageMaker.cri.page == pageNum? 'background-color:#82BBD8; border:1px solid #82BBD8':''}
-																					${pageMaker.cri.page != pageNum? 'color:#82BBD8;':''}" >${pageNum }</a>
+				<a class="page-link" href="javascript:list_go('${pageNum}');"style="${pageMaker.cri.page == pageNum? 'background-color: #59a5cb; border:1px solid  #59a5cb':''}
+																					${pageMaker.cri.page != pageNum? 'color: #59a5cb;':''}" >${pageNum }</a>
 			</li>
 		</c:forEach>
 		<li class="page-item">
 			<a class="page-link" href="javascript:list_go('${pageMaker.next ? pageMaker.endPage+1 :pageMaker.cri.page}');">
-				<i class="fas fa-angle-right" style="color:#82BBD8;"></i>
+				<i class="fas fa-angle-right" style="color: #59a5cb;"></i>
 			</a>
 		</li>
 		<li class="page-item">
 			<a class="page-link" href="javascript:list_go('${pageMaker.realEndPage}');">
-				<i class="fas fa-angle-double-right" style="color:#82BBD8;"></i>
+				<i class="fas fa-angle-double-right" style="color: #59a5cb;"></i>
 			</a>
 		</li>	
 	</ul>
@@ -51,8 +51,6 @@
 		jobForm.find("[name='page']").val(page);
 		jobForm.find("[name='searchType']").val($('select[name="searchType"]').val());
 		jobForm.find("[name='laundryItemsCode']").val($('select[name="laundryItemsCode"]').val());
-		jobForm.find("[name='clcode']").val($('select[name="clcode"]').val());
-		jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val());
 	
 		jobForm.attr({
 			action:url,

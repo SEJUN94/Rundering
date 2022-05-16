@@ -19,4 +19,8 @@ public class ReplyService {
 		replyDAO.insertMypageRe(rv);
 	}
 
+	
+	public void removeReply(ReplyVO rv) throws Exception{
+		replyDAO.removeReply(rv);
+	}
 }

@@ -84,7 +84,7 @@
 	</update>
 	
 	
-	<delete id="deleteAttchFileRemoveByFileNo">
+	<delete id="deleteAttchFileRemoveByFileNo" parameterType="str">
 		DELETE FROM TB_ATTACH_FILE
 		 WHERE
 	    ATCH_FILE_NO = #{atchFileNo}
@@ -101,6 +101,27 @@
 		  from TB_ATTACH_FILE
 		 where ATCH_FILE_NO = #{atchFileNo}
 		   and ATCH_FILE_SEQ = #{atchFileSeq}
+	</select>
+	
+	<update id="deleteAttchFileRemoveByFileNoAndSeq" parameterType="attach">
+		DELETE 
+      FROM TB_ATTACH_FILE
+      WHERE ATCH_FILE_NO = #{atchFileNo}
+       AND ATCH_FILE_SEQ = #{atchFileSeq}
+      
+	</update>
+	
+	<select id="selectAttachVOByFileNoAndSeq" resultMap="attachMap" parameterType="attach">
+		SELECT *
+		FROM TB_ATTACH_FILE
+		WHERE ATCH_FILE_NO = #{atchFileNo}
+		 AND ATCH_FILE_SEQ = #{atchFileSeq}
+	</select>
+	
+	<select id="selectLastSeqAttachVOByFileNo" resultType="int" parameterType="str">
+		SELECT MAX(ATCH_FILE_SEQ)
+		FROM TB_ATTACH_FILE
+		WHERE ATCH_FILE_NO = #{atchFileNo}
 	</select>
   
 </mapper>

@@ -17,7 +17,7 @@ public class MemberAddressServiceImpl implements MemberAddressService{
 	public void memberAddressRegist(MemberAddressVO memberAdd) throws Exception {
 		
 		if(memberAdd.getDefaultYn() == null) {
-			
+			memberAdd.setDefaultYn("N");
 		}else if(memberAdd.getDefaultYn().equals("Y")) {
 			memberAddressDAO.updateAllMemberAddressDefaultN(memberAdd.getMemberNo());
 		}

@@ -1,3 +1,4 @@
+
 package com.rundering.scheduler;
 
 import java.util.ArrayList;
@@ -87,9 +88,12 @@ public class OrderTaskScheduler {
 	private static final Logger logger = LoggerFactory.getLogger(OrderTaskScheduler.class);
 
 	// 세탁주문 지점에 할당
-	public void assignLaundryOrderToBranch() throws Exception {
+	public Map<String,Object> assignLaundryOrderToBranch() throws Exception {
+		
+		Map<String,Object> dataMap = new HashMap<String, Object>();
+		
 		List<ComCodeVO> areaCodeList = comCodeDAO.selectComCodeByComCodeGrp("AREA");
-
+		int assignedOrderCnt = 0;
 		for (ComCodeVO comCodeVO : areaCodeList) {
 			List<BranchVO> branchListByArea = branchDAO.selectBranchListByArea(comCodeVO.getComCode());
 			List<LaundryOrderVO> orderListByArea = laundryOrderDAO
@@ -128,6 +132,7 @@ public class OrderTaskScheduler {
 						orderVO = orderListByArea.get(i);
 						orderVO.setBranchCode(branchVO.getBranchCode());
 						laundryOrderDAO.updateLaundryOrderbranchCode(orderVO);
+						assignedOrderCnt++;
 					}
 					cnt += quantity;
 					remainingOrderQuantity -= quantity;
@@ -138,6 +143,7 @@ public class OrderTaskScheduler {
 						orderVO.setBranchCode(mostThroughputBranch.getBranchCode());
 						laundryOrderDAO.updateLaundryOrderbranchCode(orderVO);
 						remainingOrderQuantity -= 1;
+						assignedOrderCnt++;
 					}
 				}
 				logger.info(comCodeVO.getComCodeNm() + " 지역의 담당지점 미할당 주문수 : " + remainingOrderQuantity);
@@ -153,6 +159,7 @@ public class OrderTaskScheduler {
 						orderVO = orderListByArea.get(i);
 						orderVO.setBranchCode(branchVO.getBranchCode());
 						laundryOrderDAO.updateLaundryOrderbranchCode(orderVO);
+						assignedOrderCnt++;
 					}
 					cnt += branchVO.getBranchLndrpcrymslmcoqy();
 					remainingOrderQuantity -= cnt;
@@ -180,7 +187,7 @@ public class OrderTaskScheduler {
 
 				} else if (areaList.size() == 1) { // 타지역 1곳에 할당
 
-					int totalExcessCapacity = branchDAO.selectExcessCapacityOfTodayLaundryByArea(areaList.get(0));
+					int totalExcessCapacity = branchDAO.selectExcessCapacityOfTomorrowLaundryByArea(areaList.get(0));
 
 					List<BranchVO> branchListOfOtherArea = branchDAO.selectBranchListByArea(areaList.get(0));
 					int totalRemainingOrderQuantity = remainingOrderQuantity;
@@ -193,14 +200,14 @@ public class OrderTaskScheduler {
 					for (BranchVO branchVO : branchListOfOtherArea) {
 						// 지점 주문할당할 개수 = 다른지역의 남은주문수 * (해당지점의 남은세탁가능수량 / 지역내모든지점의 남은세탁가능수량 * 100) / 100
 						int quantity = (int) (totalRemainingOrderQuantity * ((double) branchDAO
-								.selectExcessCapacityOfTodayLaundryByBranchCode(branchVO.getBranchCode())
+								.selectExcessCapacityOfTomorrowLaundryByBranchCode(branchVO.getBranchCode())
 								/ totalExcessCapacity * 100) / 100);
 						logger.info(comCodeVO.getComCodeNm() + " 지역의 초과주문수 : " + totalRemainingOrderQuantity);
 						logger.info(branchVO.getBranchName() + "의 세탁가능량 : "
-								+ branchDAO.selectExcessCapacityOfTodayLaundryByBranchCode(branchVO.getBranchCode())
+								+ branchDAO.selectExcessCapacityOfTomorrowLaundryByBranchCode(branchVO.getBranchCode())
 								+ ", " + branchVO.getBranchName() + "의 할당 퍼센트"
 								+ ((double) branchDAO
-										.selectExcessCapacityOfTodayLaundryByBranchCode(branchVO.getBranchCode())
+										.selectExcessCapacityOfTomorrowLaundryByBranchCode(branchVO.getBranchCode())
 										/ totalExcessCapacity * 100));
 						logger.info(
 								branchVO.getBranchName() + "에 할당될 " + comCodeVO.getComCodeNm() + " 지역의 주문수" + quantity);
@@ -212,6 +219,7 @@ public class OrderTaskScheduler {
 							orderVO = orderListByArea.get(i);
 							orderVO.setBranchCode(branchVO.getBranchCode());
 							laundryOrderDAO.updateLaundryOrderbranchCode(orderVO);
+							assignedOrderCnt++;
 						}
 						cnt += quantity;
 						remainingOrderQuantity -= quantity;
@@ -222,6 +230,7 @@ public class OrderTaskScheduler {
 							orderVO.setBranchCode(mostThroughputBranch.getBranchCode());
 							laundryOrderDAO.updateLaundryOrderbranchCode(orderVO);
 							remainingOrderQuantity -= 1;
+							assignedOrderCnt++;
 						}
 					}
 					logger.info(comCodeVO.getComCodeNm() + " 지역의 담당지점 미할당 주문수 : " + remainingOrderQuantity);
@@ -231,8 +240,8 @@ public class OrderTaskScheduler {
 					BranchVO mostThroughputBranch = null;
 
 					for (String area : areaList) {
-						int totalExcessCapacity = branchDAO.selectExcessCapacityOfTodayLaundryByArea(area);
-						int excessCapacity = branchDAO.selectExcessCapacityOfTodayLaundryByArea(area);
+						int totalExcessCapacity = branchDAO.selectExcessCapacityOfTomorrowLaundryByArea(area);
+						int excessCapacity = branchDAO.selectExcessCapacityOfTomorrowLaundryByArea(area);
 						if (excessCapacity >= remainingOrderQuantity)
 							excessCapacity = remainingOrderQuantity;
 						List<BranchVO> branchListOfOtherArea = branchDAO.selectBranchListByArea(area);
@@ -241,15 +250,15 @@ public class OrderTaskScheduler {
 						for (BranchVO branchVO : branchListOfOtherArea) {
 							// 지점 주문할당할 개수 = 할당받을다른지역의세탁처리초과량 * (해당지점의 남은세탁가능수량 / 지역의남은세탁처리가능수량 * 100) / 100
 							int quantity = (int) (excessCapacity * ((double) branchDAO
-									.selectExcessCapacityOfTodayLaundryByBranchCode(branchVO.getBranchCode())
+									.selectExcessCapacityOfTomorrowLaundryByBranchCode(branchVO.getBranchCode())
 									/ totalExcessCapacity * 100) / 100);
 							logger.info(comCodeVO.getComCodeNm() + " 지역의 초과주문수 : " + totalRemainingOrderQuantity);
 							logger.info(branchVO.getBranchName() + "에 할당될 " + comCodeVO.getComCodeNm() + " 지역의 주문수"
 									+ quantity);
 							if (mostThroughputBranch == null
-									|| (branchDAO.selectExcessCapacityOfTodayLaundryByBranchCode(
+									|| (branchDAO.selectExcessCapacityOfTomorrowLaundryByBranchCode(
 											mostThroughputBranch.getBranchCode()) < branchDAO
-													.selectExcessCapacityOfTodayLaundryByBranchCode(
+													.selectExcessCapacityOfTomorrowLaundryByBranchCode(
 															branchVO.getBranchCode()))) {
 								mostThroughputBranch = branchVO;
 							}
@@ -257,6 +266,7 @@ public class OrderTaskScheduler {
 								orderVO = orderListByArea.get(i);
 								orderVO.setBranchCode(branchVO.getBranchCode());
 								laundryOrderDAO.updateLaundryOrderbranchCode(orderVO);
+								assignedOrderCnt++;
 							}
 							cnt += quantity;
 							remainingOrderQuantity -= quantity;
@@ -269,6 +279,7 @@ public class OrderTaskScheduler {
 							orderVO.setBranchCode(mostThroughputBranch.getBranchCode());
 							laundryOrderDAO.updateLaundryOrderbranchCode(orderVO);
 							remainingOrderQuantity -= 1;
+							assignedOrderCnt++;
 						}
 					}
 					logger.info(comCodeVO.getComCodeNm() + " 지역의 담당지점 미할당 주문수 : " + remainingOrderQuantity);
@@ -283,44 +294,50 @@ public class OrderTaskScheduler {
 					.selectLaundryOrderListNotAssignedToBranchByArea(comCodeVO.getComCode());
 			remainAllAreaOrder += orderListByArea.size();
 		}
-
-		// 본사 직원들에게 알림
-		List<EmployeesVO> employeesList = employeesDAO.selectEmployeesByBranchCode("000000");
-		NotificationVO notificationVO = new NotificationVO();
-		for (EmployeesVO employeesVO : employeesList) {
-			int sequence = notificationDAO.selectNotificationSequenceNextValue();
-			notificationVO.setNtcnId(String.valueOf(sequence));
-			notificationVO.setEmployeeId(employeesVO.getEmployeeId());
-			notificationVO.setNtcnknd("PC"); // 알림종류 공통코드 - 할당완료
-			notificationVO.setNtcncn("세탁주문, 미할당 " + remainAllAreaOrder + "건");
-			notificationVO.setNtcnclickhourUrl("'/runderingmanage/admin/laundryorder/list','A010100'");
-			notificationDAO.insertNotification(notificationVO);
-		}
-
-		// 주문이 할당된 모든 지점의 사원에게 공지 알림 - 배송사원 제외
-		List<BranchVO> branchList = branchDAO.selectBranchList();
-		for (BranchVO branch : branchList) {
-			if (branch.getBranchCode().equals("000000"))
-				continue;
-			List<LaundryOrderVO> orderlist = laundryOrderDAO
-					.selectLaundryOrderListPickUpRequestDateTodayByBranchCode(branch.getBranchCode());
-			if (orderlist.size() < 1)
-				continue;
-
-			List<EmployeesVO> employeesli = employeesDAO.selectEmployeesByBranchCode(branch.getBranchCode());
-			for (EmployeesVO employees2 : employeesli) {
-				if (employees2.getDepartment().equals("DE"))
-					continue;
+		
+		//할당된 주문이 있을 경우에만 알림
+		if(assignedOrderCnt > 0) {
+			// 본사 직원들에게 알림
+			List<EmployeesVO> employeesList = employeesDAO.selectEmployeesByBranchCode("000000");
+			NotificationVO notificationVO = new NotificationVO();
+			for (EmployeesVO employeesVO : employeesList) {
 				int sequence = notificationDAO.selectNotificationSequenceNextValue();
 				notificationVO.setNtcnId(String.valueOf(sequence));
-				notificationVO.setEmployeeId(employees2.getEmployeeId());
+				notificationVO.setEmployeeId(employeesVO.getEmployeeId());
 				notificationVO.setNtcnknd("PC"); // 알림종류 공통코드 - 할당완료
-				notificationVO.setNtcncn("세탁주문 " + orderlist.size() + "건 할당됨");
-				notificationVO.setNtcnclickhourUrl("'/runderingmanage/branch/laundrysituatuion/list','B010100'");
+				notificationVO.setNtcncn("세탁주문, 미할당 " + remainAllAreaOrder + "건");
+				notificationVO.setNtcnclickhourUrl("'/runderingmanage/admin/laundryorder/list','A010100'");
 				notificationDAO.insertNotification(notificationVO);
 			}
-
+			
+			// 주문이 할당된 모든 지점의 사원에게 공지 알림 - 배송사원 제외
+			List<BranchVO> branchList = branchDAO.selectBranchList();
+			for (BranchVO branch : branchList) {
+				if (branch.getBranchCode().equals("000000"))
+					continue;
+				List<LaundryOrderVO> orderlist = laundryOrderDAO
+						.selectLaundryOrderListPickUpRequestDateTodayByBranchCode(branch.getBranchCode());
+				if (orderlist.size() < 1)
+					continue;
+				
+				List<EmployeesVO> employeesli = employeesDAO.selectEmployeesByBranchCode(branch.getBranchCode());
+				for (EmployeesVO employees2 : employeesli) {
+					if (employees2.getDepartment().equals("DE"))
+						continue;
+					int sequence = notificationDAO.selectNotificationSequenceNextValue();
+					notificationVO.setNtcnId(String.valueOf(sequence));
+					notificationVO.setEmployeeId(employees2.getEmployeeId());
+					notificationVO.setNtcnknd("PC"); // 알림종류 공통코드 - 할당완료
+					notificationVO.setNtcncn("세탁주문 " + orderlist.size() + "건 할당됨");
+					notificationVO.setNtcnclickhourUrl("'/runderingmanage/branch/laundrysituatuion/list','B010100'");
+					notificationDAO.insertNotification(notificationVO);
+				}
+			}
 		}
+
+		dataMap.put("assignedOrderCnt",assignedOrderCnt);
+		dataMap.put("remainAllAreaOrder",remainAllAreaOrder);
+		return dataMap;
 
 	}
 
@@ -354,8 +371,8 @@ public class OrderTaskScheduler {
 		default:
 			return AffordableArea;
 		}
-		excessCapacityOfFirstArea = branchDAO.selectExcessCapacityOfTodayLaundryByArea(firstArea);
-		excessCapacityOfSecondArea = branchDAO.selectExcessCapacityOfTodayLaundryByArea(secondArea);
+		excessCapacityOfFirstArea = branchDAO.selectExcessCapacityOfTomorrowLaundryByArea(firstArea);
+		excessCapacityOfSecondArea = branchDAO.selectExcessCapacityOfTomorrowLaundryByArea(secondArea);
 		if (remainQuantity > (excessCapacityOfFirstArea + excessCapacityOfSecondArea)) {
 			return AffordableArea;
 		}
@@ -489,11 +506,13 @@ public class OrderTaskScheduler {
 	}
 
 	public void autoOrder() throws Exception {
-
+		List<BranchVO> branchList = branchDAO.selectBranchList();
+		
+		
 		/* 키 : 아티클 코드 벨류 아티클 이름 */
 		Map<String, Integer> articlesPrice = new HashMap<String, Integer>();
 		// 지점 가져오기
-		List<BranchVO> branchList = branchDAO.selectBranchList();
+		
 
 		List<LaundryArticlesVO> laundrArticlesList = laundryArticlesDAO.selectLandryArticlesStock();
 		// 물품가격을 합함
@@ -503,13 +522,53 @@ public class OrderTaskScheduler {
 
 		}
 		for (BranchVO branch : branchList) {
-			// 지점에 해당하는 재고 물품 불러옴
-			List<LaundryGoodsStockVO> goodList = laundryGoodsStockDAO
-					.selectLaundryGoodsStockByBranchCode(branch.getBranchCode());
+			autoOrderMethod(branch.getBranchCode(),articlesPrice,laundryGoodsStockDAO,itemOrderDAO);
+		}
+	}
+	
+	public void autoOrderMethod(String branchCode,Map<String,Integer> articlesPrice,LaundryGoodsStockDAO laundryGoodsStockDAO, ItemOrderDAO itemOrderDAO) throws Exception {
+		
+		
+		List<LaundryGoodsStockVO> goodList = laundryGoodsStockDAO.selectLaundryGoodsStockByBranchCode(branchCode);
 
-			int sum = 0;
+		int sum = 0;
+		for (LaundryGoodsStockVO laundryGoodsStock : goodList) {
+
+			int supplyCount = laundryGoodsStock.getSupplyCount();
+			int point = laundryGoodsStock.getAutoOrderPoint();
+			Date autoLastDay = laundryGoodsStock.getAutoOrderLastDate();
+			Date sysdate = new Date();
+
+			// 14일 비교
+			if (supplyCount < point) {
+				if ((sysdate.getTime() - autoLastDay.getTime()) / (1000 * 60 * 60 * 24) >= 14) {
+					// 제품 * 개수
+					sum += articlesPrice.get(laundryGoodsStock.getArticlesCode())
+							* laundryGoodsStock.getAutoOrderCount();
+					// 총합 가격을 가져옴
+				}
+			}
+
+		}
+		// SEQ 가져오기
+		
+		// 주문 넣기
+		if (sum > 0) {
+			String seq = itemOrderDAO.seq();
+			ItemOrderVO itemOrder = new ItemOrderVO();
+			itemOrder.setBranchCode(branchCode);
+			itemOrder.setOrdercode(seq);
+			itemOrder.setItemOrderPaymentPrice(sum);
+			itemOrderDAO.insertItemOrderByItmeOrder(itemOrder);
+
+			// 주문 상세 순번
+			int detailSeq = 1;
+
 			for (LaundryGoodsStockVO laundryGoodsStock : goodList) {
-
+				if(laundryGoodsStock.getBranchCode().equals("000000")) {
+					continue;
+				}
+				
 				int supplyCount = laundryGoodsStock.getSupplyCount();
 				int point = laundryGoodsStock.getAutoOrderPoint();
 				Date autoLastDay = laundryGoodsStock.getAutoOrderLastDate();
@@ -518,62 +577,24 @@ public class OrderTaskScheduler {
 				// 14일 비교
 				if (supplyCount < point) {
 					if ((sysdate.getTime() - autoLastDay.getTime()) / (1000 * 60 * 60 * 24) >= 14) {
-						// 제품 * 개수
-						sum += articlesPrice.get(laundryGoodsStock.getArticlesCode())
-								* laundryGoodsStock.getAutoOrderCount();
-						// 총합 가격을 가져옴
-					}
-				}
+						ItemOrderDetailVO detail = new ItemOrderDetailVO();
+						// 가격 뽑기
+						detail.setPrice(articlesPrice.get(laundryGoodsStock.getArticlesCode())
+								* laundryGoodsStock.getAutoOrderCount());
+						detail.setOrdercode(seq);
+						detail.setArticlesCode(laundryGoodsStock.getArticlesCode());
+						detail.setSeq(detailSeq);
+						detail.setOrderCount(laundryGoodsStock.getAutoOrderCount());
+						itemOrderDAO.insertItemOrderDetailByItmeOrderDetail(detail);
+						// 날짜업데이틍
+						laundryGoodsStockDAO.updateLaundryGoodsStockLastDateAuto(laundryGoodsStock);
 
-			}
-			// SEQ 가져오기
-			
-			// 주문 넣기
-			if (sum > 0) {
-				String seq = itemOrderDAO.seq();
-				ItemOrderVO itemOrder = new ItemOrderVO();
-				itemOrder.setBranchCode(branch.getBranchCode());
-				itemOrder.setOrdercode(seq);
-				itemOrder.setItemOrderPaymentPrice(sum);
-				itemOrderDAO.insertItemOrderByItmeOrder(itemOrder);
+						detailSeq++;
 
-				// 주문 상세 순번
-				int detailSeq = 1;
-
-				for (LaundryGoodsStockVO laundryGoodsStock : goodList) {
-					if(laundryGoodsStock.getBranchCode().equals("000000")) {
-						continue;
-					}
-					
-					int supplyCount = laundryGoodsStock.getSupplyCount();
-					int point = laundryGoodsStock.getAutoOrderPoint();
-					Date autoLastDay = laundryGoodsStock.getAutoOrderLastDate();
-					Date sysdate = new Date();
-
-					// 14일 비교
-					if (supplyCount < point) {
-						if ((sysdate.getTime() - autoLastDay.getTime()) / (1000 * 60 * 60 * 24) >= 14) {
-							ItemOrderDetailVO detail = new ItemOrderDetailVO();
-							// 가격 뽑기
-							detail.setPrice(articlesPrice.get(laundryGoodsStock.getArticlesCode())
-									* laundryGoodsStock.getAutoOrderCount());
-							detail.setOrdercode(seq);
-							detail.setArticlesCode(laundryGoodsStock.getArticlesCode());
-							detail.setSeq(detailSeq);
-							detail.setOrderCount(laundryGoodsStock.getAutoOrderCount());
-							itemOrderDAO.insertItemOrderDetailByItmeOrderDetail(detail);
-							// 날짜업데이틍
-							laundryGoodsStockDAO.updateLaundryGoodsStockLastDateAuto(laundryGoodsStock);
-
-							detailSeq++;
-
-						}
 					}
 				}
 			}
-
 		}
-		// 여기에서 알림 넣어줘야해용~~
 	}
 
 }

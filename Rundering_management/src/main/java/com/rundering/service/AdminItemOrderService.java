@@ -11,5 +11,5 @@ public interface AdminItemOrderService {
 	
 	public Map<String, Object> getItemOrderDetailList(String ordercode) throws SQLException;
 	
-	public void modifyStatus(ItemOrderVO itemOrder)throws SQLException;
+	public void modifyStatus(ItemOrderVO itemOrder)throws  Exception;
 }

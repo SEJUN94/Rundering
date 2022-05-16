@@ -138,8 +138,8 @@
                <input type="hidden" id="memNo" name="memNo" value="" >
                <input type="hidden" id="jd" name="jd" value="" >
                      <div class="form-group" style="">
-                        <div class="float-right col-2" style="margin-right: 0;">
-                           <button type="submit" class="btn col-12 btn-primary"
+                        <div class="float-right col-2" style="margin-right: 0; ">
+                           <button type="submit" class="btn col-12 btn-primary" style="background-color: #59a5cb;border-color: #59a5cb;"
                               onclick="regist()">등록</button>
                         </div>
                      </div>

@@ -74,6 +74,16 @@
 							<label for="fcontent">문의 내용</label>
 							<div>${faq.fcontent }</div>
 						</div>
+						<div class="card-footer bg-white p-3">
+				<ul class="mailbox-attachments align-items-stretch clearfix" style="display: inline-grid;">
+				 <c:forEach items="${attachList }" var="attach">
+					<li style="border: none;width: fit-content;"><div class="mailbox-attachment-info" style="margin: auto; border:1px solid lightgray;">
+							<a href="<%=request.getContextPath()%>/file/filedownload?atchFileNo=${attach.atchFileNo}&saveFileNm=${attach.saveFileNm }" class="mailbox-attachment-name"><i class="fas fa-paperclip"></i>&nbsp;&nbsp;${attach.fileNm }</a>
+						</div>
+					</li>
+					</c:forEach>
+				</ul>
+			</div>
 						<div class="form-group">
 							<c:choose>
 								<c:when test="${not empty faqanswer }">

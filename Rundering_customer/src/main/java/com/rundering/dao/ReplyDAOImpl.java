@@ -52,7 +52,18 @@ public class ReplyDAOImpl implements ReplyDAO{
 	public List<ReplyVO> getReList(int replyno) throws Exception {
 		return session.selectList("Reply-Mapper.getReList", replyno);
 	}
-	
+
+	// 댓글 삭제
+	@Override
+	public void deleteReply(int replyno) throws Exception {
+		session.delete("Reply-Mapper.deleteReply", replyno);
+	}
+
+	// 댓글 삭제(삭제여부'Y'로 변경)
+	@Override
+	public void removeReply(ReplyVO rv) throws Exception {
+		session.update("Reply-Mapper.removeReply", rv);
+	}
 	
 	
 }

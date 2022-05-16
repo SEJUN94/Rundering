@@ -67,7 +67,7 @@ var CHARTEX = $('#canvas');
         data: {
             labels: [1, 2, 3, 4, 5, 6, 7],
             datasets: [{
-                    label: "세탕량(%)",
+                    label: "세탁량(%)",
                     data: [15, 60, 56, 60, 6, 45, 1],
                     backgroundColor: 'rgba(54, 162, 235, 0.5)',
                     borderColor: 'rgba(54, 162, 235, 1)',

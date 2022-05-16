@@ -56,7 +56,6 @@ th, td {
 	   </div>
 	</section>
 
-	<div id="body">
 		<div class="row ml-3 mr-3">
 			<div class="col-12">
 				<div class="card ">
@@ -75,7 +74,7 @@ th, td {
 								</select> <input class="form-control" type="text" name="keyword"
 									placeholder="검색어를 입력하세요." value="" /> <span
 									class="input-group-append">
-									<button class="btn btn-primary" type="button"
+									<button class="btn btn-primary" type="button" style="background-color: #59a5cb;border-color: #59a5cb;"
 										onclick="list_go(1);" data-card-widget="search">
 										<i class="fa fa-fw fa-search"></i>
 									</button>
@@ -85,40 +84,51 @@ th, td {
 						</div>
 						<div class="card-body p-0">
 							<table class="table table-hover text-nowrap">
-								<thead style="text-align: center;">
+								<thead style="text-align: left;">
 									<tr>
-										<th class="no">번호</th>
-										<th class="boardtitle">제목</th>
-										<th class="writer">작성자</th>
-										<th class="branchName">지점</th>
-										<th class="date">작성날짜</th>
-										<th class="clicks">조회수</th>
-										<th class="yn">확인여부</th>
+										<th class="no"></th>
+										<th class="boardtitle"style="width:60%;">제목</th>
+										<th class="writer"style="width:10%;">작성자</th>
+										<th class="branchName"style="width:10%;">지점</th>
+										<th class="date"style="width:10%;">작성날짜</th>
+										<th class=""style="width:3%;">첨부파일</th>
+										<th class="clicks"style="width:3%;">조회수</th>
+										<th class="yn"style="width:3%;">확인여부</th>
 									</tr>
 								</thead>
+								<tbody>
 								<c:if test="${empty suggestList }">
 									<tr>
 										<td colspan="7" style="text-align: center;"><strong>해당 내용이 없습니다.</strong></td>
 									</tr>
 								</c:if>
-								<c:forEach items="${suggestList }" var="suggest">
+								<c:forEach items="${suggestList }" var="suggest"  varStatus="status">
 									<tr style='cursor: pointer;'
 										onclick="OpenWindow('detail?from=list&sno=${suggest.sno }','상세보기',900,700);">
-										<td class="no">${suggest.sno }</td>
-										<td class="boardtitle" style="text-align: inherit;">${suggest.title }</td>
+										<td class="td">${(cri.page - 1) * cri.perPageNum + (status.index +1) }</td>
+										<td class="boardtitle" style="text-align: left; max-width:375px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${suggest.title }</td>
 										<td class="writer">${suggest.writer }</td>
 										<td class="branchName">${suggest.branchName }</td>
 										<td class="date"><fmt:formatDate
 												value="${suggest.registDate }" pattern="yyyy-MM-dd" /></td>
+										<td>
+											<c:if test="${!empty suggest.atchFileNo }">
+												<i class="nav-icon fas fa-file"></i>
+											</c:if>
+											<c:if test="${empty suggest.atchFileNo }">
+												<span>-</span>
+											</c:if>
+										</td>
 										<td class="clicks"><span class="tag tag-success">${suggest.viewcnt }</span></td>
 										<td class="yn">${suggest.checkyn }</td>
 									</tr>
 								</c:forEach>
+								</tbody>
 							</table>
 
 							<div class="float-right mt-3 mr-3 mb-3">
 
-								<button class="btn btn-primary" type="button" id="registBtn"
+								<button class="btn btn-primary" type="button" id="registBtn" style="background-color: #59a5cb;border-color: #59a5cb;"
 									onclick="location.href='<%=request.getContextPath()%>/branch/suggest/registForm'">
 									작성하기</button>
 							</div>
@@ -132,7 +142,6 @@ th, td {
 					</div>
 				</div>
 			</div>
-		</div>
 <script>
 
 </script>

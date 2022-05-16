@@ -36,15 +36,15 @@ public class BranchDAOImpl implements BranchDAO {
 		BranchVO bv = session.selectOne("Branch-Mapper.getBranchByCode",branchCode);
 		return bv;
 	}
-	//지역의 세탁처리여유량 (지역내지점의 세탁처리가능량 - 오늘 지역의 주문량 = 처리여유량)
+	//지역의 세탁처리여유량 내일이 수거요청일인(지역내지점의 세탁처리가능량 - 지역의 주문량 = 처리여유량)
 	@Override
-	public int selectExcessCapacityOfTodayLaundryByArea(String area) throws Exception {
-		return session.selectOne("Branch-Mapper.selectExcessCapacityOfTodayLaundryByArea",area);
+	public int selectExcessCapacityOfTomorrowLaundryByArea(String area) throws Exception {
+		return session.selectOne("Branch-Mapper.selectExcessCapacityOfTomorrowLaundryByArea",area);
 	}
 
 	@Override
-	public int selectExcessCapacityOfTodayLaundryByBranchCode(String branchCode) throws Exception {
-		return session.selectOne("Branch-Mapper.selectExcessCapacityOfTodayLaundryByBranchCode",branchCode);
+	public int selectExcessCapacityOfTomorrowLaundryByBranchCode(String branchCode) throws Exception {
+		return session.selectOne("Branch-Mapper.selectExcessCapacityOfTomorrowLaundryByBranchCode",branchCode);
 	}
 	@Override
 	public String selectBranchCodeByArea(String area) throws Exception{

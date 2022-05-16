@@ -11,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,14 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.BranchCriteria;
-import com.rundering.command.Criteria;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.ItemOrderVO;
 import com.rundering.service.AdminItemOrderService;
 import com.rundering.service.ItemOrderService;
 import com.rundering.service.ItemService;
-
-import javafx.beans.DefaultProperty;
 
 @Controller
 @RequestMapping("/admin")
@@ -104,7 +98,7 @@ public class BranchOrderController {
 	}
 	
 	@RequestMapping(value="/branchorder/modifyStatus", method=RequestMethod.POST)
-	public String branchOrderModify(ItemOrderVO itemOrder, RedirectAttributes rttr) throws SQLException{
+	public String branchOrderModify(ItemOrderVO itemOrder, RedirectAttributes rttr) throws Exception{
 		String url="redirect:/admin/branchorder/detail";
 		
 		adminItemOrderService.modifyStatus(itemOrder);

@@ -1,6 +1,7 @@
 package com.rundering.manage.branch;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +24,7 @@ import com.rundering.command.ItemOrderRegistCommand;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.ItemOrderDetailVO;
 import com.rundering.dto.ItemOrderVO;
+import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.service.ItemOrderService;
 import com.rundering.service.LaundryArticlesService;
 
@@ -75,18 +78,23 @@ public class BranchItemOrderController {
 			return mnv;
 		}
 		ItemOrderVO itemOrder = itemOrderService.getItemOrder(ordercode);
+		
 		List<ItemOrderDetailVO> itemOrderDetailList= itemOrderService.getItemOrdeDetail(ordercode);
+		
 		mnv.addObject("itemOrderDetailList", itemOrderDetailList);
 		mnv.addObject("itemOrder", itemOrder);
 		mnv.addObject("comCodeMap",comCodeMap);
+		
 		mnv.setViewName(url);
 		return mnv;
 	} 
 	
 	@RequestMapping("/order")
-	private String order(Criteria cri,ModelAndView mnv) {
+	private String order(Criteria cri,Model model) throws Exception{
 		String url= "/branch/itemorder/itemorder_regist";
-		
+		Map<String, Object> dataMap = null;
+		dataMap = laundryArticlesService.getItemCode();
+		model.addAttribute("dataMap", dataMap);
 		return url;
 	}
 	@RequestMapping("/regist")

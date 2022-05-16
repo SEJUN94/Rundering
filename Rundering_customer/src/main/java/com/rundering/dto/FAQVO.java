@@ -14,14 +14,14 @@ public class FAQVO {
 	private String faqyn; // FAQ여부
 	private String fcontent; // 질문내용
 	private String orderno; //주문번호
-	private String atchfileno; //통합첨부파일번호
+	private String atchFileNo; //통합첨부파일번호
 
-	public String getAtchfileno() {
-		return atchfileno;
+	public String getAtchFileNo() {
+		return atchFileNo;
 	}
 
-	public void setAtchfileno(String atchfileno) {
-		this.atchfileno = atchfileno;
+	public void setAtchFileNo(String atchFileNo) {
+		this.atchFileNo = atchFileNo;
 	}
 
 	public String getOrderno() {
@@ -111,5 +111,7 @@ public class FAQVO {
 	public void setFcontent(String fcontent) {
 		this.fcontent = fcontent;
 	}
+	
+	
 
 }

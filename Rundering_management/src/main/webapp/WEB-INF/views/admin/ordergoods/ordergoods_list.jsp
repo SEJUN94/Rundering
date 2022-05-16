@@ -29,22 +29,13 @@
 				<b>물품 </b>
 			</h2>
 			<div class="card-tools">
-				<div class="input-group input-group-sm" style="width: 300px;">
-					
-					<select class="form-control col-md-4" name="clcode" id="clcode" onchange="list_go(1);">
+				<div class="input-group input-group-sm" style="width: 120px;" >
+					<select class="form-control " name="searchType" id="searchType" onchange="list_go(1);">
 						<option value="">전체</option>
 						<c:forEach items="${CLCODEList }" var="CLCODE">
 						<option value="${CLCODE.comCode }" ${cri.searchType eq CLCODE.comCode ? 'selected' : '' }> ${CLCODE.comCodeNm} </option>
 						</c:forEach>
 					</select>
-					<input class="form-control" type="text" name="keyword"
-						placeholder="검색어를 입력하세요." value=""> 
-					<span class="input-group-append">
-						<button class="btn btn-primary" type="button"
-							onclick="list_go(1);" data-card-widget="search">
-							<i class="fa fa-fw fa-search"></i>
-						</button>
-					</span>
 				</div>
 			</div>
 		</div>
@@ -56,9 +47,9 @@
 						<table class="table table-head-fixed text-nowrap">
 							<thead style="text-align: center;">
 								<tr>
-									<th style="width: 70px">물품코드</th>
-									<th style="width: 100px;">물품명</th>
-									<th style="width: 70px;">물품가격</th>
+									<th style="width: 270px;">이름</th>
+									<th style="width: 70px">분류</th>
+									<th style="width: 70px;">가격</th>
 									<th style="width: 100px">등록일</th>
 									<th style="width: 100px">수정일</th>
 									<th style="width: 50px;">상세</th>
@@ -73,7 +64,7 @@
 								</c:if>
 								<c:forEach items="${laundryArticlesList }" var="laundryArticles">
 									<tr>
-									
+										<td style="text-align: left;max-width:270px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${laundryArticles.articlesName }</td>
 										<td>
 										<c:forEach items="${CLCODEList }" var="CLCODE">
 											<c:if test="${CLCODE.comCode eq laundryArticles.clcode }">
@@ -81,8 +72,10 @@
 											</c:if> 
 										</c:forEach>
 										</td>
-										<td>${laundryArticles.articlesName }</td>
-										<td style="text-align: center;">${laundryArticles.price }</td>
+										<td style="text-align: right;">
+										<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryArticles.price }" />
+										원
+										</td>
 										<td><fmt:formatDate
 												value="${laundryArticles.registDate }" pattern="yyyy-MM-dd" /></td>
 										<td><fmt:formatDate
@@ -178,7 +171,7 @@
 				</div>
 					<div class="card-body" style="height: 260px;" id="pictureView">
 				
-				</div>
+					</div>
 			</div>
 		
 		</div>
@@ -208,7 +201,7 @@
 			   if (file.files && file.files[0]) {
 					let reader = new FileReader();
 					reader.onload = function (e) {
-						 $('div#pictureView').css({'background-image':'url('+e.target.result+')',
+						 $('#pictureView').css({'background-image':'url('+e.target.result+')',
 			                 'background-position':'center',
 			                 'background-size':'cover',
 			                 'background-repeat':'no-repeat'

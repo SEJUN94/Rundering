@@ -34,7 +34,7 @@ public class FAQDAOImpl implements FAQDAO {
 
 	@Override
 	public int selectFAQSequenceNextValue() throws SQLException {
-		return session.selectOne("FAQ-mapper.selecFAQSequenceNextValue");
+		return session.selectOne("FAQ-mapper.selectFAQSequenceNextValue");
 	}
 	
 	@Override
@@ -59,13 +59,9 @@ public class FAQDAOImpl implements FAQDAO {
 	
 	/* 주문번호 */
 	@Override
-	public List<FAQVO> selectOrderno(MyOrderCriteria cri) throws SQLException {
+	public List<FAQVO> selectOrderno(String memberNo) throws SQLException {
 
-		int offset = cri.getStartRowNum();
-		int limit = cri.getPerPageNum();
-		RowBounds rowBounds = new RowBounds(offset, limit);
-
-		List<FAQVO> orderList = session.selectList("FAQ-mapper.selectOrderno", cri, rowBounds);
+		List<FAQVO> orderList = session.selectList("FAQ-mapper.selectOrderno",memberNo);
 		return orderList;
 	}
 	
@@ -102,6 +98,16 @@ public class FAQDAOImpl implements FAQDAO {
 	@Override
 	public int MypageFAQListCount(MyOrderCriteria cri) throws SQLException {
 		return session.selectOne("FAQ-mapper.MypageFAQListCount", cri);
+	}
+
+	@Override
+	public void updateFAQAtchFileNo(FAQVO FAQ) throws SQLException {
+		session.update("FAQ-mapper.updateFAQAtchFileNo", FAQ);
+	}
+
+	@Override
+	public void updateFAQOrderNo(FAQVO FAQ) throws SQLException {
+		session.update("FAQ-mapper.updateFAQOrderNo", FAQ);
 	}
 
 }

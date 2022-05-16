@@ -69,11 +69,12 @@
 			<div class="card-header">
 					<h3 class="card-title" style="font-size: 1.8rem;  font-weight: 500;">세탁 주문</h3>
 					<span class="text-muted" style="display: inline-block;margin-top: 6px;padding-left: 15px;">검색결과 <fmt:formatNumber type="number" maxFractionDigits="3" value="${pageMaker.totalCount }" />개</span>
-					<button type="button" class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#modal-lg">선택주문 지점할당</button>
+					<button type="button" class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#modal-lg">선택주문 직접할당</button>
+					<button type="button" class="btn btn-outline-success ml-3" onclick="autoAssignmentOrder()">전체주문 할당</button>
 					<div class="card-tools">
 						<div class="input-group input-group-sm" style="width: 200px;margin-top: auto;">
 							<input class="form-control" type="text" name="orderNo" placeholder="주문번호 입력" value="${cri.orderNo }"> <span class="input-group-append">
-									<button class="btn btn-primary" type="button" onclick="list_go(1);" data-card-widget="search">
+									<button class="btn btn-primary" type="button" onclick="list_go(1);" data-card-widget="search" style="background-color: #59a5cb;border-color: #59a5cb;">
 										<i class="fa fa-fw fa-search"></i>
 									</button>
 						</div>
@@ -360,7 +361,7 @@
 						 }
 						 //해당지점 현재 처리중인 주문량 / 지점의 세탁가능수량 * 100)
 						  let excessCapacity = data.excessCapacityList.filter(branch => branch.branchCode == data.branchList[i].branchCode);
-						  let processingRate = (data.branchList[i].branchLndrpcrymslmcoqy - excessCapacity[0].branchLndrpcrymslmcoqy)  / data.branchList[i].branchLndrpcrymslmcoqy * 100
+						  let processingRate = Math.floor((data.branchList[i].branchLndrpcrymslmcoqy - excessCapacity[0].branchLndrpcrymslmcoqy)  / data.branchList[i].branchLndrpcrymslmcoqy * 100)
 						  let bgColor =  "bg-primary";
 						  if(processingRate >= 90){  
 							  bgColor = "bg-danger";
@@ -432,6 +433,34 @@
 		});
 	
 	}
+	</script>
+	
+	<script>
+	// 자동할당 스케줄링 메소드 연결
+		function autoAssignmentOrder(){
+		    if (!confirm("내일이 수거요청일인 지점 미할당 주문건을 자동할당하시겠습니까?")) {
+		    	return;
+	        } else {
+				            
+	       	 $.ajax({
+	 			url: "<%=request.getContextPath()%>/admin/laundryorder/autoAssignmentOrder",
+	 			type:'POST',
+	 			success:function(data){
+	 				if(data.assignedOrderCnt == 0){
+	 					alert("현재 미할당된 내일이 수거요청일인 주문건이 없습니다.");
+	 				}else{
+		 				alert(data.assignedOrderCnt+'개의 주문이 할당되었습니다.\n미할당된 주문 건 '+data.remainAllAreaOrder+'개');
+		 				window.location.reload();
+	 				}
+	 			},
+	 			error:function(error){
+	 				alert("현재 세탁주문 지점할당이 불가합니다. \n관리자에게 연락바랍니다.");
+	 			}
+	 		});
+	        }
+		}
+		dataMap.put("assignedOrderCnt",assignedOrderCnt);
+		dataMap.put("remainAllAreaOrder",remainAllAreaOrder);
 	</script>
 
 </body>

@@ -1,8 +1,10 @@
 package com.rundering.customer;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,10 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.FAQModifyCommand;
+import com.rundering.command.FAQRegistCommand;
 import com.rundering.command.MyOrderCriteria;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.FAQVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.service.FAQService;
+import com.rundering.util.GetAttachesByMultipartFileAdapter;
 
 @Controller
 @RequestMapping("/question")
@@ -26,6 +32,8 @@ public class FAQController {
 
 	@Autowired
 	FAQService faqService;
+	@Resource(name = "boardPath")
+	private String boardPath;
 
 	//아코디언
 	@RequestMapping("/faq")
@@ -52,12 +60,11 @@ public class FAQController {
 	}
 
 	@RequestMapping("/registForm")
-	private String faqRegistForm(MyOrderCriteria cri, Model model, HttpSession session) {
+	private String faqRegistForm(Model model, HttpSession session) {
 		
 		MemberVO member =(MemberVO)session.getAttribute("loginUser");
-		cri.setMemberNo(member.getMemberNo());
 		try {
-			Map<String, Object> dataMap = faqService.getOrderList(cri);
+			Map<String, Object> dataMap = faqService.getOrderList(member.getMemberNo());
 			model.addAttribute("dataMap", dataMap);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -68,12 +75,14 @@ public class FAQController {
 		return url;
 	}
 
-	@RequestMapping(value = "/regist")
-	public String faqRegist(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+	@RequestMapping(value = "/regist",  method = RequestMethod.POST)
+	public String faqRegist(FAQRegistCommand faqCmd, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
 		String url = "redirect:/question/list";
-
-		faqService.regist(faq);
+		
+		List<AttachVO> attachList = GetAttachesByMultipartFileAdapter.save(faqCmd.getUploadFile(), this.boardPath,"고객문의");
+		
+		faqService.regist(faqCmd,attachList);
 
 		rttr.addFlashAttribute("from", "regist");
 
@@ -82,15 +91,14 @@ public class FAQController {
 
 	@RequestMapping(value = "/detail")
 	private ModelAndView faqDetail(int faqno, @RequestParam(defaultValue = "") String from, HttpServletRequest request,
-			ModelAndView mnv, HttpSession session) throws SQLException {
+			ModelAndView mnv, HttpSession session) throws Exception {
 
 		String url = "question/question_detail";
+		Map<String, Object> dataMap = null;
 
-		FAQVO faq = null;
+		dataMap = faqService.getFAQModify(faqno);
 
-		faq = faqService.getFAQModify(faqno);
-
-		mnv.addObject("faq", faq);
+		mnv.addAllObjects(dataMap);
 		mnv.setViewName(url);
 
 		return mnv;
@@ -100,24 +108,26 @@ public class FAQController {
 	public ModelAndView modifyForm(MyOrderCriteria cri, Model model, HttpSession session, int faqno, ModelAndView mnv) throws Exception {
 
 		String url = "question/question_modify";
+		Map<String, Object> dataMap = null;
+		dataMap = faqService.getFAQModify(faqno);
 
-		FAQVO faq = faqService.getFAQModify(faqno);
-
-		mnv.addObject("faq", faq);
-
+		mnv.addAllObjects(dataMap);
 		mnv.setViewName(url);
 
 		return mnv;
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyPost(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+	public String modifyPost(FAQModifyCommand faqcmd, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
 		String url = "redirect:/question/detail";
+		
 
-		faqService.modify(faq);
+		List<AttachVO> attachList = GetAttachesByMultipartFileAdapter.save(faqcmd.getUploadFile(), this.boardPath,"고객문의");
+		
+		faqService.modify(faqcmd, attachList);
 
-		rttr.addAttribute("faqno", faq.getFaqno());
+		rttr.addAttribute("faqno", faqcmd.getFaqno());
 		rttr.addFlashAttribute("from", "modify");
 
 		return url;

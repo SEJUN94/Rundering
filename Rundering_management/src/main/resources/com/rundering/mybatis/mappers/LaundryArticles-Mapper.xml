@@ -32,6 +32,26 @@
 		AND CLCODE LIKE 'F'
 	</if>
 </sql>
+<sql id="search2">
+	<if test="searchType == 'B'.toString()">
+		AND CLCODE = 'B'
+	</if>
+	<if test="searchType == 'C'.toString()">
+		AND CLCODE = 'C'
+	</if>
+	<if test="searchType == 'D'.toString()">
+		AND CLCODE = 'D'
+	</if>
+	<if test="searchType == 'E'.toString()">
+		AND CLCODE = 'E'
+	</if>
+	<if test="searchType == 'F'.toString()">
+		AND CLCODE = 'F'
+	</if>
+</sql>
+
+
+
 
 	<select id="NotALaundryArticlesList" resultMap="laundryArticlesMap" parameterType="str">
 		select *
@@ -39,6 +59,7 @@
 		 where DELETE_YN='N'
 		   and CLCODE !='A'
 		 <include refid="search"/>
+		 <include refid="search2"/>
 		 order by ARTICLES_CODE ASC
 	</select>
 	
@@ -49,6 +70,7 @@
 		TB_LAUNDRY_ARTICLES
 		where ARTICLES_CODE is not null  	
 		<include refid="search"/>  
+		<include refid="search2"/>
 		  and DELETE_YN='N'
 		  and CLCODE !='A'
 		order by ARTICLES_CODE ASC
@@ -59,6 +81,7 @@
 		  from TB_LAUNDRY_ARTICLES
 		 where ARTICLES_CODE=#{articlesCode}
 		   and  DELETE_YN='N'
+		   
 	</select>
 	
 	<select id="selectLandryArticlesStock" resultMap="laundryArticlesMap">

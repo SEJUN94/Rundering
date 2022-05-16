@@ -24,6 +24,9 @@
 		select *
 		  from tb_item_out
 		 where branch_code=#{branchCode}
+		 <if test="date != null">
+		 and TO_CHAR(out_date,'YYYY-MM-DD')=#{date}
+		 </if>
 		 ORDER BY out_date ASC 
 	</select>
 	
@@ -31,6 +34,9 @@
 		select count(*)
 		  from tb_item_out
 		 where branch_code=#{branchCode}
+		 <if test="date != null">
+		 and TO_CHAR(out_date,'YYYY-MM-DD')=#{date}
+		 </if>
 		 ORDER BY out_date ASC 
 	</select>
 	<select id="selectItemOutByOutItemCode" parameterType="str" resultMap="itemOutMap">

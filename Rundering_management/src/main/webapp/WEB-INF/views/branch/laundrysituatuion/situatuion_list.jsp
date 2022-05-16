@@ -10,7 +10,6 @@
 <c:set var="orderCodeMap" value="${dataMap.orderCodeMap }" />
 <c:set var="detailMap" value="${dataMap.detailMap }"/>
 <body>
-${from }
 
 <c:if test="${ from eq 'notEquals' } ">
 	<script>
@@ -34,7 +33,7 @@ ${from }
 										placeholder="주문 번호를 입력하세요" value="">
 								</div>
 								<span class="input-group-append">
-									<button class="btn btn-primary" type="button"
+									<button class="btn btn-primary" type="button" style="background-color: #59a5cb;border-color: #59a5cb;"
 										onclick="orderDetail_go()" data-card-widget="search">상세보기</button>
 								</span>
 							
@@ -49,7 +48,7 @@ ${from }
 								</div>
 								<span class="input-group-append ">
 
-									<button class="btn btn-primary" type="button"
+									<button class="btn btn-primary" type="button" style="background-color: #59a5cb;border-color: #59a5cb;"
 										onclick="statusChange()">상태변경</button>
 								</span>
 							</div>
@@ -63,7 +62,7 @@ ${from }
 						<thead>
 							<tr>
 								<th class="width10" style="text-align: center;">주문번호</th>
-								<th class="width50" style="text-align: center;">세탁 물품</th>
+								<th class="width50 " style="text-align: center;" >세탁 물품</th>
 								<th class="width10" style="text-align: center;"><div class="input-group-sm " style="width: 100px">
 									<select class="form-control" name="searchType" id="searchType"
 										onchange="list_go('1')">
@@ -94,7 +93,7 @@ ${from }
 										data-orderdate="<fmt:formatDate
 											value="${laundryOrder.orderDate }"
 											pattern="yyyy-MM-dd" />" data-atchNo="${laundryOrder.atchFileNo }" data-replyno="${laundryOrder.replyNo }" data-memberno="${laundryOrder.memberNo }">${laundryOrder.orderNo }</td>
-									<td class="textCut textDetail"
+									<td class="textCut textDetail textlength"
 										data-text="${laundryOrder.requestDetails }">
 										<c:forEach items="${detailMap[laundryOrder.orderNo] }" var="orderDetail">
 											${orderDetail.itemsName } : ${orderDetail.quantity }개 	
@@ -321,7 +320,35 @@ ${from }
 
 
 	<script>
+function text(){
+	
+	let texts =document.querySelectorAll(".textlength");
+	for(let i of texts){
+		let text =i.innerText
+		let text1=text.substr(text.indexOf('개')+1)
+			if(text1.indexOf('개')>-1){
+				let text2 =text1.substr(text1.indexOf('개')+1)
+				if(text2.indexOf('개')>-1){
+					let text3 =text2.substr(text2.indexOf('개')+1)
+					if(text3.indexOf('개')>-1){
+						let text4 =text3.substr(text3.indexOf('개')+1)
+						if(text4.indexOf('개')>-1){
+							i.innerText=text.substr(0,text.indexOf('개')+text1.indexOf('개')+text2.indexOf('개')+3)+"...외";
+						}
+					}
+					
+				}
+			}
+		
+		}
+	}
+	
+
+	
+	
  window.onload=function(){ 
+	 text()
+	 
     let texts= document.querySelectorAll(".textCut");
     
     let textContent = document.querySelector("#requestText");

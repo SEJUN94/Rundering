@@ -13,6 +13,7 @@ import com.rundering.dao.AttachDAO;
 import com.rundering.dao.LaundryItemsDAO;
 import com.rundering.dao.LaundryOrderDAO;
 import com.rundering.dao.LaundryOrderDetailDAO;
+import com.rundering.dao.MemberDAO;
 import com.rundering.dao.PaymentDAO;
 import com.rundering.dao.ReplyDAO;
 import com.rundering.dto.AttachVO;
@@ -47,6 +48,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	private ReplyDAO replyDAO;
 	public void setReplyDAO(ReplyDAO replyDAO) {
 		this.replyDAO = replyDAO;
+	}
+	private MemberDAO memberDAO;
+	public void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
 	}
 	
 	//세탁주문접수
@@ -140,12 +145,6 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
 		List<LaundryOrderVO> myOrderList = laundryOrderDAO.getMyOrderList(cri);
-//		myOrderList.branch
-//		List<BranchVO> orderBranchNameList = 
-//				
-//		List<ComCodeVO> orderComCodeNameList =
-//		
-//		List<AttachVO> AttachList = 
 		
 		// 전체 list 개수
 		int totalCount = laundryOrderDAO.myOrderList(cri);
@@ -156,10 +155,26 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		
 		dataMap.put("myOrderList",myOrderList);
 		dataMap.put("pageMaker", pageMaker);
-//		dataMap.put("orderBranchNameList", orderBranchNameList);
-//		dataMap.put("orderComCodeNameList", orderComCodeNameList);
-//		dataMap.put("AttachList", AttachList);
 		
+		return dataMap;
+	}
+	
+	// 마이페이지 - 진행중인 내 주문내역 가져오기
+	@Override
+	public Map<String, Object> getMyOrderIngList(MyOrderCriteria cri) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+
+		List<LaundryOrderVO> myOrderList = laundryOrderDAO.getMyOrderIngList(cri);
+		
+		// 전체 list 개수
+		int totalCount = laundryOrderDAO.myOrderIngList(cri);
+		// PageMaker 생성.
+		MyOrderPageMaker pageMaker = new MyOrderPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		
+		dataMap.put("myOrderList",myOrderList);
+		dataMap.put("pageMaker", pageMaker);
 		
 		return dataMap;
 	}
@@ -189,16 +204,50 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	public Map<String, Object> getDetail(String orderNo) throws Exception {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		
+		String pickUpNum = null;
+		String deliveryNum = null;
+		
+		// 주문정보 가져오기
 		LaundryOrderVO laundryOrder = laundryOrderDAO.getmyorderByorderNo(orderNo);
+		// 주문에 대한 상세내역 가져오기
 		List<LaundryOrderDetailVO> detailList = laundryOrderDetailDAO.getMyorderDetail(orderNo);
+		// 주문에 대한 사진(이미지) 불러오기 
 		List<AttachVO> avList = attachDAO.selectAttachVOByFileNo(laundryOrder.getAtchFileNo());
+		// 주문에 대한 댓글 불러오기
 		List<ReplyVO> rvList = replyDAO.getReList(laundryOrder.getReplyNo());
+		
+		
+		if(laundryOrder.getPickupEmployeeId() != null ){
+			// 주문에 대한 수거기사 연락처 가져오기
+			pickUpNum =  memberDAO.getDelivery(laundryOrder.getPickupEmployeeId());
+		}
+		if(laundryOrder.getDeliveryEmployeeId() != null ){
+			// 주문에 대한 배송기사 연락처 가져오기
+			deliveryNum =  memberDAO.getDelivery(laundryOrder.getDeliveryEmployeeId());
+		}
+		
 		
 		dataMap.put("rvList", rvList);
 		dataMap.put("laundryOrder",laundryOrder);
 		dataMap.put("detailList", detailList);
 		dataMap.put("avList", avList);
+		dataMap.put("pickUpNum", pickUpNum);
+		dataMap.put("deliveryNum", deliveryNum);
 		
 		return dataMap;
 	}
+
+	// 주문취소
+	@Override
+	public void cancelOrder(LaundryOrderVO laundryOrder) throws Exception {
+
+		laundryOrderDAO.cancelLaundryOrder(laundryOrder.getOrderNo());
+		paymentDAO.cancelPayment(laundryOrder.getOrderNo());
+		
+		// 주문 취소시 첨부파일 및 댓글 전체 삭제 DAO
+		//attachDAO.deleteAttchFileRemoveByFileNo(laundryOrder.getAtchFileNo());
+		//replyDAO.deleteReply(laundryOrder.getReplyNo());
+		
+	}
+
 }

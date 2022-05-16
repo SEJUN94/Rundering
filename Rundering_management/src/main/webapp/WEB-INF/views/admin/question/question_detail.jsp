@@ -103,8 +103,8 @@
 					<!--end card-body  -->					
 					<div class="card-footer">
 						<div class="float-right">
-							<button type="button" class="btn btn-warning" id="replyBtn"
-								onclick="reply_go('${faq.faqno}');">답글</button>
+							<button type="button" class="btn btn-warning" id="replyBtn" 
+								onclick="reply_go('${faq.faqno}');">답변하기</button>
 							&nbsp;&nbsp;
 							<button type="button" class="btn btn-primary" id="cancelBtn"
 								onclick="CloseWindow();">닫기</button>

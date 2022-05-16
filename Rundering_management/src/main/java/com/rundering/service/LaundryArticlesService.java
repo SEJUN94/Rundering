@@ -21,6 +21,7 @@ public interface LaundryArticlesService {
 	
 	// 삭제
 	public void remove(String articlesCode)throws SQLException;
+	Map<String, Object> getItemCode() throws Exception;
 	
 	
 }

@@ -1,6 +1,7 @@
 package com.rundering.customer;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ import com.rundering.service.FAQService;
 import com.rundering.service.LaundryOrderService;
 import com.rundering.service.MemberAddressService;
 import com.rundering.service.MemberService;
+import com.rundering.service.PaymentService;
 import com.rundering.service.ReplyService;
 import com.rundering.util.FileUtil;
 import com.rundering.util.UserSha256;
@@ -46,6 +48,9 @@ public class MyPageController {
 
 	@Resource(name="attachService")
 	private AttachService attachService;
+	
+	@Resource(name="paymentService")
+	private PaymentService paymentService;
 	
 	@Autowired
 	private ReplyService replyService;
@@ -165,15 +170,15 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "/myinquiry/detail")
-	private ModelAndView faqDetail(int faqno, HttpServletRequest request, ModelAndView mnv, HttpSession session) throws SQLException {
+	private ModelAndView faqDetail(int faqno, HttpServletRequest request, ModelAndView mnv, HttpSession session) throws Exception {
 
 		String url = "question/question_detail";
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
 
-		FAQVO faq = null;
+		dataMap = faqService.getFAQModify(faqno);
 
-		faq = faqService.getFAQModify(faqno);
-
-		mnv.addObject("faq", faq);
+		mnv.addAllObjects(dataMap);
 		mnv.setViewName(url);
 
 		return mnv;
@@ -418,6 +423,60 @@ public class MyPageController {
 		return mnv;
 	}
 	
+	// 댓글 삭제(삭제여부 상태변경)
+	@RequestMapping("/modifyReply")
+	public ResponseEntity<String> modifyReply(ReplyVO rv) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		try {
+			replyService.removeReply(rv);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return entity;
+	}
+	
+	// 댓글 삭제(삭제여부 상태변경)
+	@RequestMapping("/removeReply")
+	public ResponseEntity<String> removeReply(ReplyVO rv) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		try {
+			replyService.removeReply(rv);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return entity;
+	}
+	
+	
+	// 진행중인 주문내역
+	@RequestMapping("/myorder/histroy/ingList")
+	public ModelAndView myorderIng(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {
+		String url = "/mypage/order_history_ing";
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		LaundryOrderVO laundryOrder = new LaundryOrderVO();
+		
+		// 세션을 통해 고객번호 받아오기!
+		laundryOrder.setMemberNo(loginUser.getMemberNo());
+		cri.setMemberNo(loginUser.getMemberNo());
+		
+		Map<String, Object> dataMap = laundryOrderService.getMyOrderIngList(cri);
+		
+		mnv.addObject("dataMap",dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
 	// 배송완료된 주문내역
 	@RequestMapping("/myorder/histroy/complete")
 	public ModelAndView myCompleteorder(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {
@@ -432,6 +491,44 @@ public class MyPageController {
 		cri.setMemberNo(loginUser.getMemberNo());
 		
 		Map<String, Object> dataMap = laundryOrderService.getMyCompleteOrderList(cri);
+		
+		mnv.addObject("dataMap",dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	// 결제내역
+	@RequestMapping("/myorder/histroy/comlist")
+	public ModelAndView myComOrder(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {
+		String url = "/mypage/order_complete_list";
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		
+		// 세션을 통해 고객번호 받아오기!
+		cri.setMemberNo(loginUser.getMemberNo());
+		
+		Map<String, Object> dataMap = paymentService.getComList(cri);
+		
+		mnv.addObject("dataMap",dataMap);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	// 취소내역
+	@RequestMapping("/myorder/histroy/cnacellist")
+	public ModelAndView myCancelOrder(HttpServletRequest request, ModelAndView mnv,MyOrderCriteria cri) throws Exception {
+		String url = "/mypage/order_cancel_list";
+		
+		HttpSession session = request.getSession();
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		
+		// 세션을 통해 고객번호 받아오기!
+		cri.setMemberNo(loginUser.getMemberNo());
+		
+		Map<String, Object> dataMap = paymentService.getCancelList(cri);
 		
 		mnv.addObject("dataMap",dataMap);
 		mnv.setViewName(url);
@@ -456,6 +553,22 @@ public class MyPageController {
 			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+
+		return entity;
+	}
+	
+	// 주문취소
+	@RequestMapping("/cancelOrder")
+	public ResponseEntity<String> cancelOrder(LaundryOrderVO laundryOrder) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		try {
+			laundryOrderService.cancelOrder(laundryOrder);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
 		return entity;
 	}

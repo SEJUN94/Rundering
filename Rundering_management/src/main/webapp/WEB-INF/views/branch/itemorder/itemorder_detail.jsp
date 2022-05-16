@@ -12,28 +12,83 @@
 	</script>
 </c:if>
 
-<div class="col-12">
-		<h3 class="m-3">발주 상세 </h3>
-		<div class="p-3 m-0 card-primary card-outline">
+<div class="col-12 p-0">
+		<div class="p-3 m-0 ">
 			<div class="row">
 				<div class="col-12">
-					<h4>
-						주문번호: ${itemOrder.ordercode }
-							<span class="badge bg-secondary float-right">${comCodeMap[itemOrder.itemOrderStatus] }</span>
-						<span class="float-right">발주 일자: 
-						<fmt:formatDate value="${itemOrder.registDate }" pattern="yyyy-MM-dd"/>
-						<c:if test="${!empty itemOrder.receiptDate}">
-							|수령 일자:
-							<fmt:formatDate value="${itemOrder.receiptDate }" pattern="yyyy-MM-dd"/>
-						</c:if>
-						</span>
-						
-					</h4>
+				<h4>
+					   <i class="fas fa-globe"></i>발주상세
+					<c:if test="${itemOrder.itemOrderStatus eq '01'}">
+	                    <span class="badge bg-warning">
+	                    	승인대기
+	                    </span>
+	                </c:if>
+	                <c:if test="${itemOrder.itemOrderStatus eq '02'}">
+	                    <span class="badge bg-warning">
+	                    	발주대기
+	                    </span>
+	                </c:if>
+	                <c:if test="${itemOrder.itemOrderStatus eq '03'}">
+	                    <span class="badge bg-success">
+	                    	발주완료
+	                    </span>
+	                </c:if>
+	                <c:if test="${itemOrder.itemOrderStatus eq '04'}">
+	                    <span class="badge bg-warning">
+	                    	미수령
+	                    </span>
+	                </c:if>
+	                <c:if test="${itemOrder.itemOrderStatus eq '05'}">
+	                    <span class="badge bg-danger">
+	                    	반려
+	                    </span>
+	                </c:if>
+	                 <c:if test="${itemOrder.itemOrderStatus eq '06'}">
+	                    <span class="badge bg-success">
+	                    	수령
+	                    </span>
+	                </c:if>
+	                
+                    <small class="float-right">
+                    	발주번호: ${itemOrder.ordercode }
+                    </small>
+                </h4>
 				</div> 
 			</div>
+			<div class="row no-print p-2" >
+	            <div class="col-12" style="padding-left: 0px">
+	     			 
+	     			 
+	     			 <p class="h4" style="display: inline; width: 300px; ">	
+	     			 	발주일시 : <fmt:formatDate value="${itemOrder.registDate }" pattern="yy-MM-dd HH:mm"/> /
+	     			 	
+	     			 	수령일시 : <c:if test="${empty itemOrder.receiptDate}">-</c:if>
+	     			 	<fmt:formatDate value="${itemOrder.receiptDate }" pattern="yy-MM-dd HH:mm"/>
+	     			 </p>
+	                 <button type="button" class="btn bg-gradient-secondary float-right"
+	                    style="margin-right: 5px;" onclick="CloseWindow();">목록
+	                </button>
+					<c:if test="${itemOrder.itemOrderStatus eq '01'}">
+	                <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;"
+	                	onclick="fail();">
+	              			      반려
+	                </button>
+	 				 <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"
+	 				 	onclick="success();">
+	             			       승인
+	                </button>
+					</c:if>
+					<c:if test="${itemOrder.itemOrderStatus eq '02'}">
+	                <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"
+	                	onclick="orderSuccess();">
+	              			      발주완료
+	                </button>
+					</c:if>
+	            </div>
+	        </div>
 			
 			<div class="row">
-				<div class="col-12 table-responsive p-0" style="height: 500px;overflow: auto;">
+				<div class="col-12 table-responsive p-0  card-secondary card-outline" style="height: 500px;overflow: auto;border-top: 3px solid #59a5cb;">
 					<table class="table table-striped m-0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "> 
 						<thead>
 							<tr>
@@ -46,10 +101,13 @@
 						<tbody>
 						<c:forEach items="${itemOrderDetailList }" var="itemOrderDetail">
 							<tr>
-								<td>${itemOrderDetail.articlesName }</td>
+								<td>${articlesMap[itemOrderDetail.articlesCode] }</td>
 								<td>${itemOrderDetail.articlesCode} </td>
 								<td class="count">${itemOrderDetail.orderCount }</td>
-								<td class="price">${itemOrderDetail.price }</td>
+								<td class="price">
+								<fmt:formatNumber type="number" maxFractionDigits="3" value="${itemOrderDetail.price }" />
+										원
+								</td>
 							</tr>
 						</c:forEach>
 							<tr>

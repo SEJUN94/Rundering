@@ -68,10 +68,11 @@
 						</div>
 
 					</div>
-						<div class="card-footer bg-white">
-							<ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+						
+						<div class="card-footer bg-white p-3">
+							<ul class="mailbox-attachments align-items-stretch clearfix" style="display: inline-grid;">
 							 <c:forEach items="${attachList }" var="attach">
-								<li style="border: none;"><div class="mailbox-attachment-info" style="margin: auto; border:1px solid lightgray;">
+								<li style="border: none;width: fit-content;"><div class="mailbox-attachment-info" style="margin: auto; border:1px solid lightgray;">
 										<a href="<%=request.getContextPath()%>/file/filedownload?atchFileNo=${attach.atchFileNo}&saveFileNm=${attach.saveFileNm }" class="mailbox-attachment-name"><i class="fas fa-paperclip"></i>&nbsp;&nbsp;${attach.fileNm }</a>
 									</div>
 								</li>

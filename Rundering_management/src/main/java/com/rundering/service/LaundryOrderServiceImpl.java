@@ -30,6 +30,7 @@ import com.rundering.dto.LaundryOrderDetailVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.dto.OrderDelayDTO;
+import com.rundering.scheduler.OrderTaskScheduler;
 import com.rundering.util.ComCodeUtil;
 import com.rundering.util.FormatUtil;
 
@@ -74,6 +75,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 	private FAQDAO faqDAO;
 	public void setFaqDAO(FAQDAO faqDAO) {
 		this.faqDAO = faqDAO;
+	}
+	private OrderTaskScheduler orderTaskScheduler;
+	public void setOrderTaskScheduler(OrderTaskScheduler orderTaskScheduler) {
+		this.orderTaskScheduler = orderTaskScheduler;
 	}
 	@Override
 	public Map<String,Object> laundryOrderList(BranchCriteria cri) throws Exception{
@@ -236,7 +241,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 			if(branchVO.getBranchCode().equals("000000")) continue;
 			BranchVO branch = new BranchVO();
 			branch.setBranchCode(branchVO.getBranchCode());
-			branch.setBranchLndrpcrymslmcoqy(branchDAO.selectExcessCapacityOfTodayLaundryByBranchCode(branchVO.getBranchCode()));
+			branch.setBranchLndrpcrymslmcoqy(branchDAO.selectExcessCapacityOfTomorrowLaundryByBranchCode(branchVO.getBranchCode()));
 			excessCapacityList.add(branch);
 		}
 		dataMap.put("branchList", branchList);
@@ -310,6 +315,11 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		dataMap.put("branch", branch);
 		dataMap.put("count",count);
 		
+		return dataMap;
+	}
+	@Override
+	public Map<String, Object> autoAssignmentOrder() throws Exception {
+		Map<String, Object> dataMap = orderTaskScheduler.assignLaundryOrderToBranch();
 		return dataMap;
 	}
 }

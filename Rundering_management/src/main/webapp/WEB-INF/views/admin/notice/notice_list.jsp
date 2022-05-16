@@ -59,7 +59,7 @@
 								placeholder="검색어를 입력하세요." value="" /> <span
 								class="input-group-append">
 								<button class="btn btn-primary" type="button"
-									onclick="list_go(1);" data-card-widget="search" style="background-color: #82BBD8; border: 1px solid #82BBD8">
+									onclick="list_go(1);" data-card-widget="search" style="background-color: #59a5cb; border: 1px solid #59a5cb;">
 									<i class="fa fa-fw fa-search"></i>
 								</button>
 							</span>
@@ -70,11 +70,12 @@
 				<div class="card-body p-0">
 					<table class="table table-hover text-nowrap">
 						<thead>
-							<tr style="text-align: left;">
-								<th class="noticeno" style="width:10%;">번호</th>
+							<tr style="text-align: center;">
+								<th class="noticeno" style="width:5%;"></th>
 								<th class="title" style="width:50%;">제목</th>
 								<th class="employeeId" style="width:10%;">작성자</th>
 								<th class="registDate" style="width:20%;">작성일</th>
+								<th class="">첨부파일</th>
 								<th class="views" style="width:10%;">조회수</th>
 							</tr>
 						</thead>
@@ -84,10 +85,10 @@
 									<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
 								</tr>
 							</c:if>
-							<c:forEach items="${noticeList }" var="notice">
-								<tr style='font-size: 0.85em; cursor: pointer;'
+							<c:forEach items="${noticeList }" var="notice" varStatus="status">
+								<tr style='font-size: 1em; cursor: pointer;text-align: center; '
 									onclick="OpenWindow('detail?from=list&noticeno=${notice.noticeno }','상세보기',800,700);">
-									<td>${notice.noticeno }</td>
+									<td>${(cri.page - 1) * cri.perPageNum + (status.index +1) }</td>
 									<td id="Title"
 										style="text-align: left; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 										${notice.title }
@@ -102,6 +103,14 @@
 									<td data-target="notice-employeeId">${notice.employeeId}</td>
 									<td><fmt:formatDate value="${notice.registDate }"
 											pattern="yyyy-MM-dd" /></td>
+									<td>
+										<c:if test="${!empty notice.atchFileNo }">
+											<i class="nav-icon fas fa-file"></i>
+										</c:if>
+										<c:if test="${empty notice.atchFileNo }">
+											<span>-</span>
+										</c:if>
+									</td>
 									<td>${notice.views }</td>
 								</tr>
 							</c:forEach>
@@ -112,7 +121,7 @@
 					<div class="float-right mb-3 mr-2">
 						<a href="<%=request.getContextPath()%>/admin/notice/registform">
 							<button type="button" class="btn btn-primary"
-								data-toggle="modal" data-target="#modal-lg" style="background-color: #82BBD8; border: 1px solid #82BBD8">공지등록</button>
+								data-toggle="modal" data-target="#modal-lg" style="background-color: #59a5cb; border: 1px solid #59a5cb;">공지등록</button>
 						</a>
 					</div>
 					<%@ include file="/WEB-INF/views/common/pagination.jsp" %>

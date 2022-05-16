@@ -25,12 +25,18 @@
 		select *
 		  from tb_item_insert
 		 where branch_code=#{branchCode}
+		 <if test="date != null">
+		 and TO_CHAR(Insert_date,'YYYY-MM-DD')=#{date}
+		 </if>
 		 ORDER BY insert_date ASC 
 	</select>
 	<select id="selectItemInsertCount" resultType="int" >
 		select count(*)
 		  from tb_item_insert
 		 where branch_code=#{branchCode}
+		  <if test="date != null">
+		 and TO_CHAR(Insert_date,'YYYY-MM-DD')=#{date}
+		 </if>
 		 ORDER BY insert_date ASC 
 	</select>
 	

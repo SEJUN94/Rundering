@@ -29,11 +29,14 @@
 						<b>자동 발주</b>
 					</h2>
                     <div class="card-tools">
+                    	
                         <div class="input-group input-group-sm" >
-                            <select class="form-control" name="laundryItemsCode"
-                                id="laundryItemsCode" onchange="list_go(1);">
-                                <option value="asd">asdaadas</option>
-                            </select>
+                        	  <button class="btn btn-sm btn-primary" onclick="autoOrder()">
+                        	  	자동발주
+                    		</button>
+                         
+                            
+                          
                         </div>
                     </div>
                 </div>
@@ -45,10 +48,10 @@
                                 <th style="text-align: center;">물품이름</th>
                                 <th style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;">
                                     <div class="input-group input-group-sm" >
-                                        <select class="form-control" style="width: 60px;" name="laundryItemsCode"  id="laundryItemsCode" onchange="list_go(1);">
+                                        <select class="form-control" style="width: 85px;" name="searchType"  id="searchType" onchange="list_go(1);">
+                                           		<option value="">전체</option>
                                            	 <c:forEach items="${clcodeList }" var="clcode">
-                                           	 
-                                             	<option value="${clcode.comCode}">${clcode.comCodeNm }</option>
+                                             	<option value="${clcode.comCode}" ${cri.searchType eq clcode.comCode ? 'selected':'' }>${clcode.comCodeNm }</option>
                                              </c:forEach>
                                          </select>
                                      </div>
@@ -63,7 +66,7 @@
                                     
                                    <c:forEach items="${itemList }" var="item">
                                     <tr>
-                                        <td onclick="tdClick('${item.articlesCode}')">${item.articlesName} </td>
+                                        <td style="max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" onclick="tdClick('${item.articlesCode}')">${item.articlesName} </td>
                                         <td>
                                         <c:forEach items="${clcodeList }" var="clcode">
                                         	<c:if test="${item.clcode eq clcode.comCode}">${clcode.comCodeNm }</c:if>   	 
@@ -171,6 +174,24 @@
          </div>
     </div>
 </div>
+<script>
+function autoOrder(){
+	$.ajax({
+		url : '<%=request.getContextPath()%>/branch/itemauto/autoButton',
+		type : 'get',
+		success : function(data) {
+			alert("성공")
+		},
+		error : function(error) {
+			AjaxErrorSecurityRedirectHandler(error.status);
+		}
+	});
+	
+	
+}
+</script>
+
+
 <script>
 let articlesCode= null;
 function SaveSupplyCount(){

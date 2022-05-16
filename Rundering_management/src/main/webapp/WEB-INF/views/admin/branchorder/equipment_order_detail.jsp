@@ -53,21 +53,21 @@
 	                </c:if>
 	                
                     <small class="float-right">
-                    	<fmt:formatDate value="${itemOrder.registDate }" pattern="yy-MM-dd HH:mm"/>/ 발주번호: ${itemOrder.ordercode }
+                    	발주번호: ${itemOrder.ordercode }
                     </small>
                 </h4>
             </div>
         </div>
-        <div class="row no-print p-2">
-            <div class="col-12">
-                <a href="#" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i>
-                    Print</a>
-<!--                 <button type="button" class="btn bg-gradient-secondary float-right" disabled="disabled"
-                    style="margin-right: 5px;">배송</button>
-                <button type="button" class="btn bg-gradient-secondary float-right" disabled="disabled"
-                    style="margin-right: 5px;">발주
-                </button>
- -->               
+        <div class="row no-print p-2" >
+            <div class="col-12" style="padding-left: 0px">
+     			 
+     			 
+     			 <p class="h4" style="display: inline; width: 300px; ">	
+     			 	발주일시 : <fmt:formatDate value="${itemOrder.registDate }" pattern="yy-MM-dd HH:mm"/> /
+     			 	
+     			 	수령일시 : <c:if test="${empty itemOrder.receiptDate}">-</c:if>
+     			 	<fmt:formatDate value="${itemOrder.receiptDate }" pattern="yy-MM-dd HH:mm"/>
+     			 </p>
                  <button type="button" class="btn bg-gradient-secondary float-right"
                     style="margin-right: 5px;" onclick="CloseWindow();">목록
                 </button>

@@ -2,6 +2,7 @@ package com.rundering.manage.branch;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rundering.command.BranchCriteria;
+import com.rundering.dto.BranchVO;
 import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.ItemVO;
+import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.dto.LaundryGoodsStockVO;
 import com.rundering.service.ItemService;
+import com.rundering.service.LaundryArticlesService;
 
 @Controller
 @RequestMapping("/branch/itemauto")
@@ -28,6 +32,7 @@ public class BranchItemAutoController {
 	
 	@Autowired
 	ItemService itemService;
+
 	
 	@RequestMapping(value="/list",method = RequestMethod.GET)
 	private String itemAutolist(BranchCriteria cri, Model model,HttpSession session) throws Exception {
@@ -66,6 +71,24 @@ public class BranchItemAutoController {
 		
 		return resp;
 	}
+	@RequestMapping(value="autoButton",method = RequestMethod.GET)
+	@ResponseBody
+	private ResponseEntity<String> autoButton(String branchCode, HttpSession session) {
+		
+	    EmployeesVO emp =  (EmployeesVO)session.getAttribute("loginEmployee");
+	    branchCode=emp.getBranchCode();
+		try {
+			itemService.branchAutoOrder(branchCode);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResponseEntity<String> resp = new ResponseEntity<String>("success", HttpStatus.OK);
+		
+		return resp;
+	
+	}
+	
 	@RequestMapping(value = "autosavecount",method = RequestMethod.POST)
 	@ResponseBody
 	private ResponseEntity<String> autosavecount(LaundryGoodsStockVO laundryGoodsStock,HttpSession session) {

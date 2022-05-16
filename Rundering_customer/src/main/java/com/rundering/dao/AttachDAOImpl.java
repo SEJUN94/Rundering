@@ -31,6 +31,8 @@ public class AttachDAOImpl implements AttachDAO{
 	public List<AttachVO> selectAttachVOByFileNo(String fileNo)  throws Exception{
 		return session.selectList("Attach-Mapper.selectAttachVOByFileNo", fileNo);
 	}
+	
+	// 파일 삭제 
 	@Override
 	public void deleteAttchFileRemoveByFileNo(String fileNo) throws Exception{
 		session.delete("Attach-Mapper.deleteAttchFileRemoveByFileNo", fileNo);
@@ -65,5 +67,18 @@ public class AttachDAOImpl implements AttachDAO{
 	public List<AttachVO> selectAttachVOByFileNoAndSeq2(AttachVO attach) throws Exception {
 		return session.selectList("Attach-Mapper.selectAttachVOByFileNoAndSeq2", attach);
 	}
+	
+	@Override
+	public void deleteAttchFileRemoveByFileNoAndSeq(AttachVO attach) throws Exception {
+		session.delete("Attach-Mapper.deleteAttchFileRemoveByFileNoAndSeq", attach);
+	}
+	@Override
+	public AttachVO selectAttachVOByFileNoAndSeq(AttachVO attach) throws Exception {
+		return session.selectOne("Attach-Mapper.selectAttachVOByFileNoAndSeq", attach);
+	}
 
+	@Override
+	public int selectLastSeqAttachVOByFileNo(String atchFileNo) throws Exception {
+		return session.selectOne("Attach-Mapper.selectLastSeqAttachVOByFileNo", atchFileNo);
+	}
 }

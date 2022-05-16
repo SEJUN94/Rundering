@@ -23,12 +23,7 @@
 				<div class="col-sm-6">
 					<h1>자주 묻는 질문(FAQ)</h1>
 				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item active">FAQ</li>
-						<li class="breadcrumb-item"><a href="#">Home</a></li>
-					</ol>
-				</div>
+
 			</div>
 		</div>
 	</section>
@@ -44,7 +39,7 @@
 						</select> <input class="form-control" type="text" name="keyword"
 							placeholder="검색어를 입력하세요." value="" /> <span
 							class="input-group-append">
-							<button class="btn btn-primary" type="button"
+							<button class="btn btn-primary" type="button" style="background-color: #59a5cb;border-color: #59a5cb;"
 								onclick="list_go(1);" data-card-widget="search">
 								<i class="fa fa-fw fa-search"></i>
 							</button>
@@ -110,7 +105,7 @@
 							name='answer' class="form-control" value="">
 					</div>
 					<div class="float-right mt-3 mr-3 mb-3">
-						<button class="btn btn-primary" onclick="regist_go()" id="insertBtn" class="btn btn-primary">추가하기</button>
+						<button class="btn btn-primary" onclick="regist_go()" id="insertBtn" class="btn btn-primary" style="background-color: #59a5cb;border-color: #59a5cb;">추가하기</button>
 					</div>
 				</div>
 			</div>

@@ -10,6 +10,7 @@ import com.rundering.command.BranchCriteria;
 import com.rundering.command.BranchPageMaker;
 import com.rundering.dao.ComCodeDAO;
 import com.rundering.dao.ItemInsertDAO;
+import com.rundering.dao.ItemOrderDAO;
 import com.rundering.dao.ItemOutDAO;
 import com.rundering.dao.LaundryArticlesDAO;
 import com.rundering.dao.LaundryGoodsStockDAO;
@@ -18,6 +19,7 @@ import com.rundering.dto.ItemOutVO;
 import com.rundering.dto.ItemVO;
 import com.rundering.dto.LaundryArticlesVO;
 import com.rundering.dto.LaundryGoodsStockVO;
+import com.rundering.scheduler.OrderTaskScheduler;
 import com.rundering.util.ComCodeUtil;
 import com.sun.mail.imap.protocol.Item;
 
@@ -30,6 +32,8 @@ public class ItemServiceImpl implements ItemService {
 	ItemInsertDAO itemInsertDAO;
 	LaundryArticlesDAO laundryArticlesDAO;
 	ItemOutDAO itemOutDAO;
+	
+	ItemOrderDAO itemOrderDAO;
 	
 	public void setLaundryGoodsStockDAO(LaundryGoodsStockDAO laundryGoodsStockDAO) {
 		LaundryGoodsStockDAO = laundryGoodsStockDAO;
@@ -47,7 +51,27 @@ public class ItemServiceImpl implements ItemService {
 	public void setLaundryArticlesDAO(LaundryArticlesDAO laundryArticlesDAO) {
 		this.laundryArticlesDAO = laundryArticlesDAO;
 	}
+	public void setItemOrderDAO(ItemOrderDAO itemOrderDAO) {
+		this.itemOrderDAO = itemOrderDAO;
+	}
 	
+	
+	@Override
+	public void branchAutoOrder(String branchCode) throws Exception{
+		OrderTaskScheduler taskScheduler = new OrderTaskScheduler();
+		/* 키 : 아티클 코드 벨류 아티클 이름 */
+		Map<String, Integer> articlesPrice = new HashMap<String, Integer>();
+		// 지점 가져오기
+		
+
+		List<LaundryArticlesVO> laundrArticlesList = laundryArticlesDAO.selectLandryArticlesStock();
+		// 물품가격을 합함
+		for (LaundryArticlesVO laundryArticles : laundrArticlesList) {
+
+		articlesPrice.put(laundryArticles.getArticlesCode(), laundryArticles.getPrice());
+		}
+		taskScheduler.autoOrderMethod(branchCode,articlesPrice,LaundryGoodsStockDAO,itemOrderDAO);
+	}
 	
 	@Override
 	public Map<String, Object> selectItemVOList(BranchCriteria cri) throws Exception {

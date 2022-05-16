@@ -27,7 +27,11 @@
 									<div class="input-group-sm selectWidth">
 										<select class="form-control" name="searchType" id="searchType"
 											onchange="list_go('1')">
-											<option value="">분류검색 예정 건회 작업끝나면 시작</option>
+											<option value="">전체</option>
+											<c:forEach items="${dataMap.CLCODEList}" var="clcode">
+												
+												<option value="${clcode.comCode }">${clcode.comCodeNm }</option>
+											</c:forEach>
 										</select>
 									</div>
 								</div>
@@ -39,7 +43,7 @@
 								<tr>
 									<th class="width20" style="text-align: center">물품명</th>
 									<th class="width15" style="text-align: center">분류</th>
-									<th class="width5" style="text-align: center">금액</th>
+									<th class="width5" style="text-align: center">금액(원)</th>
 									<th class="width10" style="text-align: center;">담기</th>
 								</tr>
 							</thead>
@@ -78,7 +82,7 @@
 									<th class="width15" >취소</th>
 								</tr>
 							</thead>
-								 <tbody id="tbody">
+								 <tbody id="tbody" >
 
 								</tbody>
 						</table>
@@ -91,6 +95,26 @@
 			</div>
 		</div>
 	</div>
+
+
+<form id="jobForm">	
+	<input type='hidden' name="searchType" value="" />
+	<input type='hidden' name="keyword" value="" />
+</form>
+
+<script>
+
+	
+
+	function list_go(page){
+		
+		let searchType=event.target.value
+		
+		orderGoodsList("<%=request.getContextPath()%>/branch/itemorder/orderGoodsList?page="+page+"&searchType="+searchType)
+		
+		
+	}
+</script>
 
 <script>
 
@@ -118,7 +142,7 @@ function order_go(){
 		}
 	}
 	
-	document.querySelector("#hiddenTotalPrice").value=document.querySelector("#totalPrice").value
+	document.querySelector("#hiddenTotalPrice").value=document.querySelector("#totalPrice").value.replace(",","")
     let form= document.querySelector("#formOrder");
     form.submit();
 }
@@ -131,12 +155,12 @@ function order_go(){
 		<tr>
 			<td style="text-align: left;" class="{{articlesCode}} visibleImg" data-code="{{articlesCode}}" onclick="imgclick()"  >
 			<img alt="" src="" onclick="imgclicknone()" class="articlesImg" data-fileno="{{atchFileNo}}" style="position: absolute;z-index:2; display:none;" width="300" height="300">
-			{{articlesName}} 
+			{{articlesName}}
 		</td>
 			<td style="text-align: center;">
 				{{articlesCodeMap clcode}}
 			</td>
-			<td style="text-align: right;">{{price}}원</td>
+			<td style="text-align: right;">{{priceToString price}}</td>
 			<td style="text-align: center; padding-top: 8px"><button type="button"	class="btn btn-primary btn-sm" onclick="getOrder()" data-each="{{getEach}}" >담기</button></td>
 		</tr>
 {{/laundryArticlesList}}
@@ -195,7 +219,7 @@ function order_go(){
 				<button type="button" class="btn btn-sm btn-default p-0" style="height: 18px;" onclick="minusQuantity(this)">-</button>
 		</span>
 	</td>
-	<td  style="text-align:right" class="price" data-price="{{price}}">{{price}}</td> 
+	<td  style="text-align:right" class="price" data-price="{{price}}">{{priceToString price}}</td> 
 	<td  style="text-align:center;">
 		<button type="button" style="color: black" class="btn btn-tool" onclick="itemRemove()" style="color: black">
 			<i class="fas fa-times xbutton"></i>
@@ -214,6 +238,9 @@ window.onload=function(){
 	
 	
 }   
+function priceToString(price){
+	 return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	}
 
 // 이미지불러오기
 function getImage(){
@@ -317,7 +344,9 @@ function orderGoodsList(pageInfo){
             			   return i.comCodeNm
             		   }
             	   }
-               }
+               },'priceToString':function(price){
+            		 return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        	  	}
             	   
             	   
                
@@ -368,7 +397,7 @@ function getOrder(){
 	
 	let dataCode = event.target.parentNode.parentNode.children[0].dataset.code;
 	let getEach = event.target.dataset.each
-	let price = event.target.parentNode.parentNode.children[2].innerText.split("원")[0];
+	let price = event.target.parentNode.parentNode.children[2].innerText.replace(",","");
 	let itemName=event.target.parentNode.parentNode.children[0].innerText;
 	let source = $("#getOrder-tempalet").html();
 	let template = Handlebars.compile(source); 
@@ -447,10 +476,11 @@ function inputNumber(){
 		let sum = 0;
 		for(let i = 0 ; i<priceList.length;i++){
 			if(!isNaN(parseInt(priceList[i].innerText))) {
-				sum += parseInt(priceList[i].innerText)
+				let money= priceList[i].innerText;
+				sum += parseInt(money.replace(",",""))
 			}
 		}
-		document.querySelector("#totalPrice").value=sum;	
+		document.querySelector("#totalPrice").value=priceToString(sum);	
 	}
 	
 	function plusQuantity(){
@@ -466,7 +496,7 @@ function inputNumber(){
 		console.log(input)
 		
 		let sum= event.target.parentNode.parentNode.querySelectorAll('.quantity')[0].value*event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].dataset.price
-		event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].innerText=sum
+		event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].innerText=priceToString(sum);
 		event.target.parentNode.parentNode.parentNode.querySelectorAll(".inputPrice")[0].value=sum;
 		seeTotalPrice()
 	}
@@ -482,7 +512,7 @@ function inputNumber(){
 		
 		
 		let sum= event.target.parentNode.parentNode.querySelectorAll('.quantity')[0].value*event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].dataset.price
-		event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].innerText=sum
+		event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].innerText=priceToString(sum);
 		event.target.parentNode.parentNode.parentNode.querySelectorAll(".inputPrice")[0].value=sum;
 		console.log(input)
 		seeTotalPrice()

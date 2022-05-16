@@ -20,10 +20,10 @@
 
 				</div>
 			</div>
-			<div class="card-footer bg-white">
-				<ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+			<div class="card-footer bg-white p-3">
+				<ul class="mailbox-attachments align-items-stretch clearfix" style="display: inline-grid;">
 				 <c:forEach items="${attachList }" var="attach">
-					<li style="border: none;"><div class="mailbox-attachment-info" style="margin: auto; border:1px solid lightgray;">
+					<li style="border: none;width: fit-content;"><div class="mailbox-attachment-info" style="margin: auto; border:1px solid lightgray;">
 							<a href="<%=request.getContextPath()%>/file/filedownload?atchFileNo=${attach.atchFileNo}&saveFileNm=${attach.saveFileNm }" class="mailbox-attachment-name"><i class="fas fa-paperclip"></i>&nbsp;&nbsp;${attach.fileNm }</a>
 						</div>
 					</li>
@@ -35,12 +35,9 @@
 			<div class="card-footer">
 				<div class="float-right">
 					<!--    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">댓글작성 </button> -->
-					<button type="button" class="btn btn-warning" onclick="modify_go('${notice.noticeno}');" 
-					style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8">수정</button>
-					<button type="button" class="btn btn-warning" onclick="remove_go('${notice.noticeno}');"
-					style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8">삭제</button>
-					<button type="button" class="btn btn-warning" onclick="CloseWindow();"
-					style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8">닫기</button>
+					<button type="button" class="btn btn-warning" onclick="modify_go('${notice.noticeno}');">수정</button>
+					<button type="button" class="btn btn-danger" onclick="remove_go('${notice.noticeno}');">삭제</button>
+					<button type="button" class="btn btn-primary" onclick="CloseWindow();">닫기</button>
 				</div>
 			</div>
 		</div>
@@ -56,8 +53,8 @@
 						
 						<input	class="form-control" type="text" placeholder="댓글을 입력해주세요"
 							id="replyContent" style="display: inline;width: 88%;"> 
-						<button type="button" class="btn btn-sm btn-warning float-right" id="replyAddBtn"
-							onclick="registReply();" style="margin: auto;background-color:#82BBD8;border: 1px solid #82BBD8; padding: 8px;">댓글 등록</button><br />
+						<button type="button" class="btn btn-sm btn-primary float-right" id="replyAddBtn"
+							onclick="registReply();" style="margin: auto;">댓글 등록</button><br />
 						
 					</div>
 					<div class="card-body" style="padding-top: 10px;">

@@ -31,20 +31,29 @@
 	width: 10%;
 }
 
-#body {
-	padding-left: 1%;
-	padding-right: 1%;
-}
 </style>
 </head>
 <body>
-	<div class="card card-secondary card-outline ml-3 mr-3">
-		<div class="card-header" style="border-bottom: 0px;">
-			<h3 class="card-title" style="font-size: 1.75rem;">사원 조회</h3>
-			<div class="row">
-				<div class="col-12 float-right" style="padding:5px;">
-					<div class="input-group input-group-sm float-right" style="width: 400px; padding-top: 3px">
+	<section class="content-header">
+	   <div class="container-fluid">
+	      <div class="row mb-2">
+	         <div class="col-sm-6">
+	            <h1>사원 목록</h1>
+	         </div>
+	      </div>
+	   </div>
+	</section>
+	<div id="body">
+		<div class="row ml-3 mr-3">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h2 style="height: 20px;" class="card-title">
+		                  <b></b>
+		               	</h2>
 						<!-- sort -->
+						<div class="card-tools">
+							<div class="input-group input-group-sm" style="width: 400px;">
 						<select class="form-control col-md-3" name="employeeSort"
 							id="employeeSort" onchange="list_go(1);">
 							<option value="" ${cri.employeeSort eq '' ? 'selected' : '' }>전체지점</option>
@@ -66,7 +75,7 @@
 						</select> <input class="form-control" type="text" name="keyword"
 							placeholder="검색어를 입력하세요." value="" /> <span
 							class="input-group-append">
-							<button class="btn btn-primary" type="button"
+							<button class="btn btn-primary" type="button" style="background-color: #59a5cb; border: 1px solid #59a5cb;"
 								onclick="list_go(1);" data-card-widget="search">
 								<i class="fa fa-fw fa-search"></i>
 							</button>
@@ -74,7 +83,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		<div class="card-body p-0">
 		<table class="table table-hover text-nowrap" style="text-align:center;">
 			<thead>
 				<tr>
@@ -94,7 +103,7 @@
 					</tr>
 				</c:if>
 				<c:forEach items="${employeesList }" var="employee">
-					<tr style='font-size: 0.85em;'>
+					<tr style='font-size: 1em;'>
 						<td>${employee.employeeId }</td>
 						<td>${employee.branchCode }</td>
 						<td>${employee.department}</td>
@@ -106,10 +115,15 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		</div>
 		<div class="card-footer">
 			<%@ include file="/WEB-INF/views/admin/employee/pagination.jsp"%>
 		</div>
 	</div>
+  </div>
+</div>
+</div>
+
 <script>
 
 

@@ -10,8 +10,11 @@
                     <div class="card-tools">
                         <div class="input-group input-group-sm" >
                             <select class="form-control" name="laundryItemsCode"
-                                id="laundryItemsCode" onchange="list_go(1);">
-                                <option value="asd">asdaadas</option>
+                                id="laundryItemsCode" onchange="order_list_go(1);">
+								<option value="">전체</option>
+								{{#each comCodeMap}}
+                                <option value="{{@key}}" {{selected @key}}>{{this}}</option>
+								{{/each}}
                             </select>
                         </div>
                     </div>
@@ -86,6 +89,14 @@
 
 <script >
 let order_page=1;
+
+function order_list_go(page){
+	let itemOrderStatus =event.target.value
+	console.log(itemOrderStatus)
+	order_List("<%=request.getContextPath()%>/branch/item/orderlist?page="+page+"&searchType="+itemOrderStatus);
+		
+}
+
 
 
 function order_page_go(url){
@@ -163,13 +174,20 @@ function order_List(pageInfo){
 	        	  	}if(status=="06"){
 	        	  		return 'success';
 	        	  	}
+         	   },"selected":function(status){
+         			if(dataMap.pageMaker.cri.searchType==status){
+	        	  		return 'selected';
+	        	  	}
          	   }
+         	   
 			});
             
 			let data={
 					pageMaker:pageMaker,
 					cri:cri,
 					itemOrderList:itemOrderList,
+					comCodeMap:comCodeMap,
+					pageMaker:dataMap.pageMaker
 			}
 			
 			let html = template(data);

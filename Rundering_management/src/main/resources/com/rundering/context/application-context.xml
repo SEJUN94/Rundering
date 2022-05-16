@@ -168,6 +168,7 @@
 		p:itemInsertDAO-ref="itemInsertDAO"
 		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
 		p:branchDAO-ref="branchDAO"
+		p:laundryArticlesDAO-ref="laundryArticlesDAO"
 	/>
 	<bean id="attachService" class="com.rundering.service.AttachService"
 		p:attachDAO-ref="attachDAO"
@@ -189,6 +190,7 @@
 		p:attachDAO-ref="attachDAO"
 		p:laundryThroughputDAO-ref="laundryThroughputDAO"
 		p:faqDAO-ref="faqDAO"
+		p:orderTaskScheduler-ref="orderTask"
 	/>
 	<bean id="memberAddressService" class="com.rundering.service.MemberAddressServiceImpl" 
 		p:memberAddressDAO-ref="memberAddressDAO"
@@ -209,6 +211,7 @@
 	/>  
 	<bean id="adminItemOrderService" class="com.rundering.service.AdminItemOrderServiceImpl"
 		p:adminItemOrderDAO-ref="adminItemOrderDAO"
+		p:laundryGoodsStockDAO-ref="LaundryGoodsStockDAO"
 	/>
 	<bean id="laundryThroughputService" class="com.rundering.service.LaundryThroughputServiceImpl"
 		p:laundryThroughputDAO-ref="laundryThroughputDAO"
@@ -235,5 +238,6 @@
 		p:itemInsertDAO-ref="itemInsertDAO"
 		p:laundryArticlesDAO-ref="laundryArticlesDAO"
 		p:itemOutDAO-ref="itemOutDAO"
+		p:itemOrderDAO-ref="itemOrderDAO"
 	/>
 </beans>

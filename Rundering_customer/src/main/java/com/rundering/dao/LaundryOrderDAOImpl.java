@@ -35,7 +35,7 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		return laundryOrder;
 	}
 	
-	// 마이페이지 - 내 주문내역 가져오기
+	// 마이페이지 - 전체 주문내역 가져오기
 	@Override
 	public List<LaundryOrderVO> getMyOrderList(MyOrderCriteria cri) throws Exception {
 		
@@ -54,6 +54,25 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 	public int myOrderList(MyOrderCriteria cri) throws SQLException {
 		int count = session.selectOne("LaundryOrder-Mapper.myOrderListCount", cri);
 		return count;
+	}
+	
+	// 마이페이지 - 주문내역 진행중인 내역 가져오기
+	@Override
+	public List<LaundryOrderVO> getMyOrderIngList(MyOrderCriteria cri) throws Exception {
+		//페이징 처리를 위한 것들
+		int offset = cri.getStartRowNum();
+		int limit = cri.getPerPageNum();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<LaundryOrderVO> myOrderList = session.selectList("LaundryOrder-Mapper.getmyorderIngList", cri, rowBounds);
+
+		return myOrderList;
+	}
+	
+	// 마이페이지 - 진행중인 주문내역 개수 체크
+	@Override
+	public int myOrderIngList(MyOrderCriteria cri) throws SQLException {
+		return session.selectOne("LaundryOrder-Mapper.myCompleteOrderIngListCount", cri);
 	}
 	
 	// 마이페이지 - 완료된 내 주문내역 가져오기
@@ -81,5 +100,11 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		return session.selectOne("LaundryOrder-Mapper.getmyorderByorderNo", orderNo);
 	}
 
+	// 마이페이지 - 주문취소
+	@Override
+	public void cancelLaundryOrder(String orderNo) throws Exception {
+		session.update("LaundryOrder-Mapper.cancelLaundryOrder", orderNo);
+	}
 
+	
 }
