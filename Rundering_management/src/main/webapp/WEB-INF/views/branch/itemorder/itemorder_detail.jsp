@@ -68,22 +68,7 @@
 	                 <button type="button" class="btn bg-gradient-secondary float-right"
 	                    style="margin-right: 5px;" onclick="CloseWindow();">목록
 	                </button>
-					<c:if test="${itemOrder.itemOrderStatus eq '01'}">
-	                <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;"
-	                	onclick="fail();">
-	              			      반려
-	                </button>
-	 				 <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"
-	 				 	onclick="success();">
-	             			       승인
-	                </button>
-					</c:if>
-					<c:if test="${itemOrder.itemOrderStatus eq '02'}">
-	                <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"
-	                	onclick="orderSuccess();">
-	              			      발주완료
-	                </button>
-					</c:if>
+					
 	            </div>
 	        </div>
 			
