@@ -47,7 +47,7 @@
 						<table class="table table-head-fixed text-nowrap">
 							<thead style="text-align: center;">
 								<tr>
-									<th style="width: 100px;">이름</th>
+									<th style="width: 270px;">이름</th>
 									<th style="width: 70px">분류</th>
 									<th style="width: 70px;">가격</th>
 									<th style="width: 100px">등록일</th>
@@ -72,7 +72,10 @@
 											</c:if> 
 										</c:forEach>
 										</td>
-										<td style="text-align: center;">${laundryArticles.price }</td>
+										<td style="text-align: right;">
+										<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryArticles.price }" />
+										원
+										</td>
 										<td><fmt:formatDate
 												value="${laundryArticles.registDate }" pattern="yyyy-MM-dd" /></td>
 										<td><fmt:formatDate
@@ -168,7 +171,7 @@
 				</div>
 					<div class="card-body" style="height: 260px;" id="pictureView">
 				
-				</div>
+					</div>
 			</div>
 		
 		</div>
@@ -198,7 +201,7 @@
 			   if (file.files && file.files[0]) {
 					let reader = new FileReader();
 					reader.onload = function (e) {
-						 $('div#pictureView').css({'background-image':'url('+e.target.result+')',
+						 $('#pictureView').css({'background-image':'url('+e.target.result+')',
 			                 'background-position':'center',
 			                 'background-size':'cover',
 			                 'background-repeat':'no-repeat'
