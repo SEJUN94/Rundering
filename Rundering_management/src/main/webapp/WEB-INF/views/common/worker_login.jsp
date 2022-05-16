@@ -27,7 +27,7 @@
 <img class="bg" src="<%=request.getContextPath() %>/resources/image/LoginBackground.jpg" alt="rundering_bg" style="opacity: 0.6;">
 <div class="login-box">
     <div class="login-logo">
-        <div><img class="logo" src="<%=request.getContextPath() %>/resources/image/RunderingLogo.png" alt="Rundering" style="width: 80%;"></div>
+        <div><a href="<%=request.getContextPath()%>/common/loginform"><img class="logo" src="<%=request.getContextPath() %>/resources/image/RunderingLogo.png" alt="Rundering" style="width: 80%;"></a></div>
         <!-- <b>사원</b> 로그인 -->
     </div>
     
