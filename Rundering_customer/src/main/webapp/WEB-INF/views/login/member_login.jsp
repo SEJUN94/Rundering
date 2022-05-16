@@ -68,8 +68,7 @@
                     
                 </div>
             </form>
-            
-            <p class='mt-2 mb-1">
+           <p class='mt-2 mb-1'>
                 <a></a>
                 <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findaccount','아이디 찾기', 450, 700)">아이디 찾기</a> / 
                 <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findpassword','비밀번호 찾기', 450, 700)">비밀번호 찾기</a>
@@ -77,6 +76,7 @@
             <p class="mb-0"> 
                 <a href="<%=request.getContextPath()%>/3agree" class="text-center">회원가입</a>
             </p>
+   
         </div>
     </div>
 </div>

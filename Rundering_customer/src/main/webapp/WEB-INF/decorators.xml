@@ -13,6 +13,7 @@
 		<pattern>/question/detail*</pattern>
 		<pattern>/question/modify*</pattern>
 		<pattern>*/myinquiry/detail*</pattern>
+		<pattern>*/mypage/modifyForm*</pattern>
 		<pattern>*/order_detail*</pattern>
 	</decorator>
 
