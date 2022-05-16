@@ -98,7 +98,7 @@
 										<ul class="mailbox-attachments d-flex align-items-stretch clearfix">
 											
 											 <c:forEach items="${attachList }" var="attach">
-											<li class="attach-item thumb${attach.atchFileNo }${attach.atchFileSeq }" file-name="${attach.fileNm }" target-ano="${attach.atchFileNo },${attach.atchFileSeq }" style="border: none;"><div class="mailbox-attachment-info" style="margin: auto; border:1px solid lightgray;">
+											<li class="attach-item m-0 thumb${attach.atchFileNo }${attach.atchFileSeq }" file-name="${attach.fileNm }" target-ano="${attach.atchFileNo },${attach.atchFileSeq }" style="border: none;"><div class="mailbox-attachment-info" style="margin: auto; border:1px solid lightgray;">
 													<a href="<%=request.getContextPath()%>/file/filedownload?atchFileNo=${attach.atchFileNo}&saveFileNm=${attach.saveFileNm }" name="attachedFile" attach-fileName="${attach.fileNm }" attach-no="${attach.atchFileNo }" class="mailbox-attachment-name"><i class="fas fa-paperclip"></i>&nbsp;&nbsp;${attach.fileNm }</a>
 													<button type="button" onclick="removeFile_go('thumb${attach.atchFileNo}${attach.atchFileSeq }'); return false;" style="border:0;outline:0;" class="badge bg-red">X</button>	
 												</div>

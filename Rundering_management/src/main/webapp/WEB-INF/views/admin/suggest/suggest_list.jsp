@@ -56,7 +56,7 @@ th, .td {
 							</div>
 						</div>
 					</div>
-					<div class="card-body p-0">
+					<div class="card-body p-0" style="height: 540px">
 						<table class="table table-hover text-nowrap">
 							<thead>
 								<tr style="text-align: center;">
