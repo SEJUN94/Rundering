@@ -19,23 +19,23 @@ th, td {
 }
 
 .no {
-	width: 5%;
+	
 }
 
 .category {
-	width: 15%
+	width: 10%
 }
 
 .title {
-	width: 33%;
+	width: 40%;
 }
 
 .writer {
-	width: 15%;
+	width: 10%;
 }
 
 .date {
-	width: 15%;
+	width: 10%;
 }
 
 .yn {
@@ -43,6 +43,9 @@ th, td {
 }
 .answer {
 	width: 12%
+}
+.attach{
+	width: 5%;
 }
 </style>
 </head>
@@ -96,7 +99,7 @@ th, td {
 							<th class="title">제목</th>
 							<th class="writer">작성자</th>
 							<th class="date">문의일</th>
-							<th class="">첨부파일</th>
+							<th class="attach">첨부파일</th>
 							<th class="yn">비밀글</th>
 							<th class="answer">답변</th>
 						</tr>
@@ -115,7 +118,7 @@ th, td {
 												<c:when test="${faq.setbukdoorclcode == 'US'}">이용문의</c:when>
 												<c:when test="${faq.setbukdoorclcode == 'ET'}">기타문의</c:when>
 											   </c:choose></td>
-							<td class="title" style="text-align: inherit;">${faq.question }</td>
+							<td class="title" style="text-align: left; max-width: 330px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${faq.question }</td>
 							<td class="writer">${faq.writer }</td>
 							<td class="date">${faq.registDate }</td>
 							<td>

@@ -44,7 +44,7 @@
     
     <div class="card">
         <div class="card-body login-card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg">로그인 후 더 나은 서비스를 이용하세요</p>
             <form action="<%=request.getContextPath() %>/login" method="post">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="아이디입력  8~20" name="id" >
@@ -62,29 +62,21 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember">
-                            <label for="remember">
-                                Remember Me
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="col-4">
+                    <div class="col-12">
                         <button type="submit" class="btn btn-primary btn-block">로그인</button>
                     </div>
                     
                 </div>
             </form>
-            
-            <p class="mb-1">
-                I forgot my <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findaccount.do','아이디 찾기', 450, 700)">account</a> / 
-                <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findpassword.do','비밀번호 찾기', 450, 700)">password</a>
+           <p class='mt-2 mb-1'>
+                <a></a>
+                <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findaccount','아이디 찾기', 450, 700)">아이디 찾기</a> / 
+                <a href="javascript:OpenWindow('<%=request.getContextPath()%>/login/findpassword','비밀번호 찾기', 450, 700)">비밀번호 찾기</a>
             </p>
             <p class="mb-0"> 
-                <a href="<%=request.getContextPath()%>/3agree" class="text-center">join a new membership</a>
+                <a href="<%=request.getContextPath()%>/3agree" class="text-center">회원가입</a>
             </p>
+   
         </div>
     </div>
 </div>

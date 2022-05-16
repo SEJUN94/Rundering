@@ -108,7 +108,7 @@ th, td {
                                     <c:when test="${faq.setbukdoorclcode == 'US'}">이용문의</c:when>
                                     <c:when test="${faq.setbukdoorclcode == 'ET'}">기타문의</c:when>
                                     </c:choose></td>
-                     <td class="title">${faq.question }</td>
+                     <td class="title" style="text-align: left;">${faq.question }</td>
                      <td class="writer">${faq.writer }</td>
                      <td class="date"><fmt:formatDate value="${faq.registDate }"
                            pattern="yyyy-MM-dd" /></td>
