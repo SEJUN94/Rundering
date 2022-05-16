@@ -13,7 +13,7 @@
 	<!-- 상세검색 카드 -->
 	<div class="card ml-3 mr-3 mb-0">
 		<form class="form-horizontal">
-			<div class="card-body">
+			<div class="card-body" style="padding: 0.9rem;">
 				<div class="form-group row m-0">
 					<label for="orderstatus" class="col-sm-1 col-form-label">주문상태</label>
 					<div class="col-sm-11 p-2 pl-4" style="display: inline-flex;">
