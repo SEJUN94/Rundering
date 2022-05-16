@@ -15,6 +15,8 @@ public class FAQVO {
 	private String fcontent; // 질문내용
 	private String orderno; //주문번호
 	private String atchFileNo; //통합첨부파일번호
+	
+	private String memberNo;
 
 	public String getAtchFileNo() {
 		return atchFileNo;
@@ -110,6 +112,14 @@ public class FAQVO {
 
 	public void setFcontent(String fcontent) {
 		this.fcontent = fcontent;
+	}
+
+	public String getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 	
 	

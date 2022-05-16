@@ -67,7 +67,7 @@ th, .td {
 									<th width="10%">작성날짜</th>
 									<th class="">첨부파일</th>
 									<th width="3%">조회수</th>
-									<th width="3%">확인여부</th>
+									<th width="3%" class="pr-3">확인여부</th>
 								</tr>
 							</thead>
 							<c:if test="${empty suggestList }">
@@ -80,7 +80,7 @@ th, .td {
 									onclick="OpenWindow('detail?from=list&sno=${suggest.sno }','상세보기',900,700);">
 									<td class="td">${(cri.page - 1) * cri.perPageNum + (status.index +1) }</td>
 									<td id="Title"
-										style="text-align: left; max-width:375px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${suggest.title }
+										style="text-align: left; max-width:330px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${suggest.title }
 										<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
 										<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
 										<fmt:parseNumber value="${suggest.registDate.time / (1000*60*60*24)}" integerOnly="true" var="chgDttm" /><!-- 게시글 작성날짜를 숫자로 -->
@@ -101,7 +101,7 @@ th, .td {
 										</c:if>
 									</td>
 									<td class="td"><span class="tag tag-success">${suggest.viewcnt }</span></td>
-									<td class="td">${suggest.checkyn }</td>
+				                            <td class="pr-3"><span class="badge ${suggest.checkyn eq '확인' ? 'bg-primary' : 'bg-danger'}" style="font-size: 0.88rem;">${suggest.checkyn}</span></td>
 								</tr>
 							</c:forEach>
 						</table>

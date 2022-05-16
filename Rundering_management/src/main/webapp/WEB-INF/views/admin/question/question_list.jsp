@@ -43,7 +43,7 @@ th, td {
    width: 10%;
 }
 .answer {
-   width: 10%
+  
 }
 </style>
 </head>
@@ -90,8 +90,9 @@ th, td {
                      <th class="title">제목</th>
                      <th class="writer">작성자</th>
                      <th class="date">문의일</th>
+                     <th class="attach">첨부파일</th>
                      <th class="yn">비밀글</th>
-                     <th class="answer">답변</th>
+                     <th class="answer pr-3">답변</th>
                   </tr>
                </thead>
                <c:if test="${empty faqList }">
@@ -99,19 +100,27 @@ th, td {
                      <td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
                   </tr>
                </c:if>
-               <c:forEach items="${faqList }" var="faq">
+               <c:forEach items="${faqList }" var="faq" varStatus="status">
                   <tr style='cursor: pointer;'
-                     onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',900,700);">
-                     <td class="no">${faq.faqno }</td>
+                     onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',740,800);">
+                     <td class="no">${(cri.page - 1) * cri.perPageNumQuestion + (status.index +1) }</td>
                      <td class="category"><c:choose>
                                     <c:when test="${faq.setbukdoorclcode == 'OR'}">주문문의</c:when>
                                     <c:when test="${faq.setbukdoorclcode == 'US'}">이용문의</c:when>
                                     <c:when test="${faq.setbukdoorclcode == 'ET'}">기타문의</c:when>
                                     </c:choose></td>
-                     <td class="title" style="text-align: left;">${faq.question }</td>
+                     <td class="title" style="text-align: left;max-width: 330px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${faq.question }</td>
                      <td class="writer">${faq.writer }</td>
                      <td class="date"><fmt:formatDate value="${faq.registDate }"
                            pattern="yyyy-MM-dd" /></td>
+                      <td>
+						<c:if test="${!empty faq.atchFileNo }">
+							<i class="nav-icon fas fa-file"></i>
+						</c:if>
+						<c:if test="${empty faq.atchFileNo }">
+							<span>-</span>
+						</c:if>
+					</td>
                      <td class="yn"><c:choose>
                            <c:when test="${faq.secretyn == 'Y'}">
                               <i class="fas fa-lock fa-fw" style="color: var(- -fa-navy);"></i>
@@ -119,9 +128,12 @@ th, td {
                            <c:when test="${faq.secretyn == 'N'}">
                            </c:when>
                         </c:choose></td>
-                     <td class="answer"><c:choose>
+                     <c:choose>
                            <c:when test="${!empty faq.answer}">
-                              답변완료
+                            <td class="answer pr-3"><span class="badge bg-primary" style="font-size: 0.88rem;">답변완료</span></td>
+                           </c:when>
+                           <c:when test="${empty faq.answer}">
+                            <td class="answer pr-3"><span class="badge bg-danger" style="font-size: 0.88rem;">미답변</span></td>
                            </c:when>
                      </c:choose>
                   </tr>
@@ -133,4 +145,6 @@ th, td {
 		</div>
       </div>
    </div>
+   
+   
 </body>

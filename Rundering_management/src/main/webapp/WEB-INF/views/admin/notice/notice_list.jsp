@@ -118,7 +118,7 @@
 					</table>
 				</div>
 				<div class="card-footer" style="font-size:0.9em;">
-					<div class="float-right mb-3 mr-2">
+					<div class="float-right mr-1">
 						<a href="<%=request.getContextPath()%>/admin/notice/registform">
 							<button type="button" class="btn btn-primary"
 								data-toggle="modal" data-target="#modal-lg" style="background-color: #59a5cb; border: 1px solid #59a5cb;">공지등록</button>

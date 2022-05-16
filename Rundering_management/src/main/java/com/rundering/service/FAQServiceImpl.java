@@ -9,8 +9,10 @@ import com.rundering.command.AcoCriteria;
 import com.rundering.command.AcoPageMaker;
 import com.rundering.command.FAQCriteria;
 import com.rundering.command.FAQPageMaker;
+import com.rundering.dao.AttachDAO;
 import com.rundering.dao.FAQDAO;
 import com.rundering.dao.MemberDAO;
+import com.rundering.dto.AttachVO;
 import com.rundering.dto.FAQVO;
 import com.rundering.dto.MemberVO;
 import com.rundering.util.SensSms;
@@ -29,6 +31,10 @@ public class FAQServiceImpl implements FAQService {
 	private SensSms sensSms;
 	public void setSensSms(SensSms sensSms) {
 		this.sensSms = sensSms;
+	}
+	private AttachDAO attachDAO;
+	public void setAttachDAO(AttachDAO attachDAO) {
+		this.attachDAO = attachDAO;
 	}
 
 	@Override
@@ -53,9 +59,17 @@ public class FAQServiceImpl implements FAQService {
 	}
 	
 	@Override
-	public FAQVO getFAQReply(int faqno) throws SQLException {
+	public Map<String, Object> getFAQReply(int faqno) throws Exception {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
 		FAQVO faq = faqDAO.selectFAQByFaqno(faqno);
-		return faq;
+		if(faq != null && faq.getAtchFileNo() != null) {
+			List<AttachVO> attachList = attachDAO.selectAttachVOByFileNo(faq.getAtchFileNo());
+			dataMap.put("attachList", attachList);
+		}
+		
+		dataMap.put("faq", faq);
+		
+		return dataMap;
 	}
 	
 	@Override

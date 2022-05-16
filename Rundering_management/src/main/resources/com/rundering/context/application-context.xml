@@ -140,6 +140,7 @@
 		p:faqDAO-ref="faqDAO"
 		p:memberDAO-ref="memberDAO"
 		p:sensSms-ref="sensSms"
+		p:attachDAO-ref="attachDAO"
 	/>	
 	<bean id="memberService" class="com.rundering.service.MemberServiceImpl"
 		p:memberAddressDAO-ref="memberAddressDAO"
