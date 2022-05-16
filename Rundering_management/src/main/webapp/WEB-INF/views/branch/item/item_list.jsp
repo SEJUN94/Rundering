@@ -7,17 +7,39 @@
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="itemList" value="${dataMap.itemList }"/>
 <c:set var="clcodeList" value="${dataMap.CLCODEList }" />
+
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
 <body>
+
 <section class="content-header">
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
 				<h1>재고 현황</h1>
+			</div>
+			<div class="col-sm-6 ">
+				<h4 class="h4 float-right">
+				
+				<c:if test="${dataMap.status02 ne '0' }">
+				발주대기 개수 : ${dataMap.status02 }개
+				</c:if>
+				<c:if test="${dataMap.status02 eq '0' }">
+				발주대기 개수 : 0개
+				</c:if> 
+				
+				<c:if test="${dataMap.status03 ne '0' }">
+				발주완료 개수 : ${dataMap.status03 }개
+				</c:if>
+				<c:if test="${dataMap.status03 eq '0' }">
+				발주완료 개수 : 0개
+				</c:if>  
+				
+				
+				</h4>
 			</div>
 		</div>
 	</div>

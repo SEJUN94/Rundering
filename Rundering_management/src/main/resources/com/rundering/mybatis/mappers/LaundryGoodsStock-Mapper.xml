@@ -22,6 +22,7 @@
 		<result column="AUTO_ORDER_POINT" property="autoOrderPoint"/>
 		<result column="AUTO_ORDER_COUNT" property="autoOrderCount" />
 		<result column="AUTO_ORDER_YN" property="autoOrderYn"/>
+		<result column="AUTO_ORDER_LAST_DATE" property="autoOrderLastDate"/>
 	</resultMap>
 	<sql id="search">
 	<if test="searchType == 'B'.toString()">
@@ -38,6 +39,12 @@
 	</if>
 	<if test="searchType == 'desc'.toString()">
 		order by B.SUPPLY_COUNT DESC
+	</if>
+		<if test="searchType == 'ascDate'.toString()">
+		order by B.AUTO_ORDER_LAST_DATE ASC
+	</if>
+	<if test="searchType == 'descDate'.toString()">
+		order by B.AUTO_ORDER_LAST_DATE DESC
 	</if>
 </sql>
 	
@@ -63,7 +70,8 @@
 		       B.SUPPLY_COUNT AS SUPPLY_COUNT,
 		       B.AUTO_ORDER_POINT AS AUTO_ORDER_POINT,
 		       B.AUTO_ORDER_COUNT AS AUTO_ORDER_COUNT,
-		       B.AUTO_ORDER_YN AS AUTO_ORDER_YN
+		       B.AUTO_ORDER_YN AS AUTO_ORDER_YN,
+		       B.AUTO_ORDER_LAST_DATE AS AUTO_ORDER_LAST_DATE
 		  from tb_laundry_articles A,TB_LAUNDRY_GOODS_STOCK B
 		 WHERE A.ARTICLES_CODE =B.ARTICLES_CODE
 		 AND B.BRANCH_CODE = #{branchCode}

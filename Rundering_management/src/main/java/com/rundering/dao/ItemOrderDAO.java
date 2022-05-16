@@ -25,5 +25,8 @@ public interface ItemOrderDAO {
 	int selectAdminItemOrderCount() throws Exception;
 	int selectItemOrder01() throws Exception;
 	int selectItemOrder02() throws Exception;
+	int selectItemOrder03ByBranchCode(BranchCriteria cri) throws Exception;
+	int selectItemOrder04ByBranchCode(BranchCriteria cri) throws Exception;
+	int selectItemOrder02ByBranchCode(BranchCriteria cri) throws Exception;
  
 } 

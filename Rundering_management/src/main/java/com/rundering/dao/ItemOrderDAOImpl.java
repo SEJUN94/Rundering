@@ -119,5 +119,17 @@ public class ItemOrderDAOImpl implements ItemOrderDAO{
 	public int selectItemOrder02() throws Exception{
 		return session.selectOne("ItemOrder-Mapper.selectItemOrder02");
 	}
+	@Override
+	public int selectItemOrder02ByBranchCode(BranchCriteria cri) throws Exception{
+		return session.selectOne("ItemOrder-Mapper.selectItemOrder02ByBranchCode",cri);
+	}
+	@Override
+	public int selectItemOrder03ByBranchCode(BranchCriteria cri) throws Exception{
+		return session.selectOne("ItemOrder-Mapper.selectItemOrder03ByBranchCode",cri);
+	}
+	@Override
+	public int selectItemOrder04ByBranchCode(BranchCriteria cri) throws Exception{
+		return session.selectOne("ItemOrder-Mapper.selectItemOrder04ByBranchCode",cri);
+	}
   
 }

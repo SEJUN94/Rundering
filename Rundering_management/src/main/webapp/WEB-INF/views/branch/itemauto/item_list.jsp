@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
@@ -56,16 +57,53 @@
                                          </select>
                                      </div>
                                 </th>
-                                <th style="text-align: center;">물품량</th>
-                                <th style="text-align: center;">자동 발주량</th>
-                                <th style="text-align: center;">자동 발주 시점</th>
-                                <th style="text-align: center;">자동발주 사용여부</th>
+                                <th style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;width: 100px">
+                                   <div class="input-group input-group-sm"  >
+                                        <select class="form-control" style="width: 40px;" name="searchType2"  id="searchType2" onchange="list_go2(1);">
+                                           		<option value="">물품량</option>
+                                             	<option value="asc" ${cri.searchType eq 'asc' ? 'selected':'' }>적은순</option>
+                                             	<option value="desc" ${cri.searchType eq 'desc' ? 'selected':'' }>많은순</option>
+                                         </select>
+                                     </div>
+                                </th>
+                                <th style="text-align: center;">발주량</th>
+                                <th style="text-align: center;">발주 시점</th>
+                                <th style="text-align: center;">사용여부</th>
+                                <th style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;">
+                                 <div class="input-group input-group-sm" >
+                                        <select class="form-control" style="width: 85px;" name="searchType3"  id="searchType3" onchange="list_go3(1);">
+                                           		<option value="">발주일</option>
+                                             	<option value="ascDate" ${cri.searchType eq 'ascDate' ? 'selected':'' }>최근 날짜</option>
+                                             	<option value="descDate" ${cri.searchType eq 'descDate' ? 'selected':'' }>오래된 날짜</option>
+                                         </select>
+                                     </div>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                                    
+									<c:set var="now" value="<%=new java.util.Date()%>" />
+                                    <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
+                                   
                                    <c:forEach items="${itemList }" var="item">
+                                    <c:if test="${item.supplyCount <item.autoOrderPoint}">
+                                    
+										
+										<fmt:parseNumber value="${item.autoOrderLastDate.time/(1000*60*60*24) }" integerOnly="true" var="chgDttm" /><!-- 게시글 작성날짜를 숫자로 -->
+                                    	<c:if test="${today - chgDttm le 14}">
+                                    		<tr style="background-color:#ffb2b2 ;"> 
+                                    	</c:if>
+                                    	
+                                    	<c:if test="${today - chgDttm gt 14}">
+                                    		 <tr style="background-color: #fbfbbd;">
+                                    	</c:if>
+                                   
+                                    </c:if>
+                                    
+                                    <c:if test="${item.supplyCount >=item.autoOrderPoint}">
                                     <tr>
+                                    </c:if>
+                                    
+                                    
                                         <td style="max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" onclick="tdClick('${item.articlesCode}')">${item.articlesName} </td>
                                         <td>
                                         <c:forEach items="${clcodeList }" var="clcode">
@@ -74,7 +112,7 @@
                                         </td>
                                         <td style="text-align: right;">
                                         <span class="input-group-sm input-group-append float-right"   >
-                                                <input type="text" class="inputValue" data-code="${item.articlesCode }"  data-each="${item.each}" disabled value= "${item.supplyCount }(${item.each})" style="width: 100px; text-align: right;">
+                                                <input type="text" class="inputValue" data-code="${item.articlesCode }"  data-each="${item.each}" disabled value= "${item.supplyCount }(${item.each})" style="width: 80px; text-align: right;">
                                                 <button class="btn btn-sm btn-warning modifyBtn" onclick="autoModify()">수정</button>
                                             	<span class="btn-group-vertical modifySpan" style="width: 18px;display: none">
 														<button type="button" class="btn btn-sm btn-default p-0" style="height: 18px;" onclick="minusQuantity(this)">-</button>
@@ -84,7 +122,7 @@
                                        </td>
                                         <td style="text-align: right;padding-top: 10px;padding-bottom: 5px;">
                                             <span class="input-group-sm input-group-append float-right"   >
-                                                <input type="text" class="inputValue" data-code="${item.articlesCode }"  data-each="${item.each}" disabled value="${item.autoOrderCount }(${item.each})" style="width: 100px; text-align: right;">
+                                                <input type="text" class="inputValue" data-code="${item.articlesCode }"  data-each="${item.each}" disabled value="${item.autoOrderCount }(${item.each})" style="width: 80px; text-align: right;">
                                                 <button class="btn btn-sm btn-warning modifyBtn" onclick="autoModify()">수정</button>
                                             	<span class="btn-group-vertical modifySpan" style="width: 18px;display: none">
 														<button type="button" class="btn btn-sm btn-default p-0" style="height: 15px;" onclick="plusQuantity(this)">+</button>
@@ -95,7 +133,7 @@
                                         </td>
                                         <td style="text-align: right;padding-top: 10px;padding-bottom: 5px;">
                                             <span class="input-group-sm input-group-append float-right "  >
-                                                <input type="text" class="inputValue" data-code="${item.articlesCode }" data-each="${item.each}" disabled value="${item.autoOrderPoint }(${item.each})" style="width: 100px; text-align: right;">
+                                                <input type="text" class="inputValue" data-code="${item.articlesCode }" data-each="${item.each}" disabled value="${item.autoOrderPoint }(${item.each})" style="width: 80px; text-align: right;">
                                                 <button class="btn btn-sm btn-warning modifyBtn" onclick="autoModify()">수정</button>
                                                 <span class="btn-group-vertical modifySpan" style="width: 18px;display: none">
 														<button type="button" class="btn btn-sm btn-default p-0" style="height: 15px;" onclick="plusQuantity(this)">+</button>
@@ -121,9 +159,12 @@
                                       	  			<input type="hidden" value="Y" name="autoOrderYn">
                                       	  			<input type="hidden" value="${item.articlesCode }" name="articlesCode">
                                       	  			<button class="btn btn-sm btn-primary">사용</button>
+                                      	  				
+                                      	  			
                                       	  		</form>
                                       	  	</td>
                                         </c:if>
+                                        <td><fmt:formatDate value="${item.autoOrderLastDate }" pattern="yyyy-MM-dd"/></td>
                                     </tr>
                                    </c:forEach> 
                         </tbody>
@@ -180,6 +221,8 @@ function autoOrder(){
 		url : '<%=request.getContextPath()%>/branch/itemauto/autoButton',
 		type : 'get',
 		success : function(data) {
+			window.location.reload()
+			
 			alert("성공")
 		},
 		error : function(error) {

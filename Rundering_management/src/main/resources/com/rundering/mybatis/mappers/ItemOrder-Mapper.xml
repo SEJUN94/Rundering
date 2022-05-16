@@ -96,6 +96,25 @@
 		  from tb_item_order
 		 where item_order_status='02'
 	</select>
+	<select id="selectItemOrder02ByBranchCode" resultType="int">
+		select count(*)
+		  from tb_item_order
+		 where item_order_status='02'
+		   and branch_code=#{branchCode}
+	</select>
+	
+	<select id="selectItemOrder03ByBranchCode" resultType="int">
+		select count(*)
+		  from tb_item_order
+		 where item_order_status='03'
+		   and branch_code=#{branchCode}
+	</select>
+	<select id="selectItemOrder04ByBranchCode" resultType="int">
+		select count(*)
+		  from tb_item_order
+		 where item_order_status='04'
+		 and branch_code=#{branchCode}
+	</select>
 	
 	
 	<select id="selectCount" resultType="int">

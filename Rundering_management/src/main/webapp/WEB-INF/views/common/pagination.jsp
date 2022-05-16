@@ -57,4 +57,32 @@
 			method:'get'
 		}).submit();
 	}
+	function list_go2(page,url){
+		if(!url) url="list";
+		
+		var jobForm=$('#jobForm');
+		
+		jobForm.find("[name='page']").val(page);
+		jobForm.find("[name='searchType']").val($('select[name="searchType2"]').val());
+		jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val());
+	
+		jobForm.attr({
+			action:url,
+			method:'get'
+		}).submit();
+	}
+	function list_go3(page,url){
+		if(!url) url="list";
+		
+		var jobForm=$('#jobForm');
+		
+		jobForm.find("[name='page']").val(page);
+		jobForm.find("[name='searchType']").val($('select[name="searchType3"]').val());
+		jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val());
+	
+		jobForm.attr({
+			action:url,
+			method:'get'
+		}).submit();
+	}
 </script>

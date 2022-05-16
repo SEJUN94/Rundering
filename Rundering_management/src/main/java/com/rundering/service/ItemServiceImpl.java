@@ -82,10 +82,18 @@ public class ItemServiceImpl implements ItemService {
 		List<ItemVO> itemList = null;
 		itemList=LaundryGoodsStockDAO.selectItemListByBranchCode(cri);
 		int count = LaundryGoodsStockDAO.selectItemCountByBranchCode(cri);
+		int status02 = itemOrderDAO.selectItemOrder02ByBranchCode(cri);
+		int status03 = itemOrderDAO.selectItemOrder03ByBranchCode(cri);
+		int status04 = itemOrderDAO.selectItemOrder04ByBranchCode(cri);
+		
+		
 		BranchPageMaker pageMaker = new BranchPageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(count);
 		
+		dataMap.put("status02", status02);
+		dataMap.put("status03", status03);
+		dataMap.put("status04", status04);
 		dataMap.put("itemList", itemList);
 		dataMap.put("pageMaker", pageMaker);
 		

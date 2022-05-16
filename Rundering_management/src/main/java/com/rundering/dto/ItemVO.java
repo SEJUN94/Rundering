@@ -1,5 +1,7 @@
 package com.rundering.dto;
 
+import java.util.Date;
+
 public class ItemVO {
 	private String branchCode; 		//지점코드
 	private String articlesCode; 	//세탁물품코드
@@ -14,6 +16,7 @@ public class ItemVO {
 	private int sum;
 	private String day; 
 	private String autoOrderYn;
+	private Date autoOrderLastDate;
 	
 	
 	public int getNumber2() {
@@ -93,6 +96,12 @@ public class ItemVO {
 	}
 	public void setAutoOrderYn(String autoOrderYn) {
 		this.autoOrderYn = autoOrderYn;
+	}
+	public Date getAutoOrderLastDate() {
+		return autoOrderLastDate;
+	}
+	public void setAutoOrderLastDate(Date autoOrderLastDate) {
+		this.autoOrderLastDate = autoOrderLastDate;
 	}
 	
 	

@@ -182,7 +182,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 	}
 	@Override
 	public void updateState(ItemOrderVO itemOrder) throws Exception{
-		
+		 
 		List<ItemOrderDetailVO> itemOrderDetailList= itemOrderDAO.selectItemOrderDetailByOrdercode(itemOrder.getOrdercode());
 		String branchCode=itemOrderDAO.selectItemOrderBranchCodeByOrdercode(itemOrder.getOrdercode());
 		itemOrderDAO.updateItemOrderStatusByOrderCode(itemOrder);
@@ -192,13 +192,13 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 			LaundryGoodsStockVO laundryGoodsStock = new LaundryGoodsStockVO();
 			itemInsert.setArticlesCode(itemOrderDetail.getArticlesCode());
 			itemInsert.setBranchCode(branchCode);
-			itemInsert.setItemCount(itemOrderDetail.getSeq());
+			itemInsert.setItemCount(itemOrderDetail.getOrderCount());
 			itemInsert.setOrderNo(itemOrderDetail.getOrdercode());
 			itemInsertDAO.insertItemIsert(itemInsert);
 			
 			laundryGoodsStock.setArticlesCode(itemOrderDetail.getArticlesCode());
 			laundryGoodsStock.setBranchCode(branchCode);
-			laundryGoodsStock.setSupplyCount(itemOrderDetail.getSeq());
+			laundryGoodsStock.setSupplyCount(itemOrderDetail.getOrderCount());
 			laundryGoodsStockDAO.updateLaundryGoodsStockCountByVO(laundryGoodsStock);
 		}
 	}
