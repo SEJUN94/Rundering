@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,13 +38,13 @@ public class BranchOrderController {
 	ItemService itemService;
 	
 	@RequestMapping("/branchorder/list")
-	public ModelAndView branchItemOrderList(  ModelAndView mnv) throws SQLException {
+	public String branchItemOrderList(Model model) throws Exception {
 		String url = "/admin/branchorder/equipment_order_list";
-
-	
- 
-		mnv.setViewName(url);
-		return mnv;
+		Map<String, Object> dataMap = null;
+		dataMap = itemOrderService.selectItemOrderList();
+		model.addAttribute("dataMap", dataMap);
+		
+		return url;
 	}
 	@RequestMapping(value="/branchorder/orderlist",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
 	@ResponseBody

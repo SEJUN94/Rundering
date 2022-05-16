@@ -111,5 +111,13 @@ public class ItemOrderDAOImpl implements ItemOrderDAO{
 	public void deleteItemOrderDetailRemove(String ordercode) throws Exception{
 		session.delete("ItemOrder-Mapper.deleteItemOrderDetailRemove",ordercode);
 	}
+	@Override
+	public int selectItemOrder01() throws Exception{
+		return session.selectOne("ItemOrder-Mapper.selectItemOrder01");
+	}
+	@Override
+	public int selectItemOrder02() throws Exception{
+		return session.selectOne("ItemOrder-Mapper.selectItemOrder02");
+	}
   
 }

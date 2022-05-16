@@ -33,6 +33,12 @@
 	<if test="searchType == 'D'.toString()">
 		AND A.CLCODE LIKE 'D'
 	</if>
+	<if test="searchType == 'asc'.toString()">
+		order by B.SUPPLY_COUNT ASC
+	</if>
+	<if test="searchType == 'desc'.toString()">
+		order by B.SUPPLY_COUNT DESC
+	</if>
 </sql>
 	
 	<select id="selectLaundryGoodsStock" resultMap="laundrygoodsstockMap">
@@ -60,16 +66,17 @@
 		       B.AUTO_ORDER_YN AS AUTO_ORDER_YN
 		  from tb_laundry_articles A,TB_LAUNDRY_GOODS_STOCK B
 		 WHERE A.ARTICLES_CODE =B.ARTICLES_CODE
+		 AND B.BRANCH_CODE = #{branchCode}
 		 	<include refid="search"/>
-		   AND B.BRANCH_CODE = #{branchCode}
+		   
 	</select>
 	
 	<select id="selectItemCountByBranchCode" resultType="int">
 		select COUNT(*)
 		  from tb_laundry_articles A,TB_LAUNDRY_GOODS_STOCK B
 		 WHERE A.ARTICLES_CODE =B.ARTICLES_CODE
-		   <include refid="search"/>
 		   AND B.BRANCH_CODE = #{branchCode}
+		    <include refid="search"/>
 	</select>
 	
 	<select id="selectSupplyCountByVO" resultType="int">

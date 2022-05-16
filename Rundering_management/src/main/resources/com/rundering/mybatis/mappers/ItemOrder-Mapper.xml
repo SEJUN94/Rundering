@@ -86,7 +86,16 @@
 		 where ordercode=#{ordercode} 
 	</select>
 	
-	
+	<select id="selectItemOrder01" resultType="int">
+		select count(*)
+		  from tb_item_order
+		 where item_order_status='01'
+	</select>
+	<select id="selectItemOrder02" resultType="int">
+		select count(*)
+		  from tb_item_order
+		 where item_order_status='02'
+	</select>
 	
 	
 	<select id="selectCount" resultType="int">

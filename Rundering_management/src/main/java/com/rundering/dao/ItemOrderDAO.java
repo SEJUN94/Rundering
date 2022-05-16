@@ -23,5 +23,7 @@ public interface ItemOrderDAO {
 	public void deleteItemOrderDetailRemove(String ordercode) throws Exception;
 	List<ItemOrderVO> selectAdminItemOrderList(BranchCriteria cri) throws Exception;
 	int selectAdminItemOrderCount() throws Exception;
+	int selectItemOrder01() throws Exception;
+	int selectItemOrder02() throws Exception;
  
 } 

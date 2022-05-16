@@ -68,8 +68,8 @@
      			 	수령일시 : <c:if test="${empty itemOrder.receiptDate}">-</c:if>
      			 	<fmt:formatDate value="${itemOrder.receiptDate }" pattern="yy-MM-dd HH:mm"/>
      			 </p>
-                 <button type="button" class="btn bg-gradient-secondary float-right"
-                    style="margin-right: 5px;" onclick="CloseWindow();">목록
+                 <button type="button" class="btn bg-gradient-danger float-right"
+                    style="margin-right: 5px;" onclick="CloseWindow();">닫기
                 </button>
 				<c:if test="${itemOrder.itemOrderStatus eq '01'}">
                 <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;"

@@ -331,10 +331,7 @@ function text(){
 				if(text2.indexOf('개')>-1){
 					let text3 =text2.substr(text2.indexOf('개')+1)
 					if(text3.indexOf('개')>-1){
-						let text4 =text3.substr(text3.indexOf('개')+1)
-						if(text4.indexOf('개')>-1){
-							i.innerText=text.substr(0,text.indexOf('개')+text1.indexOf('개')+text2.indexOf('개')+3)+"...외";
-						}
+						i.innerText=text.substr(0,text.indexOf('개')+text1.indexOf('개')+text2.indexOf('개')+3)+"...외";
 					}
 					
 				}

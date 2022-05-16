@@ -145,7 +145,7 @@ function order_List(pageInfo){
              	      return year+"/"+month+"/"+date;
              	},
                "orderpageurl":function(pageNum){
-            	   return "<%=request.getContextPath()%>/amdin/branchOrder/orderlist?page="+pageNum;
+            	   return "<%=request.getContextPath()%>/admin/branchorder/orderlist?page="+pageNum;
                },"itemOrderStatusName":function(itemOrderStatus){
             	  return comCodeMap[itemOrderStatus];
                },"itemOrderStatusBtnClass":function(status){

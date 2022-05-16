@@ -28,15 +28,23 @@
                                          </select>
                                      </div>
                                 </th>
-                                <th class="width25" style="text-align: center;">물품량</th>
+                                <th class="width25" style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;">
+									  <div class="input-group input-group-sm" >
+										 <select class="form-control" style="width: 60px;" name="searchTypeOrderBy"  id="searchTypeOrderBy" onchange="list_go_orderBy(1);">
+											<option value="" {{selected ""}}>기본</option>
+											<option value="asc" {{selected asc}}>적은순</option>
+											<option value="desc" {{selected desc}}>많은순</option>
+                                         </select>
+                                     </div>
+								</th>
                             </tr>
                         </thead>
                         <tbody>
 						{{#each itemList}}
-                               <tr>
+                               <tr style="{{numberColor supplyCount}}">
                                		<td style="text-align: left;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{articlesName}}</td>
                                		<td style="text-align: center;">{{clcodeNm clcode}}</td>
-                               		<td style="text-align: right;">{{supplyCount}}({{getEach}})</td>
+                               		<td style="text-align: right; ">{{supplyCount}}({{getEach}})</td>
                                </tr>     
 						{{/each}}
                         </tbody>
@@ -90,9 +98,13 @@ let item_page=1;
 function list_go(page){
 	
 	let searchType = document.querySelector("#searchType").value;
-	
+		
 	item_List("<%=request.getContextPath()%>/admin/branchorder/itemlist?page="+page+"&searchType="+searchType);
 	
+}
+function list_go_orderBy(page){
+	let searchType=document.querySelector("#searchTypeOrderBy").value
+	item_List("<%=request.getContextPath()%>/admin/branchorder/itemlist?page="+page+"&searchType="+searchType);
 }
 
 
@@ -167,6 +179,16 @@ function item_List(pageInfo){
          			if(dataMap.pageMaker.cri.searchType==code){
 	        	  		return 'selected';
 	        	  	}
+         	   },"numberColor":function(number){
+         		   let num =parseInt(number);
+         		   let result =""
+         		   if(num<100){
+         			   result = "background-color:#fbfbbd;";
+         		   }
+         		   if(num<40){
+         			   result ="background-color:#ffb2b2;";
+         		   }
+         		   return result;
          	   }
             	
 			});
@@ -175,7 +197,9 @@ function item_List(pageInfo){
 					pageMaker:pageMaker,
 					cri:cri,
 					itemList:itemList,
-					clcodeList:dataMap.CLCODEList
+					clcodeList:dataMap.CLCODEList,
+					asc:'asc',
+					desc:'desc'
 					
 			}
 			

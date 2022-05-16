@@ -213,4 +213,14 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 		itemOrderDAO.deleteItemOrderRemoveByOrdercode(ordercode);
 	}
 	
+	@Override 
+	public Map<String, Object> selectItemOrderList() throws Exception{
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		int status01Count = itemOrderDAO.selectItemOrder01();
+		int status02Count = itemOrderDAO.selectItemOrder02();
+		dataMap.put("status01", status01Count);
+		dataMap.put("status02", status02Count);
+		return dataMap;
+	}
+	
 } 
