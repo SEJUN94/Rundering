@@ -382,18 +382,19 @@
 				<div class="card-body p-0" style="height: 150px;">
 					<div style="margin: 30px;">
 						<c:if test="${pickUpNum != null}">
-							<span style="font-size: 1.2em;">수거기사 연락처 : ${pickUpNum }</span>
+							<span style="font-size: 1.2em;"><i class="fas fa-mobile-alt mr-1"></i>수거기사 연락처 : ${pickUpNum }</span>
 						</c:if>
 						<c:if test="${pickUpNum == null}">
-							<span style="font-size: 1.2em;">수거기사 미정</span>
+							<span style="font-size: 1.2em;"><i class="fas fa-mobile-alt mr-1"></i>수거기사 미정</span>
 						</c:if>
 					</div>
 					<div style="margin: 30px;">
 						<c:if test="${deliveryNum != null}">
-							<span style="font-size: 1.2em;">배송기사 연락처 : ${deliveryNum }</span>
+						
+							<span style="font-size: 1.2em;"><i class="fas fa-mobile-alt mr-1"></i>배송기사 연락처 : ${deliveryNum }</span>
 						</c:if>
 						<c:if test="${deliveryNum == null }">
-							<span style="font-size: 1.2em;">배송기사 미정</span>
+							<span style="font-size: 1.2em;"><i class="fas fa-mobile-alt mr-1"></i>배송기사 미정</span>
 						</c:if>
 					</div>
 				</div>
