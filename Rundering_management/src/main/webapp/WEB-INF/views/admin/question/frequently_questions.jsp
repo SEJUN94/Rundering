@@ -213,7 +213,7 @@ function modify_go() {
 		data:{
 			'faqno' : no.value,
 			'question' : $('#moq').val(),
-			'fcontent' :$('#moa').val()
+			'answer' :$('#moa').val()
 			},
 		type:'POST',
 		success:function(ok){
@@ -265,8 +265,6 @@ function remove_go(faqno) {
 		}
 	});
 }
-
-
 
 
 </script>

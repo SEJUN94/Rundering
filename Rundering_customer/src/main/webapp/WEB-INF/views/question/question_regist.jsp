@@ -15,8 +15,10 @@
 </style>
 
 
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/bootstrap/plugins/summernote/summernote.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/plugins/summernote/summernote.min.css">
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -176,14 +178,23 @@
 			
 			var form = document.registForm;
 			if (form.question.value == "") {
-				alert("제목은 필수입니다.");
+				 Swal.fire({
+					icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '제목은 필수입니다.',
+				 });	
 				return;
 			}
 			if (form.secretyn.value == "") {
-				alert("공개여부를 선택하세요.");
+				 Swal.fire({
+					icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '공개여부를 선택하세요.',
+				 });	
 				return;
 			}
-			alert("등록되었습니다.");
+			 Swal.fire({
+				icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title: '등록되었습니다.',
+			});	
 			form.submit();
 		}
 	</script>
@@ -286,13 +297,19 @@
 		}
 		//이미지 확장자 jpg 확인
 		if(!(fileFormat == "JPG" || fileFormat == "JPEG" || fileFormat == "PNG")){
-			alert("이미지는 jpg/jpeg/png 형식만 가능합니다.");
+			Swal.fire({
+				icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title: '이미지는 jpg/jpeg/png 형식만 가능합니다.',
+			 });	
 			spinner.style.display = 'none';
 			return;
 		}
 		// 이미지 파일 용량 체크
 		if(picture.files[0].size>1024*1024*5){
-			alert("사진 용량은 5MB 이하만 가능합니다.");
+			Swal.fire({
+				icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title: '사진 용량은 5MB 이하만 가능합니다.',
+			 });
 			spinner.style.display = 'none';
 			return;
 		};

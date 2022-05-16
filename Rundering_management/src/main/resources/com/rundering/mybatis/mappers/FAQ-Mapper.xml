@@ -148,7 +148,7 @@
 	<update id="updateFrequently" parameterType="faq">
 		update tb_faq
 		set
-			question=#{question}, fcontent=#{fcontent}
+			question=#{question}, ANSWER=#{answer}
 		where faqno=#{faqno}
 	</update>
 	

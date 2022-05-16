@@ -219,7 +219,7 @@ public class MyPageController {
 	// 문의사항 삭제
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
 	public String remove(int faqno, RedirectAttributes rttr) throws Exception {
-		String url = "redirect:/mypage/my_inquiry_detail";
+		String url = "redirect:/mypage/myinquiry/list";
 
 		faqService.remove(faqno);
 
