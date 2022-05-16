@@ -17,13 +17,13 @@
 				<sec:authorize access="isAuthenticated()">
 					<li><h2 style="padding:11px 16px;font-weight:600;">${loginUser.getName() }님</h2></li>
 					<li><a href="<%=request.getContextPath()%>/mypage">마이페이지</a>
-						<ul class="smul">
-							<li class="smli"><a href="<%=request.getContextPath()%>/mypage">회원정보수정</a></li>
-							<li class="smli"><a href="<%=request.getContextPath()%>/mypage/myaddress">내 주소 관리</a></li>
-							<li class="smli"><a href="<%=request.getContextPath()%>/mypage/myorder/histroy/main">주문내역</a></li>
-							<li class="smli"><a href="<%=request.getContextPath()%>/mypage/myinquiry/list">문의내역</a></li>
-							<li class="smli"><a href="<%=request.getContextPath()%>/mypage/secedeform">회원탈퇴</a></li>
-						</ul>
+<!-- 						<ul class="smul"> -->
+<%-- 							<li class="smli"><a href="<%=request.getContextPath()%>/mypage">회원정보수정</a></li> --%>
+<%-- 							<li class="smli"><a href="<%=request.getContextPath()%>/mypage/myaddress">내 주소 관리</a></li> --%>
+<%-- 							<li class="smli"><a href="<%=request.getContextPath()%>/mypage/myorder/histroy/main">주문내역</a></li> --%>
+<%-- 							<li class="smli"><a href="<%=request.getContextPath()%>/mypage/myinquiry/list">문의내역</a></li> --%>
+<%-- 							<li class="smli"><a href="<%=request.getContextPath()%>/mypage/secedeform">회원탈퇴</a></li> --%>
+<!-- 						</ul> -->
 					</li>
 					<li><a href="<%=request.getContextPath()%>/logout">로그아웃</a></li>
 				</sec:authorize>

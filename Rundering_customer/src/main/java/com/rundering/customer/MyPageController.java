@@ -13,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.MemberAddCommand;
 import com.rundering.command.MyOrderCriteria;
@@ -59,7 +62,7 @@ public class MyPageController {
 	private LaundryOrderService laundryOrderService; 
 	
 	@Autowired
-	FAQService faqService;
+	private FAQService faqService;
 	
 	// 비밀번호 체크 폼
 	@RequestMapping("")
@@ -169,6 +172,7 @@ public class MyPageController {
 		return mnv;
 	}
 	
+	// 문의내역 상세보기
 	@RequestMapping(value = "/myinquiry/detail")
 	private ModelAndView faqDetail(int faqno, HttpServletRequest request, ModelAndView mnv, HttpSession session) throws Exception {
 
@@ -182,6 +186,48 @@ public class MyPageController {
 		mnv.setViewName(url);
 
 		return mnv;
+	}
+	
+	// 문의사항 수정1
+	@RequestMapping("/modifyForm")
+	public ModelAndView modifyForm(MyOrderCriteria cri, Model model, HttpSession session, int faqno, ModelAndView mnv) throws Exception {
+
+		String url = "mypage/my_inquiry_modify";
+
+		FAQVO faq = faqService.getFAQModify(faqno);
+
+		mnv.addObject("faq", faq);
+
+		mnv.setViewName(url);
+
+		return mnv;
+	}
+	
+	// 문의사항 수정2
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modifyPost(FAQVO faq, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+
+		String url = "redirect:/mypage/my_inquiry_detail";
+
+		faqService.modify(faq);
+
+		rttr.addAttribute("faqno", faq.getFaqno());
+		rttr.addFlashAttribute("from", "modify");
+
+		return url;
+	}
+
+	// 문의사항 삭제
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public String remove(int faqno, RedirectAttributes rttr) throws Exception {
+		String url = "redirect:/mypage/my_inquiry_detail";
+
+		faqService.remove(faqno);
+
+		rttr.addFlashAttribute("from", "remove");
+		rttr.addAttribute("faqno", faqno);
+
+		return url;
 	}
 	
 	

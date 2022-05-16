@@ -119,16 +119,22 @@
 	<!-- /.content -->
 	<script>
 		function modify_go(faqno) {
-			location.href = "modifyForm?faqno=" + faqno;
+			location.href = '<%=request.getContextPath()%>/mypage/modifyForm?faqno=' + faqno;
 		}
 		function remove_go(faqno) {
-			location.href = "remove?faqno=" + faqno;
+			location.href = '<%=request.getContextPath()%>/mypage/remove?faqno=' + faqno;
 		}
 		<c:if test="${from eq 'modify' }">
-		alert("수정되었습니다.");
+		Swal.fire({
+			icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title: '수정되었습니다.',
+		});
 		</c:if>
 		<c:if test="${from eq 'remove'}">
-		alert("삭제되었습니다.");
+		Swal.fire({
+			icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title: '삭제되었습니다.',
+		});
 		window.close();
 		window.opener.location.reload();
 		</c:if>
