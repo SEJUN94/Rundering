@@ -115,7 +115,7 @@ th, td {
 												<c:when test="${faq.setbukdoorclcode == 'US'}">이용문의</c:when>
 												<c:when test="${faq.setbukdoorclcode == 'ET'}">기타문의</c:when>
 											   </c:choose></td>
-							<td class="title" style="text-align: inherit;">${faq.question }</td>
+							<td class="title" style="text-align: left; max-width: 347px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${faq.question }</td>
 							<td class="writer">${faq.writer }</td>
 							<td class="date">${faq.registDate }</td>
 							<td>
