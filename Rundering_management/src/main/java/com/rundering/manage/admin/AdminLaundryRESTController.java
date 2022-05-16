@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rundering.command.AdminLaundryOrderListCriteria;
 import com.rundering.dao.BranchDAO;
 import com.rundering.dto.BranchVO;
+import com.rundering.dto.EmployeesVO;
 import com.rundering.dto.PaymentVO;
 import com.rundering.service.LaundryOrderService;
 
@@ -70,6 +73,24 @@ public class AdminLaundryRESTController {
 		
 		try {
 			dataMap = laundryOrderService.autoAssignmentOrder();
+			result = new ResponseEntity<Map<String, Object>>(dataMap, HttpStatus.OK);
+		} catch (Exception e) {
+			result = new ResponseEntity<Map<String, Object>>(HttpStatus.INTERNAL_SERVER_ERROR); 
+			e.printStackTrace(); 
+		}
+		return result;
+	}
+	// 버튼을 통한 - 세탁완료주문 지점의 배송기사에게 자동 할당
+	@RequestMapping(value = "/handOverToDeliveryEmployee", method = RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> handOverToDeliveryEmployee(HttpSession session) throws Exception {
+		
+		ResponseEntity<Map<String, Object>> result = null;
+		Map<String, Object> dataMap = new HashMap<>();
+		
+		EmployeesVO emp = (EmployeesVO) session.getAttribute("loginEmployee");
+		
+		try {
+			dataMap = laundryOrderService.handOverToDeliveryEmployee(emp.getBranchCode());
 			result = new ResponseEntity<Map<String, Object>>(dataMap, HttpStatus.OK);
 		} catch (Exception e) {
 			result = new ResponseEntity<Map<String, Object>>(HttpStatus.INTERNAL_SERVER_ERROR); 

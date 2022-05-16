@@ -504,6 +504,76 @@ public class OrderTaskScheduler {
 			}
 		}
 	}
+	
+	//지점에서의 버튼을 통한 세탁완료주문 배송기사 배정
+	public Map<String,Object> assignLaundryOrderToBranchDeliveryEmployee(String branchCode) throws Exception{
+		Map<String,Object> dataMap = new HashMap<String, Object>();
+		
+		int assignedOrderCnt = 0;
+		int numberOfDeliveryEmployees = 0;
+		
+		BranchVO branchVO = branchDAO.getBranchByCode(branchCode);
+		
+		List<LaundryOrderVO> orderListByBranchCode = laundryOrderDAO.selectCompletedLaundryOrderListByBranchCode(branchCode);
+		List<EmployeesVO> deliveryDepartmentEmployees = employeesDAO.selectDeliveryDepartmentEmployeesByBranchCode(branchCode);
+		numberOfDeliveryEmployees = deliveryDepartmentEmployees.size();
+		
+		if (orderListByBranchCode.size() == 0) {
+			dataMap.put("assignedOrderCnt",assignedOrderCnt);
+			dataMap.put("numberOfDeliveryEmployees",numberOfDeliveryEmployees);
+			return dataMap;
+		}
+		if (deliveryDepartmentEmployees.size() == 0) {
+			dataMap.put("assignedOrderCnt",assignedOrderCnt);
+			dataMap.put("numberOfDeliveryEmployees",numberOfDeliveryEmployees);
+			return dataMap;
+		}
+
+		int numberOfEmployees = deliveryDepartmentEmployees.size();
+		int numberOfOrder = orderListByBranchCode.size();
+
+		int cnt = 0;
+
+		int quantity = (int) ((double) numberOfOrder / numberOfEmployees);
+		for (EmployeesVO employeesVO : deliveryDepartmentEmployees) {
+			LaundryOrderVO orderVO = new LaundryOrderVO();
+			for (int i = cnt + 0; i < cnt + quantity; i++) {
+				orderVO = orderListByBranchCode.get(i);
+				orderVO.setDeliveryEmployeeId(employeesVO.getEmployeeId());
+				laundryOrderDAO.updateLaundryOrderDeliveryEmployeeId(orderVO);
+				orderVO.setOrderStatus("07");
+				laundryOrderDAO.updateLaundryOrderStatusByOrderNo(orderVO);
+				assignedOrderCnt++;
+				// 문자발송 주석처리
+//				try {
+//					sensSms.sendSMS(orderVO.getContactNumber().trim(), "[Rundering]\n고객님의 세탁이 완료되어 내일 오전 7시 전에 도착할 예정입니다.");
+//				} catch (Exception e) {
+//					logger.warn("주문번호 "+orderVO.getOrderNo()+" 배송안내 문자 발송실패");
+//				}
+
+			}
+			cnt += quantity;
+			logger.info(branchVO.getBranchName() + "의 " + employeesVO.getEmployeeId() + " 사원에게 전체 배송건 "
+					+ numberOfOrder + "개 중 " + quantity + "개 할당됨");
+		}
+		if ((numberOfOrder - cnt) > 0) {
+			LaundryOrderVO orderVO = new LaundryOrderVO();
+			for (int i = cnt + 0; i < cnt + (numberOfOrder - cnt); i++) {
+				orderVO = orderListByBranchCode.get(i);
+				orderVO.setDeliveryEmployeeId(deliveryDepartmentEmployees.get(0).getEmployeeId());
+				laundryOrderDAO.updateLaundryOrderDeliveryEmployeeId(orderVO);
+				orderVO.setOrderStatus("07");
+				laundryOrderDAO.updateLaundryOrderStatusByOrderNo(orderVO);
+				assignedOrderCnt++;
+			}
+			logger.info(branchVO.getBranchName() + "의 " + deliveryDepartmentEmployees.get(0).getEmployeeId()
+					+ " 사원에게 " + (numberOfOrder - cnt) + "개 추가 할당됨");
+		}
+		
+		dataMap.put("assignedOrderCnt",assignedOrderCnt);
+		dataMap.put("numberOfDeliveryEmployees",numberOfDeliveryEmployees);
+		return dataMap;
+	}
 
 	public void autoOrder() throws Exception {
 		List<BranchVO> branchList = branchDAO.selectBranchList();

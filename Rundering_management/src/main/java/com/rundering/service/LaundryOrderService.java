@@ -35,4 +35,6 @@ public interface LaundryOrderService {
 
 	Map<String, Object> autoAssignmentOrder() throws Exception;
 	
+	Map<String, Object> handOverToDeliveryEmployee(String branchCode) throws Exception;
+	
 }
