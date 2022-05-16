@@ -254,7 +254,7 @@
 		SELECT count(*)
 		  FROM TB_LAUNDRY_ORDER
 		 WHERE branch_code = #{brnachCode}
-		   and TO_CHAR(ORDER_DATE,'YYYYMMDD')=TO_CHAR(SYSDATE,'YYYYMMDD')
+		   and TO_CHAR(PICKUP_REQUEST_DATE+1,'YYYYMMDD')=TO_CHAR(SYSDATE,'YYYYMMDD')
 	</select>
 	<select id="selectLaundryOrderLateDeliveryByBranchCode" resultType="orderdelay" parameterType="orderdelay">
 		SELECT count(*) as count,
