@@ -72,23 +72,23 @@
 						</div>
 						<div class="form-group">
 							<label for="fcontent">문의 내용</label>
-							<div>${faq.fcontent }</div>
+							<div class="pt-2">${faq.fcontent }</div>
 						</div>
 						<div class="card-footer bg-white p-3">
-				<ul class="mailbox-attachments align-items-stretch clearfix" style="display: inline-grid;">
-				 <c:forEach items="${attachList }" var="attach">
-					<li style="border: none;width: fit-content;"><div class="mailbox-attachment-info" style="margin: auto; border:1px solid lightgray;">
-							<a href="<%=request.getContextPath()%>/file/filedownload?atchFileNo=${attach.atchFileNo}&saveFileNm=${attach.saveFileNm }" class="mailbox-attachment-name"><i class="fas fa-paperclip"></i>&nbsp;&nbsp;${attach.fileNm }</a>
+							<ul class="mailbox-attachments align-items-stretch clearfix" style="display: inline-grid;">
+							 <c:forEach items="${attachList }" var="attach">
+								<li style="border: none;width: fit-content;"><div class="mailbox-attachment-info" style="margin: auto; border:1px solid lightgray;">
+										<a href="<%=request.getContextPath()%>/file/filedownload?atchFileNo=${attach.atchFileNo}&saveFileNm=${attach.saveFileNm }" class="mailbox-attachment-name"><i class="fas fa-paperclip"></i>&nbsp;&nbsp;${attach.fileNm }</a>
+									</div>
+								</li>
+								</c:forEach>
+							</ul>
 						</div>
-					</li>
-					</c:forEach>
-				</ul>
-			</div>
 						<div class="form-group">
 							<c:choose>
 								<c:when test="${not empty faqanswer }">
 									<label for="answer">문의 답변</label>
-									<div>${faq.answer }</div>
+									<div class="pt-2">${faq.answer }</div>
 								</c:when>
 								<c:when test="${empty faqanswer }">
 								</c:when>
@@ -98,12 +98,14 @@
 					<!--end card-body  -->
 					<div class="card-footer">
 						<div class="float-right">
+							<c:if test="${loginUser.memberNo eq faq.memberNo}">
 							<button type="button" class="btn btn-danger" id="removeBtn"
 								onclick="remove_go('${faq.faqno}');">삭제</button>
 							&nbsp;&nbsp;
 							<button type="button" class="btn btn-warning" id="modifyBtn"
 								onclick="modify_go('${faq.faqno}');">수정</button>
 							&nbsp;&nbsp;
+							</c:if>
 							<button type="button" class="btn btn-primary" id="cancelBtn"
 								onclick="CloseWindow();">닫기</button>
 						</div>
@@ -119,10 +121,10 @@
 	<!-- /.content -->
 	<script>
 		function modify_go(faqno) {
-			location.href = '<%=request.getContextPath()%>/mypage/modifyForm?faqno=' + faqno;
+			location.href = '<%=request.getContextPath()%>/question/modifyForm?faqno=' + faqno;
 		}
 		function remove_go(faqno) {
-			location.href = '<%=request.getContextPath()%>/mypage/remove?faqno=' + faqno;
+			location.href = '<%=request.getContextPath()%>/question/remove?faqno=' + faqno;
 		}
 		<c:if test="${from eq 'modify' }">
 		Swal.fire({

@@ -110,8 +110,14 @@ th, td {
 						</tr>
 					</c:if>
 					<c:forEach items="${faqList }" var="faq" varStatus="status">
-						<tr style='cursor: pointer;'
-							onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',740,930);">
+						<c:if test="${faq.secretyn eq 'N' or loginUser.memberNo eq faq.memberNo}">
+							<tr style='cursor: pointer;'
+								onclick="OpenWindow('detail?from=list&faqno=${faq.faqno }','상세보기',740,930);">
+							</c:if>
+						<c:if test="${faq.secretyn eq 'Y' and loginUser.memberNo ne faq.memberNo}">
+							<tr style='cursor: pointer;'
+								onclick="alert('작성자만 볼 수 있는 글입니다.');">
+						</c:if>
 							<td class="no">${(cri.page - 1) * cri.perPageNum + (status.index +1) }</td>
 							<td class="category"><c:choose>
 												<c:when test="${faq.setbukdoorclcode == 'OR'}">주문문의</c:when>

@@ -93,7 +93,7 @@ th, td {
 										<th class="date"style="width:10%;">작성날짜</th>
 										<th class=""style="width:3%;">첨부파일</th>
 										<th class="clicks"style="width:3%;">조회수</th>
-										<th class="yn"style="width:3%;">확인여부</th>
+										<th class="yn pr-3"style="width:3%;">확인여부</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -106,7 +106,7 @@ th, td {
 									<tr style='cursor: pointer;'
 										onclick="OpenWindow('detail?from=list&sno=${suggest.sno }','상세보기',900,700);">
 										<td class="td">${(cri.page - 1) * cri.perPageNum + (status.index +1) }</td>
-										<td class="boardtitle" style="text-align: left; max-width:375px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${suggest.title }</td>
+										<td class="boardtitle" style="text-align: left; max-width:330px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${suggest.title }</td>
 										<td class="writer">${suggest.writer }</td>
 										<td class="branchName">${suggest.branchName }</td>
 										<td class="date"><fmt:formatDate
@@ -120,22 +120,23 @@ th, td {
 											</c:if>
 										</td>
 										<td class="clicks"><span class="tag tag-success">${suggest.viewcnt }</span></td>
-										<td class="yn">${suggest.checkyn }</td>
+										<td class="yn pr-3">${suggest.checkyn }</td>
 									</tr>
 								</c:forEach>
 								</tbody>
 							</table>
 
-							<div class="float-right mt-3 mr-3 mb-3">
+					
+						</div>
+
+
+						<div class="card-footer" >
+								<div class="float-right mr-1">
 
 								<button class="btn btn-primary" type="button" id="registBtn" style="background-color: #59a5cb;border-color: #59a5cb;"
 									onclick="location.href='<%=request.getContextPath()%>/branch/suggest/registForm'">
 									작성하기</button>
 							</div>
-						</div>
-
-
-						<div class="card-footer" >
 							<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 
 						</div>

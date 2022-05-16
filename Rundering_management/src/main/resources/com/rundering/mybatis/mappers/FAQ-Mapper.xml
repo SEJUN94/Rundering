@@ -20,7 +20,7 @@
 		<result column="FAQYN" property="faqyn" />
 		<result column="FCONTENT" property="fcontent" />
 		<result column="ORDERNO" property="orderno" />
-		<result column="ATCH_FILE_NO" property="atchfileno" />
+		<result column="ATCH_FILE_NO" property="atchFileNo" />
 
 	</resultMap>
 
@@ -51,7 +51,8 @@
 			a.regist_date,
 			a.secretyn,
 			a.faqyn,
-			a.answer
+			a.answer,
+			a.ATCH_FILE_NO
 		from tb_faq a, tb_member b
 			where a.writer = b.memberno
 			and a.faqyn = 'N'
@@ -70,7 +71,7 @@
 	</select>
 
 	<select id="selectFAQByFaqno" parameterType="int" resultMap="faqMap">
-		select a.faqno, a.setbukdoorclcode, a.question, a.fcontent, a.orderno, a.regist_date, b.name as writer, a.answer
+		select a.faqno, a.setbukdoorclcode, a.question, a.fcontent, a.orderno, a.regist_date, b.name as writer, a.answer, a.ATCH_FILE_NO
 		from tb_faq a, tb_member b
 		where faqno=#{faqno}
 			and a.writer = b.memberno

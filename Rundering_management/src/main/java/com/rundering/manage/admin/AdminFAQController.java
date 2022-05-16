@@ -56,15 +56,15 @@ public class AdminFAQController {
 
 	@RequestMapping(value = "/detail")
 	private ModelAndView faqDetail(int faqno, @RequestParam(defaultValue = "") String from, HttpServletRequest request,
-			ModelAndView mnv, HttpSession session) throws SQLException {
+			ModelAndView mnv, HttpSession session) throws Exception {
 
 		String url = "admin/question/question_detail";
+		Map<String, Object> dataMap = null;
 
-		FAQVO faq = null;
 
-		faq = faqService.getFAQReply(faqno);
+		dataMap = faqService.getFAQReply(faqno);
 
-		mnv.addObject("faq", faq);
+		mnv.addAllObjects(dataMap);
 		mnv.setViewName(url);
 
 		return mnv;
@@ -74,10 +74,11 @@ public class AdminFAQController {
 	public ModelAndView replyForm(int faqno, ModelAndView mnv) throws Exception {
 
 		String url = "admin/question/question_reply";
+		
+		Map<String, Object> dataMap = null;
+		dataMap = faqService.getFAQReply(faqno);
 
-		FAQVO faq = faqService.getFAQReply(faqno);
-
-		mnv.addObject("faq", faq);
+		mnv.addAllObjects(dataMap);
 
 		mnv.setViewName(url);
 

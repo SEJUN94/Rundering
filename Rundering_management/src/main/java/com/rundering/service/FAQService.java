@@ -13,7 +13,7 @@ public interface FAQService {
 	public Map<String, Object> getFAQList(FAQCriteria cri) throws SQLException;
 	
 	// 답글화면 상세
-	FAQVO getFAQReply(int faqno) throws SQLException;
+	Map<String, Object> getFAQReply(int faqno) throws Exception;
 	
 	// 답글
 	void reply(FAQVO faq) throws Exception;
