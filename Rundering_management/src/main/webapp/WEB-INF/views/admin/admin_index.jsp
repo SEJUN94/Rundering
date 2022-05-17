@@ -69,7 +69,7 @@
 				 <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false"> 
 					<i class="far fa-bell"></i> 
 				</a>
-					<div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px; width: 340px; padding: 0;">
+					<div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px; width: 360px; padding: 0;">
 					<div class="d-flex justify-content-center text-muted pt-3 pb-3">
 						<span>
 							새로운 알림이 없습니다.
@@ -81,7 +81,7 @@
 								<i class="far fa-bell"></i> 
 								<span class="badge badge-warning navbar-badge">${'${items.length}'}</span>
 							</a>
-							<div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px; width: 340px; padding: 0;max-height: 370px;overflow-y: auto;">
+							<div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px; width: 360px; padding: 0;max-height: 370px;overflow-y: auto;">
 									<span class="dropdown-item dropdown-header">읽지 않은 알림 ${'${items.length}'}개</span>`;
 									
 		  let lasthtml = `<div class="dropdown-divider m-0"></div>
@@ -112,7 +112,7 @@
 		}
 		let displaytime = displayedAt(item.occrrncdehour);
 		let nttitle = namemap[item.ntcnknd]+' - '+item.ntcncn;
-		nttitle = nttitle.length > 18 ? nttitle.substring(0, 16) + '..' : nttitle;
+		nttitle = nttitle.length > 20 ? nttitle.substring(0, 18) + '..' : nttitle;
 		
 		let param = item.ntcnclickhourUrl+",'"+item.ntcnId+"'";
 		
