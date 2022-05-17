@@ -253,6 +253,7 @@ public class MyPageController {
 			String upw = memberService.checkPw(loginUser.getId());
 			
 			if (upw.equals(pw) ) {
+				
 				memberService.deleteMember(loginUser.getId());
 				entity = new ResponseEntity<String>("OK", HttpStatus.OK);
 			} else {
