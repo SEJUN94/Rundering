@@ -33,7 +33,7 @@ public interface MemberService {
 	// 고객 리스트 조회
 	public Map<String, Object> getMemberList(CustomerListCriteria cri) throws Exception;
 	
-	// 고객 정보 조회
+	// 고객 정보 조회 (id)
 	public MemberVO getMember(String id) throws Exception;
 	
 	
@@ -42,5 +42,8 @@ public interface MemberService {
 	
 	//탈퇴 취소
 	public void cancelSecession(String memberNo) throws Exception;
+	
+	//고객 정보 조회 (번호로)
+	public MemberVO getMemberByNo(String memberNo) throws Exception;
 
 }

@@ -160,4 +160,11 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.updateSecession(memberNo);
 	}
 
+	@Override
+	public MemberVO getMemberByNo(String memberNo) throws Exception {
+		return memberDAO.selectMemberByMemberNo(memberNo);
+	}
+	
+	
+
 }

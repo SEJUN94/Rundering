@@ -41,7 +41,7 @@
 	   <div class="container-fluid">
 	      <div class="row mb-2">
 	         <div class="col-sm-6">
-	            <h1>회원관리</h1>
+	            <h1>고객관리</h1>
 	         </div>
 	      </div>
 	   </div>
@@ -88,10 +88,10 @@
 							<th class="memberNo">회원번호</th>
 							<th class="id">아이디</th>
 							<th class="name">이름</th>
-							<th class="phone">연락처</th>
-							<th class="email">email</th>
-							<th class="lastLogpsnHourLiver">마지막로그인</th>
-							<th class="change">탈퇴상태</th>
+<!-- 							<th class="phone">연락처</th>
+							<th class="email">email</th> -->
+							<th class="lastLogpsnHourLiver">마지막로그인</th> 
+							<th class="state">상태</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -102,19 +102,26 @@
 						</c:if>
 						<c:if test="${!empty memberList }">
 							<c:forEach items="${memberList }" var="member">
-								<tr style='font-size: 1em;'>
+								<tr style='font-size: 1em; cursor: pointer;'
+								onclick="OpenWindow('detail?from=customer&memberNo=${member.memberNo }','상세보기',800,700);">
 									<td>${member.memberNo }</td>
 									<td>${member.id }</td>
 									<td>${member.name}</td>
-									<td>${member.phone }</td>
-									<td>${member.email }</td>
+ <%-- 									<td>${member.phone }</td>
+									<td>${member.email }</td> --%>
 									<td><fmt:formatDate value="${member.lastLogpsnHourLiver }"
 											pattern="yyyy-MM-dd hh:mm:ss" /></td>
 									<td>
-										<c:if test="${member.deleteYn eq 'Y' }">
-											<button class="btn btn-warning btn-sm"  style="background-color: #59a5cb; border: 1px solid #59a5cb;"
-												onclick="modify_go('${member.memberNo}');">변경</button>
+<%-- 										<c:if test="${member.employeeIdYn eq 'N' }">
+											<span class="badge bg-info" >일반회원</span>
+										</c:if> --%>
+										<c:if test="${member.employeeIdYn eq 'N' && member.enableWhether eq '0' }">
+											<span class="badge bg-warning" >휴면회원</span>
 										</c:if>
+										<c:if test="${member.employeeIdYn eq 'N' && member.deleteYn eq 'Y' }">
+											<span class="badge bg-danger" >탈퇴회원</span>
+										</c:if>
+										
 									</td>
 								</tr>
 							</c:forEach>

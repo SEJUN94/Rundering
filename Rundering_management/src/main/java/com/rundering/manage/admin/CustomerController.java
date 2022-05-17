@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rundering.command.CustomerListCriteria;
+import com.rundering.dto.MemberVO;
 import com.rundering.service.MemberService;
 
 @Controller
@@ -47,5 +49,16 @@ public class CustomerController {
 		return url;
 	}
 	
-
+	@RequestMapping("/detail")
+	public ModelAndView customerDetail(String memberNo , String from, ModelAndView mnv) throws Exception {
+		String url="admin/customer/customer_detail";
+		
+		MemberVO member = memberService.getMemberByNo(memberNo);
+		
+		mnv.addObject("member",member);
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
 }
