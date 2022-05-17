@@ -42,6 +42,9 @@ public interface LaundryOrderDAO {
 	public int selectLaundryOrderCountTodayByBranchCode(String branchCode) throws Exception;
 	
 	public OrderDelayDTO selectLaundryOrderLateDeliveryByBranchCode(OrderDelayDTO orderDelay ) throws Exception;
+	int selectTodayRequestDate(BranchCriteria cri) throws Exception;
+	int selectLastdayRequestDate(BranchCriteria cri) throws Exception;
+	
 	
 	
 }

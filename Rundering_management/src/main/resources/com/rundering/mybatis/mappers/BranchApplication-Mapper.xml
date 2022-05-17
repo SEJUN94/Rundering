@@ -28,6 +28,16 @@
 		  from tb_branch_application
 	</select>
 	
+	<select id="selectWorkBranchApplicationCount" resultType="int">
+		select count(*)
+		  from tb_branch_application
+		 where PROGRESS_STATUS_CODE='09'
+		    or PROGRESS_STATUS_CODE='07' 
+		    or PROGRESS_STATUS_CODE='01' 
+		    or PROGRESS_STATUS_CODE='04' 
+	</select>
+	
+	
 	<select id="selectBranchApplicationByapplicationNo" parameterType="str" resultMap="branchapplicationMap">
 		select *
 		  from tb_branch_application

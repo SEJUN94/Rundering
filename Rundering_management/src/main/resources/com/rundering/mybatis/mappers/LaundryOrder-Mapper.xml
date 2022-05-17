@@ -266,5 +266,20 @@
             AND TO_DATE(TO_CHAR(DELIVERY_REQUEST_DATE,'YYYYMMDD'))  <![CDATA[ < ]]> TO_DATE(TO_CHAR(DELIVERY_DATE,'YYYYMMDD'))
 	</select>
 	
+	
+	<select id="selectTodayRequestDate" resultType="int">
+		select count(*)
+		  from tb_laundry_order
+		 where branch_code=#{branchCode}
+		   and TO_CHAR(DELIVERY_REQUEST_DATE,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') 
+	</select>
+	
+	<select id="selectLastdayRequestDate" resultType="int">
+		select count(*)
+		  from tb_laundry_order
+		 where branch_code=#{branchCode}
+		   and TO_DATE(TO_CHAR(DELIVERY_REQUEST_DATE,'YYYYMMDD')) <![CDATA[ < ]]> TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'))
+	</select>
+	
 
 </mapper>

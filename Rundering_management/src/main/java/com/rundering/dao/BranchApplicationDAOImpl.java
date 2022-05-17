@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.BranchCriteria;
 import com.rundering.command.Criteria;
 import com.rundering.dto.BranchApplicationVO;
 
@@ -60,6 +61,10 @@ public class BranchApplicationDAOImpl implements BranchApplicationDAO{
 	@Override
 	public void updateProgressStatusCode10ByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception{
 		session.update("BranchApplication-Mapper.updateProgressStatusCode10ByBranchApplicationVO",branchApplication);
+	}
+	@Override
+	public int selectWorkBranchApplicationCount() throws Exception{
+		return session.selectOne("BranchApplication-Mapper.selectWorkBranchApplicationCount");
 	}
 	
 	

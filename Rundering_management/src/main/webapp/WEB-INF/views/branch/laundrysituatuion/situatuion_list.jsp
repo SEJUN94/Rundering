@@ -9,6 +9,11 @@
 <c:set var="laundryCodeMap" value="${dataMap.laundryCodeMap }" />
 <c:set var="orderCodeMap" value="${dataMap.orderCodeMap }" />
 <c:set var="detailMap" value="${dataMap.detailMap }"/>
+<c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
+<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
+										
+
+
 <body>
 
 <c:if test="${ from eq 'notEquals' } ">
@@ -25,7 +30,23 @@
 			<div class="card card-primary card-outline">
 				<form action="modify" method="post" id="form">
 					<div class="card-header">
-						<h3 class="card-title">세탁 현황 관리</h3>
+						<h3 class="card-title">
+						<c:if test="${dataMap.lastDate ne '0'}">
+							지난 배송  : ${dataMap.lastDate }개
+						</c:if>
+						<c:if test="${dataMap.lastDate eq '0'}">
+							지난 배송  : 0개
+						</c:if>
+						/
+						<c:if test="${dataMap.todayDate ne '0'}">
+							당일 배송  : ${dataMap.todayDate }개
+						</c:if>
+						<c:if test="${dataMap.todayDate eq '0'}">
+							당일 배송  : 0개
+						</c:if>
+						 
+						
+						</h3>
 						<div class="card-tools">
 							<div class="input-group input-group-sm">
 								<div class="input-group-sm textWidth">
@@ -63,7 +84,8 @@
 							<tr>
 								<th class="width10" style="text-align: center;">주문번호</th>
 								<th class="width50 " style="text-align: center;" >세탁 물품</th>
-								<th class="width10" style="text-align: center;"><div class="input-group-sm " style="width: 100px">
+								<th class="width10" style="text-align: center;">
+								<div class="input-group-sm " style="width: 100px">
 									<select class="form-control" name="searchType" id="searchType"
 										onchange="list_go('1')">
 										<option value="">세탁 상태</option>
@@ -72,17 +94,17 @@
 												${cri.searchType eq orderCode.key ? 'selected':'' }>${orderCode.value }</option>
 										</c:forEach>
 									</select>
-								</div></th>
+								</div>
+								</th>
 								<th class="width10" style="text-align: center;">배송요청일</th>
-								<th class="width5" style="text-align: center;"
-									onclick="selectAll()">전체선택</th>
+								<th class="width5" style="text-align: center;"	onclick="selectAll()">전체선택</th>
 							</tr>
 						</thead>
 						
-						<tbody>
+						<tbody style="height: 245px;">
 						<c:if test="${empty laundryOrderList }">
 							<tr>
-								<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+								<td colspan="5" style="text-align: center;"><strong>해당 내용이 없습니다.</strong></td>
 							</tr>
 						</c:if>
 						
@@ -99,7 +121,24 @@
 											${orderDetail.itemsName } : ${orderDetail.quantity }개 	
 										</c:forEach>
 										</td>
-									<td style="text-align: center;">${orderCodeMap[laundryOrder.orderStatus] }</td>
+									<td style="text-align: center;">
+									<fmt:parseNumber value="${laundryOrder.deliveryRequestDate.time  / (1000*60*60*24)}" integerOnly="true" var="chgDttm" />
+									
+									<c:if test="${today - chgDttm <= 0}">
+										<span class="badge badge-success">${orderCodeMap[laundryOrder.orderStatus]}</span>
+									</c:if>
+									<c:if test="${today - chgDttm == 1}">
+										<span class="badge badge-warning">${orderCodeMap[laundryOrder.orderStatus]}</span>
+									</c:if>
+									<c:if test="${today - chgDttm >= 2}">
+										<span class="badge badge-danger">${orderCodeMap[laundryOrder.orderStatus]}</span>
+									</c:if>
+									
+									
+									
+									
+									
+									</td>
 									<td style="text-align: center;"><fmt:formatDate
 											value="${laundryOrder.deliveryRequestDate }"
 											pattern="yyyy-MM-dd" /></td>
@@ -116,14 +155,15 @@
 						</tbody>
 					</table>
 				</form>
-
-				<div class="card-footer">
-					<c:if test="${!empty laundryOrderList }">
-							<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
-					</c:if>
-					
-					
-				</div>
+				<c:if test="${!empty laundryOrderList }">
+					<div class="card-footer">
+						<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
+					</div>
+				</c:if>
+				<c:if test="${empty laundryOrderList }">
+					<div class="card-footer" style="height: 62px;">
+					</div>
+				</c:if>
 			</div>
 
 			<div class="row">
@@ -230,24 +270,24 @@
 				<input type='hidden' name="keyword" value="" />
 			</form>
 		
-							<script>
-								function list_go(page,url){
-									if(!url) url="list";
-									
-									var jobForm=$('#jobForm');
-									
-									jobForm.find("[name='page']").val(page);
-									jobForm.find("[name='searchType']").val($('select[name="searchType"]').val());
-									jobForm.find("[name='customerSort']").val($('select[name="customerSort"]').val());
-									jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val());
-								
-									jobForm.attr({
-										action:url,
-										method:'get'
-									}).submit();
-								}
-							</script>
-					</c:if>
+					<script>
+						function list_go(page,url){
+							if(!url) url="list";
+							
+							var jobForm=$('#jobForm');
+							
+							jobForm.find("[name='page']").val(page);
+							jobForm.find("[name='searchType']").val($('select[name="searchType"]').val());
+							jobForm.find("[name='customerSort']").val($('select[name="customerSort"]').val());
+							jobForm.find("[name='keyword']").val($('div.input-group>input[name="keyword"]').val());
+						
+							jobForm.attr({
+								action:url,
+								method:'get'
+							}).submit();
+						}
+					</script>
+			</c:if>
 		
 		<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 		<%@include file="./reply.jsp" %>

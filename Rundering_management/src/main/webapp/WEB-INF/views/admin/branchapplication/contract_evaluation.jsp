@@ -12,7 +12,10 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1>지점 등록 관리</h1>
+				<h1>지점 등록</h1>
+			</div>
+			<div class="col-sm-6">
+				<h4 class="h4 float-right">처리해야할 신청 건수 : ${dataMap.work }개</h4>
 			</div>
 		</div>
 	</div>

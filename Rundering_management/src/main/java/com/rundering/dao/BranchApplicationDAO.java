@@ -2,6 +2,7 @@ package com.rundering.dao;
 
 import java.util.List;
 
+import com.rundering.command.BranchCriteria;
 import com.rundering.command.Criteria;
 import com.rundering.dto.BranchApplicationVO;
 
@@ -23,4 +24,6 @@ public interface BranchApplicationDAO {
 	void updateProgressStatusCode08ByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception;
 
 	void updateProgressStatusCode10ByBranchApplicationVO(BranchApplicationVO branchApplication) throws Exception;
+
+	int selectWorkBranchApplicationCount() throws Exception;
 }

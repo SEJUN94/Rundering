@@ -105,10 +105,14 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 	public OrderDelayDTO selectLaundryOrderLateDeliveryByBranchCode(OrderDelayDTO orderDelay) throws Exception{
 		return session.selectOne("LaundryOrder-Mapper.selectLaundryOrderLateDeliveryByBranchCode",orderDelay);
 	}
-
-
-
-	 
+	@Override
+	public int selectTodayRequestDate(BranchCriteria cri) throws Exception{
+		return session.selectOne("LaundryOrder-Mapper.selectTodayRequestDate",cri);
+	}
+	@Override
+	public int selectLastdayRequestDate(BranchCriteria cri) throws Exception{
+		return session.selectOne("LaundryOrder-Mapper.selectLastdayRequestDate",cri);
+	}
 	
 	
 

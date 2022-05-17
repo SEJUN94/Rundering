@@ -91,6 +91,10 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		List<LaundryOrderVO> laundryOrderList = laundryOrderDAO.selectLaundryOrderList(cri);
 		Map<String, Object> detailMap = new HashMap<String, Object>();
 		
+		int lastDate = laundryOrderDAO.selectLastdayRequestDate(cri);
+		int todayDate = laundryOrderDAO.selectTodayRequestDate(cri);
+		
+		
 		for (LaundryOrderVO laundryOrder : laundryOrderList) {
 			List<LaundryOrderDetailVO> LaundryOrderDetailList = laundryOrderDetailDAO.selectlaundryOrderDetailListByOrderNo(laundryOrder.getOrderNo());
 			detailMap.put(laundryOrder.getOrderNo(), LaundryOrderDetailList);
@@ -103,7 +107,11 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		BranchPageMaker pageMaker = new BranchPageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
-
+		
+		
+		
+		dataMap.put("lastDate",lastDate);
+		dataMap.put("todayDate",todayDate);
 		dataMap.put("laundryOrderList", laundryOrderList);
 		dataMap.put("pageMaker", pageMaker);
 		dataMap.put("laundryCodeMap",laundryCodeMap);

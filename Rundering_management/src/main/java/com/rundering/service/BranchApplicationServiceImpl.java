@@ -73,12 +73,13 @@ public class BranchApplicationServiceImpl implements BranchApplicationService{
 		List<BranchApplicationVO>branchApplicationList = branchApplicationDAO.selectBranchApplication(cri);
 				
 		int count = branchApplicationDAO.selectBranchApplicationCount(cri);
-
+		int work = branchApplicationDAO.selectWorkBranchApplicationCount();
+		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(count);
 		
-		
+		dataMap.put("work",work);
 		dataMap.put("branchApplicationList", branchApplicationList);
 		dataMap.put("pageMaker", pageMaker);
 
