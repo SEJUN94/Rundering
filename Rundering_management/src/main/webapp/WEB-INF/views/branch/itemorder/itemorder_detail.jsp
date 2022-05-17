@@ -132,14 +132,18 @@ window.onload=function(){
 	let countSum=0;
 	let priceSum=0;
 	for(let i = 0 ; i <count.length;i++){
-	   countSum += parseInt(count[i].innerText);
-	   priceSum += parseInt(price[i].innerText)
+	   countSum += parseInt(count[i].innerText.replace(",",""));
+	   priceSum += parseInt(price[i].innerText.replace(",",""));
 	}
 	let totalCount = document.querySelector("#totalCount");
 	let totalPrice = document.querySelector("#totalPrice");
+	
 	totalCount.innerText=countSum;
-	totalPrice.innerText=priceSum;
+	totalPrice.innerText=priceToString(priceSum);
 }
+function priceToString(price){
+	 return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+ }
 </script>
 <script>
 function ItemOrderRemove(ordercode){

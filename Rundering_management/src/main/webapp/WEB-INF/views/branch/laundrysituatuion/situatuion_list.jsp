@@ -77,8 +77,10 @@
 					</div>
 
 
-
-					<table class="table table-hover text-nowrap">
+				<div class="card-body table-responsive p-0 mt-0" style="height: 305px;overflow: auto;">
+                
+               
+					<table class="table table-hover text-nowrap" >
 
 						<thead>
 							<tr>
@@ -101,7 +103,7 @@
 							</tr>
 						</thead>
 						
-						<tbody style="height: 245px;">
+						<tbody >
 						<c:if test="${empty laundryOrderList }">
 							<tr>
 								<td colspan="5" style="text-align: center;"><strong>해당 내용이 없습니다.</strong></td>
@@ -156,6 +158,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					 </div>
 				</form>
 				<c:if test="${!empty laundryOrderList }">
 					<div class="card-footer">
