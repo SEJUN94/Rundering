@@ -36,8 +36,9 @@ li h1{
 				<h1 style="font-size: 1.5em; text-align: center;">마이페이지</h1>
 			</li>
 			<li onclick="location.href='<%=request.getContextPath()%>/mypage'"
-				style="cursor: pointer; margin-top: 30px; margin-bottom: 15px; margin-left: 30px;"><a href="">회원
-					정보 수정</a></li>
+				style="cursor: pointer; margin-top: 30px; margin-bottom: 15px; margin-left: 30px;">
+				<a>회원 정보 수정</a>
+			</li>
 			<li onclick="location.href='<%=request.getContextPath()%>/mypage/myaddress'"
 				style="cursor: pointer; margin-top: 15px; margin-bottom: 15px; margin-left: 30px;">
 				<a>주소 관리</a>
