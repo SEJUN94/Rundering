@@ -38,7 +38,7 @@
 <%-- <img class="bg" src="<%=request.getContextPath()%>/resources/images/rundering_bg.jpg" alt="rundering_bg"> --%>
 <div class="login-box">
     <div class="login-logo">
-        <div><a href="<%=request.getContextPath()%>/home.do"><img class="logo" src="<%=request.getContextPath()%>/resources/images/RunderingMemberLogo.png" alt="RunderingMember"></a></div>
+        <div><a href="<%=request.getContextPath()%>/home"><img class="logo" style="width: 100%;" src="<%=request.getContextPath()%>/resources/images/RunderingMemberLogo.png" alt="RunderingMember"></a></div>
         <!-- <b>회원</b> 로그인 -->
     </div>
     

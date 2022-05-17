@@ -29,8 +29,10 @@
 
 			<div class="card card-primary card-outline">
 				<form action="modify" method="post" id="form">
-					<div class="card-header">
-						<h3 class="card-title">
+					<div class="card-header pb-2">
+					<h3 class="card-title" style="font-size: 1.4rem; font-weight: 450;">세탁 현황</h3>
+						<button type="button" class="btn btn-outline-primary btn-sm ml-3" onclick="handOverToDeliveryEmployee()">배송기사인계</button>
+						&nbsp;&nbsp;&nbsp;
 						<c:if test="${dataMap.lastDate ne '0'}">
 							지난 배송  : ${dataMap.lastDate }개
 						</c:if>
@@ -44,10 +46,8 @@
 						<c:if test="${dataMap.todayDate eq '0'}">
 							당일 배송  : 0개
 						</c:if>
-						 
-						
-						</h3>
-						<div class="card-tools">
+						<div class="card-tools pt-1">
+
 							<div class="input-group input-group-sm">
 								<div class="input-group-sm textWidth">
 									<input class="form-control " type="text" name="keyword" id="orderNumberInput"
@@ -464,6 +464,34 @@ function text(){
 	}
 </script>
 
-
+<script>
+	// 지점할당 스케줄링 메소드 연결
+		function handOverToDeliveryEmployee(){
+		    if (!confirm("현재까지 세탁완료된 주문건을 배송기사에게 인계하시겠습니까?")) {
+		    	return;
+	        } else {
+				            
+	       	 $.ajax({
+	 			url: "<%=request.getContextPath()%>/admin/laundryorder/handOverToDeliveryEmployee",
+	 			type:'POST',
+	 			success:function(data){
+	 				if(data.assignedOrderCnt == 0){
+	 					alert("현재 배송기사 미배정된 세탁완료 주문건이 없습니다.");
+	 				}else if(data.numberOfDeliveryEmployees == 0){
+	 					alert("현재 세탁주문 배송기사 인계가 불가합니다. \n관리자에게 연락바랍니다.");
+	 				}else{
+		 				alert(data.numberOfDeliveryEmployees+'명의 배송기사에게 총'+data.assignedOrderCnt+'개의 주문이 분배되었습니다.');
+		 				window.location.reload();
+	 				}
+	 			},
+	 			error:function(error){
+	 				alert("현재 세탁주문 배송기사 인계가 불가합니다. \n관리자에게 연락바랍니다.");
+	 			}
+	 		});
+	        }
+		}
+		dataMap.put("assignedOrderCnt",assignedOrderCnt);
+		dataMap.put("remainAllAreaOrder",remainAllAreaOrder);
+	</script>
 
 </body>

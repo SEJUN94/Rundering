@@ -330,4 +330,9 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		Map<String, Object> dataMap = orderTaskScheduler.assignLaundryOrderToBranch();
 		return dataMap;
 	}
+	@Override
+	public Map<String, Object> handOverToDeliveryEmployee(String branchCode) throws Exception {
+		Map<String, Object> dataMap = orderTaskScheduler.assignLaundryOrderToBranchDeliveryEmployee(branchCode);
+		return dataMap;
+	}
 }
