@@ -249,5 +249,17 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		//replyDAO.deleteReply(laundryOrder.getReplyNo());
 		
 	}
+	
+	// 마이페이지 - 주문내역_요청사항 수정
+	@Override
+	public void modifyReq(LaundryOrderVO laundryOrder) throws Exception {
+		laundryOrderDAO.modifyReq(laundryOrder);
+	}
+
+	// 마이페이지 - 주문내역_요청사항 삭제
+	@Override
+	public void removeReq(String orderNo) throws Exception {
+		laundryOrderDAO.removeReq(orderNo);
+	}
 
 }
