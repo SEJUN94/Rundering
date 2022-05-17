@@ -145,6 +145,8 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 			branchNameMap.put(branchVO.getBranchCode(), branchVO.getBranchName());
 		}
 		
+		int noBranchOrder = laundryOrderDAO.selectNoBranchLaundryOrderCount();
+		
 		List<LaundryOrderVO> laundryOrderList = laundryOrderDAO.selectAdminLaundryOrderList(cri);
 		
 		int totalCount = laundryOrderDAO.selectCount(cri);
@@ -153,6 +155,7 @@ public class LaundryOrderServiceImpl implements LaundryOrderService {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
 		
+		dataMap.put("noBranchOrder",noBranchOrder);
 		dataMap.put("laundryOrderList", laundryOrderList);
 		dataMap.put("pageMaker", pageMaker);
 		dataMap.put("orderCodeMap",orderCodeMap);

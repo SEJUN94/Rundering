@@ -142,7 +142,12 @@
 			AND ORDER_NO like '%'||#{orderNo}||'%'
 		</if>
 	</sql>
-	
+	<select id="selectNoBranchLaundryOrderCount" resultType="int">
+		select count(*)
+		  from tb_laundry_order
+		 where branch_code is null 
+		   and TO_CHAR(PICKUP_REQUEST_DATE,'YYYYMMDD')=TO_CHAR(SYSDATE+1,'YYYYMMDD')
+	</select>
 
 	<select id="selectCount" resultType="int">
 		select count(*)

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rundering.command.BranchCriteria;
+import com.rundering.command.BranchPageMaker;
 import com.rundering.command.Criteria;
 import com.rundering.command.PageMaker;
 import com.rundering.dao.AsRequestDAO;
@@ -55,6 +57,27 @@ public class AsRequestServiceImpl implements AsRequestService {
 
 		// PageMaker 생성.
 		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+
+		dataMap.put("asRequestList", asRequestList);
+		dataMap.put("pageMaker", pageMaker);
+
+		return dataMap;
+	}
+	@Override
+	public Map<String, Object> getBranchAsRequestList(BranchCriteria cri) throws SQLException {
+
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+
+		// 현재 page 번호에 맞게 리스트를 가져오기
+		List<AsRequestVO> asRequestList = asRequestDAO.selectBranchSearchAsRequestList(cri);
+
+		// 전체 board 개수
+		int totalCount = asRequestDAO.selectBranchSearchAsRequestListCount(cri);
+
+		// PageMaker 생성.
+		BranchPageMaker pageMaker = new BranchPageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rundering.command.BranchCriteria;
 import com.rundering.command.Criteria;
 import com.rundering.dto.AsRequestVO;
 import com.rundering.dto.EmployeesVO;
@@ -34,10 +35,12 @@ public class BranchAsRequestController {
 
 	// 리스트
 	@RequestMapping(value = "/list")
-	private ModelAndView asRequestList(Criteria cri, ModelAndView mnv) throws Exception {
+	private ModelAndView asRequestList(BranchCriteria cri, ModelAndView mnv,HttpSession session) throws Exception {
 		String url = "branch/asrequest/asrequest_list";
-
-		Map<String, Object> dataMap = asRequestService.getAsRequestList(cri);
+		EmployeesVO emp =(EmployeesVO)session.getAttribute("loginEmployee");
+		cri.setBranchCode(emp.getBranchCode());
+		
+		Map<String, Object> dataMap = asRequestService.getBranchAsRequestList(cri);
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);
 

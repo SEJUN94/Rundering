@@ -16,7 +16,7 @@ public class AdminLaundryOrderListCriteria extends Criteria{
 	
 	private String startDate;
 	private String endDate;
-	
+
 	public String getPickupRequestDate() {
 		return pickupRequestDate;
 	}

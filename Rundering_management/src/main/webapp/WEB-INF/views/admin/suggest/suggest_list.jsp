@@ -67,7 +67,26 @@ th, .td {
 									<th width="10%">작성날짜</th>
 									<th class="">첨부파일</th>
 									<th width="3%">조회수</th>
-									<th width="3%" class="pr-3">확인여부</th>
+									<c:if test="${cri.searchType eq 'checktrue'}">
+										<th width="3%" class="pr-3" style="cursor: pointer" onclick="checkSolting('${cri.searchType}')" id ="checkText">
+										확인 
+										<i class="fas fa-arrows-alt-v"></i>
+										</th>
+									</c:if>
+									<c:if test="${cri.searchType eq 'checkfalse'}">
+										<th width="3%" class="pr-3" style="cursor: pointer" onclick="checkSolting('${cri.searchType}')" id ="checkText">
+										미확인
+										<i class="fas fa-arrows-alt-v"></i>
+										 </th>
+									</c:if>
+									<c:if test="${cri.searchType ne 'checkfalse'}">
+										<c:if test="${cri.searchType ne 'checktrue'}">
+											<th width="3%" class="pr-3" style="cursor: pointer" onclick="checkSolting('${cri.searchType}')" id ="checkText">
+											확인여부 
+											<i class="fas fa-arrows-alt-v"></i>
+											</th>
+										</c:if>
+									</c:if>
 								</tr>
 							</thead>
 							<c:if test="${empty suggestList }">
@@ -113,4 +132,16 @@ th, .td {
 			</div>
 		</div>
 	</div>
+	<script>
+	function checkSolting(check){
+		if(check=="checktrue"){
+			location.href="<%=request.getContextPath()%>/admin/suggest/list?searchType=checkfalse";
+			return
+		}
+		location.href="<%=request.getContextPath()%>/admin/suggest/list?searchType=checktrue";
+		
+	}
+	
+	</script>
+	
 </body>

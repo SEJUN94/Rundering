@@ -113,6 +113,10 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 	public int selectLastdayRequestDate(BranchCriteria cri) throws Exception{
 		return session.selectOne("LaundryOrder-Mapper.selectLastdayRequestDate",cri);
 	}
+	@Override
+	public int selectNoBranchLaundryOrderCount() throws Exception{
+		return session.selectOne("LaundryOrder-Mapper.selectNoBranchLaundryOrderCount");
+	}
 	
 	
 

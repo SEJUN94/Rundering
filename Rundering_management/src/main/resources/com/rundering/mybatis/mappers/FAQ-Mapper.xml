@@ -38,6 +38,13 @@
 			a.fcontent like '%'||#{keyword}||'%'
 			)
 		</if>
+		<if test="searchType == 'checktrue' ">
+		      and  a.answer is not null
+		</if>
+		<if test="searchType == 'checkfalse' ">
+		      and  a.answer is null
+		</if>
+		
 	</sql>
 
 	<!-- 리스트보기 -->
@@ -58,6 +65,7 @@
 			and a.faqyn = 'N'
 			<include refid="search" />
 		order by a.faqno desc
+		
 	</select>
 
 	<select id="selectSearchFAQListCount" resultType="int">

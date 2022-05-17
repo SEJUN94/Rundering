@@ -93,7 +93,26 @@ th, td {
 										<th class="date"style="width:10%;">작성날짜</th>
 										<th class=""style="width:3%;">첨부파일</th>
 										<th class="clicks"style="width:3%;">조회수</th>
-										<th class="yn pr-3"style="width:3%;">확인여부</th>
+										<c:if test="${cri.searchType eq 'checktrue'}">
+										<th width="3%" class="pr-3" style="cursor: pointer" onclick="checkSolting('${cri.searchType}')" id ="checkText">
+										확인 
+										<i class="fas fa-arrows-alt-v"></i>
+										</th>
+									</c:if>
+									<c:if test="${cri.searchType eq 'checkfalse'}">
+										<th width="3%" class="pr-3" style="cursor: pointer" onclick="checkSolting('${cri.searchType}')" id ="checkText">
+										미확인
+										<i class="fas fa-arrows-alt-v"></i>
+										 </th>
+									</c:if>
+									<c:if test="${cri.searchType ne 'checkfalse'}">
+										<c:if test="${cri.searchType ne 'checktrue'}">
+											<th width="3%" class="pr-3" style="cursor: pointer" onclick="checkSolting('${cri.searchType}')" id ="checkText">
+											확인여부 
+											<i class="fas fa-arrows-alt-v"></i>
+											</th>
+										</c:if>
+									</c:if>
 									</tr>
 								</thead>
 								<tbody>
@@ -120,7 +139,7 @@ th, td {
 											</c:if>
 										</td>
 										<td class="clicks"><span class="tag tag-success">${suggest.viewcnt }</span></td>
-										<td class="yn pr-3">${suggest.checkyn }</td>
+										 <td class="pr-3"><span class="badge ${suggest.checkyn eq '확인' ? 'bg-primary' : 'bg-danger'}" style="font-size: 0.88rem;">${suggest.checkyn}</span></td>
 									</tr>
 								</c:forEach>
 								</tbody>
@@ -144,6 +163,14 @@ th, td {
 				</div>
 			</div>
 <script>
+function checkSolting(check){
+	if(check=="checktrue"){
+		location.href="<%=request.getContextPath()%>/branch/suggest/list?searchType=checkfalse";
+		return
+	}
+	location.href="<%=request.getContextPath()%>/branch/suggest/list?searchType=checktrue";
+	
+}
 
 </script>
 </body>

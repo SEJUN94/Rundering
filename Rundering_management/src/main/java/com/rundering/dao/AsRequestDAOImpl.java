@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.rundering.command.BranchCriteria;
 import com.rundering.command.Criteria;
 import com.rundering.dto.AsRequestVO;
 
@@ -27,17 +28,32 @@ public class AsRequestDAOImpl implements AsRequestDAO {
 				rowBounds);
 		return asRequestList;
 	}
+	@Override
+	public List<AsRequestVO> selectBranchSearchAsRequestList(BranchCriteria cri) throws SQLException {
 
+		int offset = cri.getStartRowNum();
+		int limit = cri.getPerPageNum();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+
+		List<AsRequestVO> asRequestList = session.selectList("AsRequest-mapper.selectBranchSearchAsRequestList", cri,
+				rowBounds);
+		return asRequestList;
+	}
 	@Override
 	public int selectSearchAsRequestListCount(Criteria cri) throws SQLException {
 		return session.selectOne("AsRequest-mapper.selectSearchAsRequestListCount", cri);
 	}
-
+	
+	@Override
+	public int selectBranchSearchAsRequestListCount(BranchCriteria cri) throws SQLException {
+		return session.selectOne("AsRequest-mapper.selectBranchSearchAsRequestListCount", cri);
+	}
+	
 	@Override
 	public AsRequestVO selectAsRequestByAsno(int asno) throws SQLException {
 		return session.selectOne("AsRequest-mapper.selectAsRequestByAsno", asno);
 	}
-
+	
 	/*
 	 * @Override public void increaseViewCount(int asno) throws SQLException {
 	 * session.update("AsRequest-mapper.increaseViewCount", asno); }

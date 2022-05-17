@@ -3,6 +3,7 @@ package com.rundering.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.rundering.command.BranchCriteria;
 import com.rundering.command.Criteria;
 import com.rundering.dto.AsRequestVO;
 
@@ -29,4 +30,8 @@ public interface AsRequestDAO {
 	void updateAsRequest(AsRequestVO AsRequest) throws SQLException;
 
 	void deleteAsRequest(int asno) throws SQLException;
+
+	List<AsRequestVO> selectBranchSearchAsRequestList(BranchCriteria cri) throws SQLException;
+
+	int selectBranchSearchAsRequestListCount(BranchCriteria cri) throws SQLException;
 }

@@ -93,7 +93,16 @@ th, td {
 									<th class="writer">요청자</th>
 									<th class="branchName">지점</th>
 									<th class="date">요청날짜</th>
-									<th class="yn">확인여부</th>
+									<th class="yn" style="text-align: center;height: 24px;padding-bottom: 8px;padding-top: 0px;">
+                                    <div class="input-group input-group-sm">
+										 <select class="form-control"  name="searchType2" id="searchType2" onchange="list_go2(1);">
+											<option value="">확인여부</option>
+                                             	<option value="ca" ${cri.searchType eq 'ca' ? 'selected':'' }>확인</option>
+                                             	<option value="cb" ${cri.searchType eq 'cb' ? 'selected':'' }>미확인</option>
+                                             	<option value="cd" ${cri.searchType eq 'cd' ? 'selected':'' }>조치완료</option>
+                                         </select>
+                                     </div>
+                                	</th>
 								</tr>
 							</thead>
 							<c:if test="${empty asRequestList }">
@@ -111,7 +120,24 @@ th, td {
 									<td class="branchName">${asRequest.branchCode }</td>
 									<td class="date"><fmt:formatDate
 											value="${asRequest.registDate }" pattern="yyyy-MM-dd" /></td>
-									<td class="yn">${asRequest.checkyn }</td>
+									<td class="yn">
+									<c:if test="${asRequest.checkyn eq '조치완료' }">
+										<span class="badge badge-success">
+										${asRequest.checkyn }
+										</span>
+									</c:if>
+									<c:if test="${asRequest.checkyn eq '미확인' }">
+										<span class="badge badge-danger">
+										${asRequest.checkyn }
+										</span>
+									</c:if>
+									<c:if test="${asRequest.checkyn eq '확인' }">
+										<span class="badge badge-warning">
+										${asRequest.checkyn }
+										</span>
+									</c:if>
+									
+									</td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -128,5 +154,6 @@ th, td {
 			</div>
 		</div>
 	</div>
+
 
 </body>

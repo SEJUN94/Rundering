@@ -68,11 +68,23 @@
 		  and b.deleteyn='N'
 		  <include refid="search" />
 		<if test="searchType != 'n'.toString()">
-			order by b.regist_date desc
+			<if test="searchType != 'checkfalse'.toString()">
+				<if test="searchType != 'checktrue'.toString()">
+					order by b.regist_date desc
+				</if>
+			</if>
+			
 		</if>
 		<if test="searchType == 'n'.toString()">
 			order by b.checkyn asc
 		</if>
+		<if test="searchType == 'checkfalse' ">
+			order by b.checkyn asc
+		</if>
+		<if test="searchType == 'checktrue' ">
+			order by b.checkyn desc
+		</if>
+		
 	</select>
 	
 	<select id="selectSearchSuggestListCount" resultType="int">

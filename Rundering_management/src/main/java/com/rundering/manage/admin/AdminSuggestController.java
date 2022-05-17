@@ -27,7 +27,7 @@ public class AdminSuggestController {
 	@RequestMapping(value = "/list")
 	private ModelAndView suggestList(Criteria cri, ModelAndView mnv) throws Exception {
 		String url = "admin/suggest/suggest_list";
-
+		
 		Map<String, Object> dataMap = suggestService.getSuggestList(cri);
 		mnv.addObject("dataMap", dataMap);
 		mnv.setViewName(url);

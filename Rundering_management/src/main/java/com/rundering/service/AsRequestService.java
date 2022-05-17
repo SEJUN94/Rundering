@@ -3,6 +3,7 @@ package com.rundering.service;
 import java.sql.SQLException;
 import java.util.Map;
 
+import com.rundering.command.BranchCriteria;
 import com.rundering.command.Criteria;
 import com.rundering.dto.AsRequestVO;
 
@@ -34,5 +35,7 @@ public interface AsRequestService {
 
 	// 삭제
 	void remove(int asno) throws SQLException;
+
+	Map<String, Object> getBranchAsRequestList(BranchCriteria cri) throws SQLException;
 
 }

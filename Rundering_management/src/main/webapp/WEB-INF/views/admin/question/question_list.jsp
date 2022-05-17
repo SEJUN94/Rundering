@@ -92,7 +92,10 @@ th, td {
                      <th class="date">문의일</th>
                      <th class="attach">첨부파일</th>
                      <th class="yn">비밀글</th>
-                     <th class="answer pr-3">답변</th>
+                     <th class="answer pr-3" onclick="checkSolting('${cri.searchType}')"  style="cursor: pointer">
+                    	 답변
+                     <i class="fas fa-arrows-alt-v"></i>
+                    </th>
                   </tr>
                </thead>
                <c:if test="${empty faqList }">
@@ -145,6 +148,16 @@ th, td {
 		</div>
       </div>
    </div>
-   
+   <script>
+	function checkSolting(check){
+		if(check=="checktrue"){
+			location.href="<%=request.getContextPath()%>/admin/question/list?searchType=checkfalse";
+			return
+		}
+		location.href="<%=request.getContextPath()%>/admin/question/list?searchType=checktrue";
+		
+	}
+	
+	</script>
    
 </body>

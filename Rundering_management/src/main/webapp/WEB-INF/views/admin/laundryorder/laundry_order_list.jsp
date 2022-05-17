@@ -68,7 +68,9 @@
 			<div class="card m-0 card-secondary card-outline" style=" border-top: 3px solid #DCE2F0">
 			<div class="card-header">
 					<h3 class="card-title" style="font-size: 1.8rem;  font-weight: 500;">세탁 주문</h3>
-					<span class="text-muted" style="display: inline-block;margin-top: 6px;padding-left: 15px;">검색결과 <fmt:formatNumber type="number" maxFractionDigits="3" value="${pageMaker.totalCount }" />개</span>
+					<span class="text-muted" style="display: inline-block;margin-top: 6px;padding-left: 15px;">검색결과 <fmt:formatNumber type="number" maxFractionDigits="3" value="${pageMaker.totalCount }" />개
+					, 미할당 ${noBranchOrder }개
+					</span>
 					<button type="button" class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#modal-lg">선택주문 직접할당</button>
 					<button type="button" class="btn btn-outline-success ml-3" onclick="autoAssignmentOrder()">전체주문 할당</button>
 					<div class="card-tools">
