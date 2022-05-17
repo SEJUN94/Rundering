@@ -32,7 +32,7 @@
 </section>
 
 <div class="col-6" style="margin:auto;">
-	<div class="card-body">
+	<div class="card-body" style="padding-top:0px;">
 		<h2 class="login-box-msg">join a new membership</h2>
 		<form class="form-horizontal" onsubmit="return valid();" method="post">
 			<div>
