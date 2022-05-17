@@ -25,17 +25,17 @@
 				<h4 class="h4 float-right">
 				
 				<c:if test="${dataMap.status02 ne '0' }">
-				발주대기 개수 : ${dataMap.status02 }개
+				발주대기 : ${dataMap.status02 }개
 				</c:if>
 				<c:if test="${dataMap.status02 eq '0' }">
-				발주대기 개수 : 0개
+				발주대기 : 0개
 				</c:if> 
-				
+				/
 				<c:if test="${dataMap.status03 ne '0' }">
-				발주완료 개수 : ${dataMap.status03 }개
+				발주완료 : ${dataMap.status03 }개
 				</c:if>
 				<c:if test="${dataMap.status03 eq '0' }">
-				발주완료 개수 : 0개
+				발주완료 : 0개
 				</c:if>  
 				
 				

@@ -35,12 +35,11 @@
 
 	<div class="card-body" style="padding-top:0px;width: 70%;margin: auto;">
 	
-		<h2 class="login-box-msg">join a new membership</h2>
 		<form class="form-horizontal" onsubmit="return valid();" method="post">
 			<div>
 				<label for="id" class="col-mb-3"> <span	style="color: red; font-weight: bold;">*</span>아이디</label>
 			</div>
-			<div class="form-group" style="margin-bottom: 0px">
+			<div class="form-group mb-2" style="margin-bottom: 0px">
 				<input type="text" class="col-lg-12 form-control" placeholder="아이디 입력" name="id" id="id" style="margin-bottom: 0px">
 				
 				<span class="sp" style="height: 16px">&nbsp;</span> 
@@ -54,14 +53,14 @@
 				<input type="password" id="pw1" class="col-lg-12 form-control pass" placeholder="패스워드 입력" name="password"> 
 				<span class="sp" style="height: 16px">&nbsp;</span> 
 			</div>
-			<div class="form-group" style="margin-bottom: 0px">
+			<div class="form-group mb-2" style="margin-bottom: 0px">
 				<input type="password" id="pw2" class="col-lg-12 form-control pass" placeholder="패스워드 재입력"> 
 				<span class="sp" style="height: 16px">&nbsp;</span> 
 			</div>
 			<div>
 				<label for="name" class="col-mb-3"> <span style="color: red; font-weight: bold;">*</span>이름</label>
 			</div>
-			<div class="form-group" style="margin-bottom: 0px">
+			<div class="form-group mb-2" style="margin-bottom: 0px">
 				<input type="text" class="col-lg-12 form-control" placeholder="예) 홍 길 동" name="name" id="name">
 				<span class="sp" style="height: 16px">&nbsp;</span> 
 			</div>
@@ -69,7 +68,7 @@
 				<label for="email" class="col-mb-3"> <span
 					style="color: red; font-weight: bold;">*</span>Email</label> 
 			</div>
-			<div class="form-group" style="margin-bottom: 0px">
+			<div class="form-group mb-2" style="margin-bottom: 0px">
 				<input type="email" class="col-lg-12 form-control" id="email" name="email" placeholder="Email" >
 				<span class="sp" style="height: 16px">&nbsp;</span> 
 				<span id="rst1"></span>
@@ -77,7 +76,7 @@
 			<div>
 				<label for="phone" class="col-mb-3"> <span style="color: red; font-weight: bold;">*</span>연락처</label> <span class="sp"></span>
 			</div>
-			<div class="input-group mb-3 form-group">
+			<div class="input-group mb-4 form-group">
 				<input type="text" class="col-lg-12 form-control" id="phone" name="phone" pattern="010[0-9]{8}" placeholder="'-'없이  번호만 기재해주세요">
 				<div class="input-group-append">
 					<button type="button" onclick="phone_verification();" class="btn btn-primary">인증</button>
@@ -108,14 +107,10 @@
 			<div class="input-group mb-3 form-group">
 				<input type="text" class="form-control" id="add2" name="add2" placeholder="상세주소">
 			</div>
-			<div class="row">
-				<div class="col-8">
-				</div>
+			<div class="input-group  form-group">
 
-				<div class="col-4">
 					<button type="submit" id="sendBtn"
-						class="btn btn-primary btn-block">Join</button>
-				</div>
+						class="btn btn-primary btn-block">회원가입</button>
 
 			</div>
 		</form>

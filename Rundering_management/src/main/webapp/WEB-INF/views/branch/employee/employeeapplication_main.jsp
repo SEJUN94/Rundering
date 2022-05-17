@@ -20,7 +20,7 @@
    <div class="container-fluid">
       <div class="row mb-2">
          <div class="col-sm-6">
-            <h1>사원 등록 관리</h1>
+            <h1>사원 등록</h1>
          </div>
       </div>
    </div>
@@ -60,11 +60,11 @@
                   </c:if>
                   <c:forEach items="${appList }" var="list">
                      <tr>
-                        <td class="list" id="memno" name="memno" style="vertical-align: middle" value="${list.memberNo}">${list.memberNo}</td>
-                        <td style="vertical-align: middle" onClick="detail('${list.memberNo}')">${list.name }</td>
-                        <td style="vertical-align: middle"><fmt:formatDate
+                        <td class="list" id="memno" name="memno" style="text-align: center;" value="${list.memberNo}">${list.memberNo}</td>
+                        <td style="text-align: center;" onClick="detail('${list.memberNo}')">${list.name }</td>
+                        <td style="text-align: center;"><fmt:formatDate
                               value="${list.registDate }" pattern="yyyy-MM-dd" /></td>
-                        <td style="vertical-align: middle"><button type="submit"
+                        <td style="text-align: center;"><button type="submit"
                               class="btn btn-danger btn-sm" onclick="remove('${list.memberNo}')">반려</button></td>
                      </tr>
                   </c:forEach>
