@@ -38,36 +38,38 @@
 			<div>
 				<label for="id" class="col-mb-3"> <span	style="color: red; font-weight: bold;">*</span>아이디</label>
 			</div>
-			<div class="input-group mb-3 form-group">
-				<input type="text" class="col-lg-4 form-control" placeholder="아이디 입력" name="id" id="id">
-				<span class="sp"></span> 
+			<div class="form-group" style="margin-bottom: 0px">
+				<input type="text" class="col-lg-6 form-control" placeholder="아이디 입력" name="id" id="id" style="margin-bottom: 0px">
+				
+				<span class="sp" style="height: 16px">&nbsp;</span> 
 				<span id="rst"></span>
 			</div>
+			
 			<div>
 				<label for="pw1" class="col-mb-3"> <span style="color: red; font-weight: bold;">*</span>비밀번호</label>
 			</div>
-			<div class="input-group mb-3 form-group">
-				<input type="password" id="pw1" class="col-lg-4 form-control pass" placeholder="패스워드 입력" name="password"> 
-				<span class="sp"></span>
+			<div class="form-group" style="margin-bottom: 0px">
+				<input type="password" id="pw1" class="col-lg-6 form-control pass" placeholder="패스워드 입력" name="password"> 
+				<span class="sp" style="height: 16px">&nbsp;</span> 
 			</div>
-			<div class="input-group mb-3 form-group">
-				<input type="password" id="pw2" class="col-lg-4 form-control pass" placeholder="패스워드 재입력"> 
-				<span class="sp"></span>
+			<div class="form-group" style="margin-bottom: 0px">
+				<input type="password" id="pw2" class="col-lg-6 form-control pass" placeholder="패스워드 재입력"> 
+				<span class="sp" style="height: 16px">&nbsp;</span> 
 			</div>
 			<div>
 				<label for="name" class="col-mb-3"> <span style="color: red; font-weight: bold;">*</span>이름</label>
 			</div>
-			<div class="input-group mb-3 form-group">
-				<input type="text" class="col-lg-4 form-control" placeholder="예) 홍 길 동" name="name" id="name">
-				<span class="sp"></span>
+			<div class="form-group" style="margin-bottom: 0px">
+				<input type="text" class="col-lg-6 form-control" placeholder="예) 홍 길 동" name="name" id="name">
+				<span class="sp" style="height: 16px">&nbsp;</span> 
 			</div>
 			<div>
 				<label for="email" class="col-mb-3"> <span
 					style="color: red; font-weight: bold;">*</span>Email</label> 
 			</div>
-			<div class="input-group mb-3 form-group">
+			<div class="form-group" style="margin-bottom: 0px">
 				<input type="email" class="col-lg-6 form-control" id="email" name="email" placeholder="Email" >
-				<span class="sp"></span> 
+				<span class="sp" style="height: 16px">&nbsp;</span> 
 				<span id="rst1"></span>
 			</div>
 			<div>
@@ -344,7 +346,7 @@ window.addEventListener('load',com);
 			noProc($('#pw1'), "패스워드를 입력하세요");
 			pwchk = false;
 		} else {
-			noProc($('#pw1'), "대/소문자,특수문자,숫자 포함 8자리 이상 입력해야함");
+			noProc($('#pw1'), "대/소문자,특수문자,숫자 포함 8자리 이상 ");
 			pwchk = false;
 		}
 	});
