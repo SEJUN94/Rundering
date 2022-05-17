@@ -4,6 +4,11 @@
 <!DOCTYPE html>
 
 <body>
+
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
     <div class="login-box" style="margin:auto;">
         <div class="login-logo">
            <img class="logo" style="margin:auto;" src="<%=request.getContextPath()%>/resources/images/RunderingMemberLogo.png" alt="RunderingMember">
@@ -91,8 +96,11 @@
     	checkTag_flag=true;
     	
     	}
-    	alert("이메일 발송.")
     	
+		Swal.fire({
+			icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '이메일 발송'
+		});
     	  
     	$.ajax({
 			  url:'<%=request.getContextPath()%>/login/passwordfindmailcheck',
@@ -104,7 +112,10 @@
 			  },
 			  success:function(data){
 			  	if(data.check=="false"){
-			  		alert("이름과 이메일에 일치하는 아이디가 없습니다 .");
+			  	  Swal.fire({
+						icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title : '이름과 이메일에 일치하는 아이디가 없습니다.'
+					});
 			  		return;
 			  	}
 			  	if(data.check=="true"){
@@ -122,7 +133,10 @@
 			  	email_authKey=data.authKey
 			  },
 			  error:function(error){
-			  	alert('서버에러');
+				  Swal.fire({
+						icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title : '서버에러'
+					});
 			  }
 		   });
     }
@@ -130,18 +144,26 @@
     function auth(){
     	let authVal=document.querySelector("#authInput").value
     	if(!(authVal==email_authKey && auth_flag==true)){
-    		alert("인증실패")
+			Swal.fire({
+				icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '인증실패'
+			});
     		return;
     	}
     	id_check=true;
     	document.querySelector("#parentDiv").remove();
-    	alert("인증성공!")
+		Swal.fire({
+			icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '인증성공!'
+		});
     } 
     
     function passwordGetGo(){	
     	if(id_check==false){
-    		
-    		alert("인증을 받으세요")
+			Swal.fire({
+				icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '인증을 받으세요'
+			});
     		return;
     	}
     	let hiddenId = document.createElement("input");

@@ -204,7 +204,6 @@ const Toast = Swal.mixin({
               let phone = document.querySelector('#phone');
               
               phone.setAttribute('value',phone.value);
-              console.log('phone.value',phone.value);
               phonchk = true;
               Toast.fire({
                     icon: 'success',

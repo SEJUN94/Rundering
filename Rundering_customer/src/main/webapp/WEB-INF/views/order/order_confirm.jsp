@@ -9,6 +9,9 @@
 <c:set var="orderName" value="${dataMap.orderName }" />
 
 <head>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
 <style>
 .inputRow {
 	padding: 11px;
@@ -145,6 +148,8 @@
   	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<!-- iamport.payment.js -->
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+	<!--  이쁜알럽트 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 	
 	
 <script>
@@ -154,7 +159,10 @@ var dataNum = 1;
 	function addFile_go(){
 	   
 	   if($('input[name="tempPicture"]').length >= 5){
-	      alert("사진 첨부는 5개까지만 가능합니다.");
+		   Swal.fire({
+				icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '사진 첨부는 5개까지만 가능합니다.'
+			});
 	      return;
 	   }
 	   
@@ -170,7 +178,10 @@ var dataNum = 1;
 
 	function remove_go(dataNum){
 		if($('input[name="tempPicture"]').length == 1){
-		      alert("사진 첨부는 필수입니다.");
+			 Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '사진 첨부는 필수입니다.'
+			});
 		      return;
 		   }
 		deleteUploadFile(dataNum);
@@ -196,7 +207,7 @@ var dataNum = 1;
 		    	 if (v_ajax.readyState === XMLHttpRequest.DONE) {
 			            if (v_ajax.status === 200) {
 			               //const response = JSON.parse(v_ajax.responseText);
-			               console.log(v_ajax.responseText);
+			               //console.log(v_ajax.responseText);
 			               //console.log(data+"사진이 삭제 되었습니다.");
 			            } else {
 			            	//AjaxErrorSecurityRedirectHandler(error.status);
@@ -209,9 +220,12 @@ var dataNum = 1;
 		
 		let files = $('input[name="tempPicture"]');
 		for(let file of files){
-			console.log(file.name + " : "+ file.value);
+			//console.log(file.name + " : "+ file.value);
 			if(file.value == ""){
-				alert("사진 파일을 선택하세요.");
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '사진 파일을 선택하세요.'
+				});
 				file.focus();
 				file.click();
 				return;
@@ -237,7 +251,7 @@ let justPressedLabel = 0;
 
 function justPressed(label){
 	justPressedLabel = label.dataset.no;
-	console.log("justPressedLabel : "+justPressedLabel);
+	//console.log("justPressedLabel : "+justPressedLabel);
 }
 
 
@@ -267,13 +281,19 @@ $('input[name="pictureFile"]').change(function(){
 	}
 	//이미지 확장자 jpg 확인
 	if(!(fileFormat == "JPG" || fileFormat == "JPEG" || fileFormat == "PNG")){
-		alert("이미지는 jpg/jpeg/png 형식만 가능합니다.");
+		Swal.fire({
+			icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '이미지는 jpg/jpeg/png 형식만 가능합니다.'
+		});
 		spinner.style.display = 'none';
 		return;
 	}
 	// 이미지 파일 용량 체크
 	if(picture.files[0].size>1024*1024*5){
-		alert("사진 용량은 5MB 이하만 가능합니다.");
+		Swal.fire({
+			icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '사진 용량은 5MB 이하만 가능합니다.'
+		});
 		spinner.style.display = 'none';
 		return;
 	};
@@ -296,7 +316,7 @@ $('input[name="pictureFile"]').change(function(){
 			const hiddenInput = document.querySelector(".hiddenInput");
 			hiddenInput.append(createHiddenInputNode(data));
 			
-			console.log(data+"사진이 업로드 되었습니다.");
+			//console.log(data+"사진이 업로드 되었습니다.");
 			inputFileName.value = picture.files[0].name;
 			
 			spinner.style.display = 'none';
@@ -356,10 +376,13 @@ $('input[name="pictureFile"]').change(function(){
 							success: function (result) {
 								if (result.insertResult == "success") {
 									$("form[role='form']").submit();
-									console.log(msg);
+									//console.log(msg);
 									
 								} else {
-									alert("DB입력실패");
+									Swal.fire({
+										icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+										title : 'DB입력실패'
+									});
 									return false;
 								}
 							}
@@ -368,7 +391,7 @@ $('input[name="pictureFile"]').change(function(){
 						let msg = '결제에 실패하였습니다.';
 						msg += '\n에러내용 : ' + rsp.error_msg;
 					}
-					console.log(msg);
+					//console.log(msg);
 				});
 			}
 	</script>

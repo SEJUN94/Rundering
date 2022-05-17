@@ -9,6 +9,9 @@
 <c:set var="laundryItemsList" value="${dataMap.laundryItemsList }" />
 <c:set var="codeMap" value="${dataMap.codeMap }" />
 
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
 <style>
 	th {
 		text-align:center;
@@ -107,15 +110,33 @@
 		</div>
 	</div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
 <script>
 
 function remove_go(url,laundryItemsCode){
-	   if(confirm("삭제하시겠습니까?")){
-	      alert("삭제되었습니다.")   
+	Swal.fire({
+        title: '삭제하시겠습니까?',
+        icon : 'warning' ,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '승인',
+        cancelButtonText: '취소',
+        reverseButtons: true, // 버튼 순서 거꾸로
+        
+      }).then((result) => {
+          if (result.isConfirmed) {
+        	  Swal.fire({
+					icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '삭제되었습니다.'
+				});
 	      location.href=url+"?laundryItemsCode="+laundryItemsCode
 	   }
 		window.opener.location.reload();
-	}
+	})
+}
 
 
 

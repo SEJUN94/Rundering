@@ -9,6 +9,9 @@
 <c:set var="memberList" value="${dataMap.memberList }" />
 
 <head>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
 <style>
 .no {
 	width: 10%;
@@ -134,16 +137,31 @@
 	<input type="hidden" name="memberNo" id="cancelHidden" value="">
 </form>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
 <script>
 
 function modify_go(memberNo){
-	   if(confirm("일반회원으로 변경하시겠습니까?")){
-			   document.querySelector("#cancelHidden").value=""+memberNo
-			   document.querySelector('#cancel').submit();
-			   console.log(document.querySelector("#cancelHidden").value)
+	
+	Swal.fire({
+        title: '일반회원으로 변경하시겠습니까?',
+        icon : 'warning' ,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '승인',
+        cancelButtonText: '취소',
+        reverseButtons: true, // 버튼 순서 거꾸로
+        
+      }).then((result) => {
+          if (result.isConfirmed) {
+		   document.querySelector("#cancelHidden").value=""+memberNo
+		   document.querySelector('#cancel').submit();
+		   console.log(document.querySelector("#cancelHidden").value)
 	     
 	   }
-	}
+	})
+}
 
 
 

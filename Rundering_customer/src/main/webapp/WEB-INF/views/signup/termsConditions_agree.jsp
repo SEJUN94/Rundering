@@ -3,11 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
 <style>
 textarea {
 	resize: none;
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 <script type="text/javascript">
 	function chk() {
 		var req1 = document.form.req1.checked;
@@ -19,11 +23,17 @@ textarea {
 		if (num == 1) {
 			document.form.submit();
 		} else {
-			alert("개인정보 약관에 동의하셔야 합니다.");
+			Swal.fire({
+				icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '개인정보 약관에 동의하셔야 합니다.'
+			});
 		}
 	}
 	function nochk() {
-		alert("동의하지 않으면 가입하실 수 없습니다");
+		Swal.fire({
+			icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '동의하지 않으면 가입하실 수 없습니다.'
+		});
 	}
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">

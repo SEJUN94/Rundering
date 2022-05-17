@@ -271,12 +271,18 @@ $('input[name="pictureFile"]').change(function(){
 	
 	//파일 확장자 pdf 확인
 	if(!(fileFormat == "pdf" || fileFormat == "hwp" || fileFormat == "PDF")){
-		alert("계약서 파일은 pdf 형식만 가능합니다.");
+		Swal.fire({
+			icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '계약서 파일은 pdf 형식만 가능합니다.'
+		});
 		return;
 	}
 	// 파일 용량 체크
 	if(picture.files[0].size>1024*1024*5){
-		alert("첨부파일 용량은 5MB 이하만 가능합니다.");
+		Swal.fire({
+			icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '첨부파일 용량은 5MB 이하만 가능합니다.'
+		});
 		return;
 	};
 	

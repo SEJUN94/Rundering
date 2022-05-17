@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <head>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
 <style>
     .bg{
         width: 100%;
@@ -25,6 +27,8 @@
 </head>
 
 <body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
 
 <img class="bg" src="<%=request.getContextPath()%>/resources/images/rundering_bg.jpg" alt="rundering_bg">
 <div class="login-box">
@@ -104,7 +108,10 @@ let login_flag=false;
 
 function login_go() {
 	if(login_flag==false){
-		alert('그림을 제대로 입력하고 확인하세요.');
+		Swal.fire({
+			icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '그림을 제대로 입력하고 확인하세요.'
+		});
 		return;
 	}
 	let idValue=document.querySelector('#id').value
@@ -130,19 +137,27 @@ window.onload = function(){
 			  },
 			  success:function(returnData){
 				if(returnData == 200){
-					
-					alert('입력값이 일치합니다.');
+					Swal.fire({
+						icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title : '입력값이 일치합니다.'
+					});
 					login_flag=true;
 					document.querySelector('#captcha').innerHTML="";
 				}else{ 
-					alert('입력값이 일치하지 않습니다.');
+					Swal.fire({
+						icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title : '입력값이 일치하지 않습니다.'
+					});
 					getImage(); 
 					document.querySelector('#answer').setAttribute('value',''); 
 				}
 
 			  },
 			  error:function(error){
-				  alert('에러');
+				  Swal.fire({
+						icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title : '시스템 에러 관리자에게 문의하세요.'
+					});
 			  }
 		   });
 		

@@ -10,6 +10,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
 <meta charset="UTF-8">
 <title>발주내역 상세</title>
 </head>
@@ -131,25 +135,73 @@
 	<input type="hidden" value="${itemOrder.ordercode }" name="ordercode">
 	<input type="hidden" value="03" name="itemOrderStatus">
 </form>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
 <script>
 	function success() {
-	    if (confirm("승인하시겠습니까?")) {
-	    	alert("승인되었습니다.")
+		Swal.fire({
+            title: '승인하시겠습니까?',
+            icon : 'warning' ,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '승인',
+            cancelButtonText: '취소',
+            reverseButtons: true, // 버튼 순서 거꾸로
+            
+          }).then((result) => {
+              if (result.isConfirmed) {
+            	  Swal.fire({
+						icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title : '승인되었습니다.'
+					});
 			$("form[role='success']").submit();
-	    }
+	    	}
+		})
 	}
 	function orderSuccess(){
-		if (confirm("발주하시겠습니까?")){
-			alert("발주 완료되었습니다.")
+		Swal.fire({
+            title: '발주하시겠습니까?',
+            icon : 'warning' ,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '승인',
+            cancelButtonText: '취소',
+            reverseButtons: true, // 버튼 순서 거꾸로
+            
+          }).then((result) => {
+              if (result.isConfirmed) {
+            	  Swal.fire({
+						icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title : '발주 완료되었습니다.'
+				});
 			$("form[role='orderSuccess']").submit();
-		}
+			}
+		})
 	}
 	
 	function fail() {
-	    if (confirm("반려하시겠습니까?")) {
-	    	alert("반려되었습니다.")
+		Swal.fire({
+            title: '반려하시겠습니까?',
+            icon : 'warning' ,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '승인',
+            cancelButtonText: '취소',
+            reverseButtons: true, // 버튼 순서 거꾸로
+            
+          }).then((result) => {
+              if (result.isConfirmed) {
+            	  Swal.fire({
+						icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title : '반려되었습니다.'
+				});
 	        $("form[role='fail']").submit();
-	    }
+	    	}
+		})
 	}
 </script>
 </body>

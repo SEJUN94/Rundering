@@ -50,7 +50,7 @@ function suggest_list(pageInfo){
 			let template = Handlebars.compile(source); 
 			
 			let	itemOrderList =dataMap.itemOrderList;
-			console.log(dataMap);
+			//console.log(dataMap);
 			
 			let now = new Date();
 			

@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-			
+
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
+	
 <script type="text/x-handlebars-template" id="enrollemnt" >
 	
 	<div class="row ml-3 mr-3" id="removeTag">
@@ -152,7 +156,11 @@
 
 	</div>
 
+
 	</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
 
 	<script type="text/javascript">
 		function branch_enrollment(flag,applicationNo){
@@ -180,7 +188,7 @@
 			        		topAreaList:data.topAreaCode.TOPAREAList,
 			        		btnSee:btnSee
 			        	}
-			        	console.log(handleData)
+			        	//console.log(handleData)
 			        	let html = template(handleData);
 			        	
 			        	if($('#removeTag')!=null){
@@ -227,24 +235,39 @@
 		}
 		function enrollmentRegist() {
 			if(document.querySelector("#branchName").value.trim()==""){
-				alert("지점이름을 입력하세요")
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '지점이름을 입력하세요'
+				});
 				return;
 			}
 			if(document.querySelector("#branchContact").value.trim()==""){
-				alert("지점전화번호을 입력하세요")
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '지점전화번호을 입력하세요'
+				});
 				return;
 			}
 			
 			if(document.querySelector("#zip").value.trim()==""){
-				alert("우편번호 필수")
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '우편번호 필수'
+				});
 				return;
 			}
 			if(document.querySelector("#add1").value.trim()==""){
-				alert("주소 필수")
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '주소 필수'
+				});
 				return;
 			}
 			if(document.querySelector("#add2").value.trim()==""){
-				alert("상세주소필수")
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '상세주소 필수'
+				});
 				return;
 			}
 			let enrollmentForm = document.querySelector("#enrollmentRegistForm");

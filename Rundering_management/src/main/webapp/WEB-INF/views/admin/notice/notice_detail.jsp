@@ -4,6 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <body>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
+
 	<div class="col-md-12" style="padding:30px;">
 		<div class="card card-secondary card-outline">
 			<div class="card-header">
@@ -121,12 +126,18 @@
 
 		
 		<c:if test="${from eq 'modify' }">
-		alert("수정되었습니다.");
+			Swal.fire({
+				icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title: '수정되었습니다.'
+			});
 
 		</c:if>
 	
 		<c:if test="${from eq 'remove' }">
-			alert("삭제되었습니다.");
+			Swal.fire({
+				icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title: '삭제되었습니다.'
+			});
 	
 			window.opener.parent.location.reload(true);
 			window.close();

@@ -334,7 +334,7 @@
 				const classes = tr.classList;
 				if (classes.contains(laundryItemsCode)) {
 					//품목 개수 추가해야함
-					console.log(laundryItemsCode);
+					//console.log(laundryItemsCode);
 					return;
 				} 
 			}

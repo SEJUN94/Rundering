@@ -5,6 +5,8 @@
 
 
 <head>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
 </head>
 
 
@@ -106,13 +108,20 @@
 		<!-- end row -->
 	</section>
 	<!-- /.content -->
+	
+	<!-- 이쁜알럽트창 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+	
 	<script>
 		function ok_go(asno) {
 			location.href = "ok?asno=" + asno;
 		}
 
 		<c:if test="${from eq 'ok' }">
-		alert("완료되었습니다.");
+		Swal.fire({
+			icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '완료되었습니다.'
+		});
 		window.close();
 		window.opener.location.reload();
 		</c:if>

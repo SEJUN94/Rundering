@@ -284,7 +284,7 @@
 		     	let contactNumber = document.querySelector('#contactNumber');
 		     	
 		     	contactNumber.setAttribute('value',tel.value);
-		     	console.log('tel.value',tel.value);
+		     	//console.log('tel.value',tel.value);
 		     	let showPhone = document.querySelector('.showPhone');
 		     	showPhone.innerText = phoneFomatter(tel.value);
 		     	

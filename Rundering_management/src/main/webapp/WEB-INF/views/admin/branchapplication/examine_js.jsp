@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+    
 <script type="text/x-handlebars-template" id="examine" >
 <div class="row ml-3 mr-3" id="removeTag">
 		<div class="col-8">
@@ -57,6 +61,8 @@
 	</div>
 	</script>
 	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+	
 	<script type="text/javascript">
 		function branch_examine(flag,applicationNo){
 			let btnSee=true;
@@ -85,7 +91,7 @@
 			        		application.content=true
 			        	}
 			        	
-			        	console.log(application)
+			        	//console.log(application)
 			        	
 			        	let html = template(application);
 			        	
@@ -129,7 +135,10 @@
 		}
 		function examineReject(){
 			if(document.querySelector('#content').value.trim()==""){
-				alert("내용을 입력하세요");
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '내용을 입력하세요'
+				});
 				return;
 			}
 			let form =document.querySelector('#examineForm');
@@ -141,7 +150,10 @@
 		}
 		function examineOK(){
 			if(document.querySelector('#content').value.trim()==""){
-				alert("내용을 입력하세요");
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '내용을 입력하세요'
+				});
 				return;
 			}
 			let form = document.querySelector("#examineForm");

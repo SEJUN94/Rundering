@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <body>
+
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
 	<div class="login-box" style="margin:auto;">
         <div class="login-logo">
            <img class="logo" style="margin:auto;"  src="<%=request.getContextPath()%>/resources/images/RunderingMemberLogo.png" alt="RunderingMember">
@@ -84,12 +89,17 @@
 		}
 	function passwordModify(){
 		if(pwchk==false){
-			
-			alert("잘못된 비밀번호 입니다")
+			Swal.fire({
+				icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '잘못된 비밀번호 입니다'
+			});
 			return;
 		}
 		if(passchk==false){
-			alert("비밀번호가 일치하지않습니다.");
+			Swal.fire({
+				icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '비밀번호가 일치하지않습니다.'
+			});
 			return;
 		}
 		let form =document.querySelector("#passwordModify");

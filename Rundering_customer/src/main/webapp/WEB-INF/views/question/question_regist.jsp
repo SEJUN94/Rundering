@@ -6,6 +6,8 @@
 <c:set var="orderList" value="${dataMap.orderList }" />
 
 <head>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
 
 <style >
 .inputRow {
@@ -163,7 +165,9 @@
   	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<!-- iamport.payment.js -->
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-
+	<!--  이쁜알럽트창 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+	
 	<script>
 	window.onload=function(){
 		summernote_go($('textarea[name="fcontent"]'),'<%=request.getContextPath()%>');
@@ -175,9 +179,12 @@
 			
 			var files = $('input[name="uploadFile"]');
 			for(var file of files){
-				console.log(file.name + " : "+ file.value);
+				//console.log(file.name + " : "+ file.value);
 				if(file.value == ""){
-					alert("파일을 선택하세요.");
+					Swal.fire({
+						icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title : '파일을 선택하세요.'
+					});
 					file.focus();
 					file.click();
 					return false;
@@ -186,14 +193,23 @@
 			
 			var form = document.registForm;
 			if (form.question.value == "") {
-				alert("제목은 필수입니다.");
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '제목은 필수입니다.'
+				});
 				return false;
 			}
 			if (form.secretyn.value == "") {
-				alert("공개여부를 선택하세요.");
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '공개여부를 선택하세요.'
+				});
 				return false;
 			}
-			alert("등록되었습니다.");
+			Swal.fire({
+				icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '등록되었습니다.'
+			});
 			form.submit();
 		}
 	</script>
@@ -205,7 +221,10 @@
 		function addFile_go(){
 		   
 		   if($('input[name="uploadFile"]').length >= 3){
-		      alert("파일추가는 3개까지만 가능합니다.");
+			   Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '파일추가는 3개까지만 가능합니다.'
+				});
 		      return;
 		   }
 		   

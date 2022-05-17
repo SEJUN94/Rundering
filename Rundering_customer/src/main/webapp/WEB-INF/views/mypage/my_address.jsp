@@ -10,10 +10,8 @@
 <c:set var="memberAddressList" value="${memberAddressList }" />
 
 <head>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.min.css" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/bootstrap/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
 
 <style>
 	#peter {

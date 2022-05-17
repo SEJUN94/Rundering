@@ -124,7 +124,10 @@ function replyRegist_go(){
 	var bno=$('input[name="bno"]').val();
 	
 	if(!replytext){
-		alert("내용은 필수입니다.");
+		Swal.fire({
+			icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '내용은 필수입니다.'
+		});
 		return;
 	}
 	

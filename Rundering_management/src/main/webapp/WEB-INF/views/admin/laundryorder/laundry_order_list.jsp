@@ -262,8 +262,8 @@
 		  // select all 체크박스
 		  const selectAll = document.querySelector('th>input[name=selectAllOrderNo]');
 		  
-		  console.log(checkboxes.length);
-		  console.log(checked.length);
+		  //console.log(checkboxes.length);
+		  //console.log(checked.length);
 		  
 		  if(checkboxes.length === checked.length)  {
 		    selectAll.checked = true;

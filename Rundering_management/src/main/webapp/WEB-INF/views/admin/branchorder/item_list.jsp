@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+    
 <script type="text/x-handlebars-template" id="item_list">
 		
 			<div id="removeItem">
@@ -91,7 +95,8 @@
 </ul>
 </nav>
 </script>         
-         
+        
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
  
 <script >
 let item_page=1;
@@ -112,7 +117,10 @@ function list_go_orderBy(page){
 
 function item_page_go(url){
 	if(url==null||url.trim()==""){
-		alert("페이지가 없습니다");
+		Swal.fire({
+			icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '페이지가 없습니다.'
+		});
 		return;
 	}
 	item_List(url);

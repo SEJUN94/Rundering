@@ -8,6 +8,8 @@
 <c:set var="laundryItemsList" value="${dataMap.laundryItemsList }" />
 
 <head>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
 </head>
 <title>세탁 품목 등록</title>
 <body>
@@ -69,6 +71,9 @@
 				</div>
 				</div>
 			</section>
+			
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
  <script>
 	
 	function regist_go(){
@@ -77,11 +82,17 @@
 	    var price = form.price.value;
 	    
 	    if(itemsName==""){
-	        alert("품목명과 가격을 모두 입력하세요.");
+	    	Swal.fire({
+				icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '품목명과 가격을 모두 입력하세요.'
+			});
 	        return;
 	    }
 	    if(price ==""){
-	    	alert("가격을 입력하세요")
+	    	Swal.fire({
+				icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '가격을 입력하세요'
+			});
 	    	return;
 	    }
 	    $("form[role='form']").submit();
@@ -93,7 +104,10 @@
 	 
 	 <c:if test="${from eq 'regist'}" >
 	 	<script>
-			alert("등록되었습니다.");
+	 	Swal.fire({
+			icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '등록되었습니다.'
+		});
 			window.close();
 			window.opener.location.reload();
 		 </script>

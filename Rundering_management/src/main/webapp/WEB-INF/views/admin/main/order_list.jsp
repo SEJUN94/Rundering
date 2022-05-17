@@ -55,7 +55,7 @@ function order_list(pageInfo){
 			let	itemOrderList =dataMap.itemOrderList;
 			let comCodeMap = dataMap.comCodeMap
 			let branchList=dataMap.branchList
-			console.log(dataMap);
+			//console.log(dataMap);
 			
 			let now = new Date();
 			

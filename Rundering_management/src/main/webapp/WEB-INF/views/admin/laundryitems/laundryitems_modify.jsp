@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
 </head>
 <title>세탁 품목 수정</title>
 <body>
@@ -50,16 +52,24 @@
 				</div>
 			</div>
 			</section>
-			
+	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+		
 	<script>
 		function modifyPOST_go() {
 			var form = document.modifyForm;
 			if (form.itemsName.value == "") {
-				alert("수정할 품목명을 입력하세요.");
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '수정할 품목명을 입력하세요.'
+				});
 				return;
 			}
 			if (form.price.value == "") {
-				alert("수정할 가격을 입력하세요.");
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '수정할 가격을 입력하세요.'
+				});
 				return;
 			}
 			//alert("modify btn click");
@@ -70,7 +80,10 @@
 	 
 	 <c:if test="${from eq 'laundryItems'}" >
 	 	<script>
-			alert("수정되었습니다.");
+	 	Swal.fire({
+			icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '수정되었습니다.'
+		});
 			window.close();
 			window.opener.location.reload();
 		 </script>
