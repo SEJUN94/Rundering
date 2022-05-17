@@ -81,7 +81,7 @@ th, td {
 							</div>
 						</div>
 						</div>
-						<div class="card-body p-0">
+						<div class="card-body p-0" style="height: 540px;">
 							<table class="table table-hover text-nowrap">
 								<thead>
 									<tr>
@@ -104,7 +104,7 @@ th, td {
 								</thead>
 								<c:if test="${empty asRequestList }">
 									<tr>
-										<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
+										<td colspan="6"><strong>해당 내용이 없습니다.</strong></td>
 									</tr>
 								</c:if>
 								<c:forEach items="${asRequestList }" var="asRequest">
@@ -138,16 +138,16 @@ th, td {
 								</c:forEach>
 							</table>
 
-							<div class="float-right mt-3 mr-3 mb-3">
+							
+						</div>
 
-								<button class="btn btn-primary" type="button" id="registBtn"style="background-color: #59a5cb;border-color: #59a5cb;"
+						<div class="card-footer" >
+						<div class="float-right mr-1">
+
+							<button class="btn btn-primary" type="button" id="registBtn"style="background-color: #59a5cb;border-color: #59a5cb;"
 									onclick="location.href='<%=request.getContextPath()%>/branch/asrequest/registForm'">
 									요청하기</button>
 							</div>
-						</div>
-
-
-						<div class="card-footer" style="font-size: 0.9em">
 							<%@ include file="/WEB-INF/views/common/pagination.jsp"%>
 
 						</div>

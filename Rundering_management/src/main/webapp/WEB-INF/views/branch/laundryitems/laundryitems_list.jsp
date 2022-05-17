@@ -55,11 +55,12 @@
 						</div>
 					</div>
 				</div>
-				<div class="card-body table-responsive p-0 mt-0">
 				<form role="form" class="form-horizontal" action="regist"
 						method="post" name="registForm">
+				<div class="card-body table-responsive p-0 mt-0" style="height: 540px;">
+				
 					<table
-						class="table table-hover text-nowrap ">
+						class="table table-hover text-nowrap " >
 						<thead>
 							<tr>
 							    <th style="width:150px;">분류</th>
@@ -75,7 +76,7 @@
 									</tr>
 								</c:if>
 								<c:forEach items="${laundryItemsList }" var="laundryItems">
-									<tr style='font-size: 1em;'>
+									<tr>
 										<td>${codeMap[laundryItems.laundryCategory] }</td>
 										<td id="laundryItemsCode"
 											style="text-align: left; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
@@ -86,12 +87,14 @@
 								</c:forEach>
 						</tbody>
 					</table>
-				</form>
-					<div class="card-footer" >	
+			
+					
+				</div>
+					</form>
+				<div class="card-footer" >	
 						<%@ include file="/WEB-INF/views/admin/ordergoods/pagination.jsp" %>
 						
 					</div>
-				</div>
 
 			</div>
 		</div>

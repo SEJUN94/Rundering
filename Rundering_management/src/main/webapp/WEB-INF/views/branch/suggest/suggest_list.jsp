@@ -150,7 +150,7 @@ th, td {
 
 
 						<div class="card-footer" >
-								<div class="float-right mr-1">
+							<div class="float-right mr-1">
 
 								<button class="btn btn-primary" type="button" id="registBtn" style="background-color: #59a5cb;border-color: #59a5cb;"
 									onclick="location.href='<%=request.getContextPath()%>/branch/suggest/registForm'">

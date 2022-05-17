@@ -123,20 +123,22 @@
 										</td>
 									<td style="text-align: center;">
 									<fmt:parseNumber value="${laundryOrder.deliveryRequestDate.time  / (1000*60*60*24)}" integerOnly="true" var="chgDttm" />
-									
-									<c:if test="${today - chgDttm <= 0}">
+									<c:if test="${ laundryOrder.orderStatus ne 08 }">
+										<c:if test="${today - chgDttm <= 0}">
+											<span class="badge badge-success">${orderCodeMap[laundryOrder.orderStatus]}</span>
+										</c:if>
+										<c:if test="${today - chgDttm == 1}">
+											<span class="badge badge-warning">${orderCodeMap[laundryOrder.orderStatus]}</span>
+										</c:if>
+										<c:if test="${today - chgDttm >= 2}">
+											<span class="badge badge-danger">${orderCodeMap[laundryOrder.orderStatus]}</span>
+										</c:if>
+										
+									</c:if>
+									<c:if test="${ laundryOrder.orderStatus eq 08 }">
 										<span class="badge badge-success">${orderCodeMap[laundryOrder.orderStatus]}</span>
 									</c:if>
-									<c:if test="${today - chgDttm == 1}">
-										<span class="badge badge-warning">${orderCodeMap[laundryOrder.orderStatus]}</span>
-									</c:if>
-									<c:if test="${today - chgDttm >= 2}">
-										<span class="badge badge-danger">${orderCodeMap[laundryOrder.orderStatus]}</span>
-									</c:if>
-									
-									
-									
-									
+																			
 									
 									</td>
 									<td style="text-align: center;"><fmt:formatDate

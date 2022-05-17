@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body table-responsive p-0 mt-0" style="height: 605px;overflow: auto;">
+                <div class="card-body table-responsive p-0 mt-0" style="height: 540px;overflow: auto;">
                     <table
                         class="table table-hover text-nowrap card-outline">
                         <thead>

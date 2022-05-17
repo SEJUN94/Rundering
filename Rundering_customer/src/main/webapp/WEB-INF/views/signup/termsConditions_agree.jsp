@@ -30,7 +30,26 @@ textarea {
 <title>회원가입 창</title>
 </head>
 <body>
-	<h1>회원가입</h1> <br/>
+	<section class="content-header" style="width: 70%; max-width: 874px; margin: auto;">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1>회원가입</h1>
+				</div>
+				<!-- <div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item active">FAQ</li>
+						<li class="breadcrumb-item"><a href="#">Home</a></li>
+					</ol>
+				</div> -->
+			</div>
+		</div>
+	</section>
+
+	 <div class ="col-12">
+	 	<div class="card" style="width: 70%; max-width: 874px; margin: auto; box-shadow: none;">
+	 	
+	 
 	<form action="<%=request.getContextPath()%>/joinform" name="form" method="post">
 		<hr>
 		<table>
@@ -39,7 +58,7 @@ textarea {
 					<td width="100%" height="30%" align="center">
 						<p align="left">
 							<span>Rundering 약관동의</span>
-						</p> <br> <textarea rows="10" cols="150" readonly>제1조(목적)
+						</p> <br> <textarea rows="10" cols="104" readonly>제1조(목적)
 이 약관은 Rundering(전자거래 사업자)가 운영하는 웹사이트(이하 "사이트"이라 한다)에서 제공하는 인터넷 관련 서비스(이하 "서비스"라 한다)를 이용함에 있어 서비스 이용자의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.
 
 제2조(정의)
@@ -161,7 +180,7 @@ textarea {
 				<tr>
 					<td width="100%" height="30%" align="center">
 						<p align="left">
-						</p> <br> <textarea rows="10" cols="150" readonly>(주)Rundering는 통신비밀보호법, 전기통신사업법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 정보통신서비스제공자가 준수하여야 할 관련 법령상의 개인정보보호 규정을 준수하며, 관련 법령에 의거한 개인정보취급방침을 정하여 이용자 권익 보호에 최선을 다하고 있습니다.
+						</p> <br> <textarea rows="10" cols="104" readonly>(주)Rundering는 통신비밀보호법, 전기통신사업법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 정보통신서비스제공자가 준수하여야 할 관련 법령상의 개인정보보호 규정을 준수하며, 관련 법령에 의거한 개인정보취급방침을 정하여 이용자 권익 보호에 최선을 다하고 있습니다.
 Rundering의 개인정보취급방침은 다음과 같은 내용을 담고 있습니다.
 
 가. 수집하는 개인정보 항목 및 수집방법
@@ -217,5 +236,7 @@ Rundering는 수집한 개인정보를 다음의 목적을 위해 활용합니�
 			</tbody>
 		</table>
 	</form>
+	</div>
+	</div>
 </body>
 </html>
