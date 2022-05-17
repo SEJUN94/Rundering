@@ -241,21 +241,27 @@ public class MyPageController {
 	//회원탈퇴
 	@RequestMapping("/secede")
 	@ResponseBody
-	private ResponseEntity<String> secede(HttpServletRequest request,String password) throws Exception {
+	private ResponseEntity<String> secede(HttpServletRequest request,String password,MyOrderCriteria cri) throws Exception {
 		ResponseEntity<String> entity = null;
 		
 			HttpSession session = request.getSession();
 			MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-		
+			cri.setMemberNo(loginUser.getMemberNo());
 			String pw = UserSha256.encrypt(password);
 		try {
 			
 			String upw = memberService.checkPw(loginUser.getId());
 			
+			int count = laundryOrderService.ingCount(cri);
 			if (upw.equals(pw) ) {
 				
-				memberService.deleteMember(loginUser.getId());
-				entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+				if(count == 0) {
+					memberService.deleteMember(loginUser.getId());
+					entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+				}
+				
+				entity = new ResponseEntity<String>("NO", HttpStatus.OK);
+				
 			} else {
 				entity = new ResponseEntity<String>("", HttpStatus.OK);
 			}

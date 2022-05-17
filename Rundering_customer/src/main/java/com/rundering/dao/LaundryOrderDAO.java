@@ -47,4 +47,5 @@ public interface LaundryOrderDAO {
 	// 마이페이지 - 요청사항 삭제
 	public void removeReq(String orderNo) throws Exception;
 	
+	
 }

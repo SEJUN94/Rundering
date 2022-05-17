@@ -39,4 +39,7 @@ public interface LaundryOrderService {
 	
 	// 마이페이지 - 주문내역_요청사항 삭제
 	public void removeReq(String orderNo) throws Exception;
+	
+	// 진행중인 세탁주문 내역 가져오기
+	public int ingCount(MyOrderCriteria cri)throws Exception;
 }

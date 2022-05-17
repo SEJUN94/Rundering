@@ -96,6 +96,8 @@ li h1{
 <script>
 	function secede(){
 		
+		event.preventDefault(); // 이벤트를 막아 페이지 리로드를 방지	
+		
 		$.ajax({
 			url : '<%=request.getContextPath()%>/mypage/secede',
 			type : 'post',
@@ -109,9 +111,16 @@ li h1{
 						title: 'Rundering 회원탈퇴되었습니다.',
 						text: '다음에 다시 이용해주세요.' 
 					});
-					location.href = "<%=request.getContextPath()%>
-	/login/form";
-				} else {
+					setTimeout(function(){location.href = "<%=request.getContextPath()%>/login/form";},1000);
+				} else if(response.toUpperCase() == "NO"){
+					Swal.fire({
+						icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title: '탈퇴 실패!',
+						text: '진행중인 세탁주문이 있습니다.',
+						text: '세탁주문이 있을시 탈퇴 할 수 없습니다.' 
+					});
+					
+				} else {	
 					Swal.fire({
 						icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
 						title : '비밀번호가 일치하지 않습니다.'
