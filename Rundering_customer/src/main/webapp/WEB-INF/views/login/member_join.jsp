@@ -13,7 +13,7 @@
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<section class="content-header" style="width: 70%; max-width: 874px; margin: auto;">
+<section class="content-header" style="width: 60%; max-width: 874px; margin: auto;">
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
