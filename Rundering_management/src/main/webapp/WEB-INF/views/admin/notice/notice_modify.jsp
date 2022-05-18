@@ -4,6 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
 <body>
 
 	<section class="content-header">
@@ -67,6 +70,10 @@
 		</div>
 	</div>
 
+	<!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+
 	<script>
 	window.onload=function(){
 	summernote_go($('textarea[name="content"]'), '<%=request.getContextPath()%>');
@@ -77,17 +84,28 @@
 	 <script>
     	function removeFile_go(className){
     		var li = $('li.'+className);
-    		if(!confirm(li.attr("file-name")+"을 정말 삭제하시겠습니까?")){
-    			return;
-    		}    			
-    		li.remove();
-    		
-    		var input=$('<input>').attr({"type":"hidden",
-				 "name":"deleteFile",
-				 "value":li.attr("target-ano")
-				}); 
+    		Swal.fire({
+                title: li.attr("file-name")+"을 정말 삭제하시겠습니까?",
+                icon : 'warning' ,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '승인',
+                cancelButtonText: '취소',
+                reverseButtons: true, // 버튼 순서 거꾸로
+              }).then((result) => {
+    		if(result.isConfirmed){
+    			li.remove();
+        		
+        		var input=$('<input>').attr({"type":"hidden",
+    				 "name":"deleteFile",
+    				 "value":li.attr("target-ano")
+    				}); 
 
-			$('form[role="modifyForm"]').prepend(input);
+    			$('form[role="modifyForm"]').prepend(input);
+    		} 
+    			return;
+              })
     	}
     	
     	var dataNum=0;    	
@@ -99,7 +117,10 @@
     		var attachCount=attachedFile+inputFile; //기존파일 + 추가된파일 개수
     		
     		if(attachCount >=5){
-    			alert("파일추가는 5개까지만 가능합니다.");
+    			Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '파일추가는 5개까지만 가능합니다.'
+				});
     			return;
     		}
     		
@@ -124,7 +145,10 @@
 			
 			//제목 유효성확인
 			if($("input[name='title']").val()==""){
-				alert(input.name+"은 필수입니다.");
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : input.name+'은 필수입니다.'
+				});
 				$("input[name='title']").focus();
 				return;
 			}
@@ -132,9 +156,12 @@
 			//파일 첨부확인
 			var files = $('input[name="uploadFile"]');
 			for(var file of files){
-				console.log(file.name+" : "+file.value);
+				//console.log(file.name+" : "+file.value);
 				if(file.value==""){
-					alert("파일을 선택하세요.");
+					Swal.fire({
+						icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title : '파일을 선택하세요.'
+					});
 					file.focus();
 					return false;
 				}

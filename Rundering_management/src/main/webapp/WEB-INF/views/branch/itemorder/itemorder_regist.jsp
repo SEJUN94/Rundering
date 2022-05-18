@@ -123,7 +123,10 @@
 function order_go(){	
 	let count = document.querySelectorAll(".count")
 	if(count.length==0){
-		alert("발주신청 목록이 없습니다")
+		Swal.fire({
+			icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '발주신청 목록이 없습니다.'
+		});
 		return;
 	} 
 	
@@ -131,13 +134,19 @@ function order_go(){
 	let quantity = document.querySelectorAll(".quantity");
 	for(let i = 0 ; i < price.length; i++){
 		if(price[i].innerText.trim()=="" || price[i].innerText==null){
-			alert("수량을 입력해주세요");
+			Swal.fire({
+				icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '수량을 입력해주세요'
+			});
 			return 
 		}
 	}
 	for(let i = 0 ; i < quantity.length; i++){
 		if(quantity[i].value==""||quantity[i].value==null){
-			alert("수량을 입력해주세요");
+			Swal.fire({
+				icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '수량을 입력해주세요'
+			});
 			return
 		}
 	}
@@ -248,7 +257,7 @@ function getImage(){
 	for(img of imgs){
 		let fileNo =img.dataset.fileno
 		imgAjax(fileNo,img)
-		console.log(img)
+		//console.log(img)
 	}
 }
 function imgAjax(atchFileNo,img){
@@ -278,7 +287,7 @@ function imgclick(){
 }
 function imgclicknone(){
 	let imgTag=event.target.style.display='none';
-	console.log(imgTag)
+	//console.log(imgTag)
 }
 
 
@@ -287,7 +296,10 @@ function imgclicknone(){
 
 function page_go(url){
 	if(url==null||url.trim()==""){
-		alert("페이지가 없습니다");
+		Swal.fire({
+			icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '페이지가 없습니다.'
+		});
 		return;
 	}
 	orderGoodsList(url);
@@ -303,7 +315,7 @@ function orderGoodsList(pageInfo){
 		type : 'get',
 		dataType : "json",
 		success : function(dataMap) {
-			console.log(dataMap)
+			//console.log(dataMap)
 			
 			let source = $("#laundryArticlesList").html();
 			let pageSource = $("#pagination-template").html();
@@ -318,7 +330,7 @@ function orderGoodsList(pageInfo){
 				i.getEach=i.each;
 			}
 			
-			console.log(laundryArticlesList)
+			//console.log(laundryArticlesList)
 			
 			let pageNumArray = new Array(pageMaker.endPage-pageMaker.startPage+1);
 		    for(var i=0; i<pageMaker.endPage-pageMaker.startPage+1;i++){
@@ -441,7 +453,7 @@ function inputNumber(){
 	
 	if( event.target.value.trim==""||event.target.value==null){
 		event.target.value=1;
-		console.log(seeTotalPrice());
+		//console.log(seeTotalPrice());
 		return;
 	}
 	
@@ -453,7 +465,7 @@ function inputNumber(){
     		let priceInt=parseInt(price);
     		event.target.parentNode.parentNode.querySelector(".price").innerText=priceInt*eventInt;
     		event.target.parentNode.parentNode.querySelector(".inputPrice").value=priceInt*eventInt;
-    		 console.log(seeTotalPrice());
+    		 //console.log(seeTotalPrice());
     		return;
     		
     	}
@@ -465,7 +477,7 @@ function inputNumber(){
 		event.target.parentNode.parentNode.querySelector(".price").innerText=priceInt*eventInt;
 		event.target.parentNode.parentNode.querySelector(".inputPrice").value=priceInt*eventInt;
     	
-		console.log(seeTotalPrice());
+		//console.log(seeTotalPrice());
     }
     
 }
@@ -493,7 +505,7 @@ function inputNumber(){
 			 result=100;
 		}
 		input.setAttribute("value",result)
-		console.log(input)
+		//console.log(input)
 		
 		let sum= event.target.parentNode.parentNode.querySelectorAll('.quantity')[0].value*event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].dataset.price
 		event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].innerText=priceToString(sum);
@@ -514,7 +526,7 @@ function inputNumber(){
 		let sum= event.target.parentNode.parentNode.querySelectorAll('.quantity')[0].value*event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].dataset.price
 		event.target.parentNode.parentNode.parentNode.querySelectorAll(".price")[0].innerText=priceToString(sum);
 		event.target.parentNode.parentNode.parentNode.querySelectorAll(".inputPrice")[0].value=sum;
-		console.log(input)
+		//console.log(input)
 		seeTotalPrice()
 	}
 

@@ -4,7 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
+
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
+
 <body>
+
 
 
 <section class="content-header">
@@ -57,6 +63,11 @@
 		</div>
 	</div>
 </div>
+
+	<!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+
 	<script>
 	      window.onload=function(){	
 	      summernote_go($('textarea[name="content"]'), '<%=request.getContextPath()%>');
@@ -69,6 +80,7 @@
 		function regist_go(){
 			var form = document.registForm;
 			if(form.title.value==""){
+				
 				alert("제목은 필수입니다.");
 				return;
 			}
@@ -84,7 +96,10 @@ var dataNum = 0;
 	function addFile_go(){
 	   
 	   if($('input[name="uploadFile"]').length >= 5){
-	      alert("파일추가는 5개까지만 가능합니다.");
+		   Swal.fire({
+				icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '파일추가는 5개까지만 가능합니다.'
+			});
 	      return;
 	   }
 	   
@@ -108,7 +123,10 @@ var dataNum = 0;
 		for(var file of files){
 			console.log(file.name + " : "+ file.value);
 			if(file.value == ""){
-				alert("파일을 선택하세요.");
+				Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '파일을 선택하세요.'
+				});
 				file.focus();
 				file.click();
 				return;
@@ -116,7 +134,10 @@ var dataNum = 0;
 		}
 		
 		if($("input[name='title']").val()==""){ //form.title.value
-			alert("제목은 필수입니다.");
+			Swal.fire({
+				icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '제목은 필수입니다.'
+			});
 		$("input[name='title']").focus();
 		return;
 		}

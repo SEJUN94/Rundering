@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -120,6 +124,9 @@
 			</div>
 		</div>
 	</section>
+<!-- 알림 sweetalert2 -->
+<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+		
 	<script>
 		function modify_go() {
 			var formObj = $("form[role='form']");
@@ -132,7 +139,10 @@
 	</script>
 	<c:if test="${from eq 'modify' }">
 		<script>
-			alert("수정되었습니다.");
+		Swal.fire({
+			icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '수정되었습니다.'
+		});
 			window.opener.location.reload();
 		</script>
 	</c:if>
@@ -140,15 +150,31 @@
 	<script>
 		function remove_go() {
 			var formObj = $("form[role='form']");
-			var answer = confirm("정말 삭제하시겠습니까?");
-			if (answer) {
-				formObj.attr("action", "remove");
-				formObj.attr("method", "post");
-				formObj.submit();
-			}
+			
+			Swal.fire({
+	            title: '정말 삭제하시겠습니까?',
+	            icon : 'warning' ,
+	            showCancelButton: true,
+	            confirmButtonColor: '#3085d6',
+	            cancelButtonColor: '#d33',
+	            confirmButtonText: '승인',
+	            cancelButtonText: '취소',
+	            reverseButtons: true, // 버튼 순서 거꾸로
+	            
+	          }).then((result) => {
+	              if (result.isConfirmed) {
+					formObj.attr("action", "remove");
+					formObj.attr("method", "post");
+					formObj.submit();
+				}
+	          })
 		}
+		
 		<c:if test="${from eq 'remove'}" >
-		alert("삭제되었습니다.");
+		Swal.fire({
+			icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '삭제되었습니다.'
+		});
 		window.close();
 		window.opener.location.reload();
 		</c:if>

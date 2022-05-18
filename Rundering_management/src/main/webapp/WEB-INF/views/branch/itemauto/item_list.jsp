@@ -8,6 +8,10 @@
 <c:set var="itemList" value="${dataMap.itemList }"/>
 <c:set var="clcodeList" value="${dataMap.CLCODEList }" />
 <head>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
@@ -222,8 +226,10 @@ function autoOrder(){
 		type : 'get',
 		success : function(data) {
 			window.location.reload()
-			
-			alert("성공")
+			Swal.fire({
+				icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '성공!'
+			});
 		},
 		error : function(error) {
 			AjaxErrorSecurityRedirectHandler(error.status);
@@ -306,7 +312,7 @@ function autoSaveCount(){
 	
 	let code = input.dataset.code;
 	let each = input.dataset.each;
-	console.log(code)
+	//console.log(code)
 	$.ajax({
 		url : '<%=request.getContextPath()%>/branch/itemauto/autosavecount',
 		type : 'post',
@@ -336,7 +342,7 @@ function autoSavePoint(){
 	
 	let code = input.dataset.code;
 	let each = input.dataset.each;
-	console.log(code)
+	//console.log(code)
 	$.ajax({
 		url : '<%=request.getContextPath()%>/branch/itemauto/autosavepoint',
 		type : 'post',
@@ -386,7 +392,7 @@ function chartGo(){
 		},
 		dataType : "json",
 		success : function(data) {
-			console.log(data)
+			//console.log(data)
 			
 			let a= data[0].day;
 			let b= data[1].day;
@@ -433,7 +439,7 @@ function chartOut(){
 		},
 		dataType : "json",
 		success : function(data) {
-			console.log(data)
+			//console.log(data)
 			
 			let a= data[0].day;
 			let b= data[1].day;

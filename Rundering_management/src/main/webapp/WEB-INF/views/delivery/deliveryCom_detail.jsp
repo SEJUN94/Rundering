@@ -170,9 +170,9 @@ function getImages(atchFileNo){
 	function fileUpload(){
 		let form = $("#fileform")[0];
 		let formData = new FormData(form);
-		console.log(form);
+		//console.log(form);
 		
-		console.log(formData);
+		//console.log(formData);
 		
 		$.ajax({
 			  url:"<%=request.getContextPath()%>/fordelivery/pictureupload",

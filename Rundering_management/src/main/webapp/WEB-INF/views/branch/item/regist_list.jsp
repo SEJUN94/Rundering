@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
 <script type="text/x-handlebars-template" id="insert_list" >
 	<div class="card  p-0" style="padding-bottom: 10px;margin-bottom: 10px;" id="removeInsert">
                 <div class="card-header">
@@ -81,6 +85,10 @@
 </nav>
 </script>
 
+	<!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+
 <script >
 let page= 1;
 
@@ -92,7 +100,10 @@ function registChangeDate(page){
 
 function page_go(url){
 	if(url==null||url.trim()==""){
-		alert("페이지가 없습니다");
+		Swal.fire({
+			icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '페이지가 없습니다.'
+		});
 		return;
 	}
 	registList(url);

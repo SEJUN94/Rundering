@@ -11,6 +11,8 @@
 <c:set var="detailMap" value="${dataMap.detailMap }"/>
 <c:set var="now" value="<%=new java.util.Date()%>" /><!-- 현재시간 -->
 <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today" /><!-- 현재시간을 숫자로 -->
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
 										
 
 
@@ -18,7 +20,10 @@
 
 <c:if test="${ from eq 'notEquals' } ">
 	<script>
-		alert("해당하는 세탁주문이 없습니다");
+	Swal.fire({
+		icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+		title : '해당하는 세탁주문이 없습니다'
+	});
 			window.close();
 			window.opener.location.reload();
 	</script>
@@ -272,6 +277,10 @@
 				<input type='hidden' name="keyword" value="" />
 			</form>
 		
+	<!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+		
+		
 					<script>
 						function list_go(page,url){
 							if(!url) url="list";
@@ -305,6 +314,7 @@
 			{{/count}}
 		</ul>	
 	</script>
+	
 <script>
 	let imgList =null;
 	function orderDetail_go(){
@@ -391,7 +401,7 @@ function text(){
     let texts= document.querySelectorAll(".textCut");
     
     let textContent = document.querySelector("#requestText");
-    console.log(textContent)
+    //console.log(textContent)
     for (let i of texts){
         if(i.dataset.text.length>20){
             i.innerHTML=i.innerText.substring(0,20)+"..."
@@ -406,7 +416,7 @@ function text(){
             let see= document.querySelectorAll(".requestDisplay");
             for(let i of see){
             	i.style.visibility="visible";
-            	console.log(i)
+            	//console.log(i)
             }
             if(textDetail==null||textDetail.trim()==""){
             	document.querySelector("#requestText").innerText="요청사항이없습니다";
@@ -451,7 +461,10 @@ function text(){
     		}
     	}
     	if(flag==false){
-    		alert("선택한 주문이 없습니다")
+    		Swal.fire({
+				icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '선택한 주문이 없습니다.'
+			});
     		return;
     	}
     	
@@ -469,28 +482,53 @@ function text(){
 <script>
 	// 지점할당 스케줄링 메소드 연결
 		function handOverToDeliveryEmployee(){
-		    if (!confirm("현재까지 세탁완료된 주문건을 배송기사에게 인계하시겠습니까?")) {
-		    	return;
-	        } else {
-				            
-	       	 $.ajax({
-	 			url: "<%=request.getContextPath()%>/admin/laundryorder/handOverToDeliveryEmployee",
-	 			type:'POST',
-	 			success:function(data){
-	 				if(data.assignedOrderCnt == 0){
-	 					alert("현재 배송기사 미배정된 세탁완료 주문건이 없습니다.");
-	 				}else if(data.numberOfDeliveryEmployees == 0){
-	 					alert("현재 세탁주문 배송기사 인계가 불가합니다. \n관리자에게 연락바랍니다.");
-	 				}else{
-		 				alert(data.numberOfDeliveryEmployees+'명의 배송기사에게 총'+data.assignedOrderCnt+'개의 주문이 분배되었습니다.');
-		 				window.location.reload();
-	 				}
-	 			},
-	 			error:function(error){
-	 				alert("현재 세탁주문 배송기사 인계가 불가합니다. \n관리자에게 연락바랍니다.");
-	 			}
-	 		});
-	        }
+			Swal.fire({
+	            title: '현재까지 세탁완료된 주문건을 배송기사에게 인계하시겠습니까?',
+	            icon : 'warning' ,
+	            showCancelButton: true,
+	            confirmButtonColor: '#3085d6',
+	            cancelButtonColor: '#d33',
+	            confirmButtonText: '승인',
+	            cancelButtonText: '취소',
+	            reverseButtons: true, // 버튼 순서 거꾸로
+	            
+	          }).then((result) => {
+	              if (result.isConfirmed) {
+			   		 $.ajax({
+			 			url: "<%=request.getContextPath()%>/admin/laundryorder/handOverToDeliveryEmployee",
+			 			type:'POST',
+			 			success:function(data){
+			 				if(data.assignedOrderCnt == 0){
+			 					Swal.fire({
+									icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+									title : '현재 배송기사 미배정된 세탁완료 주문건이 없습니다.'
+								});
+			 				}else if(data.numberOfDeliveryEmployees == 0){
+			 					Swal.fire({
+									icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+									title : '현재 세탁주문 배송기사 인계가 불가합니다.',
+									text : '관리자에게 연락바랍니다.'
+								});
+			 				}else{
+			 					Swal.fire({
+									icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+									text : data.numberOfDeliveryEmployees+'명의 배송기사에게 총'+data.assignedOrderCnt+'개의 주문이 분배되었습니다.'
+								});
+				 				window.location.reload();
+			 				}
+			 			},
+			 			error:function(error){
+			 				Swal.fire({
+								icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+								title: '현재 세탁주문 배송기사 인계가 불가합니다.',
+								text: '관리자에게 연락바랍니다.' 
+							});
+			 			}
+			 		});
+		        } else {
+			    	return;
+		        }
+	          })
 		}
 		dataMap.put("assignedOrderCnt",assignedOrderCnt);
 		dataMap.put("remainAllAreaOrder",remainAllAreaOrder);

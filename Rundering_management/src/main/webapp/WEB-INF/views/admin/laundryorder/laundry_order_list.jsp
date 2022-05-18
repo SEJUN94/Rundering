@@ -6,7 +6,7 @@
 
 <c:set var="cri" value="${pageMaker.cri }" />
 
-
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.min.css" />
 
 <body>
 
@@ -215,6 +215,9 @@
 			</div>
 		</div>
 	
+	<!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+	
 
 	<script>
 		//daterangepicker 설정
@@ -299,7 +302,10 @@
 		});
 	if(!selectAllOrderNo.checked && selectOrderNoArr.length == 0){
 		e.preventDefault();
-		alert('주문을 선택해주세요.');
+		Swal.fire({
+			icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '주문을 선택해주세요.'
+		});
 		$(".selectOrderList>tbody").empty();
 		$(".selectOrderCounts").empty();
 		$(".branchList>tbody").empty();
@@ -380,11 +386,20 @@
 							$(".branchList>tbody").append(branchAdd);
 						 
 					 })
-					 if(alertYN) alert('이미 담당지점이 할당된 주문건이 있습니다.\n정확히 검토 후 할당 바랍니다.');
+					 if(alertYN) {
+						 Swal.fire({
+								icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+								title : '이미 담당지점이 할당된 주문건이 있습니다.',
+								text: '정확히 검토 후 할당 바랍니다.'
+						});
+					 }
 				},
 				error:function(error){
-				alert("현재 세탁주문 지점할당이 불가합니다. \n관리자에게 연락바랍니다.");
-					/* AjaxErrorSecurityRedirectHandler(error.status); */
+					Swal.fire({
+						icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title: '현재 세탁주문 지점할당이 불가합니다.',
+						text: '관리자에게 연락바랍니다.' 
+					});
 				}
 			});
 	}
@@ -412,7 +427,10 @@
 	//모달창에서 할당버튼 클릭시 지점할당
 	function directAssignment(){
 		if(!$('input[name=branchradio]:checked').val()){
-			alert('주문을 할당할 지점을 선택해주세요.');
+			Swal.fire({
+				icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '주문을 할당할 지점을 선택해주세요.'
+			});
 			return;
 		}
 	 $.ajax({
@@ -425,12 +443,19 @@
 			contentType:'application/json',
 			dataType: "json",
 			success:function(data){
-				alert(data.countOrder+'개의 주문이 '+data.branchName+'에 할당되었습니다.');
+				Swal.fire({
+					icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					text: data.countOrder+'개의 주문이 '+data.branchName+'에 할당되었습니다.'
+				});
 				$('#modal-lg').modal('hide');
 				window.location.reload();
 			},
 			error:function(error){
-				alert("현재 세탁주문 지점할당이 불가합니다. \n관리자에게 연락바랍니다.");
+				Swal.fire({
+					icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '현재 세탁주문 지점할당이 불가합니다.',
+					text: '관리자에게 연락바랍니다.' 
+				});
 			}
 		});
 	
@@ -440,26 +465,47 @@
 	<script>
 	// 자동할당 스케줄링 메소드 연결
 		function autoAssignmentOrder(){
-		    if (!confirm("내일이 수거요청일인 지점 미할당 주문건을 자동할당하시겠습니까?")) {
-		    	return;
+			Swal.fire({
+	            title: '내일이 수거요청일인 지점 미할당 주문건을 자동할당하시겠습니까?',
+	            icon : 'warning' ,
+	            showCancelButton: true,
+	            confirmButtonColor: '#3085d6',
+	            cancelButtonColor: '#d33',
+	            confirmButtonText: '승인',
+	            cancelButtonText: '취소',
+	            reverseButtons: true, // 버튼 순서 거꾸로
+	          }).then((result) => {
+			if (result.isConfirmed) {
+				 $.ajax({
+			 			url: "<%=request.getContextPath()%>/admin/laundryorder/autoAssignmentOrder",
+			 			type:'POST',
+			 			success:function(data){
+			 				if(data.assignedOrderCnt == 0){
+			 					Swal.fire({
+									icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+									title : '현재 미할당된 내일이 수거요청일인 주문건이 없습니다.'
+								});
+			 				}else{
+			 					Swal.fire({
+			 						icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			 						title : data.assignedOrderCnt+'개의 주문이 할당되었습니다.',
+			 						title : '미할당된 주문 건 '+data.remainAllAreaOrder+'개'
+			 					});
+				 				window.location.reload();
+			 				}
+			 			},
+			 			error:function(error){
+			 				Swal.fire({
+								icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+								title: '현재 세탁주문 지점할당이 불가합니다.',
+								text: '관리자에게 연락바랍니다.' 
+							});
+			 			}
+			 		});		    	
 	        } else {
-				            
-	       	 $.ajax({
-	 			url: "<%=request.getContextPath()%>/admin/laundryorder/autoAssignmentOrder",
-	 			type:'POST',
-	 			success:function(data){
-	 				if(data.assignedOrderCnt == 0){
-	 					alert("현재 미할당된 내일이 수거요청일인 주문건이 없습니다.");
-	 				}else{
-		 				alert(data.assignedOrderCnt+'개의 주문이 할당되었습니다.\n미할당된 주문 건 '+data.remainAllAreaOrder+'개');
-		 				window.location.reload();
-	 				}
-	 			},
-	 			error:function(error){
-	 				alert("현재 세탁주문 지점할당이 불가합니다. \n관리자에게 연락바랍니다.");
-	 			}
-	 		});
+				return;
 	        }
+	         })
 		}
 		dataMap.put("assignedOrderCnt",assignedOrderCnt);
 		dataMap.put("remainAllAreaOrder",remainAllAreaOrder);

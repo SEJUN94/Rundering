@@ -151,7 +151,7 @@ function ItemOrderRemove(ordercode){
     input.name="ordercode"
     input.setAttribute("value",ordercode)
     form.append(input);
-    console.log(form)
+    //console.log(form)
      tag.append(form);
     form.submit();
 } 

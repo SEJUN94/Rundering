@@ -6,6 +6,8 @@
 <c:set var="pageMaker" value="${dataMap.pageMaker }" />
 <c:set var="cri" value="${dataMap.pageMaker.cri }" />
 <c:set var="fixturesList" value="${dataMap.fixturesList }"/>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
 
 <body>
 <section class="content-header">
@@ -100,6 +102,11 @@
 			</div>
             </div>
     </div>
+    
+    <!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+    
+    
     <script>
     	function statusChange(){
     		let button=event.target;
@@ -135,7 +142,10 @@
     				
     			},
     			error : function(error) {
-    				alert("상태변경에 실패하셧습니다")
+    				Swal.fire({
+						icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title : '상태변경에 실패하셧습니다'
+					});
     			}
     		});
     	}

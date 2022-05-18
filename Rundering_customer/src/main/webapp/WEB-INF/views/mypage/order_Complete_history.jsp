@@ -117,11 +117,11 @@ aside ul li a{
 									<td rowspan="3"
 										style="width: 25%; border-left: 1px solid rgba(0, 0, 0, .125); text-align: center; vertical-align: middle;">
 										<c:if test="${list.orderStatus ne '배송정상완료' && list.orderStatus ne '배송지연완료'}">
-											<button class="btn btn-primary btn-m col-10" onClick="window.open('<%=request.getContextPath()%>/mypage/order_detail?orderNo='+${list.orderNo}+'','주문내역상세','width=1000, height=750')">배송조회</button>
+											<button class="btn btn-primary btn-m col-10" onClick="window.open('<%=request.getContextPath()%>/mypage/order_detail?orderNo='+${list.orderNo}+'','주문내역상세','width=1000, height=830')">배송조회</button>
 										</c:if> 
 										<c:if test="${list.orderStatus eq '배송정상완료' || list.orderStatus eq '배송지연완료'}">
 											<span style="font-weight: bold;">세탁물 배송 완료</span>
-											<button class="btn btn-primary btn-m col-10" onClick="window.open('<%=request.getContextPath()%>/mypage/order_detail?orderNo='+${list.orderNo}+'','주문내역상세','width=1000, height=750')">내역조회</button>
+											<button class="btn btn-primary btn-m col-10" onClick="window.open('<%=request.getContextPath()%>/mypage/order_detail?orderNo='+${list.orderNo}+'','주문내역상세','width=1000, height=830')">내역조회</button>
 										</c:if> 
 										<c:if test="${list.orderStatus eq '수거대기' }">
 											<button class="btn btn-danger btn-m col-10" onclick="">주문ㆍ배송취소</button>

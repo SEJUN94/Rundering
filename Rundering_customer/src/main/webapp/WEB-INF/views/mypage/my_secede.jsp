@@ -106,8 +106,7 @@ li h1{
 						title: 'Rundering 회원탈퇴되었습니다.',
 						text: '다음에 다시 이용해주세요.' 
 					});
-					location.href = "<%=request.getContextPath()%>
-	/login/form";
+					location.href = "<%=request.getContextPath()%>/login/form";
 				} else {
 					Swal.fire({
 						icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.

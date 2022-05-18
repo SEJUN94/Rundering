@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"  ></script>
 <script type="text/x-handlebars-template"  id="reply-list-template" >
 {{#each .}}
@@ -53,6 +55,8 @@
 </li>	
 </script>
 
+	<!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 
 <script>
 var replyPage=1;
@@ -143,7 +147,11 @@ function replyRegist_go(){
 		data:JSON.stringify(data),	
 		contentType:'application/json',
 		success:function(data){
-			alert('댓글이 등록되었습니다.\n마지막페이지로 이동합니다.');
+			Swal.fire({
+				icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '댓글이 등록되었습니다',
+				text : '마지막페이지로 이동합니다.'
+			});
 			replyPage=data; //페이지이동
 			
 			getPage("<%=request.getContextPath()%>/replies/"+bno+"/"+data); //리스트 출력
@@ -184,7 +192,10 @@ function replyModify_go(){
 			"X-HTTP-Method-Override":"PUT"
 		},
 		success:function(result){
-			alert("수정되었습니다.");			
+			Swal.fire({
+				icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '수정되었습니다.'
+			});
 			getPage("<%=request.getContextPath()%>/replies/${board.bno}/"
 					+replyPage);
 		},
@@ -212,7 +223,10 @@ function replyRemove_go(){
 			"X-HTTP-Method-Override":"DELETE"
 		},
 		success:function(page){
-			alert("삭제되었습니다.");
+			Swal.fire({
+				icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '삭제되었습니다.'
+			});
 			getPage("<%=request.getContextPath()%>/replies/${board.bno}/"+page);
 			replyPage=page;
 		},

@@ -5,8 +5,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <head>
-<link rel="stylesheet"
-	href="<%=request.getContextPath() %>/resources/bootstrap/plugins/summernote/summernote.min.css">
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/bootstrap/plugins/summernote/summernote.min.css">
 </head>
 
 <title>AS요청 수정</title>
@@ -120,6 +122,10 @@
 	</section>
 	<!-- /.content -->
 
+	<!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+
 	<script>
 	window.onload=function(){
 		summernote_go($('textarea[name="ascontent"]'),'<%=request.getContextPath()%>');	
@@ -128,7 +134,10 @@
 	 function modifyPOST_go(){
 		 var modifyForm = document.modifyForm;
 		 if (modifyForm.requestDate.value == ""){
-			 alert("고장난 날짜를 적용하세요.");
+			 Swal.fire({
+					icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : '고장난 날짜를 적용하세요.'
+				});
 			return;
 		 }
 		 $("form[role='modifyForm']").submit();

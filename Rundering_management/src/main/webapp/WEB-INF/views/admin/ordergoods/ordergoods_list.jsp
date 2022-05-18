@@ -9,6 +9,10 @@
 <c:set var="CLCODEList" value="${dataMap.CLCODEList }" />
 
 <head>
+
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -178,6 +182,8 @@
 
 	</div>
 	
+	<!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 	
 	<script >
 		let uploadCheck=false;
@@ -187,14 +193,20 @@
 			
 			 let fileFormat = file.value.substr(file.value.lastIndexOf(".")+1).toUpperCase();
 				if(!(fileFormat=="JPG" || fileFormat=="JPEG"||fileFormat=="PNG")){
-			   		alert("이미지는 jpg/jpeg/png 형식만 허용");
+					Swal.fire({
+						icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title : '이미지는 jpg/jpeg/png 형식만 허용'
+					});
 			   		file.value="";      
 			   		return;
 			   		} 
 			
 				//이미지 파일 용량 체크
 			   if(file.files[0].size>1024*1024*5){
-			      alert("사진 용량은 5MB 이하만 가능합니다.");
+				   Swal.fire({
+						icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+						title : '사진 용량은 5MB 이하만 가능합니다.'
+					});
 			      file.value="";
 			      return;
 			   };
@@ -224,7 +236,7 @@
 			    	  uploadCheck=true;
 			    	  document.querySelector("#inputFileName").value=""+data.fileName;
 			    	  
-					  console.log(data)
+					  //console.log(data)
 			      },
 			      error:function(error){
 			    	  AjaxErrorSecurityRedirectHandler(error.status);		

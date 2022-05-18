@@ -9,6 +9,8 @@
 <c:set var="asRequestList" value="${dataMap.asRequestList }" />
 
 <head>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
 
 <style>
 th, td {
@@ -156,9 +158,17 @@ th, td {
 			</div>
 		</div>
 		
+	<!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+		
+		
 		<script>
 		<c:if test="${from eq 'regist' }">
-		alert("요청 완료되었습니다.");
+		
+		Swal.fire({
+			icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '요청 완료되었습니다.'
+		});
 
 		window.opener.parent.location.reload(true);
 		window.close();

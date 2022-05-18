@@ -70,7 +70,7 @@ function getChart(){
 
 
 function pieChart(totalCount,count,branchName){
- console.log(event.target)
+ //console.log(event.target)
 	new Chart(document.getElementById("pie-chart"), {
 	    type: 'pie',
 	    data: {

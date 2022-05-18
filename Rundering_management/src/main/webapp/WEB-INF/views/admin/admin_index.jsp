@@ -12,7 +12,7 @@
 	<iframe name="ifr" src="" frameborder="0" style= "width: 100%; height:85vh;"></iframe>
 	
 	<script>
-	console.log(history.pushState);
+	//console.log(history.pushState);
 	
 		function goPage(url,menuCode){
 			
@@ -132,7 +132,7 @@
              method: "DELETE",
              dataType: "text",
              success: function (data) {
-                 console.log(data)
+                 //console.log(data)
 	   			 goPage(url,menu);
              }
 			});
@@ -145,7 +145,7 @@
              method: "DELETE",
              dataType: "text",
              success: function (data) {
-                console.log(data)
+                //console.log(data)
 		 		getNotification();
              }
 			});

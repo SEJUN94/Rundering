@@ -5,6 +5,8 @@
 
 
 <head>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
 </head>
 
 
@@ -106,6 +108,10 @@
 		<!-- end row -->
 	</section>
 	<!-- /.content -->
+	
+	<!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+	
 	<script>
 		function modify_go(asno) {
 			location.href = "modifyForm?asno=" + asno;
@@ -116,10 +122,16 @@
 		}
 
 		<c:if test="${from eq 'modify' }">
-		alert("수정되었습니다.");
+		Swal.fire({
+			icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '수정되었습니다.'
+		});
 		</c:if>
 		<c:if test="${from eq 'remove'}">
-		alert("삭제되었습니다.");
+		Swal.fire({
+			icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '삭제되었습니다.'
+		});
 		window.close();
 		window.opener.location.reload();
 		</c:if>

@@ -194,7 +194,7 @@
    }
    
    function detail(no) {
-      console.log(this);
+      //console.log(this);
       $.ajax({
          url : '<%=request.getContextPath()%>/admin/employeeapplication/detail',
          data : {

@@ -131,6 +131,7 @@
         ,A.ATCH_FILE_NO AS ATCH_FILE_NO
 		FROM TB_LAUNDRY_ORDER A
 		WHERE A.MEMBERNO=#{memberNo}
+		ORDER BY A.ORDER_DATE DESC
 	</select>
 
 	<select id="getmyorderIngList" parameterType="str" resultMap="laundryOrderMap">
@@ -158,6 +159,7 @@
 		WHERE A.MEMBERNO=#{memberNo}
 		AND A.CANCEL_YN='N'
 		AND NOT (A.ORDER_STATUS = '08' or A.ORDER_STATUS = '09')
+		ORDER BY A.ORDER_DATE DESC
 	</select>
 	
 	<!--주문내역 디테일에 뿌려줄 쿼리 -->
@@ -217,6 +219,7 @@
 		WHERE A.MEMBERNO=#{memberNo}
 		AND A.CANCEL_YN='N'
 		AND (A.ORDER_STATUS = '08' OR A.ORDER_STATUS = '09')
+		ORDER BY A.ORDER_DATE DESC
 	</select>
 	
 	<select id="myCompleteOrderListCount" resultType="int" parameterType="str">

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <script type="text/x-handlebars-template" id="noticeReplyList" >
 <div id="replyHandler">
@@ -58,6 +60,10 @@
 </nav>
 </script>
 
+	<!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+
 <script>
 let page= 1;
 
@@ -68,7 +74,10 @@ window.onload=function(){
 
 function page_go(url){
 	if(url==null||url.trim()==""){
-		alert("페이지가 없습니다");
+		Swal.fire({
+			icon : 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title : '페이지가 없습니다.'
+		});
 		return;
 	}
 	noticeReplyList(url);
@@ -95,12 +104,12 @@ function noticeReplyList(pageInfo){
 			let	replyList =dataMap.replyList;
 			let branchMap=dataMap.branchMap;
 			let employeeIdMap=dataMap.employeeIdMap;
-			console.log(dataMap);
+			//console.log(dataMap);
 			for(let i of replyList){
 				i.employeeId=employeeIdMap[i.memberno];
 				i.branchName=branchMap[i.employeeId];
 			}
-			console.log(replyList);
+			//console.log(replyList);
 			
 			
 			let pageNumArray = new Array(pageMaker.endPage-pageMaker.startPage+1);
@@ -182,7 +191,10 @@ function registReply(){
         	page=data;
         	noticeReplyList("<%=request.getContextPath()%>/admin/notice/noticereplylist?replyno=${notice.replyNo}&page="+page);
         	$("#replyContent").val("");
-        	alert("댓글이 등록되었습니다");
+        	Swal.fire({
+				icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '댓글이 등록되었습니다.'
+			});
         },
         error:function(error){
 			AjaxErrorSecurityRedirectHandler(error.status);
@@ -222,8 +234,10 @@ function replyModify(){
         	$("#replyModifyContent").val("");
         	page=data;
         	noticeReplyList("<%=request.getContextPath()%>/admin/notice/noticereplylist?replyno=${notice.replyNo}&page="+page);
-        	alert("수정되었습니다");
-            
+        	Swal.fire({
+				icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '수정되었습니다.'
+			});
         },
         error:function(error){
 			AjaxErrorSecurityRedirectHandler(error.status);
@@ -242,7 +256,10 @@ function replyRemove(){
         	replynoSeq:replynoSeq
         },
         success:function(data){
-        	alert("삭제되었습니다");
+        	Swal.fire({
+				icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '삭제되었습니다.'
+			});
         	page=data
         	noticeReplyList("<%=request.getContextPath()%>/admin/notice/noticereplylist?replyno=${notice.replyNo}&page="+page);
         },

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+
+
 <script type="text/x-handlebars-template" id="reply-template">
 	<section class="content" id="replyRemoveTag">
 		<div class="container-fluid">
@@ -25,6 +30,10 @@
 		</div>
 	</section>
 </script>
+
+	<!-- 알림 sweetalert2 -->
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
 <script >
 
 function replyList(replyNo,orderMemberNo){
@@ -100,8 +109,10 @@ function registReply(){
         	$("#replyContent").val("");
         	$('#modal-lg').modal('hide');
         	replyList(replyno,memberNo);
-        	alert("답변 등록.");
-            
+        	Swal.fire({
+				icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '답변 등록'
+			});
         },
         error:function(error){
 			AjaxErrorSecurityRedirectHandler(error.status);
@@ -116,7 +127,7 @@ function replyModifyModal(){
 	btn.dataset.replynoseq=event.target.dataset.replynoseq;
 	document.querySelector("#replyModifyContent").value=event.target.dataset.replycontent;
 	btn.dataset.ordermemberno=event.target.dataset.ordermemberno;
-	console.log(btn);
+	//console.log(btn);
 }
 </script>
 
@@ -140,8 +151,10 @@ function replyModify(){
         	$("#replyModifyContent").val("");
         	$('#modal-modify').modal('hide');
         	replyList(replyno,memberNo);
-        	alert("수정 등록.");
-            
+        	Swal.fire({
+				icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '수정 등록'
+			});
         },
         error:function(error){
 			AjaxErrorSecurityRedirectHandler(error.status);
@@ -149,7 +162,7 @@ function replyModify(){
     }); 
 }
 function replyRemove(){
-	console.log(event.target)
+	//console.log(event.target)
 	let replyno=event.target.dataset.replyno
 	let replynoSeq=event.target.dataset.replynoseq
 	let memberNo=event.target.dataset.ordermemberno
@@ -162,7 +175,10 @@ function replyRemove(){
         	replynoSeq:replynoSeq
         },
         success:function(data){
-        	alert("답변 삭제");
+        	Swal.fire({
+				icon : 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title : '답변 삭제'
+			});
         	replyList(replyno,memberNo);
         },
         error:function(error){
