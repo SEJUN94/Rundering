@@ -346,7 +346,7 @@ var check = document.getElementById('check');
 								icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
 								title: '지점 등록 신청이 완료되었습니다.',
 							});
-							setTimeout(function(){location.href='<%=request.getContextPath()%>/branchapplication/regist';},1000);
+							setTimeout(function(){location.href='<%=request.getContextPath()%>/branchapplication/storeApplication';},1000);
 						},
 						error : function(error) {
 							//AjaxErrorSecurityRedirectHandler(error.status);
