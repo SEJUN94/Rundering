@@ -60,7 +60,7 @@ th, td {
 			<div class="col-12">
 				<div class="card ">
 					<div class="card-header">
-						<h3 class="card-title">요청 목록</h3>
+						<h3 class="card-title"></h3>
 						<div class="card-tools">
 							<div class="input-group input-group-sm" style="width: 300px;">
 								<select class="form-control col-md-4" name="searchType"
@@ -110,10 +110,10 @@ th, td {
 									<td colspan="5"><strong>해당 내용이 없습니다.</strong></td>
 								</tr>
 							</c:if>
-							<c:forEach items="${asRequestList }" var="asRequest">
+							<c:forEach items="${asRequestList }" var="asRequest" varStatus="status">
 								<tr style='cursor: pointer;'
 									onclick="OpenWindow('detail?from=list&asno=${asRequest.asno }','상세보기',900,700);">
-									<td class="no">${asRequest.asno }</td>
+									<td class="no">${(cri.page - 1) * cri.perPageNum + (status.index +1) }</td>
 									<td class="boardtitle">${asRequest.title }</td>
 									<td class="object">${asRequest.objectname }</td>
 									<td class="writer">${asRequest.employeeId }</td>

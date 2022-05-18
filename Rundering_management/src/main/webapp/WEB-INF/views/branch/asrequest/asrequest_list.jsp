@@ -107,10 +107,10 @@ th, td {
 										<td colspan="6"><strong>해당 내용이 없습니다.</strong></td>
 									</tr>
 								</c:if>
-								<c:forEach items="${asRequestList }" var="asRequest">
+								<c:forEach items="${asRequestList }" var="asRequest" varStatus="status">
 									<tr style='cursor: pointer;'
 										onclick="OpenWindow('detail?from=list&asno=${asRequest.asno }','상세보기',900,700);">
-										<td class="no">${asRequest.asno }</td>
+										<td class="no">${(cri.page - 1) * cri.perPageNum + (status.index +1) }</td>
 										<td class="boardtitle" style="text-align: inherit;">${asRequest.title }</td>
 										<td class="object">${asRequest.objectname }</td>
 										<td class="writer">${asRequest.employeeId }</td>
