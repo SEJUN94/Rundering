@@ -476,12 +476,12 @@ public class OrderTaskScheduler {
 						laundryOrderDAO.updateLaundryOrderDeliveryEmployeeId(orderVO);
 						orderVO.setOrderStatus("07");
 						laundryOrderDAO.updateLaundryOrderStatusByOrderNo(orderVO);
-						// 문자발송 주석처리
-//						try {
-//							sensSms.sendSMS(orderVO.getContactNumber().trim(), "[Rundering]\n고객님의 세탁이 완료되어 내일 오전 7시 전에 도착할 예정입니다.");
-//						} catch (Exception e) {
-//							logger.warn("주문번호 "+orderVO.getOrderNo()+" 배송안내 문자 발송실패");
-//						}
+						// 문자발송
+						try {
+							sensSms.sendSMS(orderVO.getContactNumber().trim(), "[Rundering]\n고객님의 세탁이 완료되어 내일 오전 7시 전에 도착할 예정입니다.");
+						} catch (Exception e) {
+							logger.warn("주문번호 "+orderVO.getOrderNo()+" 배송안내 문자 발송실패");
+						}
 
 					}
 					cnt += quantity;
@@ -545,11 +545,11 @@ public class OrderTaskScheduler {
 				laundryOrderDAO.updateLaundryOrderStatusByOrderNo(orderVO);
 				assignedOrderCnt++;
 				// 문자발송 주석처리
-//				try {
-//					sensSms.sendSMS(orderVO.getContactNumber().trim(), "[Rundering]\n고객님의 세탁이 완료되어 내일 오전 7시 전에 도착할 예정입니다.");
-//				} catch (Exception e) {
-//					logger.warn("주문번호 "+orderVO.getOrderNo()+" 배송안내 문자 발송실패");
-//				}
+				try {
+					sensSms.sendSMS(orderVO.getContactNumber().trim(), "[Rundering]\n고객님의 세탁이 완료되어 내일 오전 7시 전에 도착할 예정입니다.");
+				} catch (Exception e) {
+					logger.warn("주문번호 "+orderVO.getOrderNo()+" 배송안내 문자 발송실패");
+				}
 
 			}
 			cnt += quantity;

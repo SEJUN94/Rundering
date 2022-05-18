@@ -50,12 +50,12 @@ public class ReplyServiceImpl implements ReplyService {
 		replyDAO.insertReplyByReplyVO(reply);
 
 		LaundryOrderVO orderVO = laundryOrderDAO.selectLaundryOrderByReplyNo(reply.getReplyno());
-		//댓글등록시 문자 주석처리
-//		try {
-//		sensSms.sendSMS(orderVO.getContactNumber().trim(), "[Rundering]\n지점의 연락사항이 있습니다.\n주문내역에서 확인해주세요.");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		//댓글등록시 문자
+		try {
+		sensSms.sendSMS(orderVO.getContactNumber().trim(), "[Rundering]\n지점의 연락사항이 있습니다.\n주문내역에서 확인해주세요.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
