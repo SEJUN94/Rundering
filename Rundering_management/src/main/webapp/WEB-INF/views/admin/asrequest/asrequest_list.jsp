@@ -114,7 +114,7 @@ th, td {
 								<tr style='cursor: pointer;'
 									onclick="OpenWindow('detail?from=list&asno=${asRequest.asno }','상세보기',900,700);">
 									<td class="no">${(cri.page - 1) * cri.perPageNum + (status.index +1) }</td>
-									<td class="boardtitle">${asRequest.title }</td>
+									<td class="boardtitle" style="text-align: left;">${asRequest.title }</td>
 									<td class="object">${asRequest.objectname }</td>
 									<td class="writer">${asRequest.employeeId }</td>
 									<td class="branchName">${asRequest.branchCode }</td>
