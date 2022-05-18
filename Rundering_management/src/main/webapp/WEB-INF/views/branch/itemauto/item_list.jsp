@@ -494,7 +494,7 @@ function chartCanvas(a,b,c,d,e,f,g,sum1,sum2,sum3,sum4,sum5,sum6,sum7){
 	                        beginAtZero: true,
 	                        steps: 20,
 	                        stepValue: 10,
-	                        max: 100
+	                        max: 30
 	                    }
 	                }]
 	        },
@@ -529,7 +529,7 @@ function chartOutCanvas(a,b,c,d,e,f,g,sum1,sum2,sum3,sum4,sum5,sum6,sum7){
 	                        beginAtZero: true,
 	                        steps: 20,
 	                        stepValue: 10,
-	                        max: 100
+	                        max: 30
 	                    }
 	                }]
 	        },
