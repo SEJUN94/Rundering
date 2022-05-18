@@ -132,12 +132,11 @@ window.onload=function(){
 	let countSum=0;
 	let priceSum=0;
 	for(let i = 0 ; i <count.length;i++){
-	   countSum += parseInt(count[i].innerText.replace(",",""));
-	   priceSum += parseInt(price[i].innerText.replace(",",""));
+	   countSum += parseInt(count[i].innerText);
+	   priceSum += parseInt(price[i].innerText)
 	}
 	let totalCount = document.querySelector("#totalCount");
 	let totalPrice = document.querySelector("#totalPrice");
-	
 	totalCount.innerText=countSum;
 	totalPrice.innerText=priceToString(priceSum);
 }

@@ -80,12 +80,4 @@
         </div>
     </div>
 </div>
-<script >
-function data(){
-	document.querySelector("#id").value="test1234";
-	document.querySelector("#pw").value="rpdlrh!00";
-}
-
-
-</script>
 </body>
