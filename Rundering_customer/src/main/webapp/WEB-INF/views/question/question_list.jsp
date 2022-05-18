@@ -116,7 +116,10 @@ th, td {
 							</c:if>
 						<c:if test="${faq.secretyn eq 'Y' and loginUser.memberNo ne faq.memberNo}">
 							<tr style='cursor: pointer;'
-								onclick="alert('작성자만 볼 수 있는 글입니다.');">
+								onclick="Swal.fire({
+									icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+									title : '작성자만 볼 수 있는 글입니다.'
+								});">
 						</c:if>
 							<td class="no">${(cri.page - 1) * cri.perPageNum + (status.index +1) }</td>
 							<td class="category"><c:choose>
