@@ -153,8 +153,12 @@
 
 	// 알림 등록된 시간 계산
 	 function displayedAt(createdAt) {
-			const milliSeconds = new Date().getTime() - createdAt;
 			
+			 let date = new Date(createdAt);
+		 	let str= date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate();
+		
+		
+			const milliSeconds = new Date().getTime() - createdAt;
 			const seconds = milliSeconds / 1000;
 			if (seconds < 60) return `방금 전`;
 			
@@ -167,7 +171,7 @@
 			const days = Math.floor(hours / 24);
 			if (days < 7) return days+"일 전";
 			
-			return new Date(createdAt).format("yyyy.MM.dd");
+			return str;
 	 }
 
 	/*  setTimeout(function refreshNotification(){

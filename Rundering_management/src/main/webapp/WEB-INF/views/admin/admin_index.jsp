@@ -12,7 +12,7 @@
 	<iframe name="ifr" src="" frameborder="0" style= "width: 100%; height:85vh;"></iframe>
 	
 	<script>
-	//console.log(history.pushState);
+	console.log(history.pushState);
 	
 		function goPage(url,menuCode){
 			
@@ -132,7 +132,7 @@
              method: "DELETE",
              dataType: "text",
              success: function (data) {
-                 //console.log(data)
+                 console.log(data)
 	   			 goPage(url,menu);
              }
 			});
@@ -145,7 +145,7 @@
              method: "DELETE",
              dataType: "text",
              success: function (data) {
-                //console.log(data)
+                console.log(data)
 		 		getNotification();
              }
 			});
@@ -153,6 +153,10 @@
 
 	// 알림 등록된 시간 계산
 	 function displayedAt(createdAt) {
+			
+		 	let date = new Date(createdAt);
+		 	let str= date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate();
+		 	
 			const milliSeconds = new Date().getTime() - createdAt;
 			
 			const seconds = milliSeconds / 1000;
@@ -167,7 +171,7 @@
 			const days = Math.floor(hours / 24);
 			if (days < 7) return days+"일 전";
 			
-			return new Date(createdAt).format("yyyy.MM.dd");
+			return str;
 	 }
 
 	/* setTimeout(function refreshNotification(){
