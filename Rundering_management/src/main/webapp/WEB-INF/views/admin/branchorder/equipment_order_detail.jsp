@@ -113,7 +113,10 @@
 	                           <td>${itemOrderDetail.articlesName }</td>
 	                           <td>${itemOrderDetail.orderCount }</td>
 	                           <td>${itemOrderDetail.articlesCode }</td>
-	                           <td>${itemOrderDetail.price }원</td>
+	                          <td> 
+	                          <fmt:formatNumber type="number" maxFractionDigits="3" value="${itemOrderDetail.price }" />
+	                           		원
+	                           </td>
 	                       </tr>
 	                    </c:forEach>
                     </tbody>
