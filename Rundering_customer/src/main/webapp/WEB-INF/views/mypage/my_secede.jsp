@@ -6,7 +6,6 @@
 
 <!--이쁜 알럽트창 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 <style>
 
 #peter {
@@ -89,7 +88,7 @@ li h1{
 </div>
 </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 <script>
 	function secede(){
 		
@@ -106,8 +105,6 @@ li h1{
 						title: 'Rundering 회원탈퇴되었습니다.',
 						text: '다음에 다시 이용해주세요.' 
 					});
-					location.href = "<%=request.getContextPath()%>/login/form";
-				} else {
 					setTimeout(function(){location.href = "<%=request.getContextPath()%>/login/form";},1000);
 				} else if(response.toUpperCase() == "NO"){
 					Swal.fire({
@@ -125,7 +122,10 @@ li h1{
 				}
 			},
 			error : function(xhr) {
-				alert(xhr.status);
+				Swal.fire({
+					icon : 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title : xhr.status
+				});
 			},
 		});
 	}

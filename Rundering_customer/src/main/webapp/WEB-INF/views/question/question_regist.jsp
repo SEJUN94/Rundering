@@ -275,6 +275,7 @@
 	}
 </script> 
 	
+<script>
 	let justPressedLabel = 0;
 	
 	function justPressed(label){
