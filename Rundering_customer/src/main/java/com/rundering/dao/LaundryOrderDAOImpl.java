@@ -106,5 +106,17 @@ public class LaundryOrderDAOImpl implements LaundryOrderDAO{
 		session.update("LaundryOrder-Mapper.cancelLaundryOrder", orderNo);
 	}
 
+	// 마이페이지 - 요청사항 수정
+	@Override
+	public void modifyReq(LaundryOrderVO laundryOrder) throws Exception {
+		session.update("LaundryOrder-Mapper.modifyReq", laundryOrder);
+	}
+		
+	// 마이페이지 - 요청사항 삭제
+	@Override
+	public void removeReq(String orderNo) throws Exception {
+		session.update("LaundryOrder-Mapper.removeReq", orderNo);
+	}
+
 	
 }

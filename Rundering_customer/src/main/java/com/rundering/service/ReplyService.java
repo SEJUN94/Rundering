@@ -19,8 +19,14 @@ public class ReplyService {
 		replyDAO.insertMypageRe(rv);
 	}
 
-	
+	// 댓글 삭제
 	public void removeReply(ReplyVO rv) throws Exception{
 		replyDAO.removeReply(rv);
 	}
+	
+	// 댓글 수정
+	public void modifyReply(ReplyVO rv) throws Exception{
+		replyDAO.modifyReply(rv);
+	}
+	
 }

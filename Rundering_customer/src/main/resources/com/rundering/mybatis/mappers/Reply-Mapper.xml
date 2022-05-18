@@ -74,17 +74,18 @@
 	</select>
 	
 	<update id="updateReply" parameterType="reply">
-		update TB_REPLY
-		set 
-		replyContent=#{replyContent},
-		updatedate=sysdate
-		where replyno=#{replyno}		
+		UPDATE TB_REPLY
+		SET 
+		REPLY_CONTENT=#{replyContent},
+		MODIFY_DATE=sysdate
+		WHERE REPLYNO=#{replyno}
+		AND REPLYNO_SEQ = #{replynoSeq}		
 	</update>
 	
 	<update id="deleteReply" parameterType="int">
 		delete from TB_REPLY
 		where replyno=#{replyno}		
-	</update>	
+	</update>
 	
 	<select id="getSeq" resultType="int" parameterType="int">
 		select count(*)

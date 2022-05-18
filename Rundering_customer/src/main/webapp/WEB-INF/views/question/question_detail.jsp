@@ -125,6 +125,30 @@
 		}
 		function remove_go(faqno) {
 			location.href = '<%=request.getContextPath()%>/question/remove?faqno=' + faqno;
+			event.preventDefault(); // 이벤트를 막아 페이지 리로드를 방지
+			
+			$.ajax({
+				url : '<%=request.getContextPath()%>/question/remove',
+				data : {
+					'faqno' : faqno
+				},
+				type : 'post',
+				success : function(result) {
+					if (result.toUpperCase() == "OK") {
+						Swal.fire('문의사항 삭제', '등록하신 문의사항이 삭제되었습니다.', 'success' )
+						window.close()
+						setTimeout(function(){location.href = "<%=request.getContextPath()%>/question/list";},1000);
+					} else {
+						Swal.fire({
+							icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+							title: '등록하신 문의사항이 삭제를 실패하였습니다.',
+						});
+					}
+				},
+				error : function(error) {
+					AjaxErrorSecurityRedirectHandler(error.status);
+				}
+			});
 		}
 		<c:if test="${from eq 'modify' }">
 		Swal.fire({
