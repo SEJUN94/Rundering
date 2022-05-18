@@ -76,16 +76,12 @@
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide">
-					<img src="<%=request.getContextPath()%>/resources/images/img01.jpg" width="500px;" height="500px;"
+					<img src="<%=request.getContextPath()%>/resources/images/img05.svg" width="500px;" height="500px;"
 						style="display:block; margin:auto;" alt="사진1" /> <a href="javascript:void(0)" class="btn">자세히 보기</a>
 				</div>
 				<div class="swiper-slide">
-					<img src="<%=request.getContextPath()%>/resources/images/img02.jpg" width="500px;" height="500px;"
+					<img src="<%=request.getContextPath()%>/resources/images/img06.svg" width="500px;" height="500px;"
 						style="display:block; margin:auto;" alt="" /> <a href="javascript:void(0)" class="btn">자세히 보기</a>
-				</div>
-				<div class="swiper-slide">
-					<img src="<%=request.getContextPath()%>/resources/images/img03.jpg" width="500px;" height="500px;"
-						style="display:block; margin:auto;" alt="사진3" /> <a href="javascript:void(0)" class="btn">자세히 보기</a>
 				</div>
 			</div>
 		</div>
