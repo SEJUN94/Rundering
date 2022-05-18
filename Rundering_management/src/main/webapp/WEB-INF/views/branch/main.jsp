@@ -77,7 +77,17 @@ function getBarChart(a,b,c,d,e,f,g,data1,data2,data3,data4,data5,data6,data7){
 	      title: {
 	        display: true,
 	        text: '배송 지연'
-	      }
+	      },scales: {
+            yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                        steps: 20,
+                        stepValue: 10,
+                        max: 50
+                    }
+                }]
+        	}
 	    }
 	});
 }
