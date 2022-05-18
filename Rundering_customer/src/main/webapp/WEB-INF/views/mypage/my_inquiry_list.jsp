@@ -135,7 +135,7 @@ li h1{
 									<c:when test="${faq.setbukdoorclcode == 'ET'}">기타문의</c:when>
 							  	</c:choose>
 							 </td>
-							<td class="title">${faq.question }</td>
+							<td class="title" style="text-align: left;">${faq.question }</td>
 							<td class="date"><fmt:formatDate value="${faq.registDate }" pattern="yyyy-MM-dd" /></td>
 							<td class="yn">
 								<c:choose>
