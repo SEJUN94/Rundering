@@ -228,7 +228,7 @@ Rundering는 수집한 개인정보를 다음의 목적을 위해 활용합니�
 					</td>
 				</tr>
 				<tr>
-					<td align="center" valign="top"><input type="button"
+					<td align="center" valign="top" style="padding:10px;"><input type="button"
 						class="btn btn-primary btn-sm" value="동의" onclick="chk()">&nbsp;&nbsp;&nbsp;
 						<input type="button" class="btn btn-primary btn-sm"
 						value="동의하지 않습니다" onclick="nochk()"></td>

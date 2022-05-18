@@ -15,7 +15,7 @@
 				<h1>지점 등록</h1>
 			</div>
 			<div class="col-sm-6">
-				<h4 class="h4 float-right">처리해야할 신청 건수 : ${dataMap.work }개</h4>
+				<h4 class="h4 float-right">처리해야할 신청 : ${dataMap.work }개</h4>
 			</div>
 		</div>
 	</div>
@@ -37,7 +37,7 @@
 
 			</div>
 
-			<div class="card-body p-0">
+			<div class="card-body p-0" style="height:245px;">
 				<table style="text-align: center;" class="table text-nowrap">
 					<thead>
 						<tr>

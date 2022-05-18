@@ -266,9 +266,9 @@
 			   TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'))-#{endNumber} as day
 		  FROM TB_LAUNDRY_ORDER
          WHERE BRANCH_CODE=#{branchCode}
-		   AND  TO_DATE(TO_CHAR(ORDER_DATE,'YYYYMMDD')) BETWEEN TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'))-#{startNumber}
+		   AND  TO_DATE(TO_CHAR(DELIVERY_DATE,'YYYYMMDD')) BETWEEN TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'))-#{startNumber}
                                                           AND TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'))-#{endNumber}
-            AND TO_DATE(TO_CHAR(DELIVERY_REQUEST_DATE,'YYYYMMDD'))  <![CDATA[ < ]]> TO_DATE(TO_CHAR(DELIVERY_DATE,'YYYYMMDD'))
+            AND ORDER_STATUS = '09'
 	</select>
 	
 	

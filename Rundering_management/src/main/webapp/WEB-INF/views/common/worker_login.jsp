@@ -59,10 +59,7 @@
                 </div>
             </form>
             
-            <p class="mt-2 mb-1">
-                <a href="<%=request.getContextPath()%>/common/findpassword">비밀번호 찾기</a>
-            </p>
-            <p class="mb-0">
+            <p class="mt-2 mb-0">
                 <a href="<%=request.getContextPath() %>/common/application" class="text-center">사원 등록 신청</a>
             </p>
         </div>
