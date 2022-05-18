@@ -38,7 +38,7 @@
 		<div id="menu">
 			<ul>
 				<li><a href="<%=request.getContextPath()%>/introduce">회사소개</a></li>
-				<li><a href="#">이용안내</a>
+				<li><a href="<%=request.getContextPath()%>/guide/howuse">이용안내</a>
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/guide/howuse">이용방법</a></li>
 						<li><a href="<%=request.getContextPath()%>/guide/price/list">가격안내</a></li>
@@ -46,7 +46,7 @@
 					</ul>
 				</li>
 				<li><a href="<%=request.getContextPath()%>/order">세탁주문</a></li>
-				<li><a href="#">고객센터</a>
+				<li><a href="<%=request.getContextPath()%>/question/faq">고객센터</a>
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/question/faq">자주묻는질문</a></li>
 						<li><a href="<%=request.getContextPath()%>/question/list">문의사항</a></li>

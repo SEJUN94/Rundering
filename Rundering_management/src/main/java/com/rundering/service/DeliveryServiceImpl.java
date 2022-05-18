@@ -162,12 +162,12 @@ public class DeliveryServiceImpl implements DeliveryService{
 		attachDAO.insertAttach(attach);
 		deliveryDAO.updatePickUpCom(laundryOrder);
 		
-//		//고객 문자알림 주석처리
-//		try {
-//		sensSms.sendSMS(laundryOrder.getContactNumber().trim(), "[Rundering]\n고객님의 세탁물이 "+status+"되었습니다.\n주문내역에서 확인해주세요.");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		//고객 문자알림
+		try {
+		sensSms.sendSMS(laundryOrder.getContactNumber().trim(), "[Rundering]\n고객님의 세탁물이 "+status+"되었습니다.\n주문내역에서 확인해주세요.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

@@ -121,12 +121,12 @@ public class BranchApplicationServiceImpl implements BranchApplicationService{
 	}
 	
 	private void sendMesage(String phoneNum) {
-		//주석
-//		try {
-//		sensSms.sendSMS(phoneNum.trim(), "[Rundering]\n지점신청 처리상태가 변경되었습니다.\n지점신청확인에서 확인해주세요.");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		//문자
+		try {
+		sensSms.sendSMS(phoneNum.trim(), "[Rundering]\n지점신청 처리상태가 변경되었습니다.\n지점신청확인에서 확인해주세요.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -184,12 +184,12 @@ public class BranchApplicationServiceImpl implements BranchApplicationService{
 			
 			mailSendService.sendIdPwMail(emp.getMemberno());
 			
-			//고객문자알림 주석
-//			try {
-//				sensSms.sendSMS(member.getPhone().trim(), "[Rundering]\n지점등록이 완료되었습니다.\n이메일을 확인해주세요.");
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//			}
+			//고객문자알림
+			try {
+				sensSms.sendSMS(member.getPhone().trim(), "[Rundering]\n지점등록이 완료되었습니다.\n이메일을 확인해주세요.");
+				} catch (Exception e) {
+					e.printStackTrace();
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

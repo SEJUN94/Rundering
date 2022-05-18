@@ -78,12 +78,12 @@ public class FAQServiceImpl implements FAQService {
 		
 		FAQVO faqVO = faqDAO.selectOriginalFAQByFaqno(faq.getFaqno());
 		MemberVO memberVO = memberDAO.selectMemberByMemberNo(faqVO.getWriter());
-		//고객 문자알림 주석처리
-//		try {
-//		sensSms.sendSMS(memberVO.getPhone().trim(), "[Rundering]\n고객님의 문의에 답변이 등록되었습니다.\n문의내역에서 확인해주세요.");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		//고객 문자알림
+		try {
+		sensSms.sendSMS(memberVO.getPhone().trim(), "[Rundering]\n고객님의 문의에 답변이 등록되었습니다.\n문의내역에서 확인해주세요.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

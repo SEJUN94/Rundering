@@ -63,10 +63,10 @@
 						class="table table-hover text-nowrap " >
 						<thead>
 							<tr>
-							    <th style="width:150px;">분류</th>
-								<th style="width:180px;">품목번호</th>
-								<th style="width:180px;">품목명</th>
-								<th style="width:150px;">세탁가격</th>
+							    <th style="width:150px; text-align: center">분류</th>
+								<th style="width:180px; text-align: center">품목번호</th>
+								<th style="width:180px; text-align: center">품목명</th>
+								<th style="width:150px; text-align: center">세탁가격</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -77,12 +77,16 @@
 								</c:if>
 								<c:forEach items="${laundryItemsList }" var="laundryItems">
 									<tr>
-										<td>${codeMap[laundryItems.laundryCategory] }</td>
+										<td style="text-align: center">${codeMap[laundryItems.laundryCategory] }</td>
 										<td id="laundryItemsCode"
-											style="text-align: left; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+											style="text-align: center; max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 											${laundryItems.laundryItemsCode }</td>
-										<td>${laundryItems.itemsName}</td>
-										<td>${laundryItems.price }</td>
+										<td style="text-align: left">${laundryItems.itemsName}</td>
+										<td style="text-align: right;">
+										<fmt:formatNumber type="number" maxFractionDigits="3" value="${laundryItems.price }" />
+										원
+										
+										</td>
 									</tr>
 								</c:forEach>
 						</tbody>

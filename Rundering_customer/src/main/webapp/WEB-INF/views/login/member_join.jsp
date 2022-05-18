@@ -17,7 +17,11 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>회원가입</h1>
+					<h1>회원가입 </h1>
+					
+				</div>
+				<div class="col-sm-6">
+				<button class="btn btn-sm btn-primary float-right" type="button" onclick="data()"> 데이터</button>
 				</div>
 				<!-- <div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
@@ -27,6 +31,7 @@
 				</div> -->
 			</div>
 		</div>
+		
 		<hr/>
 </section>
 
@@ -119,6 +124,123 @@
 
 <!-- 알림 sweetalert2 -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script >
+ function data(){
+	 document.querySelector("#id").value="test1234";
+	 document.querySelector("#pw1").value="rpdlrh!00";
+	 document.querySelector("#pw2").value="rpdlrh!00";
+	 document.querySelector("#name").value="백관우";
+	 document.querySelector("#email").value="bgwbgw1001@gmail.com";
+	 document.querySelector("#phone").value="01076130069";
+	
+		
+		//유효성검증(validation check) - id
+		let idValue = $('#id').val().trim();
+		let regId = /^[a-zA-Z][a-zA-Z0-9]{5,11}$/;
+		let sp = document.querySelectorAll('.sp');
+		let rst = document.querySelector('#rst');
+
+		//패턴체크
+		if (regId.test(idValue)) {
+			idCheckAjax();
+			idchk = true;
+		} else if (idValue === "") {
+			sp[0].style.display = "inline-block"
+			rst.style.display = "none";
+			noProc($('#id'), "아이디를 입력하세요");
+			idchk = false;
+		} else {
+			sp[0].style.display = "inline-block"
+			rst.style.display = "none";
+			noProc($('#id'), "영문,숫자,6~12자리 입력 가능");
+			idchk = false;
+		}
+
+	//유효성검증 - pass
+		let passValue = $('#pw1').val().trim();
+		let regPass = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+|]).{8,}$/;
+
+		if (regPass.test(passValue)) {
+			okProc($('#pw1'), "사용 가능한 패스워드 입니다!");
+			pwchk = true;
+		} else if (passValue === "") {
+			noProc($('#pw1'), "패스워드를 입력하세요");
+			pwchk = false;
+		} else {
+			noProc($('#pw1'), "대/소문자,특수문자,숫자 포함 8자리 이상 ");
+			pwchk = false;
+		}
+
+	//비밀번호 일치 여부 확인
+		let pass1 = $("#pw1").val().trim();
+		let pass2 = $("#pw2").val().trim();
+
+		if (pass1 != "" || pass2 != "") {
+			if (pass1 == pass2) {
+				okProc($('#pw2'), "일치");
+				passchk = true;
+			} else {
+				noProc($('#pw2'), "불일치");
+				passchk = false;
+			}
+		}
+
+	//유효성검증 - name
+		let nameValue = $('#name').val().trim();
+		let regName = /^[가-힣]{2,5}$/;
+
+		if (regName.test(nameValue)) {
+			okProc($('#name'), "");
+			namechk = true;
+		} else if (nameValue === "") {
+			noProc($('#name'), "이름을 입력하세요");
+			namechk = false;
+		} else {
+			noProc($('#name'), "한글 2~5자리 입력 가능");
+			namechk = false;
+		}
+
+	//유효성검증 - hp
+		let hpValue = $('#phone').val().trim();
+		let regHp = /^[0-9]{3}[0-9]{3,4}[0-9]{4}$/;
+
+		if (regHp.test(hpValue)) {
+			okProc($('#phone'), "");
+			hpchk = true;
+		} else if (hpValue === "") {
+			noProc($('#phone'), "전화번호를 입력하세요");
+			hpchk = false;
+		} else {
+			noProc($('#phone'), "공백 없이 입력하세요");
+			hpchk = false;
+		}
+	
+	//유효성검증 - mail
+		//유효성검증(validation check) - email
+		let mailValue = $('#email').val().trim();
+		let regMail = /^[0-9a-zA-Z]+@[0-9a-zA-Z]+(\.[a-z]+){1,2}$/;
+		let sp2 = document.querySelectorAll('.sp');
+		let rst1 = document.querySelector('#rst1');
+		
+		if (regMail.test(mailValue)) {
+			emailCheckAjax();
+			okProc($('#email'), "");
+			mailchk = true;
+		} else if (mailValue === "") {
+			sp2[4].style.display = "inline-block"
+			rst1.style.display = "none";
+			noProc('#email', " 메일을 입력하세요");
+			mailchk = false;
+		} else {
+			sp2[4].style.display = "inline-block"
+			rst1.style.display = "none";
+			noProc($('#email'), "형식에 맞게 입력하세요");
+			mailchk = false;
+		}
+ }
+
+</script>
 
 
 <script>

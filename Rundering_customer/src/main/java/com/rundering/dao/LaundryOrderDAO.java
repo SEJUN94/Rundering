@@ -41,4 +41,11 @@ public interface LaundryOrderDAO {
 	// 마이페이지 - 주문취소
 	public void cancelLaundryOrder(String orderNo) throws Exception;
 	
+	// 마이페이지 - 요청사항 수정
+	public void modifyReq(LaundryOrderVO laundryOrder) throws Exception;
+	
+	// 마이페이지 - 요청사항 삭제
+	public void removeReq(String orderNo) throws Exception;
+	
+	
 }

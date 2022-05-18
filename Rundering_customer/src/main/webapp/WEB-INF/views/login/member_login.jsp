@@ -44,17 +44,17 @@
     
     <div class="card">
         <div class="card-body login-card-body">
-            <p class="login-box-msg">로그인 후 더 나은 서비스를 이용하세요</p>
+            <p class="login-box-msg" onclick="data()">로그인 후 더 나은 서비스를 이용하세요</p>
             <form action="<%=request.getContextPath() %>/login" method="post">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="아이디입력  8~20" name="id" >
+                    <input type="text" class="form-control" placeholder="아이디" name="id" id="id" >
                     <div class="input-group-append">
                         <div class="input-group-text">
                         </div>
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Password" name="password" >
+                    <input type="password" class="form-control" placeholder="비밀번호" name="password" id="pw" >
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
