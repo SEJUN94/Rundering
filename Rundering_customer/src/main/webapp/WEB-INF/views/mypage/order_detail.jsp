@@ -382,26 +382,26 @@
 				<div class="card-body p-0" style="height: 150px;">
 					<div style="margin: 30px;">
 						<c:if test="${pickUpNum != null}">
-							<span style="font-size: 1.2em;">수거기사 연락처 : ${pickUpNum }</span>
+							<span style="font-size: 1.2em;"><i class="fas fa-mobile-alt mr-1"></i>수거기사 연락처 : ${pickUpNum }</span>
 						</c:if>
 						<c:if test="${pickUpNum == null}">
-							<span style="font-size: 1.2em;">수거기사 미정</span>
+							<span style="font-size: 1.2em;"><i class="fas fa-mobile-alt mr-1"></i>수거기사 미정</span>
 						</c:if>
 					</div>
 					<div style="margin: 30px;">
 						<c:if test="${deliveryNum != null}">
-							<span style="font-size: 1.2em;">배송기사 연락처 : ${deliveryNum }</span>
+						
+							<span style="font-size: 1.2em;"><i class="fas fa-mobile-alt mr-1"></i>배송기사 연락처 : ${deliveryNum }</span>
 						</c:if>
 						<c:if test="${deliveryNum == null }">
-							<span style="font-size: 1.2em;">배송기사 미정</span>
+							<span style="font-size: 1.2em;"><i class="fas fa-mobile-alt mr-1"></i>배송기사 미정</span>
 						</c:if>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-6 pr-0"
-		style="min-height: 450px; max-height: 450px; flex: 1; width: 50%; box-sizing: border-box;">
+	<div class="col-6 pr-0" style="min-height: 450px; max-height: 450px; flex: 1; width: 50%; box-sizing: border-box;">
 
 		<div class="col-md-12 p-0" style="box-sizing: border-box;">
 
@@ -467,10 +467,10 @@
 								</span>
 								<button type="button" id="modifyBtn" class="btn btn-sm btn-warning ml-1"
 												style="padding: 2px; font-size: .8rem; line-height: 1.5;"
-												data-toggle="modal" data-target="#modify">수정</button>
+												data-toggle="modal" data-target="#reqmodify" onclick="reqModify('${laundryOrder.requestDetails}')">수정</button>
 								<button type="button" id="modifyBtn" class="btn btn-sm btn-danger ml-1"
 												style="padding: 2px; font-size: .8rem; line-height: 1.5;"
-												onclick="reqRemove()">삭제</button>
+												onclick="reqRemove('${laundryOrder.orderNo}')">삭제</button>
 							</div>
 							<div class="direct-chat-text">
 								${laundryOrder.requestDetails}</div>
@@ -497,7 +497,7 @@
 									<button type="button" id="modifyBtn" class="btn btn-sm btn-warning ml-1"
 												style="padding: 2px; font-size: .8rem; line-height: 1.5;"
 												data-toggle="modal" data-target="#modify"
-												onclick="replyModify('${list.replyno}','${list.replynoSeq }')" >수정</button>
+												onclick="replyModify('${list.replyno}','${list.replynoSeq }','${list.replyContent}')" >수정</button>
 								<button type="button" id="modifyBtn" class="btn btn-sm btn-danger ml-1"
 												style="padding: 2px; font-size: .8rem; line-height: 1.5;"
 												onclick="replyRemove('${list.replyno}','${list.replynoSeq }')">삭제</button>
@@ -534,13 +534,34 @@
 					</div>
 					<div class="modal-body">
 						<div>
-							<label for="moq" style="margin:10px;">요청사항 수정</label> <input type="text" id="getContent" name='question' class="form-control" value="">
+							<label for="moq" style="margin:10px;">요청사항 수정</label> <input type="text" id="getContent" name='getContent' class="form-control" value="">
 						</div>
 					</div>
 					<input type="hidden" id="replyno" value="">
 					<input type="hidden" id="replyseq" value="">
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" data-replyno  onclick="modify_go()" id="insertBtn">수정</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="modal fade" id="reqmodify" style="display: none;" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">자주 묻는 질문 수정</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div>
+							<label for="moq" style="margin:10px;">요청사항 수정</label> <input type="text" id="requestDetails" name='requestDetails' class="form-control" value="">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-replyno  onclick="reqmodify_go('${laundryOrder.orderNo}')" id="insertBtn">수정</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
 					</div>
 				</div>
@@ -554,35 +575,48 @@
 
 <script>
 
-function replyModify(replyno,replynoSeq){
-	console.log(replyno)
-	console.log(replynoSeq)
+var con = document.querySelector('#getContent');
+var replyno = document.querySelector('#replyno');
+var replyseq = document.querySelector('#replyseq');
+var req =  document.querySelector('#requestDetails');
+
+function replyModify(replyno,replynoSeq,content){
+ 	console.log(replyno)
+// 	console.log(replynoSeq)
+// 	console.log(content)
 	
-	var replyno = document.querySelector('#replyno');
-	var replyseq = document.querySelector('#replyseq');
 	replyno.value = replyno;
 	replyseq.value = replynoSeq;
+	con.value = content;
 }
 
-function modify_go(){
+
+function reqModify(content){
+ 	console.log(content)
+
+	req.value = content;
+}
+
+function reqmodify_go(orderNo){
+	console.log($('#requestDetails').val())
 	$.ajax({
-        url : '<%=request.getContextPath()%>/mypage/modifyReply',
+        url : '<%=request.getContextPath()%>/mypage/modifyReq',
         type : 'post',
         data : {
-       	 'no' : replyno,
-       	 'seq' : replynoSeq
+         'orderNo' : orderNo,
+       	 'requestDetails' : $('#requestDetails').val()
         },
         success : function(ok){
-           if(ok.toUpperCase() == "OK"){
-           	Swal.fire({
+           	if(ok.toUpperCase() == "OK"){
+           		Swal.fire({
 					icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
-					title: '요청사항 삭제 완료!',
+					title: '요청사항 수정 완료!',
 				});
            	setTimeout("location.reload(true);",1000);
            } else {
            	Swal.fire({
 					icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
-					title: '삭제 실패',
+					title: '수정 실패!',
 				});
            }
         },
@@ -595,13 +629,49 @@ function modify_go(){
 	});
 }
 
-function reqRemove(){
+
+function modify_go(){
+	console.log($('#replyNo').val())
+	console.log(replyseq.value)
+	console.log(con.value)
+	
+	$.ajax({
+        url : '<%=request.getContextPath()%>/mypage/modifyReply',
+        type : 'post',
+        data : {
+       	 'replyno' : $('#replyNo').val(),
+       	 'replynoSeq' : replyseq.value,
+       	 'replyContent' : con.value
+        },
+        success : function(ok){
+           	if(ok.toUpperCase() == "OK"){
+           		Swal.fire({
+					icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '요청사항 수정 완료!',
+				});
+           	setTimeout("location.reload(true);",1000);
+           } else {
+           	Swal.fire({
+					icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '수정 실패!',
+				});
+           }
+        },
+        error : function() {
+        	Swal.fire({
+			icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+			title: '시스템 에러',
+			});
+        },
+	});
+}
+
+function reqRemove(orderNo){
 	 $.ajax({
-         url : '<%=request.getContextPath()%>/mypage/removeReply',
+         url : '<%=request.getContextPath()%>/mypage/reqRemove',
          type : 'post',
          data : {
-        	 'no' : replyno,
-        	 'seq' : replynoSeq
+        	 'orderNo' : orderNo
          },
          success : function(ok){
             if(ok.toUpperCase() == "OK"){

@@ -158,6 +158,10 @@
 
 	
 	
+	<form role="imageForm" method="post" enctype="multipart/form-data">
+			<input id="inputFile" name="pictureFile" type="file" class="form-controll" accept="image/jpeg, image/png, image/jpg" style="display: none;" />
+		</form>
+	
 	
 	<!-- jQuery -->
   	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
@@ -186,14 +190,23 @@
 			
 			var form = document.registForm;
 			if (form.question.value == "") {
-				alert("제목은 필수입니다.");
+				 Swal.fire({
+					icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '제목은 필수입니다.',
+				 });	
 				return false;
 			}
 			if (form.secretyn.value == "") {
-				alert("공개여부를 선택하세요.");
+				 Swal.fire({
+					icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '공개여부를 선택하세요.',
+				 });	
 				return false;
 			}
-			alert("등록되었습니다.");
+			 Swal.fire({
+				icon: 'success', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title: '등록되었습니다.',
+			});	
 			form.submit();
 		}
 	</script>
@@ -218,10 +231,62 @@
 		   dataNum++;
 		}
 
-		function remove_go(dataNum){
-			$('div[data-no="'+dataNum+'"]').remove();
-		}
+	function remove_go(dataNum){
 		
+		deleteUploadFile(dataNum);
+		
+		$('div[data-no="'+dataNum+'"]').remove();
+		
+	}
+	
+	function deleteUploadFile(dataNum){
+		 let deleteFile = findByAttributeValue("data-uploadedno",dataNum,"input");
+		 if(!deleteFile) {
+			 return;
+		 }
+		 let deleteFileName = deleteFile.value;
+		 
+		 deleteFile.remove();
+		 
+		 const v_ajax = new XMLHttpRequest();
+		    v_ajax.open("POST","<%=request.getContextPath()%>/order/deletePicture",true);
+		    v_ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+		    v_ajax.send('deleteFileName=' + deleteFileName);
+		    v_ajax.onreadystatechange = function(){
+		    	 if (v_ajax.readyState === XMLHttpRequest.DONE) {
+			            if (v_ajax.status === 200) {
+			               //const response = JSON.parse(v_ajax.responseText);
+			               console.log(v_ajax.responseText);
+			               //console.log(data+"사진이 삭제 되었습니다.");
+			            } else {
+			            	//AjaxErrorSecurityRedirectHandler(error.status);
+			            }
+			     }
+		    }
+	}
+</script> 
+	
+	let justPressedLabel = 0;
+	
+	function justPressed(label){
+		justPressedLabel = label.dataset.no;
+		console.log("justPressedLabel : "+justPressedLabel);
+	}
+	
+	
+	function createHiddenInputNode(saveFileNm) {
+		let input = document.createElement('input');
+		input.setAttribute('type', 'hidden');
+		input.setAttribute('name', 'saveFileNm');
+		input.setAttribute('value', saveFileNm);
+		input.setAttribute('data-uploadedno', justPressedLabel);
+		return input;
+		}
+	
+	$('input[name="pictureFile"]').change(function(){
+		
+		let spinner = document.querySelector('.overlay');
+		spinner.style.display = 'flex';
 	
 </script> 
 </body>

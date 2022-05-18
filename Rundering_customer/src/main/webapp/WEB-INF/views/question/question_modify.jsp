@@ -8,8 +8,10 @@
 <c:set var="orderList" value="${dataMap.orderList }" />
 
 <head>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/bootstrap/plugins/summernote/summernote.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/plugins/summernote/summernote.min.css">
+<!--이쁜 알럽트창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <title>문의 수정</title>
@@ -142,7 +144,10 @@
 		 $("form[role='modifyForm']")
 		 var form = document.modifyForm;
 		 if (form.secretyn.value == "") {
-				alert("공개여부를 선택하세요.");
+			 Swal.fire({
+					icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '공개여부를 선택하세요.',
+			 });	
 				return;
 			}
 			form.submit();

@@ -24,7 +24,6 @@ import com.rundering.command.FAQModifyCommand;
 import com.rundering.command.MemberAddCommand;
 import com.rundering.command.MyOrderCriteria;
 import com.rundering.dto.AttachVO;
-import com.rundering.dto.FAQVO;
 import com.rundering.dto.LaundryOrderVO;
 import com.rundering.dto.MemberAddressVO;
 import com.rundering.dto.MemberVO;
@@ -88,7 +87,7 @@ public class MyPageController {
 		try {
 			String pw = memberService.checkPw(loginUser.getId());
 			if (password.equals(pw)) {
-				entity = new ResponseEntity<String>("duplicated", HttpStatus.OK);
+				entity = new ResponseEntity<String>("OK", HttpStatus.OK);
 			} else {
 				entity = new ResponseEntity<String>("", HttpStatus.OK);
 			}
@@ -227,7 +226,7 @@ public class MyPageController {
 	// 문의사항 삭제
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
 	public String remove(int faqno, RedirectAttributes rttr) throws Exception {
-		String url = "redirect:/mypage/my_inquiry_detail";
+		String url = "redirect:/mypage/myinquiry/list";
 
 		faqService.remove(faqno);
 
@@ -249,20 +248,27 @@ public class MyPageController {
 	//회원탈퇴
 	@RequestMapping("/secede")
 	@ResponseBody
-	private ResponseEntity<String> secede(HttpServletRequest request,String password) throws Exception {
+	private ResponseEntity<String> secede(HttpServletRequest request,String password,MyOrderCriteria cri) throws Exception {
 		ResponseEntity<String> entity = null;
 		
 			HttpSession session = request.getSession();
 			MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-		
+			cri.setMemberNo(loginUser.getMemberNo());
 			String pw = UserSha256.encrypt(password);
 		try {
 			
 			String upw = memberService.checkPw(loginUser.getId());
 			
+			int count = laundryOrderService.ingCount(cri);
 			if (upw.equals(pw) ) {
-				memberService.deleteMember(loginUser.getId());
-				entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+				
+				if(count == 0) {
+					memberService.deleteMember(loginUser.getId());
+					entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+				}
+				
+				entity = new ResponseEntity<String>("NO", HttpStatus.OK);
+				
 			} else {
 				entity = new ResponseEntity<String>("", HttpStatus.OK);
 			}
@@ -476,19 +482,35 @@ public class MyPageController {
 		return mnv;
 	}
 	
-	// 댓글 삭제(삭제여부 상태변경)
+	// 댓글 수정
 	@RequestMapping("/modifyReply")
 	public ResponseEntity<String> modifyReply(ReplyVO rv) throws Exception {
 		ResponseEntity<String> entity = null;
 		
 		try {
-			replyService.removeReply(rv);
+			replyService.modifyReply(rv);
 			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
 
 		} catch (SQLException e) {
 			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+		return entity;
+	}
+	
+	// 요청사항 수정
+	@RequestMapping("/modifyReq")
+	public ResponseEntity<String> modifyReq(LaundryOrderVO laundryOrder) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		try {
+			laundryOrderService.modifyReq(laundryOrder);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+			
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 		return entity;
 	}
 	
@@ -508,6 +530,21 @@ public class MyPageController {
 		return entity;
 	}
 	
+	// 댓글 삭제(삭제여부 상태변경)
+	@RequestMapping("/reqRemove")
+	public ResponseEntity<String> reqRemove(String orderNo) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		try {
+			laundryOrderService.removeReq(orderNo);
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+
+		} catch (SQLException e) {
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return entity;
+	}
 	
 	// 진행중인 주문내역
 	@RequestMapping("/myorder/histroy/ingList")

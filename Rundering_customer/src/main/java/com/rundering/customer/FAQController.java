@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -133,15 +135,26 @@ public class FAQController {
 		return url;
 	}
 
-	@RequestMapping(value = "/remove", method = RequestMethod.GET)
-	public String remove(int faqno, RedirectAttributes rttr) throws Exception {
-		String url = "redirect:/question/detail";
+	@RequestMapping(value = "/remove")
+	public ResponseEntity<String> remove(int faqno, RedirectAttributes rttr) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		try {	
+			faqService.remove(faqno);
 
-		faqService.remove(faqno);
+			rttr.addFlashAttribute("from", "remove");
+			rttr.addAttribute("faqno", faqno);
+	
+			
+			entity = new ResponseEntity<String>("OK", HttpStatus.OK);
+		
+		} catch (SQLException e) {
+			
+			entity = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		}
+	
+		return entity;
 
-		rttr.addFlashAttribute("from", "remove");
-		rttr.addAttribute("faqno", faqno);
-
-		return url;
 	}
 }

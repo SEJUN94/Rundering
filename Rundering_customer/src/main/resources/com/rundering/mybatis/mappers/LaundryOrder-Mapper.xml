@@ -230,7 +230,7 @@
 		select count(*)
 		FROM TB_LAUNDRY_ORDER
 		WHERE MEMBERNO=#{memberNo}
-		AND NOT (ORDER_STATUS = '08' OR ORDER_STATUS = '09')
+		AND NOT (ORDER_STATUS = '08' OR ORDER_STATUS = '09' OR ORDER_STATUS = '10')
 	</select>
 	
 	
@@ -245,6 +245,20 @@
 	     set 
 	     CANCEL_YN = 'Y'
 	     ,ORDER_STATUS = '10'
+	     where ORDER_NO = #{orderNo}
+	</update>
+	
+	<update id="removeReq" parameterType="str" >
+		update TB_LAUNDRY_ORDER
+	     set 
+		REQUEST_DETAILS = null
+	     where ORDER_NO = #{orderNo}
+	</update>
+	
+	<update id="modifyReq" parameterType="laundryOrder">
+		update TB_LAUNDRY_ORDER
+	     set 
+		REQUEST_DETAILS = #{requestDetails}
 	     where ORDER_NO = #{orderNo}
 	</update>
 	

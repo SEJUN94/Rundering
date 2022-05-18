@@ -89,13 +89,20 @@ aside ul li a{
 		</div>
 	</div>
 </div>
+
+<!-- 알림 sweetalert2 -->
+<script src="<%=request.getContextPath()%>/resources/bootstrap/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
 <script>
 	
 	document.getElementById("password").focus();
 	
 	function pwCkeck(){
 		if($('#password').val()== null){
-			Swal.fire('비밀번호를 입력해주세요.');
+			Swal.fire({
+				icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+				title: '비밀번호를 입력해주세요.',
+			});
 		} else {
 			$.ajax({
 				url : '<%=request.getContextPath()%>/mypage/pwCheck',
@@ -104,10 +111,13 @@ aside ul li a{
 				},
 				type : 'post',
 				success : function(result) {
-					if (result.toUpperCase() == "DUPLICATED") {
+					if (result.toUpperCase() == "OK") {
 						 location.href = "<%=request.getContextPath()%>/mypage/memberModifyform";
 					} else {
-						 Swal.fire('비밀번호가 틀렸습니다!');				
+						Swal.fire({
+							icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+							title: '비밀번호가 틀렸습니다!',
+						});		
 					}
 				},
 				error : function(error) {
@@ -122,7 +132,10 @@ aside ul li a{
 	    if (e.keyCode === 13) {
 	    	
 	    	if($('#password').val()== null || $('#password').val().trim()==""){
-				Swal.fire('비밀번호를 입력해주세요.');
+	    		Swal.fire({
+					icon: 'warning', // 여기다가 아이콘 종류를 쓰면 됩니다.
+					title: '비밀번호를 입력해주세요.',
+				});
 			} else {
 				$.ajax({
 					url : '<%=request.getContextPath()%>/mypage/pwCheck',
@@ -131,10 +144,13 @@ aside ul li a{
 					},
 					type : 'post',
 					success : function(result) {
-						if (result.toUpperCase() == "DUPLICATED") {
+						if (result.toUpperCase() == "OK") {
 							 location.href = "<%=request.getContextPath()%>/mypage/memberModifyform";
 						} else {
-							 Swal.fire('비밀번호가 틀렸습니다!');				
+							Swal.fire({
+								icon: 'error', // 여기다가 아이콘 종류를 쓰면 됩니다.
+								title: '비밀번호가 틀렸습니다!',
+							});
 						}
 					},
 					error : function(error) {

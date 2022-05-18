@@ -65,5 +65,11 @@ public class ReplyDAOImpl implements ReplyDAO{
 		session.update("Reply-Mapper.removeReply", rv);
 	}
 	
+	// 댓글 수정
+	@Override
+	public void modifyReply(ReplyVO rv) throws Exception {
+		session.update("Reply-Mapper.updateReply", rv);
+	}
+	
 	
 }
