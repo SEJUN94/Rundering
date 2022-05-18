@@ -91,9 +91,9 @@
 				<span style="color: red; font-weight: bold;">*</span>
 				<label for="addr">인증번호</label>
 				<div class="input-group" style="padding-top: 10px;">
-					<input type="text" class="form-control col-4" id="Code" placeholder="인증번호">
-					<button type="button" onclick="verificationCodeCheck()" style="margin-left: 10px;" class="btn btn-outline-primary btn-block col-2">인증하기</button>
-					<div id="timeLimit" style="position: absolute;padding: 9px;margin-left: 140px;color: gray;font-size: 0.9rem; z-index: 10"></div>
+					<input type="text" class="form-control " id="Code" placeholder="인증번호">
+					<button type="button" onclick="verificationCodeCheck()" style="" class="btn btn-outline-primary">인증하기</button>
+					<div id="timeLimit" style="position: absolute;padding: 9px;margin-left: 255px;color: gray;font-size: 0.9rem; z-index: 10"></div>
 				</div>
 			</div>
 			<div>

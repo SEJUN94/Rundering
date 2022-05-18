@@ -12,9 +12,6 @@
 			<div class="row mb-2">
 				<div class="row col-sm ml-3 mr-3 p-0">
 					<h1>세탁물 수거/배송 관리</h1>
-					<button class="btn btn-outline-light" style="margin-left:25%">
-						<i class="fa-solid fa-rotate"></i>
-					</button>
 				</div>
 			</div>
 	</section>

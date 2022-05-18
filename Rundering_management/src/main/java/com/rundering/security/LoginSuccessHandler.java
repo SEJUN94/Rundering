@@ -32,7 +32,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		session.setAttribute("loginMember", loginMember);
 		session.setAttribute("loginEmployee", loginEmployee);
 		session.setAttribute("branchName", branchName);
-		session.setMaxInactiveInterval(60*30);
+		session.setMaxInactiveInterval(60*240);
 		
 		super.onAuthenticationSuccess(request, response, authentication);
 	}

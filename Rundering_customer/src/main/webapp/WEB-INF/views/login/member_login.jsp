@@ -80,4 +80,12 @@
         </div>
     </div>
 </div>
+<script>
+function data() {
+	document.querySelector("#id").value="JVM1234"
+	document.querySelector("#pw").value="1234"
+}
+
+</script>
+
 </body>

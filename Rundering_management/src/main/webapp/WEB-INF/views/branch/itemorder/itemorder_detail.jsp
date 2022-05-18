@@ -66,7 +66,7 @@
 	     			 	<fmt:formatDate value="${itemOrder.receiptDate }" pattern="yy-MM-dd HH:mm"/>
 	     			 </p>
 	                 <button type="button" class="btn bg-gradient-secondary float-right"
-	                    style="margin-right: 5px;" onclick="CloseWindow();">목록
+	                    style="margin-right: 5px;" onclick="CloseWindow();">닫기
 	                </button>
 					
 	            </div>
@@ -118,7 +118,6 @@
 			<c:if test="${comCodeMap[itemOrder.itemOrderStatus] eq '미수령' }">
 				<button type="button" class="btn btn-primary btn-m" onclick="ItemOrderUpdate('${itemOrder.ordercode}')">수령</button>
 			</c:if>
-			<button type="button" class="btn btn-danger btn-m" onclick="window.close();">닫기</button>
 		</div>
 	</div>
 	<div id="formTag"></div>
