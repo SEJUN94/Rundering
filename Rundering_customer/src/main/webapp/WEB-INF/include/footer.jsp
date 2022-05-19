@@ -21,8 +21,8 @@
       </div>
   
       <div class="info">
-        <span>사업자등록번호 511-73-37881</span> <span>(주)런드링 코리아 대표이사 구건회</span> <span>TEL
-          : 042) 477-2733 / FAX : 042) 477-2734</span> <span>개인정보 책임자 : 구건희</span>
+        <span>사업자등록번호 511-73-37881</span> <span>(주)런드링 코리아 대표이사 백관우</span> <span>TEL
+          : 042) 477-2733 / FAX : 042) 477-2734</span> <span>개인정보 책임자 : 구건회</span>
       </div>
   
       <p class="copyright">
