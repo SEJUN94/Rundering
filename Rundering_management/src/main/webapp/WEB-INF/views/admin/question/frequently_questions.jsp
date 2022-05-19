@@ -17,17 +17,11 @@
 </head>
 
 <body>
-	<section class="content-header">
+	<section class="content-header" style="padding: 15px 0.5rem;">
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
 					<h1>자주 묻는 질문(FAQ)</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item active">FAQ</li>
-						<li class="breadcrumb-item"><a href="#">Home</a></li>
-					</ol>
 				</div>
 			</div>
 		</div>
@@ -45,7 +39,7 @@
 							placeholder="검색어를 입력하세요." value="" /> <span
 							class="input-group-append">
 							<button class="btn btn-primary" type="button"
-								onclick="list_go(1);" data-card-widget="search">
+								onclick="list_go(1);" data-card-widget="search"  style="background-color: #59a5cb; border: 1px solid #59a5cb;">
 								<i class="fa fa-fw fa-search"></i>
 							</button>
 						</span>
@@ -92,7 +86,7 @@
 			</div>
 			<div class="card-footer row">
 			<div style="width:900px;"><%@ include file="/WEB-INF/views/admin/question/pagination.jsp"%></div>
-			<div><button class="btn btn-primary" data-toggle="modal" data-target="#regist" class="btn btn-primary">등록하기</button></div>
+			<div><button class="btn btn-primary" data-toggle="modal" data-target="#regist" class="btn btn-primary"  style="background-color: #59a5cb; border: 1px solid #59a5cb;">등록하기</button></div>
 			</div>
 		</div>
 
